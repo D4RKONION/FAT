@@ -257,13 +257,17 @@ export const RES_DOCS_LIST = {
       desc: "This is the document that we use to compile this app, so it's often slightly more up to date than anything else",
       url: "https://docs.google.com/spreadsheets/d/1nlbWon7SYhhO5TSpNx06qQrw2TRDEZ85HQrNherXioY/edit#gid=665386711"
     }, 
-    "Setze's Starter Doc": {
+    "Sestze's Starter Doc": {
       desc: "An absolutely amazing doc and the source of the great combos & tech mode in this app",
-      url: "https://docs.google.com/spreadsheets/d/1nlbWon7SYhhO5TSpNx06qQrw2TRDEZ85HQrNherXioY/edit#gid=665386711"
+      url: "https://docs.google.com/spreadsheets/d/1T9CdiurUdmwAscuGOu_B0dB3IInBr5ksFk1VSGnk5uY/edit#gid=0"
     },
     "Gief's Gym": {
       desc: "A full book about learning SFV written by SuperJoeMonday",
       url: "https://www.reddit.com/r/streetfighter/wiki/v/giefsgym"
+    },
+    "NCH SFV Resource Compilation": {
+      desc: "An incredible resource for SFV which includes everything from SFV strategy to FG philosophy",
+      url: "https://docs.google.com/spreadsheets/d/173DjkfbRPCpb86mI3l0C_9nDRHCEfMiDzjc6hPDrn1E/edit#gid=0"
     },
     "FGC Map": {
       desc: "It's a little out of date, but this map is the best place to start when looking for your local FGC",
@@ -300,7 +304,7 @@ export const RES_SOC_LIST = {
       desc: "Excellent video essays about general Fighting Game topics",
       url: "https://www.youtube.com/channel/UCT7njg__VOy3n-SvXemDHvg"
     },
-    "Jojo's Quick SFV Guides": {
+    "JoJo's Quick SFV Guides": {
       desc: "Great playlist of 7 quick videos to get you started in SFV",
       url: "https://www.youtube.com/playlist?list=PLQ48YTtcvkJNCsu7L7mkILh1HCcLYcKpt"
     },
