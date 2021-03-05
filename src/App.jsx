@@ -82,7 +82,7 @@ const App = ({ setActiveGame, frameDataFile, setOrientation, themeBrightness, se
       if (currentModalState.visible) {
         console.log("closing modal")
         store.dispatch(setModalVisibility({ currentModal: currentModalState.currentModal, visible: false }))
-      } else if (modeNameState === "subpage" || modeNameState.startsWith("calc-")) {
+      } else if (modeNameState.startsWith("subpage") || modeNameState.startsWith("calc-")) {
         console.log("going back")
         window.history.back();
       } else if ( !(await menuController.isOpen()) ) {

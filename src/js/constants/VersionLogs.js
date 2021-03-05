@@ -11,7 +11,8 @@ export const VERSION_LOGS = {
       "Reworked the Red Dragon theme to be less ugly in light mode, check it out in the theme previewer",
     ],
     "Bug Fixes": [
-      "Fixed a bug where checkboxes were invisible on dark mode when unchecked"
+      "Fixed a bug where checkboxes were invisible on dark mode when unchecked",
+      "Fixed a bug where you could change characters while looking at a move's detail, causing a crash"
     ]
   },
   "3.1.0": {

@@ -21,9 +21,10 @@ const Menu = ({ themeBrightness, themeBrightnessClickHandler, selectedCharacters
   useEffect(() => {
     if (location.pathname.includes("calculators") && location.pathname.split("/").length > 2) {
       setModeName(`calc-${location.pathname.split("/")[2]}`);
+    } else if (location.pathname.includes("framedata") && location.pathname.split("/").length > 3) {
+      setModeName(`subpage-movedetail`)
     }	else if (
-      location.pathname.includes("stats") ||
-      (location.pathname.includes("framedata") && location.pathname.split("/").length > 3)
+      location.pathname.includes("stats")
       || (location.pathname.includes("settings") && location.pathname.split("/").length > 2)
       || (location.pathname.includes("moreresources") && location.pathname.split("/").length > 2)
       || (location.pathname.includes("themestore") && location.pathname.split("/").length > 2)
@@ -118,8 +119,8 @@ const Menu = ({ themeBrightness, themeBrightnessClickHandler, selectedCharacters
           </div>
         </div>
         <IonList id="pageList">
-          <IonMenuToggle  autoHide={false}>
-            <IonItem key="charSelectItem" className="" onClick={() => setModalVisibility({ currentModal: "characterSelect", visible: true })}  lines="none" detail={false} button>
+          <IonMenuToggle autoHide={false}>
+            <IonItem disabled={modeName === "subpage-movedetail"} key="charSelectItem" className="" onClick={() => setModalVisibility({ currentModal: "characterSelect", visible: true })}  lines="none" detail={false} button>
               <IonIcon slot="start" icon={peopleOutline} />
               <IonLabel>Character Select</IonLabel>
             </IonItem>
