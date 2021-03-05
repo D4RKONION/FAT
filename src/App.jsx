@@ -1,0 +1,309 @@
+import React, { useEffect, useState} from 'react';
+import { connect } from 'react-redux'
+import { Plugins } from '@capacitor/core';
+import { IonApp, IonRouterOutlet, IonSplitPane, IonAlert } from '@ionic/react';
+import { menuController } from "@ionic/core";
+import { IonReactHashRouter } from '@ionic/react-router';
+import { InAppPurchase2 as iapStore} from '@ionic-native/in-app-purchase-2';
+import { Route } from 'react-router-dom';
+
+
+/* Core CSS required for Ionic components to work properly */
+import '@ionic/react/css/core.css';
+
+/* Basic CSS for apps built with Ionic */
+import '@ionic/react/css/normalize.css';
+import '@ionic/react/css/structure.css';
+import '@ionic/react/css/typography.css';
+
+/* Optional CSS utils that can be commented out */
+import '@ionic/react/css/padding.css';
+import '@ionic/react/css/float-elements.css';
+import '@ionic/react/css/text-alignment.css';
+import '@ionic/react/css/text-transformation.css';
+import '@ionic/react/css/flex-utils.css';
+import '@ionic/react/css/display.css';
+
+/* CSS */
+import './style/App.scss'
+/* Theme variables */
+import './style/theme/classic/light.scss'
+import './style/theme/classic/dark.scss'
+import './style/theme/reddragon/light.scss'
+import './style/theme/reddragon/dark.scss'
+import './style/theme/secondincommand/light.scss'
+import './style/theme/secondincommand/dark.scss'
+
+import HomePageRedirect from './js/pages/HomePageRedirect';
+import Menu from './js/components/Menu';
+import FrameData from './js/pages/FrameData';
+import MoveDetail from './js/pages/MoveDetail';
+import MovesList from './js/pages/MovesList';
+import Combos from './js/pages/Combos';
+import CalculatorMenu from './js/pages/CalculatorMenu';
+import FrameTrapChecker from './js/pages/Calculators/FrameTrapChecker';
+import Settings from './js/pages/Settings';
+import Shoutouts from './js/pages/Shoutouts';
+import CharacterStats from './js/pages/CharacterStats';
+import FrameTrapLister from './js/pages/Calculators/FrameTrapLister';
+import FrameKillGenerator from './js/pages/Calculators/FrameKillGenerator';
+import MovePunisher from './js/pages/Calculators/MovePunisher';
+import CharacterPunisher from './js/pages/Calculators/CharacterPunisher';
+import MoveLinker from './js/pages/Calculators/MoveLinker';
+import Yaksha from './js/pages/Yaksha';
+import StringInterrupter from './js/pages/Calculators/StringInterrupter';
+import StatCompare from './js/pages/StatCompare';
+import MoreResources from './js/pages/MoreResourcesMenu';
+import MoreResourcesSub from './js/pages/MoreResourcesSub';
+import ThemeStore from './js/pages/ThemeStore';
+import ThemePreview from './js/pages/ThemePreview';
+
+import { setOrientation, setModalVisibility, setThemeBrightness, setActiveGame, setThemeOwned } from './js/actions';
+import { store } from './js/store';
+import { APP_FRAME_DATA_CODE, APP_CURRENT_VERSION_CODE } from './js/constants/VersionLogs';
+
+const App = ({ setActiveGame, frameDataFile, setOrientation, themeBrightness, setThemeBrightness,  themeColor, themesOwned, setThemeOwned }) => {
+
+  const [exitAlert, setExitAlert] = useState(false);
+
+  
+
+  const { SplashScreen } = Plugins;
+  useEffect(() => {
+    SplashScreen.hide();
+  }, [SplashScreen])
+
+  // G says: try moving the modal listener into it's own area again
+  const { App: CapAppPlugin }  = Plugins;
+  useEffect(() => {
+    const { remove } = CapAppPlugin.addListener("backButton", async () => {
+      const currentModalState = store.getState().modalVisibilityState;
+      const modeNameState = store.getState().modeNameState;
+      if (currentModalState.visible) {
+        console.log("closing modal")
+        store.dispatch(setModalVisibility({ currentModal: currentModalState.currentModal, visible: false }))
+      } else if (modeNameState === "subpage" || modeNameState.startsWith("calc-")) {
+        console.log("going back")
+        window.history.back();
+      } else if ( !(await menuController.isOpen()) ) {
+        menuController.open();
+      } else {
+        console.log("closing app")
+        setExitAlert(true)
+      }
+    })
+
+    return remove;
+  }, [CapAppPlugin])
+
+  //should this be in a useEffect? I think so because I only want it to run on start
+  useEffect(() => {
+    //G: is this okay?
+    if (iapStore.when("").updated) {
+      const productList = [
+        { id: "com.fullmeter.fat.theme.reddragon", alias: "Red Dragon", type: iapStore.NON_CONSUMABLE },
+        { id: "com.fullmeter.fat.theme.secondincommand", alias: "Second in Command", type: iapStore.NON_CONSUMABLE },
+      ]
+
+      iapStore.verbosity = iapStore.DEBUG;
+      
+      productList.forEach(productEntry => {
+        iapStore.register({
+          id: productEntry.id,
+          alias: productEntry.alias,
+          type: productEntry.type,
+        })
+
+        iapStore.when(productEntry.id).registered( (product => {
+          console.log('Registered: ' + JSON.stringify(product));
+        }))
+  
+        iapStore.when(productEntry.id).updated( (product => {
+          console.log('Updated: ' + JSON.stringify(product));
+        }))
+  
+        iapStore.when(productEntry.id).cancelled( (product => {
+          console.log('Cancelled: ' + JSON.stringify(product));
+        }))
+
+        iapStore.when(productEntry.id).approved( (product => {
+          console.log('Approved: ' + JSON.stringify(product));
+          product.finish();
+        }))
+
+        iapStore.when(productEntry.id).owned( (product => {
+          setThemeOwned(product.alias)
+        }))
+      })
+      
+
+      iapStore.error( error => {
+        console.log('Store Error: ' + JSON.stringify(error));
+      })
+
+      iapStore.ready(() =>  {
+        console.log('Store is ready');
+        console.log('Products: ' + JSON.stringify(iapStore.products));
+      });
+
+      iapStore.refresh();
+
+    }
+
+  }, [])
+
+  useEffect(() => {
+    const orientationCheck = () => {
+      if (document.documentElement.clientWidth > document.documentElement.clientHeight) {
+        setOrientation("landscape");
+      } else {
+        setOrientation("portrait");
+      }
+    }
+
+    orientationCheck();
+    window.addEventListener('resize', orientationCheck);
+
+    return () => window.removeEventListener('resize', orientationCheck);
+  }, [setOrientation]);
+
+useEffect(() => {
+    const newVersionCheck = async () => {
+
+      // check if the frame data was updated
+      let LS_FRAME_DATA_CODE = localStorage.getItem("lsFrameDataCode");
+
+      if (!LS_FRAME_DATA_CODE) {
+        // fresh install, local code doesn't exist, set it up using the app's local data
+        console.log("local frame data code don't exist, set it up using the app's local data")
+        localStorage.setItem("lsFrameDataCode", APP_FRAME_DATA_CODE)
+
+        LS_FRAME_DATA_CODE = localStorage.getItem("lsFrameDataCode")
+
+      } else if (LS_FRAME_DATA_CODE <= APP_FRAME_DATA_CODE) {
+        // the app has been updated via the store, delete the LS FrameData.json and update the VS_FDC
+        console.log("the app has been updated via the store, delete the LS FrameData.json and update the VS_FDC")
+        localStorage.setItem("lsFrameDataCode", APP_FRAME_DATA_CODE)
+        localStorage.removeItem("lsSFVFrameData");
+
+        LS_FRAME_DATA_CODE = localStorage.getItem("lsFrameDataCode")
+
+      } else if (LS_FRAME_DATA_CODE > APP_FRAME_DATA_CODE) {
+        // the app has downloaded a frame data update
+        console.log("the app has downloaded a frame data update")
+      } else {
+        console.log("something has gone horribly wrong")
+      }
+
+      const version_response = await fetch(`https://fullmeter.com/fatfiles/newrelease/versionDetails.json?ts=${Date.now()}`)
+      const SERVER_VERSION_DETAILS = await version_response.json();
+
+      // this stops the update process accidentally being ruined
+      if (SERVER_VERSION_DETAILS.MINIMUM_VERSION_REQUIRED > APP_CURRENT_VERSION_CODE) {
+        console.log("Someone added a version code greater than 5 digits in length OR this app falls below the minimum version required");
+        return false;
+      }
+
+      if (SERVER_VERSION_DETAILS.FRAME_DATA_CODE > LS_FRAME_DATA_CODE) {
+        console.log("there's a new version on the server, get it");
+        const framedatajson_response = await fetch(`https://fullmeter.com/fatfiles/newrelease/SFVFrameData.json?ts=${Date.now()}`)
+        const SERVER_FRAME_DATA = await framedatajson_response.json();
+
+        localStorage.setItem("lsSFVFrameData", JSON.stringify(SERVER_FRAME_DATA));
+        localStorage.setItem("lsFrameDataCode", SERVER_VERSION_DETAILS.FRAME_DATA_CODE)
+        
+        setActiveGame("SFV");
+        
+      }
+
+    }
+    
+    newVersionCheck();
+  }, [setActiveGame])
+
+
+
+  // wait for the persistor to do an initial load of the frame-data file on first load
+  if (!frameDataFile) {
+    return false;
+  }
+
+  return (
+    <IonApp className={`${themeColor}-${themeBrightness}-theme`}>
+      <IonReactHashRouter>
+        <IonSplitPane contentId="main">
+          <Menu themeBrightness={themeBrightness} themeBrightnessClickHandler={() => themeBrightness === "light" ? setThemeBrightness("dark") : setThemeBrightness("light")}/>
+          <IonRouterOutlet id="main">
+            <Route exact path="/stats/:characterSlug/" component={CharacterStats} />
+            <Route exact path="/framedata/:characterSlug/:selectedMoveName" component={MoveDetail} />
+            <Route exact path="/framedata/:characterSlug" component={FrameData} />
+
+            <Route exact path="/moveslist/:characterSlug" component={MovesList} />
+            <Route exact path="/combos/:characterSlug" component={Combos} />
+            <Route exact path="/statcompare" component={StatCompare} />
+
+            <Route exact path="/calculators/" component={CalculatorMenu} />
+            <Route exact path="/calculators/frametrapchecker" component={FrameTrapChecker} />
+            <Route exact path="/calculators/frametraplister" component={FrameTrapLister} />
+            <Route exact path="/calculators/framekillgenerator" component={FrameKillGenerator} />
+            <Route exact path="/calculators/movepunisher" component={MovePunisher} />
+            <Route exact path="/calculators/characterpunisher" component={CharacterPunisher} />
+            <Route exact path="/calculators/movelinker" component={MoveLinker} />
+            <Route exact path="/calculators/stringinterrupter" component={StringInterrupter} />
+
+            <Route exact path="/yaksha" component={Yaksha} />
+
+            <Route exact path="/moreresources" component={MoreResources} />
+            <Route exact path="/moreresources/:resourcePageSlug" component={MoreResourcesSub} />
+
+            <Route exact path="/settings" component={Settings} />
+            <Route exact path="/settings/shoutouts" component={Shoutouts} />
+
+            <Route exact path="/themestore" component={ThemeStore} />
+            <Route exact path="/themestore/:themeNameSlug" component={ThemePreview} />
+
+            <Route path="/" component={HomePageRedirect} exact />
+          </IonRouterOutlet>
+        </IonSplitPane>
+      </IonReactHashRouter>
+      <IonAlert
+        isOpen={exitAlert}
+        onDidDismiss={() => setExitAlert(false)}
+        header={'Close App'}
+        message={'Are you sure you want to exit FAT?'}
+        buttons={[
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            cssClass: 'secondary',
+          },
+          {
+            text: 'Okay',
+            handler: () => {
+              CapAppPlugin.exitApp();
+            }
+          }
+        ]}
+      />
+    </IonApp>
+  )
+}
+
+
+const mapStateToProps = state => ({
+  themesOwned: state.themesOwnedState,
+  themeBrightness: state.themeBrightnessState,
+  themeColor: state.themeColorState,
+  frameDataFile: state.frameDataState,
+})
+
+const mapDispatchToProps = dispatch => ({
+  setActiveGame: (gameName) => dispatch(setActiveGame(gameName)),
+  setThemeBrightness: (themeBrightness) => dispatch(setThemeBrightness(themeBrightness)),
+  setThemeOwned: (themeToAdd) => dispatch(setThemeOwned(themeToAdd)),
+  setOrientation: (orientation) => dispatch(setOrientation(orientation)),
+})
+
+export default connect(
+  mapStateToProps, mapDispatchToProps,
+)(App)

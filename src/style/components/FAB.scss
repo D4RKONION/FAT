@@ -1,0 +1,11 @@
+ion-fab-button {
+  --background: var(--fat-fab-background);
+  --color: var(--fat-fab-inner);
+  height: 56px;
+  width: 56px;
+  ion-icon {
+    fill: var(--fat-fab-inner);
+    height: 24px;
+    width: 24px;
+  }
+}

@@ -1,0 +1,32 @@
+#LandscapeOptions {
+  .list-section {
+    ion-item-divider.md.item {
+      font-size: 15px;
+      color: var(--fat-ionlist-header);
+      border-color: var(--fat-ionlist-border);
+    }
+    ion-item {
+      --border-color: var(--fat-ionlist-border);
+      &:last-child {
+        --border-style: none;
+        &.md {
+          margin-bottom: 15px;
+        }
+      }
+    }
+    ion-checkbox {
+      --background-checked: var(--fat-checkbox-checked);
+      --border-color-checked: var(--fat-checkbox-checked);
+      --border-color: var(--fat-primary);
+    }
+
+    &:last-child {
+      ion-item:last-child {
+        &.md {
+          margin-bottom: 0px;
+        }
+      }
+    }
+  }
+
+}

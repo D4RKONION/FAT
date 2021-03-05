@@ -1,0 +1,73 @@
+ion-header {
+  &.header-ios {
+    ion-toolbar:last-of-type {
+      --border-width: 0;
+    }
+  }
+}
+ion-button.button.button-default.button-solid {
+  color: var(--fat-solidbutton-inner);
+}
+ion-toggle {
+  --handle-background: var(--fat-toggle-handle-background);
+  --background-checked: var(--fat-toggle-background-checked);
+  --handle-background-checked: var(--fat-toggle-handle-background-checked);
+}
+
+ion-content {
+  ion-grid {
+    --ion-grid-padding: 0;
+    --ion-grid-padding-xs: 0;
+    --ion-grid-padding-sm: 0;
+    --ion-grid-padding-md: 0;
+    --ion-grid-padding-lg: 5px;
+    --ion-grid-padding-xl: 5px;
+
+    --ion-grid-width-xs: 100%;
+    --ion-grid-width-sm: 540px;
+    --ion-grid-width-md: 720px;
+    --ion-grid-width-lg: 800px;
+    --ion-grid-width-xl: 800px;
+  }
+  a {
+    color: var(--fat-a);
+  }
+  ion-toolbar {
+    --background: transparent;
+  }
+  ion-list-header {
+    color: var(--fat-ionlist-header);
+  }
+  .sc-ion-label-md-s>p, .sc-ion-label-ios-s>p {
+    color: var(--fat-ionlabel-p);
+  }
+  code {
+    background: var(--fat-code-background);
+    padding: 2px 7px;
+  }
+
+}
+
+ion-alert {
+
+  [aria-labelledby*="alert-"].alert-radio-group.sc-ion-alert-ios > button {
+    border-top: 1px solid #d8d8d8;
+  }
+
+  .alert-wrapper.sc-ion-alert-ios {
+    background-color: var(--fat-ionalert-background);
+  }
+  [aria-checked=true].sc-ion-alert-md .alert-radio-label.sc-ion-alert-md, .sc-ion-alert-md .alert-radio-label.sc-ion-alert-md {
+    color: var(--fat-ionalert-label);
+  }
+  [aria-checked=true].sc-ion-alert-ios .alert-radio-label.sc-ion-alert-ios, [aria-checked=true].sc-ion-alert-md .alert-radio-icon.sc-ion-alert-md, [aria-checked=true].sc-ion-alert-ios .alert-radio-inner.sc-ion-alert-ios {
+    color: var(--fat-ionalert-active-button);
+    border-color: var(--fat-ionalert-active-button);
+  }
+  .alert-radio-inner.sc-ion-alert-md {
+    background-color: var(--fat-ionalert-active-button);
+  }
+  .alert-button.sc-ion-alert-md, .alert-button.sc-ion-alert-ios {
+    color: var(--fat-ionalert-confirm-buttons)
+  }
+}

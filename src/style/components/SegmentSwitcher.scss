@@ -1,0 +1,52 @@
+.segment-switcher {
+  &.ios {
+    margin: 7px auto;
+    &.active-player, &.link-or-cancel, &.recovery-type {
+      width: 70%;
+      --background: var(--fat-switcher-primary-ios-background);
+      ion-segment-button {
+        --indicator-color: var(--fat-switcher-primary-ios-checked);
+      }
+    }
+    &.vtrigger {
+      width: 85%;
+      --background: var(--fat-switcher-vtrigger-ios-background);
+      ion-segment-button {
+        --indicator-color: var(--fat-switcher-vtrigger-ios-checked);
+      }
+    }
+  }
+
+  &.md {
+    --background: var(--fat-switcher-android-background);
+  }
+  &.active-player, &.link-or-cancel, &.recovery-type {
+    ion-segment-button {
+      &.md {
+        --background-hover: var(--fat-switcher-primary-checked-contrast);
+        --color-checked: var(--fat-switcher-primary-checked-contrast);
+        --color: var(--fat-switcher-unchecked-contrast);
+        --indicator-color: var(--fat-switcher-primary-checked-contrast);
+        --indicator-height: 2px;
+      }
+    }
+  }
+  &.vtrigger {
+    ion-segment-button {
+    
+      &.md {
+        --background-hover: var(--fat-switcher-vtrigger-checked-contrast);
+        --color-checked: var(--fat-switcher-vtrigger-checked-contrast);
+        --color: var(--fat-switcher-unchecked-contrast);
+        --indicator-color: var(--fat-switcher-vtrigger-checked-contrast);
+        --indicator-height: 2px;
+      }
+    }
+  }
+
+  @media screen and (min-width: 576px) {
+    max-width: 800px;
+    margin: 0 auto
+    
+  }
+}

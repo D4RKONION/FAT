@@ -1,0 +1,29 @@
+#subHeader {
+  text-align: center;
+  padding: 0;
+  background-color: var(--fat-page-subheader-background);
+  color: var(--fat-page-subheader-contrast);
+  font-size: 14px;
+  
+  ion-row{
+    max-width: 550px;
+    margin: 0 auto;
+  }
+
+  ion-col {
+    padding: 5px;
+    line-height: 20px;
+    overflow: auto;
+    h4 {
+      font-style: italic;
+      margin: 6px 0;
+    }
+  }
+}
+
+// Screen size hidden
+@media (max-height: 400px) {
+  .hidden-short-screens {
+    display: none !important;
+  }
+}

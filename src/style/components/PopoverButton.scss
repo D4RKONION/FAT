@@ -1,0 +1,13 @@
+#threeDotPopover {
+  --width: 190px;
+  ion-list {
+    background: var(--fat-popover-bg);
+    ion-item {
+      --background: var(--fat-popover-bg);
+      color: var(--fat-popover-contrast);
+    }
+  }
+  .popover-arrow.sc-ion-popover-ios {
+    --background: var(--fat-popover-bg);
+  }
+}

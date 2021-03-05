@@ -1,0 +1,11 @@
+#characterSelectGrid {
+  display: flex;
+  flex-wrap: wrap;
+
+  .character-block {
+    flex-grow: 1;
+    width: 24%;
+    min-width: 119px;
+    max-width: 50%;
+  }
+}

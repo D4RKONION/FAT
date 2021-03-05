@@ -1,0 +1,113 @@
+#dataTable {
+  // grid columns sizes are set dynamically inline
+  display: grid;
+  text-align: center;
+  padding: 0;
+  font-size: 14px;
+
+  
+  // causes the containers to disappear as far as the grid is concerned
+
+  #dataTableHeader, #dataTableFooter, .move-row {
+    display: contents;
+
+    .move-name {
+      max-width: 200px;
+    }
+  }
+
+  //Table Header and Footer stuff
+  #dataTableHeader, #dataTableFooter {
+    .entry {
+      color: var(--fat-datatable-header-contrast);
+      background-color: var(--fat-datatable-header-bg);
+      position: sticky;
+      z-index: 2;
+      padding: 6px 0 5px;
+
+      &.move-name {
+        padding-right: 5px;
+      }
+    }
+  }
+  #dataTableHeader > .entry {
+    // Fixing issue where sometimes the sticky doesn't append to the top properly
+    top: -1px;
+  }
+  #dataTableFooter > .entry {
+    padding-bottom: calc(5px + env(safe-area-inset-bottom));
+    bottom: 0;
+  }
+
+
+  // Table Body Stuff
+
+    .move-row{
+          
+      &:nth-child(odd) > .cell, &:nth-child(odd) > .move-name{
+        background-color: var(--fat-surface);
+      }
+
+      &:nth-child(even) > .cell, &:nth-child(even) > .move-name{
+        background-color: var(--fat-surface-tint);
+      }
+  
+      .triggered-data, .normal-state {
+        &.severely-punishable {
+          background-color: var(--fat-datatable-serverely-pun);
+        }
+        &.very-punishable {
+          background-color: var(--fat-datatable-very-pun);
+        }
+        &.just-punishable {
+          background-color: var(--fat-datatable-just-pun);
+        }
+        &.not-punishable {
+          background-color: var(--fat-datatable-not-pun);
+        }
+        &.just-plus {
+          background-color: var(--fat-datatable-just-plus);
+        }
+        &.very-plus {
+          background-color: var(--fat-datatable-very-plus);
+        }
+      }
+
+      .cell {
+        font-weight: 400;
+        overflow: auto;
+        padding: 5px;
+        border-right: 1px solid var(--fat-surface-border);
+        border-bottom: 1px solid var(--fat-surface-border);
+        color: var(--fat-surface-contrast);
+
+        &:last-child {
+          border-right: none;
+        }
+
+        &.move-name {
+          border-right: 5px solid var(--fat-surface-border);
+        }
+        
+        &.triggered-data {
+          font-weight: 900;
+          color: var(--fat-surface-contrast	);
+        }
+    
+        &.untriggered-data {
+          color: var(--fat-surface-faded);
+        }
+        
+        li.note {
+          text-align: left;
+          margin-left: 9px;
+          font-size: 13px;
+        }
+      }
+
+      &:hover > .cell {
+        box-sizing: border-box;
+        border-bottom: solid 3px var(--fat-datatable-hover-border)
+      }
+    }
+}

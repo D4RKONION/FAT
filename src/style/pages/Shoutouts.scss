@@ -1,0 +1,33 @@
+#Shoutouts {
+  --padding-start: 17px;
+  --padding-end: 17px;
+  --padding-bottom: 22px;
+
+  hr {
+    background-color: #dedede
+  }
+
+  h1 {
+    text-align: center;
+    color: var(--fat-markdown-h125);
+    font-size: 33px;
+  }
+
+  h2 {
+    color: var(--fat-markdown-h125);
+    font-weight: bold;
+  }
+  h3 {
+    color: var(--fat-markdown-h3);
+    font-size: 20px;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 25px;
+    margin-top: 0;
+  }
+  em {
+    font-style: italic;
+  }
+}

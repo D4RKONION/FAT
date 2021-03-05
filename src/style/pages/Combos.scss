@@ -1,0 +1,98 @@
+#combos {
+  h4 {
+    text-align: center;
+    margin-top: 120px;
+    color: var(--fat-grey)
+  }
+  ion-list {
+    padding-top: 0;
+
+    .list-section {
+      ion-item-divider {
+        position: sticky;
+        top: 0;
+        margin-top: -1px;
+        font-size: 16px;
+        color: var(--fat-ionlist-thick-header-contrast);
+        border-color: var(--fat-ionlist-border);
+        border-top: solid 1px var(--fat-ionlist-border);
+        background: var(--fat-ionlist-thick-header);
+        padding-top: 4px;
+        padding-bottom: 4px;
+
+        @media screen and (min-width: 576px) {
+          border-left: 5px solid;
+          &:first-child{					
+            margin-top: 20px;
+          }
+        }
+      }
+      ion-item {
+        --ripple-color: var(--fat-checkbox-checked);
+        &.selected-combo {
+          --background: var(--fat-ionlist-highlighted-background);
+        }
+        ion-icon {
+          color: var(--fat-ionlist-icon);
+          &.selected-combo {
+            color: var(--fat-ionlist-highlighted-contrast);
+          }
+        }
+        ion-label {
+          h2 {
+            white-space: normal;
+            &.combo-comments {
+              margin-top: 10px;
+              color: var(--fat-ionlist-highlighted-contrast);
+            }
+          }
+          p {
+            color: var(--fat-ionlist-label-p);
+            &.combo-author {
+               margin-top: 11px;
+              ion-icon {
+                vertical-align: text-top;
+              }
+            }
+          }
+          .meter-container {
+            line-height: 0.5;
+            margin-bottom: 2px;
+            .meter-bar {
+              width: 26px;
+              height: 6px;
+              display: inline-block;
+              margin-right: 2px;
+            }
+            .full {
+              background: var(--fat-meter-full);
+
+            }
+            .empty {
+              background: var(--fat-meter-empty);
+            }
+          }
+
+        }
+
+
+      }
+      ion-checkbox {
+        --background-checked: var(--fat-checkbox-checked);
+        --border-color-checked: var(--fat-checkbox-checked);
+      }
+
+      &:last-child {
+        --border-style: none;
+
+        > :last-child {
+          padding-bottom: env(safe-area-inset-bottom);
+
+          &.md {
+            margin-bottom: 0px;
+          }
+        }
+      }
+    }
+  }
+}

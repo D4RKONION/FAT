@@ -1,0 +1,23 @@
+#Settings {
+
+  ion-item {
+    --transition: none;
+    --border-color: var(--fat-settings-item-border);
+  }
+  ion-icon {
+    &.ios {
+      width: 23px;
+    }
+    color: var(--fat-ionlist-icon)
+  }
+  ion-label > p {
+    white-space: pre-line;
+  }
+  .final-fat {
+    text-align: center;
+    color: #a3a3a3;
+    font-size: 12px;
+    margin-bottom: 45px;
+  }
+
+}

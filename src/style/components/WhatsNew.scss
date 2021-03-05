@@ -1,0 +1,34 @@
+#whatsNew {
+  h3 {
+    text-align: center;
+    color: var(--fat-whatsnew-header);
+    font-weight: 600;
+  }
+  h6 {
+    text-align: center;
+    margin: 0 0 15px;
+    line-height: 0;
+    color: var(--fat-whatsnew-header);
+  }
+
+  h5 {
+    font-size: 17px;
+    margin-left: 15px;
+    font-weight: 600;
+    &.feature {
+      color: var(--fat-whatsnew-feature);
+    }
+    &.bug {
+      color: var(--fat-whatsnew-bug);
+    }
+  }
+
+  ul {
+    padding-left: 29px;
+  }
+  li {
+    line-height: 23px;
+    margin-right: 8px;
+    font-size: 15px;
+  }
+}

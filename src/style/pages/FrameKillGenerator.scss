@@ -1,0 +1,37 @@
+#FrameKillGenerator {
+  ion-list {
+    padding-top: 0;
+    margin-bottom: 80px;
+
+    .ordinal-header {
+      position: sticky;
+      z-index: 3;
+      background: var(--fat-ionlist-sublist-header-background);
+      border-bottom: solid 1px var(--fat-ionlist-border);
+
+      &.md {
+        top: 39px
+      }
+
+      &.ios {
+        top: 30px;
+      }
+
+      ion-label {
+        margin-top: 0;
+        p {
+          color: var(--fat-ionlist-header);
+          font-size: 15px;
+        }
+      }
+      
+    }
+    ion-list-header > ion-label > p {
+      color: var(--fat-ionlist-header);
+    }
+    ion-label > p {
+      color: var(--fat-ionlist-p);
+    }
+  }
+
+}

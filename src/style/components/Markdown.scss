@@ -1,0 +1,63 @@
+#MarkdownContainer  {
+
+  padding: 0 17px 22px;
+
+
+  h1 {
+    text-align: center;
+    color: var(--fat-markdown-h125);
+    font-size: 33px;
+  }
+
+  h2 {
+    color: var(--fat-markdown-h125);
+    font-weight: bold;
+    margin: 27px 0 6px;
+  }
+  h3 {
+    color: var(--fat-markdown-h3);
+    font-size: 20px;
+    margin: 20px 0 1px;
+  }
+  h4 {
+    color: var(--fat-markdown-h4);
+    font-size: 16px;
+    font-weight: bold;
+    margin: 5px 0 0;
+  }
+  h5 {
+    color: var(--fat-markdown-h125);
+    font-size: 24px;
+    margin: 5px 20px;
+  }
+  h6 {
+    color: var(--fat-markdown-h6);
+    font-size: 17px;
+    margin: 0;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 25px;
+    margin-top: 0;
+  }
+
+  b, strong {
+    color: var(--fat-markdown-b);
+  }
+
+
+  em {
+    font-style: italic;
+    text-align: center;
+  }
+
+  hr {
+    width: 90%;
+    margin: 15px auto;
+    height: 4px;
+    padding: 0;
+    background-color: var(--fat-markdown-hr);
+    border: 0 none;
+  }
+}

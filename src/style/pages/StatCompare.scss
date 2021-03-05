@@ -1,0 +1,42 @@
+#statCompare {
+  ion-item-divider {
+    background: none;
+    position: relative;
+    border-bottom: 1px solid #dedede;
+    padding: 0 0 0 11px;
+    margin: 5px 0 10px 22px;
+
+    p {
+      font-size: 28px;
+      color: var(--fat-statcompare-big-header);
+    }
+  }
+
+  .stat-images-container {
+    display: flex;
+    flex-wrap: wrap;
+    
+    margin-bottom: 20px;
+    padding: 0px 23px;
+    padding-bottom: env(safe-area-inset-bottom);
+    
+    .character-block {
+      max-width: 82px;
+      min-width: 59px;
+      width: 19%;
+      transform: skew(-7deg, 0);
+      margin: 1px;
+
+
+      h2 {
+        font-size: 16px;
+        &.selected {
+          background: var(--fat-primary);
+          font-weight: bold; 
+        }
+      }
+    }
+  }
+
+}
+

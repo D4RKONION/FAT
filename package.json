@@ -1,0 +1,71 @@
+{
+  "name": "fat-os",
+  "version": "3.1.0",
+  "private": true,
+  "dependencies": {
+    "@capacitor/android": "^2.4.6",
+    "@capacitor/core": "^2.4.6",
+    "@capacitor/ios": "^2.4.6",
+    "@ionic-native/clipboard": "^5.31.1",
+    "@ionic-native/core": "^5.31.1",
+    "@ionic-native/in-app-purchase-2": "^5.31.1",
+    "@ionic/core": "^5.5.4",
+    "@ionic/react": "^5.5.4",
+    "@ionic/react-router": "^5.5.4",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.4.0",
+    "@testing-library/user-event": "^8.0.3",
+    "@types/jest": "^24.0.25",
+    "@types/node": "^12.12.24",
+    "@types/react": "^16.9.17",
+    "@types/react-dom": "^16.9.4",
+    "@types/react-router": "^5.1.4",
+    "@types/react-router-dom": "^5.1.3",
+    "axios": "^0.19.2",
+    "cc.fovea.cordova.purchase": "^10.5.3",
+    "cordova-clipboard": "^1.3.0",
+    "fuzzball": "^1.3.0",
+    "ionicons": "^5.5.0",
+    "node-sass": "^4.13.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-html-parser": "^2.0.2",
+    "react-markdown": "^4.3.1",
+    "react-redux": "^7.2.0",
+    "react-router": "^5.1.2",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.0",
+    "redux": "^4.0.5",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.3.0",
+    "typescript": "3.7.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^2.4.6",
+    "cordova-res": "^0.13.1",
+    "redux-devtools": "^3.5.0",
+    "redux-devtools-extension": "^2.13.8"
+  },
+  "description": "An Ionic project"
+}
