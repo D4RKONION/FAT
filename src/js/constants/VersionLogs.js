@@ -9,10 +9,14 @@ export const VERSION_LOGS = {
       "Added a theme previewer",
       "New theme: Second in Command. Theme number 2 is purple and truly intoxicating!",
       "Reworked the Red Dragon theme to be less ugly in light mode, check it out in the theme previewer",
+      "Made it so Seth's frame data table only shows the move that he steals from the other selected character "
     ],
     "Bug Fixes": [
       "Fixed a bug where checkboxes were invisible on dark mode when unchecked",
-      "Fixed a bug where you could change characters while looking at a move's detail, causing a crash"
+      "Fixed a bug where you could change characters while looking at a move's detail, causing a crash",
+      "Fixed the link to Sestze's spreadsheet, sorry Sestze!",
+      "Fixed a bug where sometimes some of the subheader data wasn't showing",
+      "Fixed the link to the FAT repo"
     ]
   },
   "3.1.0": {
