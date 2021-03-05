@@ -6,7 +6,7 @@ import { Clipboard } from '@ionic-native/clipboard'
 import { setActiveGame, setAdviceToastShown, setDataDisplaySettings, setPlayer } from '../actions'
 import '../../style/pages/Settings.scss';
 import PageHeader from '../components/PageHeader';
-import { logoTwitter, chevronForward, mailOutline, starOutline, heartOutline, openOutline, logoGitlab, globeOutline } from 'ionicons/icons';
+import { logoTwitter, chevronForward, mailOutline, starOutline, heartOutline, openOutline, globeOutline, logoGithub } from 'ionicons/icons';
 import { useHistory } from 'react-router';
 import { APP_CURRENT_VERSION_NAME } from '../constants/VersionLogs';
 
@@ -178,11 +178,11 @@ const Settings = ({ activeGame, setActiveGame, dataDisplaySettings, setDataDispl
               <IonIcon icon={logoTwitter} slot="start" />
               <IonIcon icon={openOutline} slot="end" />
             </IonItem>
-            <IonItem detail="false" lines="full" href="https://gitlab.com/D4RKONION/fat" target="_system" button>
+            <IonItem detail="false" lines="full" href="https://github.com/D4RKONION/FAT" target="_system" button>
               <IonLabel>
-                <h2>Gitlab</h2>
+                <h2>Github</h2>
               </IonLabel>
-              <IonIcon icon={logoGitlab} slot="start" />
+              <IonIcon icon={logoGithub} slot="start" />
               <IonIcon icon={openOutline} slot="end" />
             </IonItem>
 
