@@ -62,11 +62,17 @@ import { setOrientation, setModalVisibility, setThemeBrightness, setActiveGame, 
 import { store } from './js/store';
 import { APP_FRAME_DATA_CODE, APP_CURRENT_VERSION_CODE } from './js/constants/VersionLogs';
 
-const App = ({ setActiveGame, frameDataFile, setOrientation, themeBrightness, setThemeBrightness,  themeColor, themesOwned, setThemeOwned }) => {
+const App = ({ setActiveGame, activeGame, frameDataFile, setOrientation, themeBrightness, setThemeBrightness,  themeColor, themesOwned, setThemeOwned }) => {
 
   const [exitAlert, setExitAlert] = useState(false);
 
+
+  useEffect(() => {
+    // do an initial frame data load
+    setActiveGame(activeGame);
   
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const { SplashScreen } = Plugins;
   useEffect(() => {
@@ -96,7 +102,6 @@ const App = ({ setActiveGame, frameDataFile, setOrientation, themeBrightness, se
     return remove;
   }, [CapAppPlugin])
 
-  //should this be in a useEffect? I think so because I only want it to run on start
   useEffect(() => {
     //G: is this okay?
     if (iapStore.when("").updated) {
@@ -149,7 +154,7 @@ const App = ({ setActiveGame, frameDataFile, setOrientation, themeBrightness, se
       iapStore.refresh();
 
     }
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -223,7 +228,7 @@ useEffect(() => {
 
 
 
-  // wait for the persistor to do an initial load of the frame-data file on first load
+  // wait for the initial framedata load
   if (!frameDataFile) {
     return false;
   }
@@ -236,12 +241,13 @@ useEffect(() => {
           <IonRouterOutlet id="main">
             <Route exact path="/stats/:characterSlug" component={CharacterStats} />
 
-            <Route exact path="/framedata/:characterSlug" component={FrameData} />
+            <Route exact path="/framedata/:gameSlug/:characterSlug" component={FrameData} />
+            <Route exact path="/framedata/movedetail/:gameSlug/:characterSlug/:vtStateSlug/:moveNameSlug" component={MoveDetail} />
 
-            <Route exact path="/movedetail/:characterSlug/:selectedMoveName" component={MoveDetail} />
+            <Route exact path="/moveslist/:gameSlug/:characterSlug" component={MovesList} />
+            <Route exact path="/moveslist/movedetail/:gameSlug/:characterSlug/:vtStateSlug/:moveNameSlug" component={MoveDetail} />
 
-            <Route exact path="/moveslist/:characterSlug" component={MovesList} />
-            <Route exact path="/combos/:characterSlug" component={Combos} />
+            <Route exact path="/combos/:gameSlug/:characterSlug" component={Combos} />
             <Route exact path="/statcompare" component={StatCompare} />
 
             <Route exact path="/calculators/" component={CalculatorMenu} />
@@ -254,6 +260,7 @@ useEffect(() => {
             <Route exact path="/calculators/stringinterrupter" component={StringInterrupter} />
 
             <Route exact path="/yaksha" component={Yaksha} />
+            <Route exact path="/yaksha/movedetail/:gameSlug/:characterSlug/:vtStateSlug/:moveNameSlug" component={MoveDetail} />
 
             <Route exact path="/moreresources" component={MoreResources} />
             <Route exact path="/moreresources/:resourcePageSlug" component={MoreResourcesSub} />
@@ -293,6 +300,7 @@ useEffect(() => {
 
 
 const mapStateToProps = state => ({
+  activeGame: state.activeGameState,
   themesOwned: state.themesOwnedState,
   themeBrightness: state.themeBrightnessState,
   themeColor: state.themeColorState,

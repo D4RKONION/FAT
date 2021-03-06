@@ -27,6 +27,7 @@ const DataTable = ({ previewTable, activeGame, setPlayerAttr, selectedCharacters
   }, [landscapeCols, currentOrientation])
 
 
+
   //we need to know who the other character is to set Seth's V-Skill steal
   const inactivePlayerName = selectedCharacters[activePlayer === "playerOne" ? "playerTwo" : "playerOne"].name
 
@@ -48,7 +49,7 @@ const DataTable = ({ previewTable, activeGame, setPlayerAttr, selectedCharacters
           return false;
         } else {
           return (
-            <div className="move-row" key={`table-row-${moveName}`} onClick={() => {if (previewTable) {return false}; setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {selectedMove: moveName}); history.push(`/movedetail/${selectedCharacters[activePlayer].name}/${moveName}`)}}>
+            <div className="move-row" key={`table-row-${moveName}`} onClick={() => {if (previewTable) {return false}; setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {selectedMove: moveName}); history.push(`/framedata/movedetail/${activeGame}/${selectedCharacters[activePlayer].name}/${selectedCharacters[activePlayer].vtState}/${selectedCharacters[activePlayer].frameData[moveName]["moveName"]}`)}}>
             
               <span
                 style={

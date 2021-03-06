@@ -6,22 +6,35 @@ import SegmentSwitcher from '../components/SegmentSwitcher';
 import SubHeader from '../components/SubHeader';
 import LandscapeOptions from '../components/LandscapeOptions';
 import PageHeader from '../components/PageHeader';
-import { setActiveFrameDataPlayer, setModalVisibility, setPlayerAttr } from '../actions';
-import { useHistory } from 'react-router';
+import { setActiveFrameDataPlayer, setModalVisibility, setPlayerAttr, setPlayer, setActiveGame } from '../actions';
+import { useHistory, useParams } from 'react-router';
 import { informationCircle } from 'ionicons/icons';
 import AdviceToast from '../components/AdviceToast';
 import { APP_CURRENT_VERSION_CODE } from '../constants/VersionLogs';
 
 
 
-const FrameData = ({ selectedCharacters, activePlayer, activeGame, setActiveFrameDataPlayer, modalVisibility, setModalVisibility, setPlayerAttr }) => {
+const FrameData = ({ selectedCharacters, activePlayer, activeGame, setActiveGame, setActiveFrameDataPlayer, modalVisibility, setModalVisibility, setPlayer, setPlayerAttr }) => {
   const history = useHistory();
+  const slugs = useParams();
 
   useEffect(() => {
     if (!localStorage.getItem("lsCurrentVersionCode") || localStorage.getItem("lsCurrentVersionCode") < APP_CURRENT_VERSION_CODE) {
       localStorage.setItem("lsCurrentVersionCode", APP_CURRENT_VERSION_CODE);
       setModalVisibility({ currentModal: "whatsNew", visible: true })
     } 
+
+    if (activeGame !== slugs.gameSlug) {
+      console.log(activeGame)
+      console.log("URL game mismatch");
+      setActiveGame(slugs.gameSlug);
+    }
+
+    if (selectedCharacters["playerOne"].name !== slugs.characterSlug) {
+      console.log("URL character mismatch");
+      setPlayer("playerOne", slugs.characterSlug);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // use useRef instead
@@ -80,7 +93,13 @@ const FrameData = ({ selectedCharacters, activePlayer, activeGame, setActiveFram
           segmentType={"active-player"}
           valueToTrack={activePlayer}
           labels={ {playerOne: `P1: ${selectedCharacters.playerOne.name}`, playerTwo: `P2: ${selectedCharacters.playerTwo.name}`}}
-          clickFunc={ (eventValue) => !modalVisibility.visible && eventValue === activePlayer ? setModalVisibility({ currentModal: "characterSelect", visible: true }) : setActiveFrameDataPlayer(eventValue) }
+          clickFunc={ (eventValue) => {
+            if (!modalVisibility.visible && eventValue === activePlayer) {
+              setModalVisibility({ currentModal: "characterSelect", visible: true })
+            } else {
+              setActiveFrameDataPlayer(eventValue);
+            }
+          }}
         />
         {activeGame === "SFV" &&
           <SegmentSwitcher
@@ -109,9 +128,11 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+  setActiveGame: (gameName) => dispatch(setActiveGame(gameName)),
   setActiveFrameDataPlayer: (oneOrTwo) => dispatch(setActiveFrameDataPlayer(oneOrTwo)),
   setPlayerAttr: (playerId, charName, playerData) => dispatch(setPlayerAttr(playerId, charName, playerData)),
   setModalVisibility: (data)  => dispatch(setModalVisibility(data)),
+  setPlayer: (playerId, charName) => dispatch(setPlayer(playerId, charName)),
 })
 
 

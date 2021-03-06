@@ -28,7 +28,7 @@ const ThemePreview = () => {
   return(
     <IonPage className={`themePreview ${themeNameSlug}-${themeBrightness}-theme`}>
       <PageHeader
-        componentsToShow={{customback: true, popover: false}}
+        componentsToShow={{customBackUrl: "/themestore", popover: false}}
         title={`${THEMEDICT[themeNameSlug]}`}
       />
 

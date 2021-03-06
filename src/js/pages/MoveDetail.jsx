@@ -1,20 +1,55 @@
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonPage } from '@ionic/react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import GAME_DETAILS from '../constants/GameDetails'
 import '../../style/components/DetailCards.scss';
 import PageHeader from '../components/PageHeader';
 import SubHeader from '../components/SubHeader';
 import SegmentSwitcher from '../components/SegmentSwitcher';
-import { setPlayerAttr } from '../actions';
+import { setActiveGame, setPlayer, setPlayerAttr } from '../actions';
+import { useLocation, useParams } from 'react-router';
 
 
-const MoveDetail = ({ setPlayerAttr, activeGame, selectedCharacters, activePlayer }) => {
+const MoveDetail = ({ setPlayer, setPlayerAttr, activeGame, setActiveGame, selectedCharacters, activePlayer }) => {
+
+  const slugs = useParams();
+  const modeBackTo = useLocation().pathname.split("/")[1];
+
+  useEffect(() => {
+
+    if (activeGame !== slugs.gameSlug) {
+      console.log(activeGame)
+      console.log("URL game mismatch");
+      setActiveGame(slugs.gameSlug);
+    }
+    
+    if ((selectedCharacters[activePlayer].name !== slugs.characterSlug || selectedCharacters[activePlayer].vtState !== slugs.vtStateSlug) ) {
+      console.log("URL character/vtState mismatch");
+      console.log(slugs)
+      setPlayerAttr(activePlayer, slugs.characterSlug, {vtState: slugs.vtStateSlug});
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    if (activePlayer === "playerOne") {
+      console.log("URL movename mismatch")
+      const urlMove = Object.keys(selectedCharacters[activePlayer].frameData).filter(moveDetail => {
+        return selectedCharacters[activePlayer].frameData[moveDetail].moveName === slugs.moveNameSlug
+      })
+      setPlayerAttr("playerOne", slugs.characterSlug, {selectedMove: urlMove})
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCharacters["playerOne"].name])
 
   const activeCharName = selectedCharacters[activePlayer].name;
   const charFrameData = selectedCharacters[activePlayer].frameData;
   const selectedMoveName = selectedCharacters[activePlayer].selectedMove;
   const selectedMoveData = charFrameData[selectedMoveName];
+
+  if (!selectedMoveData) {
+    return false;
+  }
 
 
   const universalDataPoints = GAME_DETAILS[activeGame].universalDataPoints;
@@ -25,7 +60,13 @@ const MoveDetail = ({ setPlayerAttr, activeGame, selectedCharacters, activePlaye
   return (
     <IonPage>
       <PageHeader
-        componentsToShow={{back: `/framedata/${activeCharName}`}}
+        componentsToShow={
+          modeBackTo === "yaksha"
+            ? {customBackUrl: `/${modeBackTo}`}
+            : {customBackUrl: `/${modeBackTo}/${activeGame}/${activeCharName}`}
+          
+          
+        }
         title={`${selectedMoveName} | ${activeCharName}`}
       />
 
@@ -123,6 +164,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+  setActiveGame: (gameName) => dispatch(setActiveGame(gameName)),
+  setPlayer: (playerId, charName) => dispatch(setPlayer(playerId, charName)),
   setPlayerAttr: (playerId, charName, playerData) => dispatch(setPlayerAttr(playerId, charName, playerData)),
 })
 

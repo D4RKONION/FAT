@@ -1,7 +1,6 @@
 import { IonContent, IonModal, IonRouterContext } from '@ionic/react';
 import React, { useContext } from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router';
 
 import { setModalVisibility, setPlayer, setActiveFrameDataPlayer, setPlayerAttr } from '../actions';
 import SegmentSwitcher from './SegmentSwitcher';
@@ -23,18 +22,17 @@ const CharacterSelectModal =({
   activePlayer,
 }) => {
 
-  let history = useHistory();
   const routerContext = useContext(IonRouterContext);
 
   const onCharacterSelect = (playerId, charName) => {
     setPlayer(playerId, charName);
     setModalVisibility({ currentModal: "characterSelect", visible: false });
-    if (modeName.substr(0, 4) !== "calc" && modeName !== "statcompare" && modeName !== "settings" && !modeName.startsWith("moreresources") && modeName !== "yaksha" && modeName !== "themestore" && modeName !== "subpage") {
-      if (playerId === "playerOne") {
-        //we have to use IonRouterContext due to this issue
-        //https://github.com/ionic-team/ionic-framework/issues/21832
-        routerContext.push(`/${modeName}/${charName}`, "none");
-      }
+    if (playerId === "playerOne" && (modeName === "framedata" || modeName === "moveslist" || modeName === "combos")) {
+      //we have to use IonRouterContext due to this issue
+      //https://github.com/ionic-team/ionic-framework/issues/21832
+      routerContext.push(`/${modeName}/${activeGame}/${charName}`, "none");
+    } else if (playerId === "playerOne") {
+      routerContext.push(`/${modeName}/${charName}`, "none");
     }
 
   }

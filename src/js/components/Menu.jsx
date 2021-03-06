@@ -21,6 +21,8 @@ const Menu = ({ themeBrightness, themeBrightnessClickHandler, selectedCharacters
   useEffect(() => {
     if (location.pathname.includes("calculators") && location.pathname.split("/").length > 2) {
       setModeName(`calc-${location.pathname.split("/")[2]}`);
+    } else if (location.pathname.includes("movedetail")) {
+      setModeName("movedetail")
     } else if (
       location.pathname.includes("stats")
       || (location.pathname.includes("settings") && location.pathname.split("/").length > 2)
@@ -38,7 +40,7 @@ const Menu = ({ themeBrightness, themeBrightnessClickHandler, selectedCharacters
   const appPages = [
     {
       title: 'Frame Data',
-      url: `/framedata/${selectedCharacters.playerOne.name}`,
+      url: `/framedata/${activeGame}/${selectedCharacters.playerOne.name}`,
       iosIcon: framesIcon,
       mdIcon: framesIcon,
       modeName: "framedata"
@@ -52,14 +54,14 @@ const Menu = ({ themeBrightness, themeBrightnessClickHandler, selectedCharacters
     },
     {
       title: 'Moves List',
-      url: `/moveslist/${selectedCharacters.playerOne.name}`,
+      url: `/moveslist/${activeGame}/${selectedCharacters.playerOne.name}`,
       iosIcon: gameControllerOutline,
       mdIcon: gameControllerSharp,
       modeName: "moveslist"
     },
     {
       title: 'Combos & Tech',
-      url: `/combos/${selectedCharacters.playerOne.name}`,
+      url: `/combos/${activeGame}/${selectedCharacters.playerOne.name}`,
       iosIcon: barbellOutline,
       mdIcon: barbellSharp,
       modeName: "combos"

@@ -1,13 +1,12 @@
-import { IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, IonMenuButton, IonBackButton, IonIcon } from '@ionic/react';
+import { IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, IonMenuButton, IonBackButton, IonIcon, IonRouterContext } from '@ionic/react';
 import { arrowBack } from 'ionicons/icons';
-import React from 'react';
-import { useHistory } from 'react-router';
+import React, { useContext } from 'react';
 import PopoverButton from './PopoverButton';
 
 
 const PageHeader = ({ componentsToShow, buttonsToShow, title }) => {
 
-  const history = useHistory();
+  const routerContext = useContext(IonRouterContext);
 
   return(
     <IonHeader>
@@ -17,11 +16,13 @@ const PageHeader = ({ componentsToShow, buttonsToShow, title }) => {
             {componentsToShow.menu && <IonMenuButton />}
             {componentsToShow.back && <IonBackButton />}
 
-            {/* ionic is smelly and dumps the ionbackbutton when I change brightness */}
-            {componentsToShow.customback &&
-              <IonButton size="small" onClick={() => history.goBack() }>
-                <IonIcon slot="icon-only" icon={arrowBack} />
-              </IonButton>
+            {/* ionic only shows the back button when you navigate from somewhere, but sometimes
+                I might want to navigate "back" anyway
+            */}
+            {componentsToShow.customBackUrl &&
+              <IonButton size="small" onClick={() => 
+                routerContext.push(componentsToShow.customBackUrl, "back")
+              }><IonIcon slot="icon-only" icon={arrowBack} /></IonButton>
             }
             
           </IonButtons>

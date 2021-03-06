@@ -1,21 +1,34 @@
 import { IonContent, IonPage, IonList, IonItem, IonLabel, IonItemDivider, IonGrid } from '@ionic/react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux'
 import PageHeader from '../components/PageHeader';
 import SegmentSwitcher from '../components/SegmentSwitcher';
 import '../../style/pages/MovesList.scss';
-import { setPlayerAttr, setModalVisibility, setActiveFrameDataPlayer } from '../actions';
-import { useHistory } from 'react-router';
+import { setPlayerAttr, setModalVisibility, setActiveFrameDataPlayer, setActiveGame, setPlayer } from '../actions';
+import { useHistory, useParams } from 'react-router';
 import AdviceToast from '../components/AdviceToast';
 
 
-const MovesList = ({ activeGame, dataDisplaySettings, selectedCharacters, activePlayer, setPlayerAttr, setModalVisibility, setActiveFrameDataPlayer }) => {
+const MovesList = ({ activeGame, setActiveGame, dataDisplaySettings, selectedCharacters, activePlayer, setPlayer, setPlayerAttr, setModalVisibility, setActiveFrameDataPlayer }) => {
   const history = useHistory();
+  const slugs = useParams();
   const moveData = selectedCharacters[activePlayer].frameData;
-  // First we have to get a list of the keys which will be used as move names
-  // These aren't nessacarily the names that will be displayed, later we'll
-  // filter for LP or LK at the start of a move or change the displayed name
-  // if the current key type is already an input
+
+  useEffect(() => {
+
+    if (activeGame !== slugs.gameSlug) {
+      console.log(activeGame)
+      console.log("URL game mismatch");
+      setActiveGame(slugs.gameSlug);
+    }
+
+    if (selectedCharacters["playerOne"].name !== slugs.characterSlug) {
+      console.log("URL character mismatch");
+      setPlayer("playerOne", slugs.characterSlug);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  
   const moveListEntryKeys = Object.keys(moveData).filter(moveKey => {
     if (selectedCharacters[activePlayer].vtState !== "normal") {
       if (moveData[moveKey].uniqueInVt) {
@@ -28,8 +41,7 @@ const MovesList = ({ activeGame, dataDisplaySettings, selectedCharacters, active
     }
   })
 
-  // Then we go through these keys and pull out any headers we might need
-  // These will be used to separate out the list in app
+  
   let moveListHeaders = [];
   moveListEntryKeys.forEach(moveKey => {
       if (!moveListHeaders.includes(moveData[moveKey].movesList)) {
@@ -79,7 +91,7 @@ const MovesList = ({ activeGame, dataDisplaySettings, selectedCharacters, active
                     const namingType = dataDisplaySettings.moveNameType === "common" ? "cmnName" : "moveName";
                     const displayedName = !moveData[moveKey][namingType] ? moveData[moveKey]["moveName"] : moveData[moveKey][namingType];
                     return (
-                      <IonItem button key={moveKey} onClick={() => {setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {selectedMove: moveKey}); history.push(`/movedetail/${selectedCharacters[activePlayer].name}/${moveKey}`)}}>
+                      <IonItem button key={moveKey} onClick={() => {setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {selectedMove: moveKey}); history.push(`/moveslist/movedetail/${activeGame}/${selectedCharacters[activePlayer].name}/${selectedCharacters[activePlayer].vtState}/${selectedCharacters[activePlayer].frameData[moveKey]["moveName"]}`)}}>
                         <IonLabel>
                           <h2>
                             {((displayedName.startsWith("LP ") || displayedName.startsWith("LK ")) && (moveData[moveKey].moveType === "special" || moveData[moveKey].moveType === "command-grab"))
@@ -117,6 +129,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+  setActiveGame: (gameName) => dispatch(setActiveGame(gameName)),
+  setPlayer: (playerId, charName) => dispatch(setPlayer(playerId, charName)),
   setActiveFrameDataPlayer: (oneOrTwo) => dispatch(setActiveFrameDataPlayer(oneOrTwo)),
   setPlayerAttr: (playerId, charName, playerData) => dispatch(setPlayerAttr(playerId, charName, playerData)),
   setModalVisibility: (data)  => dispatch(setModalVisibility(data)),

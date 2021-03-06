@@ -31,10 +31,10 @@ const persistor = persistStore(store, null, () => {
   // Having this inside App.jsx was causing strange side effects.
   // https://stackoverflow.com/a/55571554
 
-  // G says: remove this check and the blacklister?
-  if (!store.getState().frameDataState) {
-    store.dispatch(actionCreators.getFrameData(store.getState().activeGameState));
-  }
+  // // G says: remove this check and the blacklister?
+  // if (!store.getState().frameDataState) {
+  //   store.dispatch(actionCreators.getFrameData(store.getState().activeGameState));
+  // }
 
 })
 

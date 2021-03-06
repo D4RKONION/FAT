@@ -1,17 +1,34 @@
 import { IonContent, IonPage, IonList, IonItemDivider, IonLabel, IonItem, IonIcon, IonGrid } from '@ionic/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import '../../style/pages/Combos.scss';
 import SegmentSwitcher from '../components/SegmentSwitcher';
 import PageHeader from '../components/PageHeader';
-import { setActiveFrameDataPlayer, setModalVisibility, setPlayerAttr } from '../actions';
+import { setActiveFrameDataPlayer, setActiveGame, setModalVisibility, setPlayer, setPlayerAttr } from '../actions';
 import { SFV_COMBOS } from '../constants/Combos';
 import { informationCircleOutline, openOutline } from 'ionicons/icons';
 import AdviceToast from '../components/AdviceToast';
+import { useParams } from 'react-router';
 
 
 
-const Combos = ({ selectedCharacters, activePlayer, activeGame, setActiveFrameDataPlayer, modalVisibility, setModalVisibility, setViewedCombo }) => {
+const Combos = ({ selectedCharacters, activePlayer, setPlayer, activeGame, setActiveGame, setActiveFrameDataPlayer, modalVisibility, setModalVisibility }) => {
+  
+  const slugs = useParams();
+  useEffect(() => {
+
+    if (activeGame !== slugs.gameSlug) {
+      console.log(activeGame)
+      console.log("URL game mismatch");
+      setActiveGame(slugs.gameSlug);
+    }
+
+    if (selectedCharacters["playerOne"].name !== slugs.characterSlug) {
+      console.log("URL character mismatch");
+      setPlayer("playerOne", slugs.characterSlug);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const [selectedCombo, setSelectedCombo] = useState(null);
   return (
@@ -104,6 +121,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+  setActiveGame: (gameName) => dispatch(setActiveGame(gameName)),
+  setPlayer: (playerId, charName) => dispatch(setPlayer(playerId, charName)),
   setActiveFrameDataPlayer: (oneOrTwo) => dispatch(setActiveFrameDataPlayer(oneOrTwo)),
   setPlayerAttr: (playerId, charName, playerData) => dispatch(setPlayerAttr(playerId, charName, playerData)),
   setModalVisibility: (data)  => dispatch(setModalVisibility(data)),

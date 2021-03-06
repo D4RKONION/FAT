@@ -34,6 +34,7 @@ const ThemeStore = ({ themesOwned, themeColor, setThemeColor}) => {
         price: iapProduct?.price ?? product.price,
       };
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   ), [iapStore?.products]);
 
   return (

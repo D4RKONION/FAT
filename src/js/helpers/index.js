@@ -27,8 +27,7 @@ function vTriggerMerge(rawFrameData, vtState) {
   const vtMergedData = {
     ...rawFrameData.normal, ...rawFrameData[vtState]
   }
-
-
+  
   Object.keys(rawFrameData[vtState]).forEach(vtMove => {
       let changedValues = [];
       Object.keys(rawFrameData[vtState][vtMove]).forEach(detail => {
