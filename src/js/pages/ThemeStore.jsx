@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { InAppPurchase2 as iapStore } from '@ionic-native/in-app-purchase-2';
 import { last } from 'lodash';
 import PageHeader from '../components/PageHeader';
-import { checkboxSharp, checkmarkCircle, checkmarkSharp, eyeSharp } from 'ionicons/icons';
+import { checkmarkSharp } from 'ionicons/icons';
 import '../../style/pages/ThemeStore.scss'
 import { setThemeColor } from '../actions';
 

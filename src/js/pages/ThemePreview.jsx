@@ -11,12 +11,11 @@ import SubHeader from '../components/SubHeader';
 import { setThemeBrightness } from '../actions';
 
 
-const ThemePreview = ({ }) => {
+const ThemePreview = () => {
 
   const themeBrightness = useSelector(state => state.themeBrightnessState);
   const dispatch = useDispatch();
 
-  const [fakePlayer, setFakePlayer] = useState("playerOne");
   const [fakeTrigger, setFakeTrigger] = useState("normal");
   let { themeNameSlug } = useParams();
 
