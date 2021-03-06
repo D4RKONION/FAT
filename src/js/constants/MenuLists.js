@@ -287,7 +287,7 @@ export const RES_SOC_LIST = {
       url: "https://twitter.com/hifightth"
     },
     "Jav1ts": {
-      desc: "You might not know jav1ts but he does a lot of very important translation work for the FGC!",
+      desc: "Jav1ts posts lots of cool little tech videos, well worth a follow",
       url: "https://twitter.com/jav1ts"
     }
   },
