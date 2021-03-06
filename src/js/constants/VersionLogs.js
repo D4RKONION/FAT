@@ -1,6 +1,6 @@
 export const APP_CURRENT_VERSION_NAME = "3.1.0";
 export const APP_CURRENT_VERSION_CODE = 30100;
-export const APP_FRAME_DATA_CODE = 7;
+export const APP_FRAME_DATA_CODE = 17;
 export const APP_DATE_UPDATED = "March 1, 2021";
 
 export const VERSION_LOGS = {
@@ -9,7 +9,8 @@ export const VERSION_LOGS = {
       "Added a theme previewer",
       "New theme: Second in Command. Theme number 2 is purple and truly intoxicating!",
       "Reworked the Red Dragon theme to be less ugly in light mode, check it out in the theme previewer",
-      "Made it so Seth's frame data table only shows the move that he steals from the other selected character "
+      "Made it so Seth's frame data table only shows the move that he steals from the other selected character",
+      "Added Dan's Specific cancels to the lanscape columns"
     ],
     "Bug Fixes": [
       "Fixed a bug where checkboxes were invisible on dark mode when unchecked",
