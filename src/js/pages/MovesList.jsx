@@ -79,7 +79,7 @@ const MovesList = ({ activeGame, dataDisplaySettings, selectedCharacters, active
                     const namingType = dataDisplaySettings.moveNameType === "common" ? "cmnName" : "moveName";
                     const displayedName = !moveData[moveKey][namingType] ? moveData[moveKey]["moveName"] : moveData[moveKey][namingType];
                     return (
-                      <IonItem button key={moveKey} onClick={() => {setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {selectedMove: moveKey}); history.push(`/framedata/${selectedCharacters[activePlayer].name}/${moveKey}`)}}>
+                      <IonItem button key={moveKey} onClick={() => {setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {selectedMove: moveKey}); history.push(`/movedetail/${selectedCharacters[activePlayer].name}/${moveKey}`)}}>
                         <IonLabel>
                           <h2>
                             {((displayedName.startsWith("LP ") || displayedName.startsWith("LK ")) && (moveData[moveKey].moveType === "special" || moveData[moveKey].moveType === "command-grab"))

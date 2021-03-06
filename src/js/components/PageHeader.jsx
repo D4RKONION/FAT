@@ -15,7 +15,7 @@ const PageHeader = ({ componentsToShow, buttonsToShow, title }) => {
         {componentsToShow &&
           <IonButtons slot="start">
             {componentsToShow.menu && <IonMenuButton />}
-            {componentsToShow.back && <IonBackButton/>}
+            {componentsToShow.back && <IonBackButton />}
 
             {/* ionic is smelly and dumps the ionbackbutton when I change brightness */}
             {componentsToShow.customback &&

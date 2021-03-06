@@ -10,9 +10,10 @@ export const VERSION_LOGS = {
       "New theme: Second in Command. Theme number 2 is purple and truly intoxicating!",
       "Reworked the Red Dragon theme to be less ugly in light mode, check it out in the theme previewer",
       "Made it so Seth's frame data table only shows the move that he steals from the other selected character",
-      "Added Dan's Specific cancels to the lanscape columns"
+      "Added Dan's Specific cancels to the lanscape columns",
     ],
     "Bug Fixes": [
+      "Fixed a bug where the data table would sometimes double render, causing lag",
       "Fixed a bug where checkboxes were invisible on dark mode when unchecked",
       "Fixed a bug where you could change characters while looking at a move's detail, causing a crash",
       "Fixed the link to Sestze's spreadsheet, sorry Sestze!",

@@ -48,7 +48,7 @@ const DataTable = ({ previewTable, activeGame, setPlayerAttr, selectedCharacters
           return false;
         } else {
           return (
-            <div className="move-row" key={`table-row-${moveName}`} onClick={() => {if (previewTable) {return false}; setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {selectedMove: moveName}); history.push(`/framedata/${selectedCharacters[activePlayer].name}/${moveName}`)}}>
+            <div className="move-row" key={`table-row-${moveName}`} onClick={() => {if (previewTable) {return false}; setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {selectedMove: moveName}); history.push(`/movedetail/${selectedCharacters[activePlayer].name}/${moveName}`)}}>
             
               <span
                 style={

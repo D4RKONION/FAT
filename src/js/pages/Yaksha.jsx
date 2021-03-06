@@ -188,7 +188,7 @@ const Yaksha = ({ frameDataFile, activeGame, setPlayerAttr, setPlayer, dataDispl
                       })}
                   </div>
                 )}
-                <IonButton expand="full" fill="clear" onClick={() => {setPlayer("playerOne", charName); setPlayerAttr("playerOne", charName, {selectedMove: displayedMoveName}); history.push(`/framedata/${charName}/${displayedMoveName}`)}}>More info {">"}</IonButton>
+                <IonButton expand="full" fill="clear" onClick={() => {setPlayer("playerOne", charName); setPlayerAttr("playerOne", charName, {selectedMove: displayedMoveName}); history.push(`/movedetail/${charName}/${displayedMoveName}`)}}>More info {">"}</IonButton>
               </IonCardContent>
 
             </IonCard>

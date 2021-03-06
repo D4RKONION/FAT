@@ -82,7 +82,7 @@ const App = ({ setActiveGame, frameDataFile, setOrientation, themeBrightness, se
       if (currentModalState.visible) {
         console.log("closing modal")
         store.dispatch(setModalVisibility({ currentModal: currentModalState.currentModal, visible: false }))
-      } else if (modeNameState.startsWith("subpage") || modeNameState.startsWith("calc-")) {
+      } else if (modeNameState === "movedetail" || modeNameState.startsWith("subpage") || modeNameState.startsWith("calc-")) {
         console.log("going back")
         window.history.back();
       } else if ( !(await menuController.isOpen()) ) {
@@ -234,9 +234,11 @@ useEffect(() => {
         <IonSplitPane contentId="main">
           <Menu themeBrightness={themeBrightness} themeBrightnessClickHandler={() => themeBrightness === "light" ? setThemeBrightness("dark") : setThemeBrightness("light")}/>
           <IonRouterOutlet id="main">
-            <Route exact path="/stats/:characterSlug/" component={CharacterStats} />
-            <Route exact path="/framedata/:characterSlug/:selectedMoveName" component={MoveDetail} />
+            <Route exact path="/stats/:characterSlug" component={CharacterStats} />
+
             <Route exact path="/framedata/:characterSlug" component={FrameData} />
+
+            <Route exact path="/movedetail/:characterSlug/:selectedMoveName" component={MoveDetail} />
 
             <Route exact path="/moveslist/:characterSlug" component={MovesList} />
             <Route exact path="/combos/:characterSlug" component={Combos} />

@@ -51,9 +51,6 @@ const FrameData = ({ selectedCharacters, activePlayer, activeGame, setActiveFram
       return () => {gesture.enable(false)}
     }
   }, [gesture, DataTableEl])
-
-
-
   
 
   return (
