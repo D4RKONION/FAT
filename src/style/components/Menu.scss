@@ -1,5 +1,14 @@
 #sideMenu {
-  --side-max-width: 333px;
+  &.wide-full-menu {
+    --side-width: 280px;
+  }
+  &.wide-partial-menu {
+    --side-width: 80px;
+  }
+  --side-min-width: 0;
+  --side-max-width: 280px;
+  border:none;
+  //transition: width 0.25s cubic-bezier(0.3, 0, 0, 0.8);
   #menuHeader {
     background-color: var(--fat-menu-top);
     min-height: 120px;
@@ -46,6 +55,49 @@
     }
 
 
+  }
+
+  #widescreenMenu {
+    height:100%;
+    background-color: #16527b;
+    ion-grid {
+      padding: 0;
+
+      #showMenuButtonContainer {
+        background-color: var(--fat-primary);
+        height: 56px;
+        box-shadow: 0px 2px 3px #00000048;
+
+        ion-col > ion-button {
+          --box-shadow: 0px;
+          color: white;
+        }
+        ion-col > p {
+          color: white;
+          margin: 14px 0 0 22px;
+        }
+      }
+      .menu-entry {
+        ion-col {
+          margin: 0;
+        }
+        ion-col > ion-button {
+          color: #e4f1fa;
+          transition: color 0.25s cubic-bezier(0.3, 0, 0, 0.8);
+          &.dimmed-color {
+            color: #ffffff88;
+          }
+        }
+        ion-col > ion-item {
+          color: #e4f1fa;
+          --color-activated: white;
+          --background: #16527b;
+          --background-hover-opacity: 0; 
+          --color-hover: #ffffff;
+          height: 44px;
+        }
+      }
+    }
   }
 }
 
@@ -111,5 +163,18 @@ ion-menu {
         }
       }
     }
+  }
+}
+
+
+@media (min-width: 992px) {
+  #mobileSideMenu {
+    display: none !important;
+  }
+}
+
+@media (max-width: 991px) {
+  #widescreenMenu {
+    display: none !important;
   }
 }
