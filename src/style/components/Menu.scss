@@ -8,7 +8,8 @@
   --side-min-width: 0;
   --side-max-width: 280px;
   border:none;
-  //transition: width 0.25s cubic-bezier(0.3, 0, 0, 0.8);
+  transition: width 0.25s cubic-bezier(0.3, 0, 0, 0.8);
+
   #menuHeader {
     background-color: var(--fat-menu-top);
     min-height: 120px;
@@ -58,43 +59,66 @@
   }
 
   #widescreenMenu {
-    height:100%;
-    background-color: #16527b;
+    background-color: var(--fat-wide-menu-background);
     ion-grid {
       padding: 0;
 
       #showMenuButtonContainer {
-        background-color: var(--fat-primary);
+        background-color: var(--ion-toolbar-background);
         height: 56px;
-        box-shadow: 0px 2px 3px #00000048;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        &.ios {
+          height: 44px;
+        }
+        &.md {
+          box-shadow: 0px 2px 3px #00000048;
+        }
 
         ion-col > ion-button {
           --box-shadow: 0px;
           color: white;
+          --background: #ffffff00;
+          &.ios {
+            margin: 0;
+            height: 32px;
+          }
         }
         ion-col > p {
+          animation: hideTilEnd 0.25s;
           color: white;
           margin: 14px 0 0 22px;
         }
+        ion-col.ios > p {
+          margin: 6px 0 0 15px;
+        }
       }
       .menu-entry {
+        &.lines-bottom {
+          border-bottom: #ffffff88 solid 1px;
+          margin-bottom: 20px;
+        }
         ion-col {
           margin: 0;
-        }
-        ion-col > ion-button {
-          color: #e4f1fa;
-          transition: color 0.25s cubic-bezier(0.3, 0, 0, 0.8);
-          &.dimmed-color {
-            color: #ffffff88;
+
+          ion-button {
+            color: #fffffff1;
+            transition: color 0.25s cubic-bezier(0.3, 0, 0, 0.8);
+            &.dimmed-color {
+              color: #ffffff88;
+            }
           }
-        }
-        ion-col > ion-item {
-          color: #e4f1fa;
-          --color-activated: white;
-          --background: #16527b;
-          --background-hover-opacity: 0; 
-          --color-hover: #ffffff;
-          height: 44px;
+          
+          ion-item {
+            animation: slowWidthIncrease 0.25s;
+            color: #fffffff1;
+            --color-activated: white;
+            --background: var(--fat-wide-menu-background);
+            --background-hover-opacity: 0; 
+            --color-hover: #ffffff;
+            height: 44px;
+          }
         }
       }
     }
@@ -168,6 +192,9 @@ ion-menu {
 
 
 @media (min-width: 992px) {
+  ion-menu ion-content {
+    --background: var(--fat-wide-menu-background);;
+  }
   #mobileSideMenu {
     display: none !important;
   }
@@ -176,5 +203,34 @@ ion-menu {
 @media (max-width: 991px) {
   #widescreenMenu {
     display: none !important;
+  }
+}
+
+@keyframes slowWidthIncrease {
+  from {
+    width: 0px;
+  }
+
+  40% {
+    width: 0px;
+  }
+
+  to {
+    width: inherit;
+  }
+}
+
+@keyframes hideTilEnd {
+  from {
+    transform: translateX(-10px);
+    opacity: 0;
+  }
+  55% {
+    transform: translateX(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
   }
 }

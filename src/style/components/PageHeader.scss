@@ -1,0 +1,19 @@
+@media (max-width: 991px) {
+	.widescreenMode {
+		display: none;
+	}
+}
+
+@media (min-width: 992px) {
+	ion-header {
+		ion-toolbar {
+			ion-title.md {
+				padding: 0;
+				position: fixed;
+				top: 14px;
+				left: 50%;
+				transform: translate(-53%, 0);
+			}
+		} 
+	}
+}

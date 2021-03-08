@@ -1,5 +1,5 @@
 import { IonContent, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonAlert, isPlatform, IonButton, IonGrid, IonRow, IonCol } from '@ionic/react';
-import { peopleOutline, settingsOutline, settingsSharp, moon, sunny, gameControllerOutline, gameControllerSharp, libraryOutline, librarySharp, calculatorOutline, calculatorSharp, caretDownOutline, searchOutline, searchSharp, statsChartOutline, statsChartSharp, barbellOutline, barbellSharp, colorPaletteOutline, colorPaletteSharp, menuSharp } from 'ionicons/icons';
+import { peopleOutline, settingsOutline, settingsSharp, moon, sunny, gameControllerOutline, gameControllerSharp, libraryOutline, librarySharp, calculatorOutline, calculatorSharp, caretDownOutline, searchOutline, searchSharp, statsChartOutline, statsChartSharp, barbellOutline, barbellSharp, colorPaletteOutline, colorPaletteSharp, menuSharp, logoPaypal, phonePortraitOutline, phonePortraitSharp } from 'ionicons/icons';
 
 import React, { useEffect, useState } from 'react';
 import { withRouter, useLocation } from 'react-router-dom';
@@ -11,12 +11,14 @@ import CharacterSelectModal from './CharacterSelect';
 import WhatsNewModal from './WhatsNew'
 import HelpModal from './Help';
 import framesIcon from  '../../images/icons/frames.svg';
+import patreonIcon from '../../images/icons/patreon.svg';
 import { APP_CURRENT_VERSION_NAME } from '../constants/VersionLogs';
+import BrightnessToggle from './BrightnessToggle';
 
 const Menu = ({ themeBrightness, themeBrightnessClickHandler, selectedCharacters, setModalVisibility, modeName, setModeName, activeGame, setActiveGame }) => {
 
   const [activeGameAlertOpen, setActiveGameAlertOpen] = useState(false);
-  const [isWideFullMenuOpen, setIsWideFullMenuOpen] = useState(true) 
+  const [isWideFullMenuOpen, setIsWideFullMenuOpen] = useState(false) 
   const location = useLocation();
   
   useEffect(() => {
@@ -103,9 +105,37 @@ const Menu = ({ themeBrightness, themeBrightnessClickHandler, selectedCharacters
       modeName: "themestore",
       appOnly: true,
     },
+    {
+      title: 'Get the app!',
+      url: '#',
+      externalUrl: "https://fullmeter.com/fat",
+      iosIcon: phonePortraitOutline,
+      mdIcon: phonePortraitSharp,
+      modeName: "app",
+      desktopOnly: true,
+    },
+    {
+      title: 'Support on Patreon',
+      externalUrl: "https://www.patreon.com/d4rk_onion",
+      url: '#',
+      iosIcon: patreonIcon,
+      mdIcon: patreonIcon,
+      modeName: null,
+      desktopOnly: true,
+    },
+    {
+      title: 'Support on Paypal',
+      url: '#',
+      externalUrl: "https://paypal.me/fullmeter",
+      iosIcon: logoPaypal,
+      mdIcon: logoPaypal,
+      modeName: null,
+      desktopOnly: true,
+    },
   ];
   
   const LS_FRAME_DATA_CODE = localStorage.getItem("lsFrameDataCode");
+  console.log(isPlatform("desktop"))
 
   return (
     <IonMenu
@@ -128,7 +158,7 @@ const Menu = ({ themeBrightness, themeBrightnessClickHandler, selectedCharacters
           </div>
           <IonList id="pageList">
             <IonMenuToggle autoHide={false}>
-              <IonItem disabled={modeName === "movedetail"} key="charSelectItem" onClick={() => setModalVisibility({ currentModal: "characterSelect", visible: true })}  lines="none" detail={false} button>
+              <IonItem disabled={modeName === "movedetail"} key="mobile-charSelectItem" onClick={() => setModalVisibility({ currentModal: "characterSelect", visible: true })}  lines="none" detail={false} button>
                 <IonIcon slot="start" icon={peopleOutline} />
                 <IonLabel>Character Select</IonLabel>
               </IonItem>
@@ -136,9 +166,11 @@ const Menu = ({ themeBrightness, themeBrightnessClickHandler, selectedCharacters
             {appPages.map((appPage) => {
               if (isPlatform("desktop") && appPage.appOnly) {
                 return false;
+              } else if (!isPlatform("desktop") && appPage.desktopOnly) {
+                return false;
               } else {
                 return (
-                  <IonMenuToggle key={appPage.title} autoHide={false}>
+                  <IonMenuToggle key={`mobile-${appPage.title}`} autoHide={false}>
                     <IonItem className={modeName === appPage.modeName ? "selected" : null} routerLink={appPage.url} routerDirection="root" lines="none" detail={false} button>
                       <IonIcon slot="start" icon={appPage.iosIcon} />
                       <IonLabel>{appPage.title}</IonLabel>
@@ -167,13 +199,13 @@ const Menu = ({ themeBrightness, themeBrightnessClickHandler, selectedCharacters
 
             <IonRow className="menu-entry">
               <IonCol size={isWideFullMenuOpen ? "2" : "12"}>
-                <IonButton className={isWideFullMenuOpen ? "dimmed-color" : null} fill="clear" disabled={modeName === "movedetail"} key="charSelectItem" onClick={() => setModalVisibility({ currentModal: "characterSelect", visible: true })}  lines="none" detail={false} button>
+                <IonButton className={isWideFullMenuOpen ? "dimmed-color" : null} fill="clear" disabled={modeName === "movedetail"} key="wide-charSelectItem" onClick={() => setModalVisibility({ currentModal: "characterSelect", visible: true })}  lines="none" detail={false} button>
                   <IonIcon slot="icon-only" icon={peopleOutline} />
                 </IonButton>
               </IonCol>
               {isWideFullMenuOpen &&
                 <IonCol>
-                  <IonItem disabled={modeName === "movedetail"} onClick={() => setModalVisibility({ currentModal: "characterSelect", visible: true })} lines="none" button>Character Select</IonItem>
+                  <IonItem disabled={modeName === "movedetail"} onClick={() => setModalVisibility({ currentModal: "characterSelect", visible: true })} lines="none" button detail={false}>Character Select</IonItem>
                 </IonCol>
               }
             </IonRow>
@@ -181,11 +213,17 @@ const Menu = ({ themeBrightness, themeBrightnessClickHandler, selectedCharacters
             {appPages.map((appPage) => {
               if (isPlatform("desktop") && appPage.appOnly) {
                 return false;
+              } else if (!isPlatform("desktop") && appPage.desktopOnly) {
+                return false;
               } else {
                 return (
-                  <IonRow className="menu-entry">
+                  <IonRow onClick={() => appPage.externalUrl ? window.open(appPage.externalUrl, '_blank') : false} key={`wide-${appPage.title}`} className={`${appPage.modeName === "settings" && isPlatform("desktop") ? "lines-bottom" : null} menu-entry`}>
                     <IonCol size={isWideFullMenuOpen ? "2" : "12"}>
-                      <IonButton fill="clear" className={`${modeName === appPage.modeName ? "selected" : null} ${isWideFullMenuOpen ? "dimmed-color" : null}`} routerLink={appPage.url} routerDirection="root" lines="none" detail={false}>
+                      <IonButton
+                        fill="clear" className={`${modeName === appPage.modeName ? "selected" : null} ${isWideFullMenuOpen ? "dimmed-color" : null}`}
+                        routerLink={appPage.url} routerDirection="root"
+                        lines="none" detail={false}
+                      >
                         <IonIcon slot="icon-only" icon={appPage.iosIcon} />
                       </IonButton>
                     </IonCol>

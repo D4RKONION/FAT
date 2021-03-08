@@ -45,7 +45,7 @@ const DataTable = ({ previewTable, activeGame, setPlayerAttr, selectedCharacters
 
       
       {Object.entries(selectedCharacters[activePlayer].frameData).map(([moveName, moveData]) => {
-        if ( moveData["moveType"] === "vskill" && !moveName.includes(inactivePlayerName) ) {
+        if ( selectedCharacters[activePlayer].name === "Seth" && moveData["moveType"] === "vskill" && !moveName.includes(`[${inactivePlayerName}]`) ) {
           return false;
         } else {
           return (
