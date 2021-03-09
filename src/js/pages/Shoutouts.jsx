@@ -1,14 +1,12 @@
 import { IonContent, IonGrid, IonPage } from '@ionic/react';
 import React from 'react';
 import { connect } from 'react-redux';
-import ReactHtmlParser from 'react-html-parser';
+import HtmlReactParser from 'html-react-parser';
 import '../../style/pages/Shoutouts.scss';
 import PageHeader from '../components/PageHeader';
 import { DEVS, DONATORS, DATA_TEAM, AWESOME_PEOPLE, FRIENDS } from '../constants/Shoutouts';
 
 const Shoutouts = () => {
-
-
 
   return (
     <IonPage>
@@ -23,7 +21,7 @@ const Shoutouts = () => {
           {Object.keys(DEVS).map(devName =>
             <div key={devName + "info"}>
               <h2>{devName}</h2>
-              <p>{ReactHtmlParser(DEVS[devName])}</p>
+              <p>{HtmlReactParser(DEVS[devName])}</p>
             </div>
           )}
           <hr/>
@@ -32,7 +30,7 @@ const Shoutouts = () => {
           {Object.keys(DATA_TEAM).map(teamName =>
             <div key={teamName + "info"}>
               <h2>{teamName}</h2>
-              <p>{ReactHtmlParser(DATA_TEAM[teamName])}</p>
+              <p>{HtmlReactParser(DATA_TEAM[teamName])}</p>
             </div>
           )}
           <hr/>
@@ -41,7 +39,7 @@ const Shoutouts = () => {
           {Object.keys(FRIENDS).map(friendName =>
             <div key={friendName + "info"}>
               <h2>{friendName}</h2>
-              <p>{ReactHtmlParser(FRIENDS[friendName])}</p>
+              <p>{HtmlReactParser(FRIENDS[friendName])}</p>
             </div>
           )}
           <hr/>
@@ -62,7 +60,7 @@ const Shoutouts = () => {
               ? Object.keys(DONATORS[donationType]).map(donator =>
                 <div key={donator + "info"}>
                 <h3>{donator}</h3>
-                <p>{ReactHtmlParser(DONATORS[donationType][donator])}</p>
+                <p>{HtmlReactParser(DONATORS[donationType][donator])}</p>
                 </div>
               )
               : DONATORS[donationType].map(donator =>

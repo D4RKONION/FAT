@@ -1,4 +1,4 @@
-import { helpCreateFrameDataJSON } from '../helpers';
+import { helpCreateFrameDataJSON } from '../utils';
 import GAME_DETAILS from '../constants/GameDetails';
 
 import AppSFVFrameData from '../constants/framedata/SFVFrameData.json';
