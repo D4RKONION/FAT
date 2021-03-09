@@ -31,8 +31,6 @@ const CharacterSelectModal =({
       //we have to use IonRouterContext due to this issue
       //https://github.com/ionic-team/ionic-framework/issues/21832
       routerContext.push(`/${modeName}/${activeGame}/${charName}`, "none");
-    } else if (playerId === "playerOne") {
-      routerContext.push(`/${modeName}/${charName}`, "none");
     }
 
   }
