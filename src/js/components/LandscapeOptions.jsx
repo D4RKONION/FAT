@@ -1,4 +1,4 @@
-import { IonContent, IonModal, IonList, IonItem, IonItemDivider, IonLabel, IonCheckbox, IonIcon, } from '@ionic/react';
+import { IonContent, IonModal, IonList, IonItem, IonItemDivider, IonLabel, IonCheckbox, IonIcon, IonButton, } from '@ionic/react';
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -7,7 +7,7 @@ import GAME_DETAILS from '../constants/GameDetails'
 
 import '../../style/components/LandscapeOptions.scss';
 import PageHeader from './PageHeader';
-import { reloadOutline, closeOutline, medicalOutline } from 'ionicons/icons';
+import { reloadOutline, closeOutline, trashOutline } from 'ionicons/icons';
 
 const LandscapeOptions =({
   landscapeCols,
@@ -18,10 +18,31 @@ const LandscapeOptions =({
   activeGame,
 }) => {
 
-  const handleCheckboxClick = (dataEntryKey, dataTableHeader) => {
+  const handleSectionToggleClick = (dataCategoryObj) => {
+
+    //check if every box in this dataCategory is currently ticked
+    const dataCategoryKeysArr = [];
+    dataCategoryObj.map(dataRow =>
+      Object.keys(dataRow).forEach(dataEntryKey =>
+        dataCategoryKeysArr.push(dataEntryKey)  
+      )
+    )
+    const allOn = dataCategoryKeysArr.every(entry => Object.keys(landscapeCols).includes(entry));
+
+
+    Object.keys(dataCategoryObj).forEach(dataRow =>
+      Object.keys(dataCategoryObj[dataRow]).forEach(dataEntryKey =>
+        handleCheckboxClick(dataEntryKey, dataCategoryObj[dataRow][dataEntryKey]["dataTableHeader"], allOn ? "off" : "on")
+      )
+    )
+  }
+
+  const handleCheckboxClick = (dataEntryKey, dataTableHeader, forceMode) => {
     
     const keysInOrder = []
     const landscapeColsInOrder = {}
+
+    console.log(forceMode)
 
     // extract the keys from the 2 data table entry files so we can order our landscape cols
     Object.keys(GAME_DETAILS[activeGame].universalDataPoints).forEach(dataCategory =>
@@ -37,8 +58,8 @@ const LandscapeOptions =({
       )
     )
 
-    // Handle the new column
-    if (!landscapeCols[dataEntryKey]) {
+    // Handle the new landscape column to be set
+    if (forceMode === "on" || !landscapeCols[dataEntryKey]) {
       landscapeCols = {...landscapeCols, [dataEntryKey]: dataTableHeader}
     } else {
       delete landscapeCols[dataEntryKey];
@@ -75,7 +96,7 @@ const LandscapeOptions =({
       <PageHeader
         buttonsToShow={[{ slot: "end",
           buttons: [
-            { text: <IonIcon icon={medicalOutline} />, buttonFunc() {return setLandscapeCols({})}},
+            { text: <IonIcon icon={trashOutline} />, buttonFunc() {return setLandscapeCols({})}},
             { text: <IonIcon icon={reloadOutline} />, buttonFunc() {return setLandscapeCols({startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", damage:"dmg", stun:"stun", kd:"kd", kdr:"kdr", kdrb:"kdrb"})}},
             { text: <IonIcon icon={closeOutline} />, buttonFunc() {return handleModalDismiss()}}
           ]
@@ -88,7 +109,19 @@ const LandscapeOptions =({
           {GAME_DETAILS[activeGame].specificCancels &&
             [selectedCharacters.playerOne.name, selectedCharacters.playerTwo.name].map((playerName, index) =>
             <div className="list-section" key={`${playerName}${index} cancels`}>
-              <IonItemDivider>Showing cancels for {playerName}</IonItemDivider>
+              <IonItemDivider>
+                Showing cancels for {playerName}
+                <IonButton fill="clear" slot="end"
+                  onClick={() =>
+                    handleSectionToggleClick(GAME_DETAILS[activeGame].specificCancels.filter(dataRow =>
+                      Object.keys(dataRow).map(dataEntryKey => 
+                        dataRow[dataEntryKey]
+                      ).some(dataEntry =>
+                        dataEntry.usedBy.includes(playerName)
+                      )
+                    ))
+                  }>Toggle</IonButton>
+              </IonItemDivider>
               {GAME_DETAILS[activeGame].specificCancels.map(dataRow =>
                 Object.keys(dataRow).filter(dataEntryKey =>
                   dataRow[dataEntryKey].usedBy.includes(playerName)
@@ -103,7 +136,10 @@ const LandscapeOptions =({
           )}
           {Object.keys(GAME_DETAILS[activeGame].universalDataPoints).map(dataCategory =>
             <div className="list-section" key={dataCategory}>
-              <IonItemDivider>{dataCategory}</IonItemDivider>
+              <IonItemDivider>
+                {dataCategory}
+                <IonButton fill="clear" slot="end" onClick={() => handleSectionToggleClick(GAME_DETAILS[activeGame].universalDataPoints[dataCategory])}>Toggle</IonButton>
+              </IonItemDivider>
               {GAME_DETAILS[activeGame].universalDataPoints[dataCategory].map(dataRow =>
                 Object.keys(dataRow).map((dataEntryKey) =>
                   <IonItem key={dataRow[dataEntryKey].dataFileKey}>

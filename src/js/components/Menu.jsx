@@ -135,7 +135,6 @@ const Menu = ({ themeBrightness, themeBrightnessClickHandler, selectedCharacters
   ];
   
   const LS_FRAME_DATA_CODE = localStorage.getItem("lsFrameDataCode");
-  console.log(isPlatform("desktop"))
 
   return (
     <IonMenu
