@@ -6,6 +6,9 @@ export const APP_DATE_UPDATED = "March 1, 2021";
 export const VERSION_LOGS = {
   "3.1.1": {
     "New Features": [
+      "Desktop/tablets: Massive rework of the side menu, much prettier now",
+      "Webapp: URL deep linking into move details/specific characters etc. should now work throughout the app",
+      "Added Dan's specific cancels to the app",
       "Added a theme previewer",
       "New theme: Second in Command. Theme number 2 is purple and truly intoxicating!",
       "Reworked the Red Dragon theme to be less ugly in light mode, check it out in the theme previewer",
@@ -16,6 +19,7 @@ export const VERSION_LOGS = {
       "Fixed a bug where the data table would sometimes double render, causing lag",
       "Fixed a bug where checkboxes were invisible on dark mode when unchecked",
       "Fixed a bug where you could change characters while looking at a move's detail, causing a crash",
+      "Fixed a bug where you could change games while looking at a move's detail, causing a crash",
       "Fixed the link to Sestze's spreadsheet, sorry Sestze!",
       "Fixed a bug where sometimes some of the subheader data wasn't showing",
       "Fixed the link to the FAT repo"
