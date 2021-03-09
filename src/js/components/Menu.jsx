@@ -152,7 +152,7 @@ const Menu = ({ themeBrightness, themeBrightnessClickHandler, selectedCharacters
               <IonIcon icon={themeBrightness === "dark" ? sunny : moon} />
             </div>
             <div id="appDetails">
-              <h2>FAT - <span onClick={() => setActiveGameAlertOpen(true)}>{activeGame} <IonIcon icon={caretDownOutline} /></span></h2>
+              <h2>FAT - <span onClick={() => modeName !== "movedetail" && setActiveGameAlertOpen(true)}>{activeGame} <IonIcon icon={caretDownOutline} /></span></h2>
               <p>Ver {`${APP_CURRENT_VERSION_NAME}.${LS_FRAME_DATA_CODE}`}</p>
             </div>
           </div>
@@ -192,7 +192,7 @@ const Menu = ({ themeBrightness, themeBrightnessClickHandler, selectedCharacters
               </IonCol>
               {isWideFullMenuOpen &&
                 <IonCol>
-                  <p>FAT {`${APP_CURRENT_VERSION_NAME}.${LS_FRAME_DATA_CODE}`} - <span onClick={() => setActiveGameAlertOpen(true)}>{activeGame} <IonIcon icon={caretDownOutline} /></span> </p>
+                  <p>FAT {`${APP_CURRENT_VERSION_NAME}.${LS_FRAME_DATA_CODE}`} - <span onClick={() => modeName !== "movedetail" && setActiveGameAlertOpen(true)}>{activeGame} <IonIcon icon={caretDownOutline} /></span> </p>
                 </IonCol>
               }
             </IonRow>
