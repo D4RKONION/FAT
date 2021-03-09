@@ -15,6 +15,11 @@ export const DATA_TEAM = {
   "MonkUnit": "Our new newest frame data fanatic, <a href=\"https://twitter.com/MonkUnit\" target=\"_system\">MonkUnit</a> did a mammoth amount of work adding Hit Confirm Windows to the app!"
 }
 
+export const AWESOME_PEOPLE = [
+  "David Parries",
+  "Steve Quinteros",
+]
+
 export const DONATORS = {
   "Ultra": {
     "Sairus": "Irish FGC's number one bandanna sportin', Skullgirls playin' hero.",

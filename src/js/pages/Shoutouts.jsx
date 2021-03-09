@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import ReactHtmlParser from 'react-html-parser';
 import '../../style/pages/Shoutouts.scss';
 import PageHeader from '../components/PageHeader';
-import { DEVS, DONATORS, DATA_TEAM, FRIENDS } from '../constants/Shoutouts';
+import { DEVS, DONATORS, DATA_TEAM, AWESOME_PEOPLE, FRIENDS } from '../constants/Shoutouts';
 
 const Shoutouts = () => {
 
@@ -43,6 +43,12 @@ const Shoutouts = () => {
               <h2>{friendName}</h2>
               <p>{ReactHtmlParser(FRIENDS[friendName])}</p>
             </div>
+          )}
+          <hr/>
+
+          <h1>Awesome People</h1>
+          {AWESOME_PEOPLE.map(donator =>
+            <h3 key={donator + "info"}>{donator}</h3>
           )}
           <hr/>
 
