@@ -7,9 +7,10 @@ export const VERSION_LOGS = {
   "3.1.1": {
     "New Features": [
       "Desktop/tablets: Massive rework of the side menu, much prettier now",
+      "Added a toggle all to each landscape column section in the framedata menu",
       "Webapp: URL deep linking into move details/specific characters etc. should now work throughout the app",
-      "Added Dan's specific cancels to the app",
       "Added a theme previewer",
+      "Added Dan's specific cancels to the app",
       "New theme: Second in Command. Theme number 2 is purple and truly intoxicating!",
       "Reworked the Red Dragon theme to be less ugly in light mode, check it out in the theme previewer",
       "Made it so Seth's frame data table only shows the move that he steals from the other selected character",
