@@ -1,7 +1,7 @@
 # Frame Data
 
 ## What's Frame Data?!
-If you don't fully understand frame data, I highly suggest you check out Gearld from [@CoreAGaming](https://twitter.com/CoreAGaming)'s excellent [explanation video](https://youtu.be/uQnfm911Xoc). I won't be going in depth here, but I'll try to give you the bare minimum you need to understand what's going on.
+If you don't fully understand frame data, I highly suggest you check out Gerald from [@CoreAGaming](https://twitter.com/CoreAGaming)'s excellent [explanation video](https://youtu.be/uQnfm911Xoc). I won't be going in depth here, but I'll try to give you the bare minimum you need to understand what's going on.
 
 ## Detailed Move Data
 You can tap a move row to see more details about that move
@@ -14,7 +14,7 @@ Tapping the character you already have selected will bring up the character sele
 If you're looking at SFV data, you can use the VTrigger switcher to quickly change between states. Changed moves will be highlighted.
 
 ## Character Stats
-You can view your characters stats by tapping the "Tap for more !" button at the top of the page
+You can view your characters stats by tapping the "Tap for more" button at the top of the page
 
 
 ## Portrait View

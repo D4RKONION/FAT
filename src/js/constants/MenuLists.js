@@ -336,7 +336,7 @@ export const RES_FAT_LIST = {
       url: "https://twitter.com/adam_rsfv"
     },
     "MonkUnit": {
-      desc: "Our new newest frame data fanataic, MonkUnit did a mammoth amount of work adding Hit Confirm Windows to the app!",
+      desc: "Our new newest frame data fanatic, MonkUnit did a mammoth amount of work adding Hit Confirm Windows to the app!",
       url: "https://twitter.com/MonkUnit"
     },
     "Arlieth": {

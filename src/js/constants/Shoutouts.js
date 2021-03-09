@@ -12,7 +12,7 @@ export const DATA_TEAM = {
   "Arlieth": "<a href=\"https://twitter.com/arlieth\" target=\"_system\">Arlieth</a> was the first person to help me with the frame data spreadsheet and continues to help out today!",
   "Hatson": "<a href=\"https://twitter.com/hatsonFGC\" target=\"_system\">Hatson</a> single handedly carried the app on his back for years by updating and adding new characters",
   "adam": "He's a Urien player, but don't let that put you off, <a href=\"https://twitter.com/adam_rsfv\" target=\"_system\">adam</a> did a ton of work on the SFV: CE update and beyond (and no, I haven't typo'd his name)",
-  "MonkUnit": "Our new newest frame data fanataic, <a href=\"https://twitter.com/MonkUnit\" target=\"_system\">MonkUnit</a> did a mammoth amount of work adding Hit Confirm Windows to the app!"
+  "MonkUnit": "Our new newest frame data fanatic, <a href=\"https://twitter.com/MonkUnit\" target=\"_system\">MonkUnit</a> did a mammoth amount of work adding Hit Confirm Windows to the app!"
 }
 
 export const DONATORS = {
