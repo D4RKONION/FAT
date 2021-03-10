@@ -8,6 +8,7 @@
 # testing
 /coverage
 stale_outputs_checked
+.env
 
 # production
 /build

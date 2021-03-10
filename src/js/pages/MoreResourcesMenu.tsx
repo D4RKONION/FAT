@@ -1,6 +1,5 @@
 import { IonContent, IonPage, IonList, IonItem, IonLabel, IonIcon, isPlatform, IonGrid } from '@ionic/react';
 import React from 'react';
-import { connect } from 'react-redux';
 import PageHeader from '../components/PageHeader';
 import { chevronForward, desktopOutline, documentTextOutline, logoDiscord, logoTwitter, chatbubblesOutline, heartOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router';
@@ -44,15 +43,4 @@ const MoreResources = () => {
   );
 }
 
-const mapStateToProps = state => ({
-})
-
-const mapDispatchToProps = dispatch => ({
-})
-
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)
-(MoreResources)
+export default MoreResources;

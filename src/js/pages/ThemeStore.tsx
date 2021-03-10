@@ -1,6 +1,6 @@
 import { IonContent, IonPage, IonList, IonItem, IonLabel, IonGrid, IonButton, isPlatform, IonIcon, IonRow, IonCol } from '@ionic/react';
 import React, { useMemo } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { InAppPurchase2 as iapStore } from '@ionic-native/in-app-purchase-2';
 import { last } from 'lodash';
 import PageHeader from '../components/PageHeader';
@@ -25,7 +25,13 @@ const PRODUCTS = [
   }
 ];
 
-const ThemeStore = ({ themesOwned, themeColor, setThemeColor}) => {
+const ThemeStore = () => {
+
+  const themeColor = useSelector(state => state.themeColorState);
+  const themesOwned = useSelector(state => state.themesOwnedState);
+
+  const dispatch = useDispatch();
+
   const listOfProducts = useMemo(() => (
     PRODUCTS.map(product => {
       const iapProduct = iapStore?.products?.find(p => p.id === product.id);
@@ -65,7 +71,7 @@ const ThemeStore = ({ themesOwned, themeColor, setThemeColor}) => {
                     <IonButton
                       fill="solid" size="default"
                       onClick={ () => {
-                        setThemeColor("classic")
+                        dispatch(setThemeColor("classic"));
                       }}>Use</IonButton>
                   </IonCol>
                   
@@ -96,7 +102,7 @@ const ThemeStore = ({ themesOwned, themeColor, setThemeColor}) => {
                         <IonButton
                           fill="solid" size="default"
                           onClick={ () => {
-                            setThemeColor(last(iapStoreObj.id.split(".")))
+                            dispatch(setThemeColor(last(iapStoreObj.id.split("."))));
                           }}
                         >Use</IonButton>
                       </IonCol>
@@ -148,18 +154,4 @@ const ThemeStore = ({ themesOwned, themeColor, setThemeColor}) => {
   );
 }
 
-const mapStateToProps = state => ({
-  themeColor: state.themeColorState,
-  themesOwned: state.themesOwnedState,
-})
-
-const mapDispatchToProps = dispatch => ({
-  setThemeColor: (themeColor) => dispatch(setThemeColor(themeColor)),
-})
-
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)
-(ThemeStore)
+export default ThemeStore;

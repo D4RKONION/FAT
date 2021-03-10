@@ -1,6 +1,5 @@
 import { IonContent, IonGrid, IonPage } from '@ionic/react';
 import React from 'react';
-import { connect } from 'react-redux';
 import HtmlReactParser from 'html-react-parser';
 import '../../style/pages/Shoutouts.scss';
 import PageHeader from '../components/PageHeader';
@@ -77,15 +76,5 @@ const Shoutouts = () => {
   );
 };
 
-const mapStateToProps = state => ({
-})
 
-const mapDispatchToProps = dispatch => ({
-})
-
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)
-(Shoutouts)
+export default Shoutouts;

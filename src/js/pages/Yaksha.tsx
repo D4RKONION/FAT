@@ -1,6 +1,6 @@
 import { IonContent, IonPage, IonIcon, IonItem, IonInput, IonCardHeader, IonCardContent, IonCard, IonCardTitle, IonButton, IonFab, IonFabButton, IonGrid } from '@ionic/react';
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import '../../style/components/DetailCards.scss';
 import '../../style/components/FAB.scss'
 import PageHeader from '../components/PageHeader';
@@ -42,7 +42,14 @@ const YAKSHA_HEADERS = [
   }
 ]
 
-const Yaksha = ({ frameDataFile, activeGame, setPlayerAttr, setPlayer, dataDisplaySettings, selectedCharacters }) => {
+const Yaksha = () => {
+
+  const activeGame = useSelector(state =>state.activeGameState);
+  const frameDataFile = useSelector(state =>state.frameDataState);
+  const dataDisplaySettings = useSelector(state =>state.dataDisplaySettingsState);
+  const selectedCharacters = useSelector(state =>state.selectedCharactersState);
+
+  const dispatch = useDispatch();
 
   let history = useHistory();
 
@@ -188,7 +195,11 @@ const Yaksha = ({ frameDataFile, activeGame, setPlayerAttr, setPlayer, dataDispl
                       })}
                   </div>
                 )}
-                <IonButton expand="full" fill="clear" onClick={() => {setPlayer("playerOne", charName); setPlayerAttr("playerOne", charName, {selectedMove: displayedMoveName}); history.push(`/yaksha/movedetail/${activeGame}/${charName}/normal/${searchedMoveData.moveName}`)}}>More info {">"}</IonButton>
+                <IonButton expand="full" fill="clear" onClick={() => {
+                  dispatch(setPlayer("playerOne", charName));
+                  dispatch(setPlayerAttr("playerOne", charName, {selectedMove: displayedMoveName}));
+                  history.push(`/yaksha/movedetail/${activeGame}/${charName}/normal/${searchedMoveData.moveName}`)}}
+                >More info {">"}</IonButton>
               </IonCardContent>
 
             </IonCard>
@@ -208,21 +219,4 @@ const Yaksha = ({ frameDataFile, activeGame, setPlayerAttr, setPlayer, dataDispl
   );
 };
 
-const mapStateToProps = state => ({
-  activeGame: state.activeGameState,
-  frameDataFile: state.frameDataState,
-  dataDisplaySettings: state.dataDisplaySettingsState,
-  selectedCharacters: state.selectedCharactersState,
-})
-
-const mapDispatchToProps = dispatch => ({
-  setPlayerAttr: (playerId, charName, playerData) => dispatch(setPlayerAttr(playerId, charName, playerData)),
-  setPlayer: (playerId, charName) => dispatch(setPlayer(playerId, charName))
-})
-
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)
-(Yaksha)
+export default Yaksha;

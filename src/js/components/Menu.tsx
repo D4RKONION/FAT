@@ -2,7 +2,7 @@ import { IonContent, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle
 import { peopleOutline, settingsOutline, settingsSharp, moon, sunny, gameControllerOutline, gameControllerSharp, libraryOutline, librarySharp, calculatorOutline, calculatorSharp, caretDownOutline, searchOutline, searchSharp, statsChartOutline, statsChartSharp, barbellOutline, barbellSharp, colorPaletteOutline, colorPaletteSharp, menuSharp, logoPaypal, phonePortraitOutline, phonePortraitSharp } from 'ionicons/icons';
 
 import React, { useEffect, useState } from 'react';
-import { withRouter, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import '../../style/components/Menu.scss';
