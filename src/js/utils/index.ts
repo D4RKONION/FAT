@@ -1,4 +1,4 @@
-import { mapKeys, isEqual } from 'lodash';
+import { mapKeys, isEqual, has } from 'lodash';
 
 /**
  * Renames the moves in the character frame data to reflect the user's desired naming convention
@@ -9,11 +9,50 @@ import { mapKeys, isEqual } from 'lodash';
  */
 export function renameData(rawFrameData, moveNameType, inputNotationType) {
   const bulkRenameFrameData = (rawData, renameKey) => {
-    return mapKeys(rawData, (moveValue, moveKey) => moveValue[renameKey] ? moveValue[renameKey] : moveKey);
+    let debugReturn = mapKeys(rawData, (moveValue, moveKey) => moveValue[renameKey] ? moveValue[renameKey] : moveKey);
+
+    return debugReturn;
+  }
+
+  const formatMoveName = (moveData) => {
+
+    let splitMoveName = moveData.plnCmd.split(/[\\s+]+/);
+
+    /*
+      split the plain command input into direction, button, and if it's present, aerial state
+      (the regex supplied will safely split the plain command if it's just a grounded direction and input)
+        if the length of the resulting array is greater than 2, we're dealing with an airborne move
+          return "j" for jump prepended to [direction].[input]
+        else
+          return [direction].[input]
+     */
+
   }
 
   const shorthandRename = (rawData) => {
+    // let foo = rawData;
 
+    // for (const fdKey of Object.keys(foo)) {
+    //   console.log(`Key: ${fdKey} ---- Value: ${foo[fdKey].moveType}`);
+
+    //   if (foo[fdKey].moveType === "normal") {
+
+    //   }
+    // }
+
+    // return foo;
+
+    let rename = mapKeys(rawData, (moveValue, moveKey) => {
+      if (moveValue.moveType === "normal") {
+        if (has(moveValue, "cmnName")) {
+          return moveValue.cmnName;
+        } else {
+          return moveKey;
+        }
+      }
+    });
+
+    return rename;
   }
 
   switch (moveNameType) {
