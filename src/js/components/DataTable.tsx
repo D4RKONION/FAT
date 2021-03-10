@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router'
 import '../../style/components/DataTable.scss';
 import { setPlayerAttr } from '../actions';
@@ -10,7 +10,18 @@ const portraitCols = {startup: "S", active: "A", recovery: "R", onHit: "oH", onB
 
 
 
-const DataTable = ({ previewTable, activeGame, setPlayerAttr, selectedCharacters, activePlayer, landscapeCols, currentOrientation, onBlockColours, counterHit }) => {
+const DataTable = ({ previewTable }) => {
+
+
+  const currentOrientation = useSelector(state => state.orientationState);
+  const activeGame = useSelector(state => state.activeGameState);
+  const selectedCharacters = useSelector(state => state.selectedCharactersState);
+  const activePlayer = useSelector(state => state.activePlayerState);
+  const landscapeCols = useSelector(state => state.landscapeColsState);
+  const onBlockColours = useSelector(state => state.onBlockColoursState);
+  const counterHit = useSelector(state => state.counterHitState);
+
+  const dispatch = useDispatch();
 
   let history = useHistory();
 
@@ -49,7 +60,13 @@ const DataTable = ({ previewTable, activeGame, setPlayerAttr, selectedCharacters
           return false;
         } else {
           return (
-            <div className="move-row" key={`table-row-${moveName}`} onClick={() => {if (previewTable) {return false}; setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {selectedMove: moveName}); history.push(`/framedata/movedetail/${activeGame}/${selectedCharacters[activePlayer].name}/${selectedCharacters[activePlayer].vtState}/${selectedCharacters[activePlayer].frameData[moveName]["moveName"]}`)}}>
+            <div className="move-row" key={`table-row-${moveName}`}
+              onClick={() => {
+                if (previewTable) {return false};
+                
+                dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {selectedMove: moveName}));
+                history.push(`/framedata/movedetail/${activeGame}/${selectedCharacters[activePlayer].name}/${selectedCharacters[activePlayer].vtState}/${selectedCharacters[activePlayer].frameData[moveName]["moveName"]}`)
+              }}>
             
               <span
                 style={
@@ -121,22 +138,4 @@ const DataTable = ({ previewTable, activeGame, setPlayerAttr, selectedCharacters
   )
 }
 
-const mapStateToProps = state => ({
-  currentOrientation: state.orientationState,
-  activeGame: state.activeGameState,
-  selectedCharacters: state.selectedCharactersState,
-  activePlayer: state.activePlayerState,
-  landscapeCols: state.landscapeColsState,
-  onBlockColours: state.onBlockColoursState,
-  counterHit: state.counterHitState
-})
-
-const mapDispatchToProps = dispatch => ({
-  setPlayerAttr: (playerId, charName, playerData) => dispatch(setPlayerAttr(playerId, charName, playerData)),
-})
-
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(DataTable)
+export default DataTable;

@@ -5,7 +5,7 @@ import PopoverButton from './PopoverButton';
 import '../../style/components/PageHeader.scss'
 import BrightnessToggle from './BrightnessToggle';
 
-type PageHeader = {
+type PageHeaderProps = {
   componentsToShow?: {
     menu?: boolean;
     back?: boolean;
@@ -27,7 +27,7 @@ type PageHeader = {
   title: string;
 }
 
-const PageHeader = ( { componentsToShow, buttonsToShow, title }: PageHeader ) => {
+const PageHeader = ( { componentsToShow, buttonsToShow, title }: PageHeaderProps ) => {
 
   
   const routerContext = useContext(IonRouterContext);

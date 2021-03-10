@@ -1,5 +1,5 @@
 import React, { useEffect, useState} from 'react';
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 import { Plugins } from '@capacitor/core';
 import { IonApp, IonRouterOutlet, IonSplitPane, IonAlert } from '@ionic/react';
 import { menuController } from "@ionic/core";
@@ -62,15 +62,21 @@ import { setOrientation, setModalVisibility, setThemeBrightness, setActiveGame, 
 import { store } from './js/store';
 import { APP_FRAME_DATA_CODE, APP_CURRENT_VERSION_CODE } from './js/constants/VersionLogs';
 
-const App = ({ setActiveGame, activeGame, frameDataFile, setOrientation, themeBrightness, setThemeBrightness,  themeColor, themesOwned, setThemeOwned }) => {
+const App = () => {
 
+  const activeGame = useSelector(state => state.activeGameState);
+  const themeBrightness = useSelector(state => state.themeBrightnessState);
+  const themeColor = useSelector(state => state.themeColorState);
+  const frameDataFile = useSelector(state => state.frameDataState);
+
+  const dispatch = useDispatch();
+  
   const [exitAlert, setExitAlert] = useState(false);
-
 
   useEffect(() => {
     // do an initial frame data load
-    setActiveGame(activeGame);
-  
+    dispatch(setActiveGame(activeGame));
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -137,7 +143,7 @@ const App = ({ setActiveGame, activeGame, frameDataFile, setOrientation, themeBr
         }))
 
         iapStore.when(productEntry.id).owned( (product => {
-          setThemeOwned(product.alias)
+          dispatch(setThemeOwned(product.alias))
         }))
       })
       
@@ -160,9 +166,9 @@ const App = ({ setActiveGame, activeGame, frameDataFile, setOrientation, themeBr
   useEffect(() => {
     const orientationCheck = () => {
       if (document.documentElement.clientWidth > document.documentElement.clientHeight) {
-        setOrientation("landscape");
+        dispatch(setOrientation("landscape"));
       } else {
-        setOrientation("portrait");
+        dispatch(setOrientation("portrait"));
       }
     }
 
@@ -170,7 +176,7 @@ const App = ({ setActiveGame, activeGame, frameDataFile, setOrientation, themeBr
     window.addEventListener('resize', orientationCheck);
 
     return () => window.removeEventListener('resize', orientationCheck);
-  }, [setOrientation]);
+  }, [dispatch]);
 
 useEffect(() => {
     const newVersionCheck = async () => {
@@ -217,14 +223,14 @@ useEffect(() => {
         localStorage.setItem("lsSFVFrameData", JSON.stringify(SERVER_FRAME_DATA));
         localStorage.setItem("lsFrameDataCode", SERVER_VERSION_DETAILS.FRAME_DATA_CODE)
         
-        setActiveGame("SFV");
+        dispatch(setActiveGame("SFV"));
         
       }
 
     }
     
     newVersionCheck();
-  }, [setActiveGame])
+  }, [dispatch])
 
 
 
@@ -237,7 +243,7 @@ useEffect(() => {
     <IonApp className={`${themeColor}-${themeBrightness}-theme`}>
       <IonReactHashRouter>
         <IonSplitPane contentId="main">
-          <Menu themeBrightness={themeBrightness} themeBrightnessClickHandler={() => themeBrightness === "light" ? setThemeBrightness("dark") : setThemeBrightness("light")}/>
+          <Menu themeBrightness={themeBrightness} themeBrightnessClickHandler={() => themeBrightness === "light" ? dispatch(setThemeBrightness("dark")) : dispatch(setThemeBrightness("light"))}/>
           <IonRouterOutlet id="main">
             <Route exact path="/stats/:characterSlug" component={CharacterStats} />
 
@@ -298,22 +304,4 @@ useEffect(() => {
   )
 }
 
-
-const mapStateToProps = state => ({
-  activeGame: state.activeGameState,
-  themesOwned: state.themesOwnedState,
-  themeBrightness: state.themeBrightnessState,
-  themeColor: state.themeColorState,
-  frameDataFile: state.frameDataState,
-})
-
-const mapDispatchToProps = dispatch => ({
-  setActiveGame: (gameName) => dispatch(setActiveGame(gameName)),
-  setThemeBrightness: (themeBrightness) => dispatch(setThemeBrightness(themeBrightness)),
-  setThemeOwned: (themeToAdd) => dispatch(setThemeOwned(themeToAdd)),
-  setOrientation: (orientation) => dispatch(setOrientation(orientation)),
-})
-
-export default connect(
-  mapStateToProps, mapDispatchToProps,
-)(App)
+export default App;

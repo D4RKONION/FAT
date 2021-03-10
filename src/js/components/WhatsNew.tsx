@@ -1,23 +1,24 @@
 import { IonContent, IonGrid, IonModal } from '@ionic/react';
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import PageHeader from './PageHeader';
 import '../../style/components/WhatsNew.scss'
 import {APP_CURRENT_VERSION_NAME, APP_DATE_UPDATED, VERSION_LOGS} from '../constants/VersionLogs';
 import { setModalVisibility } from '../actions';
 
-const WhatsNewModal =({
-  modalVisibility,
-  setModalVisibility,
-}) => {
+const WhatsNewModal = () => {
+
+  const modalVisibility = useSelector(state => state.modalVisibilityState);
+  
+  const dispatch = useDispatch();
 
   return(
     <IonModal
       isOpen={modalVisibility.visible && modalVisibility.currentModal === "whatsNew"}
-      onDidDismiss={ () => modalVisibility.visible && setModalVisibility({ currentModal: "whatsNew", visible: false }) }
+      onDidDismiss={ () => modalVisibility.visible && dispatch(setModalVisibility({ currentModal: "whatsNew", visible: false })) }
     >
       <PageHeader
-        buttonsToShow={[{ slot: "end", buttons: [{ text: "Close", buttonFunc() {return setModalVisibility({ currentModal: "whatsNew", visible: false })}}] }]}
+        buttonsToShow={[{ slot: "end", buttons: [{ text: "Close", buttonFunc: () => dispatch(setModalVisibility({ currentModal: "whatsNew", visible: false })) }] }]}
         title="What's New"
       />
       <IonContent id="whatsNew">
@@ -44,16 +45,4 @@ const WhatsNewModal =({
   )
 }
 
-const mapStateToProps = state => ({
-  modalVisibility: state.modalVisibilityState,
-})
-
-const mapDispatchToProps = dispatch => ({
-  setModalVisibility: (data)  => dispatch(setModalVisibility(data)),
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)
-(WhatsNewModal);
+export default WhatsNewModal;

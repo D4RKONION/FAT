@@ -1,16 +1,21 @@
 import { IonContent, IonPage, IonItem, IonLabel, IonIcon, IonFab, IonFabButton, IonList, IonSelect, IonSelectOption, IonListHeader, IonItemDivider, IonItemGroup, IonGrid } from '@ionic/react';
 import React, { useState, useMemo, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import PageHeader from '../../components/PageHeader';
 import '../../../style/pages/Calculators.scss';
 import '../../../style/pages/FrameKillGenerator.scss';
 import '../../../style/components/FAB.scss'
-import { setActiveFrameDataPlayer, setPlayerAttr, setModalVisibility } from '../../actions';
-import { connect } from 'react-redux';
+import { setActiveFrameDataPlayer, setModalVisibility } from '../../actions';
 import { person } from 'ionicons/icons';
 import SegmentSwitcher from '../../components/SegmentSwitcher';
 
 
-const FrameKillGenerator = ({ activePlayer, selectedCharacters, modalVisibility, activeGame, setModalVisibility, setPlayerAttr, setActiveFrameDataPlayer	}) => {
+const FrameKillGenerator = () => {
+  
+  const selectedCharacters = useSelector(state => state.selectedCharactersState);
+
+  const dispatch = useDispatch();  
+  
   const [recoveryType, setRecoveryType] = useState("kdr");
   const [knockdownMove, setKnockdownMove] = useState(null);
   const [lateByFrames, setLateByFrames] = useState(0);
@@ -536,7 +541,7 @@ const FrameKillGenerator = ({ activePlayer, selectedCharacters, modalVisibility,
         </IonGrid>
 
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton onClick={() => {setActiveFrameDataPlayer("playerOne"); setModalVisibility({ currentModal: "characterSelect", visible: true})} }>
+          <IonFabButton onClick={() => {dispatch(setActiveFrameDataPlayer("playerOne")); dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true})) } }>
             <IonIcon icon={person} />
           </IonFabButton>
         </IonFab>
@@ -546,21 +551,4 @@ const FrameKillGenerator = ({ activePlayer, selectedCharacters, modalVisibility,
   );
 };
 
-const mapStateToProps = state => ({
-  modalVisibility: state.modalVisibilityState,
-  selectedCharacters: state.selectedCharactersState,
-  activePlayer: state.activePlayerState,
-  activeGame: state.activeGameState,
-})
-
-const mapDispatchToProps = dispatch => ({
-  setActiveFrameDataPlayer: (oneOrTwo) => dispatch(setActiveFrameDataPlayer(oneOrTwo)),
-  setPlayerAttr: (playerId, charName, playerData) => dispatch(setPlayerAttr(playerId, charName, playerData)),
-  setModalVisibility: (data)  => dispatch(setModalVisibility(data)),
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)
-(FrameKillGenerator)
+export default FrameKillGenerator;

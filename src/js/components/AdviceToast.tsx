@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { IonToast } from "@ionic/react";
 import ADVICE from '../constants/Advice';
 import { setAdviceToastDismissed, setAdviceToastPrevRead } from '../actions'
@@ -13,8 +13,15 @@ type ToastData = {
   handler?: (arg?) => void;
 } 
 
-const AdviceToast = ({ modeName, adviceToastShown, adviceToastDismissed, setAdviceToastDismissed, adviceToastPrevRead, setAdviceToastPrevRead }) => {
+const AdviceToast = () => {
   
+  const modeName = useSelector(state => state.modeNameState);
+  const adviceToastShown = useSelector(state => state.adviceToastShownState);
+  const adviceToastDismissed = useSelector(state => state.adviceToastDismissedState);
+  const adviceToastPrevRead = useSelector(state => state.adviceToastPrevReadState);
+
+  const dispatch = useDispatch();
+
   const history = useHistory();
   const toastRef = useRef<HTMLIonToastElement>();
 
@@ -59,11 +66,11 @@ const AdviceToast = ({ modeName, adviceToastShown, adviceToastDismissed, setAdvi
       ref={toastRef}
       isOpen={true}
       onWillDismiss={() => {
-        setAdviceToastDismissed(true);
+        dispatch(setAdviceToastDismissed(true));
         if (typeof adviceToastPrevRead[modeName] !== "undefined" ) {
-          setAdviceToastPrevRead({ ...adviceToastPrevRead, [modeName]: adviceToastPrevRead[modeName] + 1 })
+          dispatch(setAdviceToastPrevRead({ ...adviceToastPrevRead, [modeName]: adviceToastPrevRead[modeName] + 1 }))
         } else {
-          setAdviceToastPrevRead({ ...adviceToastPrevRead, [modeName]: 0 })
+          dispatch(setAdviceToastPrevRead({ ...adviceToastPrevRead, [modeName]: 0 }))
         }
       }}
       header="Did you know?"
@@ -90,20 +97,4 @@ const AdviceToast = ({ modeName, adviceToastShown, adviceToastDismissed, setAdvi
   )
 }
 
-const mapStateToProps = state => ({
-  modeName: state.modeNameState,
-  adviceToastShown: state.adviceToastShownState,
-  adviceToastDismissed: state.adviceToastDismissedState,
-  adviceToastPrevRead: state.adviceToastPrevReadState,
-})
-
-const mapDispatchToProps = dispatch => ({
-  setAdviceToastDismissed: (adviceToastDismissed) => dispatch(setAdviceToastDismissed(adviceToastDismissed)),
-  setAdviceToastPrevRead: (newPrevReadToasts) => dispatch(setAdviceToastPrevRead(newPrevReadToasts))
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)
-(AdviceToast);
+export default AdviceToast;

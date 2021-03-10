@@ -3,7 +3,7 @@ import { peopleOutline, settingsOutline, settingsSharp, moon, sunny, gameControl
 
 import React, { useEffect, useState } from 'react';
 import { withRouter, useLocation } from 'react-router-dom';
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 
 import '../../style/components/Menu.scss';
 import { setModalVisibility, setModeName, setActiveGame } from '../actions'
@@ -14,28 +14,34 @@ import framesIcon from  '../../images/icons/frames.svg';
 import patreonIcon from '../../images/icons/patreon.svg';
 import { APP_CURRENT_VERSION_NAME } from '../constants/VersionLogs';
 
-const Menu = ({ themeBrightness, themeBrightnessClickHandler, selectedCharacters, setModalVisibility, modeName, setModeName, activeGame, setActiveGame }) => {
+const Menu = ({ themeBrightness, themeBrightnessClickHandler }) => {
 
+  const selectedCharacters = useSelector(state => state.selectedCharactersState);
+  const modeName = useSelector(state => state.modeNameState);
+  const activeGame = useSelector(state => state.activeGameState);
+
+  const dispatch = useDispatch();
+  
   const [activeGameAlertOpen, setActiveGameAlertOpen] = useState(false);
   const [isWideFullMenuOpen, setIsWideFullMenuOpen] = useState(false) 
   const location = useLocation();
   
   useEffect(() => {
     if (location.pathname.includes("calculators") && location.pathname.split("/").length > 2) {
-      setModeName(`calc-${location.pathname.split("/")[2]}`);
+      dispatch(setModeName(`calc-${location.pathname.split("/")[2]}`));
     } else if (location.pathname.includes("movedetail")) {
-      setModeName("movedetail")
+      dispatch(setModeName("movedetail"));
     } else if (
       location.pathname.includes("stats")
       || (location.pathname.includes("settings") && location.pathname.split("/").length > 2)
       || (location.pathname.includes("moreresources") && location.pathname.split("/").length > 2)
       || (location.pathname.includes("themestore") && location.pathname.split("/").length > 2)
     ) {
-      setModeName("subpage");
+      dispatch(setModeName("subpage"));
     } else {
-      setModeName(location.pathname.split("/")[1]);
+      dispatch(setModeName(location.pathname.split("/")[1]));
     }
-  },[location.pathname, setModeName]);
+  },[location.pathname, dispatch]);
 
   //account for the fact this will be imported some day
   //perhaps do a check in the div creation and concat the selected character in
@@ -156,7 +162,7 @@ const Menu = ({ themeBrightness, themeBrightnessClickHandler, selectedCharacters
           </div>
           <IonList id="pageList">
             <IonMenuToggle autoHide={false}>
-              <IonItem disabled={modeName === "movedetail"} key="mobile-charSelectItem" onClick={() => setModalVisibility({ currentModal: "characterSelect", visible: true })}  lines="none" detail={false} button>
+              <IonItem disabled={modeName === "movedetail"} key="mobile-charSelectItem" onClick={() => dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true })) }  lines="none" detail={false} button>
                 <IonIcon slot="start" icon={peopleOutline} />
                 <IonLabel>Character Select</IonLabel>
               </IonItem>
@@ -197,13 +203,13 @@ const Menu = ({ themeBrightness, themeBrightnessClickHandler, selectedCharacters
 
             <IonRow className="menu-entry">
               <IonCol size={isWideFullMenuOpen ? "2" : "12"}>
-                <IonButton className={isWideFullMenuOpen ? "dimmed-color" : null} fill="clear" disabled={modeName === "movedetail"} key="wide-charSelectItem" onClick={() => setModalVisibility({ currentModal: "characterSelect", visible: true })} >
+                <IonButton className={isWideFullMenuOpen ? "dimmed-color" : null} fill="clear" disabled={modeName === "movedetail"} key="wide-charSelectItem" onClick={() => dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true })) } >
                   <IonIcon slot="icon-only" icon={peopleOutline} />
                 </IonButton>
               </IonCol>
               {isWideFullMenuOpen &&
                 <IonCol>
-                  <IonItem disabled={modeName === "movedetail"} onClick={() => setModalVisibility({ currentModal: "characterSelect", visible: true })} lines="none" button detail={false}>Character Select</IonItem>
+                  <IonItem disabled={modeName === "movedetail"} onClick={() => dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true })) } lines="none" button detail={false}>Character Select</IonItem>
                 </IonCol>
               }
             </IonRow>
@@ -276,7 +282,7 @@ const Menu = ({ themeBrightness, themeBrightnessClickHandler, selectedCharacters
             {
               text: 'Select',
               handler: selectedGame => {
-                setActiveGame(selectedGame);
+                dispatch(setActiveGame(selectedGame));
               }
             }
           ]}
@@ -286,23 +292,4 @@ const Menu = ({ themeBrightness, themeBrightnessClickHandler, selectedCharacters
   );
 };
 
-
-const mapStateToProps = state => ({
-  selectedCharacters: state.selectedCharactersState,
-  modeName: state.modeNameState,
-  activeGame: state.activeGameState,
-})
-
-const mapDispatchToProps = dispatch => ({
-  setModalVisibility: (data)  => dispatch(setModalVisibility(data)),
-  setModeName: (modeName)  => dispatch(setModeName(modeName)),
-  setActiveGame: (gameName)  => dispatch(setActiveGame(gameName)),
-})
-
-
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  ) (Menu)
-);
+export default Menu;

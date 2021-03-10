@@ -1,6 +1,6 @@
 import { IonContent, IonModal, IonList, IonItem, IonItemDivider, IonLabel, IonCheckbox, IonIcon, IonButton, } from '@ionic/react';
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { setModalVisibility, setLandscapeCols } from '../actions';
 import GAME_DETAILS from '../constants/GameDetails'
@@ -9,14 +9,14 @@ import '../../style/components/LandscapeOptions.scss';
 import PageHeader from './PageHeader';
 import { reloadOutline, closeOutline, trashOutline } from 'ionicons/icons';
 
-const LandscapeOptions =({
-  landscapeCols,
-  setLandscapeCols,
-  modalVisibility,
-  setModalVisibility,
-  selectedCharacters,
-  activeGame,
-}) => {
+const LandscapeOptions = () => {
+
+  const modalVisibility = useSelector(state => state.modalVisibilityState);
+  const selectedCharacters = useSelector(state => state.selectedCharactersState);
+  const landscapeCols = useSelector(state => state.landscapeColsState);
+  const activeGame = useSelector(state => state.activeGameState);
+
+  const dispatch = useDispatch();
 
   const handleSectionToggleClick = (dataCategoryObj) => {
 
@@ -39,10 +39,8 @@ const LandscapeOptions =({
 
   const handleCheckboxClick = (dataEntryKey, dataTableHeader, forceMode) => {
     
-    const keysInOrder = []
-    const landscapeColsInOrder = {}
-
-    console.log(forceMode)
+    const keysInOrder = [];
+    const landscapeColsInOrder = {};
 
     // extract the keys from the 2 data table entry files so we can order our landscape cols
     Object.keys(GAME_DETAILS[activeGame].universalDataPoints).forEach(dataCategory =>
@@ -60,7 +58,7 @@ const LandscapeOptions =({
 
     // Handle the new landscape column to be set
     if (forceMode === "on" || !landscapeCols[dataEntryKey]) {
-      landscapeCols = {...landscapeCols, [dataEntryKey]: dataTableHeader}
+      landscapeCols[dataEntryKey] = dataTableHeader;
     } else {
       delete landscapeCols[dataEntryKey];
     }
@@ -74,15 +72,15 @@ const LandscapeOptions =({
       })
     })
 
-    setLandscapeCols({...landscapeColsInOrder})
+    dispatch(setLandscapeCols({...landscapeColsInOrder}))
   }
 
   const handleModalDismiss = () => {
     if (Object.keys(landscapeCols).length === 0) {
-      setLandscapeCols({startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", damage:"dmg", stun:"stun", kd:"kd", kdr:"kdr", kdrb:"kdrb"})
-      modalVisibility.visible && setModalVisibility({ currentModal: "landscapeOptions", visible: false })
+      dispatch(setLandscapeCols({startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", damage:"dmg", stun:"stun", kd:"kd", kdr:"kdr", kdrb:"kdrb"}))
+      modalVisibility.visible && dispatch(setModalVisibility({ currentModal: "landscapeOptions", visible: false }))
     } else {
-      modalVisibility.visible && setModalVisibility({ currentModal: "landscapeOptions", visible: false })
+      modalVisibility.visible && dispatch(setModalVisibility({ currentModal: "landscapeOptions", visible: false }))
     }
   }
 
@@ -96,8 +94,8 @@ const LandscapeOptions =({
       <PageHeader
         buttonsToShow={[{ slot: "end",
           buttons: [
-            { text: <IonIcon icon={trashOutline} />, buttonFunc: () => setLandscapeCols({})},
-            { text: <IonIcon icon={reloadOutline} />, buttonFunc: () => setLandscapeCols({startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", damage:"dmg", stun:"stun", kd:"kd", kdr:"kdr", kdrb:"kdrb"})},
+            { text: <IonIcon icon={trashOutline} />, buttonFunc: () => dispatch(setLandscapeCols({})) },
+            { text: <IonIcon icon={reloadOutline} />, buttonFunc: () => dispatch(setLandscapeCols({startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", damage:"dmg", stun:"stun", kd:"kd", kdr:"kdr", kdrb:"kdrb"})) },
             { text: <IonIcon icon={closeOutline} />, buttonFunc: () => handleModalDismiss()}
           ]
         }]}
@@ -156,20 +154,4 @@ const LandscapeOptions =({
   )
 }
 
-const mapStateToProps = state => ({
-  modalVisibility: state.modalVisibilityState,
-  selectedCharacters: state.selectedCharactersState,
-  landscapeCols: state.landscapeColsState,
-  activeGame: state.activeGameState,
-})
-
-const mapDispatchToProps = dispatch => ({
-  setModalVisibility: (data)  => dispatch(setModalVisibility(data)),
-  setLandscapeCols: (listOfCols) => dispatch(setLandscapeCols(listOfCols)),
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)
-(LandscapeOptions);
+export default LandscapeOptions;

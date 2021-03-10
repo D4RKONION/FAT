@@ -1,6 +1,6 @@
 import { IonContent, IonModal, IonRouterContext } from '@ionic/react';
 import React, { useContext } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { setModalVisibility, setPlayer, setActiveFrameDataPlayer, setPlayerAttr } from '../actions';
 import SegmentSwitcher from './SegmentSwitcher';
@@ -9,24 +9,22 @@ import '../../style/components/CharacterSelect.scss';
 import PageHeader from './PageHeader';
 import CharacterPortrait from './CharacterPortrait'
 
-const CharacterSelectModal =({
-  modeName,
-  frameDataFile,
-  modalVisibility,
-  setModalVisibility,
-  setActiveFrameDataPlayer,
-  selectedCharacters,
-  setPlayer,
-  setPlayerAttr,
-  activeGame,
-  activePlayer,
-}) => {
+const CharacterSelectModal = () => {
 
   const routerContext = useContext(IonRouterContext);
 
+  const modeName = useSelector(state => state.modeNameState)
+  const frameDataFile = useSelector(state => state.frameDataState)
+  const modalVisibility = useSelector(state => state.modalVisibilityState)
+  const selectedCharacters = useSelector(state => state.selectedCharactersState)
+  const activePlayer = useSelector(state => state.activePlayerState)
+  const activeGame = useSelector(state => state.activeGameState)
+
+  const dispatch = useDispatch();
+
   const onCharacterSelect = (playerId, charName) => {
-    setPlayer(playerId, charName);
-    setModalVisibility({ currentModal: "characterSelect", visible: false });
+    dispatch(setPlayer(playerId, charName));
+    dispatch(setModalVisibility({ currentModal: "characterSelect", visible: false }));
     if (playerId === "playerOne" && (modeName === "framedata" || modeName === "moveslist" || modeName === "combos")) {
       //we have to use IonRouterContext due to this issue
       //https://github.com/ionic-team/ionic-framework/issues/21832
@@ -38,10 +36,10 @@ const CharacterSelectModal =({
   return(
     <IonModal
       isOpen={modalVisibility.visible && modalVisibility.currentModal === "characterSelect"}
-      onDidDismiss={ () => modalVisibility.visible && setModalVisibility({ currentModal: "characterSelect", visible: false }) }
+      onDidDismiss={ () => modalVisibility.visible && dispatch(setModalVisibility({ currentModal: "characterSelect", visible: false })) }
     >
       <PageHeader
-        buttonsToShow={[{ slot: "end", buttons: [{ text: "Close", buttonFunc: () => setModalVisibility({ currentModal: "characterSelect", visible: false })}] }]}
+        buttonsToShow={[{ slot: "end", buttons: [{ text: "Close", buttonFunc: () => dispatch(setModalVisibility({ currentModal: "characterSelect", visible: false }))}] }]}
         title={`${activeGame} | ${selectedCharacters[activePlayer].name}`}
       />
       <IonContent>
@@ -52,7 +50,7 @@ const CharacterSelectModal =({
             segmentType={"active-player"}
             valueToTrack={activePlayer}
             labels={ {playerOne: `P1: ${selectedCharacters.playerOne.name}`, playerTwo: `P2: ${selectedCharacters.playerTwo.name}`}}
-            clickFunc={ (eventValue) => setActiveFrameDataPlayer(eventValue) }
+            clickFunc={ (eventValue) => dispatch(setActiveFrameDataPlayer(eventValue)) }
           />
         }
         {activeGame === "SFV" &&
@@ -60,7 +58,7 @@ const CharacterSelectModal =({
             segmentType={"vtrigger"}
             valueToTrack={selectedCharacters[activePlayer].vtState}
             labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
-            clickFunc={ (eventValue) => setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue}) }
+            clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
           />
         }
 
@@ -86,24 +84,4 @@ const CharacterSelectModal =({
   )
 }
 
-const mapStateToProps = state => ({
-  modeName: state.modeNameState,
-  frameDataFile: state.frameDataState,
-  modalVisibility: state.modalVisibilityState,
-  selectedCharacters: state.selectedCharactersState,
-  activePlayer: state.activePlayerState,
-  activeGame: state.activeGameState,
-})
-
-const mapDispatchToProps = dispatch => ({
-  setActiveFrameDataPlayer: (oneOrTwo) => dispatch(setActiveFrameDataPlayer(oneOrTwo)),
-  setPlayerAttr: (playerId, charName, playerData) => dispatch(setPlayerAttr(playerId, charName, playerData)),
-  setModalVisibility: (data)  => dispatch(setModalVisibility(data)),
-  setPlayer: (playerId, charName) => dispatch(setPlayer(playerId, charName)),
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)
-(CharacterSelectModal);
+export default CharacterSelectModal;
