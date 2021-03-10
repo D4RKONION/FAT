@@ -20,7 +20,10 @@
     "jsx": "react-jsx",
     "noFallthroughCasesInSwitch": true
   },
-  "include": [
+  "exclude": [
     "src"
+  ],
+  "include": [
+    "."
   ]
 }
