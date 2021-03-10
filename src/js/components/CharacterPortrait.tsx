@@ -3,7 +3,16 @@ import { } from '@ionic/react';
 
 import '../../style/components/CharacterPortrait.scss';
 
-const CharacterPortrait = ({ charName, charThreeLetterCode, game, selected, charColor, onClick }) => {
+type CharacterPortraitProps = {
+  charName: string;
+  charThreeLetterCode?: string;
+  game: string;
+  selected?: Boolean;
+  charColor: string;
+  onClick: () => void;
+}
+
+const CharacterPortrait = ( { charName, charThreeLetterCode, game, selected, charColor, onClick }: CharacterPortraitProps ) => {
   
   return(
     <div

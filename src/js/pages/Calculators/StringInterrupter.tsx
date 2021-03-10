@@ -129,7 +129,7 @@ const StringInterrupter = ({ selectedCharacters, activeGame, setModalVisibility 
   return (
     <IonPage>
       <PageHeader
-        componentsToShow={{back: `/calculators`, popover: true}}
+        componentsToShow={{back: true, popover: true}}
         title={`Str-Int - ${selectedCharacters.playerOne.name} vs  ${selectedCharacters.playerTwo.name}`}
       />
 

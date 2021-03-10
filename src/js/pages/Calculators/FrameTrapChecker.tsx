@@ -43,7 +43,7 @@ const FrameTrapChecker = ({ activePlayer, selectedCharacters, modalVisibility, a
   return (
     <IonPage>
       <PageHeader
-        componentsToShow={{back: `/calculators`, popover: true}}
+        componentsToShow={{back: true, popover: true}}
         title={`FTC - ${selectedCharacters.playerOne.name}`}
       />
 

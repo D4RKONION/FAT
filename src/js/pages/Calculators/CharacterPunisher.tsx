@@ -25,7 +25,7 @@ const CharacterPunisher = ({ activePlayer, selectedCharacters, modalVisibility, 
   return (
     <IonPage>
       <PageHeader
-        componentsToShow={{back: `/calculators`, popover: true}}
+        componentsToShow={{back: true, popover: true}}
         title={`C-Punish - ${selectedCharacters.playerOne.name}`}
       />
 

@@ -41,7 +41,7 @@ const CharacterSelectModal =({
       onDidDismiss={ () => modalVisibility.visible && setModalVisibility({ currentModal: "characterSelect", visible: false }) }
     >
       <PageHeader
-        buttonsToShow={[{ slot: "end", buttons: [{ text: "Close", buttonFunc() {return setModalVisibility({ currentModal: "characterSelect", visible: false })}}] }]}
+        buttonsToShow={[{ slot: "end", buttons: [{ text: "Close", buttonFunc: () => setModalVisibility({ currentModal: "characterSelect", visible: false })}] }]}
         title={`${activeGame} | ${selectedCharacters[activePlayer].name}`}
       />
       <IonContent>

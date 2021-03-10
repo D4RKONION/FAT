@@ -6,10 +6,10 @@ import { setAdviceToastDismissed, setAdviceToastPrevRead } from '../actions'
 import { settingsOutline, star, thumbsUpOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router'; 
 
-type ToastIcon = 'settingsOutline' | 'star' | 'thumbsUpOutline';
 type ToastData = {
   message: string;
-  icon?: string;
+  /** The imported icon from Ionicons */
+  icon?: any;
   handler?: (arg?) => void;
 } 
 
@@ -19,7 +19,7 @@ const AdviceToast = ({ modeName, adviceToastShown, adviceToastDismissed, setAdvi
   const toastRef = useRef<HTMLIonToastElement>();
 
   const icons = { settingsOutline, star, thumbsUpOutline };
-  const getIcon = (iconName: ToastIcon) => {
+  const getIcon = (iconName: ToastData["icon"]) => {
     return icons[iconName];
   }
 

@@ -371,7 +371,7 @@ const FrameKillGenerator = ({ activePlayer, selectedCharacters, modalVisibility,
   return (
     <IonPage>
       <PageHeader
-        componentsToShow={{back: `/calculators`, popover: true}}
+        componentsToShow={{back: true, popover: true}}
         title={`Oki - ${selectedCharacters.playerOne.name}`}
       />
 
