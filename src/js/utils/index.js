@@ -1,22 +1,33 @@
 import { mapKeys, isEqual } from 'lodash';
 
+/**
+ * Renames the moves in the character frame data to reflect the user's desired naming convention
+ * @param {string} rawFrameData The frame data for the current character
+ * @param {string} moveNameType The naming convention
+ * @param {string} inputNotationType If the user selected "inputs" for their naming convention, the input notation displayed
+ * @returns The frame data JSON object with renamed moves
+ */
 export function renameData(rawFrameData, moveNameType, inputNotationType) {
-
-  let renameKey = "";
-  if (moveNameType === "official") {
-    renameKey = "moveName"
-  } else if (moveNameType === "common") {
-    renameKey = "cmnName";
-  } else if (moveNameType === "inputs" && inputNotationType) {
-      renameKey = inputNotationType;
+  const bulkRenameFrameData = (rawData, renameKey) => {
+    return mapKeys(rawData, (moveValue, moveKey) => moveValue[renameKey] ? moveValue[renameKey] : moveKey);
   }
 
-  const renamedFrameData = mapKeys(rawFrameData,
-    (moveData, moveKey) =>
-      moveData[renameKey] ? moveData[renameKey] : moveKey
-  );
+  const shorthandRename = (rawData) => {
 
-  return renamedFrameData;
+  }
+
+  switch (moveNameType) {
+    case "official":
+      return bulkRenameFrameData(rawFrameData, "moveName");
+    case "common":
+      return bulkRenameFrameData(rawFrameData, "cmnName");
+    case "shorthand":
+      return shorthandRename(rawFrameData);
+    case "inputs":
+      return bulkRenameFrameData(rawFrameData, inputNotationType);
+    default:
+      break;
+  }
 }
 
 
@@ -27,18 +38,18 @@ function vTriggerMerge(rawFrameData, vtState) {
   const vtMergedData = {
     ...rawFrameData.normal, ...rawFrameData[vtState]
   }
-  
+
   Object.keys(rawFrameData[vtState]).forEach(vtMove => {
-      let changedValues = [];
-      Object.keys(rawFrameData[vtState][vtMove]).forEach(detail => {
-        if (!rawFrameData.normal[vtMove]) {
-          vtMergedData[vtMove]["uniqueInVt"] = true;
-        } else if (rawFrameData.normal[vtMove] && !isEqual(rawFrameData.normal[vtMove][detail], rawFrameData[vtState][vtMove][detail])) {
-          changedValues = [ ...changedValues, detail ]
-        }
-      })
-      vtMergedData[vtMove] = { ...vtMergedData[vtMove], changedValues }
+    let changedValues = [];
+    Object.keys(rawFrameData[vtState][vtMove]).forEach(detail => {
+      if (!rawFrameData.normal[vtMove]) {
+        vtMergedData[vtMove]["uniqueInVt"] = true;
+      } else if (rawFrameData.normal[vtMove] && !isEqual(rawFrameData.normal[vtMove][detail], rawFrameData[vtState][vtMove][detail])) {
+        changedValues = [...changedValues, detail]
       }
+    })
+    vtMergedData[vtMove] = { ...vtMergedData[vtMove], changedValues }
+  }
   )
 
   // based on https://stackoverflow.com/a/39442287
@@ -47,7 +58,7 @@ function vTriggerMerge(rawFrameData, vtState) {
       .sort(function (a, b) {
         return a[1].i - b[1].i
       })
-      .reduce((_sortedObj, [k,v]) => ({
+      .reduce((_sortedObj, [k, v]) => ({
         ..._sortedObj,
         [k]: v
       }), {})
