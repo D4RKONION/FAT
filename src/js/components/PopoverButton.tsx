@@ -20,17 +20,17 @@ const PopoverButton = ({ activeGame, setModalVisibility, modeName, onBlockColour
 
       <IonPopover id="threeDotPopover"
         isOpen={showPopover.open}
-        onDidDismiss={e => setPopoverVisible({open: false})}
+        onDidDismiss={e => {console.log(e); setPopoverVisible({open: false, event: undefined})}}
         event={showPopover.event}
         showBackdrop={true}
       >
         <IonList>
-          <IonItem lines="none" onClick={() => {setModalVisibility({ currentModal: "help", visible: true }); setPopoverVisible({open: false})}} button>
+          <IonItem lines="none" onClick={() => {setModalVisibility({ currentModal: "help", visible: true }); setPopoverVisible({open: false, event: undefined})}} button>
             Help
           </IonItem>
           {modeName === "framedata" &&
             <>
-            <IonItem lines="none"  onClick={() => {setModalVisibility({ currentModal: "landscapeOptions", visible: true }); setPopoverVisible({open: false})}} button>
+            <IonItem lines="none"  onClick={() => {setModalVisibility({ currentModal: "landscapeOptions", visible: true }); setPopoverVisible({open: false, event: undefined})}} button>
               Landscape Columns
             </IonItem>
             <IonItem lines="none">

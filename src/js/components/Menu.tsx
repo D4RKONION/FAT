@@ -13,7 +13,6 @@ import HelpModal from './Help';
 import framesIcon from  '../../images/icons/frames.svg';
 import patreonIcon from '../../images/icons/patreon.svg';
 import { APP_CURRENT_VERSION_NAME } from '../constants/VersionLogs';
-import BrightnessToggle from './BrightnessToggle';
 
 const Menu = ({ themeBrightness, themeBrightnessClickHandler, selectedCharacters, setModalVisibility, modeName, setModeName, activeGame, setActiveGame }) => {
 
@@ -185,7 +184,7 @@ const Menu = ({ themeBrightness, themeBrightnessClickHandler, selectedCharacters
           <IonGrid>
             <IonRow id="showMenuButtonContainer">
               <IonCol size={isWideFullMenuOpen ? "2" : "12"}>
-                <IonButton key="wide-full-menu-open-item" onClick={() => setIsWideFullMenuOpen(isWideFullMenuOpen ? false : true)}  lines="none" detail={false} button>
+                <IonButton key="wide-full-menu-open-item" onClick={() => setIsWideFullMenuOpen(isWideFullMenuOpen ? false : true)}>
                   <IonIcon slot="icon-only" icon={menuSharp} />
                 </IonButton>
               </IonCol>
@@ -198,7 +197,7 @@ const Menu = ({ themeBrightness, themeBrightnessClickHandler, selectedCharacters
 
             <IonRow className="menu-entry">
               <IonCol size={isWideFullMenuOpen ? "2" : "12"}>
-                <IonButton className={isWideFullMenuOpen ? "dimmed-color" : null} fill="clear" disabled={modeName === "movedetail"} key="wide-charSelectItem" onClick={() => setModalVisibility({ currentModal: "characterSelect", visible: true })}  lines="none" detail={false} button>
+                <IonButton className={isWideFullMenuOpen ? "dimmed-color" : null} fill="clear" disabled={modeName === "movedetail"} key="wide-charSelectItem" onClick={() => setModalVisibility({ currentModal: "characterSelect", visible: true })} >
                   <IonIcon slot="icon-only" icon={peopleOutline} />
                 </IonButton>
               </IonCol>
@@ -221,7 +220,6 @@ const Menu = ({ themeBrightness, themeBrightnessClickHandler, selectedCharacters
                       <IonButton
                         fill="clear" className={`${modeName === appPage.modeName ? "selected" : null} ${isWideFullMenuOpen ? "dimmed-color" : null}`}
                         routerLink={appPage.url} routerDirection="root"
-                        lines="none" detail={false}
                       >
                         <IonIcon slot="icon-only" icon={appPage.iosIcon} />
                       </IonButton>
