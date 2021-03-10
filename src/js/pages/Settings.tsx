@@ -83,6 +83,7 @@ const Settings = () => {
               >
                 <IonSelectOption value="official">Official</IonSelectOption>
                 <IonSelectOption value="common">Common</IonSelectOption>
+                <IonSelectOption value="shorthand">Shorthand</IonSelectOption>
                 <IonSelectOption value="inputs">Inputs</IonSelectOption>
               </IonSelect>
             </IonItem>
