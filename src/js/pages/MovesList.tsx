@@ -7,14 +7,15 @@ import '../../style/pages/MovesList.scss';
 import { setPlayerAttr, setModalVisibility, setActiveFrameDataPlayer, setActiveGame, setPlayer } from '../actions';
 import { useHistory, useParams } from 'react-router';
 import AdviceToast from '../components/AdviceToast';
+import { activeGameSelector, activePlayerSelector, dataDisplaySettingsSelector, selectedCharactersSelector } from '../selectors';
 
 
 const MovesList = () => {
   
-  const selectedCharacters = useSelector(state => state.selectedCharactersState);
-  const activePlayer = useSelector(state => state.activePlayerState);
-  const activeGame = useSelector(state => state.activeGameState);
-  const dataDisplaySettings = useSelector(state => state.dataDisplaySettingsState);
+  const selectedCharacters = useSelector(selectedCharactersSelector);
+  const activePlayer = useSelector(activePlayerSelector);
+  const activeGame = useSelector(activeGameSelector);
+  const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
 
   const dispatch = useDispatch();
   

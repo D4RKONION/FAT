@@ -8,13 +8,14 @@ import PageHeader from '../components/PageHeader';
 import SubHeader from '../components/SubHeader';
 import SegmentSwitcher from '../components/SegmentSwitcher';
 import { setActiveGame, setPlayerAttr } from '../actions';
+import { activeGameSelector, activePlayerSelector, selectedCharactersSelector } from '../selectors';
 
 
 const MoveDetail = () => {
 
-  const selectedCharacters = useSelector(state => state.selectedCharactersState);
-  const activePlayer = useSelector(state => state.activePlayerState);
-  const activeGame = useSelector(state => state.activeGameState);
+  const selectedCharacters = useSelector(selectedCharactersSelector);
+  const activePlayer = useSelector(activePlayerSelector);
+  const activeGame = useSelector(activeGameSelector);
 
   const dispatch = useDispatch();
 

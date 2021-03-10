@@ -6,12 +6,13 @@ import '../../../style/pages/Calculators.scss';
 import '../../../style/components/FAB.scss'
 import { setModalVisibility } from '../../actions';
 import { person, checkmark, warning } from 'ionicons/icons';
+import { activeGameSelector, selectedCharactersSelector } from '../../selectors';
 
 
 const StringInterrupter = () => {
 
-  const selectedCharacters = useSelector(state => state.selectedCharactersState);
-  const activeGame = useSelector(state => state.activeGameState);
+  const selectedCharacters = useSelector(selectedCharactersSelector);
+  const activeGame = useSelector(activeGameSelector);
   
   const dispatch = useDispatch();
 

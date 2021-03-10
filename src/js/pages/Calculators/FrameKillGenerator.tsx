@@ -8,11 +8,12 @@ import '../../../style/components/FAB.scss'
 import { setActiveFrameDataPlayer, setModalVisibility } from '../../actions';
 import { person } from 'ionicons/icons';
 import SegmentSwitcher from '../../components/SegmentSwitcher';
+import { selectedCharactersSelector } from '../../selectors';
 
 
 const FrameKillGenerator = () => {
   
-  const selectedCharacters = useSelector(state => state.selectedCharactersState);
+  const selectedCharacters = useSelector(selectedCharactersSelector);
 
   const dispatch = useDispatch();  
   

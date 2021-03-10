@@ -8,17 +8,18 @@ import GAME_DETAILS from '../constants/GameDetails';
 import '../../style/components/CharacterSelect.scss';
 import PageHeader from './PageHeader';
 import CharacterPortrait from './CharacterPortrait'
+import { activeGameSelector, activePlayerSelector, frameDataSelector, modalVisibilitySelector, modeNameSelector, selectedCharactersSelector } from '../selectors';
 
 const CharacterSelectModal = () => {
 
   const routerContext = useContext(IonRouterContext);
 
-  const modeName = useSelector(state => state.modeNameState)
-  const frameDataFile = useSelector(state => state.frameDataState)
-  const modalVisibility = useSelector(state => state.modalVisibilityState)
-  const selectedCharacters = useSelector(state => state.selectedCharactersState)
-  const activePlayer = useSelector(state => state.activePlayerState)
-  const activeGame = useSelector(state => state.activeGameState)
+  const modeName = useSelector(modeNameSelector)
+  const frameDataFile = useSelector(frameDataSelector)
+  const modalVisibility = useSelector(modalVisibilitySelector)
+  const selectedCharacters = useSelector(selectedCharactersSelector)
+  const activePlayer = useSelector(activePlayerSelector)
+  const activeGame = useSelector(activeGameSelector)
 
   const dispatch = useDispatch();
 

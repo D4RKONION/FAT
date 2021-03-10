@@ -6,11 +6,12 @@ import '../../../style/pages/Calculators.scss';
 import '../../../style/components/FAB.scss'
 import { setActiveFrameDataPlayer, setModalVisibility } from '../../actions';
 import { person } from 'ionicons/icons';
+import { selectedCharactersSelector } from '../../selectors';
 
 
 const FrameTrapLister = () => {
   
-  const selectedCharacters = useSelector(state => state.selectedCharactersState);
+  const selectedCharacters = useSelector(selectedCharactersSelector);
   
   const dispatch = useDispatch();
   

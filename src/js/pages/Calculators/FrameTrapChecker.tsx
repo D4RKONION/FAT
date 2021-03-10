@@ -11,7 +11,8 @@ import { person } from 'ionicons/icons';
 
 const FrameTrapChecker = () => {
   
-  const selectedCharacters = useSelector(state => state.selectedCharactersState);
+  const selectedCharacters = useSelector(selectedCharactersSelector
+    );
 
   const dispatch = useDispatch();
 

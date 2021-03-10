@@ -5,10 +5,11 @@ import PageHeader from './PageHeader';
 import '../../style/components/WhatsNew.scss'
 import {APP_CURRENT_VERSION_NAME, APP_DATE_UPDATED, VERSION_LOGS} from '../constants/VersionLogs';
 import { setModalVisibility } from '../actions';
+import { modalVisibilitySelector } from '../selectors';
 
 const WhatsNewModal = () => {
 
-  const modalVisibility = useSelector(state => state.modalVisibilityState);
+  const modalVisibility = useSelector(modalVisibilitySelector);
   
   const dispatch = useDispatch();
 

@@ -5,6 +5,7 @@ import ADVICE from '../constants/Advice';
 import { setAdviceToastDismissed, setAdviceToastPrevRead } from '../actions'
 import { settingsOutline, star, thumbsUpOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router'; 
+import { adviceToastDismissedSelector, adviceToastPrevReadSelector, adviceToastShownSelector, modeNameSelector } from '../selectors';
 
 type ToastData = {
   message: string;
@@ -15,10 +16,10 @@ type ToastData = {
 
 const AdviceToast = () => {
   
-  const modeName = useSelector(state => state.modeNameState);
-  const adviceToastShown = useSelector(state => state.adviceToastShownState);
-  const adviceToastDismissed = useSelector(state => state.adviceToastDismissedState);
-  const adviceToastPrevRead = useSelector(state => state.adviceToastPrevReadState);
+  const modeName = useSelector(modeNameSelector);
+  const adviceToastShown = useSelector(adviceToastShownSelector);
+  const adviceToastDismissed = useSelector(adviceToastDismissedSelector);
+  const adviceToastPrevRead = useSelector(adviceToastPrevReadSelector);
 
   const dispatch = useDispatch();
 

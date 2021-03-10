@@ -8,13 +8,14 @@ import { setModalVisibility } from '../actions';
 import { person } from 'ionicons/icons';
 import { sortBy } from 'lodash';
 import CharacterPortrait from '../components/CharacterPortrait';
+import { activeGameSelector, frameDataSelector, selectedCharactersSelector } from '../selectors';
 
 
 const StatCompare = () => {
 
-  const selectedCharacters = useSelector(state => state.selectedCharactersState);
-  const activeGame = useSelector(state => state.activeGameState);
-  const frameDataFile = useSelector(state => state.frameDataState);
+  const selectedCharacters = useSelector(selectedCharactersSelector);
+  const activeGame = useSelector(activeGameSelector);
+  const frameDataFile = useSelector(frameDataSelector);
 
   const dispatch = useDispatch();
 

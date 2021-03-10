@@ -6,12 +6,13 @@ import '../../../style/pages/Calculators.scss';
 import '../../../style/components/FAB.scss'
 import { setActiveFrameDataPlayer, setModalVisibility } from '../../actions';
 import { person } from 'ionicons/icons';
+import { activeGameSelector, selectedCharactersSelector } from '../../selectors';
 
 
 const MoveLinker = () => {
 
-  const activeGame = useSelector(state => state.activeGameState);
-  const selectedCharacters = useSelector(state => state.selectedCharactersState);
+  const activeGame = useSelector(activeGameSelector);
+  const selectedCharacters = useSelector(selectedCharactersSelector);
   
   const dispatch = useDispatch();
 

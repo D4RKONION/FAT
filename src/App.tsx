@@ -58,16 +58,17 @@ import MoreResourcesSub from './js/pages/MoreResourcesSub';
 import ThemeStore from './js/pages/ThemeStore';
 import ThemePreview from './js/pages/ThemePreview';
 
+import { activeGameSelector, frameDataSelector, themeBrightnessSelector, themeColorSelector } from './js/selectors';
 import { setOrientation, setModalVisibility, setThemeBrightness, setActiveGame, setThemeOwned } from './js/actions';
 import { store } from './js/store';
 import { APP_FRAME_DATA_CODE, APP_CURRENT_VERSION_CODE } from './js/constants/VersionLogs';
 
 const App = () => {
 
-  const activeGame = useSelector(state => state.activeGameState);
-  const themeBrightness = useSelector(state => state.themeBrightnessState);
-  const themeColor = useSelector(state => state.themeColorState);
-  const frameDataFile = useSelector(state => state.frameDataState);
+  const activeGame = useSelector(activeGameSelector);
+  const themeBrightness = useSelector(themeBrightnessSelector);
+  const themeColor = useSelector(themeColorSelector);
+  const frameDataFile = useSelector(frameDataSelector);
 
   const dispatch = useDispatch();
   

@@ -9,13 +9,14 @@ import PageHeader from '../components/PageHeader';
 import { logoTwitter, chevronForward, mailOutline, starOutline, heartOutline, openOutline, globeOutline, logoGithub } from 'ionicons/icons';
 import { useHistory } from 'react-router';
 import { APP_CURRENT_VERSION_NAME } from '../constants/VersionLogs';
+import { activeGameSelector, adviceToastShownSelector, dataDisplaySettingsSelector, selectedCharactersSelector } from '../selectors';
 
 const Settings = () => {
   
-  const activeGame = useSelector(state => state.activeGameState);
-  const dataDisplaySettings = useSelector(state => state.dataDisplaySettingsState);
-  const selectedCharacters = useSelector(state => state.selectedCharactersState);
-  const adviceToastShown = useSelector(state => state.adviceToastShownState);
+  const activeGame = useSelector(activeGameSelector);
+  const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
+  const selectedCharacters = useSelector(selectedCharactersSelector);
+  const adviceToastShown = useSelector(adviceToastShownSelector);
 
   const dispatch = useDispatch();
   

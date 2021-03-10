@@ -6,13 +6,14 @@ import { setModalVisibility } from '../actions';
 import '../../style/components/Markdown.scss';
 import PageHeader from './PageHeader';
 import ReactMarkdown from 'react-markdown';
+import { modalVisibilitySelector, modeNameSelector } from '../selectors';
 
 
 const HelpModal = () => {
   
 
-  const modalVisibility = useSelector(state => state.modalVisibilityState);
-  const modeName = useSelector(state => state.modeNameState);
+  const modalVisibility = useSelector(modalVisibilitySelector);
+  const modeName = useSelector(modeNameSelector);
 
   const dispatch = useDispatch();
 

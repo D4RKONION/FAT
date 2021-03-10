@@ -13,12 +13,14 @@ import HelpModal from './Help';
 import framesIcon from  '../../images/icons/frames.svg';
 import patreonIcon from '../../images/icons/patreon.svg';
 import { APP_CURRENT_VERSION_NAME } from '../constants/VersionLogs';
+import { activeGameSelector, modeNameSelector, selectedCharactersSelector } from '../selectors';
+import { getPlatforms } from '@ionic/core';
 
 const Menu = ({ themeBrightness, themeBrightnessClickHandler }) => {
 
-  const selectedCharacters = useSelector(state => state.selectedCharactersState);
-  const modeName = useSelector(state => state.modeNameState);
-  const activeGame = useSelector(state => state.activeGameState);
+  const selectedCharacters = useSelector(selectedCharactersSelector);
+  const modeName = useSelector(modeNameSelector);
+  const activeGame = useSelector(activeGameSelector);
 
   const dispatch = useDispatch();
   
@@ -168,9 +170,9 @@ const Menu = ({ themeBrightness, themeBrightnessClickHandler }) => {
               </IonItem>
             </IonMenuToggle>
             {appPages.map((appPage) => {
-              if (isPlatform("desktop") && appPage.appOnly) {
+              if (!isPlatform("capacitor") && appPage.appOnly) {
                 return false;
-              } else if (!isPlatform("desktop") && appPage.desktopOnly) {
+              } else if (isPlatform("capacitor") && appPage.desktopOnly) {
                 return false;
               } else {
                 return (
@@ -215,13 +217,14 @@ const Menu = ({ themeBrightness, themeBrightnessClickHandler }) => {
             </IonRow>
             
             {appPages.map((appPage) => {
-              if (isPlatform("desktop") && appPage.appOnly) {
+              if (!isPlatform("capacitor") && appPage.appOnly) {
                 return false;
-              } else if (!isPlatform("desktop") && appPage.desktopOnly) {
+              } else if (isPlatform("capacitor") && appPage.desktopOnly) {
                 return false;
               } else {
+                console.log()
                 return (
-                  <IonRow onClick={() => appPage.externalUrl ? window.open(appPage.externalUrl, '_blank') : false} key={`wide-${appPage.title}`} className={`${appPage.modeName === "settings" && isPlatform("desktop") ? "lines-bottom" : null} menu-entry`}>
+                  <IonRow onClick={() => appPage.externalUrl ? window.open(appPage.externalUrl, '_blank') : false} key={`wide-${appPage.title}`} className={`${appPage.modeName === "settings" && !isPlatform("capacitor") ? "lines-bottom" : null} menu-entry`}>
                     <IonCol size={isWideFullMenuOpen ? "2" : "12"}>
                       <IonButton
                         fill="clear" className={`${modeName === appPage.modeName ? "selected" : null} ${isWideFullMenuOpen ? "dimmed-color" : null}`}

@@ -7,6 +7,7 @@ import PageHeader from '../components/PageHeader';
 import { checkmarkSharp } from 'ionicons/icons';
 import '../../style/pages/ThemeStore.scss'
 import { setThemeColor } from '../actions';
+import { themeColorSelector, themesOwnedSelector } from '../selectors';
 
 const defaultPrice = isPlatform('android') ? '€1.79' : '$1.99';
 
@@ -27,8 +28,8 @@ const PRODUCTS = [
 
 const ThemeStore = () => {
 
-  const themeColor = useSelector(state => state.themeColorState);
-  const themesOwned = useSelector(state => state.themesOwnedState);
+  const themeColor = useSelector(themeColorSelector);
+  const themesOwned = useSelector(themesOwnedSelector);
 
   const dispatch = useDispatch();
 

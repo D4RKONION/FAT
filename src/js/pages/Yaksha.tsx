@@ -9,6 +9,7 @@ import { useHistory } from 'react-router';
 import { close, searchOutline, trashBinOutline } from 'ionicons/icons';
 import GAME_DETAILS from '../constants/GameDetails';
 import fuzz from 'fuzzball'
+import { activeGameSelector, dataDisplaySettingsSelector, frameDataSelector, selectedCharactersSelector } from '../selectors';
 
 const YAKSHA_HEADERS = [
   {
@@ -44,10 +45,10 @@ const YAKSHA_HEADERS = [
 
 const Yaksha = () => {
 
-  const activeGame = useSelector(state =>state.activeGameState);
-  const frameDataFile = useSelector(state =>state.frameDataState);
-  const dataDisplaySettings = useSelector(state =>state.dataDisplaySettingsState);
-  const selectedCharacters = useSelector(state =>state.selectedCharactersState);
+  const activeGame = useSelector(activeGameSelector);
+  const frameDataFile = useSelector(frameDataSelector);
+  const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
+  const selectedCharacters = useSelector(selectedCharactersSelector);
 
   const dispatch = useDispatch();
 

@@ -9,15 +9,16 @@ import { SFV_COMBOS } from '../constants/Combos';
 import { informationCircleOutline, openOutline } from 'ionicons/icons';
 import AdviceToast from '../components/AdviceToast';
 import { useParams } from 'react-router';
+import { activeGameSelector, activePlayerSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
 
 
 
 const Combos = () => {
   
-  const modalVisibility = useSelector(state => state.modalVisibilityState);
-  const selectedCharacters = useSelector(state => state.selectedCharactersState);
-  const activePlayer = useSelector(state => state.activePlayerState);
-  const activeGame = useSelector(state => state.activeGameState);
+  const modalVisibility = useSelector(modalVisibilitySelector);
+  const selectedCharacters = useSelector(selectedCharactersSelector);
+  const activePlayer = useSelector(activePlayerSelector);
+  const activeGame = useSelector(activeGameSelector);
 
   const dispatch = useDispatch();
 

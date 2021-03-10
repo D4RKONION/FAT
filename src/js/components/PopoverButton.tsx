@@ -4,16 +4,17 @@ import { IonButton, IonButtons, IonIcon, IonItem, IonList, IonPopover, IonLabel,
 import { ellipsisHorizontal, ellipsisVertical } from 'ionicons/icons';
 import '../../style/components/PopoverButton.scss';
 import { setModalVisibility, setOnBlockColours, setCounterHit } from '../actions';
+import { activeGameSelector, counterHitSelector, modeNameSelector, onBlockColoursSelector } from '../selectors';
 
 
 
 
 const PopoverButton = () => {
 
-  const modeName = useSelector(state => state.modeNameState);
-  const onBlockColours = useSelector(state => state.onBlockColoursState);
-  const counterHit = useSelector(state => state.counterHitState);
-  const activeGame = useSelector(state => state.activeGameState);
+  const modeName = useSelector(modeNameSelector);
+  const onBlockColours = useSelector(onBlockColoursSelector);
+  const counterHit = useSelector(counterHitSelector);
+  const activeGame = useSelector(activeGameSelector);
 
   const dispatch = useDispatch();
 

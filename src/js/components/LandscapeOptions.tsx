@@ -8,13 +8,14 @@ import GAME_DETAILS from '../constants/GameDetails'
 import '../../style/components/LandscapeOptions.scss';
 import PageHeader from './PageHeader';
 import { reloadOutline, closeOutline, trashOutline } from 'ionicons/icons';
+import { activeGameSelector, landscapeColsSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
 
 const LandscapeOptions = () => {
 
-  const modalVisibility = useSelector(state => state.modalVisibilityState);
-  const selectedCharacters = useSelector(state => state.selectedCharactersState);
-  const landscapeCols = useSelector(state => state.landscapeColsState);
-  const activeGame = useSelector(state => state.activeGameState);
+  const modalVisibility = useSelector(modalVisibilitySelector);
+  const selectedCharacters = useSelector(selectedCharactersSelector);
+  const landscapeCols = useSelector(landscapeColsSelector);
+  const activeGame = useSelector(activeGameSelector);
 
   const dispatch = useDispatch();
 

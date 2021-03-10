@@ -5,13 +5,14 @@ import GAME_DETAILS from '../constants/GameDetails'
 import '../../style/components/DetailCards.scss';
 import PageHeader from '../components/PageHeader';
 import SubHeader from '../components/SubHeader';
+import { activeGameSelector, activePlayerSelector, selectedCharactersSelector } from '../selectors';
 
 
 const CharacterStats = () => {
 
-  const selectedCharacters = useSelector(state => state.selectedCharactersState);
-  const activeGame = useSelector(state => state.activeGameState); 
-  const activePlayer = useSelector(state => state.activePlayerState);
+  const selectedCharacters = useSelector(selectedCharactersSelector);
+  const activeGame = useSelector(activeGameSelector); 
+  const activePlayer = useSelector(activePlayerSelector);
 
   const activeCharName = selectedCharacters[activePlayer].name;
   const charStatsData = selectedCharacters[activePlayer].stats;

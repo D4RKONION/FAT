@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router'
 import '../../style/components/DataTable.scss';
 import { setPlayerAttr } from '../actions';
+import { activeGameSelector, activePlayerSelector, counterHitSelector, landscapeColsSelector, onBlockColoursSelector, orientationSelector, selectedCharactersSelector } from '../selectors';
 
 
 
@@ -13,13 +14,13 @@ const portraitCols = {startup: "S", active: "A", recovery: "R", onHit: "oH", onB
 const DataTable = ({ previewTable }) => {
 
 
-  const currentOrientation = useSelector(state => state.orientationState);
-  const activeGame = useSelector(state => state.activeGameState);
-  const selectedCharacters = useSelector(state => state.selectedCharactersState);
-  const activePlayer = useSelector(state => state.activePlayerState);
-  const landscapeCols = useSelector(state => state.landscapeColsState);
-  const onBlockColours = useSelector(state => state.onBlockColoursState);
-  const counterHit = useSelector(state => state.counterHitState);
+  const currentOrientation = useSelector(orientationSelector);
+  const activeGame = useSelector(activeGameSelector);
+  const selectedCharacters = useSelector(selectedCharactersSelector);
+  const activePlayer = useSelector(activePlayerSelector);
+  const landscapeCols = useSelector(landscapeColsSelector);
+  const onBlockColours = useSelector(onBlockColoursSelector);
+  const counterHit = useSelector(counterHitSelector);
 
   const dispatch = useDispatch();
 
