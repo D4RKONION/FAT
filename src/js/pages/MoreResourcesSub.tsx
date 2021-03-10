@@ -37,7 +37,7 @@ const MoreResourcesSub = () => {
   return (
     <IonPage>
       <PageHeader
-        componentsToShow={{back: `/moreresources`, popover: false}}
+        componentsToShow={{back: true, popover: false}}
         title={resourcePageData.title}
       />
 

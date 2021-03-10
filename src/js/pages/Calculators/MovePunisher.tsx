@@ -45,7 +45,7 @@ const MovePunisher = ({ activePlayer, selectedCharacters, modalVisibility, activ
   return (
     <IonPage>
       <PageHeader
-        componentsToShow={{back: `/calculators`, popover: true}}
+        componentsToShow={{back: true, popover: true}}
         title={`MP - ${selectedCharacters.playerOne.name} vs ${selectedCharacters.playerTwo.name}`}
       />
 

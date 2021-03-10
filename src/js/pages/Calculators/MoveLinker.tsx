@@ -44,7 +44,7 @@ const MoveLinker = ({ activePlayer, selectedCharacters, modalVisibility, activeG
   return (
     <IonPage>
       <PageHeader
-        componentsToShow={{back: `/calculators`, popover: true}}
+        componentsToShow={{back: true, popover: true}}
         title={`MLinker - ${selectedCharacters.playerOne.name}`}
       />
 

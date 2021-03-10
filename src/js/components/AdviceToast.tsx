@@ -6,14 +6,21 @@ import { setAdviceToastDismissed, setAdviceToastPrevRead } from '../actions'
 import { settingsOutline, star, thumbsUpOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router'; 
 
+type ToastData = {
+  message: string;
+  /** The imported icon from Ionicons */
+  icon?: any;
+  handler?: (arg?) => void;
+} 
+
 const AdviceToast = ({ modeName, adviceToastShown, adviceToastDismissed, setAdviceToastDismissed, adviceToastPrevRead, setAdviceToastPrevRead }) => {
   
   const history = useHistory();
-  const toastRef = useRef();
+  const toastRef = useRef<HTMLIonToastElement>();
 
-  const icons = { settingsOutline, star, thumbsUpOutline }
-  const getIcon = (iconAsString) => {
-    return icons[iconAsString]
+  const icons = { settingsOutline, star, thumbsUpOutline };
+  const getIcon = (iconName: ToastData["icon"]) => {
+    return icons[iconName];
   }
 
   if (toastRef.current) {
@@ -25,7 +32,10 @@ const AdviceToast = ({ modeName, adviceToastShown, adviceToastDismissed, setAdvi
     return false;
   }
   
-  const toastData = {};
+
+  
+  const toastData = {} as ToastData;
+
   if (ADVICE[modeName]) {
 
     if (typeof adviceToastPrevRead[modeName] === "undefined") {

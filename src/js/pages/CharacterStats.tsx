@@ -18,7 +18,7 @@ const CharacterStats = ({ activeGame, selectedCharacters, activePlayer }) => {
   return (
     <IonPage>
       <PageHeader
-        componentsToShow={{back: `/framedata/${activeCharName}`}}
+        componentsToShow={{back: true}}
         title={`Stats | ${activeCharName}`}
       />
 

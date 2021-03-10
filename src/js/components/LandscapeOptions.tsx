@@ -96,9 +96,9 @@ const LandscapeOptions =({
       <PageHeader
         buttonsToShow={[{ slot: "end",
           buttons: [
-            { text: <IonIcon icon={trashOutline} />, buttonFunc() {return setLandscapeCols({})}},
-            { text: <IonIcon icon={reloadOutline} />, buttonFunc() {return setLandscapeCols({startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", damage:"dmg", stun:"stun", kd:"kd", kdr:"kdr", kdrb:"kdrb"})}},
-            { text: <IonIcon icon={closeOutline} />, buttonFunc() {return handleModalDismiss()}}
+            { text: <IonIcon icon={trashOutline} />, buttonFunc: () => setLandscapeCols({})},
+            { text: <IonIcon icon={reloadOutline} />, buttonFunc: () => setLandscapeCols({startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", damage:"dmg", stun:"stun", kd:"kd", kdr:"kdr", kdrb:"kdrb"})},
+            { text: <IonIcon icon={closeOutline} />, buttonFunc: () => handleModalDismiss()}
           ]
         }]}
         title="Landscape Options"

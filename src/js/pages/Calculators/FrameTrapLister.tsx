@@ -17,7 +17,7 @@ const FrameTrapLister = ({ activePlayer, selectedCharacters, modalVisibility, ac
   return (
     <IonPage>
       <PageHeader
-        componentsToShow={{back: `/calculators`, popover: true}}
+        componentsToShow={{back: true, popover: true}}
         title={`FTL - ${selectedCharacters.playerOne.name}`}
       />
 

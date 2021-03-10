@@ -11,7 +11,7 @@ const Shoutouts = () => {
   return (
     <IonPage>
       <PageHeader
-        componentsToShow={{back: `/settings`}}
+        componentsToShow={{back: true}}
         title="Shoutouts"
       />
 
