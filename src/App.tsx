@@ -183,22 +183,22 @@ useEffect(() => {
     const newVersionCheck = async () => {
 
       // check if the frame data was updated
-      let LS_FRAME_DATA_CODE = localStorage.getItem("lsFrameDataCode");
+      let LS_FRAME_DATA_CODE = parseInt(localStorage.getItem("lsFrameDataCode"));
 
       if (!LS_FRAME_DATA_CODE) {
         // fresh install, local code doesn't exist, set it up using the app's local data
         console.log("local frame data code don't exist, set it up using the app's local data")
-        localStorage.setItem("lsFrameDataCode", APP_FRAME_DATA_CODE)
+        localStorage.setItem("lsFrameDataCode", APP_FRAME_DATA_CODE.toString())
 
-        LS_FRAME_DATA_CODE = localStorage.getItem("lsFrameDataCode")
+        LS_FRAME_DATA_CODE = parseInt(localStorage.getItem("lsFrameDataCode"));
 
       } else if (LS_FRAME_DATA_CODE <= APP_FRAME_DATA_CODE) {
         // the app has been updated via the store, delete the LS FrameData.json and update the VS_FDC
         console.log("the app has been updated via the store, delete the LS FrameData.json and update the VS_FDC")
-        localStorage.setItem("lsFrameDataCode", APP_FRAME_DATA_CODE)
+        localStorage.setItem("lsFrameDataCode", APP_FRAME_DATA_CODE.toString())
         localStorage.removeItem("lsSFVFrameData");
 
-        LS_FRAME_DATA_CODE = localStorage.getItem("lsFrameDataCode")
+        LS_FRAME_DATA_CODE = parseInt(localStorage.getItem("lsFrameDataCode"));
 
       } else if (LS_FRAME_DATA_CODE > APP_FRAME_DATA_CODE) {
         // the app has downloaded a frame data update
@@ -237,7 +237,7 @@ useEffect(() => {
 
   // wait for the initial framedata load
   if (!frameDataFile) {
-    return false;
+    return <p></p>
   }
 
   return (

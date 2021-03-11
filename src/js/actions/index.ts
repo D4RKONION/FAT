@@ -35,7 +35,7 @@ const setFrameData = (frameData) => ({
 const getFrameData = (gameName: GameName) => {
   return async function(dispatch, getState) {
     const { selectedCharactersState } = getState();
-    const LS_FRAME_DATA_CODE = localStorage.getItem("lsFrameDataCode");
+    const LS_FRAME_DATA_CODE = parseInt(localStorage.getItem("lsFrameDataCode"));
     const lsSFVFrameData = JSON.parse(localStorage.getItem("lsSFVFrameData"))
 
     if (gameName === "SFV") {

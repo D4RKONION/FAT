@@ -55,7 +55,9 @@ const MoveDetail = () => {
   const selectedMoveData = charFrameData[selectedMoveName];
 
   if (!selectedMoveData) {
-    return false;
+    <IonPage>
+      {/* Something's gone wrong */}
+    </IonPage>
   }
 
 

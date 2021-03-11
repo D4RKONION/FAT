@@ -15,13 +15,12 @@ type PageHeaderProps = {
   buttonsToShow?: [
     {
       slot: string;
-      buttons: [
+      buttons: Array<
         {
-          // TSHELP: this is throwing an error on Element e.g. in LandscapeOptions.tsx
-          text: string | Element;
+          text: string | JSX.Element;
           buttonFunc: () => void;
         }
-      ]
+      >
     }
   ];
   title: string;

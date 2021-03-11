@@ -25,9 +25,13 @@ export type AdviceToastPrevRead = {
 }
 
 export type PlayerData = {
-  name: string,
-  vtState: VtState,
-  frameData: any,
-  stats: any,
+  name?: string,
+  vtState?: VtState,
+  frameData?: {
+    [key: string]: any
+  },
+  stats?: {
+    [key: string]: number | string
+  },
   selectedMove?: string,
 }

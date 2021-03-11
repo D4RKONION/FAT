@@ -13,7 +13,7 @@ const SegmentSwitcher = ({
 
 
   return(
-    <IonSegment className={`segment-switcher ${segmentType}`} value={valueToTrack} onClick={((event) => clickFunc(event.target.value))}>
+    <IonSegment className={`segment-switcher ${segmentType}`} value={valueToTrack} onClick={ e => clickFunc(e.currentTarget.value) }>
       {Object.entries(labels).map(
       ([value, label]) =>
         <IonSegmentButton key={value} value={value}>

@@ -1,4 +1,4 @@
-import { PlayerData, PlayerId, VtState } from "../types";
+import { PlayerData, PlayerId } from "../types";
 
 type SelectedCharactersReducerState = {
   'playerOne': PlayerData,

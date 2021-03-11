@@ -7,9 +7,7 @@ import { activeGameSelector, activePlayerSelector, counterHitSelector, landscape
 
 
 
-const portraitCols = {startup: "S", active: "A", recovery: "R", onHit: "oH", onBlock: "oB",};
-
-
+const portraitCols: {[key: string]: string} = {startup: "S", active: "A", recovery: "R", onHit: "oH", onBlock: "oB",};
 
 const DataTable = ({ previewTable }) => {
 
@@ -55,7 +53,6 @@ const DataTable = ({ previewTable }) => {
           )}
       </div>
 
-      
       {Object.entries(selectedCharacters[activePlayer].frameData).map(([moveName, moveData]) => {
         if ( selectedCharacters[activePlayer].name === "Seth" && moveData["moveType"] === "vskill" && !moveName.includes(`[${inactivePlayerName}]`) ) {
           return false;
@@ -81,7 +78,6 @@ const DataTable = ({ previewTable }) => {
                   : selectedCharacters[activePlayer].vtState.includes("vt") ? "untriggered-data"
                   : "normal-state"
                 }`}
-                size="4"
               >
                 {moveName}
               </span>
