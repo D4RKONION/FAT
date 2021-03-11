@@ -29,7 +29,7 @@ const PopoverButton = () => {
 
       <IonPopover id="threeDotPopover"
         isOpen={showPopover.open}
-        onDidDismiss={e => {console.log(e); setPopoverVisible({open: false, event: undefined})}}
+        onDidDismiss={ e => setPopoverVisible({open: false, event: undefined}) }
         event={showPopover.event}
         showBackdrop={true}
       >

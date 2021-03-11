@@ -1,19 +1,19 @@
 import { combineReducers } from 'redux';
 
-import orientationReducer from './orientation';
-import modeNameReducer from './modename';
-import activeGameReducer from './activegame';
-import frameDataReducer from './framedata';
-import activePlayerReducer from './activeplayer';
+import { orientationReducer } from './orientation';
+import { modeNameReducer } from './modename';
+import { activeGameReducer } from './activegame';
+import { frameDataReducer } from './framedata';
+import { activePlayerReducer } from './activeplayer';
+import { landscapeColsReducer } from './landscapecols';
+import { onBlockColoursReducer } from './onblockcolours';
+import { counterHitReducer } from './counterhit';
 import modalVisibilityReducer from './modalvisibility';
 import selectedCharactersReducer from './selectedcharacters';
 import dataDisplaySettingsReducer from './datadisplaysettings';
-import landscapeColsReducer from './landscapecols';
 import themeColorReducer from './themecolor';
 import themeBrightnessReducer from './themebrightness';
 import themesOwnedReducer from './themesowned'
-import onBlockColoursReducer from './onblockcolours';
-import counterHitReducer from './counterhit';
 import adviceToastShownReducer from './adivcetoastshown';
 import adviceToastDismissedReducer from './adivcetoastdismissed';
 import adviceToastPrevReadReducer from './advicetoastprevread';

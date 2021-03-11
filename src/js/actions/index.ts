@@ -7,18 +7,19 @@ import SF3FrameData from '../constants/framedata/3SFrameData.json';
 import { APP_FRAME_DATA_CODE } from '../constants/VersionLogs';
 
 // ACTION TYPES
-// (Note: All actions are named SET (when they change the state) or GET (when they fetch data))
-export const SET_ORIENTATION = "SET_ORIENTATION";
-export const SET_MODE_NAME = "SET_MODE_NAME";
+// (Note: All actions are named SET (when they change the state) or GET (when they fetch data)
 
-export const SET_GAME_NAME = "SET_GAME_NAME";
-export const SET_FRAME_DATA = "SET_FRAME_DATA";
-export const GET_FRAME_DATA = "GET_FRAME_DATA";
+// export const SET_ORIENTATION = "SET_ORIENTATION";
+// export const SET_MODE_NAME = "SET_MODE_NAME";
 
-export const SET_ACTIVE_PLAYER = "SET_ACTIVE_PLAYER";
-export const SET_LANDSCAPE_COLS = "SET_LANDSCAPE_COLS";
-export const SET_ON_BLOCK_COLOURS = "SET_ON_BLOCK_COLOURS";
-export const SET_COUNTER_HIT = "SET_COUNTER_HIT";
+// export const SET_GAME_NAME = "SET_GAME_NAME";
+// export const SET_FRAME_DATA = "SET_FRAME_DATA";
+// export const GET_FRAME_DATA = "GET_FRAME_DATA";
+
+// export const SET_ACTIVE_PLAYER = "SET_ACTIVE_PLAYER";
+// export const SET_LANDSCAPE_COLS = "SET_LANDSCAPE_COLS";
+// export const SET_ON_BLOCK_COLOURS = "SET_ON_BLOCK_COLOURS";
+// export const SET_COUNTER_HIT = "SET_COUNTER_HIT";
 
 export const SET_PLAYER = "SET_PLAYER";
 export const SET_PLAYER_ATTR = "SET_PLAYER_ATTR";
@@ -37,33 +38,30 @@ export const SET_ADVICE_TOAST_DISMISSED = "SET_ADVICE_TOAST_DISMISSED";
 
 // ACTION CREATORS
 //handle global things
-export function setOrientation(orientation) {
-  return {
-    type: SET_ORIENTATION,
-    orientation,
-  }
-}
-export function setModeName(modeName) {
-  return {
-    type: SET_MODE_NAME,
-    modeName,
-  }
-}
+export const setOrientation = (orientation: "landscape" | "portrait") => ({
+  type: 'SET_ORIENTATION',
+  orientation,
+})
 
-//handle setting game details and data
-export function setGameName(gameName) {
-  return {
-    type: SET_GAME_NAME,
-    gameName,
-  }
-}
-export function setFrameData(frameData) {
-  return {
-    type: SET_FRAME_DATA,
-    frameData
-  }
-}
-export function getFrameData(gameName) {
+export const setModeName = (modeName: string) => ({
+  type: 'SET_MODE_NAME',
+  modeName,
+})
+
+// handle setting game details and data
+// this is all really bad and I'm sorry. Someday I'll refactor this to be
+// not horrendous and style breaking
+const setGameName = (gameName: "SFV" | "USF4" | "3S") => ({
+  type: 'SET_GAME_NAME',
+  gameName,
+})
+
+const setFrameData = (frameData) => ({
+  type: 'SET_FRAME_DATA',
+  frameData,
+})
+
+const getFrameData = (gameName: "SFV" | "USF4" | "3S") => {
   return async function(dispatch, getState) {
     const { selectedCharactersState } = getState();
     const LS_FRAME_DATA_CODE = localStorage.getItem("lsFrameDataCode");
@@ -87,7 +85,7 @@ export function getFrameData(gameName) {
   }
 }
 
-export function setActiveGame(gameName) {
+export const setActiveGame = (gameName: "SFV" | "USF4" | "3S") => {
   return function (dispatch) {
     dispatch(setGameName(gameName));
     dispatch(getFrameData(gameName));
@@ -95,30 +93,22 @@ export function setActiveGame(gameName) {
 }
 
 //handle frame data page stuff
-export function setActiveFrameDataPlayer(oneOrTwo) {
-  return {
-    type: SET_ACTIVE_PLAYER,
-    oneOrTwo
-  }
-}
-export function setLandscapeCols(listOfCols) {
-  return {
-    type: SET_LANDSCAPE_COLS,
-    listOfCols
-  }
-}
-export function setOnBlockColours(coloursOn) {
-  return {
-    type: SET_ON_BLOCK_COLOURS,
-    coloursOn,
-  }
-}
-export function setCounterHit(counterHitOn) {
-  return {
-    type: SET_COUNTER_HIT,
-    counterHitOn,
-  }
-}
+export const setActiveFrameDataPlayer = (oneOrTwo: "playerOne" | "playerTwo") => ({
+  type: 'SET_ACTIVE_PLAYER',
+  oneOrTwo
+})
+export const setLandscapeCols = (listOfCols: {[key: string]: string}) => ({
+  type: 'SET_LANDSCAPE_COLS',
+  listOfCols
+})
+export const setOnBlockColours = (coloursOn: Boolean) => ({
+  type: 'SET_ON_BLOCK_COLOURS',
+  coloursOn,
+})
+export const setCounterHit = (counterHitOn: Boolean) => ({
+  type: 'SET_COUNTER_HIT',
+  counterHitOn,
+})
 
 
 export function setPlayer(playerId, charName) {

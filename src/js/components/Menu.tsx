@@ -222,7 +222,6 @@ const Menu = ({ themeBrightness, themeBrightnessClickHandler }) => {
               } else if (isPlatform("capacitor") && appPage.desktopOnly) {
                 return false;
               } else {
-                console.log()
                 return (
                   <IonRow onClick={() => appPage.externalUrl ? window.open(appPage.externalUrl, '_blank') : false} key={`wide-${appPage.title}`} className={`${appPage.modeName === "settings" && !isPlatform("capacitor") ? "lines-bottom" : null} menu-entry`}>
                     <IonCol size={isWideFullMenuOpen ? "2" : "12"}>
