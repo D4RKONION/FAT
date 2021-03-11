@@ -9,7 +9,11 @@ import { activeGameSelector, activePlayerSelector, counterHitSelector, landscape
 
 const portraitCols: {[key: string]: string} = {startup: "S", active: "A", recovery: "R", onHit: "oH", onBlock: "oB",};
 
-const DataTable = ({ previewTable }) => {
+type DataTableProps = {
+  previewTable: Boolean;
+}
+
+const DataTable = ({ previewTable }: DataTableProps) => {
 
 
   const currentOrientation = useSelector(orientationSelector);
