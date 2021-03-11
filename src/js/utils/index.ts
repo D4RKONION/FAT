@@ -1,4 +1,4 @@
-import { mapKeys, isEqual, has } from 'lodash';
+import { mapKeys, isEqual } from 'lodash';
 
 /**
  * Renames the moves in the character frame data to reflect the user's desired naming convention
@@ -14,45 +14,34 @@ export function renameData(rawFrameData, moveNameType, inputNotationType) {
     return debugReturn;
   }
 
-  const formatMoveName = (moveData) => {
-
-    let splitMoveName = moveData.plnCmd.split(/[\\s+]+/);
-
-    /*
-      split the plain command input into direction, button, and if it's present, aerial state
-      (the regex supplied will safely split the plain command if it's just a grounded direction and input)
-        if the length of the resulting array is greater than 2, we're dealing with an airborne move
-          return "j" for jump prepended to [direction].[input]
-        else
-          return [direction].[input]
-     */
-
-  }
-
-  const shorthandRename = (rawData) => {
-    // let foo = rawData;
-
-    // for (const fdKey of Object.keys(foo)) {
-    //   console.log(`Key: ${fdKey} ---- Value: ${foo[fdKey].moveType}`);
-
-    //   if (foo[fdKey].moveType === "normal") {
-
-    //   }
-    // }
-
-    // return foo;
-
+  const renameFrameDataToShorthand = (rawData) => {
     let rename = mapKeys(rawData, (moveValue, moveKey) => {
-      if (moveValue.moveType === "normal") {
-        if (has(moveValue, "cmnName")) {
-          return moveValue.cmnName;
-        } else {
-          return moveKey;
-        }
+      if (moveValue.moveType === "normal" && !moveValue.movesList) {
+        return formatMoveName(moveValue);
+      } else {
+        return moveKey;
       }
     });
 
     return rename;
+  }
+
+  const formatMoveName = (moveData) => {
+    let truncatedMoveName: string = "";
+    const numberToDirectionMap: Map<string, string> = new Map([
+      ["2", "cr."],
+      ["5", "st."],
+      ["8", "nj."]
+    ]);
+
+    if (moveData.numCmd.includes("j")) {
+      truncatedMoveName = moveData.numCmd;
+    } else {
+      let [direction, input]: string[] = moveData.numCmd.split(/(\d)/).filter((x: string) => x !== "");
+      truncatedMoveName = `${numberToDirectionMap.get(direction)}${input}`;
+    }
+
+    return truncatedMoveName;
   }
 
   switch (moveNameType) {
@@ -61,7 +50,7 @@ export function renameData(rawFrameData, moveNameType, inputNotationType) {
     case "common":
       return bulkRenameFrameData(rawFrameData, "cmnName");
     case "shorthand":
-      return shorthandRename(rawFrameData);
+      return renameFrameDataToShorthand(rawFrameData);
     case "inputs":
       return bulkRenameFrameData(rawFrameData, inputNotationType);
     default:
