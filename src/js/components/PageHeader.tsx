@@ -67,7 +67,7 @@ const PageHeader = ( { componentsToShow, buttonsToShow, title }: PageHeaderProps
         
 
         {componentsToShow && componentsToShow.menu &&
-          <BrightnessToggle styleName="widescreenMode" />
+          <BrightnessToggle />
         }
         
         {componentsToShow && componentsToShow.popover &&
