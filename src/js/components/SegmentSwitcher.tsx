@@ -1,14 +1,19 @@
 import { IonLabel, IonSegment, IonSegmentButton } from '@ionic/react';
 import '../../style/components/SegmentSwitcher.scss';
 
-
+type SegmentSwitcherProps = {
+  segmentType: string,
+  valueToTrack: string,
+  labels: {[key: string]: string},
+  clickFunc: (segmentValue) => void;
+}
 
 const SegmentSwitcher = ({
   segmentType,
   valueToTrack,
   labels,
   clickFunc,
-}) => {
+}: SegmentSwitcherProps) => {
 
 
   return(
