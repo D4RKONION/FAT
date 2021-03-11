@@ -237,7 +237,7 @@ useEffect(() => {
 
   // wait for the initial framedata load
   if (!frameDataFile) {
-    return <p></p>
+    return null;
   }
 
   return (

@@ -18,7 +18,10 @@ const StringInterrupter = () => {
 
   const [firstMove, setFirstMove] = useState(null);
   const [secondMove, setSecondMove] = useState(null);
-  const [processedResults, setProcessedResults] = useState({"trades": {}, "wins": {}})
+
+  type WinsAndTrades = {"trades": {[key: number]: string[]}, "wins": {[key: number]: string[]}}
+  const initialState: WinsAndTrades = {"trades": {}, "wins": {}};
+  const [processedResults, setProcessedResults] = useState(initialState)
 
   const playerOneMoves = selectedCharacters["playerOne"].frameData;
   const playerTwoMoves = selectedCharacters["playerTwo"].frameData;
@@ -35,7 +38,7 @@ const StringInterrupter = () => {
     }
 
     if (playerTwoMoves[firstMove] && playerTwoMoves[secondMove]) {
-      let tempResults = {"trades": {}, "wins": {}}
+      let tempResults:WinsAndTrades = {"trades": {}, "wins": {}}
       let defenderPriority;
       let attackerPriority;
 
@@ -110,21 +113,17 @@ const StringInterrupter = () => {
         }
       }
       
-      // This sorter from https://stackoverflow.com/a/1069840
-      const arraySorted = Object.entries(tempResults.wins)
-        .sort(([,a],[,b]) => a-b)
-        .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
       
       const winsObj = {};
 
-      Object.keys(arraySorted).forEach(moveName => {
-          if ( !Object.keys(winsObj).includes(arraySorted[moveName].toString()) ) {
-            winsObj[arraySorted[moveName]] = [];
+      Object.keys(tempResults.wins).forEach(moveName => {
+          if ( !Object.keys(winsObj).includes(tempResults.wins[moveName].toString()) ) {
+            winsObj[tempResults.wins[moveName]] = [];
           }
-          winsObj[arraySorted[moveName]].push(moveName);
+          winsObj[tempResults.wins[moveName]].push(moveName);
       })
       tempResults.wins = winsObj;
-      console.log(tempResults.wins)
+      
       setProcessedResults(tempResults);
 
 
@@ -230,7 +229,7 @@ const StringInterrupter = () => {
                     <IonItemGroup key={`winning-at-frame-${framesToInterrupt}-group`}>
                       <IonItemDivider>
                         <IonLabel>
-                          <p><strong>{framesToInterrupt} frame{framesToInterrupt > 1 && "s"}</strong> to interrupt</p>
+                          <p><strong>{framesToInterrupt} frame{parseInt(framesToInterrupt) > 1 && "s"}</strong> to interrupt</p>
                         </IonLabel>
                       </IonItemDivider>
                     {Object.keys(processedResults.wins[framesToInterrupt]).map(winMove =>

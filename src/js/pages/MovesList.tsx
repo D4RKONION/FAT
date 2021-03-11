@@ -8,6 +8,7 @@ import { setPlayerAttr, setModalVisibility, setActiveFrameDataPlayer, setActiveG
 import { useHistory, useParams } from 'react-router';
 import AdviceToast from '../components/AdviceToast';
 import { activeGameSelector, activePlayerSelector, dataDisplaySettingsSelector, selectedCharactersSelector } from '../selectors';
+import { FrameDataSlug } from '../types';
 
 
 const MovesList = () => {
@@ -20,7 +21,7 @@ const MovesList = () => {
   const dispatch = useDispatch();
   
   const history = useHistory();
-  const slugs = useParams();
+  const slugs: FrameDataSlug = useParams();
   const moveData = selectedCharacters[activePlayer].frameData;
 
   useEffect(() => {

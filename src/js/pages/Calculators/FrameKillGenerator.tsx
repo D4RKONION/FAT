@@ -44,7 +44,7 @@ const FrameKillGenerator = () => {
 
       // https://stackoverflow.com/questions/12487422/take-a-value-1-31-and-convert-it-to-ordinal-date-w-javascript
       // This allows us to quickly create ordinal strings using active frame numbers
-      function getOrdinal(n) {
+      const getOrdinal = (n) => {
         var s=["th","st","nd","rd"],
         v=n%100;
         return n+(s[(v-20)%10]||s[v]||s[0]);
@@ -71,7 +71,7 @@ const FrameKillGenerator = () => {
       playerOneMoves["Forward Dash"] = {
         "startup": 1,
         "active": 0,
-        "recovery": parseInt(selectedCharacters.playerOne.stats.fDash)
+        "recovery": selectedCharacters.playerOne.stats.fDash
       }
 
       // If a specific move is required in the setup, make that the only option in firstokimove
@@ -202,7 +202,7 @@ const FrameKillGenerator = () => {
         }
       }
 
-      function pathComparer(kdrResults, kdrbResults) {
+      const pathComparer = (kdrResults, kdrbResults) => {
         for (var obj1 in kdrResults) {
           for (var ordinal1 in kdrResults[obj1]) {
             for (var setup1 in kdrResults[obj1][ordinal1]) {

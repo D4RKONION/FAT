@@ -16,9 +16,16 @@ export type Orientation = 'landscape' | 'portrait';
 
 export type ThemeBrightness = 'light' | 'dark';
 
-export type ThemeShortId = 'classic' | typeof THEMES[number]["shortId"]
+export type ThemeShortId = 'classic' | typeof THEMES[number]["shortId"];
 
-export type ThemeAlias = typeof THEMES[number]["alias"]
+export type ThemeAlias = typeof THEMES[number]["alias"];
+
+export type FrameDataSlug = {
+  gameSlug?: GameName,
+  characterSlug?: string,
+  vtStateSlug?: VtState,
+  moveNameSlug?: string,
+}
 
 export type AdviceToastPrevRead = {
   [key: string]: number,
@@ -28,10 +35,10 @@ export type PlayerData = {
   name?: string,
   vtState?: VtState,
   frameData?: {
-    [key: string]: any
+    [key: string]: any,
   },
   stats?: {
-    [key: string]: number | string
+    [key: string]: number | string,
   },
   selectedMove?: string,
 }

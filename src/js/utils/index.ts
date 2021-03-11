@@ -44,8 +44,8 @@ function vTriggerMerge(rawFrameData, vtState) {
   // based on https://stackoverflow.com/a/39442287
   return (
     Object.entries(vtMergedData)
-      .sort(function (a, b) {
-        return a[1].i - b[1].i
+      .sort((moveOne: any, moveTwo: any) => {
+        return moveOne[1].i - moveTwo[1].i
       })
       .reduce((_sortedObj, [k,v]) => ({
         ..._sortedObj,

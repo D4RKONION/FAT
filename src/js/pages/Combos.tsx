@@ -10,6 +10,7 @@ import { informationCircleOutline, openOutline } from 'ionicons/icons';
 import AdviceToast from '../components/AdviceToast';
 import { useParams } from 'react-router';
 import { activeGameSelector, activePlayerSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
+import { FrameDataSlug } from '../types';
 
 
 
@@ -22,7 +23,7 @@ const Combos = () => {
 
   const dispatch = useDispatch();
 
-  const slugs = useParams();
+  const slugs: FrameDataSlug = useParams();
   useEffect(() => {
 
     if (activeGame !== slugs.gameSlug) {

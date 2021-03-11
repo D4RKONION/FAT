@@ -5,6 +5,8 @@ import PopoverButton from './PopoverButton';
 import '../../style/components/PageHeader.scss'
 import BrightnessToggle from './BrightnessToggle';
 
+
+// TSHELP I couldn't get {...}[] to work on buttons here
 type PageHeaderProps = {
   componentsToShow?: {
     menu?: boolean;

@@ -46,7 +46,7 @@ const PopoverButton = () => {
               <IonLabel>
                 oB Colours
               </IonLabel>
-              <IonToggle checked={onBlockColours} onIonChange={e => dispatch(setOnBlockColours(e.detail.checked)) } />
+              <IonToggle checked={!!onBlockColours} onIonChange={e => dispatch(setOnBlockColours(e.detail.checked)) } />
             </IonItem>
             {
               activeGame !== "3S" &&
@@ -54,7 +54,7 @@ const PopoverButton = () => {
                 <IonLabel>
                   Counter Hit
                 </IonLabel>
-                <IonToggle checked={counterHit} onIonChange={e => dispatch(setCounterHit(e.detail.checked)) } />
+                <IonToggle checked={!!counterHit} onIonChange={e => dispatch(setCounterHit(e.detail.checked)) } />
               </IonItem>
             }
 

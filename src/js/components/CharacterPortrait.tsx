@@ -9,7 +9,7 @@ type CharacterPortraitProps = {
   game: string;
   selected?: Boolean;
   charColor: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const CharacterPortrait = ( { charName, charThreeLetterCode, game, selected, charColor, onClick }: CharacterPortraitProps ) => {
