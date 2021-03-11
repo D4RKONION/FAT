@@ -2,29 +2,20 @@ import { IonContent, IonPage, IonList, IonItem, IonLabel, IonGrid, IonButton, is
 import React, { useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { InAppPurchase2 as iapStore } from '@ionic-native/in-app-purchase-2';
-import { last } from 'lodash';
 import PageHeader from '../components/PageHeader';
 import { checkmarkSharp } from 'ionicons/icons';
 import '../../style/pages/ThemeStore.scss'
 import { setThemeColor } from '../actions';
 import { themeColorSelector, themesOwnedSelector } from '../selectors';
+import THEMES from '../constants/Themes';
 
 const defaultPrice = isPlatform('android') ? '€1.79' : '$1.99';
 
-const PRODUCTS = [
-  {
-    id: "com.fullmeter.fat.theme.reddragon",
-    alias: "Red Dragon",
-    description: "Can you buy this red and blonde theme? Sure you can!",
-    price: defaultPrice,
-  },
-  {
-    id: "com.fullmeter.fat.theme.secondincommand",
-    alias: "Second in Command",
-    description: "An intoxicatingly purple choice for our 2nd theme!",
-    price: defaultPrice,
-  }
-];
+const PRODUCTS = THEMES.map(themeObj => (
+  {...themeObj, "price":  defaultPrice}
+))
+
+console.log(PRODUCTS);
 
 const ThemeStore = () => {
 
@@ -94,7 +85,7 @@ const ThemeStore = () => {
                     </IonCol>
                     {themesOwned.includes(iapStoreObj.alias) &&
                       <>
-                      {themeColor === last(iapStoreObj.id.split(".")) ?
+                      {themeColor === iapStoreObj.shortId ?
                         <IonCol className="center-in-row" size="2.75">
                           <IonIcon size="large" color="primary" icon={checkmarkSharp} />
                         </IonCol>
@@ -103,7 +94,7 @@ const ThemeStore = () => {
                         <IonButton
                           fill="solid" size="default"
                           onClick={ () => {
-                            dispatch(setThemeColor(last(iapStoreObj.id.split("."))));
+                            dispatch(setThemeColor(iapStoreObj.shortId));
                           }}
                         >Use</IonButton>
                       </IonCol>
@@ -116,7 +107,7 @@ const ThemeStore = () => {
                       <IonCol>
                         <IonButton
                           fill="outline" size="block"
-                          routerLink={`/themestore/${last(iapStoreObj.id.split("."))}`}
+                          routerLink={`/themestore/${iapStoreObj.shortId}`}
                           routerDirection="forward"
                         >Preview</IonButton>
                       </IonCol>

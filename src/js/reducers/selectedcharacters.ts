@@ -1,8 +1,36 @@
-import { SET_PLAYER, SET_PLAYER_ATTR } from '../actions';
-export default function selectedCharactersReducer(state = {playerOne: {name: "Ryu", vtState: "normal", frameData: {}, stats: {}, selectedMove: "Stand LP"}, playerTwo: {name: "Cammy", vtState: "normal", framedata: {}, stats: {}}}, action) {
+import { PlayerData, PlayerId, VtState } from "../types";
+
+type SelectedCharactersReducerState = {
+  'playerOne': PlayerData,
+  'playerTwo': PlayerData
+}
+
+type SelectedCharactersReducerAction = {
+  type: 'SET_PLAYER' | 'SET_PLAYER_ATTR';
+  playerId: PlayerId;
+  playerData: PlayerData
+}
+
+const defaultState: SelectedCharactersReducerState = {
+  "playerOne": {
+    name: "Ryu",
+    vtState: "normal",
+    frameData: {},
+    stats: {},
+    selectedMove: "Stand LP"
+  },
+  "playerTwo": {
+    name: "Cammy",
+    vtState: "normal",
+    frameData: {},
+    stats: {},
+  }
+};
+
+export const selectedCharactersReducer = (state = defaultState, action: SelectedCharactersReducerAction) => {
   switch(action.type) {
-    case SET_PLAYER:
-    case SET_PLAYER_ATTR:{
+    case 'SET_PLAYER':
+    case 'SET_PLAYER_ATTR': {
       return {
         ...state,
         [action.playerId]: {

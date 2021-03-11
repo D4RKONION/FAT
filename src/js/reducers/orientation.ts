@@ -1,8 +1,10 @@
-type OrientationReducerState = string;
+import { Orientation } from "../types";
+
+type OrientationReducerState = Orientation;
 
 type OrientationReducerAction = {
   type: 'SET_ORIENTATION';
-  orientation: "landscape" | "portrait";
+  orientation: Orientation;
 }
 
 const defaultState: OrientationReducerState = "portrait";

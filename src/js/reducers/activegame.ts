@@ -1,8 +1,10 @@
-type ActiveGameReducerState = "SFV" | "USF4" | "3S";
+import { GameName } from "../types";
+
+type ActiveGameReducerState = GameName
 
 type ActiveGameReducerAction = {
   type: 'SET_GAME_NAME';
-  gameName: "SFV" | "USF4" | "3S";
+  gameName: GameName
 }
 
 const defaultState: ActiveGameReducerState = "SFV";

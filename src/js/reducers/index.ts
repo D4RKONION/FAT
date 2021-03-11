@@ -8,15 +8,15 @@ import { activePlayerReducer } from './activeplayer';
 import { landscapeColsReducer } from './landscapecols';
 import { onBlockColoursReducer } from './onblockcolours';
 import { counterHitReducer } from './counterhit';
-import modalVisibilityReducer from './modalvisibility';
-import selectedCharactersReducer from './selectedcharacters';
-import dataDisplaySettingsReducer from './datadisplaysettings';
-import themeColorReducer from './themecolor';
-import themeBrightnessReducer from './themebrightness';
-import themesOwnedReducer from './themesowned'
-import adviceToastShownReducer from './adivcetoastshown';
-import adviceToastDismissedReducer from './adivcetoastdismissed';
-import adviceToastPrevReadReducer from './advicetoastprevread';
+import { selectedCharactersReducer } from './selectedcharacters';
+import { modalVisibilityReducer } from './modalvisibility';
+import { dataDisplaySettingsReducer } from './datadisplaysettings';
+import { themeBrightnessReducer } from './themebrightness';
+import { themeColorReducer } from './themecolor';
+import { themesOwnedReducer } from './themesowned'
+import { adviceToastShownReducer } from './adivcetoastshown';
+import { adviceToastDismissedReducer } from './adivcetoastdismissed';
+import { adviceToastPrevReadReducer } from './advicetoastprevread';
 
 
 const rootReducer = combineReducers({

@@ -7,12 +7,12 @@ import '../../../style/components/FAB.scss'
 import SegmentSwitcher from '../../components/SegmentSwitcher';
 import { setActiveFrameDataPlayer, setModalVisibility } from '../../actions';
 import { person } from 'ionicons/icons';
+import { selectedCharactersSelector } from '../../selectors';
 
 
 const FrameTrapChecker = () => {
   
-  const selectedCharacters = useSelector(selectedCharactersSelector
-    );
+  const selectedCharacters = useSelector(selectedCharactersSelector);
 
   const dispatch = useDispatch();
 

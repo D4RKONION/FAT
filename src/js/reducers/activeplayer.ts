@@ -1,8 +1,10 @@
-type ActivePlayerReducerState = "playerOne" | "playerTwo";
+import { PlayerId } from "../types";
+
+type ActivePlayerReducerState = PlayerId;
 
 type ActivePlayerReducerAction = {
   type: 'SET_ACTIVE_PLAYER';
-  oneOrTwo: "playerOne" | "playerTwo";
+  oneOrTwo: PlayerId;
 }
 
 const defaultState: ActivePlayerReducerState = "playerOne";
