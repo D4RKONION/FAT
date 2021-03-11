@@ -9,7 +9,7 @@ import { useParams } from 'react-router';
 
 const MoreResourcesSub = () => {
   
-  let { resourcePageSlug } = useParams();
+  const { resourcePageSlug }: { resourcePageSlug: string } = useParams();
   const resourcePageData = {
     title: "",
     obj: {}
@@ -48,7 +48,7 @@ const MoreResourcesSub = () => {
                   <IonItemGroup key={`${listHeader}-options`}>
                     <IonListHeader>{listHeader}</IonListHeader>
                     {Object.keys(resourcePageData.obj[listHeader]).map(discordItem =>
-                      <IonItem detail="false" lines="full" key={`${discordItem}-discordItem`} href={resourcePageData.obj[listHeader][discordItem].url} button>
+                      <IonItem detail={false} lines="full" key={`${discordItem}-discordItem`} href={resourcePageData.obj[listHeader][discordItem].url} button>
                         <IonLabel>
                           <h2>{discordItem}</h2>
                           {resourcePageData.obj[listHeader][discordItem].desc && 

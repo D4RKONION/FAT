@@ -1,13 +1,13 @@
 import { GameName } from "../types";
 
+// TSHELP my attempts to type universalDataPoints have failed
+// See MoveDetail.tsx:122+153
 type GameDetailMap = {
   fullName: string;
   abbrName: string;
   characterStates: string[],
   characterList: string[],
-  universalDataPoints: {
-    [key: string]: any
-  },
+  universalDataPoints: any,
   specificCancels?: any,
   statsPoints: any,
 };

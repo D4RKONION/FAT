@@ -127,7 +127,7 @@ const LandscapeOptions = () => {
                 ).map(dataEntryKey =>
                   <IonItem key={dataRow[dataEntryKey].dataFileKey}>
                     <IonLabel>{dataRow[dataEntryKey].detailedHeader}</IonLabel>
-                    <IonCheckbox slot="end" checked={landscapeCols[dataEntryKey]} value={dataRow[dataEntryKey].dataFileKey} onClick={() => handleCheckboxClick(dataEntryKey, dataRow[dataEntryKey].dataTableHeader, "none")} />
+                    <IonCheckbox slot="end" checked={!!landscapeCols[dataEntryKey]} value={dataRow[dataEntryKey].dataFileKey} onClick={() => handleCheckboxClick(dataEntryKey, dataRow[dataEntryKey].dataTableHeader, "none")} />
                   </IonItem>
                 )
               )}
@@ -143,7 +143,7 @@ const LandscapeOptions = () => {
                 Object.keys(dataRow).map((dataEntryKey) =>
                   <IonItem key={dataRow[dataEntryKey].dataFileKey}>
                     <IonLabel>{dataRow[dataEntryKey].detailedHeader}</IonLabel>
-                    <IonCheckbox slot="end" checked={landscapeCols[dataEntryKey]} value={dataRow[dataEntryKey].dataFileKey} onClick={() => handleCheckboxClick(dataEntryKey, dataRow[dataEntryKey].dataTableHeader, "none")} />
+                    <IonCheckbox slot="end" checked={!!landscapeCols[dataEntryKey]} value={dataRow[dataEntryKey].dataFileKey} onClick={() => handleCheckboxClick(dataEntryKey, dataRow[dataEntryKey].dataTableHeader, "none")} />
                   </IonItem>
                 )
               )}

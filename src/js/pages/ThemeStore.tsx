@@ -106,14 +106,14 @@ const ThemeStore = () => {
                     <IonRow className="purchasable-theme-row center-in-row">
                       <IonCol>
                         <IonButton
-                          fill="outline" size="block"
+                          fill="outline" expand="block" size="default"
                           routerLink={`/themestore/${iapStoreObj.shortId}`}
                           routerDirection="forward"
                         >Preview</IonButton>
                       </IonCol>
                       <IonCol>
                       <IonButton
-                        fill="solid" size="block"
+                        fill="solid" expand="block" size="default"
                         onClick={ () => {
                           iapStore.order(iapStoreObj.id);
                         }}

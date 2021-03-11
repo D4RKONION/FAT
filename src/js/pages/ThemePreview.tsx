@@ -18,7 +18,7 @@ const ThemePreview = () => {
   const dispatch = useDispatch();
 
   const [fakeTrigger, setFakeTrigger] = useState("normal");
-  let { themeNameSlug } = useParams();
+  let { themeNameSlug }: {themeNameSlug: string} = useParams();
 
 
   const THEMEDICT = {
@@ -35,16 +35,16 @@ const ThemePreview = () => {
 
       <IonContent className="themePreview">
         <SubHeader
+          adaptToShortScreens={false}
           rowsToDisplay={[
             [
               <><b>Health</b><br />1000</>,
               <><b>Stun</b><br />1050</>,
-              <div><b>Tap for more</b><br /><IonIcon icon={informationCircle} /></div>
+              <><b>Tap for more</b><br /><IonIcon icon={informationCircle} /></>,
             ],
             [
               <><b>Fwd Dash</b><br />16</>,
               <><b>Back Dash</b><br />24</>,
-
             ]
           ]}
         />

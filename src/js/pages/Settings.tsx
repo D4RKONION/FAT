@@ -181,14 +181,14 @@ const Settings = () => {
                 <IonIcon icon={chevronForward} slot="end" />
               }
             </IonItem>
-            <IonItem detail="false" lines="none" href="https://twitter.com/D4RK_ONION" target="_system" button>
+            <IonItem detail={false} lines="none" href="https://twitter.com/D4RK_ONION" target="_system" button>
               <IonLabel>
                 <h2>Twitter</h2>
               </IonLabel>
               <IonIcon icon={logoTwitter} slot="start" />
               <IonIcon icon={openOutline} slot="end" />
             </IonItem>
-            <IonItem detail="false" lines="full" href="https://github.com/D4RKONION/FAT" target="_system" button>
+            <IonItem detail={false} lines="full" href="https://github.com/D4RKONION/FAT" target="_system" button>
               <IonLabel>
                 <h2>Github</h2>
               </IonLabel>

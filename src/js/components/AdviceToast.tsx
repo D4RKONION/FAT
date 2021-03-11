@@ -33,11 +33,11 @@ const AdviceToast = () => {
 
   if (toastRef.current) {
     toastRef.current.dismiss();
-    return false;
+    return null;
   } else if (!ADVICE[modeName] || !adviceToastShown || adviceToastDismissed ) {
-    return false;
+    return null;
   } else if (Math.floor(Math.random() * 10) < 7) {
-    return false;
+    return null;
   }
   
 
@@ -58,7 +58,7 @@ const AdviceToast = () => {
       toastData.handler = ADVICE[modeName][adviceToastPrevRead[modeName] + 1].handler;
     } else {
       // you've read all the advice for this mode
-      return false;
+      return null;
     }
   }	
   

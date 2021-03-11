@@ -30,6 +30,7 @@ const CharacterStats = () => {
       <IonContent id="characterStats">
 
         <SubHeader
+          adaptToShortScreens={false}
           rowsToDisplay={[
             [
               <h4>{charStatsData["phrase"]}</h4>,

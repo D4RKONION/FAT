@@ -9,6 +9,7 @@ import SubHeader from '../components/SubHeader';
 import SegmentSwitcher from '../components/SegmentSwitcher';
 import { setActiveGame, setPlayerAttr } from '../actions';
 import { activeGameSelector, activePlayerSelector, selectedCharactersSelector } from '../selectors';
+import { FrameDataSlug } from '../types';
 
 
 const MoveDetail = () => {
@@ -19,7 +20,7 @@ const MoveDetail = () => {
 
   const dispatch = useDispatch();
 
-  const slugs = useParams();
+  const slugs: FrameDataSlug = useParams();
   const modeBackTo = useLocation().pathname.split("/")[1];
 
   useEffect(() => {
@@ -41,9 +42,9 @@ const MoveDetail = () => {
   useEffect(() => {
     if (activePlayer === "playerOne") {
       console.log("URL movename mismatch")
-      const urlMove = Object.keys(selectedCharacters[activePlayer].frameData).filter(moveDetail => {
-        return selectedCharacters[activePlayer].frameData[moveDetail].moveName === slugs.moveNameSlug
-      })
+      const urlMove = Object.keys(selectedCharacters[activePlayer].frameData).filter(moveDetail => 
+        selectedCharacters[activePlayer].frameData[moveDetail].moveName === slugs.moveNameSlug
+      )[0]
       dispatch(setPlayerAttr("playerOne", slugs.characterSlug, {selectedMove: urlMove}));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -55,9 +56,7 @@ const MoveDetail = () => {
   const selectedMoveData = charFrameData[selectedMoveName];
 
   if (!selectedMoveData) {
-    <IonPage>
-      {/* Something's gone wrong */}
-    </IonPage>
+    return null;
   }
 
 
@@ -82,6 +81,7 @@ const MoveDetail = () => {
       <IonContent id="moveDetail">
 
         <SubHeader
+          adaptToShortScreens={false}
           rowsToDisplay={[
             [
               <><b>Official Name</b><br />{selectedMoveData["moveName"]}</>,
@@ -119,7 +119,7 @@ const MoveDetail = () => {
                 {universalDataPoints[dataSection].map((dataRow, index) =>
                   dataSection !== "Extra Information" ?
                     <div key={index} className="row">
-                      {Object.entries(dataRow).map(([dataId, headerObj]) => {
+                      {Object.entries(dataRow).map(([dataId, headerObj]: [string, {[key: string]: {"dataTableHeader": string, "detailedHeader": string, "dataFileKey": string}}]) => {
                           if (dataId === "cancelsTo") {
                             return <div className={selectedMoveData.changedValues && selectedMoveData.changedValues.includes(dataId) ? "triggered-data" : "normal-state"} key={dataId}><b>{headerObj.detailedHeader}</b><br/>{selectedMoveData[dataId] || selectedMoveData[dataId] === 0 ? selectedMoveData[dataId].join(", ") : "~"}</div>
                           } else {
@@ -150,7 +150,7 @@ const MoveDetail = () => {
               <IonCardContent>
                 {specificCancelRows.map((dataRow, index) =>
                   <div key={index} className="row">
-                    {Object.entries(dataRow).map(([dataId, headerObj]) =>
+                    {Object.entries(dataRow).map(([dataId, headerObj]: [string, {[key: string]: {"dataTableHeader": string, "detailedHeader": string, "dataFileKey": string}}]) =>
                       <div key={dataId}><b>{headerObj.detailedHeader}</b><br/>{selectedMoveData[dataId]}</div>
                     )}
                   </div>

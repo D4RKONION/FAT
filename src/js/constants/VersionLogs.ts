@@ -23,7 +23,8 @@ export const VERSION_LOGS = {
       "Fixed a bug where you could change games while looking at a move's detail, causing a crash",
       "Fixed the link to Sestze's spreadsheet, sorry Sestze!",
       "Fixed a bug where sometimes some of the subheader data wasn't showing",
-      "Fixed the link to the FAT repo"
+      "Fixed the link to the FAT repo",
+      "Desktop: Fixed a bug where the character select screen didn't cause a mouse pointer",
     ]
   },
   "3.1.0": {

@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { ReactFragment } from 'react';
 import { IonGrid, IonRow, IonCol } from '@ionic/react';
 
 import '../../style/components/SubHeader.scss';
 
-const SubHeader = ({ adaptToShortScreens, rowsToDisplay }) => {
+// TSHELP Couldn't type rowsToDisplay properly
+type CharacterPortraitProps = {
+  adaptToShortScreens: Boolean;
+  rowsToDisplay: any;
+}
+
+const SubHeader = ({ adaptToShortScreens, rowsToDisplay }: CharacterPortraitProps) => {
 
   return(
     <IonGrid id="subHeader">

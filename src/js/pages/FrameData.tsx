@@ -12,6 +12,7 @@ import { informationCircle } from 'ionicons/icons';
 import AdviceToast from '../components/AdviceToast';
 import { APP_CURRENT_VERSION_CODE } from '../constants/VersionLogs';
 import { activeGameSelector, activePlayerSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
+import { FrameDataSlug } from '../types';
 
 
 
@@ -25,11 +26,11 @@ const FrameData = () => {
   const dispatch = useDispatch();
   
   const history = useHistory();
-  const slugs = useParams();
+  const slugs: FrameDataSlug = useParams();
 
   useEffect(() => {
-    if (!localStorage.getItem("lsCurrentVersionCode") || localStorage.getItem("lsCurrentVersionCode") < APP_CURRENT_VERSION_CODE) {
-      localStorage.setItem("lsCurrentVersionCode", APP_CURRENT_VERSION_CODE);
+    if (!localStorage.getItem("lsCurrentVersionCode") || parseInt(localStorage.getItem("lsCurrentVersionCode")) < APP_CURRENT_VERSION_CODE) {
+      localStorage.setItem("lsCurrentVersionCode", APP_CURRENT_VERSION_CODE.toString());
       dispatch(setModalVisibility({ currentModal: "whatsNew", visible: true }))
     } 
 
@@ -120,7 +121,7 @@ const FrameData = () => {
         }
 
 
-        <DataTable/>
+        <DataTable previewTable={false} />
 
         <AdviceToast />
       </IonContent>
