@@ -1,14 +1,21 @@
 import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, IonIcon, IonFab, IonFabButton, IonItemGroup, IonItemDivider, IonGrid } from '@ionic/react';
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import PageHeader from '../../components/PageHeader';
 import '../../../style/pages/Calculators.scss';
 import '../../../style/components/FAB.scss'
-import { setActiveFrameDataPlayer, setPlayerAttr, setModalVisibility } from '../../actions';
-import { connect } from 'react-redux';
+import { setModalVisibility } from '../../actions';
 import { person, checkmark, warning } from 'ionicons/icons';
+import { activeGameSelector, selectedCharactersSelector } from '../../selectors';
 
 
-const StringInterrupter = ({ selectedCharacters, activeGame, setModalVisibility }) => {
+const StringInterrupter = () => {
+
+  const selectedCharacters = useSelector(selectedCharactersSelector);
+  const activeGame = useSelector(activeGameSelector);
+  
+  const dispatch = useDispatch();
+
   const [firstMove, setFirstMove] = useState(null);
   const [secondMove, setSecondMove] = useState(null);
   const [processedResults, setProcessedResults] = useState({"trades": {}, "wins": {}})
@@ -259,7 +266,7 @@ const StringInterrupter = ({ selectedCharacters, activeGame, setModalVisibility 
         </IonGrid>
 
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton onClick={() => {setModalVisibility({ currentModal: "characterSelect", visible: true})} }>
+          <IonFabButton onClick={() => { dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true})) } }>
             <IonIcon icon={person} />
           </IonFabButton>
         </IonFab>
@@ -269,21 +276,4 @@ const StringInterrupter = ({ selectedCharacters, activeGame, setModalVisibility 
   );
 };
 
-const mapStateToProps = state => ({
-  modalVisibility: state.modalVisibilityState,
-  selectedCharacters: state.selectedCharactersState,
-  activePlayer: state.activePlayerState,
-  activeGame: state.activeGameState,
-})
-
-const mapDispatchToProps = dispatch => ({
-  setActiveFrameDataPlayer: (oneOrTwo) => dispatch(setActiveFrameDataPlayer(oneOrTwo)),
-  setPlayerAttr: (playerId, charName, playerData) => dispatch(setPlayerAttr(playerId, charName, playerData)),
-  setModalVisibility: (data)  => dispatch(setModalVisibility(data)),
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)
-(StringInterrupter)
+export default StringInterrupter;

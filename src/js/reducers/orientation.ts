@@ -1,8 +1,17 @@
-import { SET_ORIENTATION } from '../actions';
+import { Orientation } from "../types";
 
-export default function orientationReducer(state = "portrait", action) {
+type OrientationReducerState = Orientation;
+
+type OrientationReducerAction = {
+  type: 'SET_ORIENTATION';
+  orientation: Orientation;
+}
+
+const defaultState: OrientationReducerState = "portrait";
+
+export const orientationReducer = (state = defaultState, action: OrientationReducerAction) => {
   switch(action.type) {
-    case SET_ORIENTATION:
+    case 'SET_ORIENTATION':
       return action.orientation;
     default:
       return state;

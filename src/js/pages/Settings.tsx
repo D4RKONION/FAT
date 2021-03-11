@@ -1,7 +1,7 @@
 import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, IonList, IonListHeader, IonIcon, useIonViewDidEnter, isPlatform, IonButton, IonToast, IonGrid  } from '@ionic/react';
 import React, { useState } from 'react';
-import { connect } from 'react-redux'
-import { Clipboard } from '@ionic-native/clipboard'
+import { useSelector, useDispatch } from 'react-redux';
+import { Clipboard } from '@ionic-native/clipboard';
 
 import { setActiveGame, setAdviceToastShown, setDataDisplaySettings, setPlayer } from '../actions'
 import '../../style/pages/Settings.scss';
@@ -9,8 +9,17 @@ import PageHeader from '../components/PageHeader';
 import { logoTwitter, chevronForward, mailOutline, starOutline, heartOutline, openOutline, globeOutline, logoGithub } from 'ionicons/icons';
 import { useHistory } from 'react-router';
 import { APP_CURRENT_VERSION_NAME } from '../constants/VersionLogs';
+import { activeGameSelector, adviceToastShownSelector, dataDisplaySettingsSelector, selectedCharactersSelector } from '../selectors';
 
-const Settings = ({ activeGame, setActiveGame, dataDisplaySettings, setDataDisplaySettings, selectedCharacters, setPlayer, adviceToastShown, setAdviceToastShown }) => {
+const Settings = () => {
+  
+  const activeGame = useSelector(activeGameSelector);
+  const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
+  const selectedCharacters = useSelector(selectedCharactersSelector);
+  const adviceToastShown = useSelector(adviceToastShownSelector);
+
+  const dispatch = useDispatch();
+  
   let history = useHistory();
   let urlHash = history.location.hash.substring(1);
 
@@ -46,7 +55,7 @@ const Settings = ({ activeGame, setActiveGame, dataDisplaySettings, setDataDispl
                 value={activeGame}
                 okText="Select"
                 cancelText="Cancel"
-                onIonChange={e => setActiveGame(e.detail.value)}
+                onIonChange={ e => dispatch(setActiveGame(e.detail.value)) }
               >
                 <IonSelectOption value="3S">3S</IonSelectOption>
                 <IonSelectOption value="USF4">USF4</IonSelectOption>
@@ -64,9 +73,9 @@ const Settings = ({ activeGame, setActiveGame, dataDisplaySettings, setDataDispl
                 okText="Select"
                 cancelText="Cancel"
                 onIonChange={e => {
-                  setDataDisplaySettings({moveNameType: e.detail.value})
-                  setPlayer("playerOne", selectedCharacters.playerOne.name);
-                  setPlayer("playerTwo", selectedCharacters.playerTwo.name);
+                  dispatch(setDataDisplaySettings({moveNameType: e.detail.value}));
+                  dispatch(setPlayer("playerOne", selectedCharacters.playerOne.name));
+                  dispatch(setPlayer("playerTwo", selectedCharacters.playerTwo.name));
                 }}
               >
                 <IonSelectOption value="official">Official</IonSelectOption>
@@ -87,10 +96,10 @@ const Settings = ({ activeGame, setActiveGame, dataDisplaySettings, setDataDispl
                 okText="Select"
                 cancelText="Cancel"
                 onIonChange={e => {
-                  setDataDisplaySettings({inputNotationType: e.detail.value})
+                  dispatch(setDataDisplaySettings({inputNotationType: e.detail.value}));
                   if (dataDisplaySettings.moveNameType === "inputs") {
-                    setPlayer("playerOne", selectedCharacters.playerOne.name);
-                    setPlayer("playerTwo", selectedCharacters.playerTwo.name);
+                    dispatch(setPlayer("playerOne", selectedCharacters.playerOne.name));
+                    dispatch(setPlayer("playerTwo", selectedCharacters.playerTwo.name));
                   }
                 }}
               >
@@ -110,7 +119,7 @@ const Settings = ({ activeGame, setActiveGame, dataDisplaySettings, setDataDispl
                   value={adviceToastShown}
                   okText="Select"
                   cancelText="Cancel"
-                  onIonChange={e => setAdviceToastShown(e.detail.value)}
+                  onIonChange={ e => dispatch(setAdviceToastShown(e.detail.value)) }
                 >
                   <IonSelectOption value={true}>On</IonSelectOption>
                   <IonSelectOption value={false}>Off</IonSelectOption>
@@ -214,23 +223,4 @@ const Settings = ({ activeGame, setActiveGame, dataDisplaySettings, setDataDispl
   );
 };
 
-const mapStateToProps = state => ({
-  activeGame: state.activeGameState,
-  dataDisplaySettings: state.dataDisplaySettingsState,
-  selectedCharacters: state.selectedCharactersState,
-  adviceToastShown: state.adviceToastShownState,
-})
-
-const mapDispatchToProps = dispatch => ({
-  setActiveGame: (gameName)  => dispatch(setActiveGame(gameName)),
-  setDataDisplaySettings: (gameName)  => dispatch(setDataDisplaySettings(gameName)),
-  setPlayer: (playerId, charName) => dispatch(setPlayer(playerId, charName)),
-  setAdviceToastShown: (adviceToastShown) => dispatch(setAdviceToastShown(adviceToastShown))
-})
-
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)
-(Settings)
+export default Settings;

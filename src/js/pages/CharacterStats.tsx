@@ -1,13 +1,18 @@
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonPage } from '@ionic/react';
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import GAME_DETAILS from '../constants/GameDetails'
 import '../../style/components/DetailCards.scss';
 import PageHeader from '../components/PageHeader';
 import SubHeader from '../components/SubHeader';
+import { activeGameSelector, activePlayerSelector, selectedCharactersSelector } from '../selectors';
 
 
-const CharacterStats = ({ activeGame, selectedCharacters, activePlayer }) => {
+const CharacterStats = () => {
+
+  const selectedCharacters = useSelector(selectedCharactersSelector);
+  const activeGame = useSelector(activeGameSelector); 
+  const activePlayer = useSelector(activePlayerSelector);
 
   const activeCharName = selectedCharacters[activePlayer].name;
   const charStatsData = selectedCharacters[activePlayer].stats;
@@ -58,17 +63,4 @@ const CharacterStats = ({ activeGame, selectedCharacters, activePlayer }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  selectedCharacters: state.selectedCharactersState,
-  activePlayer: state.activePlayerState,
-  activeGame: state.activeGameState,
-})
-
-const mapDispatchToProps = dispatch => ({
-})
-
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(CharacterStats)
+export default CharacterStats;

@@ -1,8 +1,15 @@
-import { SET_MODE_NAME } from '../actions';
+type ModeNameReducerState = string;
 
-export default function modeNameReducer(state = "", action) {
+type ModeNameReducerAction = {
+  type: 'SET_MODE_NAME';
+  modeName: string;
+}
+
+const defaultState: ModeNameReducerState = "";
+
+export const modeNameReducer = (state = defaultState, action: ModeNameReducerAction) => {
   switch(action.type) {
-    case SET_MODE_NAME:
+    case 'SET_MODE_NAME':
       return action.modeName;
     default:
       return state;

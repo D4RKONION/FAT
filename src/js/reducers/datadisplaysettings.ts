@@ -1,11 +1,19 @@
-import { SET_DATA_DISPLAY_SETTINGS } from '../actions';
+import { InputNotationType, MoveNameType } from "../types";
 
-export const SET_MOVE_NAMING_TYPE = "SET_MOVE_NAMING_TYPE"
-export const SET_INPUT_TYPE = "SET_INPUT_TYPE"
+type DataDisplaySettingsReducerState = {moveNameType?: MoveNameType , inputNotationType?: InputNotationType}
 
-export default function dataDisplaySettingsReducer(state = {moveNameType: "common", inputNotationType: "plnCmd"}, action) {
+type DataDisplaySettingsReducerAction = {
+  type: 'SET_DATA_DISPLAY_SETTINGS';
+  settings: {
+    moveNameType?: MoveNameType , inputNotationType?: InputNotationType
+  };
+}
+
+const defaultState: DataDisplaySettingsReducerState = {moveNameType: "common", inputNotationType: "plnCmd"};
+
+export const dataDisplaySettingsReducer = (state = defaultState, action: DataDisplaySettingsReducerAction) => {
   switch(action.type) {
-    case SET_DATA_DISPLAY_SETTINGS: {
+    case 'SET_DATA_DISPLAY_SETTINGS': {
       return {
         ...state,
           ...action.settings

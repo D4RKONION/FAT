@@ -1,8 +1,17 @@
-import { SET_ACTIVE_PLAYER } from '../actions';
+import { PlayerId } from "../types";
 
-export default function activePlayerReducer(state = "playerOne", action) {
+type ActivePlayerReducerState = PlayerId;
+
+type ActivePlayerReducerAction = {
+  type: 'SET_ACTIVE_PLAYER';
+  oneOrTwo: PlayerId;
+}
+
+const defaultState: ActivePlayerReducerState = "playerOne";
+
+export const activePlayerReducer = (state = defaultState, action: ActivePlayerReducerAction) => {
   switch(action.type) {
-    case SET_ACTIVE_PLAYER:
+    case 'SET_ACTIVE_PLAYER':
       return action.oneOrTwo;
     default:
       return state;

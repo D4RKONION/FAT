@@ -1,15 +1,24 @@
 import { IonContent, IonPage, IonList, IonItem, IonLabel, IonItemDivider, IonGrid } from '@ionic/react';
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 import PageHeader from '../components/PageHeader';
 import SegmentSwitcher from '../components/SegmentSwitcher';
 import '../../style/pages/MovesList.scss';
 import { setPlayerAttr, setModalVisibility, setActiveFrameDataPlayer, setActiveGame, setPlayer } from '../actions';
 import { useHistory, useParams } from 'react-router';
 import AdviceToast from '../components/AdviceToast';
+import { activeGameSelector, activePlayerSelector, dataDisplaySettingsSelector, selectedCharactersSelector } from '../selectors';
 
 
-const MovesList = ({ activeGame, setActiveGame, dataDisplaySettings, selectedCharacters, activePlayer, setPlayer, setPlayerAttr, setModalVisibility, setActiveFrameDataPlayer }) => {
+const MovesList = () => {
+  
+  const selectedCharacters = useSelector(selectedCharactersSelector);
+  const activePlayer = useSelector(activePlayerSelector);
+  const activeGame = useSelector(activeGameSelector);
+  const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
+
+  const dispatch = useDispatch();
+  
   const history = useHistory();
   const slugs = useParams();
   const moveData = selectedCharacters[activePlayer].frameData;
@@ -19,12 +28,12 @@ const MovesList = ({ activeGame, setActiveGame, dataDisplaySettings, selectedCha
     if (activeGame !== slugs.gameSlug) {
       console.log(activeGame)
       console.log("URL game mismatch");
-      setActiveGame(slugs.gameSlug);
+      dispatch(setActiveGame(slugs.gameSlug));
     }
 
     if (selectedCharacters["playerOne"].name !== slugs.characterSlug) {
       console.log("URL character mismatch");
-      setPlayer("playerOne", slugs.characterSlug);
+      dispatch(setPlayer("playerOne", slugs.characterSlug));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -63,14 +72,14 @@ const MovesList = ({ activeGame, setActiveGame, dataDisplaySettings, selectedCha
             segmentType={"active-player"}
             valueToTrack={activePlayer}
             labels={ {playerOne: `P1: ${selectedCharacters.playerOne.name}`, playerTwo: `P2: ${selectedCharacters.playerTwo.name}`}}
-            clickFunc={ (eventValue) => !setModalVisibility.visible && eventValue === activePlayer ? setModalVisibility({ currentModal: "characterSelect", visible: true }) : setActiveFrameDataPlayer(eventValue) }
+            clickFunc={ (eventValue) => eventValue === activePlayer ? dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true })) : dispatch(setActiveFrameDataPlayer(eventValue)) }
           />
           {activeGame === "SFV" &&
             <SegmentSwitcher
               segmentType={"vtrigger"}
               valueToTrack={selectedCharacters[activePlayer].vtState}
               labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
-              clickFunc={ (eventValue) => setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue}) }
+              clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
             />
           }
           <IonList>
@@ -91,7 +100,7 @@ const MovesList = ({ activeGame, setActiveGame, dataDisplaySettings, selectedCha
                     const namingType = dataDisplaySettings.moveNameType === "common" ? "cmnName" : "moveName";
                     const displayedName = !moveData[moveKey][namingType] ? moveData[moveKey]["moveName"] : moveData[moveKey][namingType];
                     return (
-                      <IonItem button key={moveKey} onClick={() => {setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {selectedMove: moveKey}); history.push(`/moveslist/movedetail/${activeGame}/${selectedCharacters[activePlayer].name}/${selectedCharacters[activePlayer].vtState}/${selectedCharacters[activePlayer].frameData[moveKey]["moveName"]}`)}}>
+                      <IonItem button key={moveKey} onClick={() => { dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {selectedMove: moveKey})); history.push(`/moveslist/movedetail/${activeGame}/${selectedCharacters[activePlayer].name}/${selectedCharacters[activePlayer].vtState}/${selectedCharacters[activePlayer].frameData[moveKey]["moveName"]}`)}}>
                         <IonLabel>
                           <h2>
                             {((displayedName.startsWith("LP ") || displayedName.startsWith("LK ")) && (moveData[moveKey].moveType === "special" || moveData[moveKey].moveType === "command-grab"))
@@ -121,24 +130,4 @@ const MovesList = ({ activeGame, setActiveGame, dataDisplaySettings, selectedCha
   );
 };
 
-const mapStateToProps = state => ({
-  selectedCharacters: state.selectedCharactersState,
-  activePlayer: state.activePlayerState,
-  activeGame: state.activeGameState,
-  dataDisplaySettings: state.dataDisplaySettingsState,
-})
-
-const mapDispatchToProps = dispatch => ({
-  setActiveGame: (gameName) => dispatch(setActiveGame(gameName)),
-  setPlayer: (playerId, charName) => dispatch(setPlayer(playerId, charName)),
-  setActiveFrameDataPlayer: (oneOrTwo) => dispatch(setActiveFrameDataPlayer(oneOrTwo)),
-  setPlayerAttr: (playerId, charName, playerData) => dispatch(setPlayerAttr(playerId, charName, playerData)),
-  setModalVisibility: (data)  => dispatch(setModalVisibility(data)),
-})
-
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  )
-  (MovesList)
+export default MovesList;

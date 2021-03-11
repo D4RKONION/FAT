@@ -1,6 +1,6 @@
 import { IonContent, IonPage, IonIcon, createGesture } from '@ionic/react';
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import DataTable from '../components/DataTable';
 import SegmentSwitcher from '../components/SegmentSwitcher';
 import SubHeader from '../components/SubHeader';
@@ -11,28 +11,37 @@ import { useHistory, useParams } from 'react-router';
 import { informationCircle } from 'ionicons/icons';
 import AdviceToast from '../components/AdviceToast';
 import { APP_CURRENT_VERSION_CODE } from '../constants/VersionLogs';
+import { activeGameSelector, activePlayerSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
 
 
 
-const FrameData = ({ selectedCharacters, activePlayer, activeGame, setActiveGame, setActiveFrameDataPlayer, modalVisibility, setModalVisibility, setPlayer, setPlayerAttr }) => {
+const FrameData = () => {
+  
+  const modalVisibility = useSelector(modalVisibilitySelector);
+  const selectedCharacters = useSelector(selectedCharactersSelector);
+  const activePlayer = useSelector(activePlayerSelector);
+  const activeGame = useSelector(activeGameSelector);
+
+  const dispatch = useDispatch();
+  
   const history = useHistory();
   const slugs = useParams();
 
   useEffect(() => {
     if (!localStorage.getItem("lsCurrentVersionCode") || localStorage.getItem("lsCurrentVersionCode") < APP_CURRENT_VERSION_CODE) {
       localStorage.setItem("lsCurrentVersionCode", APP_CURRENT_VERSION_CODE);
-      setModalVisibility({ currentModal: "whatsNew", visible: true })
+      dispatch(setModalVisibility({ currentModal: "whatsNew", visible: true }))
     } 
 
     if (activeGame !== slugs.gameSlug) {
       console.log(activeGame)
       console.log("URL game mismatch");
-      setActiveGame(slugs.gameSlug);
+      dispatch(setActiveGame(slugs.gameSlug));
     }
 
     if (selectedCharacters["playerOne"].name !== slugs.characterSlug) {
       console.log("URL character mismatch");
-      setPlayer("playerOne", slugs.characterSlug);
+      dispatch(setPlayer("playerOne", slugs.characterSlug));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -49,11 +58,11 @@ const FrameData = ({ selectedCharacters, activePlayer, activeGame, setActiveGame
   const onSwipeHandler = (detail) => {
     if (detail.startX > window.screen.width /2 && detail.currentX < window.screen.width /2 && activePlayer === "playerOne") {
       console.log("swiping left")
-      setActiveFrameDataPlayer("playerTwo");
+      dispatch(setActiveFrameDataPlayer("playerTwo"));
       gesture.enable(false)
     } else if (detail.startX < window.screen.width /2 && detail.currentX > window.screen.width /2 && activePlayer === "playerTwo") {
       console.log("swiping right")
-      setActiveFrameDataPlayer("playerOne");
+      dispatch(setActiveFrameDataPlayer("playerOne"));
       gesture.enable(false)
     }
   }
@@ -95,9 +104,9 @@ const FrameData = ({ selectedCharacters, activePlayer, activeGame, setActiveGame
           labels={ {playerOne: `P1: ${selectedCharacters.playerOne.name}`, playerTwo: `P2: ${selectedCharacters.playerTwo.name}`}}
           clickFunc={ (eventValue) => {
             if (!modalVisibility.visible && eventValue === activePlayer) {
-              setModalVisibility({ currentModal: "characterSelect", visible: true })
+              dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true }));
             } else {
-              setActiveFrameDataPlayer(eventValue);
+              dispatch(setActiveFrameDataPlayer(eventValue));
             }
           }}
         />
@@ -106,7 +115,7 @@ const FrameData = ({ selectedCharacters, activePlayer, activeGame, setActiveGame
             segmentType={"vtrigger"}
             valueToTrack={selectedCharacters[activePlayer].vtState}
             labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
-            clickFunc={ (eventValue) => setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue}) }
+            clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
           />
         }
 
@@ -120,24 +129,4 @@ const FrameData = ({ selectedCharacters, activePlayer, activeGame, setActiveGame
   );
 };
 
-const mapStateToProps = state => ({
-  modalVisibility: state.modalVisibilityState,
-  selectedCharacters: state.selectedCharactersState,
-  activePlayer: state.activePlayerState,
-  activeGame: state.activeGameState,
-})
-
-const mapDispatchToProps = dispatch => ({
-  setActiveGame: (gameName) => dispatch(setActiveGame(gameName)),
-  setActiveFrameDataPlayer: (oneOrTwo) => dispatch(setActiveFrameDataPlayer(oneOrTwo)),
-  setPlayerAttr: (playerId, charName, playerData) => dispatch(setPlayerAttr(playerId, charName, playerData)),
-  setModalVisibility: (data)  => dispatch(setModalVisibility(data)),
-  setPlayer: (playerId, charName) => dispatch(setPlayer(playerId, charName)),
-})
-
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)
-(FrameData)
+export default FrameData;

@@ -1,15 +1,21 @@
 import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, IonIcon, IonFab, IonFabButton, IonGrid } from '@ionic/react';
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import PageHeader from '../../components/PageHeader';
 import '../../../style/pages/Calculators.scss';
 import '../../../style/components/FAB.scss'
 import SegmentSwitcher from '../../components/SegmentSwitcher';
-import { setActiveFrameDataPlayer, setPlayerAttr, setModalVisibility } from '../../actions';
-import { connect } from 'react-redux';
+import { setActiveFrameDataPlayer, setModalVisibility } from '../../actions';
 import { person } from 'ionicons/icons';
+import { selectedCharactersSelector } from '../../selectors';
 
 
-const FrameTrapChecker = ({ activePlayer, selectedCharacters, modalVisibility, activeGame, setModalVisibility, setPlayerAttr, setActiveFrameDataPlayer	}) => {
+const FrameTrapChecker = () => {
+  
+  const selectedCharacters = useSelector(selectedCharactersSelector);
+
+  const dispatch = useDispatch();
+
   const [linkOrCancel, setLinkOrCancel] = useState("link");
   const [firstMove, setFirstMove] = useState(null);
   const [secondMove, setSecondMove] = useState(null);
@@ -188,7 +194,7 @@ const FrameTrapChecker = ({ activePlayer, selectedCharacters, modalVisibility, a
         </IonGrid>
 
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton onClick={() => {setActiveFrameDataPlayer("playerOne"); setModalVisibility({ currentModal: "characterSelect", visible: true})} }>
+          <IonFabButton onClick={() => { dispatch(setActiveFrameDataPlayer("playerOne")); dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true})) } }>
             <IonIcon icon={person} />
           </IonFabButton>
         </IonFab>
@@ -197,21 +203,4 @@ const FrameTrapChecker = ({ activePlayer, selectedCharacters, modalVisibility, a
   );
 };
 
-const mapStateToProps = state => ({
-  modalVisibility: state.modalVisibilityState,
-  selectedCharacters: state.selectedCharactersState,
-  activePlayer: state.activePlayerState,
-  activeGame: state.activeGameState,
-})
-
-const mapDispatchToProps = dispatch => ({
-  setActiveFrameDataPlayer: (oneOrTwo) => dispatch(setActiveFrameDataPlayer(oneOrTwo)),
-  setPlayerAttr: (playerId, charName, playerData) => dispatch(setPlayerAttr(playerId, charName, playerData)),
-  setModalVisibility: (data)  => dispatch(setModalVisibility(data)),
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)
-(FrameTrapChecker)
+export default FrameTrapChecker;

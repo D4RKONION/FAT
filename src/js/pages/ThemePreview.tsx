@@ -9,11 +9,12 @@ import SegmentSwitcher from '../components/SegmentSwitcher';
 import SubHeader from '../components/SubHeader';
 
 import { setThemeBrightness } from '../actions';
+import { themeBrightnessSelector } from '../selectors';
 
 
 const ThemePreview = () => {
 
-  const themeBrightness = useSelector(state => state.themeBrightnessState);
+  const themeBrightness = useSelector(themeBrightnessSelector);
   const dispatch = useDispatch();
 
   const [fakeTrigger, setFakeTrigger] = useState("normal");

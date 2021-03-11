@@ -5,7 +5,7 @@ import PopoverButton from './PopoverButton';
 import '../../style/components/PageHeader.scss'
 import BrightnessToggle from './BrightnessToggle';
 
-type PageHeader = {
+type PageHeaderProps = {
   componentsToShow?: {
     menu?: boolean;
     back?: boolean;
@@ -15,19 +15,18 @@ type PageHeader = {
   buttonsToShow?: [
     {
       slot: string;
-      buttons: [
+      buttons: Array<
         {
-          // TSHELP: this is throwing an error on Element e.g. in LandscapeOptions.tsx
-          text: string | Element;
+          text: string | JSX.Element;
           buttonFunc: () => void;
         }
-      ]
+      >
     }
   ];
   title: string;
 }
 
-const PageHeader = ( { componentsToShow, buttonsToShow, title }: PageHeader ) => {
+const PageHeader = ( { componentsToShow, buttonsToShow, title }: PageHeaderProps ) => {
 
   
   const routerContext = useContext(IonRouterContext);

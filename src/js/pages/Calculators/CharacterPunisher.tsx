@@ -1,14 +1,19 @@
 import { IonContent, IonPage, IonItem, IonLabel, IonIcon, IonFab, IonFabButton, IonList, IonSelect, IonSelectOption, IonItemDivider, IonGrid } from '@ionic/react';
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import PageHeader from '../../components/PageHeader';
 import '../../../style/pages/Calculators.scss';
 import '../../../style/components/FAB.scss'
-import { setActiveFrameDataPlayer, setPlayerAttr, setModalVisibility } from '../../actions';
-import { connect } from 'react-redux';
+import { setModalVisibility } from '../../actions';
 import { person } from 'ionicons/icons';
+import { selectedCharactersSelector } from '../../selectors';
 
 
-const CharacterPunisher = ({ activePlayer, selectedCharacters, modalVisibility, activeGame, setModalVisibility, setPlayerAttr, setActiveFrameDataPlayer	}) => {
+const CharacterPunisher = () => {
+  
+  const selectedCharacters = useSelector(selectedCharactersSelector);
+
+  const dispatch = useDispatch();
 
   const [punishingMove, setPunishingMove] = useState(null);
 
@@ -88,7 +93,7 @@ const CharacterPunisher = ({ activePlayer, selectedCharacters, modalVisibility, 
         </IonGrid>
         
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton onClick={() => {if (!modalVisibility.visible) {setModalVisibility({ currentModal: "characterSelect", visible: true })} else {setActiveFrameDataPlayer("playerOne")}; setModalVisibility({ currentModal: "characterSelect", visible: true })}}>
+          <IonFabButton onClick={() => { dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true })) }  }>
             <IonIcon icon={person} />
           </IonFabButton>
         </IonFab>
@@ -97,21 +102,4 @@ const CharacterPunisher = ({ activePlayer, selectedCharacters, modalVisibility, 
   );
 };
 
-const mapStateToProps = state => ({
-  modalVisibility: state.modalVisibilityState,
-  selectedCharacters: state.selectedCharactersState,
-  activePlayer: state.activePlayerState,
-  activeGame: state.activeGameState,
-})
-
-const mapDispatchToProps = dispatch => ({
-  setActiveFrameDataPlayer: (oneOrTwo) => dispatch(setActiveFrameDataPlayer(oneOrTwo)),
-  setPlayerAttr: (playerId, charName, playerData) => dispatch(setPlayerAttr(playerId, charName, playerData)),
-  setModalVisibility: (data)  => dispatch(setModalVisibility(data)),
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)
-(CharacterPunisher)
+export default CharacterPunisher;

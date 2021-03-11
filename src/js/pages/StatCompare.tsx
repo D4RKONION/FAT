@@ -1,16 +1,25 @@
 import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, IonIcon, IonFab, IonFabButton, IonItemDivider, IonGrid } from '@ionic/react';
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import PageHeader from '../components/PageHeader';
 import '../../style/pages/StatCompare.scss';
 import '../../style/components/FAB.scss'
-import { setActiveFrameDataPlayer, setPlayerAttr, setModalVisibility } from '../actions';
-import { connect } from 'react-redux';
+import { setModalVisibility } from '../actions';
 import { person } from 'ionicons/icons';
 import { sortBy } from 'lodash';
 import CharacterPortrait from '../components/CharacterPortrait';
+import { activeGameSelector, frameDataSelector, selectedCharactersSelector } from '../selectors';
 
 
-const StatCompare = ({ selectedCharacters, setModalVisibility, frameDataFile, activeGame }) => {
+const StatCompare = () => {
+
+  const selectedCharacters = useSelector(selectedCharactersSelector);
+  const activeGame = useSelector(activeGameSelector);
+  const frameDataFile = useSelector(frameDataSelector);
+
+  const dispatch = useDispatch();
+
+
   const [selectedStat, setSelectedStat] = useState("health");
   const [selectedStatProperName, setSelectedStatProperName] = useState("Health");
   const [statHeadings, setStatHeadings] = useState([]);
@@ -79,7 +88,7 @@ const StatCompare = ({ selectedCharacters, setModalVisibility, frameDataFile, ac
 
         </IonGrid>
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
-            <IonFabButton onClick={() => {setModalVisibility({ currentModal: "characterSelect", visible: true})} }>
+            <IonFabButton onClick={ () => { dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true})) } }>
               <IonIcon icon={person} />
             </IonFabButton>
           </IonFab>
@@ -88,22 +97,4 @@ const StatCompare = ({ selectedCharacters, setModalVisibility, frameDataFile, ac
   );
 };
 
-const mapStateToProps = state => ({
-  modalVisibility: state.modalVisibilityState,
-  selectedCharacters: state.selectedCharactersState,
-  activePlayer: state.activePlayerState,
-  activeGame: state.activeGameState,
-  frameDataFile: state.frameDataState,
-})
-
-const mapDispatchToProps = dispatch => ({
-  setActiveFrameDataPlayer: (oneOrTwo) => dispatch(setActiveFrameDataPlayer(oneOrTwo)),
-  setPlayerAttr: (playerId, charName, playerData) => dispatch(setPlayerAttr(playerId, charName, playerData)),
-  setModalVisibility: (data)  => dispatch(setModalVisibility(data)),
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)
-(StatCompare)
+export default StatCompare;

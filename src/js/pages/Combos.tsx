@@ -1,31 +1,39 @@
 import { IonContent, IonPage, IonList, IonItemDivider, IonLabel, IonItem, IonIcon, IonGrid } from '@ionic/react';
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import '../../style/pages/Combos.scss';
 import SegmentSwitcher from '../components/SegmentSwitcher';
 import PageHeader from '../components/PageHeader';
-import { setActiveFrameDataPlayer, setActiveGame, setModalVisibility, setPlayer, setPlayerAttr } from '../actions';
+import { setActiveFrameDataPlayer, setActiveGame, setModalVisibility, setPlayer } from '../actions';
 import { SFV_COMBOS } from '../constants/Combos';
 import { informationCircleOutline, openOutline } from 'ionicons/icons';
 import AdviceToast from '../components/AdviceToast';
 import { useParams } from 'react-router';
+import { activeGameSelector, activePlayerSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
 
 
 
-const Combos = ({ selectedCharacters, activePlayer, setPlayer, activeGame, setActiveGame, setActiveFrameDataPlayer, modalVisibility, setModalVisibility }) => {
+const Combos = () => {
   
+  const modalVisibility = useSelector(modalVisibilitySelector);
+  const selectedCharacters = useSelector(selectedCharactersSelector);
+  const activePlayer = useSelector(activePlayerSelector);
+  const activeGame = useSelector(activeGameSelector);
+
+  const dispatch = useDispatch();
+
   const slugs = useParams();
   useEffect(() => {
 
     if (activeGame !== slugs.gameSlug) {
       console.log(activeGame)
       console.log("URL game mismatch");
-      setActiveGame(slugs.gameSlug);
+      dispatch(setActiveGame(slugs.gameSlug));
     }
 
     if (selectedCharacters["playerOne"].name !== slugs.characterSlug) {
       console.log("URL character mismatch");
-      setPlayer("playerOne", slugs.characterSlug);
+      dispatch(setPlayer("playerOne", slugs.characterSlug));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -47,7 +55,7 @@ const Combos = ({ selectedCharacters, activePlayer, setPlayer, activeGame, setAc
                 segmentType={"active-player"}
                 valueToTrack={activePlayer}
                 labels={ {playerOne: `P1: ${selectedCharacters.playerOne.name}`, playerTwo: `P2: ${selectedCharacters.playerTwo.name}`}}
-                clickFunc={ (eventValue) => !modalVisibility.visible && eventValue === activePlayer ? setModalVisibility({ currentModal: "characterSelect", visible: true }) : setActiveFrameDataPlayer(eventValue) }
+                clickFunc={ (eventValue) => !modalVisibility.visible && eventValue === activePlayer ? dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true })) : dispatch(setActiveFrameDataPlayer(eventValue)) }
               />
               <IonList>
                 {Object.keys(SFV_COMBOS[selectedCharacters[activePlayer].name]).map(comboHeader =>
@@ -113,24 +121,4 @@ const Combos = ({ selectedCharacters, activePlayer, setPlayer, activeGame, setAc
   );
 };
 
-const mapStateToProps = state => ({
-  modalVisibility: state.modalVisibilityState,
-  selectedCharacters: state.selectedCharactersState,
-  activePlayer: state.activePlayerState,
-  activeGame: state.activeGameState,
-})
-
-const mapDispatchToProps = dispatch => ({
-  setActiveGame: (gameName) => dispatch(setActiveGame(gameName)),
-  setPlayer: (playerId, charName) => dispatch(setPlayer(playerId, charName)),
-  setActiveFrameDataPlayer: (oneOrTwo) => dispatch(setActiveFrameDataPlayer(oneOrTwo)),
-  setPlayerAttr: (playerId, charName, playerData) => dispatch(setPlayerAttr(playerId, charName, playerData)),
-  setModalVisibility: (data)  => dispatch(setModalVisibility(data)),
-})
-
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  )
-  (Combos)
+export default Combos;

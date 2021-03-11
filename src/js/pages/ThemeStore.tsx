@@ -1,31 +1,29 @@
 import { IonContent, IonPage, IonList, IonItem, IonLabel, IonGrid, IonButton, isPlatform, IonIcon, IonRow, IonCol } from '@ionic/react';
 import React, { useMemo } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { InAppPurchase2 as iapStore } from '@ionic-native/in-app-purchase-2';
-import { last } from 'lodash';
 import PageHeader from '../components/PageHeader';
 import { checkmarkSharp } from 'ionicons/icons';
 import '../../style/pages/ThemeStore.scss'
 import { setThemeColor } from '../actions';
+import { themeColorSelector, themesOwnedSelector } from '../selectors';
+import THEMES from '../constants/Themes';
 
 const defaultPrice = isPlatform('android') ? '€1.79' : '$1.99';
 
-const PRODUCTS = [
-  {
-    id: "com.fullmeter.fat.theme.reddragon",
-    alias: "Red Dragon",
-    description: "Can you buy this red and blonde theme? Sure you can!",
-    price: defaultPrice,
-  },
-  {
-    id: "com.fullmeter.fat.theme.secondincommand",
-    alias: "Second in Command",
-    description: "An intoxicatingly purple choice for our 2nd theme!",
-    price: defaultPrice,
-  }
-];
+const PRODUCTS = THEMES.map(themeObj => (
+  {...themeObj, "price":  defaultPrice}
+))
 
-const ThemeStore = ({ themesOwned, themeColor, setThemeColor}) => {
+console.log(PRODUCTS);
+
+const ThemeStore = () => {
+
+  const themeColor = useSelector(themeColorSelector);
+  const themesOwned = useSelector(themesOwnedSelector);
+
+  const dispatch = useDispatch();
+
   const listOfProducts = useMemo(() => (
     PRODUCTS.map(product => {
       const iapProduct = iapStore?.products?.find(p => p.id === product.id);
@@ -65,7 +63,7 @@ const ThemeStore = ({ themesOwned, themeColor, setThemeColor}) => {
                     <IonButton
                       fill="solid" size="default"
                       onClick={ () => {
-                        setThemeColor("classic")
+                        dispatch(setThemeColor("classic"));
                       }}>Use</IonButton>
                   </IonCol>
                   
@@ -87,7 +85,7 @@ const ThemeStore = ({ themesOwned, themeColor, setThemeColor}) => {
                     </IonCol>
                     {themesOwned.includes(iapStoreObj.alias) &&
                       <>
-                      {themeColor === last(iapStoreObj.id.split(".")) ?
+                      {themeColor === iapStoreObj.shortId ?
                         <IonCol className="center-in-row" size="2.75">
                           <IonIcon size="large" color="primary" icon={checkmarkSharp} />
                         </IonCol>
@@ -96,7 +94,7 @@ const ThemeStore = ({ themesOwned, themeColor, setThemeColor}) => {
                         <IonButton
                           fill="solid" size="default"
                           onClick={ () => {
-                            setThemeColor(last(iapStoreObj.id.split(".")))
+                            dispatch(setThemeColor(iapStoreObj.shortId));
                           }}
                         >Use</IonButton>
                       </IonCol>
@@ -109,7 +107,7 @@ const ThemeStore = ({ themesOwned, themeColor, setThemeColor}) => {
                       <IonCol>
                         <IonButton
                           fill="outline" size="block"
-                          routerLink={`/themestore/${last(iapStoreObj.id.split("."))}`}
+                          routerLink={`/themestore/${iapStoreObj.shortId}`}
                           routerDirection="forward"
                         >Preview</IonButton>
                       </IonCol>
@@ -148,18 +146,4 @@ const ThemeStore = ({ themesOwned, themeColor, setThemeColor}) => {
   );
 }
 
-const mapStateToProps = state => ({
-  themeColor: state.themeColorState,
-  themesOwned: state.themesOwnedState,
-})
-
-const mapDispatchToProps = dispatch => ({
-  setThemeColor: (themeColor) => dispatch(setThemeColor(themeColor)),
-})
-
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)
-(ThemeStore)
+export default ThemeStore;

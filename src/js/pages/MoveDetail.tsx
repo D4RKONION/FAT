@@ -1,16 +1,23 @@
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonPage } from '@ionic/react';
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useLocation, useParams } from 'react-router';
 import GAME_DETAILS from '../constants/GameDetails'
 import '../../style/components/DetailCards.scss';
 import PageHeader from '../components/PageHeader';
 import SubHeader from '../components/SubHeader';
 import SegmentSwitcher from '../components/SegmentSwitcher';
-import { setActiveGame, setPlayer, setPlayerAttr } from '../actions';
-import { useLocation, useParams } from 'react-router';
+import { setActiveGame, setPlayerAttr } from '../actions';
+import { activeGameSelector, activePlayerSelector, selectedCharactersSelector } from '../selectors';
 
 
-const MoveDetail = ({ setPlayer, setPlayerAttr, activeGame, setActiveGame, selectedCharacters, activePlayer }) => {
+const MoveDetail = () => {
+
+  const selectedCharacters = useSelector(selectedCharactersSelector);
+  const activePlayer = useSelector(activePlayerSelector);
+  const activeGame = useSelector(activeGameSelector);
+
+  const dispatch = useDispatch();
 
   const slugs = useParams();
   const modeBackTo = useLocation().pathname.split("/")[1];
@@ -20,13 +27,13 @@ const MoveDetail = ({ setPlayer, setPlayerAttr, activeGame, setActiveGame, selec
     if (activeGame !== slugs.gameSlug) {
       console.log(activeGame)
       console.log("URL game mismatch");
-      setActiveGame(slugs.gameSlug);
+      dispatch(setActiveGame(slugs.gameSlug));
     }
     
     if ((selectedCharacters[activePlayer].name !== slugs.characterSlug || selectedCharacters[activePlayer].vtState !== slugs.vtStateSlug) ) {
       console.log("URL character/vtState mismatch");
       console.log(slugs)
-      setPlayerAttr(activePlayer, slugs.characterSlug, {vtState: slugs.vtStateSlug});
+      dispatch(setPlayerAttr(activePlayer, slugs.characterSlug, {vtState: slugs.vtStateSlug}));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -37,7 +44,7 @@ const MoveDetail = ({ setPlayer, setPlayerAttr, activeGame, setActiveGame, selec
       const urlMove = Object.keys(selectedCharacters[activePlayer].frameData).filter(moveDetail => {
         return selectedCharacters[activePlayer].frameData[moveDetail].moveName === slugs.moveNameSlug
       })
-      setPlayerAttr("playerOne", slugs.characterSlug, {selectedMove: urlMove})
+      dispatch(setPlayerAttr("playerOne", slugs.characterSlug, {selectedMove: urlMove}));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCharacters["playerOne"].name])
@@ -48,7 +55,9 @@ const MoveDetail = ({ setPlayer, setPlayerAttr, activeGame, setActiveGame, selec
   const selectedMoveData = charFrameData[selectedMoveName];
 
   if (!selectedMoveData) {
-    return false;
+    <IonPage>
+      {/* Something's gone wrong */}
+    </IonPage>
   }
 
 
@@ -90,7 +99,7 @@ const MoveDetail = ({ setPlayer, setPlayerAttr, activeGame, setActiveGame, selec
             segmentType={"vtrigger"}
             valueToTrack={selectedCharacters[activePlayer].vtState}
             labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
-            clickFunc={ (eventValue) => setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue}) }
+            clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
           />
         }
         <div id="flexCardContainer">
@@ -157,21 +166,4 @@ const MoveDetail = ({ setPlayer, setPlayerAttr, activeGame, setActiveGame, selec
   );
 };
 
-const mapStateToProps = state => ({
-  selectedCharacters: state.selectedCharactersState,
-  activePlayer: state.activePlayerState,
-  activeGame: state.activeGameState,
-})
-
-const mapDispatchToProps = dispatch => ({
-  setActiveGame: (gameName) => dispatch(setActiveGame(gameName)),
-  setPlayer: (playerId, charName) => dispatch(setPlayer(playerId, charName)),
-  setPlayerAttr: (playerId, charName, playerData) => dispatch(setPlayerAttr(playerId, charName, playerData)),
-})
-
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  )
-  (MoveDetail)
+export default MoveDetail;

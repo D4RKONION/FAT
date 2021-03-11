@@ -1,4 +1,18 @@
-export default {
+import { GameName } from "../types";
+
+type GameDetailMap = {
+  fullName: string;
+  abbrName: string;
+  characterStates: string[],
+  characterList: string[],
+  universalDataPoints: {
+    [key: string]: any
+  },
+  specificCancels?: any,
+  statsPoints: any,
+};
+
+const GAME_DETAILS: { [key in GameName]: GameDetailMap } = {
   SFV: {
     fullName: "Street Fighter V",
     abbrName: "SFV",
@@ -558,3 +572,5 @@ export default {
     }
   },
 }
+
+export default GAME_DETAILS;

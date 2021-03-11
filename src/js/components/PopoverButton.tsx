@@ -1,14 +1,23 @@
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { IonButton, IonButtons, IonIcon, IonItem, IonList, IonPopover, IonLabel, IonToggle } from '@ionic/react';
 import { ellipsisHorizontal, ellipsisVertical } from 'ionicons/icons';
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
 import '../../style/components/PopoverButton.scss';
 import { setModalVisibility, setOnBlockColours, setCounterHit } from '../actions';
+import { activeGameSelector, counterHitSelector, modeNameSelector, onBlockColoursSelector } from '../selectors';
 
 
 
 
-const PopoverButton = ({ activeGame, setModalVisibility, modeName, onBlockColours, setOnBlockColours, counterHit, setCounterHit }) => {
+const PopoverButton = () => {
+
+  const modeName = useSelector(modeNameSelector);
+  const onBlockColours = useSelector(onBlockColoursSelector);
+  const counterHit = useSelector(counterHitSelector);
+  const activeGame = useSelector(activeGameSelector);
+
+  const dispatch = useDispatch();
+
   const [showPopover, setPopoverVisible] = useState({open: false, event: undefined});
   return(
     <>
@@ -20,24 +29,24 @@ const PopoverButton = ({ activeGame, setModalVisibility, modeName, onBlockColour
 
       <IonPopover id="threeDotPopover"
         isOpen={showPopover.open}
-        onDidDismiss={e => {console.log(e); setPopoverVisible({open: false, event: undefined})}}
+        onDidDismiss={ e => setPopoverVisible({open: false, event: undefined}) }
         event={showPopover.event}
         showBackdrop={true}
       >
         <IonList>
-          <IonItem lines="none" onClick={() => {setModalVisibility({ currentModal: "help", visible: true }); setPopoverVisible({open: false, event: undefined})}} button>
+          <IonItem lines="none" onClick={() => { dispatch(setModalVisibility({ currentModal: "help", visible: true })); setPopoverVisible({open: false, event: undefined})}} button>
             Help
           </IonItem>
           {modeName === "framedata" &&
             <>
-            <IonItem lines="none"  onClick={() => {setModalVisibility({ currentModal: "landscapeOptions", visible: true }); setPopoverVisible({open: false, event: undefined})}} button>
+            <IonItem lines="none"  onClick={() => { dispatch(setModalVisibility({ currentModal: "landscapeOptions", visible: true })); setPopoverVisible({open: false, event: undefined})}} button>
               Landscape Columns
             </IonItem>
             <IonItem lines="none">
               <IonLabel>
                 oB Colours
               </IonLabel>
-              <IonToggle checked={onBlockColours} onIonChange={e => setOnBlockColours(e.detail.checked)} />
+              <IonToggle checked={onBlockColours} onIonChange={e => dispatch(setOnBlockColours(e.detail.checked)) } />
             </IonItem>
             {
               activeGame !== "3S" &&
@@ -45,7 +54,7 @@ const PopoverButton = ({ activeGame, setModalVisibility, modeName, onBlockColour
                 <IonLabel>
                   Counter Hit
                 </IonLabel>
-                <IonToggle checked={counterHit} onIonChange={e => setCounterHit(e.detail.checked)} />
+                <IonToggle checked={counterHit} onIonChange={e => dispatch(setCounterHit(e.detail.checked)) } />
               </IonItem>
             }
 
@@ -58,21 +67,4 @@ const PopoverButton = ({ activeGame, setModalVisibility, modeName, onBlockColour
   )
 }
 
-const mapStateToProps = state => ({
-  modeName: state.modeNameState,
-  onBlockColours: state.onBlockColoursState,
-  counterHit: state.counterHitState,
-  activeGame: state.activeGameState,
-})
-
-const mapDispatchToProps = dispatch => ({
-  setModalVisibility: (data)  => dispatch(setModalVisibility(data)),
-  setOnBlockColours: (coloursOn)  => dispatch(setOnBlockColours(coloursOn)),
-  setCounterHit: (coloursOn)  => dispatch(setCounterHit(coloursOn)),
-})
-
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-)(PopoverButton)
+export default PopoverButton;

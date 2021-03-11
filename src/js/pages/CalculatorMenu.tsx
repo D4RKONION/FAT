@@ -1,6 +1,5 @@
 import { IonContent, IonPage, IonList, IonListHeader, IonItem, IonLabel, IonIcon, isPlatform, IonItemGroup, IonGrid } from '@ionic/react';
 import React from 'react';
-import { connect } from 'react-redux';
 import '../../style/pages/Calculators.scss';
 import PageHeader from '../components/PageHeader';
 import { bulbOutline, chevronForward, skullOutline, linkOutline, handLeftOutline, receiptOutline, peopleOutline, personRemoveOutline } from 'ionicons/icons';
@@ -51,15 +50,5 @@ const Calculators = () => {
   );
 };
 
-const mapStateToProps = state => ({
-})
 
-const mapDispatchToProps = dispatch => ({
-})
-
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)
-(Calculators)
+export default Calculators;

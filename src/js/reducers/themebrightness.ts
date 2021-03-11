@@ -1,8 +1,17 @@
-import { SET_THEME_BRIGHTNESS } from '../actions';
+import { ThemeBrightness } from "../types";
 
-export default function themeBrightnessReducer(state = "light", action) {
+type ThemeBrightnessState = ThemeBrightness;
+
+type ThemeBrightnessAction = {
+  type: 'SET_THEME_BRIGHTNESS';
+  themeBrightness: ThemeBrightness;
+}
+
+const defaultState: ThemeBrightnessState = "light";
+
+export const themeBrightnessReducer = (state = defaultState, action: ThemeBrightnessAction) => {
   switch(action.type) {
-    case SET_THEME_BRIGHTNESS:
+    case 'SET_THEME_BRIGHTNESS':
       return action.themeBrightness;
     default:
       return state;

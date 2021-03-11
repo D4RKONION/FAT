@@ -1,5 +1,5 @@
 import React, { useEffect, useState} from 'react';
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 import { Plugins } from '@capacitor/core';
 import { IonApp, IonRouterOutlet, IonSplitPane, IonAlert } from '@ionic/react';
 import { menuController } from "@ionic/core";
@@ -58,19 +58,26 @@ import MoreResourcesSub from './js/pages/MoreResourcesSub';
 import ThemeStore from './js/pages/ThemeStore';
 import ThemePreview from './js/pages/ThemePreview';
 
+import { activeGameSelector, frameDataSelector, themeBrightnessSelector, themeColorSelector } from './js/selectors';
 import { setOrientation, setModalVisibility, setThemeBrightness, setActiveGame, setThemeOwned } from './js/actions';
 import { store } from './js/store';
 import { APP_FRAME_DATA_CODE, APP_CURRENT_VERSION_CODE } from './js/constants/VersionLogs';
 
-const App = ({ setActiveGame, activeGame, frameDataFile, setOrientation, themeBrightness, setThemeBrightness,  themeColor, themesOwned, setThemeOwned }) => {
+const App = () => {
 
+  const activeGame = useSelector(activeGameSelector);
+  const themeBrightness = useSelector(themeBrightnessSelector);
+  const themeColor = useSelector(themeColorSelector);
+  const frameDataFile = useSelector(frameDataSelector);
+
+  const dispatch = useDispatch();
+  
   const [exitAlert, setExitAlert] = useState(false);
-
 
   useEffect(() => {
     // do an initial frame data load
-    setActiveGame(activeGame);
-  
+    dispatch(setActiveGame(activeGame));
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -137,7 +144,7 @@ const App = ({ setActiveGame, activeGame, frameDataFile, setOrientation, themeBr
         }))
 
         iapStore.when(productEntry.id).owned( (product => {
-          setThemeOwned(product.alias)
+          dispatch(setThemeOwned(product.alias))
         }))
       })
       
@@ -160,9 +167,9 @@ const App = ({ setActiveGame, activeGame, frameDataFile, setOrientation, themeBr
   useEffect(() => {
     const orientationCheck = () => {
       if (document.documentElement.clientWidth > document.documentElement.clientHeight) {
-        setOrientation("landscape");
+        dispatch(setOrientation("landscape"));
       } else {
-        setOrientation("portrait");
+        dispatch(setOrientation("portrait"));
       }
     }
 
@@ -170,28 +177,28 @@ const App = ({ setActiveGame, activeGame, frameDataFile, setOrientation, themeBr
     window.addEventListener('resize', orientationCheck);
 
     return () => window.removeEventListener('resize', orientationCheck);
-  }, [setOrientation]);
+  }, [dispatch]);
 
 useEffect(() => {
     const newVersionCheck = async () => {
 
       // check if the frame data was updated
-      let LS_FRAME_DATA_CODE = localStorage.getItem("lsFrameDataCode");
+      let LS_FRAME_DATA_CODE = parseInt(localStorage.getItem("lsFrameDataCode"));
 
       if (!LS_FRAME_DATA_CODE) {
         // fresh install, local code doesn't exist, set it up using the app's local data
         console.log("local frame data code don't exist, set it up using the app's local data")
-        localStorage.setItem("lsFrameDataCode", APP_FRAME_DATA_CODE)
+        localStorage.setItem("lsFrameDataCode", APP_FRAME_DATA_CODE.toString())
 
-        LS_FRAME_DATA_CODE = localStorage.getItem("lsFrameDataCode")
+        LS_FRAME_DATA_CODE = parseInt(localStorage.getItem("lsFrameDataCode"));
 
       } else if (LS_FRAME_DATA_CODE <= APP_FRAME_DATA_CODE) {
         // the app has been updated via the store, delete the LS FrameData.json and update the VS_FDC
         console.log("the app has been updated via the store, delete the LS FrameData.json and update the VS_FDC")
-        localStorage.setItem("lsFrameDataCode", APP_FRAME_DATA_CODE)
+        localStorage.setItem("lsFrameDataCode", APP_FRAME_DATA_CODE.toString())
         localStorage.removeItem("lsSFVFrameData");
 
-        LS_FRAME_DATA_CODE = localStorage.getItem("lsFrameDataCode")
+        LS_FRAME_DATA_CODE = parseInt(localStorage.getItem("lsFrameDataCode"));
 
       } else if (LS_FRAME_DATA_CODE > APP_FRAME_DATA_CODE) {
         // the app has downloaded a frame data update
@@ -217,27 +224,27 @@ useEffect(() => {
         localStorage.setItem("lsSFVFrameData", JSON.stringify(SERVER_FRAME_DATA));
         localStorage.setItem("lsFrameDataCode", SERVER_VERSION_DETAILS.FRAME_DATA_CODE)
         
-        setActiveGame("SFV");
+        dispatch(setActiveGame("SFV"));
         
       }
 
     }
     
     newVersionCheck();
-  }, [setActiveGame])
+  }, [dispatch])
 
 
 
   // wait for the initial framedata load
   if (!frameDataFile) {
-    return false;
+    return <p></p>
   }
 
   return (
     <IonApp className={`${themeColor}-${themeBrightness}-theme`}>
       <IonReactHashRouter>
         <IonSplitPane contentId="main">
-          <Menu themeBrightness={themeBrightness} themeBrightnessClickHandler={() => themeBrightness === "light" ? setThemeBrightness("dark") : setThemeBrightness("light")}/>
+          <Menu themeBrightness={themeBrightness} themeBrightnessClickHandler={() => themeBrightness === "light" ? dispatch(setThemeBrightness("dark")) : dispatch(setThemeBrightness("light"))}/>
           <IonRouterOutlet id="main">
             <Route exact path="/stats/:characterSlug" component={CharacterStats} />
 
@@ -298,22 +305,4 @@ useEffect(() => {
   )
 }
 
-
-const mapStateToProps = state => ({
-  activeGame: state.activeGameState,
-  themesOwned: state.themesOwnedState,
-  themeBrightness: state.themeBrightnessState,
-  themeColor: state.themeColorState,
-  frameDataFile: state.frameDataState,
-})
-
-const mapDispatchToProps = dispatch => ({
-  setActiveGame: (gameName) => dispatch(setActiveGame(gameName)),
-  setThemeBrightness: (themeBrightness) => dispatch(setThemeBrightness(themeBrightness)),
-  setThemeOwned: (themeToAdd) => dispatch(setThemeOwned(themeToAdd)),
-  setOrientation: (orientation) => dispatch(setOrientation(orientation)),
-})
-
-export default connect(
-  mapStateToProps, mapDispatchToProps,
-)(App)
+export default App;
