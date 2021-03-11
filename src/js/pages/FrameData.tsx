@@ -1,5 +1,5 @@
 import { IonContent, IonPage, IonIcon, createGesture } from '@ionic/react';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import DataTable from '../components/DataTable';
 import SegmentSwitcher from '../components/SegmentSwitcher';

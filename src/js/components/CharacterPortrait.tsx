@@ -1,6 +1,3 @@
-import React from 'react';
-import { } from '@ionic/react';
-
 import '../../style/components/CharacterPortrait.scss';
 
 type CharacterPortraitProps = {

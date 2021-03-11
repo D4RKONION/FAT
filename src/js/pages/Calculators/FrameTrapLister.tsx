@@ -1,5 +1,5 @@
 import { IonContent, IonPage, IonItem, IonLabel, IonIcon, IonFab, IonFabButton, IonInput, IonList, IonGrid } from '@ionic/react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PageHeader from '../../components/PageHeader';
 import '../../../style/pages/Calculators.scss';

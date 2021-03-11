@@ -1,5 +1,5 @@
 import { IonContent, IonModal, IonRouterContext } from '@ionic/react';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { setModalVisibility, setPlayer, setActiveFrameDataPlayer, setPlayerAttr } from '../actions';

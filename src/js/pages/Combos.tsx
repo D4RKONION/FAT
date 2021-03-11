@@ -1,5 +1,5 @@
 import { IonContent, IonPage, IonList, IonItemDivider, IonLabel, IonItem, IonIcon, IonGrid } from '@ionic/react';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import '../../style/pages/Combos.scss';
 import SegmentSwitcher from '../components/SegmentSwitcher';

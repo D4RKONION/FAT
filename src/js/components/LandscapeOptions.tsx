@@ -1,5 +1,4 @@
 import { IonContent, IonModal, IonList, IonItem, IonItemDivider, IonLabel, IonCheckbox, IonIcon, IonButton, } from '@ionic/react';
-import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { setModalVisibility, setLandscapeCols } from '../actions';

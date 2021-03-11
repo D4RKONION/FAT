@@ -1,4 +1,3 @@
-import React from 'react';
 import { Redirect } from 'react-router';
 import { useSelector } from 'react-redux'
 import { activeGameSelector, selectedCharactersSelector } from '../selectors';

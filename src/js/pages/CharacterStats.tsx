@@ -1,5 +1,4 @@
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonPage } from '@ionic/react';
-import React from 'react';
 import { useSelector } from 'react-redux';
 import GAME_DETAILS from '../constants/GameDetails'
 import '../../style/components/DetailCards.scss';

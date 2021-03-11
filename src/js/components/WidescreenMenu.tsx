@@ -1,4 +1,3 @@
-import React, { useEffect, useRef } from 'react'
 import { IonContent, IonIcon, IonItem, IonList, IonMenu, IonMenuToggle } from "@ionic/react";
 import { peopleOutline } from 'ionicons/icons';
 import { setModalVisibility } from '../actions';

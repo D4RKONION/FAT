@@ -1,5 +1,3 @@
-
-import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { setThemeBrightness } from '../actions';
 import styles from '../../style/components/BrightnessToggle.module.scss'

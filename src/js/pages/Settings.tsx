@@ -1,5 +1,5 @@
 import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, IonList, IonListHeader, IonIcon, useIonViewDidEnter, isPlatform, IonButton, IonToast, IonGrid  } from '@ionic/react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Clipboard } from '@ionic-native/clipboard';
 
@@ -62,6 +62,7 @@ const Settings = () => {
                 <IonSelectOption value="SFV">SFV</IonSelectOption>
               </IonSelect>
             </IonItem>
+
             <IonItem id="moveNameType" lines="none">
               <IonLabel>
                 <h2>Move Name Type</h2>

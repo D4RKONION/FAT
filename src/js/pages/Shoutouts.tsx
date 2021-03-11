@@ -1,5 +1,4 @@
 import { IonContent, IonGrid, IonPage } from '@ionic/react';
-import React from 'react';
 import HtmlReactParser from 'html-react-parser';
 import '../../style/pages/Shoutouts.scss';
 import PageHeader from '../components/PageHeader';
