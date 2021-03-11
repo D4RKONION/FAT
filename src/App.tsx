@@ -59,7 +59,7 @@ import ThemeStore from './js/pages/ThemeStore';
 import ThemePreview from './js/pages/ThemePreview';
 
 import { activeGameSelector, frameDataSelector, themeBrightnessSelector, themeColorSelector } from './js/selectors';
-import { setOrientation, setModalVisibility, setThemeBrightness, setActiveGame, setThemeOwned } from './js/actions';
+import { setOrientation, setModalVisibility, setActiveGame, setThemeOwned } from './js/actions';
 import { store } from './js/store';
 import { APP_FRAME_DATA_CODE, APP_CURRENT_VERSION_CODE } from './js/constants/VersionLogs';
 
@@ -244,7 +244,7 @@ useEffect(() => {
     <IonApp className={`${themeColor}-${themeBrightness}-theme`}>
       <IonReactHashRouter>
         <IonSplitPane contentId="main">
-          <Menu themeBrightness={themeBrightness} themeBrightnessClickHandler={() => themeBrightness === "light" ? dispatch(setThemeBrightness("dark")) : dispatch(setThemeBrightness("light"))}/>
+          <Menu />
           <IonRouterOutlet id="main">
             <Route exact path="/stats/:characterSlug" component={CharacterStats} />
 
