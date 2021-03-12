@@ -17,6 +17,7 @@ import { themesOwnedReducer } from './themesowned'
 import { adviceToastShownReducer } from './adivcetoastshown';
 import { adviceToastDismissedReducer } from './adivcetoastdismissed';
 import { adviceToastPrevReadReducer } from './advicetoastprevread';
+import { autoSetSpecificColsReducer } from './autospecificcols';
 
 
 const rootReducer = combineReducers({
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
   themesOwnedState: themesOwnedReducer,
   onBlockColoursState: onBlockColoursReducer,
   counterHitState: counterHitReducer,
+  autoSetSpecificColsState: autoSetSpecificColsReducer,
   adviceToastShownState: adviceToastShownReducer,
   adviceToastDismissedState: adviceToastDismissedReducer,
   adviceToastPrevReadState: adviceToastPrevReadReducer,

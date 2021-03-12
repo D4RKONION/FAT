@@ -80,6 +80,10 @@ export const setCounterHit = (counterHitOn: Boolean) => ({
   type: 'SET_COUNTER_HIT',
   counterHitOn,
 })
+export const setAutoSetSpecificCols = (autoSetColsOn: Boolean) => ({
+  type: 'SET_AUTO_SET_SPECIFIC_COLS',
+  autoSetColsOn,
+})
 
 // handle player frame data json stuff
 export const setPlayer = (playerId: PlayerId, charName: string) => {
