@@ -66,7 +66,7 @@ const CharacterSelectModal = () => {
         <div id="characterSelectGrid">
           {GAME_DETAILS[activeGame].characterList.map(charName => {
             const charData = frameDataFile[charName];
-            if (!charData) {return false}
+            if (!charData) {return null}
             return(
               <CharacterPortrait
                 key={`selectportrait-${activeGame}-${charName}`}
