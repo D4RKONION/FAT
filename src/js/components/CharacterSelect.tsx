@@ -2,13 +2,15 @@ import { IonContent, IonModal, IonRouterContext } from '@ionic/react';
 import { useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { setModalVisibility, setPlayer, setActiveFrameDataPlayer, setPlayerAttr } from '../actions';
+import { setModalVisibility, setPlayer, setActiveFrameDataPlayer, setPlayerAttr, setLandscapeCols } from '../actions';
 import SegmentSwitcher from './SegmentSwitcher';
 import GAME_DETAILS from '../constants/GameDetails';
 import '../../style/components/CharacterSelect.scss';
 import PageHeader from './PageHeader';
 import CharacterPortrait from './CharacterPortrait'
-import { activeGameSelector, activePlayerSelector, frameDataSelector, modalVisibilitySelector, modeNameSelector, selectedCharactersSelector } from '../selectors';
+import { activeGameSelector, activePlayerSelector, autoSetSpecificColsSelector, frameDataSelector, landscapeColsSelector, modalVisibilitySelector, modeNameSelector, selectedCharactersSelector } from '../selectors';
+import { createCharacterDataCategoryObj, createOrderedLandscapeColsObj } from '../utils/landscapecols';
+import { PlayerData } from '../types';
 
 const CharacterSelectModal = () => {
 
@@ -20,18 +22,45 @@ const CharacterSelectModal = () => {
   const selectedCharacters = useSelector(selectedCharactersSelector)
   const activePlayer = useSelector(activePlayerSelector)
   const activeGame = useSelector(activeGameSelector)
+  const landscapeCols = useSelector(landscapeColsSelector);
+  const autoSetSpecificCols = useSelector(autoSetSpecificColsSelector);
 
   const dispatch = useDispatch();
 
+  const handleNewCharacterLandscapeCols = (oldCharName: PlayerData["name"], newCharName: PlayerData["name"]) => {
+
+    if (!autoSetSpecificCols) {
+      return false;
+    }
+    
+    const charNames = [oldCharName, newCharName]
+
+    charNames.forEach((charName, index) => {
+      const characterDataCategoryObj = createCharacterDataCategoryObj(activeGame, charName)
+
+      Object.keys(characterDataCategoryObj).forEach(dataRow =>
+        Object.keys(characterDataCategoryObj[dataRow]).forEach(dataEntryKey =>
+          dispatch(setLandscapeCols({...createOrderedLandscapeColsObj(activeGame, landscapeCols, dataEntryKey, characterDataCategoryObj[dataRow][dataEntryKey]["dataTableHeader"], index === 0 ? "off" : "on" )}))
+        )
+      )
+    })
+    
+  }
+
   const onCharacterSelect = (playerId, charName) => {
-    dispatch(setPlayer(playerId, charName));
     dispatch(setModalVisibility({ currentModal: "characterSelect", visible: false }));
+
+    handleNewCharacterLandscapeCols(selectedCharacters[playerId].name, charName);
+
+    dispatch(setPlayer(playerId, charName));
+
+    
     if (playerId === "playerOne" && (modeName === "framedata" || modeName === "moveslist" || modeName === "combos")) {
       //we have to use IonRouterContext due to this issue
       //https://github.com/ionic-team/ionic-framework/issues/21832
       routerContext.push(`/${modeName}/${activeGame}/${charName}`, "none");
     }
-
+    
   }
 
   return(
@@ -51,7 +80,7 @@ const CharacterSelectModal = () => {
             segmentType={"active-player"}
             valueToTrack={activePlayer}
             labels={ {playerOne: `P1: ${selectedCharacters.playerOne.name}`, playerTwo: `P2: ${selectedCharacters.playerTwo.name}`}}
-            clickFunc={ (eventValue) => dispatch(setActiveFrameDataPlayer(eventValue)) }
+            clickFunc={ (eventValue) => { handleNewCharacterLandscapeCols(selectedCharacters[activePlayer].name, selectedCharacters[eventValue].name); dispatch(setActiveFrameDataPlayer(eventValue)) } }
           />
         }
         {activeGame === "SFV" &&
