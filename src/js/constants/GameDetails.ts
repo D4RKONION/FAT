@@ -46,7 +46,7 @@ const GAME_DETAILS = {
       "Zangief",
       "Zeku (Old)",
       "Zeku (Young)"
-    ],
+    ] as const,
     universalDataPoints: {
       "Basic Frame Data": [
         {
@@ -291,7 +291,7 @@ const GAME_DETAILS = {
       "Yang",
       "Yun",
       "Zangief"
-    ],
+    ] as const,
     universalDataPoints: {
       "Basic Frame Data": [
         {
@@ -402,7 +402,7 @@ const GAME_DETAILS = {
       "Urien",
       "Yang",
       "Yun"
-    ],
+    ] as const,
     universalDataPoints: {
       "Basic Frame Data": [
         {
@@ -559,6 +559,6 @@ const GAME_DETAILS = {
       ]
     }
   },
-}
+};
 
 export default GAME_DETAILS;

@@ -86,7 +86,7 @@ export const setAutoSetSpecificCols = (autoSetColsOn: Boolean) => ({
 })
 
 // handle player frame data json stuff
-export const setPlayer = (playerId: PlayerId, charName: string) => {
+export const setPlayer = (playerId: PlayerId, charName: PlayerData["name"]) => {
   return function(dispatch, getState) {
     const { frameDataState, dataDisplaySettingsState, selectedCharactersState, activeGameState }  = getState();
     const stateToSet: VtState =
@@ -107,7 +107,7 @@ export const setPlayer = (playerId: PlayerId, charName: string) => {
   }
 }
 
-export const setPlayerAttr = (playerId: PlayerId, charName: string, playerData: PlayerData) => {
+export const setPlayerAttr = (playerId: PlayerId, charName: PlayerData["name"], playerData: PlayerData) => {
   return function(dispatch) {
     dispatch({
       type: 'SET_PLAYER_ATTR',

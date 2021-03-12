@@ -1,3 +1,4 @@
+import GAME_DETAILS from "../constants/GameDetails";
 import THEMES from "../constants/Themes";
 
 export type PlayerId = 'playerOne' | 'playerTwo';
@@ -22,7 +23,7 @@ export type ThemeAlias = typeof THEMES[number]["alias"];
 
 export type FrameDataSlug = {
   gameSlug?: GameName,
-  characterSlug?: string,
+  characterSlug?: PlayerData["name"],
   vtStateSlug?: VtState,
   moveNameSlug?: string,
 }
@@ -32,7 +33,7 @@ export type AdviceToastPrevRead = {
 }
 
 export type PlayerData = {
-  name?: string,
+  name?: typeof GAME_DETAILS[GameName]["characterList"][number];
   vtState?: VtState,
   frameData?: {
     [key: string]: any,
