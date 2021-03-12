@@ -15,8 +15,6 @@ const PRODUCTS = THEMES.map(themeObj => (
   {...themeObj, "price":  defaultPrice}
 ))
 
-console.log(PRODUCTS);
-
 const ThemeStore = () => {
 
   const themeColor = useSelector(themeColorSelector);
