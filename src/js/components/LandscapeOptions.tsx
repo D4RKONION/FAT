@@ -84,7 +84,7 @@ const LandscapeOptions = () => {
         </div>
         
         
-          {GAME_DETAILS[activeGame].specificCancels &&
+          {GAME_DETAILS[activeGame].specificCancels[0] &&
             <div className="list-section" key={`${activePlayerName} cancels`}>
               <IonItemDivider>
                 {activePlayerName} Specific Cancels
