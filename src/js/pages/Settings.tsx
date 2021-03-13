@@ -83,7 +83,6 @@ const Settings = () => {
               >
                 <IonSelectOption value="official">Official</IonSelectOption>
                 <IonSelectOption value="common">Common</IonSelectOption>
-                <IonSelectOption value="shorthand">Shorthand</IonSelectOption>
                 <IonSelectOption value="inputs">Inputs</IonSelectOption>
               </IonSelect>
             </IonItem>
@@ -111,8 +110,7 @@ const Settings = () => {
               </IonSelect>
             </IonItem>
 
-            {/* @Jon Uncomment this! */}
-            {/* <IonItem lines="full">
+            <IonItem lines="full">
               <IonLabel>
                 <h2>Normal Notation</h2>
                 <p>Choose long or short normal names</p>
@@ -133,8 +131,7 @@ const Settings = () => {
                 <IonSelectOption value="fullWord">Full Word</IonSelectOption>
                 <IonSelectOption value="shorthand">Shorthand</IonSelectOption>
               </IonSelect>
-            </IonItem> */}
-
+            </IonItem>
 
               {/* APP OPTIONS */}
               <IonListHeader>App Settings</IonListHeader>
