@@ -5,15 +5,13 @@ import { VtState } from '../types';
 /**
  * Renames the moves in the character frame data to reflect the user's desired naming convention
  * @param {string} rawFrameData The frame data for the current character
- * @param {string} moveNameType The naming convention
- * @param {string} inputNotationType If the user selected "inputs" for their naming convention, the input notation displayed
- * @param {string} notationDisplayType The move name size convention ("longform" & "shorthand")
+ * @param {DataDisplaySettingsReducerState} displayState The Redux state containing various move text render settings
  * @returns The frame data JSON object with renamed moves
  */
-export function renameData(rawFrameData, moveNameType, inputNotationType, notationDisplayType) {
+export function renameData(rawFrameData, displayState: DataDisplaySettingsReducerState) {
   const renameFrameData = (rawData, renameKey, notationDisplay) => {
     switch (notationDisplay) {
-      case "longform":
+      case "fullWord":
         return mapKeys(rawData, (moveValue, moveKey) => moveValue[renameKey] ? moveValue[renameKey] : moveKey);
       case "shorthand":
         return renameFrameDataToShorthand(rawData);
@@ -52,15 +50,15 @@ export function renameData(rawFrameData, moveNameType, inputNotationType, notati
     return truncatedMoveName;
   }
 
-  switch (moveNameType) {
+  switch (displayState.moveNameType) {
     case "official":
-      return renameFrameData(rawFrameData, "moveName", notationDisplayType);
+      return renameFrameData(rawFrameData, "moveName", displayState.normalNotationType);
     case "common":
-      return renameFrameData(rawFrameData, "cmnName", notationDisplayType);
+      return renameFrameData(rawFrameData, "cmnName", displayState.normalNotationType);
     case "inputs":
-      return renameFrameData(rawFrameData, inputNotationType, notationDisplayType);
+      return renameFrameData(rawFrameData, displayState.inputNotationType, displayState.normalNotationType);
     default:
-      break;
+      return rawFrameData;
   }
 }
 
@@ -102,12 +100,9 @@ function vTriggerMerge(rawFrameData, vtState) {
 }
 
 // this allow me to build the JSON for the setPlayer action creator in selectCharacter, SegmentSwitcher and ____ componenet
-export function helpCreateFrameDataJSON(rawFrameData, moveNameType, inputNotationType, normalNotationType, vtState) {
+export function helpCreateFrameDataJSON(rawFrameData, displayState: DataDisplaySettingsReducerState, vtState: VtState) {
   
-  const dataToRename = vtState === "normal"
-    ? rawFrameData.normal
-    : vTriggerMerge(rawFrameData, vtState);
+  const dataToRename = (vtState === "normal") ? rawFrameData.normal : vTriggerMerge(rawFrameData, vtState);
 
-  return moveNameType === "official" ? dataToRename : renameData(dataToRename, moveNameType, inputNotationType);
-
+  return (displayState.moveNameType === "official") ? dataToRename : renameData(dataToRename, displayState);
 }

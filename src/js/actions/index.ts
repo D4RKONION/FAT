@@ -90,15 +90,15 @@ export const setAutoSetSpecificCols = (autoSetColsOn: Boolean) => ({
 export const setPlayer = (playerId: PlayerId, charName: PlayerData["name"]) => {
   return function(dispatch, getState) {
     const { frameDataState, dataDisplaySettingsState, selectedCharactersState, activeGameState }: RootState  = getState();
-    const stateToSet: VtState =
+    const vTriggerStateToSet: VtState =
       activeGameState !== "SFV"
         ? "normal"
         : selectedCharactersState[playerId].vtState
     const playerData: PlayerData = {
       name: charName,
-      frameData: helpCreateFrameDataJSON(frameDataState[charName].moves, dataDisplaySettingsState.moveNameType, dataDisplaySettingsState.inputNotationType, dataDisplaySettingsState.normalNotationType, stateToSet),
+      frameData: helpCreateFrameDataJSON(frameDataState[charName].moves, dataDisplaySettingsState, vTriggerStateToSet),
       stats: frameDataState[charName].stats,
-      vtState: stateToSet,
+      vtState: vTriggerStateToSet,
     }
     dispatch({
       type: 'SET_PLAYER',
