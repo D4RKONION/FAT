@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { IonToast } from "@ionic/react";
 import ADVICE from '../constants/Advice';

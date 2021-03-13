@@ -1,5 +1,4 @@
 import { IonContent, IonPage, IonList, IonItem, IonLabel, IonIcon, isPlatform, IonGrid } from '@ionic/react';
-import React from 'react';
 import PageHeader from '../components/PageHeader';
 import { chevronForward, desktopOutline, documentTextOutline, logoDiscord, logoTwitter, chatbubblesOutline, heartOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router';

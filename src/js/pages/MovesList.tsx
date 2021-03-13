@@ -1,5 +1,5 @@
 import { IonContent, IonPage, IonList, IonItem, IonLabel, IonItemDivider, IonGrid } from '@ionic/react';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PageHeader from '../components/PageHeader';
 import SegmentSwitcher from '../components/SegmentSwitcher';
@@ -9,6 +9,7 @@ import { useHistory, useParams } from 'react-router';
 import AdviceToast from '../components/AdviceToast';
 import { activeGameSelector, activePlayerSelector, dataDisplaySettingsSelector, selectedCharactersSelector } from '../selectors';
 import { FrameDataSlug } from '../types';
+import { isPlatform } from '@ionic/core';
 
 
 const MovesList = () => {
@@ -68,21 +69,24 @@ const MovesList = () => {
       />
       <IonContent id="movesList">
         <IonGrid fixed>
-          <SegmentSwitcher
-            key={"ML ActivePlayer"}
-            segmentType={"active-player"}
-            valueToTrack={activePlayer}
-            labels={ {playerOne: `P1: ${selectedCharacters.playerOne.name}`, playerTwo: `P2: ${selectedCharacters.playerTwo.name}`}}
-            clickFunc={ (eventValue) => eventValue === activePlayer ? dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true })) : dispatch(setActiveFrameDataPlayer(eventValue)) }
-          />
-          {activeGame === "SFV" &&
+          <div className={`segments ${!isPlatform("ios") && "md"}`}>
             <SegmentSwitcher
-              segmentType={"vtrigger"}
-              valueToTrack={selectedCharacters[activePlayer].vtState}
-              labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
-              clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
+              key={"ML ActivePlayer"}
+              segmentType={"active-player"}
+              valueToTrack={activePlayer}
+              labels={ {playerOne: `P1: ${selectedCharacters.playerOne.name}`, playerTwo: `P2: ${selectedCharacters.playerTwo.name}`}}
+              clickFunc={ (eventValue) => eventValue === activePlayer ? dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true })) : dispatch(setActiveFrameDataPlayer(eventValue)) }
             />
-          }
+            {activeGame === "SFV" &&
+              <SegmentSwitcher
+                segmentType={"vtrigger"}
+                valueToTrack={selectedCharacters[activePlayer].vtState}
+                labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
+                clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
+              />
+            }
+          </div>
+          
           <IonList>
             {!moveListHeaders.length && <h4>No New Unique Moves</h4>}
             {moveListHeaders.map(listHeader =>

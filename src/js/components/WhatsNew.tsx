@@ -1,5 +1,4 @@
 import { IonContent, IonGrid, IonModal } from '@ionic/react';
-import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PageHeader from './PageHeader';
 import '../../style/components/WhatsNew.scss'

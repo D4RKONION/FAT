@@ -1,6 +1,6 @@
 import { IonContent, IonIcon, IonPage } from '@ionic/react';
 import { informationCircle } from 'ionicons/icons';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router';
 import DataTable from '../components/DataTable';

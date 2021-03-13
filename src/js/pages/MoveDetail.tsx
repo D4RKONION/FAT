@@ -1,5 +1,5 @@
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonPage } from '@ionic/react';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useParams } from 'react-router';
 import GAME_DETAILS from '../constants/GameDetails'
@@ -10,6 +10,7 @@ import SegmentSwitcher from '../components/SegmentSwitcher';
 import { setActiveGame, setPlayerAttr } from '../actions';
 import { activeGameSelector, activePlayerSelector, selectedCharactersSelector } from '../selectors';
 import { FrameDataSlug } from '../types';
+import { isPlatform } from '@ionic/core';
 
 
 const MoveDetail = () => {
@@ -94,14 +95,17 @@ const MoveDetail = () => {
           ]}
         />
 
-        {activeGame === "SFV" && !selectedMoveData["uniqueInVt"] &&
-          <SegmentSwitcher
-            segmentType={"vtrigger"}
-            valueToTrack={selectedCharacters[activePlayer].vtState}
-            labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
-            clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
-          />
-        }
+        <div className={`segments ${!isPlatform("ios") && "md"}`}>
+          {activeGame === "SFV" && !selectedMoveData["uniqueInVt"] &&
+            <SegmentSwitcher
+              segmentType={"vtrigger"}
+              valueToTrack={selectedCharacters[activePlayer].vtState}
+              labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
+              clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
+            />
+          }
+        </div>
+        
         <div id="flexCardContainer">
 
           {/* Generic Entries */}

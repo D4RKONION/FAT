@@ -1,18 +1,4 @@
-import { GameName } from "../types";
-
-// TSHELP my attempts to type universalDataPoints have failed
-// See MoveDetail.tsx:122+153
-type GameDetailMap = {
-  fullName: string;
-  abbrName: string;
-  characterStates: string[],
-  characterList: string[],
-  universalDataPoints: any,
-  specificCancels?: any,
-  statsPoints: any,
-};
-
-const GAME_DETAILS: { [key in GameName]: GameDetailMap } = {
+const GAME_DETAILS = {
   SFV: {
     fullName: "Street Fighter V",
     abbrName: "SFV",
@@ -60,7 +46,7 @@ const GAME_DETAILS: { [key in GameName]: GameDetailMap } = {
       "Zangief",
       "Zeku (Old)",
       "Zeku (Young)"
-    ],
+    ] as const,
     universalDataPoints: {
       "Basic Frame Data": [
         {
@@ -305,7 +291,7 @@ const GAME_DETAILS: { [key in GameName]: GameDetailMap } = {
       "Yang",
       "Yun",
       "Zangief"
-    ],
+    ] as const,
     universalDataPoints: {
       "Basic Frame Data": [
         {
@@ -365,6 +351,7 @@ const GAME_DETAILS: { [key in GameName]: GameDetailMap } = {
         },
       ]
     },
+    specificCancels: [],
     statsPoints: {
       "The Basics": [
         {
@@ -415,7 +402,7 @@ const GAME_DETAILS: { [key in GameName]: GameDetailMap } = {
       "Urien",
       "Yang",
       "Yun"
-    ],
+    ] as const,
     universalDataPoints: {
       "Basic Frame Data": [
         {
@@ -545,6 +532,7 @@ const GAME_DETAILS: { [key in GameName]: GameDetailMap } = {
 
       ]
     },
+    specificCancels: [],
     statsPoints: {
       "The Basics": [
         {
@@ -571,6 +559,6 @@ const GAME_DETAILS: { [key in GameName]: GameDetailMap } = {
       ]
     }
   },
-}
+};
 
 export default GAME_DETAILS;

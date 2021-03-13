@@ -1,20 +1,21 @@
-export const APP_CURRENT_VERSION_NAME = "3.1.0";
-export const APP_CURRENT_VERSION_CODE = 30100;
+export const APP_CURRENT_VERSION_NAME = "3.2.0";
+export const APP_CURRENT_VERSION_CODE = 30200;
 export const APP_FRAME_DATA_CODE = 17;
 export const APP_DATE_UPDATED = "March 1, 2021";
 
 export const VERSION_LOGS = {
-  "3.1.1": {
+  "3.2.0": {
     "New Features": [
-      "Desktop/tablets: Massive rework of the side menu, much prettier now",
-      "Added a toggle all to each landscape column section in the framedata menu",
-      "Webapp: URL deep linking into move details/specific characters etc. should now work throughout the app",
       "Added a theme previewer",
-      "Added Dan's specific cancels to the app",
       "New theme: Second in Command. Theme number 2 is purple and truly intoxicating!",
       "Reworked the Red Dragon theme to be less ugly in light mode, check it out in the theme previewer",
+      "Added a toggle all to each landscape column section in the framedata menu",
+      "Added autosetting of character specific data, can turn off in landscape options",
+      "Added Dan's specific cancels to the app",
+      "Desktop/tablets: Massive rework of the side menu, much prettier now",
+      "Desktop: Open landscape options by clicking the header",
+      "Desktop: URL deep linking into move details/specific characters etc. should now work throughout the app",
       "Made it so Seth's frame data table only shows the move that he steals from the other selected character",
-      "Added Dan's Specific cancels to the lanscape columns",
     ],
     "Bug Fixes": [
       "Fixed a bug where the data table would sometimes double render, causing lag",
@@ -24,7 +25,7 @@ export const VERSION_LOGS = {
       "Fixed the link to Sestze's spreadsheet, sorry Sestze!",
       "Fixed a bug where sometimes some of the subheader data wasn't showing",
       "Fixed the link to the FAT repo",
-      "Desktop: Fixed a bug where the character select screen didn't cause a mouse pointer",
+      "Desktop: Fixed a bug where various elements didn't cause a mouse pointer effect",
     ]
   },
   "3.1.0": {

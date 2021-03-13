@@ -1,5 +1,5 @@
 import { IonContent, IonPage, IonList, IonItem, IonLabel, IonGrid, IonButton, isPlatform, IonIcon, IonRow, IonCol } from '@ionic/react';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { InAppPurchase2 as iapStore } from '@ionic-native/in-app-purchase-2';
 import PageHeader from '../components/PageHeader';
@@ -14,8 +14,6 @@ const defaultPrice = isPlatform('android') ? '€1.79' : '$1.99';
 const PRODUCTS = THEMES.map(themeObj => (
   {...themeObj, "price":  defaultPrice}
 ))
-
-console.log(PRODUCTS);
 
 const ThemeStore = () => {
 

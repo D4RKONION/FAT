@@ -1,6 +1,3 @@
-import React from 'react';
-import { } from '@ionic/react';
-
 import '../../style/components/CharacterPortrait.scss';
 
 type CharacterPortraitProps = {
@@ -12,8 +9,8 @@ type CharacterPortraitProps = {
   onClick?: () => void;
 }
 
-const CharacterPortrait = ( { charName, charThreeLetterCode, game, selected, charColor, onClick }: CharacterPortraitProps ) => {
-  
+const CharacterPortrait = ( {charName, charThreeLetterCode, game, selected, charColor, onClick }: CharacterPortraitProps ) => {
+
   return(
     <div
       className="character-block"

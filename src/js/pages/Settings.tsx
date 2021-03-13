@@ -1,5 +1,5 @@
 import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, IonList, IonListHeader, IonIcon, useIonViewDidEnter, isPlatform, IonButton, IonToast, IonGrid  } from '@ionic/react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Clipboard } from '@ionic-native/clipboard';
 
@@ -62,6 +62,7 @@ const Settings = () => {
                 <IonSelectOption value="SFV">SFV</IonSelectOption>
               </IonSelect>
             </IonItem>
+
             <IonItem id="moveNameType" lines="none">
               <IonLabel>
                 <h2>Move Name Type</h2>
@@ -85,7 +86,7 @@ const Settings = () => {
               </IonSelect>
             </IonItem>
 
-            <IonItem lines="full">
+            <IonItem lines="none">
               <IonLabel>
                 <h2>Command Notation</h2>
                 <p>Change how inputs are displayed</p>
@@ -107,6 +108,32 @@ const Settings = () => {
                 <IonSelectOption value="numCmd">NumPad</IonSelectOption>
               </IonSelect>
             </IonItem>
+
+            {/* @Jon Uncomment this! */}
+            {/* <IonItem lines="full">
+              <IonLabel>
+                <h2>Normal Notation</h2>
+                <p>Choose long or short normal names</p>
+              </IonLabel>
+              <IonSelect
+                interfaceOptions={{ header: "Select a Naming Type" }}
+                value={dataDisplaySettings.normalNotationType}
+                okText="Select"
+                cancelText="Cancel"
+                onIonChange={e => {
+                  dispatch(setDataDisplaySettings({normalNotationType: e.detail.value}));
+                  if (dataDisplaySettings.moveNameType === "official" || dataDisplaySettings.moveNameType === "common") {
+                    dispatch(setPlayer("playerOne", selectedCharacters.playerOne.name));
+                    dispatch(setPlayer("playerTwo", selectedCharacters.playerTwo.name));
+                  }
+                }}
+              >
+                <IonSelectOption value="fullWord">Full Word</IonSelectOption>
+                <IonSelectOption value="shorthand">Shorthand</IonSelectOption>
+              </IonSelect>
+            </IonItem> */}
+
+
               {/* APP OPTIONS */}
               <IonListHeader>App Settings</IonListHeader>
               <IonItem lines="full">

@@ -1,23 +1,23 @@
 import { IonContent, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonAlert, isPlatform, IonButton, IonGrid, IonRow, IonCol } from '@ionic/react';
 import { peopleOutline, settingsOutline, settingsSharp, moon, sunny, gameControllerOutline, gameControllerSharp, libraryOutline, librarySharp, calculatorOutline, calculatorSharp, caretDownOutline, searchOutline, searchSharp, statsChartOutline, statsChartSharp, barbellOutline, barbellSharp, colorPaletteOutline, colorPaletteSharp, menuSharp, logoPaypal, phonePortraitOutline, phonePortraitSharp } from 'ionicons/icons';
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import '../../style/components/Menu.scss';
-import { setModalVisibility, setModeName, setActiveGame } from '../actions'
+import { setModalVisibility, setModeName, setActiveGame, setThemeBrightness } from '../actions'
 import CharacterSelectModal from './CharacterSelect';
 import WhatsNewModal from './WhatsNew'
 import HelpModal from './Help';
 import framesIcon from  '../../images/icons/frames.svg';
 import patreonIcon from '../../images/icons/patreon.svg';
 import { APP_CURRENT_VERSION_NAME } from '../constants/VersionLogs';
-import { activeGameSelector, modeNameSelector, selectedCharactersSelector } from '../selectors';
-import { getPlatforms } from '@ionic/core';
+import { activeGameSelector, modeNameSelector, selectedCharactersSelector, themeBrightnessSelector } from '../selectors';
 
-const Menu = ({ themeBrightness, themeBrightnessClickHandler }) => {
+const Menu = () => {
 
+  const themeBrightness = useSelector(themeBrightnessSelector);
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const modeName = useSelector(modeNameSelector);
   const activeGame = useSelector(activeGameSelector);
@@ -154,7 +154,7 @@ const Menu = ({ themeBrightness, themeBrightnessClickHandler }) => {
       <IonContent>
         <div id="mobileSideMenu">
           <div id="menuHeader">
-            <div id="themeButton" onClick={(() => themeBrightnessClickHandler())}>
+            <div id="themeButton" onClick={ () => themeBrightness === "light" ? dispatch(setThemeBrightness("dark")) : dispatch(setThemeBrightness("light")) }>
               <IonIcon icon={themeBrightness === "dark" ? sunny : moon} />
             </div>
             <div id="appDetails">

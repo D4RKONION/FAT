@@ -1,11 +1,12 @@
 import { helpCreateFrameDataJSON } from '../utils';
 import GAME_DETAILS from '../constants/GameDetails';
-import type { AdviceToastPrevRead, AppModal, GameName, InputNotationType, MoveNameType, Orientation, PlayerData, PlayerId, ThemeAlias, ThemeBrightness, ThemeShortId, VtState } from '../types'
+import type { AdviceToastPrevRead, AppModal, NormalNotationType, GameName, InputNotationType, MoveNameType, Orientation, PlayerData, PlayerId, ThemeAlias, ThemeBrightness, ThemeShortId, VtState } from '../types'
 
 import AppSFVFrameData from '../constants/framedata/SFVFrameData.json';
 import USF4FrameData from '../constants/framedata/USF4FrameData.json';
 import SF3FrameData from '../constants/framedata/3SFrameData.json';
 import { APP_FRAME_DATA_CODE } from '../constants/VersionLogs';
+import { RootState } from '../reducers';
 
 // ACTION CREATORS
 //handle global things
@@ -80,18 +81,22 @@ export const setCounterHit = (counterHitOn: Boolean) => ({
   type: 'SET_COUNTER_HIT',
   counterHitOn,
 })
+export const setAutoSetSpecificCols = (autoSetColsOn: Boolean) => ({
+  type: 'SET_AUTO_SET_SPECIFIC_COLS',
+  autoSetColsOn,
+})
 
 // handle player frame data json stuff
-export const setPlayer = (playerId: PlayerId, charName: string) => {
+export const setPlayer = (playerId: PlayerId, charName: PlayerData["name"]) => {
   return function(dispatch, getState) {
-    const { frameDataState, dataDisplaySettingsState, selectedCharactersState, activeGameState }  = getState();
+    const { frameDataState, dataDisplaySettingsState, selectedCharactersState, activeGameState }: RootState  = getState();
     const stateToSet: VtState =
       activeGameState !== "SFV"
         ? "normal"
         : selectedCharactersState[playerId].vtState
     const playerData: PlayerData = {
       name: charName,
-      frameData: helpCreateFrameDataJSON(frameDataState[charName].moves, dataDisplaySettingsState.moveNameType, dataDisplaySettingsState.inputNotationType, stateToSet),
+      frameData: helpCreateFrameDataJSON(frameDataState[charName].moves, dataDisplaySettingsState.moveNameType, dataDisplaySettingsState.inputNotationType, dataDisplaySettingsState.normalNotationType, stateToSet),
       stats: frameDataState[charName].stats,
       vtState: stateToSet,
     }
@@ -103,7 +108,7 @@ export const setPlayer = (playerId: PlayerId, charName: string) => {
   }
 }
 
-export const setPlayerAttr = (playerId: PlayerId, charName: string, playerData: PlayerData) => {
+export const setPlayerAttr = (playerId: PlayerId, charName: PlayerData["name"], playerData: PlayerData) => {
   return function(dispatch) {
     dispatch({
       type: 'SET_PLAYER_ATTR',
@@ -124,7 +129,7 @@ export const setModalVisibility = (data: {currentModal: AppModal, visible: Boole
 })
 
 // handle setting frame data display types
-export const setDataDisplaySettings = (settings: {moveNameType?: MoveNameType , inputNotationType?: InputNotationType}) => ({
+export const setDataDisplaySettings = (settings: {moveNameType?: MoveNameType , inputNotationType?: InputNotationType, normalNotationType?: NormalNotationType}) => ({
     type: 'SET_DATA_DISPLAY_SETTINGS',
     settings,
 })

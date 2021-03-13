@@ -1,5 +1,5 @@
 import { IonContent, IonPage, IonList, IonItemDivider, IonLabel, IonItem, IonIcon, IonGrid } from '@ionic/react';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import '../../style/pages/Combos.scss';
 import SegmentSwitcher from '../components/SegmentSwitcher';
@@ -11,6 +11,7 @@ import AdviceToast from '../components/AdviceToast';
 import { useParams } from 'react-router';
 import { activeGameSelector, activePlayerSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
 import { FrameDataSlug } from '../types';
+import { isPlatform } from '@ionic/core';
 
 
 
@@ -51,13 +52,15 @@ const Combos = () => {
           {activeGame !== "SFV" || selectedCharacters[activePlayer].name === "Dan"
             ? <h4>No Combos for {activeGame}<br/>Sorry!</h4>
             : <>
-              <SegmentSwitcher
-                key={"CT ActivePlayer"}
-                segmentType={"active-player"}
-                valueToTrack={activePlayer}
-                labels={ {playerOne: `P1: ${selectedCharacters.playerOne.name}`, playerTwo: `P2: ${selectedCharacters.playerTwo.name}`}}
-                clickFunc={ (eventValue) => !modalVisibility.visible && eventValue === activePlayer ? dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true })) : dispatch(setActiveFrameDataPlayer(eventValue)) }
-              />
+              <div className={`segments ${!isPlatform("ios") && "md"}`}>
+                <SegmentSwitcher
+                  key={"CT ActivePlayer"}
+                  segmentType={"active-player"}
+                  valueToTrack={activePlayer}
+                  labels={ {playerOne: `P1: ${selectedCharacters.playerOne.name}`, playerTwo: `P2: ${selectedCharacters.playerTwo.name}`}}
+                  clickFunc={ (eventValue) => !modalVisibility.visible && eventValue === activePlayer ? dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true })) : dispatch(setActiveFrameDataPlayer(eventValue)) }
+                />
+              </div>
               <IonList>
                 {Object.keys(SFV_COMBOS[selectedCharacters[activePlayer].name]).map(comboHeader =>
                   <div className="list-section" key={comboHeader}>

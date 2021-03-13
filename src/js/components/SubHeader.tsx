@@ -1,4 +1,3 @@
-import React, { ReactFragment } from 'react';
 import { IonGrid, IonRow, IonCol } from '@ionic/react';
 
 import '../../style/components/SubHeader.scss';

@@ -1,6 +1,6 @@
 import { IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, IonMenuButton, IonBackButton, IonIcon, IonRouterContext } from '@ionic/react';
 import { arrowBack } from 'ionicons/icons';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import PopoverButton from './PopoverButton';
 import '../../style/components/PageHeader.scss'
 import BrightnessToggle from './BrightnessToggle';
@@ -67,7 +67,7 @@ const PageHeader = ( { componentsToShow, buttonsToShow, title }: PageHeaderProps
         
 
         {componentsToShow && componentsToShow.menu &&
-          <BrightnessToggle styleName="widescreenMode" />
+          <BrightnessToggle />
         }
         
         {componentsToShow && componentsToShow.popover &&

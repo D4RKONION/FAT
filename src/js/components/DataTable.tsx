@@ -1,15 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import { isPlatform } from '@ionic/core';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router'
 import '../../style/components/DataTable.scss';
-import { setPlayerAttr } from '../actions';
+import { setModalVisibility, setPlayerAttr } from '../actions';
 import { activeGameSelector, activePlayerSelector, counterHitSelector, landscapeColsSelector, onBlockColoursSelector, orientationSelector, selectedCharactersSelector } from '../selectors';
 
 
 
 const portraitCols: {[key: string]: string} = {startup: "S", active: "A", recovery: "R", onHit: "oH", onBlock: "oB",};
 
-const DataTable = ({ previewTable }) => {
+type DataTableProps = {
+  previewTable: Boolean;
+}
+
+const DataTable = ({ previewTable }: DataTableProps) => {
 
 
   const currentOrientation = useSelector(orientationSelector);
@@ -44,7 +49,7 @@ const DataTable = ({ previewTable }) => {
   return(
     <div id="dataTable" style={ {gridTemplateColumns: `fit-content(33%) repeat(${Object.keys(colsToDisplay).length}, 1fr)`} }>
       
-      <div id="dataTableHeader">
+      <div id="dataTableHeader" onClick={() => !isPlatform("capacitor") && dispatch(setModalVisibility({ currentModal: "landscapeOptions", visible: true }))}>
         <span className="entry move-name">Move</span>
         {Object.keys(colsToDisplay).map(headerName =>
           <span className="entry" key={headerName}>

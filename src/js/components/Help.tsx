@@ -1,5 +1,5 @@
 import { IonContent, IonModal } from '@ionic/react';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { setModalVisibility } from '../actions';

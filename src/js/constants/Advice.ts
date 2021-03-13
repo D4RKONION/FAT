@@ -1,4 +1,4 @@
-export default {
+const ADVICE = {
   framedata: [
     {
       message: "You can change from Official Move Names to Common Move Names in the settings",
@@ -49,3 +49,5 @@ export default {
   ],
 
 }
+
+export default ADVICE;

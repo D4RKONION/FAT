@@ -28,6 +28,8 @@ export const onBlockColoursSelector =  (state: RootState) => state.onBlockColour
 
 export const counterHitSelector =  (state: RootState) => state.counterHitState;
 
+export const autoSetSpecificColsSelector =  (state: RootState) => state.autoSetSpecificColsState;
+
 export const adviceToastShownSelector =  (state: RootState) => state.adviceToastShownState;
 
 export const adviceToastDismissedSelector =  (state: RootState) => state.adviceToastDismissedState;

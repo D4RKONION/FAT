@@ -1,5 +1,4 @@
 import { IonContent, IonPage, IonList, IonListHeader, IonItem, IonLabel, IonIcon, isPlatform, IonItemGroup, IonGrid } from '@ionic/react';
-import React from 'react';
 import '../../style/pages/Calculators.scss';
 import PageHeader from '../components/PageHeader';
 import { bulbOutline, chevronForward, skullOutline, linkOutline, handLeftOutline, receiptOutline, peopleOutline, personRemoveOutline } from 'ionicons/icons';
