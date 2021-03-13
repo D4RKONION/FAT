@@ -52,27 +52,6 @@
       &:nth-child(even) > .cell, &:nth-child(even) > .move-name{
         background-color: var(--fat-surface-tint);
       }
-  
-      .triggered-data, .normal-state {
-        &.severely-punishable {
-          background-color: var(--fat-datatable-serverely-pun);
-        }
-        &.very-punishable {
-          background-color: var(--fat-datatable-very-pun);
-        }
-        &.just-punishable {
-          background-color: var(--fat-datatable-just-pun);
-        }
-        &.not-punishable {
-          background-color: var(--fat-datatable-not-pun);
-        }
-        &.just-plus {
-          background-color: var(--fat-datatable-just-plus);
-        }
-        &.very-plus {
-          background-color: var(--fat-datatable-very-plus);
-        }
-      }
 
       .cell {
         font-weight: 400;
