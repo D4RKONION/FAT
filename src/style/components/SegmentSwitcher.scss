@@ -45,8 +45,42 @@
   }
 
   @media screen and (min-width: 576px) {
-    max-width: 800px;
-    margin: 0 auto
-    
+    &.ios {
+      max-width: 400px;
+    }
+    &.md {
+      max-width: 500px;
+      margin: 0 auto;
+      &:last-of-type {
+        margin-bottom: 4px;
+      }
+    }
+  }
+
+  @media screen and (min-width: 992px) {
+    &.md {
+      display: inline-block;
+      width: auto;
+      margin-bottom: 5px;
+
+      ion-segment-button.md {
+        margin: 0 5px;
+        --indicator-height: 3px;
+        text-transform: none;
+        display: inline-block;
+      }
+    }
+
+    @at-root {
+      #frameData .segments.md, #movesList .segments.md, #combos .segments.md {
+        width: 82%;
+        margin: 0 auto;
+        display: flex;
+      }
+      #characterSelect .segments.md {
+        margin: 0 auto;
+        display: flex;
+      }
+    }
   }
 }

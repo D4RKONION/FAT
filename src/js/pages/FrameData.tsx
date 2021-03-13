@@ -13,7 +13,9 @@ import AdviceToast from '../components/AdviceToast';
 import { APP_CURRENT_VERSION_CODE } from '../constants/VersionLogs';
 import { activeGameSelector, activePlayerSelector, autoSetSpecificColsSelector, landscapeColsSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
 import { FrameDataSlug, PlayerData } from '../types';
+import '../../style/pages/FrameData.scss'
 import { createCharacterDataCategoryObj, createOrderedLandscapeColsObj } from '../utils/landscapecols';
+import { isPlatform } from '@ionic/core';
 
 
 
@@ -101,7 +103,7 @@ const FrameData = () => {
   
 
   return (
-    <IonPage>
+    <IonPage id="frameData">
       <PageHeader
         componentsToShow={{menu: true, popover: true}}
         title={`Frame Data | ${selectedCharacters[activePlayer].name}`}
@@ -122,28 +124,31 @@ const FrameData = () => {
           ]
         ]}
         />
-        <SegmentSwitcher
-          key={"FD ActivePlayer"}
-          segmentType={"active-player"}
-          valueToTrack={activePlayer}
-          labels={ {playerOne: `P1: ${selectedCharacters.playerOne.name}`, playerTwo: `P2: ${selectedCharacters.playerTwo.name}`}}
-          clickFunc={ (eventValue) => {
-            if (!modalVisibility.visible && eventValue === activePlayer) {
-              dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true }));
-            } else {
-              handleNewCharacterLandscapeCols(selectedCharacters[activePlayer].name, selectedCharacters[eventValue].name)
-              dispatch(setActiveFrameDataPlayer(eventValue));
-            }
-          }}
-        />
-        {activeGame === "SFV" &&
+        <div className={`segments ${!isPlatform("ios") && "md"}`}>
           <SegmentSwitcher
-            segmentType={"vtrigger"}
-            valueToTrack={selectedCharacters[activePlayer].vtState}
-            labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
-            clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
+            key={"FD ActivePlayer"}
+            segmentType={"active-player"}
+            valueToTrack={activePlayer}
+            labels={ {playerOne: `P1: ${selectedCharacters.playerOne.name}`, playerTwo: `P2: ${selectedCharacters.playerTwo.name}`}}
+            clickFunc={ (eventValue) => {
+              if (!modalVisibility.visible && eventValue === activePlayer) {
+                dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true }));
+              } else {
+                handleNewCharacterLandscapeCols(selectedCharacters[activePlayer].name, selectedCharacters[eventValue].name)
+                dispatch(setActiveFrameDataPlayer(eventValue));
+              }
+            }}
           />
-        }
+          {activeGame === "SFV" &&
+            <SegmentSwitcher
+              segmentType={"vtrigger"}
+              valueToTrack={selectedCharacters[activePlayer].vtState}
+              labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
+              clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
+            />
+          }
+        </div>
+        
 
 
         <DataTable previewTable={false} />

@@ -11,6 +11,7 @@ import CharacterPortrait from './CharacterPortrait'
 import { activeGameSelector, activePlayerSelector, autoSetSpecificColsSelector, frameDataSelector, landscapeColsSelector, modalVisibilitySelector, modeNameSelector, selectedCharactersSelector } from '../selectors';
 import { createCharacterDataCategoryObj, createOrderedLandscapeColsObj } from '../utils/landscapecols';
 import { PlayerData } from '../types';
+import { isPlatform } from '@ionic/core';
 
 const CharacterSelectModal = () => {
 
@@ -65,6 +66,7 @@ const CharacterSelectModal = () => {
 
   return(
     <IonModal
+      id="characterSelect"
       isOpen={modalVisibility.visible && modalVisibility.currentModal === "characterSelect"}
       onDidDismiss={ () => modalVisibility.visible && dispatch(setModalVisibility({ currentModal: "characterSelect", visible: false })) }
     >
@@ -73,24 +75,25 @@ const CharacterSelectModal = () => {
         title={`${activeGame} | ${selectedCharacters[activePlayer].name}`}
       />
       <IonContent>
-
-        {modeName !== "calc-frametrapchecker" && modeName !== "calc-frametraplister" && modeName !== "calc-framekillgenerator" &&
-          <SegmentSwitcher
-            key={"CS ActivePlayer"}
-            segmentType={"active-player"}
-            valueToTrack={activePlayer}
-            labels={ {playerOne: `P1: ${selectedCharacters.playerOne.name}`, playerTwo: `P2: ${selectedCharacters.playerTwo.name}`}}
-            clickFunc={ (eventValue) => { handleNewCharacterLandscapeCols(selectedCharacters[activePlayer].name, selectedCharacters[eventValue].name); dispatch(setActiveFrameDataPlayer(eventValue)) } }
-          />
-        }
-        {activeGame === "SFV" &&
-          <SegmentSwitcher
-            segmentType={"vtrigger"}
-            valueToTrack={selectedCharacters[activePlayer].vtState}
-            labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
-            clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
-          />
-        }
+        <div className={`segments ${!isPlatform("ios") && "md"}`}>
+          {modeName !== "calc-frametrapchecker" && modeName !== "calc-frametraplister" && modeName !== "calc-framekillgenerator" &&
+            <SegmentSwitcher
+              key={"CS ActivePlayer"}
+              segmentType={"active-player"}
+              valueToTrack={activePlayer}
+              labels={ {playerOne: `P1: ${selectedCharacters.playerOne.name}`, playerTwo: `P2: ${selectedCharacters.playerTwo.name}`}}
+              clickFunc={ (eventValue) => { handleNewCharacterLandscapeCols(selectedCharacters[activePlayer].name, selectedCharacters[eventValue].name); dispatch(setActiveFrameDataPlayer(eventValue)) } }
+            />
+          }
+          {activeGame === "SFV" &&
+            <SegmentSwitcher
+              segmentType={"vtrigger"}
+              valueToTrack={selectedCharacters[activePlayer].vtState}
+              labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
+              clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
+            />
+          }
+        </div>
 
         <div id="characterSelectGrid">
           {GAME_DETAILS[activeGame].characterList.map(charName => {
