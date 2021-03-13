@@ -5,10 +5,10 @@ import { VtState } from '../types';
 /**
  * Renames the moves in the character frame data to reflect the user's desired naming convention
  * @param {string} rawFrameData The frame data for the current character
- * @param {DataDisplaySettingsReducerState} displayState The Redux state containing various move text render settings
+ * @param {DataDisplaySettingsReducerState} dataDisplayState The Redux state containing various move text render settings
  * @returns The frame data JSON object with renamed moves
  */
-export function renameData(rawFrameData, displayState: DataDisplaySettingsReducerState) {
+export function renameData(rawFrameData, dataDisplayState: DataDisplaySettingsReducerState) {
   const renameFrameData = (rawData, renameKey, notationDisplay) => {
     switch (notationDisplay) {
       case "fullWord":
@@ -50,13 +50,13 @@ export function renameData(rawFrameData, displayState: DataDisplaySettingsReduce
     return truncatedMoveName;
   }
 
-  switch (displayState.moveNameType) {
+  switch (dataDisplayState.moveNameType) {
     case "official":
-      return renameFrameData(rawFrameData, "moveName", displayState.normalNotationType);
+      return renameFrameData(rawFrameData, "moveName", dataDisplayState.normalNotationType);
     case "common":
-      return renameFrameData(rawFrameData, "cmnName", displayState.normalNotationType);
+      return renameFrameData(rawFrameData, "cmnName", dataDisplayState.normalNotationType);
     case "inputs":
-      return renameFrameData(rawFrameData, displayState.inputNotationType, displayState.normalNotationType);
+      return renameFrameData(rawFrameData, dataDisplayState.inputNotationType, dataDisplayState.normalNotationType);
     default:
       return rawFrameData;
   }
@@ -100,9 +100,9 @@ function vTriggerMerge(rawFrameData, vtState) {
 }
 
 // this allow me to build the JSON for the setPlayer action creator in selectCharacter, SegmentSwitcher and ____ componenet
-export function helpCreateFrameDataJSON(rawFrameData, displayState: DataDisplaySettingsReducerState, vtState: VtState) {
+export function helpCreateFrameDataJSON(rawFrameData, dataDisplayState: DataDisplaySettingsReducerState, vtState: VtState) {
   
   const dataToRename = (vtState === "normal") ? rawFrameData.normal : vTriggerMerge(rawFrameData, vtState);
 
-  return (displayState.moveNameType === "official") ? dataToRename : renameData(dataToRename, displayState);
+  return (dataDisplayState.moveNameType === "official") ? dataToRename : renameData(dataToRename, dataDisplayState);
 }
