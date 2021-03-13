@@ -13,7 +13,6 @@ import AdviceToast from '../components/AdviceToast';
 import { APP_CURRENT_VERSION_CODE } from '../constants/VersionLogs';
 import { activeGameSelector, activePlayerSelector, autoSetSpecificColsSelector, landscapeColsSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
 import { FrameDataSlug, PlayerData } from '../types';
-import '../../style/pages/FrameData.scss'
 import { createCharacterDataCategoryObj, createOrderedLandscapeColsObj } from '../utils/landscapecols';
 import { isPlatform } from '@ionic/core';
 
