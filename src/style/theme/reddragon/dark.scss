@@ -114,7 +114,11 @@ ion-app.reddragon-dark-theme, .themePreview.reddragon-dark-theme {
   // Page Subheader
   --fat-page-subheader-background: #1f1f1f;
   --fat-page-subheader-contrast: #ffffff;
-
+  
+  // Frame Data Sub Header
+  --fat-frame-data-sub-header-stats-bg: var(--fat-surface-tint);
+  --fat-frame-data-sub-header-stats-contrast: #ffffff;
+  
   // Menu
   --fat-menu-top: #750f0f;
   --fat-menu-top-h2: var(--fat-primary-contrast);

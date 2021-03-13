@@ -205,11 +205,13 @@ const GAME_DETAILS = {
           "vgauge2": "VGauge 2",
         }
       ],
-      "Ground Movement": [
+      "Walking": [
         {
           "bWalk": "Back Walk Speed",
           "fWalk": "Forward Walk Speed"
-        },
+        }
+      ],
+      "Dashing": [
         {
           "bDash": "Back Dash Speed",
           "fDash": "Forward Dash Speed"

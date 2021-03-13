@@ -105,6 +105,7 @@ const CharacterSelectModal = () => {
                 game={activeGame.toLowerCase()}
                 charName={charName}
                 charColor={charData.stats.color}
+                showName={true}
                 onClick={() => onCharacterSelect(activePlayer, charName)}
               />
             )

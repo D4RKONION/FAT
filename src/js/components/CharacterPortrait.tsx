@@ -6,19 +6,22 @@ type CharacterPortraitProps = {
   game: string;
   selected?: Boolean;
   charColor: string;
+  showName: Boolean
   onClick?: () => void;
 }
 
-const CharacterPortrait = ( {charName, charThreeLetterCode, game, selected, charColor, onClick }: CharacterPortraitProps ) => {
+const CharacterPortrait = ( {charName, charThreeLetterCode, game, selected, charColor, showName, onClick }: CharacterPortraitProps ) => {
 
   return(
     <div
       className="character-block"
-      style={{ background: `radial-gradient(circle, ${charColor}94 0%, ${charColor}c7 38%, ${charColor} 100%)`}}
+      style={{ background: `${charColor}`}}
       onClick={onClick}
     >
       <img alt={`${charName} portrait`} src={`${process.env.PUBLIC_URL}/assets/images/characters/${game}/${charName}.png`} />
-      <h2 className={selected ? "selected" : "not-selected"}>{charThreeLetterCode ? charThreeLetterCode : charName}</h2>
+      {showName &&
+        <h2 className={selected ? "selected" : "not-selected"}>{charThreeLetterCode ? charThreeLetterCode : charName}</h2>
+      }
     </div>
   )
 }

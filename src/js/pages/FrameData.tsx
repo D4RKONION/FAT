@@ -15,6 +15,7 @@ import { activeGameSelector, activePlayerSelector, autoSetSpecificColsSelector, 
 import { FrameDataSlug, PlayerData } from '../types';
 import { createCharacterDataCategoryObj, createOrderedLandscapeColsObj } from '../utils/landscapecols';
 import { isPlatform } from '@ionic/core';
+import FrameDataSubHeader from '../components/FrameDataSubHeader';
 
 
 
@@ -122,6 +123,11 @@ const FrameData = () => {
 
           ]
         ]}
+        />
+        <FrameDataSubHeader
+          charName={selectedCharacters[activePlayer].name}
+          charStats={selectedCharacters[activePlayer].stats}
+          activeGame={activeGame}        
         />
         <div className={`segments ${!isPlatform("ios") && "md"}`}>
           <SegmentSwitcher

@@ -1,7 +1,7 @@
 .segment-switcher {
   &.ios {
     margin: 7px auto;
-    &.active-player, &.link-or-cancel, &.recovery-type {
+    &.active-player, &.link-or-cancel, &.recovery-type, &.stat-chooser {
       width: 70%;
       --background: var(--fat-switcher-primary-ios-background);
       ion-segment-button {
@@ -15,12 +15,15 @@
         --indicator-color: var(--fat-switcher-vtrigger-ios-checked);
       }
     }
+    &.stat-chooser {
+      margin: 10px 0;
+    }
   }
 
   &.md {
     --background: var(--fat-switcher-android-background);
   }
-  &.active-player, &.link-or-cancel, &.recovery-type {
+  &.active-player, &.link-or-cancel, &.recovery-type, &.stat-chooser {
     ion-segment-button {
       &.md {
         --background-hover: var(--fat-switcher-primary-checked-contrast);
@@ -61,6 +64,7 @@
     &.md {
       display: inline-block;
       width: auto;
+      max-width: 900px;
       margin-bottom: 5px;
 
       ion-segment-button.md {

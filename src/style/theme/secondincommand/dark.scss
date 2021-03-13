@@ -114,6 +114,10 @@ ion-app.secondincommand-dark-theme, .themePreview.secondincommand-dark-theme {
   // Page Subheader
   --fat-page-subheader-background: #1f1f1f;
   --fat-page-subheader-contrast: #ffffff;
+    
+  // Frame Data Sub Header
+  --fat-frame-data-sub-header-stats-bg: var(--fat-surface-tint);
+  --fat-frame-data-sub-header-stats-contrast: #ffffff;
 
   // Menu
   --fat-menu-top: #2a1f5c;
