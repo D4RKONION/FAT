@@ -5,13 +5,19 @@ import { mapKeys, isEqual } from 'lodash';
  * @param {string} rawFrameData The frame data for the current character
  * @param {string} moveNameType The naming convention
  * @param {string} inputNotationType If the user selected "inputs" for their naming convention, the input notation displayed
+ * @param {string} notationDisplayType The move name size convention ("longform" & "shorthand")
  * @returns The frame data JSON object with renamed moves
  */
-export function renameData(rawFrameData, moveNameType, inputNotationType) {
-  const bulkRenameFrameData = (rawData, renameKey) => {
-    let debugReturn = mapKeys(rawData, (moveValue, moveKey) => moveValue[renameKey] ? moveValue[renameKey] : moveKey);
-
-    return debugReturn;
+export function renameData(rawFrameData, moveNameType, inputNotationType, notationDisplayType) {
+  const renameFrameData = (rawData, renameKey, notationDisplay) => {
+    switch (notationDisplay) {
+      case "longform":
+        return mapKeys(rawData, (moveValue, moveKey) => moveValue[renameKey] ? moveValue[renameKey] : moveKey);
+      case "shorthand":
+        return renameFrameDataToShorthand(rawData);
+      default:
+        break;
+    }
   }
 
   const renameFrameDataToShorthand = (rawData) => {
@@ -46,13 +52,11 @@ export function renameData(rawFrameData, moveNameType, inputNotationType) {
 
   switch (moveNameType) {
     case "official":
-      return bulkRenameFrameData(rawFrameData, "moveName");
+      return renameFrameData(rawFrameData, "moveName", notationDisplayType);
     case "common":
-      return bulkRenameFrameData(rawFrameData, "cmnName");
-    case "shorthand":
-      return renameFrameDataToShorthand(rawFrameData);
+      return renameFrameData(rawFrameData, "cmnName", notationDisplayType);
     case "inputs":
-      return bulkRenameFrameData(rawFrameData, inputNotationType);
+      return renameFrameData(rawFrameData, inputNotationType, notationDisplayType);
     default:
       break;
   }
