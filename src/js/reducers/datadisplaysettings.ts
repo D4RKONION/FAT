@@ -1,15 +1,15 @@
-import { InputNotationType, MoveNameType } from "../types";
+import { InputNotationType, MoveNameType, NormalNotationType } from "../types";
 
-type DataDisplaySettingsReducerState = {moveNameType?: MoveNameType , inputNotationType?: InputNotationType}
+export type DataDisplaySettingsReducerState = {moveNameType?: MoveNameType , inputNotationType?: InputNotationType, normalNotationType?: NormalNotationType}
 
 type DataDisplaySettingsReducerAction = {
   type: 'SET_DATA_DISPLAY_SETTINGS';
   settings: {
-    moveNameType?: MoveNameType , inputNotationType?: InputNotationType
+    moveNameType?: MoveNameType , inputNotationType?: InputNotationType, normalNotationType?: NormalNotationType,
   };
 }
 
-const defaultState: DataDisplaySettingsReducerState = {moveNameType: "common", inputNotationType: "plnCmd"};
+const defaultState: DataDisplaySettingsReducerState = {moveNameType: "common", inputNotationType: "plnCmd", normalNotationType: "fullWord"};
 
 export const dataDisplaySettingsReducer = (state = defaultState, action: DataDisplaySettingsReducerAction) => {
   switch(action.type) {

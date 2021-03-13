@@ -1,4 +1,6 @@
 import { mapKeys, isEqual } from 'lodash';
+import { DataDisplaySettingsReducerState } from '../reducers/datadisplaysettings';
+import { VtState } from '../types';
 
 export function renameData(rawFrameData, moveNameType, inputNotationType) {
 
@@ -57,7 +59,8 @@ function vTriggerMerge(rawFrameData, vtState) {
 }
 
 // this allow me to build the JSON for the setPlayer action creator in selectCharacter, SegmentSwitcher and ____ componenet
-export function helpCreateFrameDataJSON(rawFrameData, moveNameType, inputNotationType, vtState) {
+export function helpCreateFrameDataJSON(rawFrameData, moveNameType, inputNotationType, normalNotationType, vtState) {
+  
   const dataToRename = vtState === "normal"
     ? rawFrameData.normal
     : vTriggerMerge(rawFrameData, vtState);

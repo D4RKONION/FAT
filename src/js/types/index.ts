@@ -11,6 +11,8 @@ export type MoveNameType = 'official' | 'common' | 'inputs';
 
 export type InputNotationType = 'plnCmd' | 'numCmd';
 
+export type NormalNotationType = 'fullWord' | 'shorthand';
+
 export type GameName = 'SFV' | 'USF4' | '3S';
 
 export type Orientation = 'landscape' | 'portrait';
