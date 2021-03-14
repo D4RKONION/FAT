@@ -4,12 +4,12 @@
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "build",
-	"cordova": {},
-	"linuxAndroidStudioPath": "/snap/android-studio/current/android-studio/bin/studio.sh",
-	"plugins": {
+  "cordova": {},
+  "linuxAndroidStudioPath": "/snap/android-studio/current/android-studio/bin/studio.sh",
+  "plugins": {
     "SplashScreen": {
-			"launchAutoHide": false,
-			"androidScaleType": "CENTER_CROP"
-		}
-	}
+      "launchAutoHide": false,
+      "androidScaleType": "CENTER_CROP"
+    }
+  }
 }
