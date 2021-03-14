@@ -1,9 +1,10 @@
 import '../../style/components/CharacterPortrait.scss';
+import { GameName } from '../types';
 
 type CharacterPortraitProps = {
   charName: string;
   charThreeLetterCode?: string;
-  game: string;
+  game: GameName;
   selected?: Boolean;
   charColor: string;
   showName: Boolean
@@ -18,7 +19,7 @@ const CharacterPortrait = ( {charName, charThreeLetterCode, game, selected, char
       style={{ background: `${charColor}`}}
       onClick={onClick}
     >
-      <img alt={`${charName} portrait`} src={`${process.env.PUBLIC_URL}/assets/images/characters/${game}/${charName}.png`} />
+      <img alt={`${charName} portrait`} src={`${process.env.PUBLIC_URL}/assets/images/characters/${game.toLowerCase()}/${charName}.png`} />
       {showName &&
         <h2 className={selected ? "selected" : "not-selected"}>{charThreeLetterCode ? charThreeLetterCode : charName}</h2>
       }
