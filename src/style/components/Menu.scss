@@ -70,7 +70,8 @@
         top: 0;
         z-index: 10;
         &.ios {
-          height: 44px;
+          padding-top: env(safe-area-inset-top);
+          height: calc(44px + env(safe-area-inset-top));
         }
         &.md {
           box-shadow: 0px 2px 3px #00000048;
