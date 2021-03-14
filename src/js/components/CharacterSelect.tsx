@@ -102,9 +102,10 @@ const CharacterSelectModal = () => {
             return(
               <CharacterPortrait
                 key={`selectportrait-${activeGame}-${charName}`}
-                game={activeGame.toLowerCase()}
+                game={activeGame}
                 charName={charName}
                 charColor={charData.stats.color}
+                showName={true}
                 onClick={() => onCharacterSelect(activePlayer, charName)}
               />
             )

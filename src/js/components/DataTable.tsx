@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router'
 import '../../style/components/DataTable.scss';
 import { setModalVisibility, setPlayerAttr } from '../actions';
-import { activeGameSelector, activePlayerSelector, counterHitSelector, landscapeColsSelector, onBlockColoursSelector, orientationSelector, selectedCharactersSelector } from '../selectors';
+import { activeGameSelector, activePlayerSelector, counterHitSelector, landscapeColsSelector, onBlockColoursSelector, orientationSelector, selectedCharactersSelector, themeBrightnessSelector } from '../selectors';
 
 
 
@@ -24,6 +24,7 @@ const DataTable = ({ previewTable }: DataTableProps) => {
   const landscapeCols = useSelector(landscapeColsSelector);
   const onBlockColours = useSelector(onBlockColoursSelector);
   const counterHit = useSelector(counterHitSelector);
+  const themeBrightness = useSelector(themeBrightnessSelector);
 
   const dispatch = useDispatch();
 
@@ -90,20 +91,20 @@ const DataTable = ({ previewTable }: DataTableProps) => {
               {Object.keys(colsToDisplay).map(detailKey =>
                 <span
                   key={detailKey}
-                  className={`cell 
-                    ${
-                      activeGame === "SFV" && counterHit && detailKey === "onHit" && moveData.ccState ? "very-punishable"
-                      : counterHit && activeGame !== "3S" && detailKey === "onHit" && typeof moveData[detailKey] !== "string" && !!parseInt(moveData[detailKey]) ? "just-punishable"
-                      :	onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < -8 ? "severely-punishable"
-                      : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < -5 ? "very-punishable"
-                      : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < -2 ? "just-punishable"
-                      : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < 0 ? "not-punishable"
-                      : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && (moveData[detailKey] > 2 || moveData[detailKey] === "KD") ? "very-plus"
-                      : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && (moveData[detailKey] > 0) ? "just-plus"
-                      : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) ? "other-oB"
-                      : "non-block-data"
-                    }
 
+                  style={
+                    activeGame === "SFV" && counterHit && detailKey === "onHit" && moveData.ccState ? (themeBrightness === "light" ? {backgroundColor:  "var(--fat-datatable-very-pun"} : {color:  "var(--fat-datatable-very-pun"})
+                    : counterHit && activeGame !== "3S" && detailKey === "onHit" && typeof moveData[detailKey] !== "string" && !!parseInt(moveData[detailKey]) ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-just-pun"} : {color:  "var(--fat-datatable-just-pun"})
+                    :	onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < -8 ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-serverely-pun"} : {color:  "var(--fat-datatable-serverely-pun"})
+                    : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < -5 ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-very-pun"} : {color:  "var(--fat-datatable-very-pun"})
+                    : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < -2 ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-just-pun"} : {color:  "var(--fat-datatable-just-pun"})
+                    : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < 0 ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-not-pun"} : {color:  "var(--fat-datatable-not-pun"})
+                    : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && (moveData[detailKey] > 2 || moveData[detailKey] === "KD") ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-very-plus"} : {color:  "var(--fat-datatable-very-plus"})
+                    : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && (moveData[detailKey] > 0) ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-just-plus"} : {color:  "var(--fat-datatable-just-plus"})
+                    : null
+                  }
+
+                  className={`cell 
                     ${selectedCharacters[activePlayer].vtState.includes("vt") && ((moveData.changedValues && moveData.changedValues.includes(detailKey)) || moveData.uniqueInVt) ? "triggered-data"
                     : selectedCharacters[activePlayer].vtState.includes("vt") ? "untriggered-data"
                     : "normal-state"}

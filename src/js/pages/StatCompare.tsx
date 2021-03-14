@@ -73,10 +73,11 @@ const StatCompare = () => {
                     <CharacterPortrait
                       key={`${activeGame}-${charName}-stat-image`}
                       charName={charName}
-                      game={activeGame.toLowerCase()}
+                      game={activeGame}
                       selected={ (charName === selectedCharacters.playerOne.name || charName === selectedCharacters.playerTwo.name) && true}
                       charThreeLetterCode={frameDataFile[charName].stats.threeLetterCode.toUpperCase()}
                       charColor={frameDataFile[charName].stats.color}
+                      showName={true}
                     />
                 )}
               </div>

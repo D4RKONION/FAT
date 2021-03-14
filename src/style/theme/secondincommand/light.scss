@@ -115,6 +115,10 @@ ion-app.secondincommand-light-theme, .themePreview.secondincommand-light-theme {
   --fat-page-subheader-background: var(--fat-primary-tint);
   --fat-page-subheader-contrast: #ffffff;
 
+  // Frame Data Sub Header
+  --fat-frame-data-sub-header-stats-bg: #e3ddf9;
+  --fat-frame-data-sub-header-stats-contrast: #3d167b;
+
   // Menu
   --fat-menu-top: var(--fat-primary);
   --fat-menu-top-h2: var(--fat-primary-contrast);

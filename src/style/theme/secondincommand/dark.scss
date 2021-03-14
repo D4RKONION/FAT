@@ -114,6 +114,10 @@ ion-app.secondincommand-dark-theme, .themePreview.secondincommand-dark-theme {
   // Page Subheader
   --fat-page-subheader-background: #1f1f1f;
   --fat-page-subheader-contrast: #ffffff;
+    
+  // Frame Data Sub Header
+  --fat-frame-data-sub-header-stats-bg: var(--fat-surface-tint);
+  --fat-frame-data-sub-header-stats-contrast: #ffffff;
 
   // Menu
   --fat-menu-top: #2a1f5c;
@@ -130,15 +134,15 @@ ion-app.secondincommand-dark-theme, .themePreview.secondincommand-dark-theme {
   --fat-wide-menu-background: #15102e;
 
   // Frame Data
-  --fat-datatable-header-bg: #262040;
+  --fat-datatable-header-bg: #0d3f61;
   --fat-datatable-header-contrast: #ffffff;
-  --fat-datatable-hover-border: #2d224b;
-  --fat-datatable-serverely-pun: #c62323;
-  --fat-datatable-very-pun: #c25555;
-  --fat-datatable-just-pun: #b07b7b;
-  --fat-datatable-not-pun: #95952d;
-  --fat-datatable-just-plus: #699170;
-  --fat-datatable-very-plus: #01ac56;
+  --fat-datatable-hover-border: #223a4b;
+  --fat-datatable-serverely-pun: #ffa8ec;
+  --fat-datatable-very-pun: #ff9b9b;
+  --fat-datatable-just-pun: #ffd050;
+  --fat-datatable-not-pun: #e8ff65;
+  --fat-datatable-just-plus: #96ff50;
+  --fat-datatable-very-plus: #50ff5f;
 
   // Stat Compare
   --fat-statcompare-big-header: #ae87f6;

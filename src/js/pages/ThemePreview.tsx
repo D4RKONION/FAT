@@ -9,11 +9,15 @@ import SegmentSwitcher from '../components/SegmentSwitcher';
 import SubHeader from '../components/SubHeader';
 
 import { setThemeBrightness } from '../actions';
-import { themeBrightnessSelector } from '../selectors';
+import { activeGameSelector, selectedCharactersSelector, themeBrightnessSelector } from '../selectors';
+import FrameDataSubHeader from '../components/FrameDataSubHeader';
 
 
 const ThemePreview = () => {
 
+
+  const selectedCharacters = useSelector(selectedCharactersSelector);
+  const activeGame = useSelector(activeGameSelector);
   const themeBrightness = useSelector(themeBrightnessSelector);
   const dispatch = useDispatch();
 
@@ -33,6 +37,8 @@ const ThemePreview = () => {
         title={`${THEMEDICT[themeNameSlug]}`}
       />
 
+      
+
       <IonContent className="themePreview">
         <SubHeader
           adaptToShortScreens={false}
@@ -49,6 +55,12 @@ const ThemePreview = () => {
           ]}
         />
 
+      <FrameDataSubHeader
+        charName={selectedCharacters["playerOne"].name}
+        charStats={selectedCharacters["playerOne"].stats}
+        activeGame={activeGame}    
+      ></FrameDataSubHeader>
+
         <SegmentSwitcher
           key={"Brightness setting"}
           segmentType={"active-player"}
@@ -60,7 +72,7 @@ const ThemePreview = () => {
           key={"Fake V-Trigger"}
           segmentType={"vtrigger"}
           valueToTrack={fakeTrigger}
-          labels={ {normal: "Buy", vtOne: "This", vtTwo: "Theme :D"}}
+          labels={ {normal: "Buy", vtOne: "This", vtTwo: "Theme :D"} }
           clickFunc={ (eventValue) => setFakeTrigger(eventValue) }
         />
 

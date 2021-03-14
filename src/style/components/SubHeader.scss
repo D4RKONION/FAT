@@ -27,3 +27,9 @@
     display: none !important;
   }
 }
+
+@media (min-width: 992px) {
+  #subHeader {
+    display: none;
+  }
+}

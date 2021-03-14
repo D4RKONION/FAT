@@ -1,7 +1,7 @@
 export const APP_CURRENT_VERSION_NAME = "3.2.0";
 export const APP_CURRENT_VERSION_CODE = 30200;
-export const APP_FRAME_DATA_CODE = 17;
-export const APP_DATE_UPDATED = "March 1, 2021";
+export const APP_FRAME_DATA_CODE = 24;
+export const APP_DATE_UPDATED = "March 14, 2021";
 
 export const VERSION_LOGS = {
   "3.2.0": {
@@ -13,9 +13,11 @@ export const VERSION_LOGS = {
       "Added autosetting of character specific data, can turn off in landscape options",
       "Added Dan's specific cancels to the app",
       "Desktop/tablets: Massive rework of the side menu, much prettier now",
-      "Desktop: Open landscape options by clicking the header",
+      "Desktop/tablets: New character bio section above frame data",
       "Desktop: URL deep linking into move details/specific characters etc. should now work throughout the app",
+      "Desktop: Open landscape options by clicking the header",
       "Made it so Seth's frame data table only shows the move that he steals from the other selected character",
+      "Improved how dark mode's oB numbers looks",
     ],
     "Bug Fixes": [
       "Fixed a bug where the data table would sometimes double render, causing lag",
