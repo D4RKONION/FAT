@@ -6,8 +6,8 @@ Welcome to FAT! The most popular SFV app in the world!
 ### Developing
 If you'd like to contribute to FAT, please open an issue about what you're interested in doing. I won't accept a pull request without an issue, so don't waste your time. You can also discuss it with me in our [discord channel](https://discord.gg/BfrCaHKU5J)
 
-### Frame Data corrections
-Frame Data corrections need to be fixed via our team's spreadsheet. We don't directly edit the JSON file. Please report any and all frame data mistakes in our [discord channel](https://discord.gg/9BK8hHS).
+### Frame Data & General data corrections
+Frame Data corrections need to be fixed via our team's spreadsheet. We don't directly edit the JSON file. Please report any and all frame data mistakes in our [discord channel](https://discord.gg/9BK8hHS). The same goes for the Combos & Moveslist section.
 
 
 ## Reusing FAT source code
