@@ -7,6 +7,10 @@ ion-header {
 }
 ion-button.button.button-default.button-solid {
   color: var(--fat-solidbutton-inner);
+  &.ios {
+    --background-hover: var(--fat-solidbutton-bg-hover);
+    --background-activated: var(--fat-solidbutton-bg-hover);
+  }
 }
 ion-toggle {
   --handle-background: var(--fat-toggle-handle-background);
