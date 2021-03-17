@@ -27,7 +27,8 @@ const ThemePreview = () => {
 
   const THEMEDICT = {
     reddragon: "Red Dragon",
-    secondincommand: "Second in Command"
+    secondincommand: "Second in Command",
+    deltagreen: "Delta Green"
   }	
 
   return(

@@ -33,6 +33,8 @@ import './style/theme/reddragon/light.scss'
 import './style/theme/reddragon/dark.scss'
 import './style/theme/secondincommand/light.scss'
 import './style/theme/secondincommand/dark.scss'
+import './style/theme/deltagreen/light.scss'
+import './style/theme/deltagreen/dark.scss'
 
 import HomePageRedirect from './js/pages/HomePageRedirect';
 import Menu from './js/components/Menu';
@@ -115,6 +117,7 @@ const App = () => {
       const productList = [
         { id: "com.fullmeter.fat.theme.reddragon", alias: "Red Dragon", type: iapStore.NON_CONSUMABLE },
         { id: "com.fullmeter.fat.theme.secondincommand", alias: "Second in Command", type: iapStore.NON_CONSUMABLE },
+        { id: "com.fullmeter.fat.theme.deltagreen", alias: "Delta Green", type: iapStore.NON_CONSUMABLE },
       ]
 
       iapStore.verbosity = iapStore.DEBUG;
