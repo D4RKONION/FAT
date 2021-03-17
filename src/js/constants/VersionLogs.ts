@@ -4,6 +4,15 @@ export const APP_FRAME_DATA_CODE = 24;
 export const APP_DATE_UPDATED = "March 14, 2021";
 
 export const VERSION_LOGS = {
+  "3.2.1": {
+    "New Features": [
+      "Rearranged the stats sections",
+    ],
+    "Bug Fixes": [
+      "Fixed a bug where some stats wouldn't appear in stat compare",
+      "iOS: Fixed a bug where activated and hovered buttons would be the wrong colour"
+    ]
+  },
   "3.2.0": {
     "New Features": [
       "Added a theme previewer",

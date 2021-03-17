@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { IonToast } from "@ionic/react";
 import ADVICE from '../constants/Advice';
+import styles from '../../style/components/AdviceToast.module.scss'
 import { setAdviceToastDismissed, setAdviceToastPrevRead } from '../actions'
 import { settingsOutline, star, thumbsUpOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router'; 
@@ -65,6 +66,7 @@ const AdviceToast = () => {
   return(
     <IonToast
       ref={toastRef}
+      cssClass={styles.adviceToast}
       isOpen={true}
       onWillDismiss={() => {
         dispatch(setAdviceToastDismissed(true));
