@@ -198,8 +198,13 @@ const GAME_DETAILS = {
         {
           "health": "Health",
           "stun": "Stun",
-          "taunt": "Taunt",
         },
+        {
+          "fastestNormal": "Fastest Normal",
+          //"bestReversal": "Best Reversal"
+        }
+      ],
+      "V-System": [
         {
           "vgauge1": "V-Trigger 1",
           "vgauge2": "V-Trigger 2",
