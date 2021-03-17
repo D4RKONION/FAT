@@ -54,7 +54,7 @@ export function renameData(rawFrameData, dataDisplayState: DataDisplaySettingsRe
     case "common":
       return renameFrameData(rawFrameData, "cmnName", dataDisplayState.normalNotationType);
     case "inputs":
-      return renameFrameData(rawFrameData, dataDisplayState.inputNotationType, dataDisplayState.normalNotationType);
+      return renameFrameData(rawFrameData, dataDisplayState.inputNotationType, "fullWord");
     default:
       return rawFrameData;
   }
@@ -102,5 +102,5 @@ export function helpCreateFrameDataJSON(rawFrameData, dataDisplayState: DataDisp
   
   const dataToRename = (vtState === "normal") ? rawFrameData.normal : vTriggerMerge(rawFrameData, vtState);
 
-  return (dataDisplayState.moveNameType === "official") ? dataToRename : renameData(dataToRename, dataDisplayState);
+  return renameData(dataToRename, dataDisplayState);
 }
