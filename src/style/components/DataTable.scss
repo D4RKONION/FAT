@@ -1,48 +1,64 @@
-#dataTable {
-  // grid columns sizes are set dynamically inline
-  display: grid;
-  text-align: center;
-  padding: 0;
-  font-size: 14px;
-  cursor: pointer;
+@supports not (display: grid) {
+ #dataTable {
+   display: none;
+ }
+ #noSupportWarning {
+   display: block;
+   text-align: center;
+   background: #00000010;
+   width: 90%;
+   max-width: 800px;
+   margin: 30px auto;
+   border-radius: 10px;
+   padding: 10px;
+ }
+}
 
-  
-  // causes the containers to disappear as far as the grid is concerned
+@supports (display: grid) {
+  #dataTable {
+    // grid columns sizes are set dynamically inline
+    display: grid;
+    text-align: center;
+    padding: 0;
+    font-size: 14px;
+    cursor: pointer;
 
-  #dataTableHeader, #dataTableFooter, .move-row {
-    display: contents;
+    
+    // causes the containers to disappear as far as the grid is concerned
 
-    .move-name {
-      max-width: 200px;
-    }
-  }
+    #dataTableHeader, #dataTableFooter, .move-row {
+      display: contents;
 
-  //Table Header and Footer stuff
-  #dataTableHeader, #dataTableFooter {
-    .entry {
-      color: var(--fat-datatable-header-contrast);
-      background-color: var(--fat-datatable-header-bg);
-      position: sticky;
-      z-index: 2;
-      padding: 6px 0 5px;
-
-      &.move-name {
-        padding-right: 5px;
+      .move-name {
+        max-width: 200px;
       }
     }
-  }
-  #dataTableHeader > .entry {
-    // Fixing issue where sometimes the sticky doesn't append to the top properly
-    top: -1px;
-  }
-  #dataTableFooter > .entry {
-    padding-bottom: calc(5px + env(safe-area-inset-bottom));
-    bottom: 0;
-  }
+
+    //Table Header and Footer stuff
+    #dataTableHeader, #dataTableFooter {
+      .entry {
+        color: var(--fat-datatable-header-contrast);
+        background-color: var(--fat-datatable-header-bg);
+        position: sticky;
+        z-index: 2;
+        padding: 6px 0 5px;
+
+        &.move-name {
+          padding-right: 5px;
+        }
+      }
+    }
+    #dataTableHeader > .entry {
+      // Fixing issue where sometimes the sticky doesn't append to the top properly
+      top: -1px;
+    }
+    #dataTableFooter > .entry {
+      padding-bottom: calc(5px + env(safe-area-inset-bottom));
+      bottom: 0;
+    }
 
 
-  // Table Body Stuff
-
+    // Table Body Stuff
     .move-row{
           
       &:nth-child(odd) > .cell, &:nth-child(odd) > .move-name{
@@ -90,4 +106,9 @@
         border-bottom: solid 3px var(--fat-datatable-hover-border)
       }
     }
+  }
+
+  #noSupportWarning {
+    display: none;
+  }
 }
