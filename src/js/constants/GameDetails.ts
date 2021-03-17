@@ -201,8 +201,8 @@ const GAME_DETAILS = {
           "taunt": "Taunt",
         },
         {
-          "vgauge1": "VGauge 1",
-          "vgauge2": "VGauge 2",
+          "vgauge1": "V-Trigger 1",
+          "vgauge2": "V-Trigger 2",
         }
       ],
       "Walking": [
@@ -213,8 +213,8 @@ const GAME_DETAILS = {
       ],
       "Dashing": [
         {
-          "bDash": "Back Dash Speed",
-          "fDash": "Forward Dash Speed"
+          "bDash": "Back Dash Frames",
+          "fDash": "Forward Dash Frames"
         },
         {
           "bDashCHFrames": "Back Dash CH Frames"
@@ -366,8 +366,8 @@ const GAME_DETAILS = {
       ],
       "Ground Movement": [
         {
-          "bDash": "Back Dash Speed",
-          "fDash": "Forward Dash Speed"
+          "bDash": "Back Dash Frames",
+          "fDash": "Forward Dash Frames"
         },
         {
           "lvlOneB": "Level 1 Focus Back",
@@ -547,8 +547,8 @@ const GAME_DETAILS = {
       ],
       "Ground Movement": [
         {
-          "bDash": "Back Dash Speed",
-          "fDash": "Forward Dash Speed"
+          "bDash": "Back Dash Frames",
+          "fDash": "Forward Dash Frames"
         },
         {
           "lvlOneB": "Level 1 Focus Back",

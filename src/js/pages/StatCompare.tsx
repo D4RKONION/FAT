@@ -9,6 +9,7 @@ import { person } from 'ionicons/icons';
 import { sortBy } from 'lodash';
 import CharacterPortrait from '../components/CharacterPortrait';
 import { activeGameSelector, frameDataSelector, selectedCharactersSelector } from '../selectors';
+import GAME_DETAILS from '../constants/GameDetails';
 
 
 const StatCompare = () => {
@@ -23,7 +24,15 @@ const StatCompare = () => {
   const [selectedStat, setSelectedStat] = useState("health");
   const [selectedStatProperName, setSelectedStatProperName] = useState("Health");
   const [statHeadings, setStatHeadings] = useState([]);
-   const allStats = {"health": "Health", "stun": "Stun", "vgauge1": "VGauge 1", "vgauge2": "VGauge 2", "fWalk": "Forward Walk", "bWalk": "Backwards Walk", "fJump": "Forward Jump", "bJump": "Back Jump", "nJump": "Neutral Jump", "fJumpDist": "F. Jump Distance", "bJumpDist": "B. Jump Distance", "fDash": "Forward Dash (Speed)", "bDash": "Back Dash (Speed)", "bDashCHFrames": "Back Dash CH Frames", "fDashDist": "F. Dash Distance (px)", "bDashDist": "B. Dash Distance (px)", "throwHurt": "Throw Hurtbox Range", "throwRange": "Throw Range"}
+  const gameStatsObj = GAME_DETAILS[activeGame].statsPoints;
+  const allStats = {}
+  Object.keys(gameStatsObj).forEach(dataSection =>
+    gameStatsObj[dataSection].map(dataRow =>
+      Object.keys(dataRow).map(dataKey =>
+        allStats[dataKey] = dataRow[dataKey]
+      )
+    )
+  )
 
   useEffect(() => {
     const statHeadingsTemp = [];
