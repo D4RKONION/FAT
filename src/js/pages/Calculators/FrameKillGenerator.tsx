@@ -37,6 +37,7 @@ const FrameKillGenerator = () => {
     if (!playerOneMoves[targetMeaty]) {
       setTargetMeaty(null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[selectedCharacters]);
 
   useMemo(() => {
@@ -71,7 +72,7 @@ const FrameKillGenerator = () => {
       playerOneMoves["Forward Dash"] = {
         "startup": 1,
         "active": 0,
-        "recovery": selectedCharacters.playerOne.stats.fDash
+        "recovery": parseInt(selectedCharacters.playerOne.stats.fDash as string)
       }
 
       // If a specific move is required in the setup, make that the only option in firstokimove
@@ -85,7 +86,7 @@ const FrameKillGenerator = () => {
       }
 
       let ordinalName;
-      const moveSetLoop = (currentLateByFramesSearch) => {
+      const moveSetLoop = (currentLateByFramesSearch, targetMeatyFrames) => {
         if (currentLateByFramesSearch === 1) {
           ordinalName = "1st (" + currentLateByFramesSearch + " frame late)"
         } else if (currentLateByFramesSearch > 1) {
@@ -236,7 +237,7 @@ const FrameKillGenerator = () => {
               // multiActive is a direct array of when each active frame occurs. No need for any extra calculation
               targetMeatyFrames = playerOneMoves[targetMeaty]["multiActive"][frame];
 
-              moveSetLoop(currentLateByFramesSearch);
+              moveSetLoop(currentLateByFramesSearch, targetMeatyFrames);
 
               currentActiveFrame++
             }
@@ -246,14 +247,14 @@ const FrameKillGenerator = () => {
             console.log("loop: " + currentLateByFramesSearch)
             currentActiveFrame = 1;
             targetMeatyFrames = parseInt(playerOneMoves[targetMeaty]["startup"]);
-            moveSetLoop(currentLateByFramesSearch)
+            moveSetLoop(currentLateByFramesSearch, targetMeatyFrames)
           }
 
 
         }
 
         if (coverBothKDs) {
-          var currentActiveFrame = 1;
+          currentActiveFrame = 1;
 
           let kdrResults = {...processedResults}
           processedResults = {"Natural Setups": {}, "One Move Setups": {}, "Two Move Setups": {}, "Three Move Setups": {}};
@@ -264,16 +265,16 @@ const FrameKillGenerator = () => {
           }
 
           // This first for loop is used to allow for late meaties.
-          for (var currentLateByFramesSearch = 0; currentLateByFramesSearch <= lateByFrames; currentLateByFramesSearch++) {
+          for (currentLateByFramesSearch = 0; currentLateByFramesSearch <= lateByFrames; currentLateByFramesSearch++) {
             //First, perfect meaties are checked for
             if (currentLateByFramesSearch === 0) {
               // Begin the for loop. We loop through once for each active frame the targe meaty has)
-              for (var frame in playerOneMoves[targetMeaty]["multiActive"]) {
+              for (frame in playerOneMoves[targetMeaty]["multiActive"]) {
 
                 // multiActive is a direct array of when each active frame occurs. No need for any extra calculation
                 targetMeatyFrames = playerOneMoves[targetMeaty]["multiActive"][frame];
 
-                moveSetLoop(currentLateByFramesSearch);
+                moveSetLoop(currentLateByFramesSearch, targetMeatyFrames);
 
                 currentActiveFrame++
               }
@@ -281,9 +282,9 @@ const FrameKillGenerator = () => {
               // Then we do a late meaty search. Late meaties are only ever going to happen on the first active frame, so
               //we don't need to loop this time
               console.log("loop: " + currentLateByFramesSearch)
-              var currentActiveFrame = 1;
+              currentActiveFrame = 1;
               targetMeatyFrames = parseInt(playerOneMoves[targetMeaty]["startup"]);
-              moveSetLoop(currentLateByFramesSearch)
+              moveSetLoop(currentLateByFramesSearch, targetMeatyFrames)
             }
 
 
@@ -295,24 +296,24 @@ const FrameKillGenerator = () => {
         }
       } else {
         // This first for loop is used to allow for late meaties.
-        for (var currentLateByFramesSearch = 0; currentLateByFramesSearch <= lateByFrames; currentLateByFramesSearch++) {
+        for (currentLateByFramesSearch = 0; currentLateByFramesSearch <= lateByFrames; currentLateByFramesSearch++) {
           //First, perfect meaties are checked for
           if (currentLateByFramesSearch === 0) {
             // Begin the for loop. We loop through once for each active frame the targe meaty has)
-            for (var currentActiveFrame = 1; currentActiveFrame <= playerOneMoves[targetMeaty]["active"]; currentActiveFrame++) {
+            for (currentActiveFrame = 1; currentActiveFrame <= playerOneMoves[targetMeaty]["active"]; currentActiveFrame++) {
 
               // We minus one because last frame of startup and first active frame are the same frame
               var targetMeatyFrames = (parseInt(playerOneMoves[targetMeaty]["startup"]) -1) + currentActiveFrame;
 
-              moveSetLoop(currentLateByFramesSearch);
+              moveSetLoop(currentLateByFramesSearch, targetMeatyFrames);
 
             }
           } else {
             // Then we do a late meaty search. Late meaties are only ever going to happen on the first active frame, so
             //we don't need to loop this time
-            var currentActiveFrame = 1;
-            var targetMeatyFrames = parseInt(playerOneMoves[targetMeaty]["startup"]);
-            moveSetLoop(currentLateByFramesSearch)
+            currentActiveFrame = 1;
+            targetMeatyFrames = parseInt(playerOneMoves[targetMeaty]["startup"]);
+            moveSetLoop(currentLateByFramesSearch, targetMeatyFrames)
           }
 
 
@@ -327,25 +328,25 @@ const FrameKillGenerator = () => {
           }
 
           // This first for loop is used to allow for late meaties.
-          for (var currentLateByFramesSearch = 0; currentLateByFramesSearch <= lateByFrames; currentLateByFramesSearch++) {
+          for (currentLateByFramesSearch = 0; currentLateByFramesSearch <= lateByFrames; currentLateByFramesSearch++) {
             //First, perfect meaties are checked for
             if (currentLateByFramesSearch === 0) {
               // Begin the for loop. We loop through once for each active frame the targe meaty has)
-              for (var currentActiveFrame = 1; currentActiveFrame <= playerOneMoves[targetMeaty]["active"]; currentActiveFrame++) {
+              for (currentActiveFrame = 1; currentActiveFrame <= playerOneMoves[targetMeaty]["active"]; currentActiveFrame++) {
 
                 // We minus one because last frame of startup and first active frame are the same frame
-                var targetMeatyFrames = (parseInt(playerOneMoves[targetMeaty]["startup"]) -1) + currentActiveFrame;
+                targetMeatyFrames = (parseInt(playerOneMoves[targetMeaty]["startup"]) -1) + currentActiveFrame;
 
-                moveSetLoop(currentLateByFramesSearch);
+                moveSetLoop(currentLateByFramesSearch, targetMeatyFrames);
 
               }
             } else {
               // Then we do a late meaty search. Late meaties are only ever going to happen on the first active frame, so
               //we don't need to loop this time
               console.log("loop: " + currentLateByFramesSearch)
-              var currentActiveFrame = 1;
-              var targetMeatyFrames = parseInt(playerOneMoves[targetMeaty]["startup"]);
-              moveSetLoop(currentLateByFramesSearch)
+              currentActiveFrame = 1;
+              targetMeatyFrames = parseInt(playerOneMoves[targetMeaty]["startup"]);
+              moveSetLoop(currentLateByFramesSearch, targetMeatyFrames)
             }
           }
           kdrbResults = {...processedResults};
