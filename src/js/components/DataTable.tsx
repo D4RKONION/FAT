@@ -67,7 +67,7 @@ const DataTable = ({ previewTable }: DataTableProps) => {
         </div>
 
         {Object.entries(selectedCharacters[activePlayer].frameData).map(([moveName, moveData]) => {
-          if ( selectedCharacters[activePlayer].name === "Seth" && moveData["moveType"] === "vskill" && !moveName.includes(`[${inactivePlayerName}]`) ) {
+          if ( selectedCharacters[activePlayer].name === "Seth" && moveData["moveType"] === "vskill" && !moveName.includes(`[${inactivePlayerName}]`) && !/VS[12]/.test(moveData.numCmd) ) {
             return false;
           } else {
             return (
