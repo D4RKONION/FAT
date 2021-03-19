@@ -1,6 +1,6 @@
 import { IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, IonMenuButton, IonBackButton, IonIcon, IonRouterContext, IonSearchbar } from '@ionic/react';
 import { arrowBack } from 'ionicons/icons';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import PopoverButton from './PopoverButton';
 import '../../style/components/PageHeader.scss'
 import BrightnessToggle from './BrightnessToggle';

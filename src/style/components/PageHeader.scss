@@ -21,4 +21,14 @@
 
 ion-toolbar.sc-ion-searchbar-md-h, ion-toolbar .sc-ion-searchbar-md-h {
 	max-width: 400px;
+	--background: var(--fat-surface);
+	--color: var(--fat-surface-contrast);
+}
+
+ion-toolbar.sc-ion-searchbar-ios-h, ion-toolbar .sc-ion-searchbar-ios-h {
+	max-width: 400px;
+	--background: var(--fat-surface);
+	--color: var(--fat-surface-contrast);
+	padding-top: 0;
+	padding-bottom: 0;
 }

@@ -57,6 +57,8 @@ const CharacterSelectModal = () => {
 
     dispatch(setPlayer(playerId, charName));
 
+    setSearchText("");
+
     
     if (playerId === "playerOne" && (modeName === "framedata" || modeName === "moveslist" || modeName === "combos")) {
       //we have to use IonRouterContext due to this issue
