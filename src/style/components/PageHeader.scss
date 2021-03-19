@@ -14,6 +14,11 @@
 				left: 50%;
 				transform: translate(-53%, 0);
 			}
+
 		} 
 	}
+}
+
+ion-toolbar.sc-ion-searchbar-md-h, ion-toolbar .sc-ion-searchbar-md-h {
+	max-width: 400px;
 }

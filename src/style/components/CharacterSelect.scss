@@ -1,12 +1,35 @@
-#characterSelectGrid {
-  display: flex;
-  flex-wrap: wrap;
+@media (max-width: 768px) {
+  #characterSelectGrid {
+    display: flex;
+    flex-wrap: wrap;
+  
+    .character-block {
+      flex-grow: 1;
+      width: 24%;
+      min-width: 119px;
+      max-width: 50%;
+      cursor: pointer;
+    }
+  }  
+}
 
-  .character-block {
-    flex-grow: 1;
-    width: 24%;
-    min-width: 119px;
-    max-width: 50%;
-    cursor: pointer;
+@media (min-width: 768px) {
+  #characterSelect {
+    --width: 80%;
+    --max-height: 600px;
+    
+    #characterSelectGrid {
+      
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      .character-block {
+        width: 100px;
+        cursor: pointer;
+      }
+    }
   }
 }
+
