@@ -12,18 +12,18 @@ export function renameData(rawFrameData, dataDisplayState: DataDisplaySettingsRe
       case "fullWord":
         return mapKeys(rawData, (moveValue, moveKey) => moveValue[renameKey] ? moveValue[renameKey] : moveKey);
       case "shorthand":
-        return renameFrameDataToShorthand(rawData);
+        return renameFrameDataToShorthand(rawData, renameKey);
       default:
         break;
     }
   }
 
-  const renameFrameDataToShorthand = (rawData) => {
+  const renameFrameDataToShorthand = (rawData: string, nameTypeKey: string) => {
     let rename = mapKeys(rawData, (moveValue, moveKey) => {
       if (moveValue.moveType === "normal" && !moveValue.movesList) {
         return formatMoveName(moveValue);
       } else {
-        return moveKey;
+        return moveValue[nameTypeKey];
       }
     });
 
@@ -32,18 +32,17 @@ export function renameData(rawFrameData, dataDisplayState: DataDisplaySettingsRe
 
   const formatMoveName = (moveData) => {
     let truncatedMoveName: string = "";
-    const numberToDirectionMap: Map<string, string> = new Map([
-      ["2", "cr."],
-      ["5", "st."],
-      ["8", "nj."]
+    const wordToAbbreviationMap: Map<string, string> = new Map([
+      ["stand", "st."],
+      ["crouch", "cr."],
+      ["jump", "j."],
+      ["neutral", "nj."]
     ]);
 
-    if (moveData.numCmd.includes("j")) {
-      truncatedMoveName = moveData.numCmd;
-    } else {
-      let [direction, input]: string[] = moveData.numCmd.split(/(\d)/).filter((x: string) => x !== "");
-      truncatedMoveName = `${numberToDirectionMap.get(direction)}${input}`;
-    }
+    let splitMoveName: string[] = moveData.moveName.toLowerCase().split(' ');
+    let abbr: string = wordToAbbreviationMap.get(splitMoveName[0]);
+    let input: string = splitMoveName[splitMoveName.length - 1].toUpperCase();
+    truncatedMoveName = `${abbr}${input}`;
 
     return truncatedMoveName;
   }
@@ -99,7 +98,7 @@ function vTriggerMerge(rawFrameData, vtState) {
 
 // this allow me to build the JSON for the setPlayer action creator in selectCharacter, SegmentSwitcher and ____ componenet
 export function helpCreateFrameDataJSON(rawFrameData, dataDisplayState: DataDisplaySettingsReducerState, vtState: VtState) {
-  
+
   const dataToRename = (vtState === "normal") ? rawFrameData.normal : vTriggerMerge(rawFrameData, vtState);
 
   return renameData(dataToRename, dataDisplayState);
