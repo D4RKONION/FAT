@@ -1,4 +1,4 @@
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   #characterSelectGrid {
     display: flex;
     flex-wrap: wrap;
@@ -13,21 +13,20 @@
   }  
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   #characterSelect {
-    --width: 80%;
-    --max-height: 600px;
-    
+    --width: 860px;
+    --height: 550px;
+
     #characterSelectGrid {
-      
-      margin-top: 10px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: repeat(10, 1fr [col-start]);
 
       .character-block {
-        width: 100px;
         cursor: pointer;
+        h2 {
+          font-size: 15px;
+        }
       }
     }
   }
