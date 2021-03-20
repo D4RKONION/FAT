@@ -6,6 +6,8 @@ export const APP_DATE_UPDATED = "March 14, 2021";
 export const VERSION_LOGS = {
   "3.2.1": {
     "New Features": [
+      "Filter the character select by name using the search bar",
+      "Filter the frame data page using the search bar! You can search using a move name or an expression like oB>4",
       "Rearranged the stats sections",
     ],
     "Bug Fixes": [
