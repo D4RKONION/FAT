@@ -102,13 +102,14 @@ const FrameData = () => {
       return () => {gesture.enable(false)}
     }
   }, [gesture, DataTableEl])
-  
+
+  const searchBoxMessages = [`Search ${selectedCharacters[activePlayer].name}`, 'Type a move name', 'Try searching s=4', 'Try searching a>3', 'Try searching r<10', 'Try searching oH>=3', 'Try searching oB<=-4', 'FAT supports: =, >, <, >=, <=']
 
   return (
     <IonPage id="frameData">
       <PageHeader
         componentsToShow={{menu: true, popover: true, search: true}}
-        title={`Search ${selectedCharacters[activePlayer].name}`}
+        title={searchBoxMessages[Math.floor(Math.random() * searchBoxMessages.length)]}
         searchText={searchText}
         onSearchHandler={ (text: string) => setSearchText(text)}
       />

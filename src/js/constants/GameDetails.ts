@@ -94,7 +94,7 @@ const GAME_DETAILS = {
             "dataFileKey": "moveType",
           },
           "cancelsTo": {
-            "dataTableHeader": "xx >",
+            "dataTableHeader": "xx",
             "detailedHeader": "Cancels To",
             "dataFileKey": "cancelsTo",
           },
@@ -339,7 +339,7 @@ const GAME_DETAILS = {
             "dataFileKey": "moveType",
           },
           "cancelsTo": {
-            "dataTableHeader": "xx >",
+            "dataTableHeader": "xx",
             "detailedHeader": "Cancels To",
             "dataFileKey": "cancelsTo",
           },
@@ -462,7 +462,7 @@ const GAME_DETAILS = {
             "dataFileKey": "moveType",
           },
           "cancelsTo": {
-            "dataTableHeader": "xx >",
+            "dataTableHeader": "xx",
             "detailedHeader": "Cancels To",
             "dataFileKey": "cancelsTo",
           },
