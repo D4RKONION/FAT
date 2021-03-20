@@ -9,6 +9,7 @@ export const VERSION_LOGS = {
       "Filter the character select by name using the search bar",
       "Filter the frame data page using the search bar! You can search using a move name or an expression like oB>4",
       "Rearranged the stats sections",
+      "FAT now checks your system theme setting on fresh install and sets dark or light mode"
     ],
     "Bug Fixes": [
       "Fixed a bug where VS2 data was hidden on Seth's table",

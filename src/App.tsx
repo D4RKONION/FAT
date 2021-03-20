@@ -61,7 +61,7 @@ import ThemeStore from './js/pages/ThemeStore';
 import ThemePreview from './js/pages/ThemePreview';
 
 import { activeGameSelector, frameDataSelector, themeBrightnessSelector, themeColorSelector } from './js/selectors';
-import { setOrientation, setModalVisibility, setActiveGame, setThemeOwned } from './js/actions';
+import { setOrientation, setModalVisibility, setActiveGame, setThemeOwned, setThemeBrightness } from './js/actions';
 import { store } from './js/store';
 import { APP_FRAME_DATA_CODE, APP_CURRENT_VERSION_CODE } from './js/constants/VersionLogs';
 
@@ -194,6 +194,11 @@ useEffect(() => {
         localStorage.setItem("lsFrameDataCode", APP_FRAME_DATA_CODE.toString())
 
         LS_FRAME_DATA_CODE = parseInt(localStorage.getItem("lsFrameDataCode"));
+
+        // also because this is a fresh install, we're going to do a cheeky check for if
+        // the user likes dark mode right here
+        window.matchMedia('(prefers-color-scheme: dark)').matches &&
+          dispatch(setThemeBrightness("dark"))
 
       } else if (LS_FRAME_DATA_CODE <= APP_FRAME_DATA_CODE) {
         // the app has been updated via the store, delete the LS FrameData.json and update the VS_FDC
