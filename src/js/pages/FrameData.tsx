@@ -1,5 +1,5 @@
 import { IonContent, IonPage, IonIcon, createGesture } from '@ionic/react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import DataTable from '../components/DataTable';
 import SegmentSwitcher from '../components/SegmentSwitcher';
@@ -27,6 +27,8 @@ const FrameData = () => {
   const activeGame = useSelector(activeGameSelector);
   const landscapeCols = useSelector(landscapeColsSelector);
   const autoSetSpecificCols = useSelector(autoSetSpecificColsSelector);
+
+  const [searchText, setSearchText] = useState('');
 
   const dispatch = useDispatch();
   
@@ -105,8 +107,10 @@ const FrameData = () => {
   return (
     <IonPage id="frameData">
       <PageHeader
-        componentsToShow={{menu: true, popover: true}}
-        title={`Frame Data | ${selectedCharacters[activePlayer].name}`}
+        componentsToShow={{menu: true, popover: true, search: true}}
+        title={`Search ${selectedCharacters[activePlayer].name}`}
+        searchText={searchText}
+        onSearchHandler={ (text: string) => setSearchText(text)}
       />
       <IonContent>
         <SubHeader
@@ -156,7 +160,7 @@ const FrameData = () => {
         
 
 
-        <DataTable previewTable={false} />
+        <DataTable searchText={searchText} previewTable={false} />
 
         <AdviceToast />
       </IonContent>

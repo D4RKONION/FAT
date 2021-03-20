@@ -75,8 +75,9 @@ const CharacterSelectModal = () => {
       onDidDismiss={ () => modalVisibility.visible && dispatch(setModalVisibility({ currentModal: "characterSelect", visible: false })) }
     >
       <PageHeader
+        componentsToShow={{search: true}}
         buttonsToShow={[{ slot: "end", buttons: [{ text: "Close", buttonFunc: () => dispatch(setModalVisibility({ currentModal: "characterSelect", visible: false }))}] }]}
-        title={"showSearch"}
+        title={"Filter Characters"}
         searchText={searchText}
         onSearchHandler={ (text: string) => setSearchText(text)}
       />

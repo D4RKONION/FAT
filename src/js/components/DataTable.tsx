@@ -6,15 +6,14 @@ import '../../style/components/DataTable.scss';
 import { setModalVisibility, setPlayerAttr } from '../actions';
 import { activeGameSelector, activePlayerSelector, counterHitSelector, landscapeColsSelector, onBlockColoursSelector, orientationSelector, selectedCharactersSelector, themeBrightnessSelector } from '../selectors';
 
-
-
 const portraitCols: {[key: string]: string} = {startup: "S", active: "A", recovery: "R", onHit: "oH", onBlock: "oB",};
 
 type DataTableProps = {
+  searchText?: string;
   previewTable: Boolean;
 }
 
-const DataTable = ({ previewTable }: DataTableProps) => {
+const DataTable = ({ searchText, previewTable }: DataTableProps) => {
 
 
   const currentOrientation = useSelector(orientationSelector);
@@ -33,6 +32,9 @@ const DataTable = ({ previewTable }: DataTableProps) => {
   // Orientation stuff - we use local state to track which of the two header objects to use, but landscapeCols is stored in Redux
   // as it has to be set and changed in a modal elsewhere
   const [colsToDisplay, setColsToDisplay] = useState(portraitCols);
+  
+  const searchableHeaders = {};
+  Object.keys(colsToDisplay).map(headerName => (searchableHeaders[ colsToDisplay[headerName].toLowerCase() ]) = headerName );
   
   useEffect(() => {
     if(currentOrientation === "landscape") {
@@ -66,7 +68,25 @@ const DataTable = ({ previewTable }: DataTableProps) => {
             )}
         </div>
 
-        {Object.entries(selectedCharacters[activePlayer].frameData).map(([moveName, moveData]) => {
+        {Object.entries(selectedCharacters[activePlayer].frameData).filter(([moveName, moveData]) => {
+          if (searchText.includes("=") && moveData[searchableHeaders[searchText.toLowerCase().substring(0, searchText.indexOf("="))]] ) {
+            return moveData[searchableHeaders[searchText.toLowerCase().substring(0, searchText.indexOf("="))]].toString() === searchText.substring(searchText.indexOf("=") + 1)
+          } else if (searchText.includes(">=") && moveData[searchableHeaders[searchText.toLowerCase().substring(0, searchText.indexOf(">"))]] ) {
+            return moveData[searchableHeaders[searchText.toLowerCase().substring(0, searchText.indexOf(">"))]] >= parseInt(searchText.substring(searchText.indexOf("=") + 1))
+          } else if (searchText.includes("<=") && moveData[searchableHeaders[searchText.toLowerCase().substring(0, searchText.indexOf("<"))]] ) {
+            return moveData[searchableHeaders[searchText.toLowerCase().substring(0, searchText.indexOf("<"))]] <= parseInt(searchText.substring(searchText.indexOf("=") + 1))
+          } else if (searchText.includes(">") && moveData[searchableHeaders[searchText.toLowerCase().substring(0, searchText.indexOf(">"))]] ) {
+            return moveData[searchableHeaders[searchText.toLowerCase().substring(0, searchText.indexOf(">"))]] > parseInt(searchText.substring(searchText.indexOf(">") + 1))
+          } else if (searchText.includes("<") && moveData[searchableHeaders[searchText.toLowerCase().substring(0, searchText.indexOf("<"))]] ) {
+            return moveData[searchableHeaders[searchText.toLowerCase().substring(0, searchText.indexOf("<"))]] < parseInt(searchText.substring(searchText.indexOf("<") + 1))
+          } else {
+            return moveName.toLowerCase().includes(searchText.toLowerCase())
+          || (moveData.cmnName && moveData.cmnName.toLowerCase().includes(searchText.toLowerCase()))
+          || (moveData.plnCmd && moveData.plnCmd.toLowerCase().includes(searchText.toLowerCase()))
+          || (moveData.numCmd && moveData.numCmd.toLowerCase().includes(searchText.toLowerCase()))
+          }
+          
+        }).map(([moveName, moveData]) => {
           if ( selectedCharacters[activePlayer].name === "Seth" && moveData["moveType"] === "vskill" && !moveName.includes(`[${inactivePlayerName}]`) && !/VS[12]/.test(moveData.numCmd) ) {
             return false;
           } else {
@@ -135,14 +155,14 @@ const DataTable = ({ previewTable }: DataTableProps) => {
         }
       )}			
 
-        <div id="dataTableFooter">
+        {<div id="dataTableFooter">
           <span className="entry move-name">Move</span>
           {Object.keys(colsToDisplay).map(footerName =>
             <span className="entry" key={footerName}>
               {colsToDisplay[footerName]}
             </span>
             )}
-        </div>
+        </div>}
         
       </div>
     </>

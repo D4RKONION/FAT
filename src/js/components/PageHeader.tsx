@@ -11,6 +11,7 @@ type PageHeaderProps = {
   componentsToShow?: {
     menu?: boolean;
     back?: boolean;
+    search?: boolean;
     customBackUrl?: string;
     popover?: boolean;
   };
@@ -64,8 +65,8 @@ const PageHeader = ( { componentsToShow, buttonsToShow, title, onSearchHandler, 
           </IonButtons>
         ))}
         
-        {title === "showSearch"
-          ? <IonSearchbar value={searchText} onIonChange={e => onSearchHandler(e.detail.value!)} placeholder="Filter Characters"></IonSearchbar>
+        {componentsToShow && componentsToShow.search
+          ? <IonSearchbar value={searchText} onIonChange={e => onSearchHandler(e.detail.value!)} placeholder={title}></IonSearchbar>
           : <IonTitle>{title}</IonTitle>
         }
        
