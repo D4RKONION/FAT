@@ -41,10 +41,23 @@ export function renameData(rawFrameData, dataDisplayState: DataDisplaySettingsRe
       ["neutral", "nj."]
     ]);
 
-    let splitMoveName: string[] = moveData.moveName.toLowerCase().split(' ');
-    let abbr: string = wordToAbbreviationMap.get(splitMoveName[0]);
-    let input: string = splitMoveName[splitMoveName.length - 1].toUpperCase();
-    truncatedMoveName = `${abbr}${input}`;
+    if (!moveData.moveName.includes('(')) {
+      let splitMoveName: string[] = moveData.moveName.toLowerCase().split(' ');
+      let abbr: string = wordToAbbreviationMap.get(splitMoveName[0]);
+      let input: string = splitMoveName[splitMoveName.length - 1].toUpperCase();
+      truncatedMoveName = `${abbr}${input}`;
+    } else {
+      /*
+      Regex documentation:
+        Lead with \s to account for the leading space, i.e, " (Hold)", but we don't want to include it in the captured result
+        The outermost parentheses start the capture group of characters we DO want to capture
+        The character combo of \( means that we want to find an actual opening parenthesis
+        [a-z\s]* = Within the parenthesis, we want to find any combination of letters and spaces to account for cases like "(crouch large)"
+        Then we want to find the closing parenthesis with \)
+        The capture group is closed, and the "i" at the end sets a "case insensitive" flag for the regex expression
+      */
+       let splitMoveFromExtraParens: string[] = moveData.moveName.split(/\s(\([a-z\s]*\))/i).filter((x: string) => x !== "");
+    }
 
     return truncatedMoveName;
   }
