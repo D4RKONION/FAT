@@ -6,7 +6,7 @@ import { Clipboard } from '@ionic-native/clipboard';
 import { setActiveGame, setAdviceToastShown, setDataDisplaySettings, setPlayer } from '../actions'
 import '../../style/pages/Settings.scss';
 import PageHeader from '../components/PageHeader';
-import { logoTwitter, chevronForward, mailOutline, starOutline, heartOutline, openOutline, globeOutline, logoGithub } from 'ionicons/icons';
+import { logoTwitter, chevronForward, mailOutline, starOutline, heartOutline, openOutline, globeOutline, logoGithub, bulbOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router';
 import { APP_CURRENT_VERSION_NAME } from '../constants/VersionLogs';
 import { activeGameSelector, adviceToastShownSelector, dataDisplaySettingsSelector, selectedCharactersSelector } from '../selectors';
@@ -203,6 +203,15 @@ const Settings = () => {
                 <h2>Shoutouts</h2>
               </IonLabel>
               <IonIcon icon={heartOutline} slot="start" />
+              {!isPlatform("ios") &&
+                <IonIcon icon={chevronForward} slot="end" />
+              }
+            </IonItem>
+            <IonItem lines="none" onClick={() => history.push(`/settings/versionlogs/`)} button>
+              <IonLabel>
+                <h2>Version Logs</h2>
+              </IonLabel>
+              <IonIcon icon={bulbOutline} slot="start" />
               {!isPlatform("ios") &&
                 <IonIcon icon={chevronForward} slot="end" />
               }

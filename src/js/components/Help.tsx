@@ -20,7 +20,7 @@ const HelpModal = () => {
   const [markdown, setMarkdown] = useState("");
 
   useEffect(() => {
-    if (modeName && !modeName.startsWith("subpage") && modeName !== "calc-" && modeName !== "moreresources" && modeName !== "themestore" && modeName !== "themepreview" && modeName !== "movedetail") {
+    if (modeName && !modeName.startsWith("subpage") && modeName !== "calc-" && modeName !== "moreresources" && modeName !== "themestore" && modeName !== "themepreview" && modeName !== "movedetail" && modeName !== "versionlogs") {
       (async () => {
         const file = await import(`../constants/helpfiles/${modeName}.md`);
         const response = await fetch(file.default);

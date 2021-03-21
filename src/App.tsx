@@ -59,6 +59,7 @@ import MoreResources from './js/pages/MoreResourcesMenu';
 import MoreResourcesSub from './js/pages/MoreResourcesSub';
 import ThemeStore from './js/pages/ThemeStore';
 import ThemePreview from './js/pages/ThemePreview';
+import VersionLogs from './js/pages/VersionLogs';
 
 import { activeGameSelector, frameDataSelector, themeBrightnessSelector, themeColorSelector } from './js/selectors';
 import { setOrientation, setModalVisibility, setActiveGame, setThemeOwned, setThemeBrightness } from './js/actions';
@@ -282,6 +283,7 @@ useEffect(() => {
 
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/settings/shoutouts" component={Shoutouts} />
+            <Route exact path="/settings/versionlogs" component={VersionLogs} />
 
             <Route exact path="/themestore" component={ThemeStore} />
             <Route exact path="/themestore/:themeNameSlug" component={ThemePreview} />
