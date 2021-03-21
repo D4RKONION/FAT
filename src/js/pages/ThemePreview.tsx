@@ -43,6 +43,7 @@ const ThemePreview = () => {
       <IonContent className="themePreview">
         <SubHeader
           adaptToShortScreens={false}
+          hideOnWideScreens={false}
           rowsToDisplay={[
             [
               <><b>Health</b><br />1000</>,
@@ -77,7 +78,7 @@ const ThemePreview = () => {
           clickFunc={ (eventValue) => setFakeTrigger(eventValue) }
         />
 
-      <DataTable previewTable={true} />
+      <DataTable searchText="" previewTable={true} />
 
       
 

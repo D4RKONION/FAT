@@ -30,6 +30,7 @@ const CharacterStats = () => {
 
         <SubHeader
           adaptToShortScreens={false}
+          hideOnWideScreens={false}
           rowsToDisplay={[
             [
               <h4>{charStatsData["phrase"]}</h4>,
@@ -48,7 +49,10 @@ const CharacterStats = () => {
                 {statsPoints[dataSection].map((dataRow, index) =>
                   <div key={index} className="row">
                     {Object.entries(dataRow).map(([dataId, headerObj]) =>
-                      <div key={dataId}><b>{headerObj}</b><br/>{charStatsData[dataId]}</div>
+                      <div key={dataId} className="col">
+                        <h2>{headerObj}</h2>
+                        <p>{charStatsData[dataId]}</p>
+                      </div>
                     )}
                   </div>
                 )}

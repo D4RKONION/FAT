@@ -42,7 +42,7 @@
 
 		.stat-entry {
 			text-align: center;
-			border-right: 1px solid #00000040;
+			border-right: 1px solid var(--fat-frame-data-sub-header-stats-border);
 
 			&:last-of-type {
 				border: none;

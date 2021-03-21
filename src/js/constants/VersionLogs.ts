@@ -6,10 +6,12 @@ export const APP_DATE_UPDATED = "March 14, 2021";
 export const VERSION_LOGS = {
   "3.2.1": {
     "New Features": [
-      "Filter the character select by name using the search bar",
       "Filter the frame data page using the search bar! You can search using a move name or an expression like oB>4",
+      "Filter the character select by name using the search bar",
+      "Tablet/Desktop: improved the look of character select screen",
       "Rearranged the stats sections",
-      "FAT now checks your system theme setting on fresh install and sets dark or light mode"
+      "FAT now checks your system theme setting on fresh install and sets dark or light mode",
+      "Added a past Version Logs page under settings"
     ],
     "Bug Fixes": [
       "Fixed a bug where VS2 data was hidden on Seth's table",

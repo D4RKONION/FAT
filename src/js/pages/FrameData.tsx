@@ -116,6 +116,7 @@ const FrameData = () => {
       <IonContent>
         <SubHeader
           adaptToShortScreens={true}
+          hideOnWideScreens={true}
           rowsToDisplay={[
             [
               <><b>Health</b><br />{selectedCharacters[activePlayer].stats.health}</>,

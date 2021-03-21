@@ -9,12 +9,11 @@ import { activeGameSelector, activePlayerSelector, counterHitSelector, landscape
 const portraitCols: {[key: string]: string} = {startup: "S", active: "A", recovery: "R", onHit: "oH", onBlock: "oB",};
 
 type DataTableProps = {
-  searchText?: string;
+  searchText: string;
   previewTable: Boolean;
 }
 
 const DataTable = ({ searchText, previewTable }: DataTableProps) => {
-
 
   const currentOrientation = useSelector(orientationSelector);
   const activeGame = useSelector(activeGameSelector);
