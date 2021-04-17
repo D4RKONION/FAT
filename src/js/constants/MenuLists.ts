@@ -224,6 +224,10 @@ export const RES_APPS_LIST = {
       desc: "A desktop version of FAT",
       url: "https://fullmeter.com/fatonline"
     },
+    "FAT Draft": {
+      desc: "Multiplayer random select with strategy! Connect with a friend and ban/pick characters",
+      url: "https://fullmeter.com/fatdraft"
+    },
     "FrameTrapped": {
       desc: "A hit box viewer which makes in depth labbing so much easier",
       url: "https://frametrapped.com/"
