@@ -36,6 +36,7 @@ const GAME_DETAILS = {
       "Necalli",
       "Poison",
       "Rashid",
+      "Rose",
       "R.Mika",
       "Ryu",
       "Sagat",
@@ -201,13 +202,16 @@ const GAME_DETAILS = {
         },
         {
           "fastestNormal": "Fastest Normal",
-          //"bestReversal": "Best Reversal"
+          "bestReversal": "Best Reversal"
         }
       ],
       "V-System": [
         {
           "vgauge1": "V-Trigger 1",
           "vgauge2": "V-Trigger 2",
+        },
+        {
+          "vshiftDist": "V-Shift Dist." 
         }
       ],
       "Walking": [

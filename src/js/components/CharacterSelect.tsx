@@ -105,7 +105,7 @@ const CharacterSelectModal = () => {
         <div id="characterSelectGrid">
           {(GAME_DETAILS[activeGame].characterList as unknown as string[]).filter(charName => charName.toLowerCase().includes(searchText.toLowerCase())).map(charName => {
             const charData = frameDataFile[charName];
-            if (!charData) {return null}
+            if (!charData || charData.stats.hideCharacter) {return null}
             return(
               <CharacterPortrait
                 key={`selectportrait-${activeGame}-${charName}`}

@@ -1,15 +1,19 @@
-export const APP_CURRENT_VERSION_NAME = "3.2.0";
-export const APP_CURRENT_VERSION_CODE = 30200;
-export const APP_FRAME_DATA_CODE = 24;
-export const APP_DATE_UPDATED = "March 14, 2021";
+export const APP_CURRENT_VERSION_NAME = "3.3.0";
+export const APP_CURRENT_VERSION_CODE = 30300;
+export const APP_FRAME_DATA_CODE = 28;
+export const APP_DATE_UPDATED = "April 17, 2021";
+
 
 export const VERSION_LOGS = {
-  "3.2.1": {
+  "3.3.0": {
     "New Features": [
+      "New theme: Delta Green. This dark green theme is no clone!",
+      "Ready for Rose when her data is done",
       "Filter the frame data page using the search bar! You can search using a move name or an expression like oB>4",
       "Filter the character select by name using the search bar",
       "Tablet/Desktop: improved the look of character select screen",
       "Rearranged the stats sections",
+      "Added V-Shift Distance to Stat Compare mode",
       "FAT now checks your system theme setting on fresh install and sets dark or light mode",
       "Added a past Version Logs page under settings"
     ],
