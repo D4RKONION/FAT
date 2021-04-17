@@ -14,6 +14,7 @@ export const VERSION_LOGS = {
       "Tablet/Desktop: improved the look of character select screen",
       "Rearranged the stats sections",
       "Added V-Shift Distance to Stat Compare mode",
+      "All Combos for SFV are now completely up to date, thank you Sestze",
       "FAT now checks your system theme setting on fresh install and sets dark or light mode",
       "Added a past Version Logs page under settings"
     ],
