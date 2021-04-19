@@ -3,6 +3,7 @@
   "version": "3.2.0",
   "private": true,
   "dependencies": {
+    "@babel/core": "^7.12.3",
     "@capacitor/android": "^2.4.7",
     "@capacitor/core": "^2.4.7",
     "@capacitor/ios": "^2.4.7",
@@ -12,9 +13,10 @@
     "@ionic/core": "^5.6.0",
     "@ionic/react": "^5.6.0",
     "@ionic/react-router": "^5.6.0",
+    "@redux-devtools/core": "^3.9.0",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
-    "@testing-library/user-event": "^12.8.3",
+    "@testing-library/user-event": "^13.1.5",
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.34",
     "@types/react": "^17.0.3",
@@ -31,7 +33,7 @@
     "node-sass": "^5.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-markdown": "^5.0.3",
+    "react-markdown": "^6.0.0",
     "react-redux": "^7.2.2",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
@@ -65,7 +67,6 @@
   "devDependencies": {
     "@capacitor/cli": "^2.4.7",
     "cordova-res": "^0.15.3",
-    "redux-devtools": "^3.7.0",
     "redux-devtools-extension": "^2.13.9"
   },
   "description": "An Ionic project"
