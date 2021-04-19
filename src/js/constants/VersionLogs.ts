@@ -19,7 +19,7 @@ export const VERSION_LOGS = {
       "Added a past Version Logs page under settings"
     ],
     "Bug Fixes": [
-      "Fixed a bug where VS2 data was hidden on Seth's table",
+      "Fixed a bug where VS1 data was hidden on Seth's table",
       "Fixed a bug where some stats wouldn't appear in stat compare",
       "iOS: Fixed a bug where activated and hovered buttons would be the wrong colour"
     ]

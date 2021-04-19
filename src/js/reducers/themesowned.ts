@@ -7,7 +7,7 @@ type ThemesOwnedReducerAction = {
   themeToAdd: ThemeAlias;
 }
 
-const defaultState: ThemesOwnedReducerState = ["Second in Command", "Red Dragon", "Delta Green"];
+const defaultState: ThemesOwnedReducerState = [];
 
 export const themesOwnedReducer = (state = defaultState, action: ThemesOwnedReducerAction) => {
   switch(action.type) {

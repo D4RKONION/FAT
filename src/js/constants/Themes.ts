@@ -15,7 +15,7 @@ const THEMES = [
     id: "com.fullmeter.fat.theme.deltagreen",
     shortId: "deltagreen",
     alias: "Delta Green",
-    description: "This dark green theme is no clone!",
+    description: "This dark green theme is definitely no clone!",
   }
 ] as const;
 

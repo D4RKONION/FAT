@@ -54,6 +54,8 @@ Add a new version log and bump the 4 constants at the top of the page to the cor
 
 Because it's Capacitor, you'll need to build for iOS and Android in XCode and Studio respectively.
 
+Bump the versionCode and versionName in ```android/app/build.gradle```
+
 Deploying to the web is just a matter of setting the homepage in ./package.json with
 ```
 "homepage": "/subdirectory/to/deploy/to"
