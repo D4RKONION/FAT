@@ -49,7 +49,7 @@ const Combos = () => {
       />
       <IonContent id="combos">
         <IonGrid fixed>
-          {activeGame !== "SFV" || selectedCharacters[activePlayer].name === "Rose"
+          {activeGame !== "SFV"
             ? <h4>No Combos for {activeGame}<br/>Sorry!</h4>
             : <>
               <div className={`segments ${!isPlatform("ios") && "md"}`}>

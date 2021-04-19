@@ -42,7 +42,7 @@ const HelpModal = () => {
       />
       <IonContent id="Help">
         <div id="MarkdownContainer">
-          <ReactMarkdown source={markdown} />
+          <ReactMarkdown children={markdown} />
         </div>
       </IonContent>
     </IonModal>
