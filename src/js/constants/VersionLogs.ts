@@ -1,6 +1,6 @@
 export const APP_CURRENT_VERSION_NAME = "3.3.0";
 export const APP_CURRENT_VERSION_CODE = 30300;
-export const APP_FRAME_DATA_CODE = 29;
+export const APP_FRAME_DATA_CODE = 35;
 export const APP_DATE_UPDATED = "April 20, 2021";
 
 
