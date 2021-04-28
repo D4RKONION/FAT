@@ -5,6 +5,15 @@ export const APP_DATE_UPDATED = "April 20, 2021";
 
 
 export const VERSION_LOGS = {
+  "3.3.1": {
+    "New Features": [
+      ""
+    ],
+    "Bug Fixes": [
+      "Fixed an issue where some character's jump normals were being counted as their 'fastest normal'",
+      "Moved R.Mika to the top of the characters beginning with R"
+    ]
+  },
   "3.3.0": {
     "New Features": [
       "ROSE DATA WILL COME IN A FRAME DATA FILE UPDATE",

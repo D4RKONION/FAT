@@ -1,5 +1,5 @@
 # FAT 3
-Welcome to FAT! The most popular SFV app in the world! You can check out live versions of the app here
+Welcome to FAT! The most popular SFV app in the world! You can check out live versions of the app here:
 
 [Webapp](https://fullmeter.com/fatonline)
 
