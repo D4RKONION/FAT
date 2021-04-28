@@ -11,7 +11,7 @@ type CharacterPortraitProps = {
 
 const SubHeader = ({ adaptToShortScreens, hideOnWideScreens, rowsToDisplay }: CharacterPortraitProps) => {
 
-  const setRows = rowsToDisplay.length <= 1 ? true : false; 
+  const setRows = rowsToDisplay.length <= 1 && rowsToDisplay[0].length !== 1 ? true : false;
 
   return(
     <IonGrid id="subHeader" className={hideOnWideScreens ? "hidden-wide-screens" : "visible"}>
@@ -20,7 +20,7 @@ const SubHeader = ({ adaptToShortScreens, hideOnWideScreens, rowsToDisplay }: Ch
           {rowContents.map((col, index) =>
               col &&
                 <IonCol key={`subheader-col-${index}`} sizeXs={setRows ? "6" : null} sizeSm={setRows ? "6" : null} sizeMd={setRows ? "3": null}>
-                  {col}
+                  {col} {setRows}
                 </IonCol>
             )}
         </IonRow>

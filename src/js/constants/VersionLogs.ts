@@ -11,7 +11,8 @@ export const VERSION_LOGS = {
     ],
     "Bug Fixes": [
       "Fixed an issue where some character's jump normals were being counted as their 'fastest normal'",
-      "Moved R.Mika to the top of the characters beginning with R"
+      "Moved R.Mika to the top of the characters beginning with R",
+      "App: Fixed an issue where the stats quote was left aligned",
     ]
   },
   "3.3.0": {
