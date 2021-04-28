@@ -40,7 +40,10 @@ const StatCompare = () => {
       !statHeadingsTemp.includes(frameDataFile[character].stats[selectedStat]) &&
         statHeadingsTemp.push(frameDataFile[character].stats[selectedStat])
     )
-    setStatHeadings([...sortBy(statHeadingsTemp).reverse()]);
+    isNaN(statHeadingsTemp[0])
+      ? statHeadingsTemp.sort()
+      : statHeadingsTemp.sort((a, b) => a - b).reverse()
+    setStatHeadings(statHeadingsTemp);
 
   },[selectedStat, frameDataFile]);
 

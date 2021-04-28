@@ -10,6 +10,7 @@ export const VERSION_LOGS = {
       "Made it so 'gief' and 'sim' are valid search choices for Yaksha Search"
     ],
     "Bug Fixes": [
+      "Fixed a bug where stat compare's headings were not sorted properly",
       "Fixed an issue where some character's jump normals were being counted as their 'fastest normal'",
       "Moved R.Mika to the top of the characters beginning with R",
       "App: Fixed an issue where the stats quote was left aligned",
