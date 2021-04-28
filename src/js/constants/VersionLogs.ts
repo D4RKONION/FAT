@@ -7,7 +7,7 @@ export const APP_DATE_UPDATED = "April 20, 2021";
 export const VERSION_LOGS = {
   "3.3.1": {
     "New Features": [
-      ""
+      "Made it so 'gief' and 'sim' are valid search choices for Yaksha Search"
     ],
     "Bug Fixes": [
       "Fixed an issue where some character's jump normals were being counted as their 'fastest normal'",

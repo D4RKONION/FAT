@@ -71,6 +71,10 @@ const Yaksha = () => {
       return "F.A.N.G"
     } else if (possibleCharName === "zeku") {
       return "Zeku (Old)"
+    } else if (possibleCharName === "gief") {
+      return "Zangief"
+    } else if (possibleCharName === "sim") {
+      return "Dhalsim"
     } else if (possibleCharFuzzObj[1] > 75) {
       return possibleCharFuzzObj[0];
     } else {
