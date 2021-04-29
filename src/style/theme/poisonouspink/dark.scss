@@ -1,0 +1,164 @@
+ion-app.poisonouspink-dark-theme, .themePreview.poisonouspink-dark-theme {
+
+  /**-------------**/
+  /** ion changes **/
+  /**-------------**/
+  --ion-color-primary: #f687e7;
+  --ion-color-success: #3f6336;
+
+  /**-----------**/
+  /** Variables **/
+  /**-----------**/
+  --fat-background: #121212;
+  --fat-background-contrast: #ffffff;
+
+  --fat-surface: #121212;
+  --fat-surface-shade: #252525;
+  --fat-surface-tint: #191919;
+  --fat-surface-border: #303030;
+  --fat-surface-contrast: #ffffff;
+  --fat-surface-faded: #5c5c5c;
+
+  --fat-primary: #92428e;
+  --fat-primary-shade: #c12ea9;
+  --fat-primary-shade-extreme: #903183;
+  --fat-primary-tint: #2f1c2c;
+  --fat-primary-tint-extreme: #181417;
+  --fat-primary-contrast: #ffffff;
+
+  --fat-vtrigger: #7a3cdd;
+  --fat-vtrigger-shade: #9326db;
+  --fat-vtrigger-tint: #191123;
+  --fat-vtrigger-contrast: #ffffff;
+
+  --fat-success: #56a543;
+
+  --fat-grey: #c6c6c6;
+
+  /**------------------**/
+  /** Global App stuff **/
+  /**------------------**/
+  --ion-background-color: var(--fat-background);
+  --ion-text-color: var(--fat-background-contrast);
+
+  --ion-toolbar-background: #1f1f1f;
+  --ion-toolbar-color: #ffffff;
+
+  --fat-a: #ffb6f9;
+  --fat-code-background: #464646;
+
+  // Dropdown
+  --fat-ionlabel-p: #dbdbdb;
+
+  // Alert
+  --fat-ionalert-background: var(--fat-surface);
+  --fat-ionalert-label: #e5e5e5;
+  --fat-ionalert-active-button: #fa92f5;
+  --fat-ionalert-confirm-buttons: #f5b8f5;
+
+  --fat-solidbutton-inner: #000000;
+  --fat-solidbutton-bg-hover: var(--fat-primary-shade);
+
+  /**--------------------------**/
+  /** Detailed Component stuff **/
+  /**--------------------------**/
+
+  // Card
+  --fat-card-header-bg: #373737;
+  --fat-card-header-contrast: #ffa1f2;
+  --fat-card-bg: #1f1f1f;
+  --fat-card-border: #303030;
+  --fat-card-p: #ffffff;
+
+  // Popover
+  --fat-popover-bg: #373737;
+  --fat-popover-contrast: #ffffff;
+
+  // Switcher
+  --fat-switcher-background: #1f1f1f;
+  --fat-switcher-unchecked-contrast: #ffffff90;
+  --fat-switcher-primary-checked-contrast: #f194e9;;
+  --fat-switcher-vtrigger-checked-contrast: #8c5be6;
+  --fat-switcher-android-background: #121212;
+  --fat-switcher-primary-ios-background: #311831;
+  --fat-switcher-primary-ios-checked: #642264;
+  --fat-switcher-vtrigger-ios-background: #201735;
+  --fat-switcher-vtrigger-ios-checked: #362264;
+
+  // Toggle
+  --fat-toggle-handle-background: #7f7f7f;
+  --fat-toggle-background-checked: rgba(230, 127, 221, 0.5);
+  --fat-toggle-handle-background-checked: #f194e5;
+
+  // IonList
+  --fat-ionlist-header: #f687f1;
+  --fat-ionlist-thick-header: #373737;
+  --fat-ionlist-thick-header-contrast: #f687f1;
+  --fat-ionlist-border: #3e3e3e;
+  --fat-ionlist-label-p: #c8c8c8;
+  --fat-ionlist-icon: #d6d6d6;
+  --fat-ionlist-highlighted-background: #2f142e;
+  --fat-ionlist-highlighted-contrast: #f687f1;
+  --fat-ionlist-sublist-header-background: var(--fat-surface);
+  --fat-checkbox-checked: #750f70;
+  --fat-meter-full: #d571d0;
+  --fat-meter-empty: #878787;
+
+  // Markdown
+  --fat-markdown-h125: #fc9ff4;
+  --fat-markdown-h3: #f7a4f0;
+  --fat-markdown-h4: var(--assertive);
+  --fat-markdown-h6: #b780ff;
+  --fat-markdown-b: #f687e7;
+  --fat-markdown-hr: #be8bb7;
+
+  // Page Subheader
+  --fat-page-subheader-background: #1f1f1f;
+  --fat-page-subheader-contrast: #ffffff;
+    
+  // Frame Data Sub Header
+  --fat-frame-data-sub-header-stats-bg: var(--fat-surface-tint);
+  --fat-frame-data-sub-header-stats-contrast: #ffffff;
+  --fat-frame-data-sub-header-stats-border: #ffffff40;
+
+  // Menu
+  --fat-menu-top: #5c1f4f;
+  --fat-menu-top-h2: var(--fat-primary-contrast);
+  --fat-menu-top-p: #ebaae2;
+  --fat-menu-top-lightswitch: var(--fat-primary-shade-extreme);
+  --fat-menu-background: #1e1e1e;
+  --fat-menu-background-contrast: #ffffff;
+  --fat-menu-icon: #acacac;
+  --fat-menu-selected-item-bg: #371e35;
+  --fat-menu-selected-item-contrast: #fcd5f7;
+  
+  // Wide Menu
+  --fat-wide-menu-background: #2e102a;
+
+  // Frame Data
+  --fat-datatable-header-bg: #4e1c47;
+  --fat-datatable-header-contrast: #ffffff;
+  --fat-datatable-hover-border: #4b2246;
+  --fat-datatable-serverely-pun: #ffa8ec;
+  --fat-datatable-very-pun: #ff9b9b;
+  --fat-datatable-just-pun: #ffd050;
+  --fat-datatable-not-pun: #e8ff65;
+  --fat-datatable-just-plus: #96ff50;
+  --fat-datatable-very-plus: #50ff5f;
+
+  // Stat Compare
+  --fat-statcompare-big-header: #f287f6;
+
+  // Fab
+  --fat-fab-background: #750f6d;;
+  --fat-fab-inner: #ffffff;
+
+  // Settings
+  --fat-settings-item-border: #424242;
+  --fat-settings-icon: #d6d6d6;
+
+  // What's New
+  --fat-whatsnew-header: #f687e4;
+  --fat-whatsnew-feature: #4ec27d;
+  --fat-whatsnew-bug: #ff4d4d;
+ }

@@ -16,6 +16,12 @@ const THEMES = [
     shortId: "deltagreen",
     alias: "Delta Green",
     description: "This dark green theme is definitely no clone!",
+  },
+  {
+    id: "com.fullmeter.fat.theme.poisonouspink",
+    shortId: "poisonouspink",
+    alias: "Poisonous Pink",
+    description: "A dangerously pink theme, look but don't touch!",
   }
 ] as const;
 

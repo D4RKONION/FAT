@@ -8,6 +8,7 @@ export const VERSION_LOGS = {
   "3.3.1": {
     "New Features": [
       "Added Rose's specific cancels to the app",
+      "New theme: Poisonous Pink. A dangerously pink theme, look but don't touch!",
       "Added [info=] search term for the frame data page, to search a character's extra info. Try doing info=fully inv",
       "Made it so 'gief' and 'sim' are valid search choices for Yaksha Search",
       "Prepped the app for Akira and Oro",

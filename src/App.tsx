@@ -35,6 +35,8 @@ import './style/theme/secondincommand/light.scss'
 import './style/theme/secondincommand/dark.scss'
 import './style/theme/deltagreen/light.scss'
 import './style/theme/deltagreen/dark.scss'
+import './style/theme/poisonouspink/light.scss'
+import './style/theme/poisonouspink/dark.scss'
 
 import HomePageRedirect from './js/pages/HomePageRedirect';
 import Menu from './js/components/Menu';
@@ -119,6 +121,7 @@ const App = () => {
         { id: "com.fullmeter.fat.theme.reddragon", alias: "Red Dragon", type: iapStore.NON_CONSUMABLE },
         { id: "com.fullmeter.fat.theme.secondincommand", alias: "Second in Command", type: iapStore.NON_CONSUMABLE },
         { id: "com.fullmeter.fat.theme.deltagreen", alias: "Delta Green", type: iapStore.NON_CONSUMABLE },
+        { id: "com.fullmeter.fat.theme.poisonouspink", alias: "Poisonous Pink", type: iapStore.NON_CONSUMABLE },
       ]
 
       iapStore.verbosity = iapStore.DEBUG;
