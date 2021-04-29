@@ -5,6 +5,7 @@ const GAME_DETAILS = {
     characterStates: ["normal", "vtOne", "vtTwo"],
     characterList: [
       "Abigail",
+      "Akira",
       "Akuma",
       "Alex",
       "Balrog",
@@ -34,6 +35,7 @@ const GAME_DETAILS = {
       "Menat",
       "Nash",
       "Necalli",
+      "Oro",
       "Poison",
       "R.Mika",
       "Rashid",

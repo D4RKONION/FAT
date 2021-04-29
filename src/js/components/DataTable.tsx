@@ -70,6 +70,8 @@ const DataTable = ({ searchText, previewTable }: DataTableProps) => {
         {Object.entries(selectedCharacters[activePlayer].frameData).filter(([moveName, moveData]) => {
           if (searchText.includes("xx") && moveData["cancelsTo"]) {
             return moveData["cancelsTo"].includes(searchText.toLowerCase().substring(searchText.indexOf("=") + 1))
+          } else if (searchText.includes("info=") && moveData["extraInfo"] && moveData["extraInfo"].findIndex(entry => entry.toLowerCase().includes(searchText.toLowerCase().substring(searchText.indexOf("=") + 1))) !== -1 ) {
+            return moveData
           } else if (searchText.includes("=") && moveData[searchableHeaders[searchText.toLowerCase().substring(0, searchText.indexOf("="))]] ) {
             return moveData[searchableHeaders[searchText.toLowerCase().substring(0, searchText.indexOf("="))]].toString() === searchText.substring(searchText.indexOf("=") + 1)
           } else if (searchText.includes(">=") && moveData[searchableHeaders[searchText.toLowerCase().substring(0, searchText.indexOf(">"))]] ) {
