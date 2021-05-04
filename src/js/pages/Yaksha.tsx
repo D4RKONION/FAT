@@ -1,7 +1,7 @@
 import { IonContent, IonPage, IonIcon, IonItem, IonInput, IonCardHeader, IonCardContent, IonCard, IonCardTitle, IonButton, IonFab, IonFabButton, IonGrid } from '@ionic/react';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import '../../style/components/DetailCards.scss';
+import '../../style/components/Yaksha.scss';
 import '../../style/components/FAB.scss'
 import PageHeader from '../components/PageHeader';
 import { setPlayerAttr, setPlayer } from '../actions';
@@ -71,6 +71,10 @@ const Yaksha = () => {
       return "F.A.N.G"
     } else if (possibleCharName === "zeku") {
       return "Zeku (Old)"
+    } else if (possibleCharName === "gief") {
+      return "Zangief"
+    } else if (possibleCharName === "sim") {
+      return "Dhalsim"
     } else if (possibleCharFuzzObj[1] > 75) {
       return possibleCharFuzzObj[0];
     } else {
@@ -131,7 +135,7 @@ const Yaksha = () => {
           <IonIcon color="primary" slot="end" icon={searchOutline} onClick={() => searchHandler()}
           ></IonIcon>
         </IonItem>
-        <div id="flexCardContainer">
+        <div id="yaksha">
         {searchResults.length === 0 &&
           <IonCard key={"blank-card"}>
             <IonCardContent className="fail-warning">
@@ -187,13 +191,12 @@ const Yaksha = () => {
               <IonCardContent>
                 {YAKSHA_HEADERS.map((dataRow, index) =>
                   <div className="row" key={index}>
-                    {Object.entries(dataRow).map(([dataId, headerObj]) => {
-                      if (dataId === "cancelsTo") {
-                        return <div className={searchedMoveData.changedValues && searchedMoveData.changedValues.includes(dataId) ? "triggered-data" : "normal-state"} key={dataId}><b>{headerObj.detailedHeader}</b><br/>{searchedMoveData[dataId] || searchedMoveData[dataId] === 0 ? searchedMoveData[dataId].join(", ") : "~"}</div>
-                      } else {
-                        return <div className={searchedMoveData.changedValues && searchedMoveData.changedValues.includes(dataId) ? "triggered-data" : "normal-state"} key={dataId}><b>{headerObj.detailedHeader}</b><br/>{searchedMoveData[dataId] || searchedMoveData[dataId] === 0 ? searchedMoveData[dataId] : "~"}</div>
-                      }
-                      })}
+                    {Object.entries(dataRow).map(([dataId, headerObj]) => 
+                      <div className="col" key={dataId}>
+                        <h2>{headerObj.detailedHeader}</h2>
+                        <p>{searchedMoveData[dataId] || searchedMoveData[dataId] === 0 ? searchedMoveData[dataId] : "~"}</p>
+                      </div>
+                    )}
                   </div>
                 )}
                 <IonButton expand="full" fill="clear" onClick={() => {

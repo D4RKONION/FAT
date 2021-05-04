@@ -1,4 +1,4 @@
-import { IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, IonMenuButton, IonBackButton, IonIcon, IonRouterContext } from '@ionic/react';
+import { IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, IonMenuButton, IonBackButton, IonIcon, IonRouterContext, IonSearchbar } from '@ionic/react';
 import { arrowBack } from 'ionicons/icons';
 import { useContext } from 'react';
 import PopoverButton from './PopoverButton';
@@ -11,6 +11,7 @@ type PageHeaderProps = {
   componentsToShow?: {
     menu?: boolean;
     back?: boolean;
+    search?: boolean;
     customBackUrl?: string;
     popover?: boolean;
   };
@@ -26,9 +27,11 @@ type PageHeaderProps = {
     }
   ];
   title: string;
+  onSearchHandler?: (text: string) => void;
+  searchText?: string;
 }
 
-const PageHeader = ( { componentsToShow, buttonsToShow, title }: PageHeaderProps ) => {
+const PageHeader = ( { componentsToShow, buttonsToShow, title, onSearchHandler, searchText }: PageHeaderProps ) => {
 
   
   const routerContext = useContext(IonRouterContext);
@@ -61,7 +64,12 @@ const PageHeader = ( { componentsToShow, buttonsToShow, title }: PageHeaderProps
             ))}
           </IonButtons>
         ))}
-        <IonTitle>{title}</IonTitle>
+        
+        {componentsToShow && componentsToShow.search
+          ? <IonSearchbar value={searchText} onIonChange={e => onSearchHandler(e.detail.value!)} placeholder={title}></IonSearchbar>
+          : <IonTitle>{title}</IonTitle>
+        }
+       
 
         
         

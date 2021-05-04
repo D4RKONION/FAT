@@ -1,5 +1,9 @@
 # FAT 3
-Welcome to FAT! The most popular SFV app in the world!
+Welcome to FAT! The most popular SFV app in the world! You can check out live versions of the app here:
+
+[Webapp](https://fullmeter.com/fatonline)
+
+[Mobile App](https://fullmeter.com/fat)
   
 ## Contributing to FAT
 
@@ -53,6 +57,8 @@ sdk.dir=/home/you/location/of/Android/Sdk
 Add a new version log and bump the 4 constants at the top of the page to the correct values in ```src/js/constants/VersionLogs.js```.
 
 Because it's Capacitor, you'll need to build for iOS and Android in XCode and Studio respectively.
+
+Bump the versionCode and versionName in ```android/app/build.gradle```
 
 Deploying to the web is just a matter of setting the homepage in ./package.json with
 ```

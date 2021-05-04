@@ -1,5 +1,5 @@
 import { IonContent, IonModal, IonRouterContext } from '@ionic/react';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { setModalVisibility, setPlayer, setActiveFrameDataPlayer, setPlayerAttr, setLandscapeCols } from '../actions';
@@ -16,6 +16,8 @@ import { isPlatform } from '@ionic/core';
 const CharacterSelectModal = () => {
 
   const routerContext = useContext(IonRouterContext);
+
+  const [searchText, setSearchText] = useState('');
 
   const modeName = useSelector(modeNameSelector)
   const frameDataFile = useSelector(frameDataSelector)
@@ -55,6 +57,8 @@ const CharacterSelectModal = () => {
 
     dispatch(setPlayer(playerId, charName));
 
+    setSearchText("");
+
     
     if (playerId === "playerOne" && (modeName === "framedata" || modeName === "moveslist" || modeName === "combos")) {
       //we have to use IonRouterContext due to this issue
@@ -71,8 +75,11 @@ const CharacterSelectModal = () => {
       onDidDismiss={ () => modalVisibility.visible && dispatch(setModalVisibility({ currentModal: "characterSelect", visible: false })) }
     >
       <PageHeader
+        componentsToShow={{search: true}}
         buttonsToShow={[{ slot: "end", buttons: [{ text: "Close", buttonFunc: () => dispatch(setModalVisibility({ currentModal: "characterSelect", visible: false }))}] }]}
-        title={`${activeGame} | ${selectedCharacters[activePlayer].name}`}
+        title={"Filter Characters"}
+        searchText={searchText}
+        onSearchHandler={ (text: string) => setSearchText(text)}
       />
       <IonContent>
         <div className={`segments ${!isPlatform("ios") && "md"}`}>
@@ -96,9 +103,9 @@ const CharacterSelectModal = () => {
         </div>
 
         <div id="characterSelectGrid">
-          {GAME_DETAILS[activeGame].characterList.map(charName => {
+          {(GAME_DETAILS[activeGame].characterList as unknown as string[]).filter(charName => charName.toLowerCase().includes(searchText.toLowerCase())).map(charName => {
             const charData = frameDataFile[charName];
-            if (!charData) {return null}
+            if (!charData || charData.stats.hideCharacter) {return null}
             return(
               <CharacterPortrait
                 key={`selectportrait-${activeGame}-${charName}`}

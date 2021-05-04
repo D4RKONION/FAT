@@ -1,5 +1,5 @@
 import { IonContent, IonPage, IonIcon, createGesture } from '@ionic/react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import DataTable from '../components/DataTable';
 import SegmentSwitcher from '../components/SegmentSwitcher';
@@ -27,6 +27,8 @@ const FrameData = () => {
   const activeGame = useSelector(activeGameSelector);
   const landscapeCols = useSelector(landscapeColsSelector);
   const autoSetSpecificCols = useSelector(autoSetSpecificColsSelector);
+
+  const [searchText, setSearchText] = useState('');
 
   const dispatch = useDispatch();
   
@@ -100,17 +102,21 @@ const FrameData = () => {
       return () => {gesture.enable(false)}
     }
   }, [gesture, DataTableEl])
-  
+
+  const searchBoxMessages = [`Search ${selectedCharacters[activePlayer].name}`, 'Type a move name', 'Try searching s=4', 'Try searching a>3', 'Try searching r<10', 'Try searching oH>=3', 'Try searching xx=sp', 'Try searching info=fully inv', 'Try searching oB<=-4', 'FAT supports: =, >, <, >=, <=']
 
   return (
     <IonPage id="frameData">
       <PageHeader
-        componentsToShow={{menu: true, popover: true}}
-        title={`Frame Data | ${selectedCharacters[activePlayer].name}`}
+        componentsToShow={{menu: true, popover: true, search: true}}
+        title={searchBoxMessages[Math.floor(Math.random() * searchBoxMessages.length)]}
+        searchText={searchText}
+        onSearchHandler={ (text: string) => setSearchText(text)}
       />
       <IonContent>
         <SubHeader
           adaptToShortScreens={true}
+          hideOnWideScreens={true}
           rowsToDisplay={[
             [
               <><b>Health</b><br />{selectedCharacters[activePlayer].stats.health}</>,
@@ -156,7 +162,7 @@ const FrameData = () => {
         
 
 
-        <DataTable previewTable={false} />
+        <DataTable searchText={searchText} previewTable={false} />
 
         <AdviceToast />
       </IonContent>

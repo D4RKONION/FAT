@@ -33,6 +33,10 @@ import './style/theme/reddragon/light.scss'
 import './style/theme/reddragon/dark.scss'
 import './style/theme/secondincommand/light.scss'
 import './style/theme/secondincommand/dark.scss'
+import './style/theme/deltagreen/light.scss'
+import './style/theme/deltagreen/dark.scss'
+import './style/theme/poisonouspink/light.scss'
+import './style/theme/poisonouspink/dark.scss'
 
 import HomePageRedirect from './js/pages/HomePageRedirect';
 import Menu from './js/components/Menu';
@@ -57,9 +61,10 @@ import MoreResources from './js/pages/MoreResourcesMenu';
 import MoreResourcesSub from './js/pages/MoreResourcesSub';
 import ThemeStore from './js/pages/ThemeStore';
 import ThemePreview from './js/pages/ThemePreview';
+import VersionLogs from './js/pages/VersionLogs';
 
 import { activeGameSelector, frameDataSelector, themeBrightnessSelector, themeColorSelector } from './js/selectors';
-import { setOrientation, setModalVisibility, setActiveGame, setThemeOwned } from './js/actions';
+import { setOrientation, setModalVisibility, setActiveGame, setThemeOwned, setThemeBrightness } from './js/actions';
 import { store } from './js/store';
 import { APP_FRAME_DATA_CODE, APP_CURRENT_VERSION_CODE } from './js/constants/VersionLogs';
 
@@ -115,6 +120,8 @@ const App = () => {
       const productList = [
         { id: "com.fullmeter.fat.theme.reddragon", alias: "Red Dragon", type: iapStore.NON_CONSUMABLE },
         { id: "com.fullmeter.fat.theme.secondincommand", alias: "Second in Command", type: iapStore.NON_CONSUMABLE },
+        { id: "com.fullmeter.fat.theme.deltagreen", alias: "Delta Green", type: iapStore.NON_CONSUMABLE },
+        { id: "com.fullmeter.fat.theme.poisonouspink", alias: "Poisonous Pink", type: iapStore.NON_CONSUMABLE },
       ]
 
       iapStore.verbosity = iapStore.DEBUG;
@@ -191,6 +198,11 @@ useEffect(() => {
         localStorage.setItem("lsFrameDataCode", APP_FRAME_DATA_CODE.toString())
 
         LS_FRAME_DATA_CODE = parseInt(localStorage.getItem("lsFrameDataCode"));
+
+        // also because this is a fresh install, we're going to do a cheeky check for if
+        // the user likes dark mode right here
+        window.matchMedia('(prefers-color-scheme: dark)').matches &&
+          dispatch(setThemeBrightness("dark"))
 
       } else if (LS_FRAME_DATA_CODE <= APP_FRAME_DATA_CODE) {
         // the app has been updated via the store, delete the LS FrameData.json and update the VS_FDC
@@ -274,6 +286,7 @@ useEffect(() => {
 
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/settings/shoutouts" component={Shoutouts} />
+            <Route exact path="/settings/versionlogs" component={VersionLogs} />
 
             <Route exact path="/themestore" component={ThemeStore} />
             <Route exact path="/themestore/:themeNameSlug" component={ThemePreview} />

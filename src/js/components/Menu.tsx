@@ -193,7 +193,7 @@ const Menu = () => {
             <IonRow id="showMenuButtonContainer">
               <IonCol size={isWideFullMenuOpen ? "2" : "12"}>
                 <IonButton key="wide-full-menu-open-item" onClick={() => setIsWideFullMenuOpen(isWideFullMenuOpen ? false : true)}>
-                  <IonIcon slot="icon-only" icon={menuSharp} />
+                  <IonIcon aria-label="menu" slot="icon-only" icon={menuSharp} />
                 </IonButton>
               </IonCol>
               {isWideFullMenuOpen &&
@@ -206,7 +206,7 @@ const Menu = () => {
             <IonRow className="menu-entry">
               <IonCol size={isWideFullMenuOpen ? "2" : "12"}>
                 <IonButton className={isWideFullMenuOpen ? "dimmed-color" : null} fill="clear" disabled={modeName === "movedetail"} key="wide-charSelectItem" onClick={() => dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true })) } >
-                  <IonIcon slot="icon-only" icon={peopleOutline} />
+                  <IonIcon aria-label="Character Select" slot="icon-only" icon={peopleOutline} />
                 </IonButton>
               </IonCol>
               {isWideFullMenuOpen &&
@@ -229,7 +229,7 @@ const Menu = () => {
                         fill="clear" className={`${modeName === appPage.modeName ? "selected" : null} ${isWideFullMenuOpen ? "dimmed-color" : null}`}
                         routerLink={appPage.url} routerDirection="root"
                       >
-                        <IonIcon slot="icon-only" icon={appPage.iosIcon} />
+                        <IonIcon aria-label={appPage.title} slot="icon-only" icon={appPage.iosIcon} />
                       </IonButton>
                     </IonCol>
                     {isWideFullMenuOpen &&

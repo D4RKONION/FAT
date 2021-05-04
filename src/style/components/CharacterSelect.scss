@@ -1,12 +1,34 @@
-#characterSelectGrid {
-  display: flex;
-  flex-wrap: wrap;
+@media (max-width: 992px) {
+  #characterSelectGrid {
+    display: flex;
+    flex-wrap: wrap;
+  
+    .character-block {
+      flex-grow: 1;
+      width: 24%;
+      min-width: 119px;
+      max-width: 50%;
+      cursor: pointer;
+    }
+  }  
+}
 
-  .character-block {
-    flex-grow: 1;
-    width: 24%;
-    min-width: 119px;
-    max-width: 50%;
-    cursor: pointer;
+@media (min-width: 992px) {
+  #characterSelect {
+    --width: 860px;
+    --height: 550px;
+
+    #characterSelectGrid {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr [col-start]);
+
+      .character-block {
+        cursor: pointer;
+        h2 {
+          font-size: 15px;
+        }
+      }
+    }
   }
 }
+

@@ -40,7 +40,10 @@ const StatCompare = () => {
       !statHeadingsTemp.includes(frameDataFile[character].stats[selectedStat]) &&
         statHeadingsTemp.push(frameDataFile[character].stats[selectedStat])
     )
-    setStatHeadings([...sortBy(statHeadingsTemp).reverse()]);
+    isNaN(statHeadingsTemp[0])
+      ? statHeadingsTemp.sort()
+      : statHeadingsTemp.sort((a, b) => a - b).reverse()
+    setStatHeadings(statHeadingsTemp);
 
   },[selectedStat, frameDataFile]);
 
@@ -72,25 +75,27 @@ const StatCompare = () => {
           </IonItem>
 
           {statHeadings.map(listHeader =>
-            <div key={`section-${listHeader}`}>
-              <IonItemDivider>
-                <p>{listHeader}</p>
-              </IonItemDivider>
-              <div className="stat-images-container">
-                {Object.keys(frameDataFile).map(charName =>
-                  frameDataFile[charName].stats[selectedStat] === listHeader &&
-                    <CharacterPortrait
-                      key={`${activeGame}-${charName}-stat-image`}
-                      charName={charName}
-                      game={activeGame}
-                      selected={ (charName === selectedCharacters.playerOne.name || charName === selectedCharacters.playerTwo.name) && true}
-                      charThreeLetterCode={frameDataFile[charName].stats.threeLetterCode.toUpperCase()}
-                      charColor={frameDataFile[charName].stats.color}
-                      showName={true}
-                    />
-                )}
-              </div>
-            </div>
+            listHeader === "?"
+              ? null
+              : <div key={`section-${listHeader}`}>
+                  <IonItemDivider>
+                    <p>{listHeader}</p>
+                  </IonItemDivider>
+                  <div className="stat-images-container">
+                    {Object.keys(frameDataFile).map(charName =>
+                      frameDataFile[charName].stats[selectedStat] === listHeader && !frameDataFile[charName].stats.hideCharacter &&
+                        <CharacterPortrait
+                          key={`${activeGame}-${charName}-stat-image`}
+                          charName={charName}
+                          game={activeGame}
+                          selected={ (charName === selectedCharacters.playerOne.name || charName === selectedCharacters.playerTwo.name) && true}
+                          charThreeLetterCode={frameDataFile[charName].stats.threeLetterCode.toUpperCase()}
+                          charColor={frameDataFile[charName].stats.color}
+                          showName={true}
+                        />
+                    )}
+                  </div>
+                </div>
           )}
           
 

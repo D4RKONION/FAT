@@ -83,12 +83,11 @@ const MoveDetail = () => {
 
         <SubHeader
           adaptToShortScreens={false}
+          hideOnWideScreens={false}
           rowsToDisplay={[
             [
               <><b>Official Name</b><br />{selectedMoveData["moveName"]}</>,
-              <><b>Common Name</b><br />{selectedMoveData["cmnName"] ? selectedMoveData["cmnName"] : selectedMoveData["moveName"]}</>
-            ],
-            [
+              <><b>Common Name</b><br />{selectedMoveData["cmnName"] ? selectedMoveData["cmnName"] : selectedMoveData["moveName"]}</>,
               <><b>Motion</b><br />{selectedMoveData["plnCmd"]}</>,
               <><b>NumPad</b><br />{selectedMoveData["numCmd"]}</>
             ]
@@ -125,9 +124,25 @@ const MoveDetail = () => {
                     <div key={index} className="row">
                       {Object.entries(dataRow).map(([dataId, headerObj]: [string, {[key: string]: {"dataTableHeader": string, "detailedHeader": string, "dataFileKey": string}}]) => {
                           if (dataId === "cancelsTo") {
-                            return <div className={selectedMoveData.changedValues && selectedMoveData.changedValues.includes(dataId) ? "triggered-data" : "normal-state"} key={dataId}><b>{headerObj.detailedHeader}</b><br/>{selectedMoveData[dataId] || selectedMoveData[dataId] === 0 ? selectedMoveData[dataId].join(", ") : "~"}</div>
+                            return (
+                              <div
+                                className={`col ${selectedMoveData.changedValues && selectedMoveData.changedValues.includes(dataId) ? "triggered-data" : "normal-state"}`}
+                                key={dataId}
+                              >
+                                <h2>{headerObj.detailedHeader}</h2>
+                                <p>{selectedMoveData[dataId] || selectedMoveData[dataId] === 0 ? selectedMoveData[dataId].join(", ") : "~"}</p>
+                              </div>
+                            )
                           } else {
-                            return <div className={selectedMoveData.changedValues && selectedMoveData.changedValues.includes(dataId) ? "triggered-data" : "normal-state"} key={dataId}><b>{headerObj.detailedHeader}</b><br/>{selectedMoveData[dataId] || selectedMoveData[dataId] === 0 ? selectedMoveData[dataId] : "~"}</div>
+                            return (
+                              <div
+                                className={`col ${selectedMoveData.changedValues && selectedMoveData.changedValues.includes(dataId) ? "triggered-data" : "normal-state"}`}
+                                key={dataId}
+                              >
+                                <h2>{headerObj.detailedHeader}</h2>
+                                <p>{selectedMoveData[dataId] || selectedMoveData[dataId] === 0 ? selectedMoveData[dataId] : "~"}</p>
+                              </div>
+                            )
                           }
                       })}
                     </div>
@@ -155,7 +170,10 @@ const MoveDetail = () => {
                 {specificCancelRows.map((dataRow, index) =>
                   <div key={index} className="row">
                     {Object.entries(dataRow).map(([dataId, headerObj]: [string, {[key: string]: {"dataTableHeader": string, "detailedHeader": string, "dataFileKey": string}}]) =>
-                      <div key={dataId}><b>{headerObj.detailedHeader}</b><br/>{selectedMoveData[dataId]}</div>
+                      <div className="col" key={dataId}>
+                        <h2>{headerObj.detailedHeader}</h2>
+                        <p>{selectedMoveData[dataId]}</p>
+                      </div>
                     )}
                   </div>
                 )}

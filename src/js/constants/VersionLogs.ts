@@ -1,14 +1,42 @@
-export const APP_CURRENT_VERSION_NAME = "3.2.0";
-export const APP_CURRENT_VERSION_CODE = 30200;
-export const APP_FRAME_DATA_CODE = 24;
-export const APP_DATE_UPDATED = "March 14, 2021";
+export const APP_CURRENT_VERSION_NAME = "3.3.0";
+export const APP_CURRENT_VERSION_CODE = 30300;
+export const APP_FRAME_DATA_CODE = 36;
+export const APP_DATE_UPDATED = "April 20, 2021";
+
 
 export const VERSION_LOGS = {
-  "3.2.1": {
+  "3.3.1": {
     "New Features": [
-      "Rearranged the stats sections",
+      "Added Rose's specific cancels to the app",
+      "New theme: Poisonous Pink. A dangerously pink theme, look but don't touch!",
+      "Added [info=] search term for the frame data page, to search a character's extra info. Try doing info=fully inv",
+      "Made it so 'gief' and 'sim' are valid search choices for Yaksha Search",
+      "Prepped the app for Akira and Oro",
     ],
     "Bug Fixes": [
+      "Fixed a bug where stat compare's headings were not sorted properly",
+      "Fixed an issue where some character's jump normals were being counted as their 'fastest normal'",
+      "Moved R.Mika to the top of the characters beginning with R",
+      "App: Fixed an issue where the stats quote was left aligned",
+      "Fixed a bug where Guile & Balrog's throws were not being set up properly in Frame Kill Generator"
+    ]
+  },
+  "3.3.0": {
+    "New Features": [
+      "ROSE DATA WILL COME IN A FRAME DATA FILE UPDATE",
+      "This update is preparing the app for Rose so that when the framedata team are done with her they can update it immediately. When Rose is available she will show up in the character select menu",
+      "New theme: Delta Green. This dark green theme is no clone!",
+      "Filter the frame data page using the search bar! You can search using a move name or an expression like oB>4",
+      "Filter the character select by name using the search bar",
+      "Tablet/Desktop: improved the look of character select screen",
+      "Rearranged the stats sections",
+      "Added V-Shift Distance to Stat Compare mode",
+      "All Combos for SFV are now completely up to date, thank you Sestze",
+      "FAT now checks your system theme setting on fresh install and sets dark or light mode",
+      "Added a past Version Logs page under settings"
+    ],
+    "Bug Fixes": [
+      "Fixed a bug where VS1 data was hidden on Seth's table",
       "Fixed a bug where some stats wouldn't appear in stat compare",
       "iOS: Fixed a bug where activated and hovered buttons would be the wrong colour"
     ]
