@@ -22,7 +22,7 @@ export function renameData(rawFrameData, dataDisplayState: DataDisplaySettingsRe
 
   const renameFrameDataToShorthand = (rawData: string, nameTypeKey: string) => {
     let rename = mapKeys(rawData, (moveValue, moveKey) => {
-      if (moveValue.moveType === "normal" && !moveValue.movesList) {
+      if ((moveValue.moveType === "normal" || moveValue.moveType === "held normal") && !moveValue.movesList) {
         return formatMoveName(moveValue);
       } else {
         return moveValue[nameTypeKey];
@@ -30,6 +30,24 @@ export function renameData(rawFrameData, dataDisplayState: DataDisplaySettingsRe
     });
 
     return rename;
+  }
+
+  const skipFormattingMove = (moveData) => {
+    const TARGET_COMBO: string = "(TC)";
+    const COMMAND_NORMAL: string[] = ["b", "f", ">", "(air)"];
+    const MOVE_NAME: string = moveData.moveName;
+    
+    if (MOVE_NAME.includes(TARGET_COMBO)) {
+      return true;
+    }
+
+    // Other languages have a cleaner way of representing this: if any of the values in the
+    // array are in the string, just return the move name since it's a command normal
+    if (COMMAND_NORMAL.some(indicator => moveData.plnCmd.includes(indicator))) {
+      return true;
+    }
+
+    return false;
   }
 
   const formatMoveName = (moveData) => {
@@ -41,24 +59,31 @@ export function renameData(rawFrameData, dataDisplayState: DataDisplaySettingsRe
       ["neutral", "nj."]
     ]);
 
-    if (!moveData.moveName.includes('(')) {
-      let splitMoveName: string[] = moveData.moveName.toLowerCase().split(' ');
-      let abbr: string = wordToAbbreviationMap.get(splitMoveName[0]);
-      let input: string = splitMoveName[splitMoveName.length - 1].toUpperCase();
-      truncatedMoveName = `${abbr}${input}`;
-    } else {
-      /*
-      Regex documentation:
-        Lead with \s to account for the leading space, i.e, " (Hold)", but we don't want to include it in the captured result
-        The outermost parentheses start the capture group of characters we DO want to capture
-        The character combo of \( means that we want to find an actual opening parenthesis
-        [a-z\s]* = Within the parenthesis, we want to find any combination of letters and spaces to account for cases like "(crouch large)"
-        Then we want to find the closing parenthesis with \)
-        The capture group is closed, and the "i" at the end sets a "case insensitive" flag for the regex expression
-      */
-       let splitMoveFromExtraParens: string[] = moveData.moveName.split(/\s(\([a-z\s]*\))/i).filter((x: string) => x !== "");
-    }
-
+    if (!skipFormattingMove(moveData)) {
+      if (!moveData.moveName.includes('(')) {
+        let splitMoveName: string[] = moveData.moveName.toLowerCase().split(' ');
+        let abbr: string = wordToAbbreviationMap.get(splitMoveName[0]);
+        let input: string = splitMoveName[splitMoveName.length - 1].toUpperCase();
+        truncatedMoveName = `${abbr}${input}`;
+      } else {
+        /*
+        Regex documentation:
+          Lead with \s to account for the leading space, i.e, " (Hold)", but we don't want to include it in the captured result
+          The outermost parentheses start the capture group of characters we DO want to capture
+          The character combo of \( means that we want to find an actual opening parenthesis
+          [a-z\s]* = Within the parenthesis, we want to find any combination of letters and spaces to account for cases like "(crouch large)"
+          Then we want to find the closing parenthesis with \)
+          The capture group is closed, and the "i" at the end sets a "case insensitive" flag for the regex expression
+        */
+        let splitMoveFromExtraParens: string[] = moveData.moveName.split(/\s(\([a-z\s]*\))/i).filter((x: string) => x !== "");
+        let splitMove: string[] = splitMoveFromExtraParens[0].split(' ');
+        let modifierParens: string[] = splitMoveFromExtraParens.slice(1);
+        let abbr: string = wordToAbbreviationMap.get(splitMove[0].toLowerCase());
+        let input: string = splitMove[splitMove.length - 1].toUpperCase();
+        truncatedMoveName = `${abbr}${input} ${modifierParens.join(' ')}`;
+      }
+    } 
+    
     return truncatedMoveName;
   }
 
