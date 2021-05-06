@@ -18,6 +18,7 @@ export const VERSION_LOGS = {
       "Fixed an issue where some character's jump normals were being counted as their 'fastest normal'",
       "Moved R.Mika to the top of the characters beginning with R",
       "App: Fixed an issue where the stats quote was left aligned",
+      "Web: Fixed a bug where entering from a URL would sometimes set the wrong landscape cols",
       "Fixed a bug where Guile & Balrog's throws were not being set up properly in Frame Kill Generator"
     ]
   },
