@@ -1,7 +1,7 @@
-export const APP_CURRENT_VERSION_NAME = "3.3.0";
-export const APP_CURRENT_VERSION_CODE = 30300;
-export const APP_FRAME_DATA_CODE = 36;
-export const APP_DATE_UPDATED = "April 20, 2021";
+export const APP_CURRENT_VERSION_NAME = "3.3.1";
+export const APP_CURRENT_VERSION_CODE = 30301;
+export const APP_FRAME_DATA_CODE = 39;
+export const APP_DATE_UPDATED = "May 9, 2021";
 
 
 export const VERSION_LOGS = {

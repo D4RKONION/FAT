@@ -6,7 +6,6 @@ import '../../style/pages/StatCompare.scss';
 import '../../style/components/FAB.scss'
 import { setModalVisibility } from '../actions';
 import { person } from 'ionicons/icons';
-import { sortBy } from 'lodash';
 import CharacterPortrait from '../components/CharacterPortrait';
 import { activeGameSelector, frameDataSelector, selectedCharactersSelector } from '../selectors';
 import GAME_DETAILS from '../constants/GameDetails';
