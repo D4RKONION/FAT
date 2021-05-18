@@ -1,7 +1,7 @@
-export const APP_CURRENT_VERSION_NAME = "3.3.0";
-export const APP_CURRENT_VERSION_CODE = 30300;
-export const APP_FRAME_DATA_CODE = 36;
-export const APP_DATE_UPDATED = "April 20, 2021";
+export const APP_CURRENT_VERSION_NAME = "3.3.1";
+export const APP_CURRENT_VERSION_CODE = 30301;
+export const APP_FRAME_DATA_CODE = 39;
+export const APP_DATE_UPDATED = "May 9, 2021";
 
 
 export const VERSION_LOGS = {
@@ -18,6 +18,7 @@ export const VERSION_LOGS = {
       "Fixed an issue where some character's jump normals were being counted as their 'fastest normal'",
       "Moved R.Mika to the top of the characters beginning with R",
       "App: Fixed an issue where the stats quote was left aligned",
+      "Web: Fixed a bug where entering from a URL would sometimes set the wrong landscape cols",
       "Fixed a bug where Guile & Balrog's throws were not being set up properly in Frame Kill Generator"
     ]
   },

@@ -67,7 +67,8 @@ const FrameData = () => {
 
     if (selectedCharacters["playerOne"].name !== slugs.characterSlug) {
       console.log("URL character mismatch");
-      handleNewCharacterLandscapeCols("Ryu", slugs.characterSlug)
+      handleNewCharacterLandscapeCols(selectedCharacters["playerOne"].name, slugs.characterSlug)
+      handleNewCharacterLandscapeCols(selectedCharacters["playerTwo"].name, slugs.characterSlug)
       dispatch(setPlayer("playerOne", slugs.characterSlug));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
