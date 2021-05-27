@@ -21,9 +21,18 @@ export function renameData(rawFrameData, dataDisplayState: DataDisplaySettingsRe
   }
 
   const renameFrameDataToShorthand = (rawData: string, nameTypeKey: string) => {
+    const HELD_NORMAL: string = "Held Normal"; 
     let rename = mapKeys(rawData, (moveValue, moveKey) => {
-      if ((moveValue.moveType === "normal" || moveValue.moveType === "held normal") && !moveValue.movesList) {
-        return formatMoveName(moveValue);
+      if ((moveValue.moveType === "normal")) {
+        if (moveValue.movesList) {
+          if (moveValue.movesList === HELD_NORMAL) {
+            return formatMoveName(moveValue);
+          } else {
+            return moveValue[nameTypeKey];
+          }
+        } else {
+          return formatMoveName(moveValue);
+        }
       } else {
         return moveValue[nameTypeKey];
       }
@@ -33,25 +42,32 @@ export function renameData(rawFrameData, dataDisplayState: DataDisplaySettingsRe
   }
 
   const skipFormattingMove = (moveData) => {
-    const TARGET_COMBO: string = "(TC)";
-    const COMMAND_NORMAL: string[] = ["b", "f", ">", "(air)"];
+    const TARGET_COMBO: string[] = ["(TC)", "Target Combo"];
+    const COMMAND_NORMAL: string[] = ["4", "6"];
+    const SYMBOLIC_CMD_NORMAL: string[] = [">", "(air)"]
     const MOVE_NAME: string = moveData.moveName;
     
-    if (MOVE_NAME.includes(TARGET_COMBO)) {
+    if (TARGET_COMBO.some(indicator => MOVE_NAME.includes(indicator))) {
       return true;
     }
 
     // Other languages have a cleaner way of representing this: if any of the values in the
-    // array are in the string, just return the move name since it's a command normal
-    if (COMMAND_NORMAL.some(indicator => moveData.plnCmd.includes(indicator))) {
+    // designated array is in the numCmd, just return the move name since it's a command normal
+    if (COMMAND_NORMAL.some(indicator => moveData.numCmd.includes(indicator))) {
+      return true;
+    }
+
+    // If the above check doesn't find anything, check for some other common indicators; if
+    // nothing comes back here, we're good and don't need to skip formatting
+    if (SYMBOLIC_CMD_NORMAL.some(indicator => moveData.plnCmd.includes(indicator))) {
       return true;
     }
 
     return false;
   }
 
-  const formatMoveName = (moveData) => {
-    let truncatedMoveName: string = "";
+  const formatMoveName = (moveData) => {   
+    const strengths: string[] = ["lp", "mp", "hp", "lk", "mk", "hk"];
     const wordToAbbreviationMap: Map<string, string> = new Map([
       ["stand", "st."],
       ["crouch", "cr."],
@@ -59,12 +75,36 @@ export function renameData(rawFrameData, dataDisplayState: DataDisplaySettingsRe
       ["neutral", "nj."]
     ]);
 
+    let truncatedMoveName: string = "";
+
+    const extractInput = (splitMove: string[]) => {
+      let input: string[] = []; 
+      
+      // Menat orb needs special attention
+      if (splitMove.some(x => x.toLocaleLowerCase().includes("orb"))) {
+        let orb: string = splitMove.find(x => x === "orb");
+        let button: string = splitMove.find(x => strengths.some(y => y === x));
+
+        input.push(button.toUpperCase());
+        input.push(orb);
+      } else {
+        input.push(splitMove[splitMove.length - 1].toUpperCase());
+      }
+
+      return input;
+    }
+
     if (!skipFormattingMove(moveData)) {
       if (!moveData.moveName.includes('(')) {
         let splitMoveName: string[] = moveData.moveName.toLowerCase().split(' ');
         let abbr: string = wordToAbbreviationMap.get(splitMoveName[0]);
-        let input: string = splitMoveName[splitMoveName.length - 1].toUpperCase();
-        truncatedMoveName = `${abbr}${input}`;
+        let input: string[] = extractInput(splitMoveName);
+
+        if (input.length > 1) {
+          truncatedMoveName = `${abbr}${input[0]} ${input[1]}`;
+        } else {
+          truncatedMoveName = `${abbr}${input[0]}`;
+        }
       } else {
         /*
         Regex documentation:
@@ -82,8 +122,8 @@ export function renameData(rawFrameData, dataDisplayState: DataDisplaySettingsRe
         let input: string = splitMove[splitMove.length - 1].toUpperCase();
         truncatedMoveName = `${abbr}${input} ${modifierParens.join(' ')}`;
       }
-    } 
-    
+    }
+        
     return truncatedMoveName;
   }
 
