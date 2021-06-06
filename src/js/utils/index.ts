@@ -21,18 +21,31 @@ export function renameData(rawFrameData, dataDisplayState: DataDisplaySettingsRe
   const renameFrameDataToShorthand = (rawData: string, nameTypeKey: string) => {
     const HELD_NORMAL: string = "Held Normal"; 
     let rename = mapKeys(rawData, (moveValue, moveKey) => {
+      const DEFAULT_MOVE_NAME = () => {
+        if (moveValue[nameTypeKey]) {
+          return moveValue[nameTypeKey];
+        } else {
+          return moveKey;
+        }
+      }
+      
       if ((moveValue.moveType === "normal")) {
         if (moveValue.movesList) {
           if (moveValue.movesList === HELD_NORMAL) {
             return formatMoveName(moveValue);
           } else {
-            return moveValue[nameTypeKey];
+            return DEFAULT_MOVE_NAME();
           }
         } else {
-          return formatMoveName(moveValue);
+          let formatted: string = formatMoveName(moveValue);
+          if (formatted !== "") {
+            return formatted;
+          } else {
+            return DEFAULT_MOVE_NAME();
+          }
         }
       } else {
-        return moveValue[nameTypeKey];
+        return DEFAULT_MOVE_NAME();
       }
     });
 
@@ -42,7 +55,8 @@ export function renameData(rawFrameData, dataDisplayState: DataDisplaySettingsRe
   const skipFormattingMove = (moveData) => {
     const TARGET_COMBO: string[] = ["(TC)", "Target Combo"];
     const COMMAND_NORMAL: string[] = ["4", "6"];
-    const SYMBOLIC_CMD_NORMAL: string[] = [">", "(air)"]
+    const SYMBOLIC_CMD_NORMAL: string[] = [">", "(air)", "(run)", "(lvl"];
+    const RASHID_WIND: string = "(wind)";
     const MOVE_NAME: string = moveData.moveName;
     
     if (TARGET_COMBO.some(indicator => MOVE_NAME.includes(indicator))) {
@@ -61,11 +75,18 @@ export function renameData(rawFrameData, dataDisplayState: DataDisplaySettingsRe
       return true;
     }
 
+    // Rashid should be the only one (for now) to trigger this condition for his mixers
+    if (MOVE_NAME.includes(RASHID_WIND)) {
+      return true;
+    }
+
     return false;
   }
 
   const formatMoveName = (moveData) => {   
     const strengths: string[] = ["lp", "mp", "hp", "lk", "mk", "hk"];
+    const Y_ZEKU_LATE_HIT: string = "late";
+    const MENAT_ORB: string = "orb";
     const wordToAbbreviationMap: Map<string, string> = new Map([
       ["stand", "st."],
       ["crouch", "cr."],
@@ -79,12 +100,20 @@ export function renameData(rawFrameData, dataDisplayState: DataDisplaySettingsRe
       let input: string[] = []; 
       
       // Menat orb needs special attention
-      if (splitMove.some(x => x.toLocaleLowerCase().includes("orb"))) {
+      if (splitMove.some(x => x.toLocaleLowerCase().includes(MENAT_ORB))) {
         let orb: string = splitMove.find(x => x === "orb");
         let button: string = splitMove.find(x => strengths.some(y => y === x));
 
         input.push(button.toUpperCase());
         input.push(orb);
+        // Young Zeku's crouch HK also need special attention since it has a "late hit"
+        // state that gives it different properties and is listed as such in FAT.
+      } else if (splitMove.some(x => x.toLocaleLowerCase().includes(Y_ZEKU_LATE_HIT))) {
+        // Index 3 contains "late", index 4 contains "hit"
+        let lateHit: string = `${splitMove[2]} ${splitMove[3]}`;
+
+        input.push(splitMove[1].toUpperCase());
+        input.push(lateHit);
       } else {
         input.push(splitMove[splitMove.length - 1].toUpperCase());
       }
