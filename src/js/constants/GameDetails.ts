@@ -571,6 +571,91 @@ const GAME_DETAILS = {
       ]
     }
   },
+  GGST: {
+    fullName: "Guilty Gear Strive",
+    abbrName: "GGST",
+    characterStates: ["normal"],
+    characterList: [
+      "Sol Badguy",
+    ] as const,
+    universalDataPoints: {
+      "Basic Frame Data": [
+        {
+          "startup": {
+            "dataTableHeader": "S",
+            "detailedHeader": "Startup",
+            "dataFileKey": "startup",
+          },
+          "active": {
+            "dataTableHeader": "A",
+            "detailedHeader": "Active",
+            "dataFileKey": "active",
+          },
+          "recovery": {
+            "dataTableHeader": "R",
+            "detailedHeader": "Recovery",
+            "dataFileKey": "recovery",
+          }
+        },
+        {
+          "onBlock": {
+            "dataTableHeader": "oB",
+            "detailedHeader": "On Block",
+            "dataFileKey": "onBlock",
+          },
+          "onHit": {
+            "dataTableHeader": "oH",
+            "detailedHeader": "On Hit",
+            "dataFileKey": "onHit",
+          }
+        }
+      ],
+      "Move Properties": [
+        {
+          "moveType": {
+            "dataTableHeader": "mT",
+            "detailedHeader": "Move Type",
+            "dataFileKey": "moveType",
+          },
+          "cancelsTo": {
+            "dataTableHeader": "xx",
+            "detailedHeader": "Cancels To",
+            "dataFileKey": "cancelsTo",
+          },
+        },
+        {
+          "damage": {
+            "dataTableHeader": "dmg",
+            "detailedHeader": "Damage",
+            "dataFileKey": "damage",
+          },
+        },
+      ]
+    },
+    specificCancels: [],
+    statsPoints: {
+      "The Basics": [
+        {
+          "health": "Health",
+          "stun": "Stun",
+        }
+      ],
+      "Ground Movement": [
+        {
+          "bDash": "Back Dash Frames",
+          "fDash": "Forward Dash Frames"
+        },
+        {
+          "lvlOneB": "Level 1 Focus Back",
+          "lvlOneF": "Level 1 Focus Forward"
+        },
+        {
+          "lvlTwoB": "Level 2 Focus Back",
+          "lvlTwoF": "Level 2 Focus Forward"
+        }
+      ]
+    }
+  },
 };
 
 export default GAME_DETAILS;

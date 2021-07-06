@@ -273,7 +273,14 @@ const Menu = () => {
               label: 'SFV',
               value: 'SFV',
               checked: activeGame === "SFV"
-            }
+            },
+            {
+              name: 'GGST',
+              type: 'radio',
+              label: 'GGST',
+              value: 'GGST',
+              checked: activeGame === "GGST"
+            },
           ]}
          buttons={[
             {

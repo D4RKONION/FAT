@@ -13,7 +13,7 @@ export type InputNotationType = 'plnCmd' | 'numCmd';
 
 export type NormalNotationType = 'fullWord' | 'shorthand';
 
-export type GameName = 'SFV' | 'USF4' | '3S';
+export type GameName = 'SFV' | 'USF4' | '3S' | 'GGST';
 
 export type Orientation = 'landscape' | 'portrait';
 
@@ -35,7 +35,7 @@ export type AdviceToastPrevRead = {
 }
 
 export type PlayerData = {
-  name?: typeof GAME_DETAILS[GameName]["characterList"][number];
+  name?: string;
   vtState?: VtState,
   frameData?: {
     [key: string]: any,
