@@ -2,23 +2,63 @@ import { mapKeys, isEqual } from 'lodash';
 import { DataDisplaySettingsReducerState } from '../reducers/datadisplaysettings';
 import { VtState } from '../types';
 
-export function renameData(rawFrameData, moveNameType, inputNotationType) {
-
-  let renameKey = "";
-  if (moveNameType === "official") {
-    renameKey = "moveName"
-  } else if (moveNameType === "common") {
-    renameKey = "cmnName";
-  } else if (moveNameType === "inputs" && inputNotationType) {
-      renameKey = inputNotationType;
+/**
+ * Renames the moves in the character frame data to reflect the user's desired naming convention
+ * @param {string} rawFrameData The frame data for the current character
+ * @param {DataDisplaySettingsReducerState} dataDisplayState The Redux state containing various move text render settings
+ * @returns The frame data JSON object with renamed moves
+ */
+export function renameData(rawFrameData, dataDisplayState: DataDisplaySettingsReducerState) {
+  const renameFrameData = (rawData, renameKey, notationDisplay) => {
+    switch (notationDisplay) {
+      case "fullWord":
+        return mapKeys(rawData, (moveValue, moveKey) => moveValue[renameKey] ? moveValue[renameKey] : moveKey);
+      case "shorthand":
+        return renameFrameDataToShorthand(rawData, renameKey);
+      default:
+        break;
+    }
   }
 
-  const renamedFrameData = mapKeys(rawFrameData,
-    (moveData, moveKey) =>
-      moveData[renameKey] ? moveData[renameKey] : moveKey
-  );
+  const renameFrameDataToShorthand = (rawData: string, nameTypeKey: string) => {
+    let rename = mapKeys(rawData, (moveValue, moveKey) => {
+      if (moveValue.moveType === "normal" && !moveValue.movesList) {
+        return formatMoveName(moveValue);
+      } else {
+        return moveValue[nameTypeKey];
+      }
+    });
 
-  return renamedFrameData;
+    return rename;
+  }
+
+  const formatMoveName = (moveData) => {
+    let truncatedMoveName: string = "";
+    const wordToAbbreviationMap: Map<string, string> = new Map([
+      ["stand", "st."],
+      ["crouch", "cr."],
+      ["jump", "j."],
+      ["neutral", "nj."]
+    ]);
+
+    let splitMoveName: string[] = moveData.moveName.toLowerCase().split(' ');
+    let abbr: string = wordToAbbreviationMap.get(splitMoveName[0]);
+    let input: string = splitMoveName[splitMoveName.length - 1].toUpperCase();
+    truncatedMoveName = `${abbr}${input}`;
+
+    return truncatedMoveName;
+  }
+
+  switch (dataDisplayState.moveNameType) {
+    case "official":
+      return renameFrameData(rawFrameData, "moveName", dataDisplayState.normalNotationType);
+    case "common":
+      return renameFrameData(rawFrameData, "cmnName", dataDisplayState.normalNotationType);
+    case "inputs":
+      return renameFrameData(rawFrameData, dataDisplayState.inputNotationType, "fullWord");
+    default:
+      return rawFrameData;
+  }
 }
 
 
@@ -29,18 +69,18 @@ function vTriggerMerge(rawFrameData, vtState) {
   const vtMergedData = {
     ...rawFrameData.normal, ...rawFrameData[vtState]
   }
-  
+
   Object.keys(rawFrameData[vtState]).forEach(vtMove => {
-      let changedValues = [];
-      Object.keys(rawFrameData[vtState][vtMove]).forEach(detail => {
-        if (!rawFrameData.normal[vtMove]) {
-          vtMergedData[vtMove]["uniqueInVt"] = true;
-        } else if (rawFrameData.normal[vtMove] && !isEqual(rawFrameData.normal[vtMove][detail], rawFrameData[vtState][vtMove][detail])) {
-          changedValues = [ ...changedValues, detail ]
-        }
-      })
-      vtMergedData[vtMove] = { ...vtMergedData[vtMove], changedValues }
+    let changedValues = [];
+    Object.keys(rawFrameData[vtState][vtMove]).forEach(detail => {
+      if (!rawFrameData.normal[vtMove]) {
+        vtMergedData[vtMove]["uniqueInVt"] = true;
+      } else if (rawFrameData.normal[vtMove] && !isEqual(rawFrameData.normal[vtMove][detail], rawFrameData[vtState][vtMove][detail])) {
+        changedValues = [...changedValues, detail]
       }
+    })
+    vtMergedData[vtMove] = { ...vtMergedData[vtMove], changedValues }
+  }
   )
 
   // based on https://stackoverflow.com/a/39442287
@@ -49,7 +89,7 @@ function vTriggerMerge(rawFrameData, vtState) {
       .sort((moveOne: any, moveTwo: any) => {
         return moveOne[1].i - moveTwo[1].i
       })
-      .reduce((_sortedObj, [k,v]) => ({
+      .reduce((_sortedObj, [k, v]) => ({
         ..._sortedObj,
         [k]: v
       }), {})
@@ -59,12 +99,9 @@ function vTriggerMerge(rawFrameData, vtState) {
 }
 
 // this allow me to build the JSON for the setPlayer action creator in selectCharacter, SegmentSwitcher and ____ componenet
-export function helpCreateFrameDataJSON(rawFrameData, moveNameType, inputNotationType, normalNotationType, vtState) {
-  
-  const dataToRename = vtState === "normal"
-    ? rawFrameData.normal
-    : vTriggerMerge(rawFrameData, vtState);
+export function helpCreateFrameDataJSON(rawFrameData, dataDisplayState: DataDisplaySettingsReducerState, vtState: VtState) {
 
-  return moveNameType === "official" ? dataToRename : renameData(dataToRename, moveNameType, inputNotationType);
+  const dataToRename = (vtState === "normal") ? rawFrameData.normal : vTriggerMerge(rawFrameData, vtState);
 
+  return renameData(dataToRename, dataDisplayState);
 }
