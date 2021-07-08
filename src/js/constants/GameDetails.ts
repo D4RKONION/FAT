@@ -576,6 +576,10 @@ const GAME_DETAILS = {
     abbrName: "GGST",
     characterStates: ["normal"],
     characterList: [
+      "Anji Mito",
+      "Axl Low",
+      "Chipp Zanuff",
+      "Leo Whitefang",
       "Sol Badguy",
     ] as const,
     universalDataPoints: {
@@ -622,6 +626,11 @@ const GAME_DETAILS = {
             "detailedHeader": "Cancels To",
             "dataFileKey": "cancelsTo",
           },
+          "attackLevel": {
+            "dataTableHeader": "attLvl",
+            "detailedHeader": "Attack Level",
+            "dataFileKey": "attackLevel",
+          }
         },
         {
           "damage": {
@@ -630,6 +639,15 @@ const GAME_DETAILS = {
             "dataFileKey": "damage",
           },
         },
+      ],
+      "Extra Information": [
+        {
+          "extraInfo": {
+            "dataTableHeader": "Notes",
+            "detailedHeader": "Extra Info",
+            "dataFileKey": "extraInfo",
+          }
+        }
       ]
     },
     specificCancels: [],

@@ -104,6 +104,7 @@ const MovesList = () => {
                   ).map(moveKey => {
                     const namingType = dataDisplaySettings.moveNameType === "common" ? "cmnName" : "moveName";
                     const displayedName = !moveData[moveKey][namingType] ? moveData[moveKey]["moveName"] : moveData[moveKey][namingType];
+                    console.log(displayedName)
                     return (
                       <IonItem button key={moveKey} onClick={() => { dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {selectedMove: moveKey})); history.push(`/moveslist/movedetail/${activeGame}/${selectedCharacters[activePlayer].name}/${selectedCharacters[activePlayer].vtState}/${selectedCharacters[activePlayer].frameData[moveKey]["moveName"]}`)}}>
                         <IonLabel>
