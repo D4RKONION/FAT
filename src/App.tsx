@@ -67,6 +67,7 @@ import { activeGameSelector, frameDataSelector, themeBrightnessSelector, themeCo
 import { setOrientation, setModalVisibility, setActiveGame, setThemeOwned, setThemeBrightness } from './js/actions';
 import { store } from './js/store';
 import { APP_FRAME_DATA_CODE, APP_CURRENT_VERSION_CODE } from './js/constants/VersionLogs';
+import GAME_DETAILS from './js/constants/GameDetails';
 
 const App = () => {
 
@@ -235,11 +236,21 @@ useEffect(() => {
 
         localStorage.setItem("lsSFVFrameData", JSON.stringify(SERVER_FRAME_DATA));
         localStorage.setItem("lsFrameDataCode", SERVER_VERSION_DETAILS.FRAME_DATA_CODE)
+        // this is kind of dirty, and I don't like it but I don't know how else to access the activeGame from the URL.
+        // without this check, this function always thinks that the current game on a fresh load is SFV
+        // and totally ignores the URL switcher in framedata component. In short, I am sorry programming gods
+        // please forgive me
+        if (GAME_DETAILS[window.location.hash.split("/")[2]]) {
+          dispatch(setActiveGame(window.location.hash.split("/")[2] as any));
+        } else if (GAME_DETAILS[window.location.hash.split("/")[3]]) {
+          dispatch(setActiveGame(window.location.hash.split("/")[3] as any));
+        } else {
+          dispatch(setActiveGame(activeGame))
+        }
         
-        dispatch(setActiveGame("SFV"));
+        
         
       }
-
     }
     
     newVersionCheck();
