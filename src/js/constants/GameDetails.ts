@@ -582,8 +582,15 @@ const GAME_DETAILS = {
       "Faust",
       "Giovanna",
       "I-No",
+      "Ky Kiske",
       "Leo Whitefang",
+      "May",
+      "Millia Rage",
+      "Nagoriyuki",
+      "Potemkin",
+      "Ramlethal Valentine",
       "Sol Badguy",
+      "Zato-1"
     ] as const,
     universalDataPoints: {
       "Basic Frame Data": [
