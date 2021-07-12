@@ -51,14 +51,10 @@ const getFrameData = (gameName: GameName) => {
     } else if (gameName === "3S") {
       dispatch(setFrameData(SF3FrameData));
     } else if (gameName === "GGST") {
-      console.log(GGSTFrameData)
       dispatch(setFrameData(GGSTFrameData));
     }
 
     const gameCharList = GAME_DETAILS[gameName].characterList as any;
-    console.log(selectedCharactersState.playerOne.name)
-    console.log(gameCharList[0])
-    console.log(gameCharList.includes(selectedCharactersState.playerOne.name))
     dispatch(setPlayer("playerOne", gameCharList.includes(selectedCharactersState.playerOne.name) ? selectedCharactersState.playerOne.name : gameCharList[0]) );
     dispatch(setPlayer("playerTwo", gameCharList.includes(selectedCharactersState.playerTwo.name) ? selectedCharactersState.playerTwo.name : gameCharList[0]) );
   }
@@ -101,7 +97,6 @@ export const setPlayer = (playerId: PlayerId, charName: PlayerData["name"]) => {
       activeGameState !== "SFV"
         ? "normal"
         : selectedCharactersState[playerId].vtState
-    console.log(frameDataState)
     const playerData: PlayerData = {
       name: charName,
       frameData: helpCreateFrameDataJSON(frameDataState[charName].moves, dataDisplaySettingsState.moveNameType, dataDisplaySettingsState.inputNotationType, dataDisplaySettingsState.normalNotationType, stateToSet),

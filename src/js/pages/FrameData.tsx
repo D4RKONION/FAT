@@ -54,11 +54,6 @@ const FrameData = () => {
   }
 
   useEffect(() => {
-    if (!localStorage.getItem("lsCurrentVersionCode") || parseInt(localStorage.getItem("lsCurrentVersionCode")) < APP_CURRENT_VERSION_CODE) {
-      localStorage.setItem("lsCurrentVersionCode", APP_CURRENT_VERSION_CODE.toString());
-      dispatch(setModalVisibility({ currentModal: "whatsNew", visible: true }))
-    } 
-
     if (activeGame !== slugs.gameSlug) {
       console.log(activeGame)
       console.log("URL game mismatch");
@@ -71,6 +66,11 @@ const FrameData = () => {
       handleNewCharacterLandscapeCols(selectedCharacters["playerTwo"].name, slugs.characterSlug)
       dispatch(setPlayer("playerOne", slugs.characterSlug));
     }
+    if (!localStorage.getItem("lsCurrentVersionCode") || parseInt(localStorage.getItem("lsCurrentVersionCode")) < APP_CURRENT_VERSION_CODE) {
+      localStorage.setItem("lsCurrentVersionCode", APP_CURRENT_VERSION_CODE.toString());
+      dispatch(setModalVisibility({ currentModal: "whatsNew", visible: true }))
+    } 
+    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -118,18 +118,32 @@ const FrameData = () => {
         <SubHeader
           adaptToShortScreens={true}
           hideOnWideScreens={true}
-          rowsToDisplay={[
+          rowsToDisplay={activeGame !== "GGST" ? 
             [
-              <><b>Health</b><br />{selectedCharacters[activePlayer].stats.health}</>,
-              <><b>Stun</b><br />{selectedCharacters[activePlayer].stats.stun}</>,
-              <div onClick={() => {history.push(`/stats/${selectedCharacters[activePlayer].name}`)}}><b>Tap for more</b><br /><IonIcon icon={informationCircle} /></div>
-            ],
-          [
-            <><b>Fwd Dash</b><br />{selectedCharacters[activePlayer].stats.fDash}</>,
-            <><b>Back Dash</b><br />{selectedCharacters[activePlayer].stats.bDash}</>,
+              [
+                <><b>Health</b><br />{selectedCharacters[activePlayer].stats.health}</>,
+                <><b>Stun</b><br />{selectedCharacters[activePlayer].stats.stun}</>,
+                <div onClick={() => {history.push(`/stats/${selectedCharacters[activePlayer].name}`)}}><b>Tap for more</b><br /><IonIcon icon={informationCircle} /></div>
+              ],
+              [
+                <><b>Fwd Dash</b><br />{selectedCharacters[activePlayer].stats.fDash}</>,
+                <><b>Back Dash</b><br />{selectedCharacters[activePlayer].stats.bDash}</>,
 
-          ]
-        ]}
+              ]
+            ]
+          :
+            [
+              [
+                <><b>Defense</b><br />{selectedCharacters[activePlayer].stats.defense}</>,
+                <><b>Guts</b><br />{selectedCharacters[activePlayer].stats.guts}</>,
+                <div onClick={() => {history.push(`/stats/${selectedCharacters[activePlayer].name}`)}}><b>Tap for more</b><br /><IonIcon icon={informationCircle} /></div>
+              ],
+              [
+                <><b>Weight</b><br />{selectedCharacters[activePlayer].stats.weight}</>,
+                <><b>Back Dash</b><br />{selectedCharacters[activePlayer].stats.backdashSpeed}</>,
+              ]
+            ]
+          }
         />
         <FrameDataSubHeader
           charName={selectedCharacters[activePlayer].name}

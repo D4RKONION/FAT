@@ -664,22 +664,21 @@ const GAME_DETAILS = {
     statsPoints: {
       "The Basics": [
         {
-          "health": "Health",
-          "stun": "Stun",
+          "defense": "Defense",
+          "guts": "Guts",
+        },
+        {
+          "weight": "Weight",
+          "bestReversal": "Best Reversal"
         }
       ],
-      "Ground Movement": [
+      "Movement": [
         {
-          "bDash": "Back Dash Frames",
-          "fDash": "Forward Dash Frames"
+          "backdashSpeed": "Backdash Speed",
+          "backdashInvul": "Backdash Invul"
         },
         {
-          "lvlOneB": "Level 1 Focus Back",
-          "lvlOneF": "Level 1 Focus Forward"
-        },
-        {
-          "lvlTwoB": "Level 2 Focus Back",
-          "lvlTwoF": "Level 2 Focus Forward"
+          "prejump": "Prejump Frames",
         }
       ]
     }

@@ -636,7 +636,8 @@
           "followUp": "x",
           "projectile": "x",
           "extraInfo": [
-            "Very narrow making it hard to use midscreen."
+            "Very narrow making it hard to use midscreen.",
+            "The hitbox only exists once the fans have reached the ground"
           ]
         },
         "Issokutobi": {
@@ -797,28 +798,15 @@
       }
     },
     "stats": {
-      "health": 950,
-      "defense": "?",
-      "guts": "?",
-      "prejump": "?",
-      "weight": "?",
+      "defense": "1.06",
+      "guts": "5",
+      "prejump": "4",
+      "weight": "Normal",
+      "backdashSpeed": "20f",
+      "backdashInvul": "5f",
       "bestReversal": "Kachoufuugetsu Kai",
-      "nJump": "?",
-      "fJump": "?",
-      "bJump": "?",
-      "fDash": "?",
-      "bDash": "?",
-      "bDashCHFrames": "?",
       "color": "#007bb6",
       "phrase": "Fuujin!",
-      "fWalk": "?",
-      "bWalk": "?",
-      "fJumpDist": "?",
-      "bJumpDist": "?",
-      "fDashDist": "?",
-      "bDashDist": "?",
-      "throwHurt": "?",
-      "throwRange": "?",
       "threeLetterCode": "anj"
     }
   },
@@ -1689,28 +1677,15 @@
       }
     },
     "stats": {
-      "health": 950,
-      "defense": "?",
-      "guts": "?",
-      "prejump": "?",
-      "weight": "?",
+      "defense": "1.07",
+      "guts": "1",
+      "prejump": "4f",
+      "weight": "Normal",
+      "backdashSpeed": "20f",
+      "backdashInvul": "5f",
       "bestReversal": "Sickle Storm",
-      "nJump": "?",
-      "fJump": "?",
-      "bJump": "?",
-      "fDash": "?",
-      "bDash": "?",
-      "bDashCHFrames": "?",
       "color": "#e33049",
       "phrase": "Brexit means Brexit",
-      "fWalk": "?",
-      "bWalk": "?",
-      "fJumpDist": "?",
-      "bJumpDist": "?",
-      "fDashDist": "?",
-      "bDashDist": "?",
-      "throwHurt": "?",
-      "throwRange": "?",
       "threeLetterCode": "axl"
     }
   },
@@ -2630,28 +2605,15 @@
       }
     },
     "stats": {
-      "health": 950,
-      "defense": "?",
-      "guts": "?",
-      "prejump": "?",
-      "weight": "?",
+      "defense": "1.26",
+      "guts": "4",
+      "prejump": "4",
+      "weight": "Normal",
+      "backdashSpeed": "20f",
+      "backdashInvul": "5f",
       "bestReversal": "Beta Blade",
-      "nJump": "?",
-      "fJump": "?",
-      "bJump": "?",
-      "fDash": "?",
-      "bDash": "?",
-      "bDashCHFrames": "?",
       "color": "#bbc2c3",
       "phrase": "Mr. President",
-      "fWalk": "?",
-      "bWalk": "?",
-      "fJumpDist": "?",
-      "bJumpDist": "?",
-      "fDashDist": "?",
-      "bDashDist": "?",
-      "throwHurt": "?",
-      "throwRange": "?",
       "threeLetterCode": "chp"
     }
   },
@@ -3655,28 +3617,15 @@
       }
     },
     "stats": {
-      "health": 950,
-      "defense": "?",
-      "guts": "?",
-      "prejump": "?",
-      "weight": "?",
+      "defense": "1.01",
+      "guts": "0",
+      "prejump": "4",
+      "weight": "Normal",
+      "backdashSpeed": "20f",
+      "backdashInvul": "5f",
       "bestReversal": "Bone-crushing Excitement",
-      "nJump": "?",
-      "fJump": "?",
-      "bJump": "?",
-      "fDash": "?",
-      "bDash": "?",
-      "bDashCHFrames": "?",
       "color": "#046d9c",
       "phrase": "The Doctor is in",
-      "fWalk": "?",
-      "bWalk": "?",
-      "fJumpDist": "?",
-      "bJumpDist": "?",
-      "fDashDist": "?",
-      "bDashDist": "?",
-      "throwHurt": "?",
-      "throwRange": "?",
       "threeLetterCode": "fst"
     }
   },
@@ -4304,7 +4253,7 @@
           "extraInfo": [
             "Knocks down on ground hit, juggles on air hit.",
             "Generally safe on block with its long reach, but an instant block followed by a fast normal may still allow a minor punish.",
-            "Can connect <span class=\"text-color--2\">5K</span> or <span class=\"text-color--4\">5H</span> on counter-hit if close enough, making it a solid frame trapping tool from pretty much any button."
+            "Can connect 5K or 5H on counter-hit if close enough, making it a solid frame trapping tool from pretty much any button."
           ]
         },
         "Sol Nascente": {
@@ -4331,9 +4280,9 @@
           "projectile": "x",
           "extraInfo": [
             "Not invincible, but has a low hurtbox and fast startup, making it a great anti-air.",
-            "The hurtbox has many evasive properties:<ul>",
+            "The hurtbox has many evasive properties:",
             "During startup frames it can low profile mids, and can even just barely go under fast-moving mid fireballs with proper timing and dash momentum.",
-            "During active and recovery frames it can high profile lows, allowing you to whiff punish moves like <a rel=\"nofollow\" class=\"external text\" href=\"https://www.dustloop.com/wiki/index.php?title=GGST/Ky_Kiske#2S\">Ky</a> or <a rel=\"nofollow\" class=\"external text\" href=\"https://www.dustloop.com/wiki/index.php?title=GGST/I-No#2S\">I-No</a>'s <span class=\"text-color--3\">2S</span>."
+            "During active and recovery frames it can high profile lows, allowing you to whiff punish moves like Ky or I-No's 2S."
           ]
         },
         "Sol Poente": {
@@ -4421,28 +4370,15 @@
       }
     },
     "stats": {
-      "health": 950,
-      "defense": "?",
-      "guts": "?",
-      "prejump": "?",
-      "weight": "?",
+      "defense": "1.03",
+      "guts": "1",
+      "prejump": "4f",
+      "weight": "Light",
+      "backdashSpeed": "20f",
+      "backdashInvul": "5f",
       "bestReversal": "Ventania",
-      "nJump": "?",
-      "fJump": "?",
-      "bJump": "?",
-      "fDash": "?",
-      "bDash": "?",
-      "bDashCHFrames": "?",
       "color": "#00c88f",
       "phrase": "Good doggo",
-      "fWalk": "?",
-      "bWalk": "?",
-      "fJumpDist": "?",
-      "bJumpDist": "?",
-      "fDashDist": "?",
-      "bDashDist": "?",
-      "throwHurt": "?",
-      "throwRange": "?",
       "threeLetterCode": "gio"
     }
   },
@@ -4956,7 +4892,10 @@
           "moveType": "special",
           "airmove": "x",
           "followUp": "x",
-          "projectile": "x"
+          "projectile": "x",
+          "extraInfo": [
+            "Both versions stagger on hit."
+          ]
         },
         "H Stroke the Big Tree": {
           "dustloopKey": "236H",
@@ -4978,7 +4917,10 @@
           "moveType": "special",
           "airmove": "x",
           "followUp": "x",
-          "projectile": "x"
+          "projectile": "x",
+          "extraInfo": [
+            "Both versions stagger on hit."
+          ]
         },
         "K Sultry Performance": {
           "dustloopKey": "j.236K",
@@ -5000,7 +4942,12 @@
           "moveType": "special",
           "airmove": "x",
           "followUp": "x",
-          "projectile": "x"
+          "projectile": "x",
+          "extraInfo": [
+            "Values in () indicate advantage on block if you input the button again to bounce up.",
+            "Values in [] indicate if the move is charged",
+            "All versions hit mid"
+          ]
         },
         "S Sultry Performance": {
           "dustloopKey": "j.236S",
@@ -5022,7 +4969,12 @@
           "moveType": "special",
           "airmove": "x",
           "followUp": "x",
-          "projectile": "x"
+          "projectile": "x",
+          "extraInfo": [
+            "Values in () indicate advantage on block if you input the button again to bounce up.",
+            "Values in [] indicate if the move is charged",
+            "All versions hit mid"
+          ]
         },
         "H Sultry Performance": {
           "dustloopKey": "j.236H",
@@ -5044,7 +4996,12 @@
           "moveType": "special",
           "airmove": "x",
           "followUp": "x",
-          "projectile": "x"
+          "projectile": "x",
+          "extraInfo": [
+            "Values in () indicate advantage on block if you input the button again to bounce up.",
+            "Values in [] indicate if the move is charged",
+            "All versions hit mid"
+          ]
         },
         "Antidepressant Scale": {
           "dustloopKey": "214P",
@@ -5219,28 +5176,15 @@
       }
     },
     "stats": {
-      "health": 950,
-      "defense": "?",
-      "guts": "?",
-      "prejump": "?",
-      "weight": "?",
+      "defense": "1.06",
+      "guts": "1",
+      "prejump": "4f",
+      "weight": "Light",
+      "backdashSpeed": "20f",
+      "backdashInvul": "5f",
       "bestReversal": "Ultimate Fortissimo",
-      "nJump": "?",
-      "fJump": "?",
-      "bJump": "?",
-      "fDash": "?",
-      "bDash": "?",
-      "bDashCHFrames": "?",
       "color": "#c0291a",
       "phrase": "Let's Rock!",
-      "fWalk": "?",
-      "bWalk": "?",
-      "fJumpDist": "?",
-      "bJumpDist": "?",
-      "fDashDist": "?",
-      "bDashDist": "?",
-      "throwHurt": "?",
-      "throwRange": "?",
       "threeLetterCode": "ino"
     }
   },
@@ -5269,7 +5213,7 @@
           "followUp": "x",
           "projectile": "x",
           "extraInfo": [
-            "Will not hit some <a href=\"/wiki/index.php?title=GGST/Ky_Kiske/Strategy#Misc.\" title=\"GGST/Ky Kiske/Strategy\">crouch blocking characters</a>, and most crouching characters."
+            "Will not hit some crouch blocking characters, and most crouching characters."
           ]
         },
         "Stand K": {
@@ -5447,7 +5391,7 @@
           "followUp": "x",
           "projectile": "x",
           "extraInfo": [
-            "1 frame faster low than <span class=\"text-color--2\">5K</span>."
+            "1 frame faster low than 5K."
           ]
         },
         "Crouch S": {
@@ -5472,8 +5416,8 @@
           "followUp": "x",
           "projectile": "x",
           "extraInfo": [
-            "Slightly longer range than <span class=\"text-color--3\">f.S</span>.",
-            "Unlike <span class=\"text-color--3\">f.S</span>, <span class=\"text-color--4\">5H</span>, and <span class=\"text-color--4\">6H</span>, the hurtbox starts retracting immediately during recovery, making it harder to whiff punish."
+            "Slightly longer range than f.S.",
+            "Unlike f.S, 5H, and 6H, the hurtbox starts retracting immediately during recovery, making it harder to whiff punish."
           ]
         },
         "Crouch H": {
@@ -5726,8 +5670,8 @@
           "extraInfo": [
             "Launches opponent away on hit.",
             "Wall bounces on hit in the corner.",
-            "Combos from <span class=\"text-color--2\">5K/2K</span> on crouching opponents.",
-            "Disjointed hitbox during the active frames, but a lingering 4f <i>Counter Hit</i> and shrinking over next 10f (non-CH) extended hurtbox during recovery."
+            "Combos from 5K/2K on crouching opponents.",
+            "Disjointed hitbox during the active frames, but a lingering 4f Counter Hit and shrinking over next 10f (non-CH) extended hurtbox during recovery."
           ]
         },
         "Throw": {
@@ -5853,7 +5797,13 @@
           "moveType": "special",
           "airmove": "x",
           "followUp": "x",
-          "projectile": "x"
+          "projectile": "x",
+          "extraInfo": [
+            "Applies Shock State to the opponent on contact.",
+            "[] values refer to hitting an opponent already in Shock State.",
+            "-2 when TK'd on stand block, +2 on crouch block (tested on Ky).",
+            "In Dragon Install, when TK'd, -1 on stand block, +3 on crouch block (tested on Ky)."
+          ]
         },
         "H Aerial Stun Edge": {
           "dustloopKey": "j.236H",
@@ -5876,7 +5826,13 @@
           "moveType": "special",
           "airmove": "x",
           "followUp": "x",
-          "projectile": "x"
+          "projectile": "x",
+          "extraInfo": [
+            "Applies Shock State to the opponent on contact.",
+            "[] values refer to hitting an opponent already in Shock State.",
+            "-2 when TK'd on stand block, +2 on crouch block (tested on Ky).",
+            "In Dragon Install, when TK'd, -1 on stand block, +3 on crouch block (tested on Ky)."
+          ]
         },
         "S Vapor Thrust": {
           "dustloopKey": "623S",
@@ -5899,7 +5855,12 @@
           "moveType": "special",
           "airmove": "x",
           "followUp": "x",
-          "projectile": "x"
+          "projectile": "x",
+          "extraInfo": [
+            "Removes Shock State from the opponent on contact",
+            "[] values refer to hitting an opponent in Shock State",
+            " version is Ky's highest damage meterless wallbreaker."
+          ]
         },
         "H Vapor Thrust": {
           "dustloopKey": "623H",
@@ -5922,7 +5883,12 @@
           "moveType": "special",
           "airmove": "x",
           "followUp": "x",
-          "projectile": "x"
+          "projectile": "x",
+          "extraInfo": [
+            "Removes Shock State from the opponent on contact",
+            "[] values refer to hitting an opponent in Shock State",
+            " version is Ky's highest damage meterless wallbreaker."
+          ]
         },
         "S Vapor Thrust (air)": {
           "dustloopKey": "j.623S",
@@ -6004,10 +5970,10 @@
           "plnCmd": "qcb+K",
           "numCmd": "214K",
           "movesList": "Special",
-          "startup": "27",
+          "startup": "24",
           "active": "11",
-          "recovery": "Until Landing + 8",
-          "total": null,
+          "recovery": "8",
+          "total": 42,
           "onHit": "+3~+10 [+8~+15]",
           "onBlock": "-1~+6 [+4~+11]",
           "damage": "40 [44]",
@@ -6022,7 +5988,8 @@
           "extraInfo": [
             "Removes Shock State from the opponent on contact",
             "[] values refer to hitting an opponent in Shock State",
-            "On-Block value ranges account for being more plus on block when striking later in its active frames (e.g. as a <span class=\"tooltip\">meaty<span class=\"tooltiptext\" style=\"\"></span></span>)",
+            "Hits standing opponents on frame 27, crouching opponents on frame 29",
+            "On-Block value ranges account for being more plus on block when striking later in its active frames (e.g. as a meaty)",
             "Forces opponent into crouching state on ground hit",
             "Will pass over crouching opponents if performed close to them"
           ]
@@ -6361,9 +6328,9 @@
           "cmnName": "DI Flipkick",
           "plnCmd": "DI qcb+K",
           "numCmd": "DI 214K",
-          "startup": "27",
-          "active": "11",
-          "recovery": "Until Landing + 8",
+          "startup": "24",
+          "active": "3,2,6",
+          "recovery": "8",
           "total": null,
           "onHit": "+9~14",
           "onBlock": "+6~+11",
@@ -6468,28 +6435,15 @@
       }
     },
     "stats": {
-      "health": 950,
-      "defense": "?",
-      "guts": "?",
-      "prejump": "?",
-      "weight": "?",
+      "defense": "1.00",
+      "guts": "2",
+      "prejump": "4",
+      "weight": "Normal",
+      "backdashSpeed": "20f",
+      "backdashInvul": "5f",
       "bestReversal": "Vapor Thrust",
-      "nJump": "?",
-      "fJump": "?",
-      "bJump": "?",
-      "fDash": "?",
-      "bDash": "?",
-      "bDashCHFrames": "?",
       "color": "#1979b7",
       "phrase": "The Roar of the Spark",
-      "fWalk": "?",
-      "bWalk": "?",
-      "fJumpDist": "?",
-      "bJumpDist": "?",
-      "fDashDist": "?",
-      "bDashDist": "?",
-      "throwHurt": "?",
-      "throwRange": "?",
       "threeLetterCode": "ky"
     }
   },
@@ -6519,7 +6473,7 @@
           "projectile": "x",
           "extraInfo": [
             "Leo's fastest normal.",
-            "Can cancel into itself and <span class=\"text-color--1\">2P</span> as well as gatling into <span class=\"text-color--1\">6P</span>, which is useful if your opponent blocks <span class=\"text-color--1\">5P</span> while in the air or to simply confirm into a combo."
+            "Can cancel into itself and 2P as well as gatling into 6P, which is useful if your opponent blocks 5P while in the air or to simply confirm into a combo."
           ]
         },
         "Stand K": {
@@ -6545,8 +6499,8 @@
           "projectile": "x",
           "extraInfo": [
             "Can be used as a pressure reset point to go into lighter/heavier buttons or a throw.",
-            "Decent combo tool. Gatling into <span class=\"text-color--2\">6K</span> into a special cancel for combos.",
-            "Gatlings into <span class=\"text-color--5\">5D</span>/<span class=\"text-color--5\">2D</span>/<span class=\"text-color--2\">6K</span>"
+            "Decent combo tool. Gatling into 6K into a special cancel for combos.",
+            "Gatlings into 5D/2D/6K"
           ]
         },
         "Close S": {
@@ -6599,9 +6553,9 @@
           "projectile": "x",
           "extraInfo": [
             "Propels the opponent very far on air hit, making it hard to use in juggles midscreen.",
-            "Hold <span class=\"text-color--3\">S</span> during recovery to enter Leo's guarding stance on frame 28.",
-            "Gatlings into <span class=\"text-color--4\">5H</span>, <span class=\"text-color--4\">6H</span>, and <span class=\"text-color--4\">2H</span>",
-            "Combos to <span class=\"text-color--4\">5H</span>, <span class=\"text-color--3\">236S</span>, and <span class=\"text-color--4\">632146H</span>"
+            "Hold S during recovery to enter Leo's guarding stance on frame 28.",
+            "Gatlings into 5H, 6H, and 2H",
+            "Combos to 5H, 236S, and 632146H"
           ]
         },
         "Stand H": {
@@ -6626,10 +6580,10 @@
           "followUp": "x",
           "projectile": "x",
           "extraInfo": [
-            "Reverse beats into <span class=\"text-color--3\">f.S</span> or <span class=\"text-color--3\">2S</span> for extended pressure.",
-            "Combos to 632146H, 236S, <span class=\"text-color--3\">f.S</span>, and <span class=\"text-color--3\">2S</span>",
+            "Reverse beats into f.S or 2S for extended pressure.",
+            "Combos to 632146H, 236S, f.S, and 2S",
             "Big counter-hit starter when canceled into 236H midscreen.",
-            "Hold [<span class=\"text-color--4\">H</span>] to enter Leo's guarding stance on frame 28."
+            "Hold [H] to enter Leo's guarding stance on frame 28."
           ]
         },
         "Stand D": {
@@ -6654,7 +6608,7 @@
           "followUp": "x",
           "projectile": "x",
           "extraInfo": [
-            "Can be gatlinged into from <span class=\"text-color--2\">5K</span>, <span class=\"text-color--2\">2K</span> or <span class=\"text-color--3\">c.S</span> for a high mixup."
+            "Can be gatlinged into from 5K, 2K or c.S for a high mixup."
           ]
         },
         "Crouch P": {
@@ -6702,7 +6656,7 @@
           "projectile": "x",
           "extraInfo": [
             "Leo's staple low for mixups.",
-            "Gatlings into <span class=\"text-color--5\">2D</span> or <span class=\"text-color--2\">6K</span> for combos and pressure, or <span class=\"text-color--5\">5D</span> for a high mixup on block."
+            "Gatlings into 2D or 6K for combos and pressure, or 5D for a high mixup on block."
           ]
         },
         "Crouch S": {
@@ -6727,9 +6681,9 @@
           "followUp": "x",
           "projectile": "x",
           "extraInfo": [
-            "Roughly the same range as <span class=\"text-color--2\">2K</span>.",
+            "Roughly the same range as 2K.",
             "One of Leo's only easy-access disjointed normals.",
-            "Floats mostly directly upward on air hit, allowing for the <span class=\"text-color--3\">2S</span> > <span class=\"text-color--4\">5H</span> loop in the corner."
+            "Floats mostly directly upward on air hit, allowing for the 2S > 5H loop in the corner."
           ]
         },
         "Crouch H": {
@@ -6755,7 +6709,7 @@
           "projectile": "x",
           "extraInfo": [
             "Has occasional use as a high risk, high reward anti-air.",
-            "Reverse beats into <span class=\"text-color--3\">f.S</span> and <span class=\"text-color--3\">2S</span>."
+            "Reverse beats into f.S and 2S."
           ]
         },
         "Crouch D": {
@@ -6930,9 +6884,9 @@
           "followUp": "x",
           "projectile": "x",
           "extraInfo": [
-            "Solid anti-air with upper-body invincibility. Can beat many <span class=\"text-color--3\">f.S</span> attacks, such as Sol's.",
-            "Combos from <span class=\"text-color--1\">5P</span> or <span class=\"text-color--1\">2P</span>, but has shoddy horizontal range. Generally Leo can only do a single jab before <span class=\"text-color--1\">6P</span>.",
-            "<span class=\"text-color--1\">6P</span> can hit behind Leo, but is hard to combo from when that happens."
+            "Solid anti-air with upper-body invincibility. Can beat many f.S attacks, such as Sol's.",
+            "Combos from 5P or 2P, but has shoddy horizontal range. Generally Leo can only do a single jab before 6P.",
+            "6P can hit behind Leo, but is hard to combo from when that happens."
           ]
         },
         "Forward K": {
@@ -6958,11 +6912,11 @@
           "followUp": "x",
           "projectile": "x",
           "extraInfo": [
-            "Very useful normal to combo into from <span class=\"text-color--2\">K</span> buttons.",
-            "Frametraps and combos from <span class=\"text-color--2\">5K</span> and <span class=\"text-color--2\">2K</span>. <span class=\"text-color--2\">2K</span>><span class=\"text-color--2\">6K</span>'s gap is throwable, but <span class=\"text-color--2\">5K</span>><span class=\"text-color--2\">6K</span> is not.",
-            "<span class=\"text-color--1\">5P</span> or <span class=\"text-color--1\">2P</span> > <span class=\"text-color--2\">6K</span> does not combo, but can be a useful frame trap.",
-            "Leo's in-game tutorial recommends <span class=\"text-color--2\">6K</span> as a poke due to its lower-recovery, but this needs to be looked into more before it can be recommended.",
-            "Gatlings into <span class=\"text-color--2\">6K</span> actually give you enough time to charge, letting you confirm into <span class=\"text-color--4\">H Eisen</span> for hard knockdown off your kicks! You can also cancel <span class=\"text-color--2\">6K</span> into <span class=\"text-color--3\">S fireball</span> for a safer special than <span class=\"text-color--3\">236S</span>."
+            "Very useful normal to combo into from K buttons.",
+            "Frametraps and combos from 5K and 2K. 2K>6K's gap is throwable, but 5K>6K is not.",
+            "5P or 2P > 6K does not combo, but can be a useful frame trap.",
+            "Leo's in-game tutorial recommends 6K as a poke due to its lower-recovery, but this needs to be looked into more before it can be recommended.",
+            "Gatlings into 6K actually give you enough time to charge, letting you confirm into H Eisen for hard knockdown off your kicks! You can also cancel 6K into S fireball for a safer special than 236S."
           ]
         },
         "Forward H": {
@@ -6991,13 +6945,13 @@
             "Strong combo tool, ground bounce on air hit"
           ]
         },
-        "[S/H] H/S": {
+        "[S or H] H or S": {
           "dustloopKey": "[s/h] h/s",
-          "moveName": "[S/H] H/S",
-          "cmnName": "[S/H] H/S",
-          "plnCmd": "[S/H] H/S",
-          "numCmd": "[S/H] H/S",
-          "movesList": "Target Combo",
+          "moveName": "[S or H] H or S",
+          "cmnName": "[S or H] H or S",
+          "plnCmd": "[S or H] H or S",
+          "numCmd": "[S or H] H or S",
+          "movesList": "Stance",
           "startup": "10",
           "active": "3",
           "recovery": "20",
@@ -7079,7 +7033,12 @@
           "moveType": "special",
           "airmove": "x",
           "followUp": "x",
-          "projectile": "x"
+          "projectile": "x",
+          "extraInfo": [
+            "S version hits twice and travels about 3/4 of the screen.",
+            "H version hits four times and travels one screen length before dissipating.",
+            "Leo is in counterhit state for the recovery."
+          ]
         },
         "H Graviert Wurde": {
           "dustloopKey": "[4]6H",
@@ -7102,7 +7061,12 @@
           "moveType": "special",
           "airmove": "x",
           "followUp": "x",
-          "projectile": "x"
+          "projectile": "x",
+          "extraInfo": [
+            "S version hits twice and travels about 3/4 of the screen.",
+            "H version hits four times and travels one screen length before dissipating.",
+            "Leo is in counterhit state for the recovery."
+          ]
         },
         "S Eisen Sturm": {
           "dustloopKey": "[2]8S",
@@ -7125,7 +7089,10 @@
           "moveType": "special",
           "airmove": "x",
           "followUp": "x",
-          "projectile": "x"
+          "projectile": "x",
+          "extraInfo": [
+            "H version has an additional hit that spikes the opponent to the ground."
+          ]
         },
         "H Eisen Sturm": {
           "dustloopKey": "[2]8H",
@@ -7148,7 +7115,10 @@
           "moveType": "special",
           "airmove": "x",
           "followUp": "x",
-          "projectile": "x"
+          "projectile": "x",
+          "extraInfo": [
+            "H version has an additional hit that spikes the opponent to the ground."
+          ]
         },
         "Kaltes Gestöber Erst": {
           "dustloopKey": "236S",
@@ -7367,6 +7337,7 @@
           "extraInfo": [
             "Leo's only defensive option from backturn.",
             "Catches strikes and reflects projectiles.",
+            "At close range, instead of reflecting projectiles, the normal riposte will trigger as if you caught a strike.",
             "At range, attacks will be deflected off the shield and stagger the opponent, but won't guarantee damage."
           ]
         },
@@ -7506,28 +7477,15 @@
       }
     },
     "stats": {
-      "health": 950,
-      "defense": "?",
-      "guts": "?",
-      "prejump": "?",
-      "weight": "?",
+      "defense": "1.00",
+      "guts": "3",
+      "prejump": "4f",
+      "weight": "Heavy",
+      "backdashSpeed": "20f",
+      "backdashInvul": "5f",
       "bestReversal": "H Eisen Sturm",
-      "nJump": "?",
-      "fJump": "?",
-      "bJump": "?",
-      "fDash": "?",
-      "bDash": "?",
-      "bDashCHFrames": "?",
       "color": "#d2ac5d",
       "phrase": "\"Genius\"",
-      "fWalk": "?",
-      "bWalk": "?",
-      "fJumpDist": "?",
-      "bJumpDist": "?",
-      "fDashDist": "?",
-      "bDashDist": "?",
-      "throwHurt": "?",
-      "throwRange": "?",
       "threeLetterCode": "leo"
     }
   },
@@ -7607,7 +7565,7 @@
             "Floats on air hit",
             "Jump and dash cancellable",
             "Dash cancel is -6 frames on block",
-            "<span class=\"text-color--3\">c.S</span> > <span class=\"text-color--4\">6H</span> can be used as 3f frametrap or pressure reset"
+            "c.S > 6H can be used as 3f frametrap or pressure reset"
           ]
         },
         "Far S": {
@@ -7945,7 +7903,7 @@
             "Soft knockdown on hit",
             "Hard knockdown on counterhit",
             "Wall-bounces on hit",
-            "<span class=\"text-color--1\">6P</span> can be used as frametrap after <span class=\"text-color--1\">5P</span>, <span class=\"text-color--1\">2P</span>, <span class=\"text-color--2\">5K</span>, <span class=\"text-color--2\">2K</span> without delay"
+            "6P can be used as frametrap after 5P, 2P, 5K, 2K without delay"
           ]
         },
         "Forward K": {
@@ -8118,7 +8076,11 @@
           "moveType": "special",
           "airmove": "x",
           "followUp": "x",
-          "projectile": "x"
+          "projectile": "x",
+          "extraInfo": [
+            "Staggers on grounded counterhit",
+            "(HS only) Wall-bounces on air hit"
+          ]
         },
         "H Mr. Dolphin Horizontal": {
           "dustloopKey": "[4]6H",
@@ -8141,7 +8103,11 @@
           "moveType": "special",
           "airmove": "x",
           "followUp": "x",
-          "projectile": "x"
+          "projectile": "x",
+          "extraInfo": [
+            "Staggers on grounded counterhit",
+            "(HS only) Wall-bounces on air hit"
+          ]
         },
         "S Mr. Dolphin Vertical": {
           "dustloopKey": "[2]8S",
@@ -8164,7 +8130,11 @@
           "moveType": "special",
           "airmove": "x",
           "followUp": "x",
-          "projectile": "x"
+          "projectile": "x",
+          "extraInfo": [
+            "(Ascending only) Hard knockdown on hit.",
+            "Hard knockdown on air hit"
+          ]
         },
         "H Mr. Dolphin Vertical": {
           "dustloopKey": "[2]8H",
@@ -8187,7 +8157,11 @@
           "moveType": "special",
           "airmove": "x",
           "followUp": "x",
-          "projectile": "x"
+          "projectile": "x",
+          "extraInfo": [
+            "(Ascending only) Hard knockdown on hit.",
+            "Hard knockdown on air hit"
+          ]
         },
         "Overhead Kiss": {
           "dustloopKey": "623K",
@@ -8238,7 +8212,11 @@
           "moveType": "special",
           "airmove": "x",
           "followUp": "x",
-          "projectile": "x"
+          "projectile": "x",
+          "extraInfo": [
+            "The opponent can destroy the ball by hitting it with an attack.",
+            "After destroying the ball, the opponents attack will still be active, and they can cancel their move like normally."
+          ]
         },
         "K Arisugawa Sparkle": {
           "dustloopKey": "214K",
@@ -8261,7 +8239,11 @@
           "moveType": "special",
           "airmove": "x",
           "followUp": "x",
-          "projectile": "x"
+          "projectile": "x",
+          "extraInfo": [
+            "The opponent can destroy the ball by hitting it with an attack.",
+            "After destroying the ball, the opponents attack will still be active, and they can cancel their move like normally."
+          ]
         },
         "Great Yamada Attack": {
           "dustloopKey": "236236S",
@@ -8343,28 +8325,15 @@
       }
     },
     "stats": {
-      "health": 950,
-      "defense": "?",
-      "guts": "?",
-      "prejump": "?",
-      "weight": "?",
+      "defense": "1.06",
+      "guts": "4",
+      "prejump": "4",
+      "weight": "Light",
+      "backdashSpeed": "16f",
+      "backdashInvul": "4f",
       "bestReversal": "Goshogawara",
-      "nJump": "?",
-      "fJump": "?",
-      "bJump": "?",
-      "fDash": "?",
-      "bDash": "?",
-      "bDashCHFrames": "?",
       "color": "#e8801f",
       "phrase": "Totsugeki!",
-      "fWalk": "?",
-      "bWalk": "?",
-      "fJumpDist": "?",
-      "bJumpDist": "?",
-      "fDashDist": "?",
-      "bDashDist": "?",
-      "throwHurt": "?",
-      "throwRange": "?",
       "threeLetterCode": "may"
     }
   },
@@ -8848,9 +8817,35 @@
           "followUp": "x",
           "projectile": "x"
         },
-        "Tandem Top": {
+        "S Tandem Top": {
+          "dustloopKey": "236S",
+          "moveName": "S Tandem Top",
+          "cmnName": "S Disc",
+          "plnCmd": "qcf+S",
+          "numCmd": "236S",
+          "movesList": "Special",
+          "startup": "15",
+          "active": "14",
+          "recovery": "Total 48",
+          "total": null,
+          "onHit": "D",
+          "onBlock": "-14",
+          "damage": "35",
+          "attackLevel": "All",
+          "cancelsTo": [],
+          "prorate": "Initial 78%",
+          "riscGain": "",
+          "moveType": "special",
+          "airmove": "x",
+          "followUp": "x",
+          "projectile": "x",
+          "extraInfo": [
+            "Decent poke in neutral. Due to how it moves forward, it can be used for a confirm out of f.S > 5H too. Can link with anything less than 8 frames in the corner if hit meaty."
+          ]
+        },
+        "H Tandem Top": {
           "dustloopKey": "236H",
-          "moveName": "Tandem Top",
+          "moveName": "H Tandem Top",
           "cmnName": "H Disc",
           "plnCmd": "qcf+H",
           "numCmd": "236H",
@@ -9090,27 +9085,15 @@
       }
     },
     "stats": {
-      "health": 950,
-      "defense": "?",
-      "guts": "?",
-      "prejump": "?",
-      "weight": "?",
+      "defense": "1.18",
+      "guts": "2",
+      "prejump": "4",
+      "weight": "Light",
+      "backdashSpeed": "16f",
+      "backdashInvul": "4f",
       "bestReversal": "Winger",
-      "nJump": "?",
-      "fJump": "?",
-      "bJump": "?",
-      "fDash": "?",
-      "bDash": "?",
-      "bDashCHFrames": "?",
       "color": "#a98f52",
-      "fWalk": "?",
-      "bWalk": "?",
-      "fJumpDist": "?",
-      "bJumpDist": "?",
-      "fDashDist": "?",
-      "bDashDist": "?",
-      "throwHurt": "?",
-      "throwRange": "?",
+      "phrase": "\"Bottom 3\" - Millia Twitter",
       "threeLetterCode": "mil"
     }
   },
@@ -9166,7 +9149,7 @@
           "projectile": "x",
           "extraInfo": [
             "Amazing poke for its speed.",
-            "On hit, gatling <span class=\"text-color--4\">6H</span> combos at 1 blood bar or higher.",
+            "On hit, gatling 6H combos at 1 blood bar or higher.",
             "Initial Proration for combo : 90%"
           ]
         },
@@ -9193,7 +9176,7 @@
           "projectile": "x",
           "extraInfo": [
             "Does not interact with the Blood Gauge in any way.",
-            "On hit, gatlings <span class=\"text-color--4\">5H</span>, <span class=\"text-color--4\">2H</span> and <span class=\"text-color--4\">6H</span> combo at any Blood Gauge level. On block, gatlings <span class=\"text-color--4\">6H</span> and <span class=\"text-color--3\">2S</span> are a true blockstring at any Blood Gauge level and <span class=\"text-color--4\">5H</span> and <span class=\"text-color--4\">2H</span> are a true blockstring at more than 1 blood bar or more."
+            "On hit, gatlings 5H, 2H and 6H combo at any Blood Gauge level. On block, gatlings 6H and 2S are a true blockstring at any Blood Gauge level and 5H and 2H are a true blockstring at more than 1 blood bar or more."
           ]
         },
         "Far S": {
@@ -9219,12 +9202,12 @@
           "projectile": "x",
           "extraInfo": [
             "One of Nagoriyuki's biggest pokes.",
-            "Has follow-ups if you keep pressing <img alt=\"GGST S Prompt.png\" src=\"/wiki/images/thumb/f/fd/GGST_S_Prompt.png/22px-GGST_S_Prompt.png\" decoding=\"async\" width=\"22\" height=\"22\" srcset=\"/wiki/images/thumb/f/fd/GGST_S_Prompt.png/33px-GGST_S_Prompt.png 1.5x, /wiki/images/thumb/f/fd/GGST_S_Prompt.png/44px-GGST_S_Prompt.png 2x\" />.",
+            "Has follow-ups if you keep pressing .",
             "Last follow-up knocks down.",
-            "<span class=\"text-color--3\">f.S</span> and <span class=\"text-color--3\">f.SS</span> decreases Blood Gauge on hit (-7.2/300).",
-            "Final hit of <span class=\"text-color--3\">f.SSS</span> decreases Blood Gauge on hit/block (OH -57.6/300, OB -7.2/300).",
-            "Total Blood Gauge recovery for the full <span class=\"text-color--3\">f.SSS</span> on hit is (-72/300) and the reduction applies as 3 separate instances each lasting 6 seconds.",
-            "Gatling <span class=\"text-color--3\">f.S</span> into <span class=\"text-color--4\">5H</span> or <span class=\"text-color--4\">2H</span> will combo only at 2 or more bars of Blood Gauge.",
+            "f.S and f.SS decreases Blood Gauge on hit (-7.2/300).",
+            "Final hit of f.SSS decreases Blood Gauge on hit/block (OH -57.6/300, OB -7.2/300).",
+            "Total Blood Gauge recovery for the full f.SSS on hit is (-72/300) and the reduction applies as 3 separate instances each lasting 6 seconds.",
+            "Gatling f.S into 5H or 2H will combo only at 2 or more bars of Blood Gauge.",
             "Initial Proration for combo : 90%"
           ]
         },
@@ -9326,7 +9309,7 @@
           "projectile": "x",
           "extraInfo": [
             "Does not reduce Blood Gauge on hit or block.",
-            "<span class=\"text-color--3\">j.S</span>, <span class=\"text-color--4\">j.HS</span>, and <span class=\"text-color--5\">j.D</span> follow ups after the launch recover the Blood Gauge like normal.",
+            "j.S, j.HS, and j.D follow ups after the launch recover the Blood Gauge like normal.",
             "Initial Proration for combo : 80%"
           ]
         },
@@ -9404,7 +9387,7 @@
           "extraInfo": [
             "Decreases Blood Gauge on hit (-7.2/300).",
             "Blood Gauge reduction applies over 6 seconds.",
-            "On hit, gatling <span class=\"text-color--4\">5H</span>  combos at 2 blood bars or higher.",
+            "On hit, gatling 5H  combos at 2 blood bars or higher.",
             "Initial Proration for combo : 90%"
           ]
         },
@@ -9508,7 +9491,7 @@
           "followUp": "x",
           "projectile": "x",
           "extraInfo": [
-            "Has a cross-up hitbox, which can be utilized very well by doing <span class=\"text-color--4\">j.HS</span> paired with drift RC",
+            "Has a cross-up hitbox, which can be utilized very well by doing j.HS paired with drift RC",
             "Initial Proration for combo : 80%"
           ]
         },
@@ -9648,7 +9631,7 @@
           "extraInfo": [
             "Initial Proration for combo : 90%",
             "Pulls back lower hurt box on frame 3 up until the first active frame",
-            "Ground bounces on air hit, such as after <span class=\"text-color--3\">c.S</span>"
+            "Ground bounces on air hit, such as after c.S"
           ]
         },
         "Forward H": {
@@ -9724,7 +9707,7 @@
           "followUp": "x",
           "projectile": "x",
           "extraInfo": [
-            "Useful tool to stop air approaches. Leads into OTG <span class=\"text-color--4\">6H</span>.",
+            "Useful tool to stop air approaches. Leads into OTG 6H.",
             "Forced prorate for combo : 50%"
           ]
         },
@@ -9934,28 +9917,15 @@
       }
     },
     "stats": {
-      "health": 950,
-      "defense": "?",
-      "guts": "?",
-      "prejump": "?",
-      "weight": "?",
+      "defense": "0.96",
+      "guts": "4",
+      "prejump": "5f,[high jump 10f]",
+      "weight": "Heavy",
+      "backdashSpeed": "23f",
+      "backdashInvul": "6f",
       "bestReversal": "Wasureyuki",
-      "nJump": "?",
-      "fJump": "?",
-      "bJump": "?",
-      "fDash": "?",
-      "bDash": "?",
-      "bDashCHFrames": "?",
       "color": "#bbc2c3",
       "phrase": "Blood Rage",
-      "fWalk": "?",
-      "bWalk": "?",
-      "fJumpDist": "?",
-      "bJumpDist": "?",
-      "fDashDist": "?",
-      "bDashDist": "?",
-      "throwHurt": "?",
-      "throwRange": "?",
       "threeLetterCode": "nag"
     }
   },
@@ -9984,7 +9954,7 @@
           "followUp": "x",
           "projectile": "x",
           "extraInfo": [
-            "v class=\"mw-parser-output\"><h3><span class=\"mw-headline\" id=\"5P\"><big><span class=\"text-color--1\">5P</span></big></span><span class=\"mw-editsection\"><span class=\"mw-editsection-bracket\">[</span><a href=\"/wiki/index.php?title=GGST/Potemkin&action=edit&section=1\" title=\"Edit section: 5P\">edit</a><span class=\"mw-editsection-bracket\">]</span></span></h3><div class=\"attack-container\"><div class=\"attack-gallery\"><div id=\"tabber-b1116df7f2145ae6c254d5e0a6eb9670\" class=\"tabber\">\t\t\t<div class=\"tabbertab\" title=\"Images \">\t\t\t\t<p class=\"mw-empty-elt\"> </p><ul class=\"gallery mw-gallery-nolines\">\t\t<li class=\"gallerybox\" style=\"width: 215px\"><div style=\"width: 215px\">\t\t\t<div class=\"thumb\" style=\"width: 210px;\"><div style=\"margin:0px auto;\"><a href=\"/wiki/index.php?title=File:GGST_Potemkin_5P.png\" class=\"image\"><img alt=\"\" src=\"/wiki/images/thumb/7/71/GGST_Potemkin_5P.png/210px-GGST_Potemkin_5P.png\" decoding=\"async\" width=\"210\" height=\"202\" srcset=\"/wiki/images/thumb/7/71/GGST_Potemkin_5P.png/315px-GGST_Potemkin_5P.png 1.5x, /wiki/images/thumb/7/71/GGST_Potemkin_5P.png/420px-GGST_Potemkin_5P.png 2x\" /></a></div></div>\t\t\t<div class=\"gallerytext\"><p><a rel=\"nofollow\" class=\"external text\" href=\"https://www.youtube.com/watch?v=HRO0RHH6E5g\">Anti-air</a></p>\t\t\t</div>\t\t</div></ul><p class=\"mw-empty-elt\"></p>\t\t\t</div>\t\t\t<div class=\"tabbertab\" title=\"Hitboxes \">\t\t\t\t<p class=\"mw-empty-elt\"> </p><ul class=\"gallery mw-gallery-nolines\">\t\t<li class=\"gallerybox\" style=\"width: 215px\"><div style=\"width: 215px\">\t\t\t<div class=\"thumb\" style=\"width: 210px;\"><div style=\"margin:0px auto;\"><a href=\"/wiki/index.php?title=File:GGST_Potemkin_5P_Hitbox.png\" class=\"image\"><img alt=\"GGST Potemkin 5P Hitbox.png\" src=\"/wiki/images/thumb/a/a7/GGST_Potemkin_5P_Hitbox.png/210px-GGST_Potemkin_5P_Hitbox.png\" decoding=\"async\" width=\"210\" height=\"202\" srcset=\"/wiki/images/thumb/a/a7/GGST_Potemkin_5P_Hitbox.png/315px-GGST_Potemkin_5P_Hitbox.png 1.5x, /wiki/images/thumb/a/a7/GGST_Potemkin_5P_Hitbox.png/420px-GGST_Potemkin_5P_Hitbox.png 2x\" /></a></div></div>\t\t\t<div class=\"gallerytext\">\t\t\t</div>\t\t</div></ul><p class=\"mw-empty-elt\"></p>\t\t\t</div></div></div><div class=\"attack-info\"><table class=\"wikitable attack-data\"><tbody><tr><th>Damage</th><th><a href=\"/wiki/index.php?title=GGST/Defense#Blocking\" title=\"GGST/Defense\"><span class=\"tooltip\">Guard<span class=\"tooltiptext\" style=\"\">How this attack can be blocked. Throws have their throw range listed instead.</span></span></a></th><th><a href=\"/wiki/index.php?title=Glossary#Frame_Data_Related_Terms\" title=\"Glossary\"><span class=\"tooltip\">Startup<span class=\"tooltiptext\" style=\"\">The number of frames between inputting an attack and when the attack becomes active. Includes first active frame.</span></span></a></th><th><a href=\"/wiki/index.php?title=Glossary#Frame_Data_Related_Terms\" title=\"Glossary\"><span class=\"tooltip\">Active<span class=\"tooltiptext\" style=\"\">The number of frames for which a move has hitboxes. Occurs after Startup.</span></span></a></th><th><a href=\"/wiki/index.php?title=Glossary#Frame_Data_Related_Terms\" title=\"Glossary\"><span class=\"tooltip\">Recovery<span class=\"tooltiptext\" style=\"\">The number of frames after a move's active frames during which the character cannot act assuming the move is not canceled.</span></span></a></th><th><a href=\"/wiki/index.php?title=Glossary#Frame_Data_Related_Terms\" title=\"Glossary\"><span class=\"tooltip\">On-Block<span class=\"tooltiptext\" style=\"\">The difference between the attacker's recovery and the period that the opponent is in blockstun. This Frame Advantage value is based off the fact that the very first active frame touches the opponent. Throws list the amount of Frame Advantage upon successfully throwing the opponent.</span></span></a></th><th><a href=\"/wiki/index.php?title=GGST/Attack_Attributes\" title=\"GGST/Attack Attributes\">Invuln</a></th></tr><tr><td height=\"25px\">30</td><td>All</td><td>5</td><td>5</td><td>6</td><td>+1</td><td>-</td></tr></tbody></table><h4><span class=\"mw-headline\" id=\"\"></span><span class=\"mw-editsection\"><span class=\"mw-editsection-bracket\">[</span><a href=\"/wiki/index.php?title=GGST/Potemkin&action=edit&section=2\" title=\"Edit section: \">edit</a><span class=\"mw-editsection-bracket\">]</span></span></h4><p>Since this is Potemkin's fastest normal, it is inherently useful in some cases where its speed is needed. It is large for its speed, and can be used as a quick anti-air or short-ranged poke. </p><p>Whiffs on crouching opponents, just like Xrd.</p><ul><li class=\"mw-empty-elt\">"
+            "v class=\"mw-parser-output\">5P[edit]\t\t\t\t\t\t\t \t\t\t\t\t\t\t\tAnti-air\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tDamageGuardHow this attack can be blocked. Throws have their throw range listed instead.StartupThe number of frames between inputting an attack and when the attack becomes active. Includes first active frame.ActiveThe number of frames for which a move has hitboxes. Occurs after Startup.RecoveryThe number of frames after a move's active frames during which the character cannot act assuming the move is not canceled.On-BlockThe difference between the attacker's recovery and the period that the opponent is in blockstun. This Frame Advantage value is based off the fact that the very first active frame touches the opponent. Throws list the amount of Frame Advantage upon successfully throwing the opponent.Invuln30All556+1-[edit]Since this is Potemkin's fastest normal, it is inherently useful in some cases where its speed is needed. It is large for its speed, and can be used as a quick anti-air or short-ranged poke. Whiffs on crouching opponents, just like Xrd."
           ]
         },
         "Stand K": {
@@ -10530,7 +10500,7 @@
           "projectile": "x",
           "extraInfo": [
             "Automatic Wall Break in the corner",
-            "If blocked, opponent has landing recovery frames cancelled and can immediately act upon landing<ul>",
+            "If blocked, opponent has landing recovery frames cancelled and can immediately act upon landing",
             "Potbuster is no longer guaranteed at certain heights",
             "A c.S or 5K can check an attempt to jump a PB attempt after blocked Heat Knuckle"
           ]
@@ -10559,7 +10529,7 @@
           "extraInfo": [
             "Punishable on block, but can be safe at longer ranges due to its pushback.",
             "If spaced such that it hits the opponent's toes, it's less disadvantageous on block and hit.",
-            "The <a href=\"/wiki/index.php?title=Kara_Cancel\" title=\"Kara Cancel\">kara</a> version (236K~P) travels a much greater distance. Closes the gap on zoners quickly and is safer than Hammer Fall if blocked."
+            "The kara version (236K~P) travels a much greater distance. Closes the gap on zoners quickly and is safer than Hammer Fall if blocked."
           ]
         },
         "Back Mega Fist": {
@@ -10682,9 +10652,9 @@
           "followUp": "x",
           "projectile": "x",
           "extraInfo": [
-            "Can be made DP safe by spacing it properly to make reversal DP whiff for a counterhit starter combo.<ul>",
+            "Can be made DP safe by spacing it properly to make reversal DP whiff for a counterhit starter combo.",
             "Beats reversal backdash too.",
-            "Some reversal Supers can beat Garuda oki however."
+            "Some reversal Overdrives can beat Garuda oki however."
           ]
         },
         "Heavenly Potemkin Buster": {
@@ -10746,28 +10716,15 @@
       }
     },
     "stats": {
-      "health": 950,
-      "defense": "?",
-      "guts": "?",
-      "prejump": "?",
-      "weight": "?",
+      "defense": "0.93",
+      "guts": "3",
+      "prejump": "5f",
+      "weight": "Heavy",
+      "backdashSpeed": "24f",
+      "backdashInvul": "6f",
       "bestReversal": "Giganter Kai",
-      "nJump": "?",
-      "fJump": "?",
-      "bJump": "?",
-      "fDash": "?",
-      "bDash": "?",
-      "bDashCHFrames": "?",
       "color": "#474f2d",
       "phrase": "BUSTAAA",
-      "fWalk": "?",
-      "bWalk": "?",
-      "fJumpDist": "?",
-      "bJumpDist": "?",
-      "fDashDist": "?",
-      "bDashDist": "?",
-      "throwHurt": "?",
-      "throwRange": "?",
       "threeLetterCode": "pot"
     }
   },
@@ -10797,7 +10754,7 @@
           "projectile": "x",
           "extraInfo": [
             "Tall hitbox makes this a good anti-air in a pinch.",
-            "Can link into <span class=\"text-color--2\">5K</span> in juggles."
+            "Can link into 5K in juggles."
           ]
         },
         "Stand K": {
@@ -10822,8 +10779,8 @@
           "followUp": "x",
           "projectile": "x",
           "extraInfo": [
-            "Good midrange poke for when the opponent is too close for <span class=\"text-color--3\">f.S</span> or <span class=\"text-color--4\">5H</span>.",
-            "Combos into <span class=\"text-color--5\">2D</span>, but not at max range."
+            "Good midrange poke for when the opponent is too close for f.S or 5H.",
+            "Combos into 2D, but not at max range."
           ]
         },
         "Close S": {
@@ -10873,8 +10830,8 @@
           "followUp": "x",
           "projectile": "x",
           "extraInfo": [
-            "Data in [] refers to when <span class=\"text-color--3\">S</span> sword is unequipped.",
-            "Amazing normal. The gatling into <span class=\"text-color--4\">5H</span> is the icing on the cake.",
+            "Data in [] refers to when S sword is unequipped.",
+            "Amazing normal. The gatling into 5H is the icing on the cake.",
             "Difficult to whiff punish."
           ]
         },
@@ -10900,8 +10857,8 @@
           "followUp": "x",
           "projectile": "x",
           "extraInfo": [
-            "If <span class=\"text-color--4\">H</span> sword equipped then can be used as frametrap before <span class=\"text-color--1\">214P</span>, <span class=\"text-color--3\">236S</span> and <span class=\"text-color--4\">236H</span> without delay.",
-            "Data in [] refers to when <span class=\"text-color--4\">H</span> sword is unequipped.",
+            "If H sword equipped then can be used as frametrap before 214P, 236S and 236H without delay.",
+            "Data in [] refers to when H sword is unequipped.",
             "Not as good as its cousin, but another excellent normal."
           ]
         },
@@ -10927,7 +10884,7 @@
           "followUp": "x",
           "projectile": "x",
           "extraInfo": [
-            "Hold <span class=\"text-color--5\">D</span> to charge.",
+            "Hold D to charge.",
             "Deals more damage and launches opponent on hit when fully charged.",
             "Homing jump cancelable on hit against grounded opponents when fully charged.",
             "Homing jump cancel forces an Area Shift."
@@ -10955,7 +10912,7 @@
           "followUp": "x",
           "projectile": "x",
           "extraInfo": [
-            "One frame slower than <span class=\"text-color--1\">5P</span>."
+            "One frame slower than 5P."
           ]
         },
         "Crouch K": {
@@ -10981,7 +10938,7 @@
           "projectile": "x",
           "extraInfo": [
             "Ramlethal's fastest low.",
-            "Worse starter than <span class=\"text-color--2\">5K</span>, some combos that start from <span class=\"text-color--2\">5K</span> will not work from <span class=\"text-color--2\">2K</span>."
+            "Worse starter than 5K, some combos that start from 5K will not work from 2K."
           ]
         },
         "Crouch S": {
@@ -11006,7 +10963,7 @@
           "followUp": "x",
           "projectile": "x",
           "extraInfo": [
-            "Data in [] refers to when <span class=\"text-color--3\">S</span> sword is unequipped."
+            "Data in [] refers to when S sword is unequipped."
           ]
         },
         "Crouch H": {
@@ -11031,8 +10988,8 @@
           "followUp": "x",
           "projectile": "x",
           "extraInfo": [
-            "If <span class=\"text-color--4\">H</span> sword equipped then can be used as frametrap before <span class=\"text-color--1\">214P</span>, <span class=\"text-color--3\">236S</span> and <span class=\"text-color--4\">236H</span> without delay.",
-            "Data in [] refers to when <span class=\"text-color--4\">H</span> sword is unequipped.",
+            "If H sword equipped then can be used as frametrap before 214P, 236S and 236H without delay.",
+            "Data in [] refers to when H sword is unequipped.",
             "Launches on hit."
           ]
         },
@@ -11134,7 +11091,7 @@
           "followUp": "x",
           "projectile": "x",
           "extraInfo": [
-            "Data in [] refers to when <span class=\"text-color--3\">S</span> sword is unequipped.",
+            "Data in [] refers to when S sword is unequipped.",
             "Long range air-to-air."
           ]
         },
@@ -11160,7 +11117,7 @@
           "followUp": "x",
           "projectile": "x",
           "extraInfo": [
-            "Data in [] refers to when <span class=\"text-color--4\">H</span> sword is unequipped.",
+            "Data in [] refers to when H sword is unequipped.",
             "Jump in of the gods."
           ]
         },
@@ -11238,9 +11195,9 @@
           "followUp": "x",
           "projectile": "x",
           "extraInfo": [
-            "Can be used as frametrap after <span class=\"text-color--3\">c.S</span> without delay.",
-            "If <span class=\"text-color--4\">H</span> sword equipped then can be used as frametrap before <span class=\"text-color--1\">214P</span>, <span class=\"text-color--3\">236S</span> and <span class=\"text-color--4\">236H</span> without delay.",
-            "Data in [] refers to when <span class=\"text-color--4\">H</span> sword is unequipped.",
+            "Can be used as frametrap after c.S without delay.",
+            "If H sword equipped then can be used as frametrap before 214P, 236S and 236H without delay.",
+            "Data in [] refers to when H sword is unequipped.",
             "Launches away on hit, wallbounces in the corner."
           ]
         },
@@ -11309,7 +11266,16 @@
           "moveType": "special",
           "airmove": "x",
           "followUp": "x",
-          "projectile": "x"
+          "projectile": "x",
+          "extraInfo": [
+            "Using Bajoneto means the corresponding sword will be launched.",
+            "Launched swords will have a delay before they can be used again.",
+            "Launched swords can also be picked up to shorten their downtime.",
+            "Attempting to launch a sword that has already been launched will result in a whiff animation.",
+            "S sword is the top one, H sword is the bottom.",
+            "Both versions of explode can be beaten with 6P or any other low-profile move, if timed properly.",
+            "Due to the fact that near the corner the swords are driven deeper into the wall - the hitbox of the explosion becomes less wide."
+          ]
         },
         "H Bajoneto": {
           "dustloopKey": "236H",
@@ -11332,7 +11298,16 @@
           "moveType": "special",
           "airmove": "x",
           "followUp": "x",
-          "projectile": "x"
+          "projectile": "x",
+          "extraInfo": [
+            "Using Bajoneto means the corresponding sword will be launched.",
+            "Launched swords will have a delay before they can be used again.",
+            "Launched swords can also be picked up to shorten their downtime.",
+            "Attempting to launch a sword that has already been launched will result in a whiff animation.",
+            "S sword is the top one, H sword is the bottom.",
+            "Both versions of explode can be beaten with 6P or any other low-profile move, if timed properly.",
+            "Due to the fact that near the corner the swords are driven deeper into the wall - the hitbox of the explosion becomes less wide."
+          ]
         },
         "Dauro": {
           "dustloopKey": "623P",
@@ -11586,28 +11561,15 @@
       }
     },
     "stats": {
-      "health": 950,
-      "defense": "?",
-      "guts": "?",
-      "prejump": "?",
-      "weight": "?",
+      "defense": "1.06",
+      "guts": "1",
+      "prejump": "4f",
+      "weight": "Light",
+      "backdashSpeed": "20f",
+      "backdashInvul": "5f",
       "bestReversal": "Mortobato",
-      "nJump": "?",
-      "fJump": "?",
-      "bJump": "?",
-      "fDash": "?",
-      "bDash": "?",
-      "bDashCHFrames": "?",
       "color": "#e6e4de",
       "phrase": "Sword Neutral",
-      "fWalk": "?",
-      "bWalk": "?",
-      "fJumpDist": "?",
-      "bJumpDist": "?",
-      "fDashDist": "?",
-      "bDashDist": "?",
-      "throwHurt": "?",
-      "throwRange": "?",
       "threeLetterCode": "ram"
     }
   },
@@ -12213,7 +12175,14 @@
           "moveType": "special",
           "airmove": "x",
           "followUp": "x",
-          "projectile": "x"
+          "projectile": "x",
+          "extraInfo": [
+            "Strike invincible during start-up.",
+            "Launches opponent on hit.",
+            "Crouching state recovery.",
+            "Counter state recovery.",
+            "Cannot be PRC'd on whiff."
+          ]
         },
         "H Volcanic Viper": {
           "dustloopKey": "623H",
@@ -12236,7 +12205,14 @@
           "moveType": "special",
           "airmove": "x",
           "followUp": "x",
-          "projectile": "x"
+          "projectile": "x",
+          "extraInfo": [
+            "Strike invincible during start-up.",
+            "Launches opponent on hit.",
+            "Crouching state recovery.",
+            "Counter state recovery.",
+            "Cannot be PRC'd on whiff."
+          ]
         },
         "S Air Volcanic Viper": {
           "dustloopKey": "j.623S",
@@ -12527,28 +12503,15 @@
       }
     },
     "stats": {
-      "health": 950,
-      "defense": "?",
-      "guts": "?",
-      "prejump": "?",
-      "weight": "?",
+      "defense": "0.98",
+      "guts": "2",
+      "prejump": "4",
+      "weight": "Normal",
+      "backdashSpeed": "20f",
+      "backdashInvul": "5f",
       "bestReversal": "S Volcanic Viper",
-      "nJump": "?",
-      "fJump": "?",
-      "bJump": "?",
-      "fDash": "?",
-      "bDash": "?",
-      "bDashCHFrames": "?",
       "color": "#ca614c",
       "phrase": "Smell of the Game",
-      "fWalk": "?",
-      "bWalk": "?",
-      "fJumpDist": "?",
-      "bJumpDist": "?",
-      "fDashDist": "?",
-      "bDashDist": "?",
-      "throwHurt": "?",
-      "throwRange": "?",
       "threeLetterCode": "sol"
     }
   },
@@ -12577,7 +12540,7 @@
           "followUp": "x",
           "projectile": "x",
           "extraInfo": [
-            "<a href=\"/wiki/index.php?title=GGST/Zato-1/Frame_Data#Gatling_Table\" title=\"GGST/Zato-1/Frame Data\">Gatling Options:</a> <span class=\"text-color--1\">5P</span>, <span class=\"text-color--1\">2P</span>, <span class=\"text-color--1\">6P</span>, <span class=\"text-color--2\">6K</span>, <span class=\"text-color--4\">6H</span>."
+            "Gatling Options: 5P, 2P, 6P, 6K, 6H."
           ]
         },
         "Stand K": {
@@ -12602,7 +12565,7 @@
           "followUp": "x",
           "projectile": "x",
           "extraInfo": [
-            "<a href=\"/wiki/index.php?title=GGST/Zato-1/Frame_Data#Gatling_Table\" title=\"GGST/Zato-1/Frame Data\">Gatling Options:</a> <span class=\"text-color--5\">2D</span>, <span class=\"text-color--5\">5D</span>, <span class=\"text-color--1\">6P</span>, <span class=\"text-color--2\">6K</span> <span class=\"text-color--4\">6H</span>.",
+            "Gatling Options: 2D, 5D, 6P, 6K 6H.",
             "Is jump cancelable."
           ]
         },
@@ -12628,7 +12591,7 @@
           "followUp": "x",
           "projectile": "x",
           "extraInfo": [
-            "<a href=\"/wiki/index.php?title=GGST/Zato-1/Frame_Data#Gatling_Table\" title=\"GGST/Zato-1/Frame Data\">Gatling Options:</a> <span class=\"text-color--5\">2D</span>, <span class=\"text-color--5\">5D</span>, <span class=\"text-color--1\">6P</span>, <span class=\"text-color--2\">6K</span> <span class=\"text-color--4\">6H</span>.",
+            "Gatling Options: 2D, 5D, 6P, 6K 6H.",
             "Is jump cancelable"
           ]
         },
@@ -12720,7 +12683,7 @@
           "followUp": "x",
           "projectile": "x",
           "extraInfo": [
-            "<a href=\"/wiki/index.php?title=GGST/Zato-1/Frame_Data#Gatling_Table\" title=\"GGST/Zato-1/Frame Data\">Gatling Options:</a> <span class=\"text-color--1\">5P</span>, <span class=\"text-color--1\">2P</span>, <span class=\"text-color--1\">6P</span>, <span class=\"text-color--2\">6K</span>, <span class=\"text-color--4\">6H</span>."
+            "Gatling Options: 5P, 2P, 6P, 6K, 6H."
           ]
         },
         "Crouch K": {
@@ -12745,7 +12708,7 @@
           "followUp": "x",
           "projectile": "x",
           "extraInfo": [
-            "<a href=\"/wiki/index.php?title=GGST/Zato-1/Frame_Data#Gatling_Table\" title=\"GGST/Zato-1/Frame Data\">Gatling Options:</a> <span class=\"text-color--5\">2D</span>, <span class=\"text-color--5\">5D</span>, <span class=\"text-color--1\">6P</span>, <span class=\"text-color--2\">6K</span>, <span class=\"text-color--4\">6H</span>."
+            "Gatling Options: 2D, 5D, 6P, 6K, 6H."
           ]
         },
         "Crouch S": {
@@ -13282,7 +13245,7 @@
           "followUp": "x",
           "projectile": "x",
           "extraInfo": [
-            "Values in [] refer to when <span class=\"text-color--2\">214[K]</span> is fully held down"
+            "Values in [] refer to when 214[K] is fully held down"
           ]
         },
         "Drunkard Shade": {
@@ -13455,28 +13418,15 @@
       }
     },
     "stats": {
-      "health": 950,
-      "defense": "?",
-      "guts": "?",
-      "prejump": "?",
-      "weight": "?",
-      "bestReversal": "None",
-      "nJump": "?",
-      "fJump": "?",
-      "bJump": "?",
-      "fDash": "?",
-      "bDash": "?",
-      "bDashCHFrames": "?",
+      "defense": "1.07",
+      "guts": "0",
+      "prejump": "4",
+      "weight": "Normal",
+      "backdashSpeed": "20f",
+      "backdashInvul": "5f",
+      "bestReversal": "Block",
       "color": "#494e4b",
       "phrase": "and Eddie!",
-      "fWalk": "?",
-      "bWalk": "?",
-      "fJumpDist": "?",
-      "bJumpDist": "?",
-      "fDashDist": "?",
-      "bDashDist": "?",
-      "throwHurt": "?",
-      "throwRange": "?",
       "threeLetterCode": "zat"
     }
   }
