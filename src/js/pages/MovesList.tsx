@@ -30,7 +30,7 @@ const MovesList = () => {
     if (activeGame !== slugs.gameSlug) {
       console.log(activeGame)
       console.log("URL game mismatch");
-      dispatch(setActiveGame(slugs.gameSlug));
+      dispatch(setActiveGame(slugs.gameSlug, true));
     }
 
     if (selectedCharacters["playerOne"].name !== slugs.characterSlug) {

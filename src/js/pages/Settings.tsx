@@ -55,7 +55,7 @@ const Settings = () => {
                 value={activeGame}
                 okText="Select"
                 cancelText="Cancel"
-                onIonChange={ e => dispatch(setActiveGame(e.detail.value)) }
+                onIonChange={ e => dispatch(setActiveGame(e.detail.value, true)) }
               >
                 <IonSelectOption value="3S">3S</IonSelectOption>
                 <IonSelectOption value="USF4">USF4</IonSelectOption>

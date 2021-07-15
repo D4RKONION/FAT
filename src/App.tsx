@@ -68,6 +68,7 @@ import { setOrientation, setModalVisibility, setActiveGame, setThemeOwned, setTh
 import { store } from './js/store';
 import { APP_FRAME_DATA_CODE, APP_CURRENT_VERSION_CODE } from './js/constants/VersionLogs';
 import GAME_DETAILS from './js/constants/GameDetails';
+import { GameName } from './js/types';
 
 const App = () => {
 
@@ -82,7 +83,7 @@ const App = () => {
 
   useEffect(() => {
     // do an initial frame data load
-    dispatch(setActiveGame(activeGame));
+    dispatch(setActiveGame(activeGame, false));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -241,11 +242,11 @@ useEffect(() => {
         // and totally ignores the URL switcher in framedata component. In short, I am sorry programming gods
         // please forgive me
         if (GAME_DETAILS[window.location.hash.split("/")[2]]) {
-          dispatch(setActiveGame(window.location.hash.split("/")[2] as any));
+          dispatch(setActiveGame(window.location.hash.split("/")[2] as GameName, true));
         } else if (GAME_DETAILS[window.location.hash.split("/")[3]]) {
-          dispatch(setActiveGame(window.location.hash.split("/")[3] as any));
+          dispatch(setActiveGame(window.location.hash.split("/")[3] as GameName, true));
         } else {
-          dispatch(setActiveGame(activeGame))
+          dispatch(setActiveGame(activeGame, false))
         }
         
         

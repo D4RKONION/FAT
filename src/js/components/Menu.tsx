@@ -291,7 +291,7 @@ const Menu = () => {
             {
               text: 'Select',
               handler: selectedGame => {
-                dispatch(setActiveGame(selectedGame));
+                dispatch(setActiveGame(selectedGame, true));
               }
             }
           ]}

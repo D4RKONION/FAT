@@ -44,7 +44,6 @@ const FrameData = () => {
 
     charNames.forEach((charName, index) => {
       const characterDataCategoryObj = createCharacterDataCategoryObj(activeGame, charName)
-
       Object.keys(characterDataCategoryObj).forEach(dataRow =>
         Object.keys(characterDataCategoryObj[dataRow]).forEach(dataEntryKey =>
           dispatch(setLandscapeCols({...createOrderedLandscapeColsObj(activeGame, landscapeCols, dataEntryKey, characterDataCategoryObj[dataRow][dataEntryKey]["dataTableHeader"], index === 0 ? "off" : "on" )}))
@@ -56,14 +55,17 @@ const FrameData = () => {
   useEffect(() => {
     if (activeGame !== slugs.gameSlug) {
       console.log(activeGame)
+      console.log(slugs.gameSlug)
       console.log("URL game mismatch");
-      dispatch(setActiveGame(slugs.gameSlug));
+      dispatch(setActiveGame(slugs.gameSlug, true));
     }
 
     if (selectedCharacters["playerOne"].name !== slugs.characterSlug) {
       console.log("URL character mismatch");
-      handleNewCharacterLandscapeCols(selectedCharacters["playerOne"].name, slugs.characterSlug)
-      handleNewCharacterLandscapeCols(selectedCharacters["playerTwo"].name, slugs.characterSlug)
+      if (activeGame === slugs.gameSlug) {
+        handleNewCharacterLandscapeCols(selectedCharacters["playerOne"].name, slugs.characterSlug)
+        handleNewCharacterLandscapeCols(selectedCharacters["playerTwo"].name, slugs.characterSlug)
+      }
       dispatch(setPlayer("playerOne", slugs.characterSlug));
     }
     if (!localStorage.getItem("lsCurrentVersionCode") || parseInt(localStorage.getItem("lsCurrentVersionCode")) < APP_CURRENT_VERSION_CODE) {

@@ -634,10 +634,15 @@ const GAME_DETAILS = {
             "detailedHeader": "Move Type",
             "dataFileKey": "moveType",
           },
-          "cancelsTo": {
-            "dataTableHeader": "xx",
-            "detailedHeader": "Cancels To",
-            "dataFileKey": "cancelsTo",
+          "riscGain": {
+            "dataTableHeader": "risc",
+            "detailedHeader": "Risc Gain",
+            "dataFileKey": "riscGain",
+          },
+          "prorate": {
+            "dataTableHeader": "prorate",
+            "detailedHeader": "Prorate",
+            "dataFileKey": "prorate",
           },
           "attackLevel": {
             "dataTableHeader": "attLvl",
@@ -685,7 +690,7 @@ const GAME_DETAILS = {
         }
       ]
     },
-    defaultLandscapeCols: {startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", damage:"dmg", attackLevel:"attLvl  "}
+    defaultLandscapeCols: {startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", damage:"dmg", attackLevel:"attLvl"}
   },
 };
 
