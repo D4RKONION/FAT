@@ -252,7 +252,8 @@ const GAME_DETAILS = {
         }
 
       ]
-    }
+    },
+    defaultLandscapeCols: {startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", damage:"dmg", stun:"stun", kd:"kd", kdr:"kdr", kdrb:"kdrb"}
   },
   USF4: {
     fullName: "Ultra Street Fighter 4",
@@ -388,7 +389,8 @@ const GAME_DETAILS = {
           "lvlTwoF": "Level 2 Focus Forward"
         }
       ]
-    }
+    },
+    defaultLandscapeCols: {startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", damage:"dmg", stun:"stun", cancelsTo: "xx"}
   },
   '3S': {
     fullName: "Street Fighter 3: Third Strike",
@@ -569,7 +571,8 @@ const GAME_DETAILS = {
           "lvlTwoF": "Level 2 Focus Forward"
         }
       ]
-    }
+    },
+    defaultLandscapeCols: {startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", damage:"dmg", stun:"stun", cancelsTo: "xx", parry: "parry"}
   },
   GGST: {
     fullName: "Guilty Gear Strive",
@@ -681,7 +684,8 @@ const GAME_DETAILS = {
           "prejump": "Prejump Frames",
         }
       ]
-    }
+    },
+    defaultLandscapeCols: {startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", damage:"dmg", attackLevel:"attLvl  "}
   },
 };
 

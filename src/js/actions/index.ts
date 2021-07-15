@@ -62,6 +62,7 @@ const getFrameData = (gameName: GameName) => {
 
 export const setActiveGame = (gameName: GameName) => {
   return function (dispatch) {
+    dispatch(setLandscapeCols(GAME_DETAILS[gameName].defaultLandscapeCols))
     dispatch(setGameName(gameName));
     dispatch(getFrameData(gameName));
   }

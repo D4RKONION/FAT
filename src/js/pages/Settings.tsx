@@ -60,6 +60,7 @@ const Settings = () => {
                 <IonSelectOption value="3S">3S</IonSelectOption>
                 <IonSelectOption value="USF4">USF4</IonSelectOption>
                 <IonSelectOption value="SFV">SFV</IonSelectOption>
+                <IonSelectOption value="GGST">GGST</IonSelectOption>
               </IonSelect>
             </IonItem>
 
