@@ -56,7 +56,7 @@ const getFrameData = (gameName: GameName) => {
 
     const gameCharList = GAME_DETAILS[gameName].characterList as any;
     dispatch(setPlayer("playerOne", gameCharList.includes(selectedCharactersState.playerOne.name) ? selectedCharactersState.playerOne.name : gameCharList[0]) );
-    dispatch(setPlayer("playerTwo", gameCharList.includes(selectedCharactersState.playerTwo.name) ? selectedCharactersState.playerTwo.name : gameCharList[0]) );
+    dispatch(setPlayer("playerTwo", gameCharList.includes(selectedCharactersState.playerTwo.name) ? selectedCharactersState.playerTwo.name : gameCharList[2]) );
   }
 }
 

@@ -629,34 +629,48 @@ const GAME_DETAILS = {
       ],
       "Move Properties": [
         {
-          "moveType": {
-            "dataTableHeader": "mT",
-            "detailedHeader": "Move Type",
-            "dataFileKey": "moveType",
+          "damage": {
+            "dataTableHeader": "dmg",
+            "detailedHeader": "Damage",
+            "dataFileKey": "damage",
           },
           "riscGain": {
             "dataTableHeader": "risc",
             "detailedHeader": "Risc Gain",
             "dataFileKey": "riscGain",
           },
+        },
+        {
           "prorate": {
             "dataTableHeader": "prorate",
             "detailedHeader": "Prorate",
             "dataFileKey": "prorate",
           },
-          "attackLevel": {
-            "dataTableHeader": "attLvl",
+          "level": {
+            "dataTableHeader": "level",
             "detailedHeader": "Attack Level",
-            "dataFileKey": "attackLevel",
-          }
-        },
-        {
-          "damage": {
-            "dataTableHeader": "dmg",
-            "detailedHeader": "Damage",
-            "dataFileKey": "damage",
+            "dataFileKey": "level",
           },
         },
+        {
+          "moveType": {
+            "dataTableHeader": "mT",
+            "detailedHeader": "Move Type",
+            "dataFileKey": "moveType",
+          },
+          "guard": {
+            "dataTableHeader": "guard",
+            "detailedHeader": "Guard Level",
+            "dataFileKey": "guard",
+          },
+        },
+        {
+          "gatling": {
+            "dataTableHeader": "gatl",
+            "detailedHeader": "Gatling to",
+            "dataFileKey": "gatling",
+          },
+        }
       ],
       "Extra Information": [
         {
@@ -690,7 +704,7 @@ const GAME_DETAILS = {
         }
       ]
     },
-    defaultLandscapeCols: {startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", damage:"dmg", attackLevel:"attLvl"}
+    defaultLandscapeCols: {startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", damage:"dmg", riscGain: "risc", prorate: "prorate", guard: "guard", level: "lvl",}
   },
 };
 
