@@ -658,10 +658,10 @@ const GAME_DETAILS = {
             "detailedHeader": "Move Type",
             "dataFileKey": "moveType",
           },
-          "guard": {
+          "guardLevel": {
             "dataTableHeader": "guard",
             "detailedHeader": "Guard Level",
-            "dataFileKey": "guard",
+            "dataFileKey": "guardLevel",
           },
         },
         {
@@ -691,7 +691,8 @@ const GAME_DETAILS = {
         },
         {
           "weight": "Weight",
-          "bestReversal": "Best Reversal"
+          "bestReversal": "Best Reversal",
+          "fastestNormal": "Fastest Normal"
         }
       ],
       "Movement": [
@@ -704,7 +705,7 @@ const GAME_DETAILS = {
         }
       ]
     },
-    defaultLandscapeCols: {startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", damage:"dmg", riscGain: "risc", prorate: "prorate", guard: "guard", level: "lvl",}
+    defaultLandscapeCols: {startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", damage:"dmg", riscGain: "risc", prorate: "prorate", guardLevel: "guard", attackLevel: "lvl",}
   },
 };
 

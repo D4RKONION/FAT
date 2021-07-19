@@ -25,7 +25,8 @@ const Settings = () => {
 
   const [copyToastShown, setCopyToastShown] = useState(false);
 
-  const LS_FRAME_DATA_CODE = localStorage.getItem("lsFrameDataCode");
+  const LS_SFV_FRAME_DATA_CODE = localStorage.getItem("lsSFVFrameDataCode");
+  const LS_GGST_FRAME_DATA_CODE = localStorage.getItem("lsGGSTFrameDataCode");
 
   useIonViewDidEnter(() => {
      urlHash &&
@@ -234,7 +235,7 @@ const Settings = () => {
 
 
           </IonList>
-          <p className="final-fat">FAT {`${APP_CURRENT_VERSION_NAME}.${LS_FRAME_DATA_CODE}`}</p>
+          <p className="final-fat">FAT {`${APP_CURRENT_VERSION_NAME}.${LS_SFV_FRAME_DATA_CODE}.${LS_GGST_FRAME_DATA_CODE}`}</p>
 
           <IonToast
             isOpen={copyToastShown}

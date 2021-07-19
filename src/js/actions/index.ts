@@ -5,8 +5,8 @@ import type { AdviceToastPrevRead, AppModal, NormalNotationType, GameName, Input
 import AppSFVFrameData from '../constants/framedata/SFVFrameData.json';
 import USF4FrameData from '../constants/framedata/USF4FrameData.json';
 import SF3FrameData from '../constants/framedata/3SFrameData.json';
-import GGSTFrameData from '../constants/framedata/GGSTFrameData.json';
-import { APP_FRAME_DATA_CODE } from '../constants/VersionLogs';
+import AppGGSTFrameData from '../constants/framedata/GGSTFrameData.json';
+import { APP_SFV_FRAME_DATA_CODE, APP_GGST_FRAME_DATA_CODE } from '../constants/VersionLogs';
 import { RootState } from '../reducers';
 
 // ACTION CREATORS
@@ -37,21 +37,33 @@ const setFrameData = (frameData) => ({
 const getFrameData = (gameName: GameName) => {
   return async function(dispatch, getState) {
     const { selectedCharactersState } = getState();
-    const LS_FRAME_DATA_CODE = parseInt(localStorage.getItem("lsFrameDataCode"));
-    const lsSFVFrameData = JSON.parse(localStorage.getItem("lsSFVFrameData"))
 
     if (gameName === "SFV") {
-      if (!lsSFVFrameData || !LS_FRAME_DATA_CODE || LS_FRAME_DATA_CODE <= APP_FRAME_DATA_CODE) {
+
+      const LS_FRAME_DATA_CODE = parseInt(localStorage.getItem("lsSFVFrameDataCode"));
+      const lsSFVFrameData = JSON.parse(localStorage.getItem("lsSFVFrameData"))
+
+      if (!lsSFVFrameData || !LS_FRAME_DATA_CODE || LS_FRAME_DATA_CODE <= APP_SFV_FRAME_DATA_CODE) {
         dispatch(setFrameData(AppSFVFrameData));
       } else {
         dispatch(setFrameData(lsSFVFrameData))
       }
+
     } else if (gameName === "USF4") {
       dispatch(setFrameData(USF4FrameData));
     } else if (gameName === "3S") {
       dispatch(setFrameData(SF3FrameData));
     } else if (gameName === "GGST") {
-      dispatch(setFrameData(GGSTFrameData));
+
+      const LS_FRAME_DATA_CODE = parseInt(localStorage.getItem("lsGGSTFrameDataCode"));
+      const lsGGSTFrameData = JSON.parse(localStorage.getItem("lsGGSTFrameData"))
+
+      if (!lsGGSTFrameData || !LS_FRAME_DATA_CODE || LS_FRAME_DATA_CODE <= APP_GGST_FRAME_DATA_CODE) {
+        dispatch(setFrameData(AppGGSTFrameData));
+      } else {
+        dispatch(setFrameData(lsGGSTFrameData))
+      }
+      
     }
 
     const gameCharList = GAME_DETAILS[gameName].characterList as any;

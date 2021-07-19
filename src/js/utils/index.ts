@@ -1,6 +1,4 @@
 import { mapKeys, isEqual } from 'lodash';
-import { DataDisplaySettingsReducerState } from '../reducers/datadisplaysettings';
-import { VtState } from '../types';
 
 export function renameData(rawFrameData, moveNameType, inputNotationType) {
 
