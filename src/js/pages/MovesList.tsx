@@ -10,6 +10,7 @@ import AdviceToast from '../components/AdviceToast';
 import { activeGameSelector, activePlayerSelector, dataDisplaySettingsSelector, selectedCharactersSelector } from '../selectors';
 import { FrameDataSlug } from '../types';
 import { isPlatform } from '@ionic/core';
+import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
 
 
 const MovesList = () => {
@@ -77,11 +78,18 @@ const MovesList = () => {
               labels={ {playerOne: `P1: ${selectedCharacters.playerOne.name}`, playerTwo: `P2: ${selectedCharacters.playerTwo.name}`}}
               clickFunc={ (eventValue) => eventValue === activePlayer ? dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true })) : dispatch(setActiveFrameDataPlayer(eventValue)) }
             />
-            {activeGame === "SFV" &&
+            {activeGame === "SFV" ?
               <SegmentSwitcher
                 segmentType={"vtrigger"}
                 valueToTrack={selectedCharacters[activePlayer].vtState}
                 labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
+                clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
+              />
+            : (activeGame === "GGST") &&
+              <SegmentSwitcher
+                segmentType={"vtrigger"}
+                valueToTrack={selectedCharacters[activePlayer].vtState}
+                labels={createSegmentSwitcherObject(activeGame, selectedCharacters[activePlayer].name)}
                 clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
               />
             }

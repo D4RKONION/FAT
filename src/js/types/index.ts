@@ -3,8 +3,6 @@ import THEMES from "../constants/Themes";
 
 export type PlayerId = 'playerOne' | 'playerTwo';
 
-export type VtState = 'normal' | 'vtOne' | 'vtTwo';
-
 export type AppModal = 'characterSelect' | 'help' | 'landscapeOptions' | 'whatsNew';
 
 export type MoveNameType = 'official' | 'common' | 'inputs';
@@ -14,6 +12,8 @@ export type InputNotationType = 'plnCmd' | 'numCmd';
 export type NormalNotationType = 'fullWord' | 'shorthand';
 
 export type GameName = 'SFV' | 'USF4' | '3S' | 'GGST';
+
+export type VtState = typeof GAME_DETAILS[GameName]["characterStates"][number] | keyof typeof GAME_DETAILS["GGST"]["specificCharacterStates"];
 
 export type Orientation = 'landscape' | 'portrait';
 

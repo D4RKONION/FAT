@@ -12,6 +12,7 @@ import { activeGameSelector, activePlayerSelector, autoSetSpecificColsSelector, 
 import { createCharacterDataCategoryObj, createOrderedLandscapeColsObj } from '../utils/landscapecols';
 import { PlayerData } from '../types';
 import { isPlatform } from '@ionic/core';
+import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
 
 const CharacterSelectModal = () => {
 
@@ -92,14 +93,21 @@ const CharacterSelectModal = () => {
               clickFunc={ (eventValue) => { handleNewCharacterLandscapeCols(selectedCharacters[activePlayer].name, selectedCharacters[eventValue].name); dispatch(setActiveFrameDataPlayer(eventValue)) } }
             />
           }
-          {activeGame === "SFV" &&
-            <SegmentSwitcher
-              segmentType={"vtrigger"}
-              valueToTrack={selectedCharacters[activePlayer].vtState}
-              labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
-              clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
-            />
-          }
+          {activeGame === "SFV" ?
+              <SegmentSwitcher
+                segmentType={"vtrigger"}
+                valueToTrack={selectedCharacters[activePlayer].vtState}
+                labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
+                clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
+              />
+            : (activeGame === "GGST") &&
+              <SegmentSwitcher
+                segmentType={"vtrigger"}
+                valueToTrack={selectedCharacters[activePlayer].vtState}
+                labels={createSegmentSwitcherObject(activeGame, selectedCharacters[activePlayer].name)}
+                clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
+              />
+            }
         </div>
 
         <div id="characterSelectGrid">

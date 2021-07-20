@@ -34,7 +34,7 @@ const setFrameData = (frameData) => ({
   frameData,
 })
 
-const getFrameData = (gameName: GameName) => {
+const getFrameData = (gameName: GameName, stateReset?: Boolean) => {
   return async function(dispatch, getState) {
     const { selectedCharactersState } = getState();
 
@@ -67,8 +67,8 @@ const getFrameData = (gameName: GameName) => {
     }
 
     const gameCharList = GAME_DETAILS[gameName].characterList as any;
-    dispatch(setPlayer("playerOne", gameCharList.includes(selectedCharactersState.playerOne.name) ? selectedCharactersState.playerOne.name : gameCharList[0]) );
-    dispatch(setPlayer("playerTwo", gameCharList.includes(selectedCharactersState.playerTwo.name) ? selectedCharactersState.playerTwo.name : gameCharList[2]) );
+    dispatch(setPlayerAttr("playerOne", gameCharList.includes(selectedCharactersState.playerOne.name) ? selectedCharactersState.playerOne.name : gameCharList[0], {vtState: "normal"}) );
+    dispatch(setPlayerAttr("playerTwo", gameCharList.includes(selectedCharactersState.playerTwo.name) ? selectedCharactersState.playerTwo.name : gameCharList[2], {vtState: "normal"}) );
   }
 }
 
@@ -78,7 +78,7 @@ export const setActiveGame = (gameName: GameName, colReset: Boolean) => {
       dispatch(setLandscapeCols(GAME_DETAILS[gameName].defaultLandscapeCols))
     }
     dispatch(setGameName(gameName));
-    dispatch(getFrameData(gameName));
+    dispatch(getFrameData(gameName, true));
   }
 }
 
@@ -105,13 +105,13 @@ export const setAutoSetSpecificCols = (autoSetColsOn: Boolean) => ({
 })
 
 // handle player frame data json stuff
-export const setPlayer = (playerId: PlayerId, charName: PlayerData["name"]) => {
+export const  setPlayer = (playerId: PlayerId, charName: PlayerData["name"]) => {
   return function(dispatch, getState) {
-    const { frameDataState, dataDisplaySettingsState, selectedCharactersState, activeGameState }: RootState  = getState();
+    const { frameDataState, dataDisplaySettingsState, selectedCharactersState, activeGameState, activePlayerState }: RootState  = getState();
     const stateToSet: VtState =
-      activeGameState !== "SFV"
-        ? "normal"
-        : selectedCharactersState[playerId].vtState
+      activeGameState === "SFV" || (activeGameState === "GGST" && selectedCharactersState[playerId].name === charName)
+        ? selectedCharactersState[playerId].vtState
+        : "normal"
     const playerData: PlayerData = {
       name: charName,
       frameData: helpCreateFrameDataJSON(frameDataState[charName].moves, dataDisplaySettingsState.moveNameType, dataDisplaySettingsState.inputNotationType, dataDisplaySettingsState.normalNotationType, stateToSet),

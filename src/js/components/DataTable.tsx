@@ -105,13 +105,13 @@ const DataTable = ({ searchText, previewTable }: DataTableProps) => {
                 <span
                   style={
                     moveData.extraInfo && ((moveData.changedValues && moveData.changedValues.includes("extraInfo")) || moveData.uniqueInVt) ?  {borderRightColor: "var(--fat-vtrigger)" }
-                    : moveData.extraInfo && !moveData.changedValues && selectedCharacters[activePlayer].vtState.includes("vt") ? { borderRightColor: "var(--fat-primary-tint-extreme)" }
+                    : moveData.extraInfo && !moveData.changedValues && selectedCharacters[activePlayer].vtState !== "normal" ? { borderRightColor: "var(--fat-primary-tint-extreme)" }
                     : moveData.extraInfo ? { borderRightColor: "var(--fat-primary)" }
                     : null
                   }
                   className={`cell move-name ${
-                    moveData.changedValues && selectedCharacters[activePlayer].vtState.includes("vt") ? "triggered-data"
-                    : selectedCharacters[activePlayer].vtState.includes("vt") ? "untriggered-data"
+                    moveData.changedValues && selectedCharacters[activePlayer].vtState !== "normal" ? "triggered-data"
+                    : selectedCharacters[activePlayer].vtState !== "normal" ? "untriggered-data"
                     : "normal-state"
                   }`}
                 >
@@ -135,8 +135,8 @@ const DataTable = ({ searchText, previewTable }: DataTableProps) => {
                     }
 
                     className={`cell 
-                      ${selectedCharacters[activePlayer].vtState.includes("vt") && ((moveData.changedValues && moveData.changedValues.includes(detailKey)) || moveData.uniqueInVt) ? "triggered-data"
-                      : selectedCharacters[activePlayer].vtState.includes("vt") ? "untriggered-data"
+                      ${selectedCharacters[activePlayer].vtState !== "normal" && ((moveData.changedValues && moveData.changedValues.includes(detailKey)) || moveData.uniqueInVt) ? "triggered-data"
+                      : selectedCharacters[activePlayer].vtState !== "normal" ? "untriggered-data"
                       : "normal-state"}
                     `}
                   >

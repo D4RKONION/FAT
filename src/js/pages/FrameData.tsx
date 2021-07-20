@@ -16,6 +16,7 @@ import { FrameDataSlug, PlayerData } from '../types';
 import { createCharacterDataCategoryObj, createOrderedLandscapeColsObj } from '../utils/landscapecols';
 import { isPlatform } from '@ionic/core';
 import FrameDataSubHeader from '../components/FrameDataSubHeader';
+import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
 
 
 
@@ -167,11 +168,18 @@ const FrameData = () => {
               }
             }}
           />
-          {activeGame === "SFV" &&
+          {activeGame === "SFV" ?
             <SegmentSwitcher
               segmentType={"vtrigger"}
               valueToTrack={selectedCharacters[activePlayer].vtState}
               labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
+              clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
+            />
+          : (activeGame === "GGST") &&
+            <SegmentSwitcher
+              segmentType={"vtrigger"}
+              valueToTrack={selectedCharacters[activePlayer].vtState}
+              labels={createSegmentSwitcherObject(activeGame, selectedCharacters[activePlayer].name)}
               clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
             />
           }

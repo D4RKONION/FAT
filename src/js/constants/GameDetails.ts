@@ -2,7 +2,8 @@ const GAME_DETAILS = {
   SFV: {
     fullName: "Street Fighter V",
     abbrName: "SFV",
-    characterStates: ["normal", "vtOne", "vtTwo"],
+    characterStates: ["normal", "vtOne", "vtTwo"] as const,
+    specificCharacterStates: [],
     characterList: [
       "Abigail",
       "Akira",
@@ -258,7 +259,8 @@ const GAME_DETAILS = {
   USF4: {
     fullName: "Ultra Street Fighter 4",
     abbrName: "USF4",
-    characterStates: ["normal"],
+    characterStates: ["normal"] as const,
+    specificCharacterStates: [],
     characterList: [
       "Abel",
       "Adon",
@@ -395,7 +397,8 @@ const GAME_DETAILS = {
   '3S': {
     fullName: "Street Fighter 3: Third Strike",
     abbrName: "3S",
-    characterStates: ["normal"],
+    characterStates: ["normal"] as const,
+    specificCharacterStates: [],
     characterList: [
       "Alex",
       "Akuma",
@@ -577,7 +580,8 @@ const GAME_DETAILS = {
   GGST: {
     fullName: "Guilty Gear Strive",
     abbrName: "GGST",
-    characterStates: ["normal"],
+    characterStates: ["normal"] as const,
+    specificCharacterStates: {"Ky Kiske": ["Dragon Install"], "Nagoriyuki": ["L2", "L3", "BR"]},
     characterList: [
       "Anji Mito",
       "Axl Low",
