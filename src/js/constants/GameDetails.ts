@@ -588,6 +588,7 @@ const GAME_DETAILS = {
       "Chipp Zanuff",
       "Faust",
       "Giovanna",
+      "Goldlewis Dickinson",
       "I-No",
       "Ky Kiske",
       "Leo Whitefang",
@@ -619,6 +620,13 @@ const GAME_DETAILS = {
           }
         },
         {
+          "total": {
+            "dataTableHeader": "T",
+            "detailedHeader": "Total",
+            "dataFileKey": "total",
+          },
+        },
+        {
           "onBlock": {
             "dataTableHeader": "oB",
             "detailedHeader": "On Block",
@@ -633,39 +641,15 @@ const GAME_DETAILS = {
       ],
       "Move Properties": [
         {
-          "damage": {
-            "dataTableHeader": "dmg",
-            "detailedHeader": "Damage",
-            "dataFileKey": "damage",
-          },
-          "riscGain": {
-            "dataTableHeader": "risc",
-            "detailedHeader": "Risc Gain",
-            "dataFileKey": "riscGain",
-          },
-        },
-        {
-          "prorate": {
-            "dataTableHeader": "prorate",
-            "detailedHeader": "Prorate",
-            "dataFileKey": "prorate",
-          },
-          "level": {
-            "dataTableHeader": "level",
-            "detailedHeader": "Attack Level",
-            "dataFileKey": "level",
-          },
-        },
-        {
           "moveType": {
             "dataTableHeader": "mT",
             "detailedHeader": "Move Type",
             "dataFileKey": "moveType",
           },
-          "guardLevel": {
-            "dataTableHeader": "guard",
-            "detailedHeader": "Guard Level",
-            "dataFileKey": "guardLevel",
+          "cancelsTo": {
+            "dataTableHeader": "xx",
+            "detailedHeader": "Cancels To",
+            "dataFileKey": "cancelsTo",
           },
         },
         {
@@ -675,6 +659,40 @@ const GAME_DETAILS = {
             "dataFileKey": "gatling",
           },
         }
+      ],
+      "Offensive Properties": [
+        {
+          "damage": {
+            "dataTableHeader": "dmg",
+            "detailedHeader": "Damage",
+            "dataFileKey": "damage",
+          },
+          "attackLevel": {
+            "dataTableHeader": "atkLvl",
+            "detailedHeader": "Attack Level",
+            "dataFileKey": "attackLevel",
+          },
+        },
+        {
+          "riscGain": {
+            "dataTableHeader": "risc",
+            "detailedHeader": "Risc Gain",
+            "dataFileKey": "riscGain",
+          },
+          "prorate": {
+            "dataTableHeader": "prorate",
+            "detailedHeader": "Prorate",
+            "dataFileKey": "prorate",
+          },
+          
+        },
+        {
+          "guardLevel": {
+            "dataTableHeader": "guard",
+            "detailedHeader": "Guard Level",
+            "dataFileKey": "guardLevel",
+          },
+        },
       ],
       "Extra Information": [
         {
@@ -709,7 +727,7 @@ const GAME_DETAILS = {
         }
       ]
     },
-    defaultLandscapeCols: {startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", damage:"dmg", riscGain: "risc", prorate: "prorate", guardLevel: "guard", attackLevel: "lvl",}
+    defaultLandscapeCols: {startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", damage:"dmg", attackLevel: "lvl", riscGain: "risc", prorate: "prorate", guardLevel: "guard"}
   },
 };
 

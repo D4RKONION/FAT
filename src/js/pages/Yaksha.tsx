@@ -43,6 +43,33 @@ const YAKSHA_HEADERS = [
   }
 ]
 
+const CHARACTER_NAME_DICTIONARY = {
+  "SFV": {
+    "chun": "Chun-Li",
+    "e": "E.Honda", 
+    "fang": "F.A.N.G",
+    "zeku": "Zeku (Old)",
+    "gief": "Zangief",
+    "sim": "Dhalsim",
+  },
+  "GGST": {
+    "anji": "Anji Mito",
+    "axl": "Axl Low",
+    "chipp": "Chipp Zanuff",
+    "ino": "I-No",
+    "ky": "Ky Kiske",
+    "leo": "Leo Wolffang",
+    "millia": "Millia Rage",
+    "nago": "Nagoriyuki",
+    "goldlewis": "Goldlewis Dickinson",
+    "ramlethal": "Ramlethal Valentine",  
+    "ram": "Ramlethal Valentine",
+    "sol": "Sol Badguy",
+    "zato": "Zato-1",
+  }
+  
+}
+
 const Yaksha = () => {
 
   const activeGame = useSelector(activeGameSelector);
@@ -61,20 +88,10 @@ const Yaksha = () => {
     setSearchResults([]);
   },[activeGame]);
 
-  const fuzzyNameScorer = (possibleCharName) => {
+  const fuzzyNameScorer = (possibleCharName: string) => {
     const possibleCharFuzzObj = fuzz.extract(possibleCharName, GAME_DETAILS[activeGame].characterList)[0];
-    if (possibleCharName === "Chun" || possibleCharName === "chun" ) {
-      return "Chun-Li"
-    } else if (possibleCharName === "E" || possibleCharName === "e") {
-      return "E.Honda"
-    } else if (possibleCharName === "FANG" || possibleCharName === "fang") {
-      return "F.A.N.G"
-    } else if (possibleCharName === "zeku") {
-      return "Zeku (Old)"
-    } else if (possibleCharName === "gief") {
-      return "Zangief"
-    } else if (possibleCharName === "sim") {
-      return "Dhalsim"
+    if (CHARACTER_NAME_DICTIONARY[activeGame][possibleCharName.toLowerCase()]) {
+      return CHARACTER_NAME_DICTIONARY[activeGame][possibleCharName.toLowerCase()]
     } else if (possibleCharFuzzObj[1] > 75) {
       return possibleCharFuzzObj[0];
     } else {
