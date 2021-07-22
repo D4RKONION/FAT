@@ -193,7 +193,9 @@ useEffect(() => {
       
       // rename the generic lsFrameDataCode to lsSFVFrameDataCode
       if (localStorage.getItem("lsFrameDataCode")) {
+        console.log("deleting old SFV code")
         localStorage.setItem("lsSFVFrameDataCode", localStorage.getItem("lsFrameDataCode"))
+        localStorage.removeItem("lsFrameDataCode")
       }
 
       const APP_FRAME_DATA_CODE = gameName === "SFV" ? APP_SFV_FRAME_DATA_CODE : APP_GGST_FRAME_DATA_CODE
@@ -265,7 +267,8 @@ useEffect(() => {
       newVersionCheck(gameName);
     })
     
-  }, [dispatch, activeGame])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch])
 
 
 

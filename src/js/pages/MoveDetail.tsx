@@ -1,4 +1,4 @@
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonIcon, IonLabel, IonPage } from '@ionic/react';
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonIcon, IonPage } from '@ionic/react';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useParams } from 'react-router';

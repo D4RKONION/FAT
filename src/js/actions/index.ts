@@ -107,7 +107,7 @@ export const setAutoSetSpecificCols = (autoSetColsOn: Boolean) => ({
 // handle player frame data json stuff
 export const  setPlayer = (playerId: PlayerId, charName: PlayerData["name"]) => {
   return function(dispatch, getState) {
-    const { frameDataState, dataDisplaySettingsState, selectedCharactersState, activeGameState, activePlayerState }: RootState  = getState();
+    const { frameDataState, dataDisplaySettingsState, selectedCharactersState, activeGameState }: RootState  = getState();
     const stateToSet: VtState =
       activeGameState === "SFV" || (activeGameState === "GGST" && selectedCharactersState[playerId].name === charName)
         ? selectedCharactersState[playerId].vtState
