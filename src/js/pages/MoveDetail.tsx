@@ -1,4 +1,4 @@
-import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonPage } from '@ionic/react';
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonIcon, IonLabel, IonPage } from '@ionic/react';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useParams } from 'react-router';
@@ -12,6 +12,7 @@ import { activeGameSelector, activePlayerSelector, selectedCharactersSelector } 
 import { FrameDataSlug } from '../types';
 import { isPlatform } from '@ionic/core';
 import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
+import { openOutline } from 'ionicons/icons';
 
 
 const MoveDetail = () => {
@@ -188,6 +189,29 @@ const MoveDetail = () => {
               </IonCardContent>
             </IonCard>
           }
+
+          {selectedMoveData.dustloopKey && 
+            <IonCard className="final-card">
+              <IonCardHeader>
+                <IonCardTitle>Hitboxes & More On Dustloop</IonCardTitle>
+              </IonCardHeader>
+              <IonCardContent>
+                <div className="row">
+                  <div className="col">
+                    <IonButton expand="full" fill="clear" onClick={() => window.open(`https://dustloop.com/wiki/index.php?title=GGST/${activeCharName}#${selectedMoveData.dustloopKey}`, '_blank')}>
+                      <IonIcon slot="end" icon={openOutline} />
+                      Take me there!
+                    </IonButton>
+                  </div>
+                </div>
+                
+            
+              </IonCardContent>
+            </IonCard>
+          }
+          
+
+          
 
         </div>
 

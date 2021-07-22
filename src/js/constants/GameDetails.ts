@@ -655,7 +655,7 @@ const GAME_DETAILS = {
         {
           "gatling": {
             "dataTableHeader": "gatl",
-            "detailedHeader": "Gatling to",
+            "detailedHeader": "Gatling To",
             "dataFileKey": "gatling",
           },
         }
