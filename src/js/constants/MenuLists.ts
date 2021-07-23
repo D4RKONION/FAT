@@ -357,12 +357,16 @@ export const RES_FAT_LIST = {
       url: "https://twitter.com/adam_rsfv"
     },
     "MonkUnit": {
-      desc: "Our new newest frame data fanatic, MonkUnit did a mammoth amount of work adding Hit Confirm Windows to the app!",
+      desc: "Our newest SFV frame data member, MonkUnit did a mammoth amount of work adding Hit Confirm Windows to the app!",
       url: "https://twitter.com/MonkUnit"
     },
     "Arlieth": {
       desc: "Arlieth was the first person to help me with the frame data spreadsheet and continues to help out today!",
       url: "https://twitter.com/arlieth"
+    },
+    "Jojo": {
+      desc: "You might know JoJo for his extensive beginner spreadsheets for SFV and GGST. He's put in a huge amount of work testing, homogenising and fleshing out the GGST data",
+      url: "https://twitter.com/nchJoJo"
     }
   }
 }

@@ -13,6 +13,7 @@ export const VERSION_LOGS = {
       "Added some GGST resources to the More Resources Page"
     ],
     "Bug Fixes": [
+      "Fixed a bug where the app would sometimes crash when changing games on the combos page"
     ]
   },
   "3.3.1": {

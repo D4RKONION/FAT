@@ -8,7 +8,7 @@ import { setPlayerAttr, setPlayer } from '../actions';
 import { useHistory } from 'react-router';
 import { close, searchOutline, trashBinOutline } from 'ionicons/icons';
 import GAME_DETAILS from '../constants/GameDetails';
-import fuzz from 'fuzzball'
+import {ratio as fuzzratio, extract as fuzzextract } from 'fuzzball'
 import { activeGameSelector, dataDisplaySettingsSelector, frameDataSelector, selectedCharactersSelector } from '../selectors';
 
 const YAKSHA_HEADERS = [
@@ -79,7 +79,7 @@ const Yaksha = () => {
   },[activeGame]);
 
   const fuzzyNameScorer = (possibleCharName: string) => {
-    const possibleCharFuzzObj = fuzz.extract(possibleCharName, GAME_DETAILS[activeGame].characterList)[0];
+    const possibleCharFuzzObj = fuzzextract(possibleCharName, GAME_DETAILS[activeGame].characterList)[0];
     if (CHARACTER_NAME_DICTIONARY[activeGame][possibleCharName.toLowerCase()]) {
       return CHARACTER_NAME_DICTIONARY[activeGame][possibleCharName.toLowerCase()]
     } else if (possibleCharFuzzObj[1] > 75) {
@@ -93,8 +93,8 @@ const Yaksha = () => {
     const SEARCH_TYPES = ["moveName", "cmnName", "plnCmd", "numCmd"];
     for (let x = 100; x >=0; x -= 10) {
       for (let type in SEARCH_TYPES) {
-        if (fuzz.ratio(query, choice[SEARCH_TYPES[type]], options) > x) {
-          return fuzz.ratio(query, choice[SEARCH_TYPES[type]], options);
+        if (fuzzratio(query, choice[SEARCH_TYPES[type]], options) > x) {
+          return fuzzratio(query, choice[SEARCH_TYPES[type]], options);
         }
       }
     }
@@ -107,7 +107,7 @@ const Yaksha = () => {
     const fuzzyCharName = fuzzyNameScorer(searchbarText.substr(0, searchbarText.indexOf(" ")));
     const fuzzyMoveNameKey =
       !/\S/.test(searchbarText) ? "userError"
-      : searchbarText.includes(" ") ? fuzz.extract(searchbarText.substr(searchbarText.indexOf(" ") + 1), frameDataFile[fuzzyCharName]["moves"]["normal"], fuzzyOptions)[0][2]
+      : searchbarText.includes(" ") ? fuzzextract(searchbarText.substr(searchbarText.indexOf(" ") + 1), frameDataFile[fuzzyCharName]["moves"]["normal"], fuzzyOptions)[0][2]
       : "userError";
 
     if (searchResults.length !== 0 && (searchResults[searchResults.length -1].moveNameKey === fuzzyMoveNameKey && searchResults[searchResults.length -1].charName === fuzzyCharName)) {
