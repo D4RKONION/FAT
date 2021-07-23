@@ -12,7 +12,8 @@ export const DATA_TEAM = {
   "Arlieth": "<a href=\"https://twitter.com/arlieth\" target=\"_system\">Arlieth</a> was the first person to help me with the frame data spreadsheet and continues to help out today!",
   "Hatson": "<a href=\"https://twitter.com/hatsonFGC\" target=\"_system\">Hatson</a> single handedly carried the app on his back for years by updating and adding new characters",
   "adam": "He's a Urien player, but don't let that put you off, <a href=\"https://twitter.com/adam_rsfv\" target=\"_system\">adam</a> did a ton of work on the SFV: CE update and beyond (and no, I haven't typo'd his name)",
-  "MonkUnit": "Our new newest frame data fanatic, <a href=\"https://twitter.com/MonkUnit\" target=\"_system\">MonkUnit</a> did a mammoth amount of work adding Hit Confirm Windows to the app!"
+  "MonkUnit": "Our newest SFV frame data member, <a href=\"https://twitter.com/MonkUnit\" target=\"_system\">MonkUnit</a> did a mammoth amount of work adding Hit Confirm Windows to the app!",
+  "JoJo": "You might know <a href=\"https://twitter.com/nchJoJo\" target=\"_system\">JoJo</a> for his extensive beginner spreadsheets for <a href=\"http://bit.ly/NCH_SFV\" target=\"_system\">SFV</a> and <a href=\"http://bit.ly/NCH_GGST\" target=\"_system\">GGST</a>. He's put in a huge amount of work testing, homogenising and fleshing out the GGST data"
 }
 
 export const AWESOME_PEOPLE = [
