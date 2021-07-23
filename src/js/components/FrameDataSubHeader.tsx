@@ -31,7 +31,7 @@ const FrameDataSubHeader = ({ charName, charStats, activeGame }: FrameDataSubHea
 					/>
 				</IonCol>
 				<IonCol className="character-bio">
-					<h1>{charName}</h1>
+					<h1>{charStats.longName ? charStats.longName : charName}</h1>
 					<h2>{charStats.phrase}</h2>
 				</IonCol>
 			</IonRow>
