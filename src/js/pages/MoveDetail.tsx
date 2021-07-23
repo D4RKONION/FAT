@@ -198,7 +198,7 @@ const MoveDetail = () => {
               <IonCardContent>
                 <div className="row">
                   <div className="col">
-                    <IonButton expand="full" fill="clear" onClick={() => window.open(`https://dustloop.com/wiki/index.php?title=GGST/${activeCharName}#${selectedMoveData.dustloopKey}`, '_blank')}>
+                    <IonButton expand="full" fill="clear" onClick={() => window.open(`https://dustloop.com/wiki/index.php?title=GGST/${selectedCharacters[activePlayer].stats.longName}#${selectedMoveData.dustloopKey}`, '_blank')}>
                       <IonIcon slot="end" icon={openOutline} />
                       Take me there!
                     </IonButton>

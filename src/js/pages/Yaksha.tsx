@@ -53,18 +53,8 @@ const CHARACTER_NAME_DICTIONARY = {
     "sim": "Dhalsim",
   },
   "GGST": {
-    "anji": "Anji Mito",
-    "axl": "Axl Low",
-    "chipp": "Chipp Zanuff",
+    
     "ino": "I-No",
-    "ky": "Ky Kiske",
-    "leo": "Leo Wolffang",
-    "millia": "Millia Rage",
-    "nago": "Nagoriyuki",
-    "goldlewis": "Goldlewis Dickinson",
-    "ramlethal": "Ramlethal Valentine",  
-    "ram": "Ramlethal Valentine",
-    "sol": "Sol Badguy",
     "zato": "Zato-1",
   }
   

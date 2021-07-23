@@ -581,25 +581,26 @@ const GAME_DETAILS = {
     fullName: "Guilty Gear Strive",
     abbrName: "GGST",
     characterStates: ["normal"] as const,
-    specificCharacterStates: {"Ky Kiske": ["Dragon Install"], "Nagoriyuki": ["L2", "L3", "BR"]},
+    specificCharacterStates: {"Ky": ["Dragon Install"], "Nagoriyuki": ["L2", "L3", "BR"]},
     characterList: [
-      "Anji Mito",
-      "Axl Low",
-      "Chipp Zanuff",
+      "Anji",
+      "Axl",
+      "Chipp",
       "Faust",
       "Giovanna",
-      "Goldlewis Dickinson",
+      "Goldlewis",
       "I-No",
-      "Ky Kiske",
-      "Leo Whitefang",
+      "Ky",
+      "Leo",
       "May",
-      "Millia Rage",
+      "Millia",
       "Nagoriyuki",
       "Potemkin",
-      "Ramlethal Valentine",
-      "Sol Badguy",
+      "Ramlethal",
+      "Sol",
       "Zato-1"
     ] as const,
+
     universalDataPoints: {
       "Basic Frame Data": [
         {
