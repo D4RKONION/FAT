@@ -691,6 +691,20 @@ const GAME_DETAILS = {
             "dataTableHeader": "guard",
             "detailedHeader": "Guard Level",
             "dataFileKey": "guardLevel",
+          }
+        },
+      ],
+      "Knockdown & Counterhit": [
+        {
+          "kda": {
+            "dataTableHeader": "kda",
+            "detailedHeader": "Knockdown Adv.",
+            "dataFileKey": "kda",
+          },
+          "chAdv": {
+            "dataTableHeader": "chAdv",
+            "detailedHeader": "Counterhit Adv.",
+            "dataFileKey": "chAdv",
           },
         },
       ],
