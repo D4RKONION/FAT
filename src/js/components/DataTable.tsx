@@ -90,6 +90,7 @@ const DataTable = ({ searchText, previewTable }: DataTableProps) => {
           }
           
         }).map(([moveName, moveData]) => {
+          console.log(moveData.chAdv)
           if ( selectedCharacters[activePlayer].name === "Seth" && moveData["moveType"] === "vskill" && !moveName.includes(`[${inactivePlayerName}]`) && !/VS[12]/.test(moveData.numCmd) ) {
             return false;
           } else {
@@ -123,8 +124,9 @@ const DataTable = ({ searchText, previewTable }: DataTableProps) => {
                     key={detailKey}
 
                     style={
-                      activeGame === "SFV" && counterHit && detailKey === "onHit" && moveData.ccState ? (themeBrightness === "light" ? {backgroundColor:  "var(--fat-datatable-very-pun"} : {color:  "var(--fat-datatable-very-pun"})
-                      : counterHit && activeGame !== "3S" && detailKey === "onHit" && typeof moveData[detailKey] !== "string" && !!parseInt(moveData[detailKey]) ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-just-pun"} : {color:  "var(--fat-datatable-just-pun"})
+                      activeGame === "GGST" && counterHit && detailKey === "onHit" && moveData.chAdv ? (themeBrightness === "light" ? {backgroundColor:  "var(--fat-datatable-very-pun"} : {color:  "var(--fat-datatable-very-pun"})
+                      : activeGame === "SFV" && counterHit && detailKey === "onHit" && moveData.ccState ? (themeBrightness === "light" ? {backgroundColor:  "var(--fat-datatable-very-pun"} : {color:  "var(--fat-datatable-very-pun"})
+                      : activeGame !== "3S"  && activeGame !== "GGST" && counterHit && detailKey === "onHit" && typeof moveData[detailKey] !== "string" && !isNaN(moveData[detailKey]) ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-just-pun"} : {color:  "var(--fat-datatable-just-pun"})
                       :	onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < -8 ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-serverely-pun"} : {color:  "var(--fat-datatable-serverely-pun"})
                       : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < -5 ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-very-pun"} : {color:  "var(--fat-datatable-very-pun"})
                       : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < -2 ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-just-pun"} : {color:  "var(--fat-datatable-just-pun"})
@@ -142,6 +144,7 @@ const DataTable = ({ searchText, previewTable }: DataTableProps) => {
                   >
                     {
                       moveData.extraInfo && detailKey === "extraInfo" ? moveData.extraInfo.map((note, index) => <li className="note" key={index}>{note}</li>)
+                      : activeGame === "GGST" && counterHit && detailKey === "onHit" && moveData.chAdv ? moveData.chAdv
                       : activeGame === "SFV" && counterHit && detailKey === "onHit" && moveData.ccAdv ? moveData.ccAdv
                       : activeGame === "SFV" && counterHit && detailKey === "onHit" && typeof moveData[detailKey] !== "string" && (!!parseInt(moveData[detailKey]) || moveData[detailKey] === 0) ? moveData[detailKey] + 2
                       : activeGame === "USF4" && counterHit && detailKey === "onHit" && typeof moveData[detailKey] !== "string" && (!!parseInt(moveData[detailKey]) || moveData[detailKey] === 0) && moveData.moveType === "normal" && moveData.moveButton.includes("L") ? moveData[detailKey] + 1
