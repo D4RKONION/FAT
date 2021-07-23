@@ -14,6 +14,7 @@ export const CALC_MENU_LIST = {
       url: "framekillgenerator",
       desc: "Automatically generate frame kills for a selection of oki scenarios",
       icon: "skullOutline",
+      excludedGames: ["GGST"]
     }
   },
   "Punishing Moves" : {
