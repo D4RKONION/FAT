@@ -90,7 +90,6 @@ const DataTable = ({ searchText, previewTable }: DataTableProps) => {
           }
           
         }).map(([moveName, moveData]) => {
-          console.log(moveData.chAdv)
           if ( selectedCharacters[activePlayer].name === "Seth" && moveData["moveType"] === "vskill" && !moveName.includes(`[${inactivePlayerName}]`) && !/VS[12]/.test(moveData.numCmd) ) {
             return false;
           } else {
