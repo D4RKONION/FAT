@@ -31,8 +31,9 @@ const StatCompare = () => {
       )
     )
   )
-  const [selectedStat, setSelectedStat] = useState(Object.keys(allStats)[0]);
-  const [selectedStatProperName, setSelectedStatProperName] = useState(allStats[0]);
+  const defaultKey = Object.keys(allStats)[0];
+  const [selectedStat, setSelectedStat] = useState(defaultKey);
+  const [selectedStatProperName, setSelectedStatProperName] = useState<string>(allStats[defaultKey]);
 
   useEffect(() => {
     const statHeadingsTemp = [];
