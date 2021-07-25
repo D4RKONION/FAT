@@ -105,13 +105,13 @@ const DataTable = ({ searchText, previewTable }: DataTableProps) => {
                 <span
                   style={
                     moveData.extraInfo && ((moveData.changedValues && moveData.changedValues.includes("extraInfo")) || moveData.uniqueInVt) ?  {borderRightColor: "var(--fat-vtrigger)" }
-                    : moveData.extraInfo && !moveData.changedValues && selectedCharacters[activePlayer].vtState.includes("vt") ? { borderRightColor: "var(--fat-primary-tint-extreme)" }
+                    : moveData.extraInfo && !moveData.changedValues && selectedCharacters[activePlayer].vtState !== "normal" ? { borderRightColor: "var(--fat-primary-tint-extreme)" }
                     : moveData.extraInfo ? { borderRightColor: "var(--fat-primary)" }
                     : null
                   }
                   className={`cell move-name ${
-                    moveData.changedValues && selectedCharacters[activePlayer].vtState.includes("vt") ? "triggered-data"
-                    : selectedCharacters[activePlayer].vtState.includes("vt") ? "untriggered-data"
+                    moveData.changedValues && selectedCharacters[activePlayer].vtState !== "normal" ? "triggered-data"
+                    : selectedCharacters[activePlayer].vtState !== "normal" ? "untriggered-data"
                     : "normal-state"
                   }`}
                 >
@@ -123,30 +123,33 @@ const DataTable = ({ searchText, previewTable }: DataTableProps) => {
                     key={detailKey}
 
                     style={
-                      activeGame === "SFV" && counterHit && detailKey === "onHit" && moveData.ccState ? (themeBrightness === "light" ? {backgroundColor:  "var(--fat-datatable-very-pun"} : {color:  "var(--fat-datatable-very-pun"})
-                      : counterHit && activeGame !== "3S" && detailKey === "onHit" && typeof moveData[detailKey] !== "string" && !!parseInt(moveData[detailKey]) ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-just-pun"} : {color:  "var(--fat-datatable-just-pun"})
-                      :	onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < -8 ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-serverely-pun"} : {color:  "var(--fat-datatable-serverely-pun"})
-                      : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < -5 ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-very-pun"} : {color:  "var(--fat-datatable-very-pun"})
-                      : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < -2 ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-just-pun"} : {color:  "var(--fat-datatable-just-pun"})
-                      : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < 0 ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-not-pun"} : {color:  "var(--fat-datatable-not-pun"})
-                      : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && (moveData[detailKey] > 2 || moveData[detailKey] === "KD") ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-very-plus"} : {color:  "var(--fat-datatable-very-plus"})
-                      : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && (moveData[detailKey] > 0) ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-just-plus"} : {color:  "var(--fat-datatable-just-plus"})
+                      activeGame === "GGST" && counterHit && detailKey === "onHit" && moveData.chAdv ? (themeBrightness === "light" ? {backgroundColor:  "var(--fat-datatable-very-pun"} : {backgroundColor:  "var(--fat-datatable-very-pun"})
+                      : activeGame === "SFV" && counterHit && detailKey === "onHit" && moveData.ccState ? (themeBrightness === "light" ? {backgroundColor:  "var(--fat-datatable-very-pun"} : {backgroundColor:  "var(--fat-datatable-very-pun"})
+                      : activeGame !== "3S"  && activeGame !== "GGST" && counterHit && detailKey === "onHit" && typeof moveData[detailKey] !== "string" && !isNaN(moveData[detailKey]) ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-just-pun"} : {backgroundColor:  "var(--fat-datatable-just-pun"})
+                      :	onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < -8 ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-serverely-pun"} : {backgroundColor:  "var(--fat-datatable-serverely-pun"})
+                      : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < -5 ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-very-pun"} : {backgroundColor:  "var(--fat-datatable-very-pun"})
+                      : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < -2 ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-just-pun"} : {backgroundColor:  "var(--fat-datatable-just-pun"})
+                      : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < 1 ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-not-pun"} : {backgroundColor:  "var(--fat-datatable-not-pun"})
+                      : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && (moveData[detailKey] > 2 || moveData[detailKey] === "KD") ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-very-plus"} : {backgroundColor:  "var(--fat-datatable-very-plus"})
+                      : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && (moveData[detailKey] > 0) ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-just-plus"} : {backgroundColor:  "var(--fat-datatable-just-plus"})
                       : null
                     }
 
                     className={`cell 
-                      ${selectedCharacters[activePlayer].vtState.includes("vt") && ((moveData.changedValues && moveData.changedValues.includes(detailKey)) || moveData.uniqueInVt) ? "triggered-data"
-                      : selectedCharacters[activePlayer].vtState.includes("vt") ? "untriggered-data"
+                      ${selectedCharacters[activePlayer].vtState !== "normal" && ((moveData.changedValues && moveData.changedValues.includes(detailKey)) || moveData.uniqueInVt) ? "triggered-data"
+                      : selectedCharacters[activePlayer].vtState !== "normal" ? "untriggered-data"
                       : "normal-state"}
                     `}
                   >
                     {
                       moveData.extraInfo && detailKey === "extraInfo" ? moveData.extraInfo.map((note, index) => <li className="note" key={index}>{note}</li>)
+                      : activeGame === "GGST" && counterHit && detailKey === "onHit" && moveData.chAdv ? moveData.chAdv
                       : activeGame === "SFV" && counterHit && detailKey === "onHit" && moveData.ccAdv ? moveData.ccAdv
                       : activeGame === "SFV" && counterHit && detailKey === "onHit" && typeof moveData[detailKey] !== "string" && (!!parseInt(moveData[detailKey]) || moveData[detailKey] === 0) ? moveData[detailKey] + 2
                       : activeGame === "USF4" && counterHit && detailKey === "onHit" && typeof moveData[detailKey] !== "string" && (!!parseInt(moveData[detailKey]) || moveData[detailKey] === 0) && moveData.moveType === "normal" && moveData.moveButton.includes("L") ? moveData[detailKey] + 1
                       : activeGame === "USF4" && counterHit && detailKey === "onHit" && typeof moveData[detailKey] !== "string" && (!!parseInt(moveData[detailKey]) || moveData[detailKey] === 0) ? moveData[detailKey] + 3
                       : detailKey === "cancelsTo" && typeof moveData[detailKey] === "object" ? moveData[detailKey].map(cancelType => `${cancelType} `)
+                      : detailKey === "gatling" && typeof moveData[detailKey] === "object" ? moveData[detailKey].map(gatlingOption => `${gatlingOption} `)
                       : moveData[detailKey] || moveData[detailKey] === 0 ? moveData[detailKey]
                       : "~"
                     }

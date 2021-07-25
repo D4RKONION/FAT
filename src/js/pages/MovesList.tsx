@@ -10,6 +10,7 @@ import AdviceToast from '../components/AdviceToast';
 import { activeGameSelector, activePlayerSelector, dataDisplaySettingsSelector, selectedCharactersSelector } from '../selectors';
 import { FrameDataSlug } from '../types';
 import { isPlatform } from '@ionic/core';
+import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
 
 
 const MovesList = () => {
@@ -30,7 +31,7 @@ const MovesList = () => {
     if (activeGame !== slugs.gameSlug) {
       console.log(activeGame)
       console.log("URL game mismatch");
-      dispatch(setActiveGame(slugs.gameSlug));
+      dispatch(setActiveGame(slugs.gameSlug, true));
     }
 
     if (selectedCharacters["playerOne"].name !== slugs.characterSlug) {
@@ -77,11 +78,18 @@ const MovesList = () => {
               labels={ {playerOne: `P1: ${selectedCharacters.playerOne.name}`, playerTwo: `P2: ${selectedCharacters.playerTwo.name}`}}
               clickFunc={ (eventValue) => eventValue === activePlayer ? dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true })) : dispatch(setActiveFrameDataPlayer(eventValue)) }
             />
-            {activeGame === "SFV" &&
+            {activeGame === "SFV" ?
               <SegmentSwitcher
                 segmentType={"vtrigger"}
                 valueToTrack={selectedCharacters[activePlayer].vtState}
                 labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
+                clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
+              />
+            : (activeGame === "GGST") &&
+              <SegmentSwitcher
+                segmentType={"vtrigger"}
+                valueToTrack={selectedCharacters[activePlayer].vtState}
+                labels={createSegmentSwitcherObject(activeGame, selectedCharacters[activePlayer].name)}
                 clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
               />
             }
@@ -104,6 +112,7 @@ const MovesList = () => {
                   ).map(moveKey => {
                     const namingType = dataDisplaySettings.moveNameType === "common" ? "cmnName" : "moveName";
                     const displayedName = !moveData[moveKey][namingType] ? moveData[moveKey]["moveName"] : moveData[moveKey][namingType];
+                    console.log(displayedName)
                     return (
                       <IonItem button key={moveKey} onClick={() => { dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {selectedMove: moveKey})); history.push(`/moveslist/movedetail/${activeGame}/${selectedCharacters[activePlayer].name}/${selectedCharacters[activePlayer].vtState}/${selectedCharacters[activePlayer].frameData[moveKey]["moveName"]}`)}}>
                         <IonLabel>

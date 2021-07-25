@@ -20,8 +20,7 @@ const StatCompare = () => {
   const dispatch = useDispatch();
 
 
-  const [selectedStat, setSelectedStat] = useState("health");
-  const [selectedStatProperName, setSelectedStatProperName] = useState("Health");
+  
   const [statHeadings, setStatHeadings] = useState([]);
   const gameStatsObj = GAME_DETAILS[activeGame].statsPoints;
   const allStats = {}
@@ -32,6 +31,9 @@ const StatCompare = () => {
       )
     )
   )
+  const defaultKey = Object.keys(allStats)[0];
+  const [selectedStat, setSelectedStat] = useState(defaultKey);
+  const [selectedStatProperName, setSelectedStatProperName] = useState<string>(allStats[defaultKey]);
 
   useEffect(() => {
     const statHeadingsTemp = [];

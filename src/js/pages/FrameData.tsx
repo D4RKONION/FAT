@@ -16,6 +16,7 @@ import { FrameDataSlug, PlayerData } from '../types';
 import { createCharacterDataCategoryObj, createOrderedLandscapeColsObj } from '../utils/landscapecols';
 import { isPlatform } from '@ionic/core';
 import FrameDataSubHeader from '../components/FrameDataSubHeader';
+import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
 
 
 
@@ -44,7 +45,6 @@ const FrameData = () => {
 
     charNames.forEach((charName, index) => {
       const characterDataCategoryObj = createCharacterDataCategoryObj(activeGame, charName)
-
       Object.keys(characterDataCategoryObj).forEach(dataRow =>
         Object.keys(characterDataCategoryObj[dataRow]).forEach(dataEntryKey =>
           dispatch(setLandscapeCols({...createOrderedLandscapeColsObj(activeGame, landscapeCols, dataEntryKey, characterDataCategoryObj[dataRow][dataEntryKey]["dataTableHeader"], index === 0 ? "off" : "on" )}))
@@ -54,23 +54,26 @@ const FrameData = () => {
   }
 
   useEffect(() => {
-    if (!localStorage.getItem("lsCurrentVersionCode") || parseInt(localStorage.getItem("lsCurrentVersionCode")) < APP_CURRENT_VERSION_CODE) {
-      localStorage.setItem("lsCurrentVersionCode", APP_CURRENT_VERSION_CODE.toString());
-      dispatch(setModalVisibility({ currentModal: "whatsNew", visible: true }))
-    } 
-
     if (activeGame !== slugs.gameSlug) {
       console.log(activeGame)
+      console.log(slugs.gameSlug)
       console.log("URL game mismatch");
-      dispatch(setActiveGame(slugs.gameSlug));
+      dispatch(setActiveGame(slugs.gameSlug, true));
     }
 
     if (selectedCharacters["playerOne"].name !== slugs.characterSlug) {
       console.log("URL character mismatch");
-      handleNewCharacterLandscapeCols(selectedCharacters["playerOne"].name, slugs.characterSlug)
-      handleNewCharacterLandscapeCols(selectedCharacters["playerTwo"].name, slugs.characterSlug)
+      if (activeGame === slugs.gameSlug) {
+        handleNewCharacterLandscapeCols(selectedCharacters["playerOne"].name, slugs.characterSlug)
+        handleNewCharacterLandscapeCols(selectedCharacters["playerTwo"].name, slugs.characterSlug)
+      }
       dispatch(setPlayer("playerOne", slugs.characterSlug));
     }
+    if (!localStorage.getItem("lsCurrentVersionCode") || parseInt(localStorage.getItem("lsCurrentVersionCode")) < APP_CURRENT_VERSION_CODE) {
+      localStorage.setItem("lsCurrentVersionCode", APP_CURRENT_VERSION_CODE.toString());
+      dispatch(setModalVisibility({ currentModal: "whatsNew", visible: true }))
+    } 
+    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -118,18 +121,32 @@ const FrameData = () => {
         <SubHeader
           adaptToShortScreens={true}
           hideOnWideScreens={true}
-          rowsToDisplay={[
+          rowsToDisplay={activeGame !== "GGST" ? 
             [
-              <><b>Health</b><br />{selectedCharacters[activePlayer].stats.health}</>,
-              <><b>Stun</b><br />{selectedCharacters[activePlayer].stats.stun}</>,
-              <div onClick={() => {history.push(`/stats/${selectedCharacters[activePlayer].name}`)}}><b>Tap for more</b><br /><IonIcon icon={informationCircle} /></div>
-            ],
-          [
-            <><b>Fwd Dash</b><br />{selectedCharacters[activePlayer].stats.fDash}</>,
-            <><b>Back Dash</b><br />{selectedCharacters[activePlayer].stats.bDash}</>,
+              [
+                <><b>Health</b><br />{selectedCharacters[activePlayer].stats.health}</>,
+                <><b>Stun</b><br />{selectedCharacters[activePlayer].stats.stun}</>,
+                <div onClick={() => {history.push(`/stats/${selectedCharacters[activePlayer].name}`)}}><b>Tap for more</b><br /><IonIcon icon={informationCircle} /></div>
+              ],
+              [
+                <><b>Fwd Dash</b><br />{selectedCharacters[activePlayer].stats.fDash}</>,
+                <><b>Back Dash</b><br />{selectedCharacters[activePlayer].stats.bDash}</>,
 
-          ]
-        ]}
+              ]
+            ]
+          :
+            [
+              [
+                <><b>Defense</b><br />{selectedCharacters[activePlayer].stats.defense}</>,
+                <><b>Guts</b><br />{selectedCharacters[activePlayer].stats.guts}</>,
+                <div onClick={() => {history.push(`/stats/${selectedCharacters[activePlayer].name}`)}}><b>Tap for more</b><br /><IonIcon icon={informationCircle} /></div>
+              ],
+              [
+                <><b>Weight</b><br />{selectedCharacters[activePlayer].stats.weight}</>,
+                <><b>Back Dash</b><br />{selectedCharacters[activePlayer].stats.backdashSpeed}</>,
+              ]
+            ]
+          }
         />
         <FrameDataSubHeader
           charName={selectedCharacters[activePlayer].name}
@@ -151,11 +168,18 @@ const FrameData = () => {
               }
             }}
           />
-          {activeGame === "SFV" &&
+          {activeGame === "SFV" ?
             <SegmentSwitcher
               segmentType={"vtrigger"}
               valueToTrack={selectedCharacters[activePlayer].vtState}
               labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
+              clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
+            />
+          : (activeGame === "GGST") &&
+            <SegmentSwitcher
+              segmentType={"vtrigger"}
+              valueToTrack={selectedCharacters[activePlayer].vtState}
+              labels={createSegmentSwitcherObject(activeGame, selectedCharacters[activePlayer].name)}
               clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
             />
           }

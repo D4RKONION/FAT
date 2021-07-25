@@ -66,7 +66,9 @@ import VersionLogs from './js/pages/VersionLogs';
 import { activeGameSelector, frameDataSelector, themeBrightnessSelector, themeColorSelector } from './js/selectors';
 import { setOrientation, setModalVisibility, setActiveGame, setThemeOwned, setThemeBrightness } from './js/actions';
 import { store } from './js/store';
-import { APP_FRAME_DATA_CODE, APP_CURRENT_VERSION_CODE } from './js/constants/VersionLogs';
+import { APP_SFV_FRAME_DATA_CODE, APP_GGST_FRAME_DATA_CODE, APP_CURRENT_VERSION_CODE } from './js/constants/VersionLogs';
+import GAME_DETAILS from './js/constants/GameDetails';
+import { GameName } from './js/types';
 
 const App = () => {
 
@@ -81,7 +83,7 @@ const App = () => {
 
   useEffect(() => {
     // do an initial frame data load
-    dispatch(setActiveGame(activeGame));
+    dispatch(setActiveGame(activeGame, false));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -187,17 +189,26 @@ const App = () => {
   }, [dispatch]);
 
 useEffect(() => {
-    const newVersionCheck = async () => {
+    const newVersionCheck = async (gameName: string) => {
+      
+      // rename the generic lsFrameDataCode to lsSFVFrameDataCode
+      if (localStorage.getItem("lsFrameDataCode")) {
+        console.log("deleting old SFV code")
+        localStorage.setItem("lsSFVFrameDataCode", localStorage.getItem("lsFrameDataCode"))
+        localStorage.removeItem("lsFrameDataCode")
+      }
+
+      const APP_FRAME_DATA_CODE = gameName === "SFV" ? APP_SFV_FRAME_DATA_CODE : APP_GGST_FRAME_DATA_CODE
 
       // check if the frame data was updated
-      let LS_FRAME_DATA_CODE = parseInt(localStorage.getItem("lsFrameDataCode"));
+      let LS_FRAME_DATA_CODE = parseInt(localStorage.getItem(`ls${gameName}FrameDataCode`));
 
       if (!LS_FRAME_DATA_CODE) {
         // fresh install, local code doesn't exist, set it up using the app's local data
         console.log("local frame data code don't exist, set it up using the app's local data")
-        localStorage.setItem("lsFrameDataCode", APP_FRAME_DATA_CODE.toString())
+        localStorage.setItem(`ls${gameName}FrameDataCode`, APP_FRAME_DATA_CODE.toString())
 
-        LS_FRAME_DATA_CODE = parseInt(localStorage.getItem("lsFrameDataCode"));
+        LS_FRAME_DATA_CODE = parseInt(localStorage.getItem(`ls${gameName}FrameDataCode`));
 
         // also because this is a fresh install, we're going to do a cheeky check for if
         // the user likes dark mode right here
@@ -207,10 +218,10 @@ useEffect(() => {
       } else if (LS_FRAME_DATA_CODE <= APP_FRAME_DATA_CODE) {
         // the app has been updated via the store, delete the LS FrameData.json and update the VS_FDC
         console.log("the app has been updated via the store, delete the LS FrameData.json and update the VS_FDC")
-        localStorage.setItem("lsFrameDataCode", APP_FRAME_DATA_CODE.toString())
-        localStorage.removeItem("lsSFVFrameData");
+        localStorage.setItem(`ls${gameName}FrameDataCode`, APP_FRAME_DATA_CODE.toString())
+        localStorage.removeItem(`ls${gameName}FrameData`);
 
-        LS_FRAME_DATA_CODE = parseInt(localStorage.getItem("lsFrameDataCode"));
+        LS_FRAME_DATA_CODE = parseInt(localStorage.getItem(`ls${gameName}FrameDataCode`));
 
       } else if (LS_FRAME_DATA_CODE > APP_FRAME_DATA_CODE) {
         // the app has downloaded a frame data update
@@ -219,7 +230,7 @@ useEffect(() => {
         console.log("something has gone horribly wrong")
       }
 
-      const version_response = await fetch(`https://fullmeter.com/fatfiles/newrelease/versionDetails.json?ts=${Date.now()}`)
+      const version_response = await fetch(`https://fullmeter.com/fatfiles/release/${gameName}/${gameName}VersionDetails.json?ts=${Date.now()}`)
       const SERVER_VERSION_DETAILS = await version_response.json();
 
       // this stops the update process accidentally being ruined
@@ -230,19 +241,33 @@ useEffect(() => {
 
       if (SERVER_VERSION_DETAILS.FRAME_DATA_CODE > LS_FRAME_DATA_CODE) {
         console.log("there's a new version on the server, get it");
-        const framedatajson_response = await fetch(`https://fullmeter.com/fatfiles/newrelease/SFVFrameData.json?ts=${Date.now()}`)
+        const framedatajson_response = await fetch(`https://fullmeter.com/fatfiles/release/${gameName}/${gameName}FrameData.json?ts=${Date.now()}`)
         const SERVER_FRAME_DATA = await framedatajson_response.json();
 
-        localStorage.setItem("lsSFVFrameData", JSON.stringify(SERVER_FRAME_DATA));
-        localStorage.setItem("lsFrameDataCode", SERVER_VERSION_DETAILS.FRAME_DATA_CODE)
+        localStorage.setItem(`ls${gameName}FrameData`, JSON.stringify(SERVER_FRAME_DATA));
+        localStorage.setItem(`ls${gameName}FrameDataCode`, SERVER_VERSION_DETAILS.FRAME_DATA_CODE)
+        // this is kind of dirty, and I don't like it but I don't know how else to access the activeGame from the URL.
+        // without this check, this function always thinks that the current game on a fresh load is SFV
+        // and totally ignores the URL switcher in framedata component. In short, I am sorry programming gods
+        // please forgive me
+        if (GAME_DETAILS[window.location.hash.split("/")[2]]) {
+          dispatch(setActiveGame(window.location.hash.split("/")[2] as GameName, true));
+        } else if (GAME_DETAILS[window.location.hash.split("/")[3]]) {
+          dispatch(setActiveGame(window.location.hash.split("/")[3] as GameName, true));
+        } else {
+          dispatch(setActiveGame(activeGame, false))
+        }
         
-        dispatch(setActiveGame("SFV"));
+        
         
       }
-
     }
+    const gamesToCheck = ["SFV", "GGST"]
+    gamesToCheck.forEach(gameName => {
+      newVersionCheck(gameName);
+    })
     
-    newVersionCheck();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch])
 
 

@@ -5,7 +5,8 @@ import type { AdviceToastPrevRead, AppModal, NormalNotationType, GameName, Input
 import AppSFVFrameData from '../constants/framedata/SFVFrameData.json';
 import USF4FrameData from '../constants/framedata/USF4FrameData.json';
 import SF3FrameData from '../constants/framedata/3SFrameData.json';
-import { APP_FRAME_DATA_CODE } from '../constants/VersionLogs';
+import AppGGSTFrameData from '../constants/framedata/GGSTFrameData.json';
+import { APP_SFV_FRAME_DATA_CODE, APP_GGST_FRAME_DATA_CODE } from '../constants/VersionLogs';
 import { RootState } from '../reducers';
 
 // ACTION CREATORS
@@ -33,34 +34,51 @@ const setFrameData = (frameData) => ({
   frameData,
 })
 
-const getFrameData = (gameName: GameName) => {
+const getFrameData = (gameName: GameName, stateReset?: Boolean) => {
   return async function(dispatch, getState) {
     const { selectedCharactersState } = getState();
-    const LS_FRAME_DATA_CODE = parseInt(localStorage.getItem("lsFrameDataCode"));
-    const lsSFVFrameData = JSON.parse(localStorage.getItem("lsSFVFrameData"))
 
     if (gameName === "SFV") {
-      if (!lsSFVFrameData || !LS_FRAME_DATA_CODE || LS_FRAME_DATA_CODE <= APP_FRAME_DATA_CODE) {
+
+      const LS_FRAME_DATA_CODE = parseInt(localStorage.getItem("lsSFVFrameDataCode"));
+      const lsSFVFrameData = JSON.parse(localStorage.getItem("lsSFVFrameData"))
+
+      if (!lsSFVFrameData || !LS_FRAME_DATA_CODE || LS_FRAME_DATA_CODE <= APP_SFV_FRAME_DATA_CODE) {
         dispatch(setFrameData(AppSFVFrameData));
       } else {
         dispatch(setFrameData(lsSFVFrameData))
       }
+
     } else if (gameName === "USF4") {
       dispatch(setFrameData(USF4FrameData));
     } else if (gameName === "3S") {
       dispatch(setFrameData(SF3FrameData));
+    } else if (gameName === "GGST") {
+
+      const LS_FRAME_DATA_CODE = parseInt(localStorage.getItem("lsGGSTFrameDataCode"));
+      const lsGGSTFrameData = JSON.parse(localStorage.getItem("lsGGSTFrameData"))
+
+      if (!lsGGSTFrameData || !LS_FRAME_DATA_CODE || LS_FRAME_DATA_CODE <= APP_GGST_FRAME_DATA_CODE) {
+        dispatch(setFrameData(AppGGSTFrameData));
+      } else {
+        dispatch(setFrameData(lsGGSTFrameData))
+      }
+      
     }
 
-    const gameCharList = GAME_DETAILS[gameName].characterList;
-    dispatch(setPlayer("playerOne", gameCharList.includes(selectedCharactersState.playerOne.name) ? selectedCharactersState.playerOne.name : gameCharList[0]) );
-    dispatch(setPlayer("playerTwo", gameCharList.includes(selectedCharactersState.playerTwo.name) ? selectedCharactersState.playerTwo.name : gameCharList[1]) );
+    const gameCharList = GAME_DETAILS[gameName].characterList as any;
+    dispatch(setPlayerAttr("playerOne", gameCharList.includes(selectedCharactersState.playerOne.name) ? selectedCharactersState.playerOne.name : gameCharList[0], {vtState: "normal"}) );
+    dispatch(setPlayerAttr("playerTwo", gameCharList.includes(selectedCharactersState.playerTwo.name) ? selectedCharactersState.playerTwo.name : gameCharList[2], {vtState: "normal"}) );
   }
 }
 
-export const setActiveGame = (gameName: GameName) => {
+export const setActiveGame = (gameName: GameName, colReset: Boolean) => {
   return function (dispatch) {
+    if (colReset) {
+      dispatch(setLandscapeCols(GAME_DETAILS[gameName].defaultLandscapeCols))
+    }
     dispatch(setGameName(gameName));
-    dispatch(getFrameData(gameName));
+    dispatch(getFrameData(gameName, true));
   }
 }
 
@@ -87,18 +105,18 @@ export const setAutoSetSpecificCols = (autoSetColsOn: Boolean) => ({
 })
 
 // handle player frame data json stuff
-export const setPlayer = (playerId: PlayerId, charName: PlayerData["name"]) => {
+export const  setPlayer = (playerId: PlayerId, charName: PlayerData["name"]) => {
   return function(dispatch, getState) {
     const { frameDataState, dataDisplaySettingsState, selectedCharactersState, activeGameState }: RootState  = getState();
-    const vTriggerStateToSet: VtState =
-      activeGameState !== "SFV"
-        ? "normal"
-        : selectedCharactersState[playerId].vtState
+    const stateToSet: VtState =
+      activeGameState === "SFV" || (activeGameState === "GGST" && selectedCharactersState[playerId].name === charName)
+        ? selectedCharactersState[playerId].vtState
+        : "normal"
     const playerData: PlayerData = {
       name: charName,
-      frameData: helpCreateFrameDataJSON(frameDataState[charName].moves, dataDisplaySettingsState, vTriggerStateToSet),
+      frameData: helpCreateFrameDataJSON(frameDataState[charName].moves, dataDisplaySettingsState, stateToSet),
       stats: frameDataState[charName].stats,
-      vtState: vTriggerStateToSet,
+      vtState: stateToSet,
     }
     dispatch({
       type: 'SET_PLAYER',

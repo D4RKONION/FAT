@@ -141,7 +141,8 @@ const Menu = () => {
     },
   ];
   
-  const LS_FRAME_DATA_CODE = localStorage.getItem("lsFrameDataCode");
+  const LS_SFV_FRAME_DATA_CODE = localStorage.getItem("lsSFVFrameDataCode");
+  const LS_GGST_FRAME_DATA_CODE = localStorage.getItem("lsGGSTFrameDataCode");
 
   return (
     <IonMenu
@@ -159,7 +160,7 @@ const Menu = () => {
             </div>
             <div id="appDetails">
               <h2>FAT - <span onClick={() => modeName !== "movedetail" && setActiveGameAlertOpen(true)}>{activeGame} <IonIcon icon={caretDownOutline} /></span></h2>
-              <p>Ver {`${APP_CURRENT_VERSION_NAME}.${LS_FRAME_DATA_CODE}`}</p>
+              <p>Ver {`${APP_CURRENT_VERSION_NAME}.${LS_SFV_FRAME_DATA_CODE}.${LS_GGST_FRAME_DATA_CODE}`}</p>
             </div>
           </div>
           <IonList id="pageList">
@@ -198,7 +199,7 @@ const Menu = () => {
               </IonCol>
               {isWideFullMenuOpen &&
                 <IonCol>
-                  <p>FAT {`${APP_CURRENT_VERSION_NAME}.${LS_FRAME_DATA_CODE}`} - <span onClick={() => modeName !== "movedetail" && setActiveGameAlertOpen(true)}>{activeGame} <IonIcon icon={caretDownOutline} /></span> </p>
+                  <p>FAT {`${APP_CURRENT_VERSION_NAME}.${LS_SFV_FRAME_DATA_CODE}.${LS_GGST_FRAME_DATA_CODE}`} - <span onClick={() => modeName !== "movedetail" && setActiveGameAlertOpen(true)}>{activeGame} <IonIcon icon={caretDownOutline} /></span> </p>
                 </IonCol>
               }
             </IonRow>
@@ -273,7 +274,14 @@ const Menu = () => {
               label: 'SFV',
               value: 'SFV',
               checked: activeGame === "SFV"
-            }
+            },
+            {
+              name: 'GGST',
+              type: 'radio',
+              label: 'GGST',
+              value: 'GGST',
+              checked: activeGame === "GGST"
+            },
           ]}
          buttons={[
             {
@@ -284,7 +292,7 @@ const Menu = () => {
             {
               text: 'Select',
               handler: selectedGame => {
-                dispatch(setActiveGame(selectedGame));
+                dispatch(setActiveGame(selectedGame, true));
               }
             }
           ]}

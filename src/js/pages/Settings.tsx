@@ -25,7 +25,8 @@ const Settings = () => {
 
   const [copyToastShown, setCopyToastShown] = useState(false);
 
-  const LS_FRAME_DATA_CODE = localStorage.getItem("lsFrameDataCode");
+  const LS_SFV_FRAME_DATA_CODE = localStorage.getItem("lsSFVFrameDataCode");
+  const LS_GGST_FRAME_DATA_CODE = localStorage.getItem("lsGGSTFrameDataCode");
 
   useIonViewDidEnter(() => {
      urlHash &&
@@ -55,11 +56,12 @@ const Settings = () => {
                 value={activeGame}
                 okText="Select"
                 cancelText="Cancel"
-                onIonChange={ e => dispatch(setActiveGame(e.detail.value)) }
+                onIonChange={ e => dispatch(setActiveGame(e.detail.value, true)) }
               >
                 <IonSelectOption value="3S">3S</IonSelectOption>
                 <IonSelectOption value="USF4">USF4</IonSelectOption>
                 <IonSelectOption value="SFV">SFV</IonSelectOption>
+                <IonSelectOption value="GGST">GGST</IonSelectOption>
               </IonSelect>
             </IonItem>
 
@@ -231,7 +233,7 @@ const Settings = () => {
 
 
           </IonList>
-          <p className="final-fat">FAT {`${APP_CURRENT_VERSION_NAME}.${LS_FRAME_DATA_CODE}`}</p>
+          <p className="final-fat">FAT {`${APP_CURRENT_VERSION_NAME}.${LS_SFV_FRAME_DATA_CODE}.${LS_GGST_FRAME_DATA_CODE}`}</p>
 
           <IonToast
             isOpen={copyToastShown}

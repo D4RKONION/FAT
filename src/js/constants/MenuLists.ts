@@ -14,6 +14,7 @@ export const CALC_MENU_LIST = {
       url: "framekillgenerator",
       desc: "Automatically generate frame kills for a selection of oki scenarios",
       icon: "skullOutline",
+      excludedGames: ["GGST"]
     }
   },
   "Punishing Moves" : {
@@ -53,9 +54,9 @@ export const RES_MENU_LIST = {
     desc: "Find out about what else is out there to help you become a master",
     icon: "desktopOutline",
   },
-  "Docs & Sheets" : {
+  "Wikis, Docs & Sheets" : {
     url: "docs",
-    desc: "Check out all the incredible and in depth docs that are out there for SFV",
+    desc: "Check out all the incredible and in depth docs and wikis there are",
     icon: "documentTextOutline",
   },
   "Social Media" : {
@@ -256,9 +257,13 @@ export const RES_APPS_LIST = {
 }
 
 export const RES_DOCS_LIST = {
-  "Docs & Sheets": {
-    "FAT Spreadsheet": {
-      desc: "This is the document that we use to compile this app, so it's often slightly more up to date than anything else",
+  "Wikis, Docs & Sheets": {
+    "FAT SFV Spreadsheet": {
+      desc: "This is the document that we use to compile the SFV data",
+      url: "https://docs.google.com/spreadsheets/d/1nlbWon7SYhhO5TSpNx06qQrw2TRDEZ85HQrNherXioY/edit#gid=665386711"
+    },
+    "FAT GGST Spreadsheet": {
+      desc: "This is the document that we use to compile the GGST data",
       url: "https://docs.google.com/spreadsheets/d/1nlbWon7SYhhO5TSpNx06qQrw2TRDEZ85HQrNherXioY/edit#gid=665386711"
     }, 
     "Sestze's Starter Doc": {
@@ -272,6 +277,18 @@ export const RES_DOCS_LIST = {
     "NCH SFV Resource Compilation": {
       desc: "An incredible resource for SFV which includes everything from SFV strategy to FG philosophy",
       url: "https://docs.google.com/spreadsheets/d/173DjkfbRPCpb86mI3l0C_9nDRHCEfMiDzjc6hPDrn1E/edit#gid=0"
+    },
+    "NCH GGST Resource Compilation": {
+      desc: "As above, but for GGST!",
+      url: "https://docs.google.com/spreadsheets/d/1fHNTtZMIceVZvOcfEWIqMjd7vekwmnnY51ot9QgldvY/edit#gid=0"
+    },
+    "Dustloop": {
+      desc: "Dustloop is a massive resource for all ArcSys games, not just GGST. Check it out!",
+      url: "https://dustloop.com"
+    },
+    "SRK Wiki": {
+      desc: "The SRK Wiki hosts frame data and more, for a ton of Fighting Games. They also use the FAT data for SFV!",
+      url: "https://srk.shib.live/w/Main_Page"
     },
     "FGC Map": {
       desc: "It's a little out of date, but this map is the best place to start when looking for your local FGC",
@@ -340,12 +357,16 @@ export const RES_FAT_LIST = {
       url: "https://twitter.com/adam_rsfv"
     },
     "MonkUnit": {
-      desc: "Our new newest frame data fanatic, MonkUnit did a mammoth amount of work adding Hit Confirm Windows to the app!",
+      desc: "Our newest SFV frame data member, MonkUnit did a mammoth amount of work adding Hit Confirm Windows to the app!",
       url: "https://twitter.com/MonkUnit"
     },
     "Arlieth": {
       desc: "Arlieth was the first person to help me with the frame data spreadsheet and continues to help out today!",
       url: "https://twitter.com/arlieth"
+    },
+    "Jojo": {
+      desc: "You might know JoJo for his extensive beginner spreadsheets for SFV and GGST. He's put in a huge amount of work testing, homogenising and fleshing out the GGST data",
+      url: "https://twitter.com/nchJoJo"
     }
   }
 }

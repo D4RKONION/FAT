@@ -44,7 +44,7 @@ const LandscapeOptions = () => {
 
   const handleModalDismiss = () => {
     if (Object.keys(landscapeCols).length === 0) {
-      dispatch(setLandscapeCols({startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", damage:"dmg", stun:"stun", kd:"kd", kdr:"kdr", kdrb:"kdrb"}))
+      dispatch(setLandscapeCols(GAME_DETAILS[activeGame].defaultLandscapeCols))
       modalVisibility.visible && dispatch(setModalVisibility({ currentModal: "landscapeOptions", visible: false }))
     } else {
       modalVisibility.visible && dispatch(setModalVisibility({ currentModal: "landscapeOptions", visible: false }))
@@ -62,7 +62,7 @@ const LandscapeOptions = () => {
         buttonsToShow={[{ slot: "end",
           buttons: [
             { text: <IonIcon icon={trashOutline} />, buttonFunc: () => dispatch(setLandscapeCols({})) },
-            { text: <IonIcon icon={reloadOutline} />, buttonFunc: () => dispatch(setLandscapeCols({startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", damage:"dmg", stun:"stun", kd:"kd", kdr:"kdr", kdrb:"kdrb"})) },
+            { text: <IonIcon icon={reloadOutline} />, buttonFunc: () => dispatch(setLandscapeCols(GAME_DETAILS[activeGame].defaultLandscapeCols)) },
             { text: <IonIcon icon={closeOutline} />, buttonFunc: () => handleModalDismiss()}
           ]
         }]}

@@ -44,7 +44,7 @@ const StringInterrupter = () => {
 
       let frameGap = playerTwoMoves[secondMove]["startup"] - playerTwoMoves[firstMove]["onBlock"];
 
-      if (playerTwoMoves[secondMove]["moveType"] === "normal") {
+      if (playerTwoMoves[secondMove]["moveType"] === "normal" && activeGame === "SFV") {
         switch(playerTwoMoves[secondMove].moveButton[0]) {
           case("L"):
             attackerPriority = 1;

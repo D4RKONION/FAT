@@ -30,7 +30,7 @@ const Combos = () => {
     if (activeGame !== slugs.gameSlug) {
       console.log(activeGame)
       console.log("URL game mismatch");
-      dispatch(setActiveGame(slugs.gameSlug));
+      dispatch(setActiveGame(slugs.gameSlug, true));
     }
 
     if (selectedCharacters["playerOne"].name !== slugs.characterSlug) {
@@ -49,8 +49,12 @@ const Combos = () => {
       />
       <IonContent id="combos">
         <IonGrid fixed>
-          {activeGame !== "SFV"
-            ? <h4>No Combos for {activeGame}<br/>Sorry!</h4>
+          {activeGame !== "SFV" || !SFV_COMBOS[selectedCharacters[activePlayer].name]
+            ? 
+              <div>
+                <h4>No Combos for {activeGame}<br/>Sorry!</h4>
+                {activeGame === "GGST" && <h5>However, you should check out<br/><a target="_system" href={`https://dustloop.com/wiki/index.php?title=GGST/${selectedCharacters[activePlayer].stats.longName ? selectedCharacters[activePlayer].stats.longName : selectedCharacters[activePlayer].name}/Combos`}>Dustloop's extensive combo guide's</a><br/>for {selectedCharacters.playerOne.name}</h5>}
+              </div>
             : <>
               <div className={`segments ${!isPlatform("ios") && "md"}`}>
                 <SegmentSwitcher

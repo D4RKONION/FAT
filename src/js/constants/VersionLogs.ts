@@ -1,10 +1,21 @@
-export const APP_CURRENT_VERSION_NAME = "3.3.1";
-export const APP_CURRENT_VERSION_CODE = 30301;
-export const APP_FRAME_DATA_CODE = 39;
-export const APP_DATE_UPDATED = "May 9, 2021";
+export const APP_CURRENT_VERSION_NAME = "3.4.0";
+export const APP_CURRENT_VERSION_CODE = 30400;
+export const APP_SFV_FRAME_DATA_CODE = 51;
+export const APP_GGST_FRAME_DATA_CODE = 1;
+export const APP_DATE_UPDATED = "July 27, 2021";
 
 
 export const VERSION_LOGS = {
+  "3.4.0": {
+    "New Features": [
+      "New Game: GGST data is now in FAT!",
+      "You can check out the hitbox data (where available) on dustloop using the direct link in the move detail page",
+      "Added some GGST resources to the More Resources Page"
+    ],
+    "Bug Fixes": [
+      "Fixed a bug where the app would sometimes crash when changing games on the combos page"
+    ]
+  },
   "3.3.1": {
     "New Features": [
       "Added Rose's specific cancels to the app",

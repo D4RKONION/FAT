@@ -1,4 +1,4 @@
-import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonPage } from '@ionic/react';
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonIcon, IonPage } from '@ionic/react';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useParams } from 'react-router';
@@ -11,6 +11,8 @@ import { setActiveGame, setPlayerAttr } from '../actions';
 import { activeGameSelector, activePlayerSelector, selectedCharactersSelector } from '../selectors';
 import { FrameDataSlug } from '../types';
 import { isPlatform } from '@ionic/core';
+import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
+import { openOutline } from 'ionicons/icons';
 
 
 const MoveDetail = () => {
@@ -29,7 +31,7 @@ const MoveDetail = () => {
     if (activeGame !== slugs.gameSlug) {
       console.log(activeGame)
       console.log("URL game mismatch");
-      dispatch(setActiveGame(slugs.gameSlug));
+      dispatch(setActiveGame(slugs.gameSlug, true));
     }
     
     if ((selectedCharacters[activePlayer].name !== slugs.characterSlug || selectedCharacters[activePlayer].vtState !== slugs.vtStateSlug) ) {
@@ -95,14 +97,21 @@ const MoveDetail = () => {
         />
 
         <div className={`segments ${!isPlatform("ios") && "md"}`}>
-          {activeGame === "SFV" && !selectedMoveData["uniqueInVt"] &&
-            <SegmentSwitcher
-              segmentType={"vtrigger"}
-              valueToTrack={selectedCharacters[activePlayer].vtState}
-              labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
-              clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
-            />
-          }
+          {activeGame === "SFV" && !selectedMoveData["uniqueInVt"] ?
+              <SegmentSwitcher
+                segmentType={"vtrigger"}
+                valueToTrack={selectedCharacters[activePlayer].vtState}
+                labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
+                clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
+              />
+            : (activeGame === "GGST") && !selectedMoveData["uniqueInVt"] &&
+              <SegmentSwitcher
+                segmentType={"vtrigger"}
+                valueToTrack={selectedCharacters[activePlayer].vtState}
+                labels={createSegmentSwitcherObject(activeGame, selectedCharacters[activePlayer].name)}
+                clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
+              />
+            }
         </div>
         
         <div id="flexCardContainer">
@@ -123,7 +132,7 @@ const MoveDetail = () => {
                   dataSection !== "Extra Information" ?
                     <div key={index} className="row">
                       {Object.entries(dataRow).map(([dataId, headerObj]: [string, {[key: string]: {"dataTableHeader": string, "detailedHeader": string, "dataFileKey": string}}]) => {
-                          if (dataId === "cancelsTo") {
+                          if (dataId === "cancelsTo" || dataId === "gatling") {
                             return (
                               <div
                                 className={`col ${selectedMoveData.changedValues && selectedMoveData.changedValues.includes(dataId) ? "triggered-data" : "normal-state"}`}
@@ -180,6 +189,29 @@ const MoveDetail = () => {
               </IonCardContent>
             </IonCard>
           }
+
+          {selectedMoveData.dustloopKey && 
+            <IonCard className="final-card">
+              <IonCardHeader>
+                <IonCardTitle>Hitboxes & More On Dustloop</IonCardTitle>
+              </IonCardHeader>
+              <IonCardContent>
+                <div className="row">
+                  <div className="col">
+                    <IonButton expand="full" fill="clear" onClick={() => window.open(`https://dustloop.com/wiki/index.php?title=GGST/${selectedCharacters[activePlayer].stats.longName ? selectedCharacters[activePlayer].stats.longName : selectedCharacters[activePlayer].name}#${selectedMoveData.dustloopKey}`, '_blank')}>
+                      <IonIcon slot="end" icon={openOutline} />
+                      Take me there!
+                    </IonButton>
+                  </div>
+                </div>
+                
+            
+              </IonCardContent>
+            </IonCard>
+          }
+          
+
+          
 
         </div>
 

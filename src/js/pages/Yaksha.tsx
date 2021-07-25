@@ -8,7 +8,7 @@ import { setPlayerAttr, setPlayer } from '../actions';
 import { useHistory } from 'react-router';
 import { close, searchOutline, trashBinOutline } from 'ionicons/icons';
 import GAME_DETAILS from '../constants/GameDetails';
-import fuzz from 'fuzzball'
+import {ratio as fuzzratio, extract as fuzzextract } from 'fuzzball'
 import { activeGameSelector, dataDisplaySettingsSelector, frameDataSelector, selectedCharactersSelector } from '../selectors';
 
 const YAKSHA_HEADERS = [
@@ -43,6 +43,23 @@ const YAKSHA_HEADERS = [
   }
 ]
 
+const CHARACTER_NAME_DICTIONARY = {
+  "SFV": {
+    "chun": "Chun-Li",
+    "e": "E.Honda", 
+    "fang": "F.A.N.G",
+    "zeku": "Zeku (Old)",
+    "gief": "Zangief",
+    "sim": "Dhalsim",
+  },
+  "GGST": {
+    
+    "ino": "I-No",
+    "zato": "Zato-1",
+  }
+  
+}
+
 const Yaksha = () => {
 
   const activeGame = useSelector(activeGameSelector);
@@ -61,20 +78,10 @@ const Yaksha = () => {
     setSearchResults([]);
   },[activeGame]);
 
-  const fuzzyNameScorer = (possibleCharName) => {
-    const possibleCharFuzzObj = fuzz.extract(possibleCharName, GAME_DETAILS[activeGame].characterList)[0];
-    if (possibleCharName === "Chun" || possibleCharName === "chun" ) {
-      return "Chun-Li"
-    } else if (possibleCharName === "E" || possibleCharName === "e") {
-      return "E.Honda"
-    } else if (possibleCharName === "FANG" || possibleCharName === "fang") {
-      return "F.A.N.G"
-    } else if (possibleCharName === "zeku") {
-      return "Zeku (Old)"
-    } else if (possibleCharName === "gief") {
-      return "Zangief"
-    } else if (possibleCharName === "sim") {
-      return "Dhalsim"
+  const fuzzyNameScorer = (possibleCharName: string) => {
+    const possibleCharFuzzObj = fuzzextract(possibleCharName, GAME_DETAILS[activeGame].characterList)[0];
+    if (CHARACTER_NAME_DICTIONARY[activeGame][possibleCharName.toLowerCase()]) {
+      return CHARACTER_NAME_DICTIONARY[activeGame][possibleCharName.toLowerCase()]
     } else if (possibleCharFuzzObj[1] > 75) {
       return possibleCharFuzzObj[0];
     } else {
@@ -86,8 +93,8 @@ const Yaksha = () => {
     const SEARCH_TYPES = ["moveName", "cmnName", "plnCmd", "numCmd"];
     for (let x = 100; x >=0; x -= 10) {
       for (let type in SEARCH_TYPES) {
-        if (fuzz.ratio(query, choice[SEARCH_TYPES[type]], options) > x) {
-          return fuzz.ratio(query, choice[SEARCH_TYPES[type]], options);
+        if (fuzzratio(query, choice[SEARCH_TYPES[type]], options) > x) {
+          return fuzzratio(query, choice[SEARCH_TYPES[type]], options);
         }
       }
     }
@@ -100,7 +107,7 @@ const Yaksha = () => {
     const fuzzyCharName = fuzzyNameScorer(searchbarText.substr(0, searchbarText.indexOf(" ")));
     const fuzzyMoveNameKey =
       !/\S/.test(searchbarText) ? "userError"
-      : searchbarText.includes(" ") ? fuzz.extract(searchbarText.substr(searchbarText.indexOf(" ") + 1), frameDataFile[fuzzyCharName]["moves"]["normal"], fuzzyOptions)[0][2]
+      : searchbarText.includes(" ") ? fuzzextract(searchbarText.substr(searchbarText.indexOf(" ") + 1), frameDataFile[fuzzyCharName]["moves"]["normal"], fuzzyOptions)[0][2]
       : "userError";
 
     if (searchResults.length !== 0 && (searchResults[searchResults.length -1].moveNameKey === fuzzyMoveNameKey && searchResults[searchResults.length -1].charName === fuzzyCharName)) {

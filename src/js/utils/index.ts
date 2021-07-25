@@ -1,6 +1,4 @@
 import { mapKeys, isEqual } from 'lodash';
-import { DataDisplaySettingsReducerState } from '../reducers/datadisplaysettings';
-import { VtState } from '../types';
 
 /**
  * Renames the moves in the character frame data to reflect the user's desired naming convention

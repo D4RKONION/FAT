@@ -2,7 +2,8 @@ const GAME_DETAILS = {
   SFV: {
     fullName: "Street Fighter V",
     abbrName: "SFV",
-    characterStates: ["normal", "vtOne", "vtTwo"],
+    characterStates: ["normal", "vtOne", "vtTwo"] as const,
+    specificCharacterStates: [],
     characterList: [
       "Abigail",
       "Akira",
@@ -252,12 +253,14 @@ const GAME_DETAILS = {
         }
 
       ]
-    }
+    },
+    defaultLandscapeCols: {startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", damage:"dmg", stun:"stun", kd:"kd", kdr:"kdr", kdrb:"kdrb"}
   },
   USF4: {
     fullName: "Ultra Street Fighter 4",
     abbrName: "USF4",
-    characterStates: ["normal"],
+    characterStates: ["normal"] as const,
+    specificCharacterStates: [],
     characterList: [
       "Abel",
       "Adon",
@@ -388,12 +391,14 @@ const GAME_DETAILS = {
           "lvlTwoF": "Level 2 Focus Forward"
         }
       ]
-    }
+    },
+    defaultLandscapeCols: {startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", damage:"dmg", stun:"stun", cancelsTo: "xx"}
   },
   '3S': {
     fullName: "Street Fighter 3: Third Strike",
     abbrName: "3S",
-    characterStates: ["normal"],
+    characterStates: ["normal"] as const,
+    specificCharacterStates: [],
     characterList: [
       "Alex",
       "Akuma",
@@ -569,7 +574,175 @@ const GAME_DETAILS = {
           "lvlTwoF": "Level 2 Focus Forward"
         }
       ]
-    }
+    },
+    defaultLandscapeCols: {startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", damage:"dmg", stun:"stun", cancelsTo: "xx", parry: "parry"}
+  },
+  GGST: {
+    fullName: "Guilty Gear Strive",
+    abbrName: "GGST",
+    characterStates: ["normal"] as const,
+    specificCharacterStates: {"Ky": ["Dragon Install"], "Nagoriyuki": ["L2", "L3", "BR"]},
+    characterList: [
+      "Anji",
+      "Axl",
+      "Chipp",
+      "Faust",
+      "Giovanna",
+      "Goldlewis",
+      "I-No",
+      "Ky",
+      "Leo",
+      "May",
+      "Millia",
+      "Nagoriyuki",
+      "Potemkin",
+      "Ramlethal",
+      "Sol",
+      "Zato-1"
+    ] as const,
+
+    universalDataPoints: {
+      "Basic Frame Data": [
+        {
+          "startup": {
+            "dataTableHeader": "S",
+            "detailedHeader": "Startup",
+            "dataFileKey": "startup",
+          },
+          "active": {
+            "dataTableHeader": "A",
+            "detailedHeader": "Active",
+            "dataFileKey": "active",
+          },
+          "recovery": {
+            "dataTableHeader": "R",
+            "detailedHeader": "Recovery",
+            "dataFileKey": "recovery",
+          }
+        },
+        {
+          "total": {
+            "dataTableHeader": "T",
+            "detailedHeader": "Total",
+            "dataFileKey": "total",
+          },
+        },
+        {
+          "onBlock": {
+            "dataTableHeader": "oB",
+            "detailedHeader": "On Block",
+            "dataFileKey": "onBlock",
+          },
+          "onHit": {
+            "dataTableHeader": "oH",
+            "detailedHeader": "On Hit",
+            "dataFileKey": "onHit",
+          }
+        }
+      ],
+      "Move Properties": [
+        {
+          "moveType": {
+            "dataTableHeader": "mT",
+            "detailedHeader": "Move Type",
+            "dataFileKey": "moveType",
+          },
+          "cancelsTo": {
+            "dataTableHeader": "xx",
+            "detailedHeader": "Cancels To",
+            "dataFileKey": "cancelsTo",
+          },
+        },
+        {
+          "gatling": {
+            "dataTableHeader": "gatl",
+            "detailedHeader": "Gatling To",
+            "dataFileKey": "gatling",
+          },
+        }
+      ],
+      "Offensive Properties": [
+        {
+          "damage": {
+            "dataTableHeader": "dmg",
+            "detailedHeader": "Damage",
+            "dataFileKey": "damage",
+          },
+          "attackLevel": {
+            "dataTableHeader": "atkLvl",
+            "detailedHeader": "Attack Level",
+            "dataFileKey": "attackLevel",
+          },
+        },
+        {
+          "riscGain": {
+            "dataTableHeader": "risc",
+            "detailedHeader": "Risc Gain",
+            "dataFileKey": "riscGain",
+          },
+          "prorate": {
+            "dataTableHeader": "prorate",
+            "detailedHeader": "Prorate",
+            "dataFileKey": "prorate",
+          },
+          
+        },
+        {
+          "guardLevel": {
+            "dataTableHeader": "guard",
+            "detailedHeader": "Guard Level",
+            "dataFileKey": "guardLevel",
+          }
+        },
+      ],
+      "Knockdown & Counterhit": [
+        {
+          "kda": {
+            "dataTableHeader": "kda",
+            "detailedHeader": "Knockdown Adv.",
+            "dataFileKey": "kda",
+          },
+          "chAdv": {
+            "dataTableHeader": "chAdv",
+            "detailedHeader": "Counterhit Adv.",
+            "dataFileKey": "chAdv",
+          },
+        },
+      ],
+      "Extra Information": [
+        {
+          "extraInfo": {
+            "dataTableHeader": "Notes",
+            "detailedHeader": "Extra Info",
+            "dataFileKey": "extraInfo",
+          }
+        }
+      ]
+    },
+    specificCancels: [],
+    statsPoints: {
+      "The Basics": [
+        {
+          "defense": "Defense",
+          "guts": "Guts",
+        },
+        {
+          "weight": "Weight",
+          "bestReversal": "Best Reversal",
+          "fastestNormal": "Fastest Normal"
+        }
+      ],
+      "Movement": [
+        {
+          "backdashSpeed": "Backdash Speed",
+          "backdashInvul": "Backdash Invul"
+        },
+        {
+          "prejump": "Prejump Frames",
+        }
+      ]
+    },
+    defaultLandscapeCols: {startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", damage:"dmg", attackLevel: "lvl", riscGain: "risc", prorate: "prorate", guardLevel: "guard"}
   },
 };
 
