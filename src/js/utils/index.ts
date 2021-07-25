@@ -54,11 +54,17 @@ export function renameData(rawFrameData, dataDisplayState: DataDisplaySettingsRe
 
   const skipFormattingMove = (moveData) => {
     const TARGET_COMBO: string[] = ["(TC)", "Target Combo"];
-    const COMMAND_NORMAL: string[] = ["4", "6"];
+    const COMMAND_NORMAL: string[] = ["3", "4", "6"];
     const SYMBOLIC_CMD_NORMAL: string[] = [">", "(air)", "(run)", "(lvl"];
     const RASHID_WIND: string = "(wind)";
     const MOVE_NAME: string = moveData.moveName;
     
+    if (!moveData.numCmd) {
+      if (!moveData.plnCmd) {
+        return true;
+      }
+    }
+
     if (TARGET_COMBO.some(indicator => MOVE_NAME.includes(indicator))) {
       return true;
     }
@@ -87,28 +93,44 @@ export function renameData(rawFrameData, dataDisplayState: DataDisplaySettingsRe
     const strengths: string[] = ["lp", "mp", "hp", "lk", "mk", "hk"];
     const Y_ZEKU_LATE_HIT: string = "late";
     const MENAT_ORB: string = "orb";
+    const USF4_CODY_KNIFE_NORMAL: string = "knife";
     const wordToAbbreviationMap: Map<string, string> = new Map([
       ["stand", "st."],
       ["crouch", "cr."],
       ["jump", "j."],
-      ["neutral", "nj."]
+      ["neutral", "nj."],
+      ["close", "c."],
+      ["far", "f."],
+      ["downback", "db."],
+      ["back", "b."]
     ]);
 
     let truncatedMoveName: string = "";
 
     const extractInput = (splitMove: string[]) => {
-      let input: string[] = []; 
+      let input: string[] = [];
+      let uniqueAspect: string = "";
+      let isMenatOrbNormal: boolean = splitMove.some(x => x.toLowerCase().includes(MENAT_ORB));
+      let isUSF4CodyKnifeNormal: boolean = splitMove.some(x => x.toLowerCase().includes(USF4_CODY_KNIFE_NORMAL));
       
-      // Menat orb needs special attention
-      if (splitMove.some(x => x.toLocaleLowerCase().includes(MENAT_ORB))) {
-        let orb: string = splitMove.find(x => x === "orb");
+      // Menat orb and USF4 Cody with knife need special attention
+      if (isMenatOrbNormal || isUSF4CodyKnifeNormal) {
+        
+        if (isMenatOrbNormal) {
+          uniqueAspect = MENAT_ORB.charAt(0).toUpperCase() + MENAT_ORB.slice(1);
+        }
+
+        if (isUSF4CodyKnifeNormal) {
+          uniqueAspect = USF4_CODY_KNIFE_NORMAL.charAt(0).toUpperCase() + USF4_CODY_KNIFE_NORMAL.slice(1);
+        }
+        
         let button: string = splitMove.find(x => strengths.some(y => y === x));
 
         input.push(button.toUpperCase());
-        input.push(orb);
+        input.push(uniqueAspect);
         // Young Zeku's crouch HK also need special attention since it has a "late hit"
         // state that gives it different properties and is listed as such in FAT.
-      } else if (splitMove.some(x => x.toLocaleLowerCase().includes(Y_ZEKU_LATE_HIT))) {
+      } else if (splitMove.some(x => x.toLowerCase().includes(Y_ZEKU_LATE_HIT))) {
         // Index 3 contains "late", index 4 contains "hit"
         let lateHit: string = `${splitMove[2]} ${splitMove[3]}`;
 
