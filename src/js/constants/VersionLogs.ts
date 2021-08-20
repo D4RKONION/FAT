@@ -1,11 +1,22 @@
-export const APP_CURRENT_VERSION_NAME = "3.4.0";
-export const APP_CURRENT_VERSION_CODE = 30400;
-export const APP_SFV_FRAME_DATA_CODE = 51;
-export const APP_GGST_FRAME_DATA_CODE = 1;
-export const APP_DATE_UPDATED = "July 27, 2021";
+export const APP_CURRENT_VERSION_NAME = "3.4.1";
+export const APP_CURRENT_VERSION_CODE = 30401;
+export const APP_SFV_FRAME_DATA_CODE = 55;
+export const APP_GGST_FRAME_DATA_CODE = 25;
+export const APP_DATE_UPDATED = "August 20, 2021";
 
 
 export const VERSION_LOGS = {
+  "3.4.1": {
+    "New Features": [
+      "Added Akira and Oro",
+      "Prepped the app for Luke and Jack-O",
+      "Added Goldlewis states",
+      "Added more stats to GGST characters"
+    ],
+    "Bug Fixes": [
+      "No bugs!"
+    ]
+  },
   "3.4.0": {
     "New Features": [
       "New Game: GGST data is now in FAT!",
