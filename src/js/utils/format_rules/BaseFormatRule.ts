@@ -16,13 +16,23 @@ export default abstract class BaseFormatRule {
         this.characterMoveRule = rule;
     }
 
+    /**
+     * Given a move in its full-length form (i.e., Stand HP), returns the
+     * move in the common shorthand form of "abbreviated stance.abbreviated input",
+     * (i.e., st.HP)
+     * @param move The text representing the move as a string
+     * @returns A string containing the abbreviated move
+     */
     formatMove(move: string): string {
         let moveName: string = ""; 
 
-        if (!move.includes(this.characterMoveRule)) {
+        // If the move doesn't match the rule, we should break out of the method
+        // so the next rule can take over
+        if (!move.toLowerCase().includes(this.characterMoveRule.toLowerCase())) {
             return moveName;
         }
 
+        // If the move contains something like (Hold), use the regex format method
         if (move.includes('(')) {
             return this.formatMoveWithParenthesis(move);
         }
@@ -39,11 +49,25 @@ export default abstract class BaseFormatRule {
         return moveName;
     }
 
+    /**
+     * This method abstracts getting the stance part of the move
+     * and retrieving its abbreviation from the abbreviation map
+     * @param move The move provided to the call to formatMove
+     * @returns The stance of the move in its abbreviated form
+     */
     private getStanceToAbbreviation(move: string): string {
         let stance = move.toLowerCase().split(' ')[0];
         return this.stanceToAbbreviationMap.get(stance);
     }
 
+    /**
+     * Given a move in its full-length form but with a trailing word
+     * surrounded by parenthesis (i.e., Stand HP (Hold)), returns the
+     * move in the common shorthand form of "abbr stance.abbr input (parenContent)"
+     * i.e., st.HP (Hold)
+     * @param move The move provided to the call to formatMove
+     * @returns A string containing the abbreviated move
+     */
     private formatMoveWithParenthesis(move: string) {
         let splitMoveFromExtraParens: string[] = move.split(/\s(\([a-z\s]*\))/i).filter((x: string) => x !== "");
         let splitMove: string[] = splitMoveFromExtraParens[0].split(' ');
@@ -54,5 +78,11 @@ export default abstract class BaseFormatRule {
         return `${stanceAbbreviation}${input} ${modifierParens.join(' ')}`;
     }
 
+    /**
+     * Given a move, extract the input from it. This method's logic will vary
+     * for some characters, but the default case simply retrieves the currently
+     * used input from the end of the string.
+     * @param move The move provided to the call to formatMove
+     */
     protected abstract extractInput(move: string): string[];
 }
