@@ -44,7 +44,8 @@ const FrameDataSubHeader = ({ charName, charStats, activeGame }: FrameDataSubHea
 			/>
 			<IonRow className="stat-row">
 				{GAME_DETAILS[activeGame].statsPoints[statCategory].map(dataRowObj =>
-					Object.keys(dataRowObj).map(statKey => 
+					Object.keys(dataRowObj).map(statKey =>
+						charStats[statKey] && charStats[statKey] !== "~" &&
 						<IonCol key={`stat-entry-${statKey}`} className="stat-entry">
 							<h2>{charStats[statKey]}</h2>
 							<p>{dataRowObj[statKey]}</p>

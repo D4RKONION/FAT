@@ -751,6 +751,10 @@ const GAME_DETAILS = {
           "airFwdDash": "Air Fwd Dash Speed" ,
           "airBckDash": "Air Back Dash Speed",
         },
+        {
+          "btFwdDash": "BT Fwd Dash",
+          "btBckDash": "BT Back Dash"
+        }
       ],
       "Jumping": [
         {
@@ -762,11 +766,12 @@ const GAME_DETAILS = {
       ],
       "Defense": [
         {
+          "effectiveHealth": "Effective Health",
           "defense": "Defense",
           "riscMod": "RISC Modifier",
           "guts": "guts",
         },
-      ]
+      ],
     },
     defaultLandscapeCols: {startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", damage:"dmg", attackLevel: "lvl", riscGain: "risc", prorate: "prorate", guardLevel: "guard"}
   },
