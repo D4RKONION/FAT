@@ -1,17 +1,19 @@
 export const APP_CURRENT_VERSION_NAME = "3.4.1";
 export const APP_CURRENT_VERSION_CODE = 30401;
-export const APP_SFV_FRAME_DATA_CODE = 55;
-export const APP_GGST_FRAME_DATA_CODE = 26;
+export const APP_SFV_FRAME_DATA_CODE = 70;
+export const APP_GGST_FRAME_DATA_CODE = 41;
 export const APP_DATE_UPDATED = "August 20, 2021";
 
 
 export const VERSION_LOGS = {
   "3.4.2": {
     "New Features": [
+      "Added Happy Chaos and Luke",
       "Added more stats to GGST characters, removed blank stats from characters",
       "Best Reversal now adapts to the user's chosen move notation"
     ],
     "Bug Fixes": [
+      "Fixed an issue where followup moves were being considered for Fastest Move",
       "Web: Fixed a crash when changing games while a game unique stat was selected",
     ]
   },
