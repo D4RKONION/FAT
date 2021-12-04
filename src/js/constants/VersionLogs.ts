@@ -9,6 +9,7 @@ export const VERSION_LOGS = {
   "3.4.2": {
     "New Features": [
       "Added more stats to GGST characters, removed blank stats from characters",
+      "Best Reversal now adapts to the user's chosen move notation"
     ],
     "Bug Fixes": [
       "Web: Fixed a crash when changing games while a game unique stat was selected",

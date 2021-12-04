@@ -5,8 +5,10 @@ import CharacterPortrait from "./CharacterPortrait";
 import { useEffect, useState } from "react";
 import GAME_DETAILS from "../constants/GameDetails";
 import { GameName, PlayerData } from "../types";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setModalVisibility } from "../actions";
+import { renameData } from "../utils";
+import { dataDisplaySettingsSelector, frameDataSelector } from "../selectors";
 
 type FrameDataSubHeaderProps = {
   charName: PlayerData["name"],
@@ -16,8 +18,17 @@ type FrameDataSubHeaderProps = {
 
 const FrameDataSubHeader = ({ charName, charStats, activeGame }: FrameDataSubHeaderProps) => {
 	
-	const [statCategory, setStatCategory] = useState("The Basics")
-	const dispatch = useDispatch()
+	const [statCategory, setStatCategory] = useState("The Basics");
+
+	const dispatch = useDispatch();
+	
+
+	const frameData = useSelector(frameDataSelector);
+	const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
+	const moveNotation = 
+		dataDisplaySettings.moveNameType === "common"
+			? "cmnName"
+		: dataDisplaySettings.inputNotationType
 
 	const labelObj = {}
 	Object.keys(GAME_DETAILS[activeGame].statsPoints).map(keyName => labelObj[keyName] = keyName)
@@ -52,7 +63,13 @@ const FrameDataSubHeader = ({ charName, charStats, activeGame }: FrameDataSubHea
 						Object.keys(dataRowObj).map(statKey =>
 							charStats[statKey] && charStats[statKey] !== "~" &&
 							<IonCol key={`stat-entry-${statKey}`} className="stat-entry">
-								<h2>{charStats[statKey]}</h2>
+								<h2>
+									{
+										statKey === "bestReversal" && frameData[charName] && frameData[charName].moves.normal[charStats[statKey]]
+											? frameData[charName].moves.normal[charStats[statKey]][moveNotation]								
+											: charStats[statKey]
+									}
+								</h2>
 								<p>{dataRowObj[statKey]}</p>
 							</IonCol>
 						)
