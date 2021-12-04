@@ -8,7 +8,6 @@ import SF3FrameData from '../constants/framedata/3SFrameData.json';
 import AppGGSTFrameData from '../constants/framedata/GGSTFrameData.json';
 import { APP_SFV_FRAME_DATA_CODE, APP_GGST_FRAME_DATA_CODE } from '../constants/VersionLogs';
 import { RootState } from '../reducers';
-import { Plugins } from '@capacitor/core';
 
 // ACTION CREATORS
 //handle global things
@@ -38,13 +37,11 @@ const setFrameData = (frameData) => ({
 const getFrameData = (gameName: GameName, stateReset?: Boolean) => {
   return async function(dispatch, getState) {
     const { selectedCharactersState } = getState();
-    const { Storage } = Plugins;
 
     if (gameName === "SFV") {
 
       const LS_FRAME_DATA_CODE = parseInt(localStorage.getItem("lsSFVFrameDataCode"));
-      const ret = await Storage.get({ key: 'lsSFVFrameData' });
-      const lsSFVFrameData = JSON.parse(ret.value);
+      const lsSFVFrameData = JSON.parse(localStorage.getItem("lsSFVFrameData"))
 
       if (!lsSFVFrameData || !LS_FRAME_DATA_CODE || LS_FRAME_DATA_CODE <= APP_SFV_FRAME_DATA_CODE) {
         dispatch(setFrameData(AppSFVFrameData));

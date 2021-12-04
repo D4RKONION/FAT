@@ -7,6 +7,7 @@ import GAME_DETAILS from "../constants/GameDetails";
 import { GameName, PlayerData } from "../types";
 import { useDispatch, useSelector } from "react-redux";
 import { setModalVisibility } from "../actions";
+import { renameData } from "../utils";
 import { dataDisplaySettingsSelector, frameDataSelector } from "../selectors";
 
 type FrameDataSubHeaderProps = {
