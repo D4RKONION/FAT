@@ -6,6 +6,14 @@ export const APP_DATE_UPDATED = "August 20, 2021";
 
 
 export const VERSION_LOGS = {
+  "3.4.2": {
+    "New Features": [
+      "Added more stats to GGST characters, removed blank stats from characters",
+    ],
+    "Bug Fixes": [
+      "Web: Fixed a crash when changing games while a game unique stat was selected",
+    ]
+  },
   "3.4.1": {
     "New Features": [
       "Added Akira and Oro",
