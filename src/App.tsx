@@ -188,6 +188,7 @@ const App = () => {
     return () => window.removeEventListener('resize', orientationCheck);
   }, [dispatch]);
 
+const { Storage } = Plugins;
 useEffect(() => {
     const newVersionCheck = async (gameName: string) => {
       
@@ -244,7 +245,10 @@ useEffect(() => {
         const framedatajson_response = await fetch(`https://fullmeter.com/fatfiles/release/${gameName}/${gameName}FrameData.json?ts=${Date.now()}`)
         const SERVER_FRAME_DATA = await framedatajson_response.json();
 
-        localStorage.setItem(`ls${gameName}FrameData`, JSON.stringify(SERVER_FRAME_DATA));
+        await Storage.set({
+          key: `ls${gameName}FrameData`,
+          value: JSON.stringify(SERVER_FRAME_DATA)
+        })
         localStorage.setItem(`ls${gameName}FrameDataCode`, SERVER_VERSION_DETAILS.FRAME_DATA_CODE)
         // this is kind of dirty, and I don't like it but I don't know how else to access the activeGame from the URL.
         // without this check, this function always thinks that the current game on a fresh load is SFV
