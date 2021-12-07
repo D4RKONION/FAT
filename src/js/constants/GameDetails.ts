@@ -591,6 +591,7 @@ const GAME_DETAILS = {
     characterList: [
       "Anji",
       "Axl",
+      "Baiken",
       "Chipp",
       "Faust",
       "Giovanna",
