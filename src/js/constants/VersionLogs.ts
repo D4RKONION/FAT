@@ -2,7 +2,7 @@ export const APP_CURRENT_VERSION_NAME = "3.4.2";
 export const APP_CURRENT_VERSION_CODE = 30402;
 export const APP_SFV_FRAME_DATA_CODE = 70;
 export const APP_GGST_FRAME_DATA_CODE = 41;
-export const APP_DATE_UPDATED = "December 7, 2021";
+export const APP_DATE_UPDATED = "December 8, 2021";
 
 
 export const VERSION_LOGS = {
