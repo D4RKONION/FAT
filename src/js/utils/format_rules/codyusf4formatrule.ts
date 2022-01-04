@@ -1,19 +1,20 @@
 import BaseFormatRule from "./baseformatrule";
 
-export default class MenatSF5FormatRule extends BaseFormatRule { 
-    private orbLabel = this.characterMoveRule.charAt(0).toUpperCase() + this.characterMoveRule.slice(1);
+export default class CodyUSF4FormatRule extends BaseFormatRule {
+    private knifeLabel: string = this.characterMoveRule.charAt(0).toUpperCase() + this.characterMoveRule.slice(1);
     
     constructor() {
-        super("orb");
+        super("knife");
     }
-
+    
     protected extractInput(moveData): string[] {
         let input: string[] = [];
         let moveInput: string = moveData.moveName.split(' ').find(x => this.strengths.some(y => y === x.toLowerCase()));
 
         input.push(moveInput.toUpperCase());
-        input.push(this.orbLabel);
+        input.push(this.knifeLabel);
 
         return input;
     }
+
 }
