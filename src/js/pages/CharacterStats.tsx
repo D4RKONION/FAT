@@ -4,7 +4,7 @@ import GAME_DETAILS from '../constants/GameDetails'
 import '../../style/components/DetailCards.scss';
 import PageHeader from '../components/PageHeader';
 import SubHeader from '../components/SubHeader';
-import { activeGameSelector, activePlayerSelector, selectedCharactersSelector } from '../selectors';
+import { activeGameSelector, activePlayerSelector, dataDisplaySettingsSelector, frameDataSelector, selectedCharactersSelector } from '../selectors';
 
 
 const CharacterStats = () => {
@@ -15,6 +15,13 @@ const CharacterStats = () => {
 
   const activeCharName = selectedCharacters[activePlayer].name;
   const charStatsData = selectedCharacters[activePlayer].stats;
+
+  const frameData = useSelector(frameDataSelector);
+	const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
+	const moveNotation = 
+		dataDisplaySettings.moveNameType === "common"
+			? "cmnName"
+		: dataDisplaySettings.inputNotationType
 
 
   const statsPoints = GAME_DETAILS[activeGame].statsPoints;
@@ -51,7 +58,13 @@ const CharacterStats = () => {
                     {Object.entries(dataRow).map(([dataId, headerObj]) =>
                       <div key={dataId} className="col">
                         <h2>{headerObj}</h2>
-                        <p>{charStatsData[dataId]}</p>
+                        <p>
+                          {
+                            dataId === "bestReversal" && frameData[activeCharName] && frameData[activeCharName].moves.normal[charStatsData[dataId]]
+                              ? frameData[activeCharName].moves.normal[charStatsData[dataId]][moveNotation]								
+                              : charStatsData[dataId]
+                          }
+                        </p>
                       </div>
                     )}
                   </div>
