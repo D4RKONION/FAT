@@ -1,4 +1,7 @@
 import { mapKeys, isEqual } from 'lodash';
+import { DataDisplaySettingsReducerState } from '../reducers/datadisplaysettings';
+import { VtState } from '../types';
+import MoveFormatter from './moveformatter';
 
 /**
  * Renames the moves in the character frame data to reflect the user's desired naming convention
@@ -52,126 +55,11 @@ export function renameData(rawFrameData, dataDisplayState: DataDisplaySettingsRe
     return rename;
   }
 
-  const skipFormattingMove = (moveData) => {
-    const TARGET_COMBO: string[] = ["(TC)", "Target Combo"];
-    const COMMAND_NORMAL: string[] = ["3", "4", "6"];
-    const SYMBOLIC_CMD_NORMAL: string[] = [">", "(air)", "(run)", "(lvl"];
-    const RASHID_WIND: string = "(wind)";
-    const MOVE_NAME: string = moveData.moveName;
-    
-    if (!moveData.numCmd) {
-      if (!moveData.plnCmd) {
-        return true;
-      }
-    }
-
-    if (TARGET_COMBO.some(indicator => MOVE_NAME.includes(indicator))) {
-      return true;
-    }
-
-    // Other languages have a cleaner way of representing this: if any of the values in the
-    // designated array is in the numCmd, just return the move name since it's a command normal
-    if (COMMAND_NORMAL.some(indicator => moveData.numCmd.includes(indicator))) {
-      return true;
-    }
-
-    // If the above check doesn't find anything, check for some other common indicators; if
-    // nothing comes back here, we're good and don't need to skip formatting
-    if (SYMBOLIC_CMD_NORMAL.some(indicator => moveData.plnCmd.includes(indicator))) {
-      return true;
-    }
-
-    // Rashid should be the only one (for now) to trigger this condition for his mixers
-    if (MOVE_NAME.includes(RASHID_WIND)) {
-      return true;
-    }
-
-    return false;
-  }
-
   const formatMoveName = (moveData) => {   
-    const strengths: string[] = ["lp", "mp", "hp", "lk", "mk", "hk"];
-    const Y_ZEKU_LATE_HIT: string = "late";
-    const MENAT_ORB: string = "orb";
-    const USF4_CODY_KNIFE_NORMAL: string = "knife";
-    const wordToAbbreviationMap: Map<string, string> = new Map([
-      ["stand", "st."],
-      ["crouch", "cr."],
-      ["jump", "j."],
-      ["neutral", "nj."],
-      ["close", "c."],
-      ["far", "f."],
-      ["downback", "db."],
-      ["back", "b."]
-    ]);
-
     let truncatedMoveName: string = "";
+    let moveFormatter = new MoveFormatter();
 
-    const extractInput = (splitMove: string[]) => {
-      let input: string[] = [];
-      let uniqueAspect: string = "";
-      let isMenatOrbNormal: boolean = splitMove.some(x => x.toLowerCase().includes(MENAT_ORB));
-      let isUSF4CodyKnifeNormal: boolean = splitMove.some(x => x.toLowerCase().includes(USF4_CODY_KNIFE_NORMAL));
-      
-      // Menat orb and USF4 Cody with knife need special attention
-      if (isMenatOrbNormal || isUSF4CodyKnifeNormal) {
-        
-        if (isMenatOrbNormal) {
-          uniqueAspect = MENAT_ORB.charAt(0).toUpperCase() + MENAT_ORB.slice(1);
-        }
-
-        if (isUSF4CodyKnifeNormal) {
-          uniqueAspect = USF4_CODY_KNIFE_NORMAL.charAt(0).toUpperCase() + USF4_CODY_KNIFE_NORMAL.slice(1);
-        }
-        
-        let button: string = splitMove.find(x => strengths.some(y => y === x));
-
-        input.push(button.toUpperCase());
-        input.push(uniqueAspect);
-        // Young Zeku's crouch HK also need special attention since it has a "late hit"
-        // state that gives it different properties and is listed as such in FAT.
-      } else if (splitMove.some(x => x.toLowerCase().includes(Y_ZEKU_LATE_HIT))) {
-        // Index 3 contains "late", index 4 contains "hit"
-        let lateHit: string = `${splitMove[2]} ${splitMove[3]}`;
-
-        input.push(splitMove[1].toUpperCase());
-        input.push(lateHit);
-      } else {
-        input.push(splitMove[splitMove.length - 1].toUpperCase());
-      }
-
-      return input;
-    }
-
-    if (!skipFormattingMove(moveData)) {
-      if (!moveData.moveName.includes('(')) {
-        let splitMoveName: string[] = moveData.moveName.toLowerCase().split(' ');
-        let abbr: string = wordToAbbreviationMap.get(splitMoveName[0]);
-        let input: string[] = extractInput(splitMoveName);
-
-        if (input.length > 1) {
-          truncatedMoveName = `${abbr}${input[0]} ${input[1]}`;
-        } else {
-          truncatedMoveName = `${abbr}${input[0]}`;
-        }
-      } else {
-        /*
-        Regex documentation:
-          Lead with \s to account for the leading space, i.e, " (Hold)", but we don't want to include it in the captured result
-          The outermost parentheses start the capture group of characters we DO want to capture
-          The character combo of \( means that we want to find an actual opening parenthesis
-          [a-z\s]* = Within the parenthesis, we want to find any combination of letters and spaces to account for cases like "(crouch large)"
-          Then we want to find the closing parenthesis with \)
-          The capture group is closed, and the "i" at the end sets a "case insensitive" flag for the regex expression
-        */
-        let splitMoveFromExtraParens: string[] = moveData.moveName.split(/\s(\([a-z\s]*\))/i).filter((x: string) => x !== "");
-        let splitMove: string[] = splitMoveFromExtraParens[0].split(' ');
-        let modifierParens: string[] = splitMoveFromExtraParens.slice(1);
-        let abbr: string = wordToAbbreviationMap.get(splitMove[0].toLowerCase());
-        let input: string = splitMove[splitMove.length - 1].toUpperCase();
-        truncatedMoveName = `${abbr}${input} ${modifierParens.join(' ')}`;
-      }
-    }
+    truncatedMoveName = moveFormatter.formatToShorthand(moveData);
         
     return truncatedMoveName;
   }
