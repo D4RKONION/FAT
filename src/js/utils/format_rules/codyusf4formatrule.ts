@@ -1,6 +1,7 @@
 import BaseFormatRule from "./baseformatrule";
 
 export default class CodyUSF4FormatRule extends BaseFormatRule {
+    // Sentence-casing for the "Knife" label
     private knifeLabel: string = this.characterMoveRule.charAt(0).toUpperCase() + this.characterMoveRule.slice(1);
     
     constructor() {

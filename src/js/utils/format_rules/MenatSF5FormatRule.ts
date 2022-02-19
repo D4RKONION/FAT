@@ -1,6 +1,7 @@
 import BaseFormatRule from "./baseformatrule";
 
 export default class MenatSF5FormatRule extends BaseFormatRule { 
+    // Sentence-casing for the "Orb" label
     private orbLabel = this.characterMoveRule.charAt(0).toUpperCase() + this.characterMoveRule.slice(1);
     
     constructor() {

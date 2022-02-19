@@ -1,11 +1,11 @@
 export default abstract class BaseFormatRule {
-    characterMoveRule: string;
-    strengths: string[] = ["lp", "mp", "hp", "lk", "mk", "hk"];
-    stanceToAbbreviationMap: Map<string, string> = new Map([
+    protected characterMoveRule: string;
+    protected strengths: string[] = ["lp", "mp", "hp", "lk", "mk", "hk"];
+    protected stanceToAbbreviationMap: Map<string, string> = new Map([
         ["stand", "st."],
         ["crouch", "cr."],
         ["jump", "j."],
-        ["neutral", "nj."],
+        ["neutral jump", "nj."],
         ["close", "c."],
         ["far", "f."],
         ["downback", "db."],
@@ -58,7 +58,9 @@ export default abstract class BaseFormatRule {
      * @returns The stance of the move in its abbreviated form
      */
     private getStanceToAbbreviation(move: string): string {
-        let stance = move.toLowerCase().split(' ')[0];
+        let splitMove: string[] = move.trim().toLowerCase().split(' ');
+        let stance: string = splitMove[0];
+
         return this.stanceToAbbreviationMap.get(stance);
     }
 
