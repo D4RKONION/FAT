@@ -607,6 +607,7 @@ const GAME_DETAILS = {
       "Potemkin",
       "Ramlethal",
       "Sol",
+      "Testament",
       "Zato-1"
     ] as const,
 
