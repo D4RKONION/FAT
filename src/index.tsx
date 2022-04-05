@@ -1,24 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import AppComponent from './App';
-import * as serviceWorker from './serviceWorker';
-
-import { Provider } from 'react-redux'
-import { persistor, store } from './js/store'
-
-import { PersistGate } from 'redux-persist/integration/react';
 import { setupConfig } from '@ionic/react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react';
+
+import AppComponent from './App';
+import FrameDataGate from './js/components/FrameDataGate';
+import { persistor, store } from './js/store'
+import * as serviceWorker from './serviceWorker';
 
 setupConfig({
   hardwareBackButton: false,
 });
 
-
-
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <AppComponent />
+      <FrameDataGate>
+        <AppComponent />
+      </FrameDataGate>
     </PersistGate>
   </Provider>,
   document.getElementById('root')

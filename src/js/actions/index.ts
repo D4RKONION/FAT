@@ -1,3 +1,5 @@
+import { Plugins } from '@capacitor/core';
+
 import { helpCreateFrameDataJSON } from '../utils';
 import GAME_DETAILS from '../constants/GameDetails';
 import type { AdviceToastPrevRead, AppModal, NormalNotationType, GameName, InputNotationType, MoveNameType, Orientation, PlayerData, PlayerId, ThemeAlias, ThemeBrightness, ThemeShortId, VtState } from '../types'
@@ -41,7 +43,12 @@ const getFrameData = (gameName: GameName, stateReset?: Boolean) => {
     if (gameName === "SFV") {
 
       const LS_FRAME_DATA_CODE = parseInt(localStorage.getItem("lsSFVFrameDataCode"));
-      const lsSFVFrameData = JSON.parse(localStorage.getItem("lsSFVFrameData"))
+      let lsSFVFrameData: string;
+      try {
+        lsSFVFrameData = JSON.parse((await Plugins.Storage.get({ key: 'lsSFVFrameData' })).value);
+      } catch {
+        lsSFVFrameData = '';
+      }
 
       if (!lsSFVFrameData || !LS_FRAME_DATA_CODE || LS_FRAME_DATA_CODE <= APP_SFV_FRAME_DATA_CODE) {
         dispatch(setFrameData(AppSFVFrameData));
@@ -56,14 +63,19 @@ const getFrameData = (gameName: GameName, stateReset?: Boolean) => {
     } else if (gameName === "GGST") {
 
       const LS_FRAME_DATA_CODE = parseInt(localStorage.getItem("lsGGSTFrameDataCode"));
-      const lsGGSTFrameData = JSON.parse(localStorage.getItem("lsGGSTFrameData"))
+      let lsGGSTFrameData: string;
+      try {
+        lsGGSTFrameData = JSON.parse((await Plugins.Storage.get({ key: 'lsGGSTFrameData' })).value);
+      } catch {
+        lsGGSTFrameData = '';
+      }
 
       if (!lsGGSTFrameData || !LS_FRAME_DATA_CODE || LS_FRAME_DATA_CODE <= APP_GGST_FRAME_DATA_CODE) {
         dispatch(setFrameData(AppGGSTFrameData));
       } else {
         dispatch(setFrameData(lsGGSTFrameData))
       }
-      
+
     }
 
     const gameCharList = GAME_DETAILS[gameName].characterList as any;
