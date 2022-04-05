@@ -1,11 +1,20 @@
-export const APP_CURRENT_VERSION_NAME = "3.4.2";
-export const APP_CURRENT_VERSION_CODE = 30402;
-export const APP_SFV_FRAME_DATA_CODE = 70;
+export const APP_CURRENT_VERSION_NAME = "3.4.3";
+export const APP_CURRENT_VERSION_CODE = 30403;
+export const APP_SFV_FRAME_DATA_CODE = 79;
 export const APP_GGST_FRAME_DATA_CODE = 70;
-export const APP_DATE_UPDATED = "December 8, 2021";
+export const APP_DATE_UPDATED = "April 5, 2022";
 
 
 export const VERSION_LOGS = {
+  "3.4.3": {
+    "New Features": [
+      "Added Testament",
+      "Lots of SFV updates but we're still adding more (with remote updating)"
+    ],
+    "Bug Fixes": [
+      "No Bugs!"
+    ]
+  },
   "3.4.2": {
     "New Features": [
       "Added Luke",
