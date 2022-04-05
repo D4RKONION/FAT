@@ -1,7 +1,6 @@
 {
   "name": "fat-os",
   "version": "3.4.3",
-  "homepage": "/fatonline",
   "private": true,
   "dependencies": {
     "@babel/core": "^7.12.3",
