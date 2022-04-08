@@ -54,26 +54,28 @@ const FrameData = () => {
   }
 
   useEffect(() => {
-    if (activeGame !== slugs.gameSlug) {
-      console.log(activeGame)
-      console.log(slugs.gameSlug)
-      console.log("URL game mismatch");
-      dispatch(setActiveGame(slugs.gameSlug, true));
-    }
-
-    if (selectedCharacters["playerOne"].name !== slugs.characterSlug) {
-      console.log("URL character mismatch");
-      if (activeGame === slugs.gameSlug) {
-        handleNewCharacterLandscapeCols(selectedCharacters["playerOne"].name, slugs.characterSlug)
-        handleNewCharacterLandscapeCols(selectedCharacters["playerTwo"].name, slugs.characterSlug)
+    (async () => {
+      if (activeGame !== slugs.gameSlug) {
+        console.log(activeGame)
+        console.log(slugs.gameSlug)
+        console.log("URL game mismatch");
+        await dispatch(setActiveGame(slugs.gameSlug, true));
       }
-      dispatch(setPlayer("playerOne", slugs.characterSlug));
-    }
-    if (!localStorage.getItem("lsCurrentVersionCode") || parseInt(localStorage.getItem("lsCurrentVersionCode")) < APP_CURRENT_VERSION_CODE) {
-      localStorage.setItem("lsCurrentVersionCode", APP_CURRENT_VERSION_CODE.toString());
-      dispatch(setModalVisibility({ currentModal: "whatsNew", visible: true }))
-    } 
-    
+
+      if (selectedCharacters["playerOne"].name !== slugs.characterSlug) {
+        console.log("URL character mismatch");
+        if (activeGame === slugs.gameSlug) {
+          handleNewCharacterLandscapeCols(selectedCharacters["playerOne"].name, slugs.characterSlug)
+          handleNewCharacterLandscapeCols(selectedCharacters["playerTwo"].name, slugs.characterSlug)
+        }
+        dispatch(setPlayer("playerOne", slugs.characterSlug));
+      }
+      if (!localStorage.getItem("lsCurrentVersionCode") || parseInt(localStorage.getItem("lsCurrentVersionCode")) < APP_CURRENT_VERSION_CODE) {
+        localStorage.setItem("lsCurrentVersionCode", APP_CURRENT_VERSION_CODE.toString());
+        dispatch(setModalVisibility({ currentModal: "whatsNew", visible: true }))
+      }
+    })();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
