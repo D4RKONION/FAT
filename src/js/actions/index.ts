@@ -10,6 +10,8 @@ import SF3FrameData from '../constants/framedata/3SFrameData.json';
 import AppGGSTFrameData from '../constants/framedata/GGSTFrameData.json';
 import { APP_SFV_FRAME_DATA_CODE, APP_GGST_FRAME_DATA_CODE } from '../constants/VersionLogs';
 import { RootState } from '../reducers';
+import { ThunkAction } from 'redux-thunk';
+import { AnyAction } from 'redux';
 
 // ACTION CREATORS
 //handle global things
@@ -84,7 +86,7 @@ const getFrameData = (gameName: GameName, stateReset?: Boolean) => {
   }
 }
 
-export const setActiveGame = (gameName: GameName, colReset: Boolean) => {
+export const setActiveGame = (gameName: GameName, colReset: Boolean): ThunkAction<void, RootState, unknown, AnyAction> => {
   return async (dispatch) => {
     if (colReset) {
       dispatch(setLandscapeCols(GAME_DETAILS[gameName].defaultLandscapeCols))

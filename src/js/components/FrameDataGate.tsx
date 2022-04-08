@@ -1,8 +1,8 @@
-import React, { ReactNode, useEffect } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { setActiveGame } from '../actions';
-import { activeGameSelector, frameDataSelector } from '../selectors';
+import { activeGameSelector } from '../selectors';
 
 type FrameDataGateProps = {
   children: ReactNode;
@@ -13,16 +13,18 @@ type FrameDataGateProps = {
 const FrameDataGate = ({ children }: FrameDataGateProps) => {
   const dispatch = useDispatch();
   const activeGame = useSelector(activeGameSelector);
-  const frameData = useSelector(frameDataSelector);
+
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     // do an initial frame data load
-    dispatch(setActiveGame(activeGame, false));
+    // @ts-ignore
+    dispatch(setActiveGame(activeGame, false)).then(() => setIsReady(true));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  if (!frameData) return null;
+  if (!isReady) return null;
 
   return <>{children}</>;
 };
