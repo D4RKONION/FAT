@@ -26,17 +26,20 @@ const Combos = () => {
 
   const slugs: FrameDataSlug = useParams();
   useEffect(() => {
+    (async () => {
+      if (activeGame !== slugs.gameSlug) {
+        console.log(activeGame)
+        console.log("URL game mismatch");
+        await dispatch(setActiveGame(slugs.gameSlug, true));
+      }
 
-    if (activeGame !== slugs.gameSlug) {
-      console.log(activeGame)
-      console.log("URL game mismatch");
-      dispatch(setActiveGame(slugs.gameSlug, true));
-    }
+      if (selectedCharacters["playerOne"].name !== slugs.characterSlug) {
+        console.log("URL character mismatch");
+        dispatch(setPlayer("playerOne", slugs.characterSlug));
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    })();
 
-    if (selectedCharacters["playerOne"].name !== slugs.characterSlug) {
-      console.log("URL character mismatch");
-      dispatch(setPlayer("playerOne", slugs.characterSlug));
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

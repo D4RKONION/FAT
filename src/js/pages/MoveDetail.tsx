@@ -27,18 +27,20 @@ const MoveDetail = () => {
   const modeBackTo = useLocation().pathname.split("/")[1];
 
   useEffect(() => {
+    (async () => {
+      if (activeGame !== slugs.gameSlug) {
+        console.log(activeGame)
+        console.log("URL game mismatch");
+        await dispatch(setActiveGame(slugs.gameSlug, true));
+      }
+      
+      if ((selectedCharacters[activePlayer].name !== slugs.characterSlug || selectedCharacters[activePlayer].vtState !== slugs.vtStateSlug) ) {
+        console.log("URL character/vtState mismatch");
+        console.log(slugs)
+        dispatch(setPlayerAttr(activePlayer, slugs.characterSlug, {vtState: slugs.vtStateSlug}));
+      }
+    })();
 
-    if (activeGame !== slugs.gameSlug) {
-      console.log(activeGame)
-      console.log("URL game mismatch");
-      dispatch(setActiveGame(slugs.gameSlug, true));
-    }
-    
-    if ((selectedCharacters[activePlayer].name !== slugs.characterSlug || selectedCharacters[activePlayer].vtState !== slugs.vtStateSlug) ) {
-      console.log("URL character/vtState mismatch");
-      console.log(slugs)
-      dispatch(setPlayerAttr(activePlayer, slugs.characterSlug, {vtState: slugs.vtStateSlug}));
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

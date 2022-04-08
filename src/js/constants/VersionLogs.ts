@@ -12,7 +12,7 @@ export const VERSION_LOGS = {
       "Lots of SFV updates but we're still adding more (with remote updating)"
     ],
     "Bug Fixes": [
-      "No Bugs!"
+      "iOS: Fixed a bug where"
     ]
   },
   "3.4.2": {

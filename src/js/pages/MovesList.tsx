@@ -27,17 +27,19 @@ const MovesList = () => {
   const moveData = selectedCharacters[activePlayer].frameData;
 
   useEffect(() => {
+    (async () => {
+      if (activeGame !== slugs.gameSlug) {
+        console.log(activeGame)
+        console.log("URL game mismatch");
+        await dispatch(setActiveGame(slugs.gameSlug, true));
+      }
 
-    if (activeGame !== slugs.gameSlug) {
-      console.log(activeGame)
-      console.log("URL game mismatch");
-      dispatch(setActiveGame(slugs.gameSlug, true));
-    }
+      if (selectedCharacters["playerOne"].name !== slugs.characterSlug) {
+        console.log("URL character mismatch");
+        dispatch(setPlayer("playerOne", slugs.characterSlug));
+      }
+    })();
 
-    if (selectedCharacters["playerOne"].name !== slugs.characterSlug) {
-      console.log("URL character mismatch");
-      dispatch(setPlayer("playerOne", slugs.characterSlug));
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   
@@ -112,7 +114,7 @@ const MovesList = () => {
                   ).map(moveKey => {
                     const namingType = dataDisplaySettings.moveNameType === "common" ? "cmnName" : "moveName";
                     const displayedName = !moveData[moveKey][namingType] ? moveData[moveKey]["moveName"] : moveData[moveKey][namingType];
-                    console.log(displayedName)
+
                     return (
                       <IonItem button key={moveKey} onClick={() => { dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {selectedMove: moveKey})); history.push(`/moveslist/movedetail/${activeGame}/${selectedCharacters[activePlayer].name}/${selectedCharacters[activePlayer].vtState}/${selectedCharacters[activePlayer].frameData[moveKey]["moveName"]}`)}}>
                         <IonLabel>
