@@ -1,18 +1,26 @@
-export const APP_CURRENT_VERSION_NAME = "3.4.3";
-export const APP_CURRENT_VERSION_CODE = 30403;
-export const APP_SFV_FRAME_DATA_CODE = 79;
-export const APP_GGST_FRAME_DATA_CODE = 70;
-export const APP_DATE_UPDATED = "April 5, 2022";
+export const APP_CURRENT_VERSION_NAME = "3.4.4";
+export const APP_CURRENT_VERSION_CODE = 30404;
+export const APP_SFV_FRAME_DATA_CODE = 80;
+export const APP_GGST_FRAME_DATA_CODE = 71;
+export const APP_DATE_UPDATED = "April 11, 2022";
 
 
 export const VERSION_LOGS = {
+  "3.4.4": {
+    "New Features": [
+      "Updated SFV character specific columns"
+    ],
+    "Bug Fixes": [
+      "Fixed a bug where remote framedata updating was failing due to file sizes"
+    ]
+  },
   "3.4.3": {
     "New Features": [
       "Added Testament",
       "Lots of SFV updates but we're still adding more (with remote updating)"
     ],
     "Bug Fixes": [
-      "iOS: Fixed a bug where"
+      "No bugs!"
     ]
   },
   "3.4.2": {
