@@ -75,7 +75,6 @@ const App = () => {
   const activeGame = useSelector(activeGameSelector);
   const themeBrightness = useSelector(themeBrightnessSelector);
   const themeColor = useSelector(themeColorSelector);
-  const frameDataFile = useSelector(frameDataSelector);
 
   const dispatch = useDispatch();
 
@@ -267,11 +266,6 @@ useEffect(() => {
   }, [dispatch])
 
 
-
-  // wait for the initial framedata load
-  if (!frameDataFile) {
-    return null;
-  }
 
   return (
     <IonApp className={`${themeColor}-${themeBrightness}-theme`}>
