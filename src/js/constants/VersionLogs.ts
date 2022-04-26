@@ -8,7 +8,8 @@ export const APP_DATE_UPDATED = "April 11, 2022";
 export const VERSION_LOGS = {
   "3.4.5": {
     "New Features": [
-      "Changed dark colours for oB values"
+      "Changed dark colours for oB values",
+      "Added a color blind mode for FAT Classic",
     ],
     "Bug Fixes": [
       "-"
