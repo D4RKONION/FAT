@@ -19,6 +19,8 @@ export type Orientation = 'landscape' | 'portrait';
 
 export type ThemeBrightness = 'light' | 'dark';
 
+export type ThemeAccessibility = 'none' | 'colorBlind';
+
 export type ThemeShortId = 'classic' | typeof THEMES[number]["shortId"];
 
 export type ThemeAlias = typeof THEMES[number]["alias"];

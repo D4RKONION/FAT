@@ -20,6 +20,8 @@ export const dataDisplaySettingsSelector =  (state: RootState) => state.dataDisp
 
 export const themeBrightnessSelector =  (state: RootState) => state.themeBrightnessState;
 
+export const themeAccessibilitySelector =  (state: RootState) => state.themeAccessibilityState;
+
 export const themeColorSelector =  (state: RootState) => state.themeColorState;
 
 export const themesOwnedSelector =  (state: RootState) => state.themesOwnedState;

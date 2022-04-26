@@ -114,7 +114,7 @@
 					}
 					
 					&.triggered-data {
-						h2 {color: red;}
+						h2 {color: var(--fat-vtrigger);}
 					}
 
 					&:last-child {

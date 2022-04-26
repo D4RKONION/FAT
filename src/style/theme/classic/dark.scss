@@ -9,15 +9,7 @@ ion-app.classic-dark-theme, .themePreview.classic-dark-theme {
   /**-----------**/
   /** Variables **/
   /**-----------**/
-  --fat-background: #121212;
-  --fat-background-contrast: #ffffff;
 
-  --fat-surface: #121212;
-  --fat-surface-shade: #252525;
-  --fat-surface-tint: #191919;
-  --fat-surface-border: #303030;
-  --fat-surface-contrast: #ffffff;
-  --fat-surface-faded: #5c5c5c;
 
   --fat-primary: #3f7189;
   --fat-primary-shade: #2e86c1;
@@ -31,18 +23,9 @@ ion-app.classic-dark-theme, .themePreview.classic-dark-theme {
   --fat-vtrigger-tint: #231111;
   --fat-vtrigger-contrast: #ffffff;
 
-  --fat-success: #56a543;
-
-  --fat-grey: #c6c6c6;
-
   /**------------------**/
   /** Global App stuff **/
   /**------------------**/
-  --ion-background-color: var(--fat-background);
-  --ion-text-color: var(--fat-background-contrast);
-
-  --ion-toolbar-background: #1f1f1f;
-  --ion-toolbar-color: #ffffff;
 
   --fat-a: #b6d0ff;
   --fat-code-background: #464646;
@@ -51,13 +34,8 @@ ion-app.classic-dark-theme, .themePreview.classic-dark-theme {
   --fat-ionlabel-p: #dbdbdb;
 
   // Alert
-  --fat-ionalert-background: var(--fat-surface);
-  --fat-ionalert-label: #e5e5e5;
   --fat-ionalert-active-button: #87d2f6;
   --fat-ionalert-confirm-buttons: #87d2f6;
-
-  --fat-solidbutton-inner: #000000;
-  --fat-solidbutton-bg-hover: var(--fat-primary-shade);
 
   /**--------------------------**/
   /** Detailed Component stuff **/
@@ -69,10 +47,6 @@ ion-app.classic-dark-theme, .themePreview.classic-dark-theme {
   --fat-card-bg: #1f1f1f;
   --fat-card-border: #303030;
   --fat-card-p: #ffffff;
-
-  // Popover
-  --fat-popover-bg: #373737;
-  --fat-popover-contrast: #ffffff;
 
   // Switcher
   --fat-switcher-background: #1f1f1f;
@@ -111,15 +85,7 @@ ion-app.classic-dark-theme, .themePreview.classic-dark-theme {
   --fat-markdown-h6: #ff8080;
   --fat-markdown-b: #87d2f6;
   --fat-markdown-hr: #8badbe;
-
-  // Page Subheader
-  --fat-page-subheader-background: #1f1f1f;
-  --fat-page-subheader-contrast: #ffffff;
   
-  // Frame Data Sub Header
-  --fat-frame-data-sub-header-stats-bg: var(--fat-surface-tint);
-  --fat-frame-data-sub-header-stats-contrast: #ffffff;
-  --fat-frame-data-sub-header-stats-border: #ffffff40;
   
   // Menu
   --fat-menu-top: #0f4c75;
@@ -139,12 +105,6 @@ ion-app.classic-dark-theme, .themePreview.classic-dark-theme {
   --fat-datatable-header-bg: #0d3f61;
   --fat-datatable-header-contrast: #ffffff;
   --fat-datatable-hover-border: #223a4b;
-  --fat-datatable-serverely-pun: #d15656;
-  --fat-datatable-very-pun: #a83f3f;
-  --fat-datatable-just-pun: #773a3a;
-  --fat-datatable-not-pun: #636a33;
-  --fat-datatable-just-plus: #406d40;
-  --fat-datatable-very-plus: #3d8c3d;
 
   // Stat Compare
   --fat-statcompare-big-header: #87d2f6;
@@ -152,10 +112,6 @@ ion-app.classic-dark-theme, .themePreview.classic-dark-theme {
   // Fab
   --fat-fab-background: #0f4c75;;
   --fat-fab-inner: #ffffff;
-
-  // Settings
-  --fat-settings-item-border: #424242;
-  --fat-settings-icon: #d6d6d6;
 
   // What's New
   --fat-whatsnew-header: #87d2f6;

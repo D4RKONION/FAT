@@ -29,14 +29,12 @@ const MoveDetail = () => {
   useEffect(() => {
     (async () => {
       if (activeGame !== slugs.gameSlug) {
-        console.log(activeGame)
         console.log("URL game mismatch");
         await dispatch(setActiveGame(slugs.gameSlug, true));
       }
       
       if ((selectedCharacters[activePlayer].name !== slugs.characterSlug || selectedCharacters[activePlayer].vtState !== slugs.vtStateSlug) ) {
         console.log("URL character/vtState mismatch");
-        console.log(slugs)
         dispatch(setPlayerAttr(activePlayer, slugs.characterSlug, {vtState: slugs.vtStateSlug}));
       }
     })();

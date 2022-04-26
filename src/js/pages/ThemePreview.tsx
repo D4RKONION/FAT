@@ -9,7 +9,7 @@ import SegmentSwitcher from '../components/SegmentSwitcher';
 import SubHeader from '../components/SubHeader';
 
 import { setThemeBrightness } from '../actions';
-import { activeGameSelector, selectedCharactersSelector, themeBrightnessSelector } from '../selectors';
+import { activeGameSelector, selectedCharactersSelector, themeBrightnessSelector, themeAccessibilitySelector } from '../selectors';
 import FrameDataSubHeader from '../components/FrameDataSubHeader';
 
 
@@ -19,6 +19,7 @@ const ThemePreview = () => {
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const activeGame = useSelector(activeGameSelector);
   const themeBrightness = useSelector(themeBrightnessSelector);
+  const themeAccessibility = useSelector(themeAccessibilitySelector);
   const dispatch = useDispatch();
 
   const [fakeTrigger, setFakeTrigger] = useState("normal");
@@ -33,7 +34,7 @@ const ThemePreview = () => {
   }	
 
   return(
-    <IonPage className={`themePreview ${themeNameSlug}-${themeBrightness}-theme`}>
+    <IonPage className={`themePreview ${themeNameSlug}-${themeBrightness}-theme universal-${themeBrightness}-${themeAccessibility}`}>
       <PageHeader
         componentsToShow={{customBackUrl: "/themestore", popover: false}}
         title={`${THEMEDICT[themeNameSlug]}`}

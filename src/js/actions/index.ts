@@ -2,7 +2,7 @@ import { Plugins } from '@capacitor/core';
 
 import { helpCreateFrameDataJSON } from '../utils';
 import GAME_DETAILS from '../constants/GameDetails';
-import type { AdviceToastPrevRead, AppModal, NormalNotationType, GameName, InputNotationType, MoveNameType, Orientation, PlayerData, PlayerId, ThemeAlias, ThemeBrightness, ThemeShortId, VtState } from '../types'
+import type { AdviceToastPrevRead, AppModal, NormalNotationType, GameName, InputNotationType, MoveNameType, Orientation, PlayerData, PlayerId, ThemeAlias, ThemeBrightness, ThemeShortId, VtState, ThemeAccessibility } from '../types'
 
 import AppSFVFrameData from '../constants/framedata/SFVFrameData.json';
 import USF4FrameData from '../constants/framedata/USF4FrameData.json';
@@ -170,6 +170,11 @@ export const setDataDisplaySettings = (settings: {moveNameType?: MoveNameType , 
 export const setThemeBrightness = (themeBrightness: ThemeBrightness) => ({
   type: 'SET_THEME_BRIGHTNESS',
   themeBrightness,
+})
+
+export const setThemeAccessibility = (themeAccessibility: ThemeAccessibility) => ({
+  type: 'SET_THEME_ACCESSIBILITY',
+  themeAccessibility,
 })
 
 export const setThemeColor = (themeColor: ThemeShortId) => ({
