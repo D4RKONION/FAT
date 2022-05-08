@@ -9,15 +9,6 @@ ion-app.deltagreen-light-theme, .themePreview.deltagreen-light-theme {
   /**-----------**/
   /** Variables **/
   /**-----------**/
-  --fat-background: #ffffff;
-  --fat-background-contrast: #000000;
-
-  --fat-surface: #f2f2f2;
-  --fat-surface-shade: #cccccc;
-  --fat-surface-tint: #ffffff;
-  --fat-surface-border: #bfbfbf;
-  --fat-surface-contrast: #000000;
-  --fat-surface-faded: #858585;
 
   --fat-primary: #12801D;
   --fat-primary-shade: #217e2b;
@@ -31,33 +22,12 @@ ion-app.deltagreen-light-theme, .themePreview.deltagreen-light-theme {
   --fat-vtrigger-tint: #f1d5d5;
   --fat-vtrigger-contrast: #ffffff;
 
-  --fat-success: #6fc55a;
-
-  --fat-grey: #858585;
-
   /**------------------**/
   /** Global App stuff **/
   /**------------------**/
-  --ion-background-color: var(--fat-background);
-  --ion-text-color: var(--fat-background-contrast);
-
-  --ion-toolbar-background: var(--fat-primary);
-  --ion-toolbar-color: var(--fat-primary-contrast);
   
   --fat-a: #268f31;
   --fat-code-background: #dadada;
-
-  // Dropdown
-  --fat-ionlabel-p: #666666;
-
-  // Alert
-  --fat-ionalert-background: var(--fat-background);
-  --fat-ionalert-label: #262626;
-  --fat-ionalert-active-button: var(--fat-primary);
-  --fat-ionalert-confirm-buttons: var(--fat-primary-tint);
-  
-  --fat-solidbutton-inner: #ffffff;
-  --fat-solidbutton-bg-hover: var(--fat-primary-tint);
 
   /**--------------------------**/
   /** Detailed Component stuff **/
@@ -66,29 +36,13 @@ ion-app.deltagreen-light-theme, .themePreview.deltagreen-light-theme {
   // Card
   --fat-card-header-bg: #d3e4d5;
   --fat-card-header-contrast: #175815;
-  --fat-card-bg: #f2f2f2;
-  --fat-card-border: #bfbfbf;
-  --fat-card-p: #000000;
-
-  // Popover
-  --fat-popover-bg: #ffffff;
-  --fat-popover-contrast: #000000;
 
   // Switcher
-  --fat-switcher-background: #ffffff;
-  --fat-switcher-unchecked-contrast: #00000090;
-  --fat-switcher-primary-checked-contrast: var(--fat-primary);
-  --fat-switcher-vtrigger-checked-contrast: var(--fat-vtrigger);
-  --fat-switcher-android-background: #ffffff;
   --fat-switcher-primary-ios-background: #dbf3db;
-  --fat-switcher-primary-ios-checked: #ffffff;
   --fat-switcher-vtrigger-ios-background: #ffebeb;
-  --fat-switcher-vtrigger-ios-checked: #ffffff;
 
   // Toggle
-  --fat-toggle-handle-background: #ffffff;
   --fat-toggle-background-checked: rgba(61, 189, 50, 0.5);
-  --fat-toggle-handle-background-checked: var(--fat-primary);
 
   // IonList
   --fat-ionlist-header: var(--fat-primary-shade-extreme);
@@ -103,18 +57,6 @@ ion-app.deltagreen-light-theme, .themePreview.deltagreen-light-theme {
   --fat-checkbox-checked: var(--fat-primary);
   --fat-meter-full: #29b130;
   --fat-meter-empty: #cfcfcf;
-
-  // Markdown
-  --fat-markdown-h125: var(--fat-primary);
-  --fat-markdown-h3: var(--fat-primary-shade-extreme);
-  --fat-markdown-h4: var(--fat-primary);
-  --fat-markdown-h6: var(--fat-vtrigger);
-  --fat-markdown-b: var(--fat-primary);
-  --fat-markdown-hr: var(--fat-primary-tint);
-
-  // Page Header
-  --fat-page-subheader-background: var(--fat-primary-tint);
-  --fat-page-subheader-contrast: #ffffff;
 
   // Frame Data Sub Header
   --fat-frame-data-sub-header-stats-bg: #e2f1e4;
@@ -139,26 +81,5 @@ ion-app.deltagreen-light-theme, .themePreview.deltagreen-light-theme {
   --fat-datatable-header-bg: var(--fat-primary-shade-extreme);
   --fat-datatable-header-contrast: #ffffff;
   --fat-datatable-hover-border: #ace7af;
-  --fat-datatable-serverely-pun: #ff6e6e;
-  --fat-datatable-very-pun: #ffa0a0;
-  --fat-datatable-just-pun: #ffe2e2;
-  --fat-datatable-not-pun: #ffffC0;
-  --fat-datatable-just-plus: #d8ffec;
-  --fat-datatable-very-plus: #9affcc;
 
-  // Stat Compare
-  --fat-statcompare-big-header: var(--fat-primary);
-
-  // Fab
-  --fat-fab-background: var(--fat-primary);
-  --fat-fab-inner: #ffffff;
-
-  // Settings
-  --fat-settings-item-border: #dedede;
-  --fat-settings-icon: #757575;
-
-  // What's New
-  --fat-whatsnew-header: var(--fat-primary-shade-extreme);
-  --fat-whatsnew-feature: #008000;
-  --fat-whatsnew-bug: #ff0000;
  }

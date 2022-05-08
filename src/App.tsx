@@ -26,6 +26,8 @@ import '@ionic/react/css/display.css';
 
 /* CSS */
 import './style/App.scss'
+import './style/theme/universal/light.scss'
+import './style/theme/universal/dark.scss'
 /* Theme variables */
 import './style/theme/classic/light.scss'
 import './style/theme/classic/dark.scss'
@@ -63,7 +65,7 @@ import ThemeStore from './js/pages/ThemeStore';
 import ThemePreview from './js/pages/ThemePreview';
 import VersionLogs from './js/pages/VersionLogs';
 
-import { activeGameSelector, frameDataSelector, themeBrightnessSelector, themeColorSelector } from './js/selectors';
+import { activeGameSelector, themeAccessibilitySelector, themeBrightnessSelector, themeColorSelector } from './js/selectors';
 import { setOrientation, setModalVisibility, setActiveGame, setThemeOwned, setThemeBrightness } from './js/actions';
 import { store } from './js/store';
 import { APP_SFV_FRAME_DATA_CODE, APP_GGST_FRAME_DATA_CODE, APP_CURRENT_VERSION_CODE } from './js/constants/VersionLogs';
@@ -74,6 +76,7 @@ const App = () => {
 
   const activeGame = useSelector(activeGameSelector);
   const themeBrightness = useSelector(themeBrightnessSelector);
+  const themeAccessibility = useSelector(themeAccessibilitySelector);
   const themeColor = useSelector(themeColorSelector);
 
   const dispatch = useDispatch();
@@ -268,7 +271,7 @@ useEffect(() => {
 
 
   return (
-    <IonApp className={`${themeColor}-${themeBrightness}-theme`}>
+    <IonApp className={`${themeColor}-${themeBrightness}-theme universal-${themeBrightness}-${themeAccessibility}`}>
       <IonReactHashRouter>
         <IonSplitPane contentId="main">
           <Menu />
