@@ -1,6 +1,8 @@
+import { Plugins } from '@capacitor/core';
+
 import { helpCreateFrameDataJSON } from '../utils';
 import GAME_DETAILS from '../constants/GameDetails';
-import type { AdviceToastPrevRead, AppModal, NormalNotationType, GameName, InputNotationType, MoveNameType, Orientation, PlayerData, PlayerId, ThemeAlias, ThemeBrightness, ThemeShortId, VtState } from '../types'
+import type { AdviceToastPrevRead, AppModal, NormalNotationType, GameName, InputNotationType, MoveNameType, Orientation, PlayerData, PlayerId, ThemeAlias, ThemeBrightness, ThemeShortId, VtState, ThemeAccessibility } from '../types'
 
 import AppSFVFrameData from '../constants/framedata/SFVFrameData.json';
 import USF4FrameData from '../constants/framedata/USF4FrameData.json';
@@ -8,6 +10,8 @@ import SF3FrameData from '../constants/framedata/3SFrameData.json';
 import AppGGSTFrameData from '../constants/framedata/GGSTFrameData.json';
 import { APP_SFV_FRAME_DATA_CODE, APP_GGST_FRAME_DATA_CODE } from '../constants/VersionLogs';
 import { RootState } from '../reducers';
+import { ThunkAction } from 'redux-thunk';
+import { AnyAction } from 'redux';
 
 // ACTION CREATORS
 //handle global things
@@ -41,7 +45,12 @@ const getFrameData = (gameName: GameName, stateReset?: Boolean) => {
     if (gameName === "SFV") {
 
       const LS_FRAME_DATA_CODE = parseInt(localStorage.getItem("lsSFVFrameDataCode"));
-      const lsSFVFrameData = JSON.parse(localStorage.getItem("lsSFVFrameData"))
+      let lsSFVFrameData: string;
+      try {
+        lsSFVFrameData = JSON.parse((await Plugins.Storage.get({ key: 'lsSFVFrameData' })).value);
+      } catch {
+        lsSFVFrameData = '';
+      }
 
       if (!lsSFVFrameData || !LS_FRAME_DATA_CODE || LS_FRAME_DATA_CODE <= APP_SFV_FRAME_DATA_CODE) {
         dispatch(setFrameData(AppSFVFrameData));
@@ -56,14 +65,19 @@ const getFrameData = (gameName: GameName, stateReset?: Boolean) => {
     } else if (gameName === "GGST") {
 
       const LS_FRAME_DATA_CODE = parseInt(localStorage.getItem("lsGGSTFrameDataCode"));
-      const lsGGSTFrameData = JSON.parse(localStorage.getItem("lsGGSTFrameData"))
+      let lsGGSTFrameData: string;
+      try {
+        lsGGSTFrameData = JSON.parse((await Plugins.Storage.get({ key: 'lsGGSTFrameData' })).value);
+      } catch {
+        lsGGSTFrameData = '';
+      }
 
       if (!lsGGSTFrameData || !LS_FRAME_DATA_CODE || LS_FRAME_DATA_CODE <= APP_GGST_FRAME_DATA_CODE) {
         dispatch(setFrameData(AppGGSTFrameData));
       } else {
         dispatch(setFrameData(lsGGSTFrameData))
       }
-      
+
     }
 
     const gameCharList = GAME_DETAILS[gameName].characterList as any;
@@ -72,13 +86,13 @@ const getFrameData = (gameName: GameName, stateReset?: Boolean) => {
   }
 }
 
-export const setActiveGame = (gameName: GameName, colReset: Boolean) => {
-  return function (dispatch) {
+export const setActiveGame = (gameName: GameName, colReset: Boolean): ThunkAction<void, RootState, unknown, AnyAction> => {
+  return async (dispatch) => {
     if (colReset) {
       dispatch(setLandscapeCols(GAME_DETAILS[gameName].defaultLandscapeCols))
     }
     dispatch(setGameName(gameName));
-    dispatch(getFrameData(gameName, true));
+    await dispatch(getFrameData(gameName, true));
   }
 }
 
@@ -156,6 +170,11 @@ export const setDataDisplaySettings = (settings: {moveNameType?: MoveNameType , 
 export const setThemeBrightness = (themeBrightness: ThemeBrightness) => ({
   type: 'SET_THEME_BRIGHTNESS',
   themeBrightness,
+})
+
+export const setThemeAccessibility = (themeAccessibility: ThemeAccessibility) => ({
+  type: 'SET_THEME_ACCESSIBILITY',
+  themeAccessibility,
 })
 
 export const setThemeColor = (themeColor: ThemeShortId) => ({

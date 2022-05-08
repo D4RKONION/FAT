@@ -26,6 +26,8 @@ import '@ionic/react/css/display.css';
 
 /* CSS */
 import './style/App.scss'
+import './style/theme/universal/light.scss'
+import './style/theme/universal/dark.scss'
 /* Theme variables */
 import './style/theme/classic/light.scss'
 import './style/theme/classic/dark.scss'
@@ -63,7 +65,7 @@ import ThemeStore from './js/pages/ThemeStore';
 import ThemePreview from './js/pages/ThemePreview';
 import VersionLogs from './js/pages/VersionLogs';
 
-import { activeGameSelector, frameDataSelector, themeBrightnessSelector, themeColorSelector } from './js/selectors';
+import { activeGameSelector, themeAccessibilitySelector, themeBrightnessSelector, themeColorSelector } from './js/selectors';
 import { setOrientation, setModalVisibility, setActiveGame, setThemeOwned, setThemeBrightness } from './js/actions';
 import { store } from './js/store';
 import { APP_SFV_FRAME_DATA_CODE, APP_GGST_FRAME_DATA_CODE, APP_CURRENT_VERSION_CODE } from './js/constants/VersionLogs';
@@ -74,19 +76,12 @@ const App = () => {
 
   const activeGame = useSelector(activeGameSelector);
   const themeBrightness = useSelector(themeBrightnessSelector);
+  const themeAccessibility = useSelector(themeAccessibilitySelector);
   const themeColor = useSelector(themeColorSelector);
-  const frameDataFile = useSelector(frameDataSelector);
 
   const dispatch = useDispatch();
-  
+
   const [exitAlert, setExitAlert] = useState(false);
-
-  useEffect(() => {
-    // do an initial frame data load
-    dispatch(setActiveGame(activeGame, false));
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   const { SplashScreen } = Plugins;
   useEffect(() => {
@@ -244,7 +239,10 @@ useEffect(() => {
         const framedatajson_response = await fetch(`https://fullmeter.com/fatfiles/release/${gameName}/${gameName}FrameData.json?ts=${Date.now()}`)
         const SERVER_FRAME_DATA = await framedatajson_response.json();
 
-        localStorage.setItem(`ls${gameName}FrameData`, JSON.stringify(SERVER_FRAME_DATA));
+        await Plugins.Storage.set({
+          key: `ls${gameName}FrameData`,
+          value: JSON.stringify(SERVER_FRAME_DATA),
+        });
         localStorage.setItem(`ls${gameName}FrameDataCode`, SERVER_VERSION_DETAILS.FRAME_DATA_CODE)
         // this is kind of dirty, and I don't like it but I don't know how else to access the activeGame from the URL.
         // without this check, this function always thinks that the current game on a fresh load is SFV
@@ -272,13 +270,8 @@ useEffect(() => {
 
 
 
-  // wait for the initial framedata load
-  if (!frameDataFile) {
-    return null;
-  }
-
   return (
-    <IonApp className={`${themeColor}-${themeBrightness}-theme`}>
+    <IonApp className={`${themeColor}-${themeBrightness}-theme universal-${themeBrightness}-${themeAccessibility}`}>
       <IonReactHashRouter>
         <IonSplitPane contentId="main">
           <Menu />

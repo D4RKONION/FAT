@@ -18,6 +18,7 @@ import { adviceToastShownReducer } from './adivcetoastshown';
 import { adviceToastDismissedReducer } from './adivcetoastdismissed';
 import { adviceToastPrevReadReducer } from './advicetoastprevread';
 import { autoSetSpecificColsReducer } from './autospecificcols';
+import { themeAccessibilityReducer } from './themeaccessibility';
 
 
 const rootReducer = combineReducers({
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   selectedCharactersState: selectedCharactersReducer,
   dataDisplaySettingsState: dataDisplaySettingsReducer,
   themeBrightnessState: themeBrightnessReducer,
+  themeAccessibilityState: themeAccessibilityReducer,
   themeColorState: themeColorReducer,
   themesOwnedState: themesOwnedReducer,
   onBlockColoursState: onBlockColoursReducer,

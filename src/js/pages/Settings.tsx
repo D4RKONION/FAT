@@ -3,13 +3,13 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Clipboard } from '@ionic-native/clipboard';
 
-import { setActiveGame, setAdviceToastShown, setDataDisplaySettings, setPlayer } from '../actions'
+import { setActiveGame, setAdviceToastShown, setDataDisplaySettings, setPlayer, setThemeAccessibility, setThemeColor } from '../actions'
 import '../../style/pages/Settings.scss';
 import PageHeader from '../components/PageHeader';
 import { logoTwitter, chevronForward, mailOutline, starOutline, heartOutline, openOutline, globeOutline, logoGithub, bulbOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router';
 import { APP_CURRENT_VERSION_NAME } from '../constants/VersionLogs';
-import { activeGameSelector, adviceToastShownSelector, dataDisplaySettingsSelector, selectedCharactersSelector } from '../selectors';
+import { activeGameSelector, adviceToastShownSelector, dataDisplaySettingsSelector, selectedCharactersSelector, themeAccessibilitySelector } from '../selectors';
 
 const Settings = () => {
   
@@ -17,6 +17,7 @@ const Settings = () => {
   const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const adviceToastShown = useSelector(adviceToastShownSelector);
+  const themeAccessibility = useSelector(themeAccessibilitySelector);
 
   const dispatch = useDispatch();
   
@@ -149,6 +150,23 @@ const Settings = () => {
                 >
                   <IonSelectOption value={true}>On</IonSelectOption>
                   <IonSelectOption value={false}>Off</IonSelectOption>
+                </IonSelect>
+              </IonItem>
+              
+              <IonItem lines="full">
+                <IonLabel>
+                  <h2>Colour Blind Mode</h2>
+                  <p>Use colour blind safe palettes</p>
+                </IonLabel>
+                <IonSelect
+                  interfaceOptions={{ header: "Colour Blind Mode" }}
+                  value={themeAccessibility}
+                  okText="Select"
+                  cancelText="Cancel"
+                  onIonChange={ e => {dispatch(setThemeAccessibility(e.detail.value)); dispatch(setThemeColor("classic"))} }
+                >
+                  <IonSelectOption value={"colorBlind"}>On</IonSelectOption>
+                  <IonSelectOption value={"none"}>Off</IonSelectOption>
                 </IonSelect>
               </IonItem>
               

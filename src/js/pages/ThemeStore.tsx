@@ -1,13 +1,14 @@
-import { IonContent, IonPage, IonList, IonItem, IonLabel, IonGrid, IonButton, isPlatform, IonIcon, IonRow, IonCol } from '@ionic/react';
+import { IonContent, IonPage, IonList, IonItem, IonLabel, IonGrid, IonButton, isPlatform, IonIcon, IonRow, IonCol, IonSelect, IonSelectOption, IonListHeader } from '@ionic/react';
 import { useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { InAppPurchase2 as iapStore } from '@ionic-native/in-app-purchase-2';
 import PageHeader from '../components/PageHeader';
 import { checkmarkSharp } from 'ionicons/icons';
 import '../../style/pages/ThemeStore.scss'
-import { setThemeColor } from '../actions';
-import { themeColorSelector, themesOwnedSelector } from '../selectors';
+import { setThemeAccessibility, setThemeColor } from '../actions';
+import { themeAccessibilitySelector, themeColorSelector, themesOwnedSelector } from '../selectors';
 import THEMES from '../constants/Themes';
+import SubHeader from '../components/SubHeader';
 
 const defaultPrice = isPlatform('android') ? '€1.79' : '$1.99';
 
@@ -18,6 +19,7 @@ const PRODUCTS = THEMES.map(themeObj => (
 const ThemeStore = () => {
 
   const themeColor = useSelector(themeColorSelector);
+  const themeAccessibility = useSelector(themeAccessibilitySelector);
   const themesOwned = useSelector(themesOwnedSelector);
 
   const dispatch = useDispatch();
@@ -41,6 +43,18 @@ const ThemeStore = () => {
       />
 
       <IonContent className="themeStore">
+        {themeAccessibility === "colorBlind" && 
+          <SubHeader
+          adaptToShortScreens={false}
+          hideOnWideScreens={false}
+          rowsToDisplay={[
+            [
+              <h4>Color Blind mode is only compatible with FAT Classic. Changing the theme will automatically turn color blind mode off.</h4>,
+            ]
+          ]}
+        />
+        }
+      
         <IonGrid fixed>
           <IonList>
             <IonItem lines="full" key={`default-theme-item`}>
@@ -92,6 +106,9 @@ const ThemeStore = () => {
                         <IonButton
                           fill="solid" size="default"
                           onClick={ () => {
+                            if (themeAccessibility === "colorBlind") {
+                              dispatch(setThemeAccessibility("none"));
+                            }
                             dispatch(setThemeColor(iapStoreObj.shortId));
                           }}
                         >Use</IonButton>
@@ -137,6 +154,25 @@ const ThemeStore = () => {
               >Restore</IonButton>
               </IonItem>
             )}
+            <IonItem lines="full">
+                <IonLabel>
+                  <h2>Colour Blind Mode</h2>
+                  <p>Use colour blind safe palettes</p>
+                </IonLabel>
+                <IonSelect
+                  interfaceOptions={{ header: "Colour Blind Mode" }}
+                  value={themeAccessibility}
+                  okText="Select"
+                  cancelText="Cancel"
+                  onIonChange={ (e) => {
+                    dispatch(setThemeColor("classic"));
+                    dispatch(setThemeAccessibility(e.detail.value));
+                  }}
+                >
+                  <IonSelectOption value={"colorBlind"}>On</IonSelectOption>
+                  <IonSelectOption value={"none"}>Off</IonSelectOption>
+                </IonSelect>
+              </IonItem>
           </IonList>
         </IonGrid>
       </IonContent>
