@@ -1,8 +1,8 @@
-import BaseFormatRule from "./format_rules/baseformatrule";
-import CodyUSF4FormatRule from "./format_rules/codyusf4formatrule";
-import DefaultFormatRule from "./format_rules/defaultformatrule";
-import MenatSF5FormatRule from "./format_rules/menatsf5formatrule";
-import YoungZekuSF5FormatRule from "./format_rules/youngzekusf5formatrule";
+import BaseFormatRule from "./format_rules/BaseFormatRule";
+import CodyUSF4FormatRule from "./format_rules/CodyUsf4FormatRule";
+import DefaultFormatRule from "./format_rules/DefaultFormatRule";
+import MenatSF5FormatRule from "./format_rules/MenatSf5FormatRule";
+import YoungZekuSF5FormatRule from "./format_rules/YoungZekuSf5FormatRule";
 
 export default class MoveFormatter {
     private rules: BaseFormatRule[];

@@ -5,8 +5,8 @@ export default abstract class BaseFormatRule {
         ["stand", "st."],
         ["crouch", "cr."],
         ["jump", "j."],
-        ["neutral jump", "nj."],
-        ["close", "c."],
+        ["neutral", "nj."],
+        ["close", "cl."],
         ["far", "f."],
         ["downback", "db."],
         ["back", "b."]

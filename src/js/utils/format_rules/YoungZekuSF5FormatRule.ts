@@ -1,4 +1,4 @@
-import BaseFormatRule from "./baseformatrule";
+import BaseFormatRule from "./BaseFormatRule";
 
 export default class YoungZekuSF5FormatRule extends BaseFormatRule {
     constructor() {

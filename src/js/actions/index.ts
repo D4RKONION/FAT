@@ -128,9 +128,9 @@ export const  setPlayer = (playerId: PlayerId, charName: PlayerData["name"]) => 
         : "normal"
     const playerData: PlayerData = {
       name: charName,
-      frameData: helpCreateFrameDataJSON(frameDataState[charName].moves, dataDisplaySettingsState, vTriggerStateToSet),
+      frameData: helpCreateFrameDataJSON(frameDataState[charName].moves, dataDisplaySettingsState, stateToSet, activeGameState),
       stats: frameDataState[charName].stats,
-      vtState: vTriggerStateToSet,
+      vtState: stateToSet,
     }
     dispatch({
       type: 'SET_PLAYER',

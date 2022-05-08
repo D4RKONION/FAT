@@ -1,4 +1,4 @@
-import BaseFormatRule from "./baseformatrule";
+import BaseFormatRule from "./BaseFormatRule";
 
 export default class MenatSF5FormatRule extends BaseFormatRule { 
     // Sentence-casing for the "Orb" label

@@ -1,7 +1,7 @@
 import { mapKeys, isEqual } from 'lodash';
 import { DataDisplaySettingsReducerState } from '../reducers/datadisplaysettings';
 import { VtState } from '../types';
-import MoveFormatter from './moveformatter';
+import MoveFormatter from './MoveFormatter';
 
 /**
  * Renames the moves in the character frame data to reflect the user's desired naming convention
@@ -9,46 +9,46 @@ import MoveFormatter from './moveformatter';
  * @param {DataDisplaySettingsReducerState} dataDisplayState The Redux state containing various move text render settings
  * @returns The frame data JSON object with renamed moves
  */
-export function renameData(rawFrameData, dataDisplayState: DataDisplaySettingsReducerState) {
+export function renameData(rawFrameData, dataDisplayState: DataDisplaySettingsReducerState, activeGame: string) {
   const renameFrameData = (rawData, renameKey, notationDisplay) => {
     switch (notationDisplay) {
       case "fullWord":
         return mapKeys(rawData, (moveValue, moveKey) => moveValue[renameKey] ? moveValue[renameKey] : moveKey);
       case "shorthand":
-        return renameFrameDataToShorthand(rawData, renameKey);
+        return renameFrameDataToShorthand(rawData, renameKey, activeGame);
       default:
         break;
     }
   }
 
-  const renameFrameDataToShorthand = (rawData: string, nameTypeKey: string) => {
-    const HELD_NORMAL: string = "Held Normal"; 
+  const renameFrameDataToShorthand = (rawData: string, nameTypeKey: string, activeGame: string) => {
+    const MOVE_TYPE_HELD_NORMAL: string = "held normal"; 
+    const MOVE_TYPE_NORMAL: string = "normal";
+    const GUILTY_GEAR_STRIVE: string = "ggst";
+
     let rename = mapKeys(rawData, (moveValue, moveKey) => {
-      const DEFAULT_MOVE_NAME = () => {
-        if (moveValue[nameTypeKey]) {
-          return moveValue[nameTypeKey];
-        } else {
-          return moveKey;
-        }
+      let activeGameIsGuiltyGearStrive: boolean = activeGame.toLowerCase() === GUILTY_GEAR_STRIVE;
+      let defaultMoveName: string = moveValue[nameTypeKey] ? moveValue[nameTypeKey] : moveKey;
+      let moveDataHasMovesList: boolean = Boolean(moveValue.movesList);
+
+      // Conditional expressions are used here because checking moveValue.moveType for a truthy value
+      // is how JavaScript/TypeScript can simultaneously check if a string is empty, null, or undefined
+      let moveIsNormal: boolean = moveValue.moveType ? moveValue.moveType.toLowerCase() === MOVE_TYPE_NORMAL : false; 
+      let moveIsHeldNormal: boolean = moveValue.moveType ? moveValue.moveType.toLowerCase() === MOVE_TYPE_HELD_NORMAL : false;
+
+      if (activeGameIsGuiltyGearStrive) {
+        return defaultMoveName;
       }
-      
-      if ((moveValue.moveType === "normal")) {
-        if (moveValue.movesList) {
-          if (moveValue.movesList === HELD_NORMAL) {
-            return formatMoveName(moveValue);
-          } else {
-            return DEFAULT_MOVE_NAME();
-          }
+
+      if (moveIsNormal) {
+        if (moveDataHasMovesList) {
+          return moveIsHeldNormal ? formatMoveName(moveValue) : defaultMoveName;
         } else {
-          let formatted: string = formatMoveName(moveValue);
-          if (formatted !== "") {
-            return formatted;
-          } else {
-            return DEFAULT_MOVE_NAME();
-          }
+          let formattedMove: string = formatMoveName(moveValue);
+          return formattedMove !== "" ? formattedMove : defaultMoveName;
         }
       } else {
-        return DEFAULT_MOVE_NAME();
+        return defaultMoveName;
       }
     });
 
@@ -114,9 +114,9 @@ function vTriggerMerge(rawFrameData, vtState) {
 }
 
 // this allow me to build the JSON for the setPlayer action creator in selectCharacter, SegmentSwitcher and ____ componenet
-export function helpCreateFrameDataJSON(rawFrameData, dataDisplayState: DataDisplaySettingsReducerState, vtState: VtState) {
+export function helpCreateFrameDataJSON(rawFrameData, dataDisplayState: DataDisplaySettingsReducerState, vtState: VtState, activeGame: string) {
 
   const dataToRename = (vtState === "normal") ? rawFrameData.normal : vTriggerMerge(rawFrameData, vtState);
 
-  return renameData(dataToRename, dataDisplayState);
+  return renameData(dataToRename, dataDisplayState, activeGame);
 }
