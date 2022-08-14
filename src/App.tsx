@@ -68,7 +68,7 @@ import VersionLogs from './js/pages/VersionLogs';
 import { activeGameSelector, themeAccessibilitySelector, themeBrightnessSelector, themeColorSelector } from './js/selectors';
 import { setOrientation, setModalVisibility, setActiveGame, setThemeOwned, setThemeBrightness } from './js/actions';
 import { store } from './js/store';
-import { APP_SFV_FRAME_DATA_CODE, APP_GGST_FRAME_DATA_CODE, APP_CURRENT_VERSION_CODE } from './js/constants/VersionLogs';
+import { APP_SFV_FRAME_DATA_CODE, APP_GGST_FRAME_DATA_CODE, APP_CURRENT_VERSION_CODE, APP_DATE_UPDATED } from './js/constants/VersionLogs';
 import GAME_DETAILS from './js/constants/GameDetails';
 import { GameName } from './js/types';
 
@@ -202,6 +202,8 @@ useEffect(() => {
         // fresh install, local code doesn't exist, set it up using the app's local data
         console.log("local frame data code don't exist, set it up using the app's local data")
         localStorage.setItem(`ls${gameName}FrameDataCode`, APP_FRAME_DATA_CODE.toString())
+        // regardless of the game, if this is a store update we want to set the frame-data last updated date to the app's last update
+        localStorage.setItem(`ls${gameName}FrameDataLastUpdated`, APP_DATE_UPDATED.toString())
 
         LS_FRAME_DATA_CODE = parseInt(localStorage.getItem(`ls${gameName}FrameDataCode`));
 
@@ -217,6 +219,9 @@ useEffect(() => {
         localStorage.removeItem(`ls${gameName}FrameData`);
 
         LS_FRAME_DATA_CODE = parseInt(localStorage.getItem(`ls${gameName}FrameDataCode`));
+
+        // regardless of the game, if this is a store update we want to set the frame-data last updated date to the app's last update
+        localStorage.setItem(`ls${gameName}FrameDataLastUpdated`, APP_DATE_UPDATED.toString())
 
       } else if (LS_FRAME_DATA_CODE > APP_FRAME_DATA_CODE) {
         // the app has downloaded a frame data update
@@ -244,6 +249,7 @@ useEffect(() => {
           value: JSON.stringify(SERVER_FRAME_DATA),
         });
         localStorage.setItem(`ls${gameName}FrameDataCode`, SERVER_VERSION_DETAILS.FRAME_DATA_CODE)
+        localStorage.setItem(`ls${gameName}FrameDataLastUpdated`, SERVER_VERSION_DETAILS.DATE_UPDATED)
         // this is kind of dirty, and I don't like it but I don't know how else to access the activeGame from the URL.
         // without this check, this function always thinks that the current game on a fresh load is SFV
         // and totally ignores the URL switcher in framedata component. In short, I am sorry programming gods

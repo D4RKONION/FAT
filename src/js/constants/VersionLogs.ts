@@ -1,8 +1,10 @@
 export const APP_CURRENT_VERSION_NAME = "3.4.5";
 export const APP_CURRENT_VERSION_CODE = 30405;
+export const APP_DATE_UPDATED = "April 11, 2022";
+
+export const UPDATABLE_GAMES = ["SFV", "GGST"]
 export const APP_SFV_FRAME_DATA_CODE = 80;
 export const APP_GGST_FRAME_DATA_CODE = 71;
-export const APP_DATE_UPDATED = "April 11, 2022";
 
 
 export const VERSION_LOGS = {
