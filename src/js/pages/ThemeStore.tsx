@@ -1,4 +1,4 @@
-import { IonContent, IonPage, IonList, IonItem, IonLabel, IonGrid, IonButton, isPlatform, IonIcon, IonRow, IonCol, IonSelect, IonSelectOption, IonListHeader } from '@ionic/react';
+import { IonContent, IonPage, IonList, IonItem, IonLabel, IonGrid, IonButton, isPlatform, IonIcon, IonRow, IonCol, IonSelect, IonSelectOption } from '@ionic/react';
 import { useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { InAppPurchase2 as iapStore } from '@ionic-native/in-app-purchase-2';

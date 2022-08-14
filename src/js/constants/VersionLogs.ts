@@ -12,7 +12,7 @@ export const VERSION_LOGS = {
       "Added a color blind mode for FAT Classic",
     ],
     "Bug Fixes": [
-      "-"
+      "No bugs!"
     ]
   },
   "3.4.4": {
