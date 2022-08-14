@@ -1,17 +1,18 @@
 export const APP_CURRENT_VERSION_NAME = "3.4.5";
 export const APP_CURRENT_VERSION_CODE = 30405;
-export const APP_DATE_UPDATED = "April 11, 2022";
+export const APP_DATE_UPDATED = "Aug 14 2022"; // new Date().toDateString().substring(4) 
 
 export const UPDATABLE_GAMES = ["SFV", "GGST"]
-export const APP_SFV_FRAME_DATA_CODE = 80;
-export const APP_GGST_FRAME_DATA_CODE = 71;
+export const APP_SFV_FRAME_DATA_CODE = 86;
+export const APP_GGST_FRAME_DATA_CODE = 84;
 
 
 export const VERSION_LOGS = {
   "3.4.5": {
     "New Features": [
+      "GGST: Added Bridget",
+      "Added a color blind mode for FAT Classic (see settings)",
       "Changed dark colours for oB values",
-      "Added a color blind mode for FAT Classic",
       "Added frame data last updated information to the settings > version logs screen"
     ],
     "Bug Fixes": [

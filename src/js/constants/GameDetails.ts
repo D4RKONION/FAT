@@ -592,6 +592,7 @@ const GAME_DETAILS = {
       "Anji",
       "Axl",
       "Baiken",
+      "Bridget",
       "Chipp",
       "Faust",
       "Giovanna",
