@@ -68,7 +68,7 @@ import VersionLogs from './js/pages/VersionLogs';
 import { activeGameSelector, themeAccessibilitySelector, themeBrightnessSelector, themeColorSelector } from './js/selectors';
 import { setOrientation, setModalVisibility, setActiveGame, setThemeOwned, setThemeBrightness } from './js/actions';
 import { store } from './js/store';
-import { APP_SFV_FRAME_DATA_CODE, APP_GGST_FRAME_DATA_CODE, APP_CURRENT_VERSION_CODE, APP_DATE_UPDATED } from './js/constants/VersionLogs';
+import { APP_SFV_FRAME_DATA_CODE, APP_GGST_FRAME_DATA_CODE, APP_CURRENT_VERSION_CODE, APP_DATE_UPDATED, UPDATABLE_GAMES } from './js/constants/VersionLogs';
 import GAME_DETAILS from './js/constants/GameDetails';
 import { GameName } from './js/types';
 
@@ -266,8 +266,7 @@ useEffect(() => {
         
       }
     }
-    const gamesToCheck = ["SFV", "GGST"]
-    gamesToCheck.forEach(gameName => {
+    UPDATABLE_GAMES.forEach(gameName => {
       newVersionCheck(gameName);
     })
     
