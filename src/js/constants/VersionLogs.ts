@@ -12,6 +12,7 @@ export const VERSION_LOGS = {
     "New Features": [
       "Changed dark colours for oB values",
       "Added a color blind mode for FAT Classic",
+      "Added frame data last updated information to the settings > version logs screen"
     ],
     "Bug Fixes": [
       "No bugs!"
