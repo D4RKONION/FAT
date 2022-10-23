@@ -8,6 +8,7 @@ import AppSFVFrameData from '../constants/framedata/SFVFrameData.json';
 import USF4FrameData from '../constants/framedata/USF4FrameData.json';
 import SF3FrameData from '../constants/framedata/3SFrameData.json';
 import AppGGSTFrameData from '../constants/framedata/GGSTFrameData.json';
+import AppSF6FrameData from '../constants/framedata/SF6FrameData.json';
 import { APP_SFV_FRAME_DATA_CODE, APP_GGST_FRAME_DATA_CODE } from '../constants/VersionLogs';
 import { RootState } from '../reducers';
 import { ThunkAction } from 'redux-thunk';
@@ -62,7 +63,11 @@ const getFrameData = (gameName: GameName, stateReset?: Boolean) => {
       dispatch(setFrameData(USF4FrameData));
     } else if (gameName === "3S") {
       dispatch(setFrameData(SF3FrameData));
-    } else if (gameName === "GGST") {
+    } else if (gameName === "SF6") {
+      dispatch(setFrameData(AppSF6FrameData));
+    }  
+    
+    else if (gameName === "GGST") {
 
       const LS_FRAME_DATA_CODE = parseInt(localStorage.getItem("lsGGSTFrameDataCode"));
       let lsGGSTFrameData: string;
@@ -82,7 +87,7 @@ const getFrameData = (gameName: GameName, stateReset?: Boolean) => {
 
     const gameCharList = GAME_DETAILS[gameName].characterList as any;
     dispatch(setPlayerAttr("playerOne", gameCharList.includes(selectedCharactersState.playerOne.name) ? selectedCharactersState.playerOne.name : gameCharList[0], {vtState: "normal"}) );
-    dispatch(setPlayerAttr("playerTwo", gameCharList.includes(selectedCharactersState.playerTwo.name) ? selectedCharactersState.playerTwo.name : gameCharList[2], {vtState: "normal"}) );
+    dispatch(setPlayerAttr("playerTwo", gameCharList.includes(selectedCharactersState.playerTwo.name) ? selectedCharactersState.playerTwo.name : gameCharList[1], {vtState: "normal"}) );
   }
 }
 

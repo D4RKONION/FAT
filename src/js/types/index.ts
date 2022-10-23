@@ -11,9 +11,9 @@ export type InputNotationType = 'plnCmd' | 'numCmd';
 
 export type NormalNotationType = 'fullWord' | 'shorthand';
 
-export type GameName = 'SFV' | 'USF4' | '3S' | 'GGST';
+export type GameName = 'SFV' | 'USF4' | '3S' | 'GGST' | 'SF6';
 
-export type VtState = typeof GAME_DETAILS[GameName]["characterStates"][number] | keyof typeof GAME_DETAILS["GGST"]["specificCharacterStates"];
+export type VtState = typeof GAME_DETAILS[GameName]["characterStates"][number] | keyof typeof GAME_DETAILS["GGST"]["specificCharacterStates"] | keyof typeof GAME_DETAILS["SF6"]["specificCharacterStates"];;
 
 export type Orientation = 'landscape' | 'portrait';
 

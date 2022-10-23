@@ -276,6 +276,13 @@ const Menu = () => {
               checked: activeGame === "SFV"
             },
             {
+              name: 'SF6',
+              type: 'radio',
+              label: 'SF6',
+              value: 'SF6',
+              checked: activeGame === "SF6"
+            },
+            {
               name: 'GGST',
               type: 'radio',
               label: 'GGST',
