@@ -68,7 +68,7 @@ import VersionLogs from './js/pages/VersionLogs';
 import { activeGameSelector, themeAccessibilitySelector, themeBrightnessSelector, themeColorSelector } from './js/selectors';
 import { setOrientation, setModalVisibility, setActiveGame, setThemeOwned, setThemeBrightness } from './js/actions';
 import { store } from './js/store';
-import { APP_SFV_FRAME_DATA_CODE, APP_GGST_FRAME_DATA_CODE, APP_CURRENT_VERSION_CODE, APP_DATE_UPDATED, UPDATABLE_GAMES } from './js/constants/VersionLogs';
+import { APP_SFV_FRAME_DATA_CODE, APP_GGST_FRAME_DATA_CODE, APP_CURRENT_VERSION_CODE, APP_DATE_UPDATED, UPDATABLE_GAMES, TYPES_OF_UPDATES, APP_SFV_GAME_DETAILS_CODE, APP_GGST_GAME_DETAILS_CODE } from './js/constants/VersionLogs';
 import { GameName } from './js/types';
 import { GAME_NAMES } from './js/constants/ImmutableGameDetails';
 
@@ -182,84 +182,100 @@ const App = () => {
   }, [dispatch]);
 
 useEffect(() => {
-    const newVersionCheck = async (gameName: string) => {
+    const newVersionCheck = async (gameName: string, updateType: string) => {
 
-      const APP_FRAME_DATA_CODE = gameName === "SFV" ? APP_SFV_FRAME_DATA_CODE : APP_GGST_FRAME_DATA_CODE
+      let APP_WHATS_BEING_UPDATED_CODE: Number;
 
-      // check if the frame data was updated
-      let LS_FRAME_DATA_CODE = parseInt(localStorage.getItem(`ls${gameName}FrameDataCode`));
+      if (updateType === "FrameData") {
+        APP_WHATS_BEING_UPDATED_CODE = gameName === "SFV" ? APP_SFV_FRAME_DATA_CODE : gameName === "GGST" ? APP_GGST_FRAME_DATA_CODE : 10000000;
+      } else if (updateType === "GameDetails") {
+        APP_WHATS_BEING_UPDATED_CODE = gameName === "SFV" ? APP_SFV_GAME_DETAILS_CODE : gameName === "GGST" ? APP_GGST_GAME_DETAILS_CODE : 10000000;
+      }
 
-      if (!LS_FRAME_DATA_CODE) {
+      // check if the element was updated
+      let LS_WHATS_BEING_UPDATED_CODE = parseInt(localStorage.getItem(`ls${gameName}${updateType}Code`));
+      if (!LS_WHATS_BEING_UPDATED_CODE) {
         // fresh install, local code doesn't exist, set it up using the app's local data
         console.log("local frame data code don't exist, set it up using the app's local data")
-        localStorage.setItem(`ls${gameName}FrameDataCode`, APP_FRAME_DATA_CODE.toString())
-        // regardless of the game, if this is a store update we want to set the frame-data last updated date to the app's last update
-        localStorage.setItem(`ls${gameName}FrameDataLastUpdated`, APP_DATE_UPDATED.toString())
+        localStorage.setItem(`ls${gameName}${updateType}Code`, APP_WHATS_BEING_UPDATED_CODE.toString())
+        // regardless of the game, if this is a store update we want to set the element being updated's last updated date to the app's last update
+        localStorage.setItem(`ls${gameName}${updateType}LastUpdated`, APP_DATE_UPDATED.toString())
 
-        LS_FRAME_DATA_CODE = parseInt(localStorage.getItem(`ls${gameName}FrameDataCode`));
+        LS_WHATS_BEING_UPDATED_CODE = parseInt(localStorage.getItem(`ls${gameName}${updateType}Code`));
 
         // also because this is a fresh install, we're going to do a cheeky check for if
         // the user likes dark mode right here
         window.matchMedia('(prefers-color-scheme: dark)').matches &&
           dispatch(setThemeBrightness("dark"))
 
-      } else if (LS_FRAME_DATA_CODE <= APP_FRAME_DATA_CODE) {
-        // the app has been updated via the store, delete the LS FrameData.json and update the VS_FDC
-        console.log("the app has been updated via the store, delete the LS FrameData.json and update the VS_FDC")
-        localStorage.setItem(`ls${gameName}FrameDataCode`, APP_FRAME_DATA_CODE.toString())
-        localStorage.removeItem(`ls${gameName}FrameData`);
+      } else if (LS_WHATS_BEING_UPDATED_CODE <= APP_WHATS_BEING_UPDATED_CODE) {
+        // the app has been updated via the store, delete the LS updatetype.json and update the LS updatetype code
+        console.log("the app has been updated via the store, delete the LS updateType.json and update the LS updatetype code");
+        localStorage.setItem(`ls${gameName}${updateType}Code`, APP_WHATS_BEING_UPDATED_CODE.toString())
+        localStorage.removeItem(`ls${gameName}${updateType}`);
 
-        LS_FRAME_DATA_CODE = parseInt(localStorage.getItem(`ls${gameName}FrameDataCode`));
+        LS_WHATS_BEING_UPDATED_CODE = parseInt(localStorage.getItem(`ls${gameName}${updateType}Code`));
 
         // regardless of the game, if this is a store update we want to set the frame-data last updated date to the app's last update
-        localStorage.setItem(`ls${gameName}FrameDataLastUpdated`, APP_DATE_UPDATED.toString())
+        localStorage.setItem(`ls${gameName}${updateType}LastUpdated`, APP_DATE_UPDATED.toString())
 
-      } else if (LS_FRAME_DATA_CODE > APP_FRAME_DATA_CODE) {
-        // the app has downloaded a frame data update
-        console.log("the app has downloaded a frame data update")
+      } else if (LS_WHATS_BEING_UPDATED_CODE > APP_WHATS_BEING_UPDATED_CODE) {
+        // the app has downloaded an updateType update
+        console.log(`the app has downloaded a ${updateType} update`)
       } else {
         console.log("something has gone horribly wrong")
       }
 
-      const version_response = await fetch(`https://fullmeter.com/fatfiles/release/${gameName}/${gameName}VersionDetails.json?ts=${Date.now()}`)
-      const SERVER_VERSION_DETAILS = await version_response.json();
+      const version_response = await fetch(`https://fullmeter.com/fatfiles/test/${gameName}/${gameName}${updateType}VersionDetails.json?ts=${Date.now()}`)
+      const SERVER_WHATS_BEING_UPDATED_VERSION_DETAILS = await version_response.json();
 
       // this stops the update process accidentally being ruined
-      if (SERVER_VERSION_DETAILS.MINIMUM_VERSION_REQUIRED > APP_CURRENT_VERSION_CODE) {
+      if (SERVER_WHATS_BEING_UPDATED_VERSION_DETAILS.MINIMUM_VERSION_REQUIRED > APP_CURRENT_VERSION_CODE) {
         console.log("Someone added a version code greater than 5 digits in length OR this app falls below the minimum version required");
         return false;
       }
-
-      if (SERVER_VERSION_DETAILS.FRAME_DATA_CODE > LS_FRAME_DATA_CODE) {
+      console.log(updateType)
+      if (SERVER_WHATS_BEING_UPDATED_VERSION_DETAILS.VERSION_CODE > LS_WHATS_BEING_UPDATED_CODE) {
         console.log("there's a new version on the server, get it");
-        const framedatajson_response = await fetch(`https://fullmeter.com/fatfiles/release/${gameName}/${gameName}FrameData.json?ts=${Date.now()}`)
-        const SERVER_FRAME_DATA = await framedatajson_response.json();
-
+        const whats_being_updated_json_response = await fetch(`https://fullmeter.com/fatfiles/test/${gameName}/${gameName}${updateType}.json?ts=${Date.now()}`)
+        const SERVER_DATA = await whats_being_updated_json_response.json();
+        
         await Plugins.Storage.set({
-          key: `ls${gameName}FrameData`,
-          value: JSON.stringify(SERVER_FRAME_DATA),
+          key: `ls${gameName}${updateType}`,
+          value: JSON.stringify(SERVER_DATA),
         });
-        localStorage.setItem(`ls${gameName}FrameDataCode`, SERVER_VERSION_DETAILS.FRAME_DATA_CODE)
-        localStorage.setItem(`ls${gameName}FrameDataLastUpdated`, SERVER_VERSION_DETAILS.DATE_UPDATED)
+        console.log(SERVER_DATA)
+        localStorage.setItem(`ls${gameName}${updateType}Code`, SERVER_WHATS_BEING_UPDATED_VERSION_DETAILS.VERSION_CODE)
+        localStorage.setItem(`ls${gameName}${updateType}LastUpdated`, SERVER_WHATS_BEING_UPDATED_VERSION_DETAILS.DATE_UPDATED)
+        
+        
+        
         // this is kind of dirty, and I don't like it but I don't know how else to access the activeGame from the URL.
         // without this check, this function always thinks that the current game on a fresh load is SFV
         // and totally ignores the URL switcher in framedata component. In short, I am sorry programming gods
         // please forgive me
 
-        if (GAME_NAMES[window.location.hash.split("/")[2]]) {
-          dispatch(setActiveGame(window.location.hash.split("/")[2] as GameName, true));
-        } else if (GAME_NAMES[window.location.hash.split("/")[3]]) {
-          dispatch(setActiveGame(window.location.hash.split("/")[3] as GameName, true));
-        } else {
-          dispatch(setActiveGame(activeGame, false))
-        }
+        // This was possibly fixed with G's gate 
+
+        // if (gameName === "SFV" && updateType === "FrameData") {
+        //   if (GAME_NAMES[window.location.hash.split("/")[2]]) {
+        //     dispatch(setActiveGame(window.location.hash.split("/")[2] as GameName, true));
+        //   } else if (GAME_NAMES[window.location.hash.split("/")[3]]) {
+        //     dispatch(setActiveGame(window.location.hash.split("/")[3] as GameName, true));
+        //   } else {
+        //     dispatch(setActiveGame(activeGame, false))
+        //   }
+        // }
+        
         
         
         
       }
     }
     UPDATABLE_GAMES.forEach(gameName => {
-      newVersionCheck(gameName);
+      TYPES_OF_UPDATES.forEach(updateType => {
+        newVersionCheck(gameName, updateType);
+      })
     })
     
     // eslint-disable-next-line react-hooks/exhaustive-deps

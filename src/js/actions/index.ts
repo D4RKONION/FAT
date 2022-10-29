@@ -110,7 +110,7 @@ const getGameDetails = (gameName: GameName) => {
       let lsGameDetails: string;
 
       try {
-        lsGameDetails = JSON.parse((await Plugins.Storage.get({ key: `ls${gameName}FrameData` })).value);
+        lsGameDetails = JSON.parse((await Plugins.Storage.get({ key: `ls${gameName}GameDetails` })).value);
       } catch {
         lsGameDetails = '';
       }
