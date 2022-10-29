@@ -141,8 +141,6 @@ const Menu = () => {
     },
   ];
   
-  const LS_SFV_FRAME_DATA_CODE = localStorage.getItem("lsSFVFrameDataCode");
-  const LS_GGST_FRAME_DATA_CODE = localStorage.getItem("lsGGSTFrameDataCode");
 
   return (
     <IonMenu
@@ -160,7 +158,7 @@ const Menu = () => {
             </div>
             <div id="appDetails">
               <h2>FAT - <span onClick={() => modeName !== "movedetail" && setActiveGameAlertOpen(true)}>{activeGame} <IonIcon icon={caretDownOutline} /></span></h2>
-              <p>Ver {`${APP_CURRENT_VERSION_NAME}.${LS_SFV_FRAME_DATA_CODE}.${LS_GGST_FRAME_DATA_CODE}`}</p>
+              <p>Ver {APP_CURRENT_VERSION_NAME}</p>
             </div>
           </div>
           <IonList id="pageList">
@@ -199,7 +197,7 @@ const Menu = () => {
               </IonCol>
               {isWideFullMenuOpen &&
                 <IonCol>
-                  <p>FAT {`${APP_CURRENT_VERSION_NAME}.${LS_SFV_FRAME_DATA_CODE}.${LS_GGST_FRAME_DATA_CODE}`} - <span onClick={() => modeName !== "movedetail" && setActiveGameAlertOpen(true)}>{activeGame} <IonIcon icon={caretDownOutline} /></span> </p>
+                  <p>FAT {APP_CURRENT_VERSION_NAME} - <span onClick={() => modeName !== "movedetail" && setActiveGameAlertOpen(true)}>{activeGame} <IonIcon icon={caretDownOutline} /></span> </p>
                 </IonCol>
               }
             </IonRow>
