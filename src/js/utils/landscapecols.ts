@@ -1,8 +1,7 @@
-import GAME_DETAILS from '../constants/GameDetails';
-import { GameName, PlayerData } from '../types';
+import { PlayerData } from '../types';
 
-export const createCharacterDataCategoryObj = (activeGame: GameName, charName: PlayerData["name"]) => {
-	return GAME_DETAILS[activeGame].specificCancels.filter(dataRow =>
+export const createCharacterDataCategoryObj = (charName: PlayerData["name"], specificCancels: number[]) => {
+	return specificCancels.filter(dataRow =>
 		Object.keys(dataRow).map(dataEntryKey => 
 			dataRow[dataEntryKey]
 		).some(dataEntry =>
@@ -12,7 +11,7 @@ export const createCharacterDataCategoryObj = (activeGame: GameName, charName: P
 }
 
 export const createOrderedLandscapeColsObj = (
-	activeGame: GameName,
+	gameDetails: any,
 	landscapeCols: {[key: string]: string},
 	dataEntryKey: string,
 	dataTableHeader: string,
@@ -23,14 +22,14 @@ export const createOrderedLandscapeColsObj = (
 	const landscapeColsInOrder = {};
 
 	// extract the keys from the 2 data table entry files so we can order our landscape cols
-	Object.keys(GAME_DETAILS[activeGame].universalDataPoints).forEach(dataCategory =>
-		GAME_DETAILS[activeGame].universalDataPoints[dataCategory].forEach(dataRow =>
+	Object.keys(gameDetails.universalDataPoints).forEach(dataCategory =>
+		gameDetails.universalDataPoints[dataCategory].forEach(dataRow =>
 			Object.keys(dataRow).forEach(dataEntryKey =>
 				keysInOrder.push(dataEntryKey)
 			)
 		)
 	)
-	GAME_DETAILS[activeGame].specificCancels.forEach(dataCategory =>
+	gameDetails.specificCancels.forEach(dataCategory =>
 		Object.keys(dataCategory).forEach(dataRow =>
 			keysInOrder.push(dataCategory[dataRow].dataFileKey)
 		)

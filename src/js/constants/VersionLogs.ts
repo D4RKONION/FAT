@@ -6,6 +6,9 @@ export const UPDATABLE_GAMES = ["SFV", "GGST"]
 export const APP_SFV_FRAME_DATA_CODE = 86;
 export const APP_GGST_FRAME_DATA_CODE = 84;
 
+export const APP_SFV_GAME_DETAILS_CODE = 1;
+export const APP_GGST_GAME_DETAILS_CODE = 1;
+
 
 export const VERSION_LOGS = {
   "3.4.5": {

@@ -4,6 +4,7 @@ import { orientationReducer } from './orientation';
 import { modeNameReducer } from './modename';
 import { activeGameReducer } from './activegame';
 import { frameDataReducer } from './framedata';
+import { gameDetailsReducer } from './gamedetails';
 import { activePlayerReducer } from './activeplayer';
 import { landscapeColsReducer } from './landscapecols';
 import { onBlockColoursReducer } from './onblockcolours';
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   modeNameState: modeNameReducer,
   activeGameState: activeGameReducer,
   frameDataState: frameDataReducer,
+  gameDetailsState: gameDetailsReducer,
   activePlayerState: activePlayerReducer,
   landscapeColsState: landscapeColsReducer,
   modalVisibilityState: modalVisibilityReducer,

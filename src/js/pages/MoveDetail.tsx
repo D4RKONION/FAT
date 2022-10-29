@@ -2,13 +2,12 @@ import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCon
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useParams } from 'react-router';
-import GAME_DETAILS from '../constants/GameDetails'
 import '../../style/components/DetailCards.scss';
 import PageHeader from '../components/PageHeader';
 import SubHeader from '../components/SubHeader';
 import SegmentSwitcher from '../components/SegmentSwitcher';
 import { setActiveGame, setPlayerAttr } from '../actions';
-import { activeGameSelector, activePlayerSelector, selectedCharactersSelector } from '../selectors';
+import { activeGameSelector, activePlayerSelector, gameDetailsSelector, selectedCharactersSelector } from '../selectors';
 import { FrameDataSlug } from '../types';
 import { isPlatform } from '@ionic/core';
 import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
@@ -20,6 +19,7 @@ const MoveDetail = () => {
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const activePlayer = useSelector(activePlayerSelector);
   const activeGame = useSelector(activeGameSelector);
+  const gameDetails = useSelector(gameDetailsSelector);
 
   const dispatch = useDispatch();
 
@@ -63,8 +63,8 @@ const MoveDetail = () => {
   }
 
 
-  const universalDataPoints = GAME_DETAILS[activeGame].universalDataPoints;
-  const specificCancelRows = GAME_DETAILS[activeGame].specificCancels ? GAME_DETAILS[activeGame].specificCancels.filter(cancelRow =>
+  const universalDataPoints = gameDetails.universalDataPoints;
+  const specificCancelRows = gameDetails.specificCancels ? gameDetails.specificCancels.filter(cancelRow =>
     Object.keys(cancelRow).every(key => selectedMoveData[key] !== undefined)
   ) : [];
 
@@ -108,7 +108,7 @@ const MoveDetail = () => {
               <SegmentSwitcher
                 segmentType={"vtrigger"}
                 valueToTrack={selectedCharacters[activePlayer].vtState}
-                labels={createSegmentSwitcherObject(activeGame, selectedCharacters[activePlayer].name)}
+                labels={createSegmentSwitcherObject(gameDetails.specificCharacterStates[selectedCharacters[activePlayer].name])}
                 clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
               />
             }

@@ -8,6 +8,8 @@ export const activeGameSelector =  (state: RootState) => state.activeGameState;
 
 export const frameDataSelector =  (state: RootState) => state.frameDataState;
 
+export const gameDetailsSelector =  (state: RootState) => state.gameDetailsState;
+
 export const activePlayerSelector =  (state: RootState) => state.activePlayerState;
 
 export const landscapeColsSelector =  (state: RootState) => state.landscapeColsState;

@@ -1,22 +1,21 @@
 import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonPage } from '@ionic/react';
 import { useSelector } from 'react-redux';
-import GAME_DETAILS from '../constants/GameDetails'
 import '../../style/components/DetailCards.scss';
 import PageHeader from '../components/PageHeader';
 import SubHeader from '../components/SubHeader';
-import { activeGameSelector, activePlayerSelector, dataDisplaySettingsSelector, frameDataSelector, selectedCharactersSelector } from '../selectors';
+import { activeGameSelector, activePlayerSelector, dataDisplaySettingsSelector, frameDataSelector, gameDetailsSelector, selectedCharactersSelector } from '../selectors';
 
 
 const CharacterStats = () => {
 
   const selectedCharacters = useSelector(selectedCharactersSelector);
-  const activeGame = useSelector(activeGameSelector); 
   const activePlayer = useSelector(activePlayerSelector);
 
   const activeCharName = selectedCharacters[activePlayer].name;
   const charStatsData = selectedCharacters[activePlayer].stats;
 
   const frameData = useSelector(frameDataSelector);
+  const gameDetails = useSelector(gameDetailsSelector);
 	const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
 	const moveNotation = 
 		dataDisplaySettings.moveNameType === "common"
@@ -24,7 +23,7 @@ const CharacterStats = () => {
 		: dataDisplaySettings.inputNotationType
 
 
-  const statsPoints = GAME_DETAILS[activeGame].statsPoints;
+  const statsPoints = gameDetails.statsPoints;
 
   return (
     <IonPage>

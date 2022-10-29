@@ -4,11 +4,10 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { setModalVisibility, setPlayer, setActiveFrameDataPlayer, setPlayerAttr, setLandscapeCols } from '../actions';
 import SegmentSwitcher from './SegmentSwitcher';
-import GAME_DETAILS from '../constants/GameDetails';
 import '../../style/components/CharacterSelect.scss';
 import PageHeader from './PageHeader';
 import CharacterPortrait from './CharacterPortrait'
-import { activeGameSelector, activePlayerSelector, autoSetSpecificColsSelector, frameDataSelector, landscapeColsSelector, modalVisibilitySelector, modeNameSelector, selectedCharactersSelector } from '../selectors';
+import { activeGameSelector, activePlayerSelector, autoSetSpecificColsSelector, frameDataSelector, gameDetailsSelector, landscapeColsSelector, modalVisibilitySelector, modeNameSelector, selectedCharactersSelector } from '../selectors';
 import { createCharacterDataCategoryObj, createOrderedLandscapeColsObj } from '../utils/landscapecols';
 import { PlayerData } from '../types';
 import { isPlatform } from '@ionic/core';
@@ -20,12 +19,13 @@ const CharacterSelectModal = () => {
 
   const [searchText, setSearchText] = useState('');
 
-  const modeName = useSelector(modeNameSelector)
-  const frameDataFile = useSelector(frameDataSelector)
-  const modalVisibility = useSelector(modalVisibilitySelector)
-  const selectedCharacters = useSelector(selectedCharactersSelector)
-  const activePlayer = useSelector(activePlayerSelector)
-  const activeGame = useSelector(activeGameSelector)
+  const modeName = useSelector(modeNameSelector);
+  const frameDataFile = useSelector(frameDataSelector);
+  const gameDetails = useSelector(gameDetailsSelector);
+  const modalVisibility = useSelector(modalVisibilitySelector);
+  const selectedCharacters = useSelector(selectedCharactersSelector);
+  const activePlayer = useSelector(activePlayerSelector);
+  const activeGame = useSelector(activeGameSelector);
   const landscapeCols = useSelector(landscapeColsSelector);
   const autoSetSpecificCols = useSelector(autoSetSpecificColsSelector);
 
@@ -40,11 +40,11 @@ const CharacterSelectModal = () => {
     const charNames = [oldCharName, newCharName]
 
     charNames.forEach((charName, index) => {
-      const characterDataCategoryObj = createCharacterDataCategoryObj(activeGame, charName)
+      const characterDataCategoryObj = createCharacterDataCategoryObj(charName, gameDetails.specificCancels)
 
       Object.keys(characterDataCategoryObj).forEach(dataRow =>
         Object.keys(characterDataCategoryObj[dataRow]).forEach(dataEntryKey =>
-          dispatch(setLandscapeCols({...createOrderedLandscapeColsObj(activeGame, landscapeCols, dataEntryKey, characterDataCategoryObj[dataRow][dataEntryKey]["dataTableHeader"], index === 0 ? "off" : "on" )}))
+          dispatch(setLandscapeCols({...createOrderedLandscapeColsObj(gameDetails, landscapeCols, dataEntryKey, characterDataCategoryObj[dataRow][dataEntryKey]["dataTableHeader"], index === 0 ? "off" : "on" )}))
         )
       )
     })
@@ -104,14 +104,14 @@ const CharacterSelectModal = () => {
               <SegmentSwitcher
                 segmentType={"vtrigger"}
                 valueToTrack={selectedCharacters[activePlayer].vtState}
-                labels={createSegmentSwitcherObject(activeGame, selectedCharacters[activePlayer].name)}
+                labels={createSegmentSwitcherObject(gameDetails.specificCharacterStates[selectedCharacters[activePlayer].name])}
                 clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
               />
             }
         </div>
 
         <div id="characterSelectGrid">
-          {(GAME_DETAILS[activeGame].characterList as unknown as string[]).filter(charName => charName.toLowerCase().includes(searchText.toLowerCase())).map(charName => {
+          {(gameDetails.characterList as unknown as string[]).filter(charName => charName.toLowerCase().includes(searchText.toLowerCase())).map(charName => {
             const charData = frameDataFile[charName];
             if (!charData || charData.stats.hideCharacter) {return null}
             return(

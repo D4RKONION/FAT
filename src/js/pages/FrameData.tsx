@@ -11,7 +11,7 @@ import { useHistory, useParams } from 'react-router';
 import { informationCircle } from 'ionicons/icons';
 import AdviceToast from '../components/AdviceToast';
 import { APP_CURRENT_VERSION_CODE } from '../constants/VersionLogs';
-import { activeGameSelector, activePlayerSelector, autoSetSpecificColsSelector, landscapeColsSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
+import { activeGameSelector, activePlayerSelector, autoSetSpecificColsSelector, gameDetailsSelector, landscapeColsSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
 import { FrameDataSlug, PlayerData } from '../types';
 import { createCharacterDataCategoryObj, createOrderedLandscapeColsObj } from '../utils/landscapecols';
 import { isPlatform } from '@ionic/core';
@@ -28,6 +28,7 @@ const FrameData = () => {
   const activeGame = useSelector(activeGameSelector);
   const landscapeCols = useSelector(landscapeColsSelector);
   const autoSetSpecificCols = useSelector(autoSetSpecificColsSelector);
+  const gameDetails = useSelector(gameDetailsSelector);
 
   const [searchText, setSearchText] = useState('');
 
@@ -44,10 +45,10 @@ const FrameData = () => {
     const charNames = [oldCharName, newCharName]
 
     charNames.forEach((charName, index) => {
-      const characterDataCategoryObj = createCharacterDataCategoryObj(activeGame, charName)
+      const characterDataCategoryObj = createCharacterDataCategoryObj(charName, gameDetails.specificCancels)
       Object.keys(characterDataCategoryObj).forEach(dataRow =>
         Object.keys(characterDataCategoryObj[dataRow]).forEach(dataEntryKey =>
-          dispatch(setLandscapeCols({...createOrderedLandscapeColsObj(activeGame, landscapeCols, dataEntryKey, characterDataCategoryObj[dataRow][dataEntryKey]["dataTableHeader"], index === 0 ? "off" : "on" )}))
+          dispatch(setLandscapeCols({...createOrderedLandscapeColsObj(gameDetails, landscapeCols, dataEntryKey, characterDataCategoryObj[dataRow][dataEntryKey]["dataTableHeader"], index === 0 ? "off" : "on" )}))
         )
       )
     })  
@@ -181,14 +182,14 @@ const FrameData = () => {
             <SegmentSwitcher
               segmentType={"vtrigger"}
               valueToTrack={selectedCharacters[activePlayer].vtState}
-              labels={createSegmentSwitcherObject(activeGame, selectedCharacters[activePlayer].name)}
+              labels={createSegmentSwitcherObject(gameDetails.specificCharacterStates[selectedCharacters[activePlayer].name])}
               clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
             />
           : (activeGame === "SF6") &&
           <SegmentSwitcher
             segmentType={"vtrigger"}
             valueToTrack={selectedCharacters[activePlayer].vtState}
-            labels={createSegmentSwitcherObject(activeGame, selectedCharacters[activePlayer].name)}
+            labels={createSegmentSwitcherObject(gameDetails.specificCharacterStates[selectedCharacters[activePlayer].name])}
             clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
           />
           }

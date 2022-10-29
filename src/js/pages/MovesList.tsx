@@ -7,7 +7,7 @@ import '../../style/pages/MovesList.scss';
 import { setPlayerAttr, setModalVisibility, setActiveFrameDataPlayer, setActiveGame, setPlayer } from '../actions';
 import { useHistory, useParams } from 'react-router';
 import AdviceToast from '../components/AdviceToast';
-import { activeGameSelector, activePlayerSelector, dataDisplaySettingsSelector, selectedCharactersSelector } from '../selectors';
+import { activeGameSelector, activePlayerSelector, dataDisplaySettingsSelector, gameDetailsSelector, selectedCharactersSelector } from '../selectors';
 import { FrameDataSlug } from '../types';
 import { isPlatform } from '@ionic/core';
 import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
@@ -18,6 +18,7 @@ const MovesList = () => {
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const activePlayer = useSelector(activePlayerSelector);
   const activeGame = useSelector(activeGameSelector);
+  const gameDetails = useSelector(gameDetailsSelector);
   const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
 
   const dispatch = useDispatch();
@@ -91,7 +92,7 @@ const MovesList = () => {
               <SegmentSwitcher
                 segmentType={"vtrigger"}
                 valueToTrack={selectedCharacters[activePlayer].vtState}
-                labels={createSegmentSwitcherObject(activeGame, selectedCharacters[activePlayer].name)}
+                labels={createSegmentSwitcherObject(gameDetails.specificCharacterStates[selectedCharacters[activePlayer].name])}
                 clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
               />
             }
