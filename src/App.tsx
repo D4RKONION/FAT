@@ -88,7 +88,6 @@ const App = () => {
     SplashScreen.hide();
   }, [SplashScreen])
 
-  // G says: try moving the modal listener into it's own area again
   const { App: CapAppPlugin }  = Plugins;
   useEffect(() => {
     const { remove } = CapAppPlugin.addListener("backButton", async () => {
@@ -112,7 +111,6 @@ const App = () => {
   }, [CapAppPlugin])
 
   useEffect(() => {
-    //G: is this okay?
     if (iapStore.when("").updated) {
       const productList = [
         { id: "com.fullmeter.fat.theme.reddragon", alias: "Red Dragon", type: iapStore.NON_CONSUMABLE },
@@ -185,13 +183,6 @@ const App = () => {
 
 useEffect(() => {
     const newVersionCheck = async (gameName: string) => {
-      
-      // rename the generic lsFrameDataCode to lsSFVFrameDataCode
-      if (localStorage.getItem("lsFrameDataCode")) {
-        console.log("deleting old SFV code")
-        localStorage.setItem("lsSFVFrameDataCode", localStorage.getItem("lsFrameDataCode"))
-        localStorage.removeItem("lsFrameDataCode")
-      }
 
       const APP_FRAME_DATA_CODE = gameName === "SFV" ? APP_SFV_FRAME_DATA_CODE : APP_GGST_FRAME_DATA_CODE
 

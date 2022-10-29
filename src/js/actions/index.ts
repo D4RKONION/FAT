@@ -3,10 +3,9 @@ import { Plugins } from '@capacitor/core';
 import { helpCreateFrameDataJSON } from '../utils';
 import type { AdviceToastPrevRead, AppModal, NormalNotationType, GameName, InputNotationType, MoveNameType, Orientation, PlayerData, PlayerId, ThemeAlias, ThemeBrightness, ThemeShortId, VtState, ThemeAccessibility } from '../types'
 
-// variables named AppXFrameData can be remote updatable. This refers to the App version of the data
 import AppSFVFrameData from '../constants/framedata/SFVFrameData.json';
-import USF4FrameData from '../constants/framedata/USF4FrameData.json';
-import SF3FrameData from '../constants/framedata/3SFrameData.json';
+import AppUSF4FrameData from '../constants/framedata/USF4FrameData.json';
+import AppSF3FrameData from '../constants/framedata/3SFrameData.json';
 import AppGGSTFrameData from '../constants/framedata/GGSTFrameData.json';
 import AppSF6FrameData from '../constants/framedata/SF6FrameData.json';
 
@@ -53,8 +52,8 @@ const getFrameData = (gameName: GameName) => {
       gameName === "SFV" ? AppSFVFrameData
       : gameName === "GGST" ? AppGGSTFrameData
       : gameName === "SF6" ? AppSF6FrameData
-      : gameName === "3S" ? SF3FrameData
-      : gameName === "USF4" ? USF4FrameData
+      : gameName === "3S" ? AppSF3FrameData
+      : gameName === "USF4" ? AppUSF4FrameData
       : {};
     
 
