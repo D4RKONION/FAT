@@ -6,7 +6,7 @@ import { setModalVisibility, setLandscapeCols, setAutoSetSpecificCols } from '..
 import '../../style/components/LandscapeOptions.scss';
 import PageHeader from './PageHeader';
 import { reloadOutline, closeOutline, trashOutline } from 'ionicons/icons';
-import { activeGameSelector, activePlayerSelector, autoSetSpecificColsSelector, gameDetailsSelector, landscapeColsSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
+import { activePlayerSelector, autoSetSpecificColsSelector, gameDetailsSelector, landscapeColsSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
 import { createCharacterDataCategoryObj, createOrderedLandscapeColsObj } from '../utils/landscapecols';
 
 const LandscapeOptions = () => {
@@ -16,7 +16,6 @@ const LandscapeOptions = () => {
   const modalVisibility = useSelector(modalVisibilitySelector);
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const landscapeCols = useSelector(landscapeColsSelector);
-  const activeGame = useSelector(activeGameSelector);
   const autoSetSpecificCols = useSelector(autoSetSpecificColsSelector);
 
   const activePlayerName = selectedCharacters[activePlayer].name;
