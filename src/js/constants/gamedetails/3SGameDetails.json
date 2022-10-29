@@ -1,0 +1,183 @@
+{
+  "fullName": "Street Fighter 3: Third Strike",
+  "abbrName": "3S",
+  "characterStates": ["normal"],
+  "specificCharacterStates": [],
+  "characterList": [
+    "Alex",
+    "Akuma",
+    "Chun-Li",
+    "Dudley",
+    "Elena",
+    "Hugo",
+    "Ibuki",
+    "Ken",
+    "Makoto",
+    "Necro",
+    "Oro",
+    "Q",
+    "Remy",
+    "Ryu",
+    "Sean",
+    "Twelve",
+    "Urien",
+    "Yang",
+    "Yun"
+  ],
+  "universalDataPoints": {
+    "Basic Frame Data": [
+      {
+        "startup": {
+          "dataTableHeader": "S",
+          "detailedHeader": "Startup",
+          "dataFileKey": "startup"
+        },
+        "active": {
+          "dataTableHeader": "A",
+          "detailedHeader": "Active",
+          "dataFileKey": "active"
+        },
+        "recovery": {
+          "dataTableHeader": "R",
+          "detailedHeader": "Recovery",
+          "dataFileKey": "recovery"
+        }
+      },
+      {
+        "onBlock": {
+          "dataTableHeader": "oB",
+          "detailedHeader": "On Block",
+          "dataFileKey": "onBlock"
+        },
+        "onHit": {
+          "dataTableHeader": "oH",
+          "detailedHeader": "On Hit",
+          "dataFileKey": "onHit"
+        }
+      },
+      {
+        "onHitCrouch": {
+          "dataTableHeader": "oH-Cr",
+          "detailedHeader": "On Hit Crouch",
+          "dataFileKey": "onHitCrouch"
+        },
+        "maxAdv": {
+          "dataTableHeader": "MaxAdv",
+          "detailedHeader": "Max Advantage",
+          "dataFileKey": "maxAdv"
+        }
+      }
+    ],
+    "Move Properties": [
+      {
+        "moveType": {
+          "dataTableHeader": "mT",
+          "detailedHeader": "Move Type",
+          "dataFileKey": "moveType"
+        },
+        "cancelsTo": {
+          "dataTableHeader": "xx",
+          "detailedHeader": "Cancels To",
+          "dataFileKey": "cancelsTo"
+        }
+      },
+      {
+        "damage": {
+          "dataTableHeader": "dmg",
+          "detailedHeader": "Damage",
+          "dataFileKey": "damage"
+        },
+        "stun": {
+          "dataTableHeader": "stun",
+          "detailedHeader": "Stun",
+          "dataFileKey": "stun"
+        }
+      },
+      {
+        "attackLevel": {
+          "dataTableHeader": "attLvl",
+          "detailedHeader": "Attack Level",
+          "dataFileKey": "attackLevel"
+        },
+        "parry": {
+          "dataTableHeader": "parry",
+          "detailedHeader": "Parry Level",
+          "dataFileKey": "parry"
+        }
+      },
+      {
+        "karaRange": {
+          "dataTableHeader": "kara",
+          "detailedHeader": "Kara Range",
+          "dataFileKey": "karaRange"
+        },
+        "throwRange": {
+          "dataTableHeader": "thRng",
+          "detailedHeader": "Throw Range",
+          "dataFileKey": "throwRange"
+        }
+      }
+    ],
+    "Meter Build": [
+      {
+        "meterAtkWhiff": {
+          "dataTableHeader": "mAtk-Wf",
+          "detailedHeader": "Attack Whiff",
+          "dataFileKey": "meterAtkWhiff"
+        }
+      },
+      {
+        "meterAtkHit": {
+          "dataTableHeader": "mAtk-H",
+          "detailedHeader": "Attack Hit",
+          "dataFileKey": "meterAtkHit"
+        },
+        "meterAtkBlk": {
+          "dataTableHeader": "mAtk-B",
+          "detailedHeader": "Attack Block",
+          "dataFileKey": "meterAtkBlk"
+        }
+      },
+      {
+        "meterOppHit": {
+          "dataTableHeader": "mOpp-H",
+          "detailedHeader": "Opponent Hit",
+          "dataFileKey": "meterOppHit"
+        },
+        "meterOppBlk": {
+          "dataTableHeader": "mOpp-B",
+          "detailedHeader": "Opponent Block",
+          "dataFileKey": "meterOppBlk"
+        }
+      }
+
+    ]
+  },
+  "specificCancels": [],
+  "statsPoints": {
+    "The Basics": [
+      {
+        "health": "Health",
+        "stun": "Stun"
+      },
+      {
+        "wUltra": "Double Ultra Scaling"
+      }
+    ],
+    "Ground Movement": [
+      {
+        "bDash": "Back Dash Frames",
+        "fDash": "Forward Dash Frames"
+      },
+      {
+        "lvlOneB": "Level 1 Focus Back",
+        "lvlOneF": "Level 1 Focus Forward"
+      },
+      {
+        "lvlTwoB": "Level 2 Focus Back",
+        "lvlTwoF": "Level 2 Focus Forward"
+      }
+    ]
+  },
+  "defaultLandscapeCols": {"startup": "S", "active": "A", "recovery": "R", "onBlock": "oB", "onHit": "oH", "damage":"dmg", "stun":"stun", "cancelsTo": "xx", "parry": "parry"}
+}

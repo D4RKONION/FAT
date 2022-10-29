@@ -4,11 +4,19 @@ import { helpCreateFrameDataJSON } from '../utils';
 import GAME_DETAILS from '../constants/GameDetails';
 import type { AdviceToastPrevRead, AppModal, NormalNotationType, GameName, InputNotationType, MoveNameType, Orientation, PlayerData, PlayerId, ThemeAlias, ThemeBrightness, ThemeShortId, VtState, ThemeAccessibility } from '../types'
 
+// variables named AppXFrameData can be remote updatable. This refers to the App version of the data
 import AppSFVFrameData from '../constants/framedata/SFVFrameData.json';
 import USF4FrameData from '../constants/framedata/USF4FrameData.json';
 import SF3FrameData from '../constants/framedata/3SFrameData.json';
 import AppGGSTFrameData from '../constants/framedata/GGSTFrameData.json';
 import AppSF6FrameData from '../constants/framedata/SF6FrameData.json';
+
+import AppSFVGameDetails from '../constants/gamedetails/SFVGameDetails.json';
+import USF4GameDetails from '../constants/gamedetails/USF4GameDetails.json';
+import SF3GameDetails from '../constants/gamedetails/3SGameDetails.json';
+import AppGGSTGameDetails from '../constants/gamedetails/GGSTGameDetails.json';
+import AppSF6GameDetails from '../constants/gamedetails/SF6GameDetails.json';
+
 import { APP_SFV_FRAME_DATA_CODE, APP_GGST_FRAME_DATA_CODE } from '../constants/VersionLogs';
 import { RootState } from '../reducers';
 import { ThunkAction } from 'redux-thunk';
@@ -39,50 +47,36 @@ const setFrameData = (frameData) => ({
   frameData,
 })
 
-const getFrameData = (gameName: GameName, stateReset?: Boolean) => {
+const getFrameData = (gameName: GameName) => {
   return async function(dispatch, getState) {
     const { selectedCharactersState } = getState();
 
-    if (gameName === "SFV") {
+    if (gameName === "SFV" || gameName === "GGST") {
 
-      const LS_FRAME_DATA_CODE = parseInt(localStorage.getItem("lsSFVFrameDataCode"));
-      let lsSFVFrameData: string;
+      const LS_FRAME_DATA_CODE = parseInt(localStorage.getItem(`ls${gameName}FrameDataCode`));
+      const APP_FRAME_DATA_CODE = gameName === "SFV" ? APP_SFV_FRAME_DATA_CODE : gameName === "GGST" ? APP_GGST_FRAME_DATA_CODE : 100000;
+      const APP_FRAME_DATA = gameName === "SFV" ? AppSFVFrameData : gameName === "GGST" ? AppGGSTFrameData : {};
+      let lsFrameData: string;
+
       try {
-        lsSFVFrameData = JSON.parse((await Plugins.Storage.get({ key: 'lsSFVFrameData' })).value);
+        lsFrameData = JSON.parse((await Plugins.Storage.get({ key: `ls${gameName}FrameData` })).value);
       } catch {
-        lsSFVFrameData = '';
+        lsFrameData = '';
       }
 
-      if (!lsSFVFrameData || !LS_FRAME_DATA_CODE || LS_FRAME_DATA_CODE <= APP_SFV_FRAME_DATA_CODE) {
-        dispatch(setFrameData(AppSFVFrameData));
+      if (!lsFrameData || !LS_FRAME_DATA_CODE || LS_FRAME_DATA_CODE <= APP_FRAME_DATA_CODE) {
+        dispatch(setFrameData(APP_FRAME_DATA));
       } else {
-        dispatch(setFrameData(lsSFVFrameData))
+        dispatch(setFrameData(lsFrameData))
       }
+    }
 
-    } else if (gameName === "USF4") {
+   if (gameName === "USF4") {
       dispatch(setFrameData(USF4FrameData));
     } else if (gameName === "3S") {
       dispatch(setFrameData(SF3FrameData));
     } else if (gameName === "SF6") {
       dispatch(setFrameData(AppSF6FrameData));
-    }  
-    
-    else if (gameName === "GGST") {
-
-      const LS_FRAME_DATA_CODE = parseInt(localStorage.getItem("lsGGSTFrameDataCode"));
-      let lsGGSTFrameData: string;
-      try {
-        lsGGSTFrameData = JSON.parse((await Plugins.Storage.get({ key: 'lsGGSTFrameData' })).value);
-      } catch {
-        lsGGSTFrameData = '';
-      }
-
-      if (!lsGGSTFrameData || !LS_FRAME_DATA_CODE || LS_FRAME_DATA_CODE <= APP_GGST_FRAME_DATA_CODE) {
-        dispatch(setFrameData(AppGGSTFrameData));
-      } else {
-        dispatch(setFrameData(lsGGSTFrameData))
-      }
-
     }
 
     const gameCharList = GAME_DETAILS[gameName].characterList as any;
@@ -91,13 +85,18 @@ const getFrameData = (gameName: GameName, stateReset?: Boolean) => {
   }
 }
 
+export const setGameDetails = (gameName: GameName) => {
+
+  
+}
+
 export const setActiveGame = (gameName: GameName, colReset: Boolean): ThunkAction<void, RootState, unknown, AnyAction> => {
   return async (dispatch) => {
     if (colReset) {
       dispatch(setLandscapeCols(GAME_DETAILS[gameName].defaultLandscapeCols))
     }
     dispatch(setGameName(gameName));
-    await dispatch(getFrameData(gameName, true));
+    await dispatch(getFrameData(gameName));
   }
 }
 

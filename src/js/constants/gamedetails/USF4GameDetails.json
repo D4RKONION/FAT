@@ -1,0 +1,138 @@
+{
+  "fullName": "Ultra Street Fighter 4",
+  "abbrName": "USF4",
+  "characterStates": ["normal"],
+  "specificCharacterStates": [],
+  "characterList": [
+    "Abel",
+    "Adon",
+    "Akuma",
+    "Balrog",
+    "Blanka",
+    "C.Viper",
+    "Cammy",
+    "Chun-Li",
+    "Cody",
+    "Dan",
+    "Decapre",
+    "Dee Jay",
+    "Dhalsim",
+    "Dudley",
+    "E.Honda",
+    "Elena",
+    "El Fuerte",
+    "Evil Ryu",
+    "Fei Long",
+    "Gen",
+    "Gouken",
+    "Guile",
+    "Guy",
+    "Hakan",
+    "Hugo",
+    "Ibuki",
+    "Juri",
+    "Ken",
+    "M.Bison",
+    "Makoto",
+    "Oni",
+    "Poison",
+    "Rolento",
+    "Rose",
+    "Rufus",
+    "Ryu",
+    "Sagat",
+    "Sakura",
+    "Seth",
+    "T.Hawk",
+    "Vega",
+    "Yang",
+    "Yun",
+    "Zangief"
+  ],
+  "universalDataPoints": {
+    "Basic Frame Data": [
+      {
+        "startup": {
+          "dataTableHeader": "S",
+          "detailedHeader": "Startup",
+          "dataFileKey": "startup"
+        },
+        "active": {
+          "dataTableHeader": "A",
+          "detailedHeader": "Active",
+          "dataFileKey": "active"
+        },
+        "recovery": {
+          "dataTableHeader": "R",
+          "detailedHeader": "Recovery",
+          "dataFileKey": "recovery"
+        }
+      },
+      {
+        "onBlock": {
+          "dataTableHeader": "oB",
+          "detailedHeader": "On Block",
+          "dataFileKey": "onBlock"
+        },
+        "onHit": {
+          "dataTableHeader": "oH",
+          "detailedHeader": "On Hit",
+          "dataFileKey": "onHit"
+        }
+      }
+    ],
+    "Move Properties": [
+      {
+        "moveType": {
+          "dataTableHeader": "mT",
+          "detailedHeader": "Move Type",
+          "dataFileKey": "moveType"
+        },
+        "cancelsTo": {
+          "dataTableHeader": "xx",
+          "detailedHeader": "Cancels To",
+          "dataFileKey": "cancelsTo"
+        }
+      },
+      {
+        "damage": {
+          "dataTableHeader": "dmg",
+          "detailedHeader": "Damage",
+          "dataFileKey": "damage"
+        },
+        "stun": {
+          "dataTableHeader": "stun",
+          "detailedHeader": "Stun",
+          "dataFileKey": "stun"
+        }
+      }
+    ]
+  },
+  "specificCancels": [],
+  "statsPoints": {
+    "The Basics": [
+      {
+        "health": "Health",
+        "stun": "Stun"
+      },
+      {
+        "wUltra": "Double Ultra Scaling"
+      }
+    ],
+    "Ground Movement": [
+      {
+        "bDash": "Back Dash Frames",
+        "fDash": "Forward Dash Frames"
+      },
+      {
+        "lvlOneB": "Level 1 Focus Back",
+        "lvlOneF": "Level 1 Focus Forward"
+      },
+      {
+        "lvlTwoB": "Level 2 Focus Back",
+        "lvlTwoF": "Level 2 Focus Forward"
+      }
+    ]
+  },
+  "defaultLandscapeCols": {"startup": "S", "active": "A", "recovery": "R", "onBlock": "oB", "onHit": "oH", "damage":"dmg", "stun":"stun", "cancelsTo": "xx"}
+}

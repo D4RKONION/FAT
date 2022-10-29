@@ -1,0 +1,208 @@
+{
+  "fullName": "Street Fighter 6",
+  "abbrName": "SF6",
+  "characterStates": ["normal"],
+  "specificCharacterStates": {
+    "Guile": ["Super Install"]
+  },
+  "characterList": [
+    "Chun-Li",
+    "Guile",
+    "Jamie",
+    "Juri",
+    "Ken",
+    "Kimberly",
+    "Luke",
+    "Ryu"
+  ],
+
+  "universalDataPoints": {
+    "Basic Frame Data": [
+      {
+        "startup": {
+          "dataTableHeader": "S",
+          "detailedHeader": "Startup",
+          "dataFileKey": "startup"
+        },
+        "active": {
+          "dataTableHeader": "A",
+          "detailedHeader": "Active",
+          "dataFileKey": "active"
+        },
+        "recovery": {
+          "dataTableHeader": "R",
+          "detailedHeader": "Recovery",
+          "dataFileKey": "recovery"
+        }
+      },
+      {
+        "total": {
+          "dataTableHeader": "T",
+          "detailedHeader": "Total",
+          "dataFileKey": "total"
+        }
+      },
+      {
+        "onHit": {
+          "dataTableHeader": "oH",
+          "detailedHeader": "On Hit",
+          "dataFileKey": "onHit"
+        },
+        "onBlock": {
+          "dataTableHeader": "oB",
+          "detailedHeader": "On Block",
+          "dataFileKey": "onBlock"
+        },
+        "onPC": {
+          "dataTableHeader": "onPC",
+          "detailedHeader": "On Punish Counter",
+          "dataFileKey": "onPC"
+        }
+      }
+    ],
+    "Drive Data": [
+      {
+        "DRoH": {
+          "dataTableHeader": "dr-oH",
+          "detailedHeader": "DR On Hit",
+          "dataFileKey": "DRoH"
+        },
+        "DRoB": {
+          "dataTableHeader": "dr-oB",
+          "detailedHeader": "DR On Block",
+          "dataFileKey": "DRoB"
+        }
+      },
+      {
+        "afterDRoH": {
+          "dataTableHeader": "dr-oH >",
+          "detailedHeader": "After DR On Hit",
+          "dataFileKey": "afterDRoH"
+        },
+        "afterDRoB": {
+          "dataTableHeader": "dr-oB >",
+          "detailedHeader": "After DR On Block",
+          "dataFileKey": "afterDRoB"
+        }
+      },
+      {
+        "onPP": {
+          "dataTableHeader": "on PP",
+          "detailedHeader": "On Perfect Parry",
+          "dataFileKey": "onPP"
+        }
+      }
+    ],
+    "Super Cancels": [
+      {
+        "SA2oH": {
+          "dataTableHeader": "SA2oH",
+          "detailedHeader": "S.Art 2 On Hit",
+          "dataFileKey": "SA2oH"
+        },
+        "SA2oB": {
+          "dataTableHeader": "SA2oB",
+          "detailedHeader": "S.Art 2 On Block",
+          "dataFileKey": "SA2oB"
+        }
+      }
+    ],
+    "Move Properties": [
+      {
+        "moveType": {
+          "dataTableHeader": "mT",
+          "detailedHeader": "Move Type",
+          "dataFileKey": "moveType"
+        },
+        "cancelsTo": {
+          "dataTableHeader": "xx",
+          "detailedHeader": "Cancels To",
+          "dataFileKey": "cancelsTo"
+        },
+        "attackLevel": {
+          "dataTableHeader": "attLvl",
+          "detailedHeader": "Attack Level",
+          "dataFileKey": "attackLevel"
+        }
+      },
+      {
+        "damage": {
+          "dataTableHeader": "dmg",
+          "detailedHeader": "Damage",
+          "dataFileKey": "damage"
+        },
+        "stun": {
+          "dataTableHeader": "stun",
+          "detailedHeader": "Stun",
+          "dataFileKey": "stun"
+        }
+      }
+    ],
+    "Knockdown": [
+      {
+        "kd": {
+          "dataTableHeader": "kd",
+          "detailedHeader": "KD Adv",
+          "dataFileKey": "kd"
+        },
+        "kdr": {
+          "dataTableHeader": "kdr",
+          "detailedHeader": "Quick Rise Adv",
+          "dataFileKey": "kdr"
+        },
+        "kdrb": {
+          "dataTableHeader": "kdrb",
+          "detailedHeader": "Back Rise Adv",
+          "dataFileKey": "kdrb"
+        }
+
+      }
+    ],
+    "Extra Information": [
+      {
+        "extraInfo": {
+          "dataTableHeader": "Notes",
+          "detailedHeader": "Extra Info",
+          "dataFileKey": "extraInfo"
+        }
+      }
+    ]
+  },
+  "specificCancels": [{"runStopOH":{"dataTableHeader":"RunStopOH","detailedHeader":"xx Run Stop oH","dataFileKey":"runStopOH","usedBy":["Ken","Kimberly"]},"runStopOB":{"dataTableHeader":"RunStopOB","detailedHeader":"xx Run Stop oB","dataFileKey":"runStopOB","usedBy":["Ken","Kimberly"]}},{"drinkOH":{"dataTableHeader":"Drink oH","detailedHeader":"xx Drink oH","dataFileKey":"drinkOH","usedBy":["Jamie"]},"drinkOB":{"dataTableHeader":"Drink oB","detailedHeader":"xx Drink oB","dataFileKey":"drinkOB","usedBy":["Jamie"]}},{"SSoH":{"dataTableHeader":"SS oH","detailedHeader":"xx Stance oH","dataFileKey":"SSoH","usedBy":["Chun-Li"]},"SSoB":{"dataTableHeader":"SS oB","detailedHeader":"xx Stance oB","dataFileKey":"SSoB","usedBy":["Chun-Li"]}}],
+  "statsPoints": {
+    "The Basics": [
+      {
+        "defense": "Defense",
+        "guts": "Guts"
+      },
+      {
+        "weight": "Weight",
+        "bestReversal": "Best Reversal",
+        "fastestNormal": "Fastest Normal"
+      }
+    ],
+    "Dashing": [
+      {
+        "bDash": "Back Dash Frames",
+        "fDash": "Forward Dash Frames"
+      }
+    ],
+    "Jumping": [
+      {
+        "prejump": "Prejump Frames",
+        "jumpTotal": "Total Jump Frames",
+        "highJumpTotal": "Total High Jump Frames"
+
+      }
+    ],
+    "Defense": [
+      {
+        "effectiveHealth": "Effective Health",
+        "defense": "Defense",
+        "riscMod": "RISC Modifier",
+        "guts": "guts"
+      }
+    ]
+  },
+  "defaultLandscapeCols": {"startup": "S", "active": "A", "recovery": "R", "onBlock": "oB", "onHit": "oH", "onPC":"onPC", "attackLevel": "lvl", "DRoH": "dr-oH", "DRoB": "dr-oB", "afterDRoH": "dr-oH >", "afterDRoB": "dr-oB >" }
+}
