@@ -177,13 +177,20 @@ const FrameData = () => {
               labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
               clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
             />
-          : (activeGame === "GGST") &&
+          : (activeGame === "GGST") ?
             <SegmentSwitcher
               segmentType={"vtrigger"}
               valueToTrack={selectedCharacters[activePlayer].vtState}
               labels={createSegmentSwitcherObject(activeGame, selectedCharacters[activePlayer].name)}
               clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
             />
+          : (activeGame === "SF6") &&
+          <SegmentSwitcher
+            segmentType={"vtrigger"}
+            valueToTrack={selectedCharacters[activePlayer].vtState}
+            labels={createSegmentSwitcherObject(activeGame, selectedCharacters[activePlayer].name)}
+            clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
+          />
           }
         </div>
         

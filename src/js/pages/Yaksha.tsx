@@ -53,7 +53,6 @@ const CHARACTER_NAME_DICTIONARY = {
     "sim": "Dhalsim",
   },
   "GGST": {
-    
     "ino": "I-No",
     "zato": "Zato-1",
   }
@@ -80,7 +79,7 @@ const Yaksha = () => {
 
   const fuzzyNameScorer = (possibleCharName: string) => {
     const possibleCharFuzzObj = fuzzextract(possibleCharName, GAME_DETAILS[activeGame].characterList)[0];
-    if (CHARACTER_NAME_DICTIONARY[activeGame][possibleCharName.toLowerCase()]) {
+    if (CHARACTER_NAME_DICTIONARY[activeGame] && CHARACTER_NAME_DICTIONARY[activeGame][possibleCharName.toLowerCase()]) {
       return CHARACTER_NAME_DICTIONARY[activeGame][possibleCharName.toLowerCase()]
     } else if (possibleCharFuzzObj[1] > 75) {
       return possibleCharFuzzObj[0];
