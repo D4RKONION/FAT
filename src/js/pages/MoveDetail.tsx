@@ -104,7 +104,7 @@ const MoveDetail = () => {
                 labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
                 clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
               />
-            : (activeGame === "GGST") && !selectedMoveData["uniqueInVt"] &&
+            : (activeGame === "GGST" || activeGame === "SF6") && !selectedMoveData["uniqueInVt"] &&
               <SegmentSwitcher
                 segmentType={"vtrigger"}
                 valueToTrack={selectedCharacters[activePlayer].vtState}
