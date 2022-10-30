@@ -65,16 +65,13 @@ import ThemeStore from './js/pages/ThemeStore';
 import ThemePreview from './js/pages/ThemePreview';
 import VersionLogs from './js/pages/VersionLogs';
 
-import { activeGameSelector, themeAccessibilitySelector, themeBrightnessSelector, themeColorSelector } from './js/selectors';
-import { setOrientation, setModalVisibility, setActiveGame, setThemeOwned, setThemeBrightness } from './js/actions';
+import { themeAccessibilitySelector, themeBrightnessSelector, themeColorSelector } from './js/selectors';
+import { setOrientation, setModalVisibility, setThemeOwned, setThemeBrightness } from './js/actions';
 import { store } from './js/store';
-import { APP_SFV_FRAME_DATA_CODE, APP_GGST_FRAME_DATA_CODE, APP_CURRENT_VERSION_CODE, APP_DATE_UPDATED, UPDATABLE_GAMES, TYPES_OF_UPDATES, APP_SFV_GAME_DETAILS_CODE, APP_GGST_GAME_DETAILS_CODE } from './js/constants/VersionLogs';
-import { GameName } from './js/types';
-import { GAME_NAMES } from './js/constants/ImmutableGameDetails';
+import { APP_CURRENT_VERSION_CODE, APP_DATE_UPDATED, UPDATABLE_GAMES, TYPES_OF_UPDATES, UPDATABLE_GAMES_APP_CODES } from './js/constants/VersionLogs';
 
 const App = () => {
 
-  const activeGame = useSelector(activeGameSelector);
   const themeBrightness = useSelector(themeBrightnessSelector);
   const themeAccessibility = useSelector(themeAccessibilitySelector);
   const themeColor = useSelector(themeColorSelector);
@@ -184,19 +181,13 @@ const App = () => {
 useEffect(() => {
     const newVersionCheck = async (gameName: string, updateType: string) => {
 
-      let APP_WHATS_BEING_UPDATED_CODE: Number;
-
-      if (updateType === "FrameData") {
-        APP_WHATS_BEING_UPDATED_CODE = gameName === "SFV" ? APP_SFV_FRAME_DATA_CODE : gameName === "GGST" ? APP_GGST_FRAME_DATA_CODE : 10000000;
-      } else if (updateType === "GameDetails") {
-        APP_WHATS_BEING_UPDATED_CODE = gameName === "SFV" ? APP_SFV_GAME_DETAILS_CODE : gameName === "GGST" ? APP_GGST_GAME_DETAILS_CODE : 10000000;
-      }
+      const APP_WHATS_BEING_UPDATED_CODE = UPDATABLE_GAMES_APP_CODES[gameName][updateType];
 
       // check if the element was updated
       let LS_WHATS_BEING_UPDATED_CODE = parseInt(localStorage.getItem(`ls${gameName}${updateType}Code`));
       if (!LS_WHATS_BEING_UPDATED_CODE) {
         // fresh install, local code doesn't exist, set it up using the app's local data
-        console.log("local frame data code don't exist, set it up using the app's local data")
+        console.log(`local ${gameName} ${updateType} code don't exist, set it up using the app's local data`)
         localStorage.setItem(`ls${gameName}${updateType}Code`, APP_WHATS_BEING_UPDATED_CODE.toString())
         // regardless of the game, if this is a store update we want to set the element being updated's last updated date to the app's last update
         localStorage.setItem(`ls${gameName}${updateType}LastUpdated`, APP_DATE_UPDATED.toString())
@@ -210,7 +201,7 @@ useEffect(() => {
 
       } else if (LS_WHATS_BEING_UPDATED_CODE <= APP_WHATS_BEING_UPDATED_CODE) {
         // the app has been updated via the store, delete the LS updatetype.json and update the LS updatetype code
-        console.log("the app has been updated via the store, delete the LS updateType.json and update the LS updatetype code");
+        console.log(`the app has been updated via the store, delete the LS ${gameName} ${updateType}.json and update the LS code`);
         localStorage.setItem(`ls${gameName}${updateType}Code`, APP_WHATS_BEING_UPDATED_CODE.toString())
         localStorage.removeItem(`ls${gameName}${updateType}`);
 
@@ -221,35 +212,34 @@ useEffect(() => {
 
       } else if (LS_WHATS_BEING_UPDATED_CODE > APP_WHATS_BEING_UPDATED_CODE) {
         // the app has downloaded an updateType update
-        console.log(`the app has downloaded a ${updateType} update`)
+        console.log(`the app has previously downloaded a ${gameName} ${updateType} update`)
       } else {
-        console.log("something has gone horribly wrong")
+        console.log(`something has gone horribly wrong with ${gameName} ${updateType} updating process`)
       }
 
       const version_response = await fetch(`https://fullmeter.com/fatfiles/test/${gameName}/${gameName}${updateType}VersionDetails.json?ts=${Date.now()}`)
       const SERVER_WHATS_BEING_UPDATED_VERSION_DETAILS = await version_response.json();
-
+      
       // this stops the update process accidentally being ruined
       if (SERVER_WHATS_BEING_UPDATED_VERSION_DETAILS.MINIMUM_VERSION_REQUIRED > APP_CURRENT_VERSION_CODE) {
-        console.log("Someone added a version code greater than 5 digits in length OR this app falls below the minimum version required");
+        console.log(`Someone added a version code greater than 5 digits in length OR this app falls below the minimum version required. This error occured while doing a ${gameName} ${updateType} update`);
         return false;
       }
-      console.log(updateType)
+      
       if (SERVER_WHATS_BEING_UPDATED_VERSION_DETAILS.VERSION_CODE > LS_WHATS_BEING_UPDATED_CODE) {
-        console.log("there's a new version on the server, get it");
-        const whats_being_updated_json_response = await fetch(`https://fullmeter.com/fatfiles/test/${gameName}/${gameName}${updateType}.json?ts=${Date.now()}`)
-        const SERVER_DATA = await whats_being_updated_json_response.json();
+        console.log(`there's a new ${gameName} ${updateType} file on the server, get it`);
+        const WHATS_BEING_UPDATED_json_response = await fetch(`https://fullmeter.com/fatfiles/test/${gameName}/${gameName}${updateType}.json?ts=${Date.now()}`)
+        const SERVER_DATA = await WHATS_BEING_UPDATED_json_response.json();
         
         await Plugins.Storage.set({
           key: `ls${gameName}${updateType}`,
           value: JSON.stringify(SERVER_DATA),
         });
-        console.log(SERVER_DATA)
+        
         localStorage.setItem(`ls${gameName}${updateType}Code`, SERVER_WHATS_BEING_UPDATED_VERSION_DETAILS.VERSION_CODE)
         localStorage.setItem(`ls${gameName}${updateType}LastUpdated`, SERVER_WHATS_BEING_UPDATED_VERSION_DETAILS.DATE_UPDATED)
         
-        
-        
+
         // this is kind of dirty, and I don't like it but I don't know how else to access the activeGame from the URL.
         // without this check, this function always thinks that the current game on a fresh load is SFV
         // and totally ignores the URL switcher in framedata component. In short, I am sorry programming gods
@@ -266,8 +256,6 @@ useEffect(() => {
         //     dispatch(setActiveGame(activeGame, false))
         //   }
         // }
-        
-        
         
         
       }

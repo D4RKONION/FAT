@@ -15,7 +15,7 @@ import SF3GameDetails from '../constants/gamedetails/3SGameDetails.json';
 import AppGGSTGameDetails from '../constants/gamedetails/GGSTGameDetails.json';
 import AppSF6GameDetails from '../constants/gamedetails/SF6GameDetails.json';
 
-import { APP_SFV_FRAME_DATA_CODE, APP_GGST_FRAME_DATA_CODE, APP_SFV_GAME_DETAILS_CODE, APP_GGST_GAME_DETAILS_CODE } from '../constants/VersionLogs';
+import { UPDATABLE_GAMES, UPDATABLE_GAMES_APP_CODES } from '../constants/VersionLogs';
 import { RootState } from '../reducers';
 import { ThunkAction } from 'redux-thunk';
 import { AnyAction } from 'redux';
@@ -56,11 +56,10 @@ const getFrameData = (gameName: GameName) => {
       : gameName === "USF4" ? AppUSF4FrameData
       : {};
     
-
-    if (gameName === "SFV" || gameName === "GGST") {
+    if (UPDATABLE_GAMES.includes(gameName)) {
 
       const LS_FRAME_DATA_CODE = parseInt(localStorage.getItem(`ls${gameName}FrameDataCode`));
-      const APP_FRAME_DATA_CODE = gameName === "SFV" ? APP_SFV_FRAME_DATA_CODE : gameName === "GGST" ? APP_GGST_FRAME_DATA_CODE : 100000;
+      const APP_FRAME_DATA_CODE = UPDATABLE_GAMES_APP_CODES[gameName]["FrameData"]
       
       let lsFrameData: string;
 
@@ -92,7 +91,7 @@ const setGameDetails = (gameDetails) => ({
 })
 
 const getGameDetails = (gameName: GameName) => {
-  return async function(dispatch, getState) {
+  return async function(dispatch) {
     const appGameDetails = 
       gameName === "SFV" ? AppSFVGameDetails
       : gameName === "GGST" ? AppGGSTGameDetails
@@ -100,12 +99,12 @@ const getGameDetails = (gameName: GameName) => {
       : gameName === "3S" ? SF3GameDetails
       : gameName === "USF4" ? USF4GameDetails
       : {};
-    
-
-    if (gameName === "SFV" || gameName === "GGST") {
+      
+    if (UPDATABLE_GAMES.includes(gameName)) {
 
       const LS_GAME_DETAILS_CODE = parseInt(localStorage.getItem(`ls${gameName}GameDetailsCode`));
-      const APP_GAME_DETAILS_CODE = gameName === "SFV" ? APP_SFV_GAME_DETAILS_CODE : gameName === "GGST" ? APP_GGST_GAME_DETAILS_CODE : 100000;
+      const APP_GAME_DETAILS_CODE = UPDATABLE_GAMES_APP_CODES[gameName]["GameDetails"]
+      
       
       let lsGameDetails: string;
 
