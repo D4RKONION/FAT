@@ -2,7 +2,6 @@
   "name": "fat-os",
   "version": "3.4.5",
   "private": true,
-  "homepage": "/fatonlinebeta",
   "dependencies": {
     "@babel/core": "^7.12.3",
     "@capacitor/android": "^2.4.8",

@@ -22,11 +22,17 @@ const CharacterPortrait = ( {charName, charThreeLetterCode, game, selected, char
     >
       <img
         alt={`${charName} portrait`}
+        // Catch failed image fetches
+        // https://stackoverflow.com/a/48222599
+        onError={({ currentTarget }) => {
+          currentTarget.onerror = null; // prevents looping
+          currentTarget.src=`${process.env.PUBLIC_URL}/assets/images/characters/ggst/Axl.png`;
+        }}
         src={
           remoteImage ?
-            //no image
+            //fetch the image from the server
             `https://fullmeter.com/fatfiles/test/${game}/images/characters/${charName}.png`
-          : //local image
+          : //local app image
             `${process.env.PUBLIC_URL}/assets/images/characters/${game.toLowerCase()}/${charName}.png`
         }
       />
