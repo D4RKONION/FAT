@@ -40,7 +40,7 @@ const FrameDataSubHeader = ({ charName, charStats, activeGame }: FrameDataSubHea
 		<IonGrid id="frameDataSubHeader">
 			<IonRow>
 				<IonCol className ="character-portrait-container" size="1.6">
-					<CharacterPortrait charName={charName} game={activeGame} charColor={charStats.color as string} showName={false}
+					<CharacterPortrait charName={charName} game={activeGame} charColor={charStats.color as string} remoteImage={charStats.remoteImage as unknown as Boolean} showName={false}
 						onClick={() => dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true })) }
 					/>
 				</IonCol>

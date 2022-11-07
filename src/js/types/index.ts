@@ -43,7 +43,7 @@ export type PlayerData = {
     [key: string]: any,
   },
   stats?: {
-    [key: string]: number | string,
+    [key: string]: number | string;
   },
   selectedMove?: string,
 }

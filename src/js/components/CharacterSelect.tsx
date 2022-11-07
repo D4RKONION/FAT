@@ -120,6 +120,7 @@ const CharacterSelectModal = () => {
                 game={activeGame}
                 charName={charName}
                 charColor={charData.stats.color}
+                remoteImage={charData.stats.remoteImage}
                 showName={true}
                 onClick={() => onCharacterSelect(activePlayer, charName)}
               />
