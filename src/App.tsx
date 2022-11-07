@@ -65,7 +65,7 @@ import ThemeStore from './js/pages/ThemeStore';
 import ThemePreview from './js/pages/ThemePreview';
 import VersionLogs from './js/pages/VersionLogs';
 
-import { themeAccessibilitySelector, themeBrightnessSelector, themeColorSelector } from './js/selectors';
+import { activeGameSelector, themeAccessibilitySelector, themeBrightnessSelector, themeColorSelector } from './js/selectors';
 import { setOrientation, setModalVisibility, setThemeOwned, setThemeBrightness } from './js/actions';
 import { store } from './js/store';
 import { APP_CURRENT_VERSION_CODE, APP_DATE_UPDATED, UPDATABLE_GAMES, TYPES_OF_UPDATES, UPDATABLE_GAMES_APP_CODES } from './js/constants/VersionLogs';
@@ -75,6 +75,7 @@ const App = () => {
   const themeBrightness = useSelector(themeBrightnessSelector);
   const themeAccessibility = useSelector(themeAccessibilitySelector);
   const themeColor = useSelector(themeColorSelector);
+  const activeGame = useSelector(activeGameSelector);
 
   const dispatch = useDispatch();
 
@@ -261,16 +262,16 @@ useEffect(() => {
         
       }
     }
-    UPDATABLE_GAMES.forEach(gameName => {
+
+    if (UPDATABLE_GAMES.includes(activeGame)) {
       TYPES_OF_UPDATES.forEach(updateType => {
-         newVersionCheck(gameName, updateType);
+        newVersionCheck(activeGame, updateType);
       })
-    })
+    }
+    
     
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch])
-
-
+  }, [activeGame])
 
   return (
     <IonApp className={`${themeColor}-${themeBrightness}-theme universal-${themeBrightness}-${themeAccessibility}`}>
