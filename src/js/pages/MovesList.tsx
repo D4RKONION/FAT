@@ -29,11 +29,11 @@ const MovesList = () => {
 
   useEffect(() => {
     (async () => {
-      if (activeGame !== slugs.gameSlug) {
-        console.log(activeGame)
-        console.log("URL game mismatch");
-        await dispatch(setActiveGame(slugs.gameSlug, true));
-      }
+      // if (activeGame !== slugs.gameSlug) {
+      //   console.log(activeGame)
+      //   console.log("URL game mismatch");
+      //   await dispatch(setActiveGame(slugs.gameSlug, true));
+      // }
 
       if (selectedCharacters["playerOne"].name !== slugs.characterSlug) {
         console.log("URL character mismatch");

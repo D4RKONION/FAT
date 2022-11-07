@@ -66,9 +66,11 @@ import ThemePreview from './js/pages/ThemePreview';
 import VersionLogs from './js/pages/VersionLogs';
 
 import { activeGameSelector, themeAccessibilitySelector, themeBrightnessSelector, themeColorSelector } from './js/selectors';
-import { setOrientation, setModalVisibility, setThemeOwned, setThemeBrightness } from './js/actions';
+import { setOrientation, setModalVisibility, setThemeOwned, setThemeBrightness, setActiveGame } from './js/actions';
 import { store } from './js/store';
 import { APP_CURRENT_VERSION_CODE, APP_DATE_UPDATED, UPDATABLE_GAMES, TYPES_OF_UPDATES, UPDATABLE_GAMES_APP_CODES } from './js/constants/VersionLogs';
+import { GAME_NAMES } from './js/constants/ImmutableGameDetails';
+import { GameName } from './js/types';
 
 const App = () => {
 
@@ -198,7 +200,7 @@ useEffect(() => {
         // also because this is a fresh install, we're going to do a cheeky check for if
         // the user likes dark mode right here. We only do this once, the first time through
         // with SFV and FrameDatas
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches && gameName === "SFV" && updateType === "FrameData") {
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches && updateType === "FrameData") {
           dispatch(setThemeBrightness("dark"))
         }
         
@@ -241,26 +243,13 @@ useEffect(() => {
         });
         
         localStorage.setItem(`ls${gameName}${updateType}Code`, SERVER_WHATS_BEING_UPDATED_VERSION_DETAILS.VERSION_CODE)
-        localStorage.setItem(`ls${gameName}${updateType}LastUpdated`, SERVER_WHATS_BEING_UPDATED_VERSION_DETAILS.DATE_UPDATED)
+        localStorage.setItem(`ls${gameName}${updateType}LastUpdated`, SERVER_WHATS_BEING_UPDATED_VERSION_DETAILS.DATE_UPDATED) 
         
-
-        // this is kind of dirty, and I don't like it but I don't know how else to access the activeGame from the URL.
-        // without this check, this function always thinks that the current game on a fresh load is SFV
-        // and totally ignores the URL switcher in framedata component. In short, I am sorry programming gods
-        // please forgive me
-
-        // if (gameName === "SFV" && updateType === "FrameData") {
-        //   if (GAME_NAMES[window.location.hash.split("/")[2]]) {
-        //     dispatch(setActiveGame(window.location.hash.split("/")[2] as GameName, true));
-        //   } else if (GAME_NAMES[window.location.hash.split("/")[3]]) {
-        //     dispatch(setActiveGame(window.location.hash.split("/")[3] as GameName, true));
-        //   } else {
-        //     dispatch(setActiveGame(activeGame, false))
-        //   }
-        // }
-        
+        dispatch(setActiveGame(activeGame, true))
         
       }
+
+      
     }
 
     if (UPDATABLE_GAMES.includes(activeGame)) {
@@ -268,10 +257,11 @@ useEffect(() => {
         newVersionCheck(activeGame, updateType);
       })
     }
-    
+
     
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeGame])
+
 
   return (
     <IonApp className={`${themeColor}-${themeBrightness}-theme universal-${themeBrightness}-${themeAccessibility}`}>
