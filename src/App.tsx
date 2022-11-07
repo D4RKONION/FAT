@@ -1,7 +1,7 @@
 import React, { useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Plugins } from '@capacitor/core';
-import { IonApp, IonRouterOutlet, IonSplitPane, IonAlert } from '@ionic/react';
+import { IonApp, IonRouterOutlet, IonSplitPane, IonAlert, isPlatform } from '@ionic/react';
 import { menuController } from "@ionic/core";
 import { IonReactHashRouter } from '@ionic/react-router';
 import { InAppPurchase2 as iapStore} from '@ionic-native/in-app-purchase-2';
@@ -108,7 +108,7 @@ const App = () => {
   }, [CapAppPlugin])
 
   useEffect(() => {
-    if (iapStore.when("").updated) {
+    if (isPlatform("capacitor") && iapStore.when("").updated) {
       const productList = [
         { id: "com.fullmeter.fat.theme.reddragon", alias: "Red Dragon", type: iapStore.NON_CONSUMABLE },
         { id: "com.fullmeter.fat.theme.secondincommand", alias: "Second in Command", type: iapStore.NON_CONSUMABLE },
