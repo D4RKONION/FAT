@@ -195,9 +195,12 @@ useEffect(() => {
         LS_WHATS_BEING_UPDATED_CODE = parseInt(localStorage.getItem(`ls${gameName}${updateType}Code`));
 
         // also because this is a fresh install, we're going to do a cheeky check for if
-        // the user likes dark mode right here
-        window.matchMedia('(prefers-color-scheme: dark)').matches &&
+        // the user likes dark mode right here. We only do this once, the first time through
+        // with SFV and FrameDatas
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches && gameName === "SFV" && updateType === "FrameData") {
           dispatch(setThemeBrightness("dark"))
+        }
+        
 
       } else if (LS_WHATS_BEING_UPDATED_CODE <= APP_WHATS_BEING_UPDATED_CODE) {
         // the app has been updated via the store, delete the LS updatetype.json and update the LS updatetype code
@@ -245,8 +248,6 @@ useEffect(() => {
         // and totally ignores the URL switcher in framedata component. In short, I am sorry programming gods
         // please forgive me
 
-        // This was possibly fixed with G's gate 
-
         // if (gameName === "SFV" && updateType === "FrameData") {
         //   if (GAME_NAMES[window.location.hash.split("/")[2]]) {
         //     dispatch(setActiveGame(window.location.hash.split("/")[2] as GameName, true));
@@ -262,7 +263,7 @@ useEffect(() => {
     }
     UPDATABLE_GAMES.forEach(gameName => {
       TYPES_OF_UPDATES.forEach(updateType => {
-        newVersionCheck(gameName, updateType);
+         newVersionCheck(gameName, updateType);
       })
     })
     
