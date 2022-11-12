@@ -26,9 +26,9 @@ export const VERSION_LOGS = {
     "New Features": [
       "New Game! Added SF6. The data is from the closed beta and is subject to change",
       "Improved remote updating! Expect faster DLC characters without the need for an app store update",
-      "Improved effiency on startup and downloading updates",
+      "Improved efficiency on startup and downloading updates",
+      "The above two features required extensive rewrites of core code. Please report any new bugs to apps@fullmeter.com",
       "Removed the frame data version numbers from the menu. You can still find these in the settings menu",
-      "The two above features required extensive rewrites of core code. Please report any new bugs to apps@fullmeter.com"
     ],
     "Bug Fixes": [
       "Fixed a bug where lanscape columns weren't setting proprely",
