@@ -15,7 +15,7 @@ const LandscapeOptions = () => {
   const activePlayer = useSelector(activePlayerSelector);
   const modalVisibility = useSelector(modalVisibilitySelector);
   const selectedCharacters = useSelector(selectedCharactersSelector);
-  const landscapeCols = useSelector(landscapeColsSelector);
+  const {...landscapeCols} = useSelector(landscapeColsSelector);
   const autoSetSpecificCols = useSelector(autoSetSpecificColsSelector);
 
   const activePlayerName = selectedCharacters[activePlayer].name;
