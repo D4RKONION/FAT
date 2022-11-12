@@ -14,6 +14,7 @@ import framesIcon from  '../../images/icons/frames.svg';
 import patreonIcon from '../../images/icons/patreon.svg';
 import { APP_CURRENT_VERSION_NAME } from '../constants/VersionLogs';
 import { activeGameSelector, modeNameSelector, selectedCharactersSelector, themeBrightnessSelector } from '../selectors';
+import { GAME_NAMES } from '../constants/ImmutableGameDetails';
 
 const Menu = () => {
 
@@ -140,7 +141,18 @@ const Menu = () => {
       desktopOnly: true,
     },
   ];
-  
+
+  // populate the menu game switcher array
+  const gameOptions = []
+  GAME_NAMES.map(gameName => {
+    gameOptions.push({
+      name: gameName,
+      type: 'radio',
+      label: gameName,
+      value: gameName,
+      checked: activeGame === gameName
+    })
+  })
 
   return (
     <IonMenu
@@ -251,43 +263,7 @@ const Menu = () => {
           isOpen={activeGameAlertOpen}
           onDidDismiss={() => setActiveGameAlertOpen(false)}
           header={'Select Game'}
-          inputs={[
-            {
-              name: '3S',
-              type: 'radio',
-              label: '3S',
-              value: '3S',
-              checked: activeGame === "3S"
-            },
-            {
-              name: 'USF4',
-              type: 'radio',
-              label: 'USF4',
-              value: 'USF4',
-              checked: activeGame === "USF4"
-            },
-            {
-              name: 'SFV',
-              type: 'radio',
-              label: 'SFV',
-              value: 'SFV',
-              checked: activeGame === "SFV"
-            },
-            {
-              name: 'SF6',
-              type: 'radio',
-              label: 'SF6',
-              value: 'SF6',
-              checked: activeGame === "SF6"
-            },
-            {
-              name: 'GGST',
-              type: 'radio',
-              label: 'GGST',
-              value: 'GGST',
-              checked: activeGame === "GGST"
-            },
-          ]}
+          inputs={gameOptions}
          buttons={[
             {
               text: 'Cancel',

@@ -31,7 +31,7 @@ export const VERSION_LOGS = {
       "Removed the frame data version numbers from the menu. You can still find these in the settings menu",
     ],
     "Bug Fixes": [
-      "Fixed a bug where lanscape columns weren't setting proprely",
+      "Fixed a bug where landscape columns weren't setting proprely",
     ]
   },
   "3.4.5": {
