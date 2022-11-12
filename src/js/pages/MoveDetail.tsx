@@ -6,7 +6,7 @@ import '../../style/components/DetailCards.scss';
 import PageHeader from '../components/PageHeader';
 import SubHeader from '../components/SubHeader';
 import SegmentSwitcher from '../components/SegmentSwitcher';
-import { setActiveGame, setPlayerAttr } from '../actions';
+import { setPlayerAttr } from '../actions';
 import { activeGameSelector, activePlayerSelector, gameDetailsSelector, selectedCharactersSelector } from '../selectors';
 import { FrameDataSlug } from '../types';
 import { isPlatform } from '@ionic/core';
@@ -28,11 +28,7 @@ const MoveDetail = () => {
 
   useEffect(() => {
     (async () => {
-      // if (activeGame !== slugs.gameSlug) {
-      //   console.log("URL game mismatch");
-      //   await dispatch(setActiveGame(slugs.gameSlug, true));
-      // }
-      
+           
       if ((selectedCharacters[activePlayer].name !== slugs.characterSlug || selectedCharacters[activePlayer].vtState !== slugs.vtStateSlug) ) {
         console.log("URL character/vtState mismatch");
         dispatch(setPlayerAttr(activePlayer, slugs.characterSlug, {vtState: slugs.vtStateSlug}));
@@ -210,6 +206,25 @@ const MoveDetail = () => {
             </IonCard>
           }
           
+          {gameDetails.supercomboLink && 
+            <IonCard className="final-card">
+              <IonCardHeader>
+                <IonCardTitle>Move Images & More On SuperCombo.gg</IonCardTitle>
+              </IonCardHeader>
+              <IonCardContent>
+                <div className="row">
+                  <div className="col">
+                    <IonButton expand="full" fill="clear" onClick={() => window.open(`${gameDetails.supercomboLink}/${selectedCharacters[activePlayer].name}#${selectedMoveData.moveName.replaceAll(" ", "_")}`, '_blank')}>
+                      <IonIcon slot="end" icon={openOutline} />
+                      Take me there!
+                    </IonButton>
+                  </div>
+                </div>
+                
+            
+              </IonCardContent>
+            </IonCard>
+          }
 
           
 

@@ -29,6 +29,7 @@ export const VERSION_LOGS = {
       "Improved efficiency on startup and downloading updates",
       "The above two features required extensive rewrites of core code. Please report any new bugs to apps@fullmeter.com",
       "Removed the frame data version numbers from the menu. You can still find these in the settings menu",
+      "Added a link to the SuperCombo.gg entry for SFV moves so you can see move images"
     ],
     "Bug Fixes": [
       "Fixed a bug where landscape columns weren't setting proprely",

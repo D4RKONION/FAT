@@ -1,6 +1,7 @@
 {
   "fullName": "Street Fighter V",
   "abbrName": "SFV",
+  "supercomboLink": "https://wiki.supercombo.gg/w/Street_Fighter_V",
   "characterStates": ["normal", "vtOne", "vtTwo"],
   "specificCharacterStates": [],
   "characterList": [
