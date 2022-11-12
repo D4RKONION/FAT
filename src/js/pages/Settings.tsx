@@ -10,6 +10,7 @@ import { logoTwitter, chevronForward, mailOutline, starOutline, heartOutline, op
 import { useHistory } from 'react-router';
 import { APP_CURRENT_VERSION_NAME } from '../constants/VersionLogs';
 import { activeGameSelector, adviceToastShownSelector, dataDisplaySettingsSelector, selectedCharactersSelector, themeAccessibilitySelector } from '../selectors';
+import { GAME_NAMES } from '../constants/ImmutableGameDetails';
 
 const Settings = () => {
   
@@ -59,10 +60,9 @@ const Settings = () => {
                 cancelText="Cancel"
                 onIonChange={ e => dispatch(setActiveGame(e.detail.value, true)) }
               >
-                <IonSelectOption value="3S">3S</IonSelectOption>
-                <IonSelectOption value="USF4">USF4</IonSelectOption>
-                <IonSelectOption value="SFV">SFV</IonSelectOption>
-                <IonSelectOption value="GGST">GGST</IonSelectOption>
+                {GAME_NAMES.map(gameName => 
+                  <IonSelectOption key={`active-game-${gameName}-selection`} value={gameName}>{gameName}</IonSelectOption>
+                )}
               </IonSelect>
             </IonItem>
 
