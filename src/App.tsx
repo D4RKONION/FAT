@@ -4,7 +4,7 @@ import { Plugins } from '@capacitor/core';
 import { IonApp, IonRouterOutlet, IonSplitPane, IonAlert, isPlatform } from '@ionic/react';
 import { menuController } from "@ionic/core";
 import { IonReactHashRouter } from '@ionic/react-router';
-import { InAppPurchase2 as iapStore} from '@ionic-native/in-app-purchase-2';
+import { InAppPurchase2 as iapStore} from '@awesome-cordova-plugins/in-app-purchase-2';
 import { Route } from 'react-router-dom';
 
 

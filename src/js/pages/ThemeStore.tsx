@@ -1,7 +1,7 @@
 import { IonContent, IonPage, IonList, IonItem, IonLabel, IonGrid, IonButton, isPlatform, IonIcon, IonRow, IonCol, IonSelect, IonSelectOption } from '@ionic/react';
 import { useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { InAppPurchase2 as iapStore } from '@ionic-native/in-app-purchase-2';
+import { InAppPurchase2 as iapStore} from '@awesome-cordova-plugins/in-app-purchase-2';
 import PageHeader from '../components/PageHeader';
 import { checkmarkSharp } from 'ionicons/icons';
 import '../../style/pages/ThemeStore.scss'
