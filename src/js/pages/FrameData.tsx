@@ -12,8 +12,8 @@ import { informationCircle } from 'ionicons/icons';
 import AdviceToast from '../components/AdviceToast';
 import { APP_CURRENT_VERSION_CODE } from '../constants/VersionLogs';
 import { activeGameSelector, activePlayerSelector, autoSetSpecificColsSelector, gameDetailsSelector, landscapeColsSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
-import { FrameDataSlug, PlayerData } from '../types';
-import { createCharacterDataCategoryObj, createOrderedLandscapeColsObj } from '../utils/landscapecols';
+import { FrameDataSlug } from '../types';
+import { handleNewCharacterLandscapeCols } from '../utils/landscapecols';
 import { isPlatform } from '@ionic/core';
 import FrameDataSubHeader from '../components/FrameDataSubHeader';
 import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
@@ -37,37 +37,17 @@ const FrameData = () => {
   const history = useHistory();
   const slugs: FrameDataSlug = useParams();
 
-  const handleNewCharacterLandscapeCols = (oldCharName: PlayerData["name"], newCharName: PlayerData["name"]) => {
 
-    if (!autoSetSpecificCols) {
-      return false;
-    }
-    const charNames = [oldCharName, newCharName]
-
-    charNames.forEach((charName, index) => {
-      const characterDataCategoryObj = createCharacterDataCategoryObj(charName, gameDetails.specificCancels)
-      Object.keys(characterDataCategoryObj).forEach(dataRow =>
-        Object.keys(characterDataCategoryObj[dataRow]).forEach(dataEntryKey =>
-          dispatch(setLandscapeCols({...createOrderedLandscapeColsObj(gameDetails, landscapeCols, dataEntryKey, characterDataCategoryObj[dataRow][dataEntryKey]["dataTableHeader"], index === 0 ? "off" : "on" )}))
-        )
-      )
-    })  
-  }
 
   useEffect(() => {
     (async () => {
-      // if (activeGame !== slugs.gameSlug) {
-      //   console.log(activeGame)
-      //   console.log(slugs.gameSlug)
-      //   console.log("URL game mismatch");
-      //   await dispatch(setActiveGame(slugs.gameSlug, true));
-      // }
 
       if (selectedCharacters["playerOne"].name !== slugs.characterSlug) {
         console.log("URL character mismatch");
         if (activeGame === slugs.gameSlug) {
-          handleNewCharacterLandscapeCols(selectedCharacters["playerOne"].name, slugs.characterSlug)
-          handleNewCharacterLandscapeCols(selectedCharacters["playerTwo"].name, slugs.characterSlug)
+          // this has to be dispatched twice to wipe both old characers cols out of the obj
+          dispatch(setLandscapeCols(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters["playerOne"].name, slugs.characterSlug, autoSetSpecificCols, landscapeCols)));
+          dispatch(setLandscapeCols(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters["playerTwo"].name, slugs.characterSlug, autoSetSpecificCols, landscapeCols)));
         }
         dispatch(setPlayer("playerOne", slugs.characterSlug));
       }
@@ -92,12 +72,12 @@ const FrameData = () => {
   const onSwipeHandler = (detail) => {
     if (detail.startX > window.screen.width /2 && detail.currentX < window.screen.width /2 && activePlayer === "playerOne") {
       console.log("swiping left")
-      handleNewCharacterLandscapeCols(selectedCharacters.playerOne.name, selectedCharacters.playerTwo.name)
+      dispatch(setLandscapeCols(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters["playerOne"].name, selectedCharacters["playerTwo"].name, autoSetSpecificCols, landscapeCols)));
       dispatch(setActiveFrameDataPlayer("playerTwo"));
       gesture.enable(false)
     } else if (detail.startX < window.screen.width /2 && detail.currentX > window.screen.width /2 && activePlayer === "playerTwo") {
       console.log("swiping right")
-      handleNewCharacterLandscapeCols(selectedCharacters.playerTwo.name, selectedCharacters.playerOne.name)
+      dispatch(setLandscapeCols(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters["playerTwo"].name, selectedCharacters["playerOne"].name, autoSetSpecificCols, landscapeCols)));
       dispatch(setActiveFrameDataPlayer("playerOne"));
       gesture.enable(false)
     }
@@ -166,7 +146,7 @@ const FrameData = () => {
               if (!modalVisibility.visible && eventValue === activePlayer) {
                 dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true }));
               } else {
-                handleNewCharacterLandscapeCols(selectedCharacters[activePlayer].name, selectedCharacters[eventValue].name)
+                dispatch(setLandscapeCols(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters[activePlayer].name, selectedCharacters[eventValue].name, autoSetSpecificCols, landscapeCols)));
                 dispatch(setActiveFrameDataPlayer(eventValue));
               }
             }}

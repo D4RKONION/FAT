@@ -15,7 +15,7 @@ const LandscapeOptions = () => {
   const activePlayer = useSelector(activePlayerSelector);
   const modalVisibility = useSelector(modalVisibilitySelector);
   const selectedCharacters = useSelector(selectedCharactersSelector);
-  const {...landscapeCols} = useSelector(landscapeColsSelector);
+  const landscapeCols = useSelector(landscapeColsSelector);
   const autoSetSpecificCols = useSelector(autoSetSpecificColsSelector);
 
   const activePlayerName = selectedCharacters[activePlayer].name;
@@ -33,12 +33,15 @@ const LandscapeOptions = () => {
     )
     const allOn = dataCategoryKeysArr.every(entry => Object.keys(landscapeCols).includes(entry));
 
-
+    const colsToSet = {}
     Object.keys(dataCategoryObj).forEach(dataRow =>
-      Object.keys(dataCategoryObj[dataRow]).forEach(dataEntryKey =>
-        dispatch(setLandscapeCols({...createOrderedLandscapeColsObj(gameDetails, landscapeCols, dataEntryKey, dataCategoryObj[dataRow][dataEntryKey]["dataTableHeader"], allOn ? "off" : "on")}))
-      )
+      Object.keys(dataCategoryObj[dataRow]).forEach(dataEntryKey => {
+        colsToSet[dataEntryKey] = dataCategoryObj[dataRow][dataEntryKey]["dataTableHeader"]
+
+      })
     )
+    dispatch(setLandscapeCols(createOrderedLandscapeColsObj(gameDetails, landscapeCols, colsToSet, allOn ? "off" : "on")))
+    
   }
 
   const handleModalDismiss = () => {
@@ -97,7 +100,7 @@ const LandscapeOptions = () => {
                 ).map(dataEntryKey =>
                   <IonItem key={dataRow[dataEntryKey].dataFileKey}>
                     <IonLabel>{dataRow[dataEntryKey].detailedHeader}</IonLabel>
-                    <IonCheckbox slot="end" checked={!!landscapeCols[dataEntryKey]} value={dataRow[dataEntryKey].dataFileKey} onClick={() => dispatch(setLandscapeCols({...createOrderedLandscapeColsObj(gameDetails, landscapeCols, dataEntryKey, dataRow[dataEntryKey].dataTableHeader, "none")}))} />
+                    <IonCheckbox slot="end" checked={!!landscapeCols[dataEntryKey]} value={dataRow[dataEntryKey].dataFileKey} onClick={() => dispatch(setLandscapeCols(createOrderedLandscapeColsObj(gameDetails, landscapeCols, {[dataEntryKey]: dataRow[dataEntryKey].dataTableHeader}, "none")))} />
                   </IonItem>
                 )
               )}
@@ -113,7 +116,7 @@ const LandscapeOptions = () => {
                   Object.keys(dataRow).map((dataEntryKey) =>
                     <IonItem key={dataRow[dataEntryKey].dataFileKey}>
                       <IonLabel>{dataRow[dataEntryKey].detailedHeader}</IonLabel>
-                      <IonCheckbox slot="end" checked={!!landscapeCols[dataEntryKey]} value={dataRow[dataEntryKey].dataFileKey} onClick={() => dispatch(setLandscapeCols({...createOrderedLandscapeColsObj(gameDetails, landscapeCols, dataEntryKey, dataRow[dataEntryKey].dataTableHeader, "none")}))} />
+                      <IonCheckbox slot="end" checked={!!landscapeCols[dataEntryKey]} value={dataRow[dataEntryKey].dataFileKey} onClick={() => dispatch(setLandscapeCols(createOrderedLandscapeColsObj(gameDetails, landscapeCols, {[dataEntryKey]: dataRow[dataEntryKey].dataTableHeader}, "none")))} />
                     </IonItem>
                   )
                 )}

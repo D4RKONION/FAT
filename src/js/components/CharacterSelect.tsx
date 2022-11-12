@@ -8,8 +8,7 @@ import '../../style/components/CharacterSelect.scss';
 import PageHeader from './PageHeader';
 import CharacterPortrait from './CharacterPortrait'
 import { activeGameSelector, activePlayerSelector, autoSetSpecificColsSelector, frameDataSelector, gameDetailsSelector, landscapeColsSelector, modalVisibilitySelector, modeNameSelector, selectedCharactersSelector } from '../selectors';
-import { createCharacterDataCategoryObj, createOrderedLandscapeColsObj } from '../utils/landscapecols';
-import { PlayerData } from '../types';
+import { handleNewCharacterLandscapeCols } from '../utils/landscapecols';
 import { isPlatform } from '@ionic/core';
 import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
 
@@ -31,30 +30,11 @@ const CharacterSelectModal = () => {
 
   const dispatch = useDispatch();
 
-  const handleNewCharacterLandscapeCols = (oldCharName: PlayerData["name"], newCharName: PlayerData["name"]) => {
-
-    if (!autoSetSpecificCols) {
-      return false;
-    }
-    
-    const charNames = [oldCharName, newCharName]
-
-    charNames.forEach((charName, index) => {
-      const characterDataCategoryObj = createCharacterDataCategoryObj(charName, gameDetails.specificCancels)
-
-      Object.keys(characterDataCategoryObj).forEach(dataRow =>
-        Object.keys(characterDataCategoryObj[dataRow]).forEach(dataEntryKey =>
-          dispatch(setLandscapeCols({...createOrderedLandscapeColsObj(gameDetails, landscapeCols, dataEntryKey, characterDataCategoryObj[dataRow][dataEntryKey]["dataTableHeader"], index === 0 ? "off" : "on" )}))
-        )
-      )
-    })
-    
-  }
 
   const onCharacterSelect = (playerId, charName) => {
     dispatch(setModalVisibility({ currentModal: "characterSelect", visible: false }));
 
-    handleNewCharacterLandscapeCols(selectedCharacters[playerId].name, charName);
+    dispatch(setLandscapeCols(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters[playerId].name, charName, autoSetSpecificCols, landscapeCols)));
 
     dispatch(setPlayer(playerId, charName));
 
@@ -90,7 +70,7 @@ const CharacterSelectModal = () => {
               segmentType={"active-player"}
               valueToTrack={activePlayer}
               labels={ {playerOne: `P1: ${selectedCharacters.playerOne.name}`, playerTwo: `P2: ${selectedCharacters.playerTwo.name}`}}
-              clickFunc={ (eventValue) => { handleNewCharacterLandscapeCols(selectedCharacters[activePlayer].name, selectedCharacters[eventValue].name); dispatch(setActiveFrameDataPlayer(eventValue)) } }
+              clickFunc={ (eventValue) => { dispatch(setLandscapeCols(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters[activePlayer].name, selectedCharacters[eventValue].name, autoSetSpecificCols, landscapeCols))); dispatch(setActiveFrameDataPlayer(eventValue)) } }
             />
           }
           {activeGame === "SFV" ?
