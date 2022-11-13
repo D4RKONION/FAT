@@ -3,9 +3,16 @@
   "abbrName": "SF6",
   "characterStates": ["normal"],
   "specificCharacterStates": {
-    "Guile": ["Super Install"]
+    "Guile": ["Super Install"],
+    "Jamie": ["D1", "D2", "D3", "D4"]
   },
   "characterList": [
+    "Chun-Li",
+    "Guile",
+    "Jamie",
+    "Juri",
+    "Ken",
+    "Kimberly",
     "Luke",
     "Ryu"
   ],
@@ -163,7 +170,7 @@
     ]
   },
   "specificCancels": [{"runStopOH":{"dataTableHeader":"RunStopOH","detailedHeader":"xx Run Stop oH","dataFileKey":"runStopOH","usedBy":["Ken","Kimberly"]},"runStopOB":{"dataTableHeader":"RunStopOB","detailedHeader":"xx Run Stop oB","dataFileKey":"runStopOB","usedBy":["Ken","Kimberly"]}},{"drinkOH":{"dataTableHeader":"Drink oH","detailedHeader":"xx Drink oH","dataFileKey":"drinkOH","usedBy":["Jamie"]},"drinkOB":{"dataTableHeader":"Drink oB","detailedHeader":"xx Drink oB","dataFileKey":"drinkOB","usedBy":["Jamie"]}},{"SSoH":{"dataTableHeader":"SS oH","detailedHeader":"xx Stance oH","dataFileKey":"SSoH","usedBy":["Chun-Li"]},"SSoB":{"dataTableHeader":"SS oB","detailedHeader":"xx Stance oB","dataFileKey":"SSoB","usedBy":["Chun-Li"]}}],
-  "statsPoints": {
+    "statsPoints": {
     "The Basics": [
       {
         "defense": "Defense",
