@@ -144,7 +144,7 @@ const Menu = () => {
 
   // populate the menu game switcher array
   const gameOptions = []
-  GAME_NAMES.map(gameName => {
+  GAME_NAMES.forEach(gameName => {
     gameOptions.push({
       name: gameName,
       type: 'radio',

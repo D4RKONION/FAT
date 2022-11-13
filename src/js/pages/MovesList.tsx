@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import PageHeader from '../components/PageHeader';
 import SegmentSwitcher from '../components/SegmentSwitcher';
 import '../../style/pages/MovesList.scss';
-import { setPlayerAttr, setModalVisibility, setActiveFrameDataPlayer, setActiveGame, setPlayer } from '../actions';
+import { setPlayerAttr, setModalVisibility, setActiveFrameDataPlayer, setPlayer } from '../actions';
 import { useHistory, useParams } from 'react-router';
 import AdviceToast from '../components/AdviceToast';
 import { activeGameSelector, activePlayerSelector, dataDisplaySettingsSelector, gameDetailsSelector, selectedCharactersSelector } from '../selectors';

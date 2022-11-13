@@ -2,7 +2,7 @@ import { IonContent, IonGrid, IonItem, IonItemDivider, IonLabel, IonList, IonPag
 import { useState } from "react";
 import PageHeader from "../components/PageHeader";
 import styles from '../../style/components/VersionLogs.module.scss'
-import { VERSION_LOGS, APP_CURRENT_VERSION_NAME, UPDATABLE_GAMES, UPDATABLE_GAMES_APP_CODES, APP_DATE_UPDATED } from "../constants/VersionLogs";
+import { VERSION_LOGS, APP_CURRENT_VERSION_NAME, UPDATABLE_GAMES, UPDATABLE_GAMES_APP_CODES } from "../constants/VersionLogs";
 
 const VersionLogs = () => {
 

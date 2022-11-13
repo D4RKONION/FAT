@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import '../../style/pages/Combos.scss';
 import SegmentSwitcher from '../components/SegmentSwitcher';
 import PageHeader from '../components/PageHeader';
-import { setActiveFrameDataPlayer, setActiveGame, setModalVisibility, setPlayer } from '../actions';
+import { setActiveFrameDataPlayer, setModalVisibility, setPlayer } from '../actions';
 import { SFV_COMBOS } from '../constants/Combos';
 import { informationCircleOutline, openOutline } from 'ionicons/icons';
 import AdviceToast from '../components/AdviceToast';

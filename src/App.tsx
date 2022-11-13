@@ -69,8 +69,6 @@ import { activeGameSelector, themeAccessibilitySelector, themeBrightnessSelector
 import { setOrientation, setModalVisibility, setThemeOwned, setThemeBrightness, setActiveGame } from './js/actions';
 import { store } from './js/store';
 import { APP_CURRENT_VERSION_CODE, APP_DATE_UPDATED, UPDATABLE_GAMES, TYPES_OF_UPDATES, UPDATABLE_GAMES_APP_CODES } from './js/constants/VersionLogs';
-import { GAME_NAMES } from './js/constants/ImmutableGameDetails';
-import { GameName } from './js/types';
 
 const App = () => {
 
