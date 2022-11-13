@@ -105,12 +105,12 @@ const DataTable = ({ searchText, previewTable }: DataTableProps) => {
                 <span
                   style={
                     moveData.extraInfo && ((moveData.changedValues && moveData.changedValues.includes("extraInfo")) || moveData.uniqueInVt) ?  {borderRightColor: "var(--fat-vtrigger)" }
-                    : moveData.extraInfo && !moveData.changedValues && selectedCharacters[activePlayer].vtState !== "normal" ? { borderRightColor: "var(--fat-primary-tint-extreme)" }
+                    : moveData.extraInfo && !moveData.changedValues && selectedCharacters[activePlayer].vtState !== "normal" && !moveData.noHL ? { borderRightColor: "var(--fat-primary-tint-extreme)" }
                     : moveData.extraInfo ? { borderRightColor: "var(--fat-primary)" }
                     : null
                   }
                   className={`cell move-name ${
-                    moveData.changedValues && selectedCharacters[activePlayer].vtState !== "normal" ? "triggered-data"
+                    moveData.changedValues && selectedCharacters[activePlayer].vtState !== "normal" && !moveData.noHL ? "triggered-data"
                     : selectedCharacters[activePlayer].vtState !== "normal" ? "untriggered-data"
                     : "normal-state"
                   }`}

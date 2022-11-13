@@ -4,13 +4,11 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { setModalVisibility, setPlayer, setActiveFrameDataPlayer, setPlayerAttr, setLandscapeCols } from '../actions';
 import SegmentSwitcher from './SegmentSwitcher';
-import GAME_DETAILS from '../constants/GameDetails';
 import '../../style/components/CharacterSelect.scss';
 import PageHeader from './PageHeader';
 import CharacterPortrait from './CharacterPortrait'
-import { activeGameSelector, activePlayerSelector, autoSetSpecificColsSelector, frameDataSelector, landscapeColsSelector, modalVisibilitySelector, modeNameSelector, selectedCharactersSelector } from '../selectors';
-import { createCharacterDataCategoryObj, createOrderedLandscapeColsObj } from '../utils/landscapecols';
-import { PlayerData } from '../types';
+import { activeGameSelector, activePlayerSelector, autoSetSpecificColsSelector, frameDataSelector, gameDetailsSelector, landscapeColsSelector, modalVisibilitySelector, modeNameSelector, selectedCharactersSelector } from '../selectors';
+import { handleNewCharacterLandscapeCols } from '../utils/landscapecols';
 import { isPlatform } from '@ionic/core';
 import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
 
@@ -20,41 +18,23 @@ const CharacterSelectModal = () => {
 
   const [searchText, setSearchText] = useState('');
 
-  const modeName = useSelector(modeNameSelector)
-  const frameDataFile = useSelector(frameDataSelector)
-  const modalVisibility = useSelector(modalVisibilitySelector)
-  const selectedCharacters = useSelector(selectedCharactersSelector)
-  const activePlayer = useSelector(activePlayerSelector)
-  const activeGame = useSelector(activeGameSelector)
+  const modeName = useSelector(modeNameSelector);
+  const frameDataFile = useSelector(frameDataSelector);
+  const gameDetails = useSelector(gameDetailsSelector);
+  const modalVisibility = useSelector(modalVisibilitySelector);
+  const selectedCharacters = useSelector(selectedCharactersSelector);
+  const activePlayer = useSelector(activePlayerSelector);
+  const activeGame = useSelector(activeGameSelector);
   const landscapeCols = useSelector(landscapeColsSelector);
   const autoSetSpecificCols = useSelector(autoSetSpecificColsSelector);
 
   const dispatch = useDispatch();
 
-  const handleNewCharacterLandscapeCols = (oldCharName: PlayerData["name"], newCharName: PlayerData["name"]) => {
-
-    if (!autoSetSpecificCols) {
-      return false;
-    }
-    
-    const charNames = [oldCharName, newCharName]
-
-    charNames.forEach((charName, index) => {
-      const characterDataCategoryObj = createCharacterDataCategoryObj(activeGame, charName)
-
-      Object.keys(characterDataCategoryObj).forEach(dataRow =>
-        Object.keys(characterDataCategoryObj[dataRow]).forEach(dataEntryKey =>
-          dispatch(setLandscapeCols({...createOrderedLandscapeColsObj(activeGame, landscapeCols, dataEntryKey, characterDataCategoryObj[dataRow][dataEntryKey]["dataTableHeader"], index === 0 ? "off" : "on" )}))
-        )
-      )
-    })
-    
-  }
 
   const onCharacterSelect = (playerId, charName) => {
     dispatch(setModalVisibility({ currentModal: "characterSelect", visible: false }));
 
-    handleNewCharacterLandscapeCols(selectedCharacters[playerId].name, charName);
+    dispatch(setLandscapeCols(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters[playerId].name, charName, autoSetSpecificCols, landscapeCols)));
 
     dispatch(setPlayer(playerId, charName));
 
@@ -90,7 +70,7 @@ const CharacterSelectModal = () => {
               segmentType={"active-player"}
               valueToTrack={activePlayer}
               labels={ {playerOne: `P1: ${selectedCharacters.playerOne.name}`, playerTwo: `P2: ${selectedCharacters.playerTwo.name}`}}
-              clickFunc={ (eventValue) => { handleNewCharacterLandscapeCols(selectedCharacters[activePlayer].name, selectedCharacters[eventValue].name); dispatch(setActiveFrameDataPlayer(eventValue)) } }
+              clickFunc={ (eventValue) => { dispatch(setLandscapeCols(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters[activePlayer].name, selectedCharacters[eventValue].name, autoSetSpecificCols, landscapeCols))); dispatch(setActiveFrameDataPlayer(eventValue)) } }
             />
           }
           {activeGame === "SFV" ?
@@ -104,14 +84,14 @@ const CharacterSelectModal = () => {
               <SegmentSwitcher
                 segmentType={"vtrigger"}
                 valueToTrack={selectedCharacters[activePlayer].vtState}
-                labels={createSegmentSwitcherObject(activeGame, selectedCharacters[activePlayer].name)}
+                labels={createSegmentSwitcherObject(gameDetails.specificCharacterStates[selectedCharacters[activePlayer].name])}
                 clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
               />
             }
         </div>
 
         <div id="characterSelectGrid">
-          {(GAME_DETAILS[activeGame].characterList as unknown as string[]).filter(charName => charName.toLowerCase().includes(searchText.toLowerCase())).map(charName => {
+          {(gameDetails.characterList as unknown as string[]).filter(charName => charName.toLowerCase().includes(searchText.toLowerCase())).map(charName => {
             const charData = frameDataFile[charName];
             if (!charData || charData.stats.hideCharacter) {return null}
             return(
@@ -120,6 +100,7 @@ const CharacterSelectModal = () => {
                 game={activeGame}
                 charName={charName}
                 charColor={charData.stats.color}
+                remoteImage={charData.stats.remoteImage}
                 showName={true}
                 onClick={() => onCharacterSelect(activePlayer, charName)}
               />

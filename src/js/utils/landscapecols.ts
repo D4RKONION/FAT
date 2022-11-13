@@ -1,8 +1,7 @@
-import GAME_DETAILS from '../constants/GameDetails';
-import { GameName, PlayerData } from '../types';
+import { PlayerData } from '../types';
 
-export const createCharacterDataCategoryObj = (activeGame: GameName, charName: PlayerData["name"]) => {
-	return GAME_DETAILS[activeGame].specificCancels.filter(dataRow =>
+export const createCharacterDataCategoryObj = (charName: PlayerData["name"], specificCancels: number[]) => {
+	return specificCancels.filter(dataRow =>
 		Object.keys(dataRow).map(dataEntryKey => 
 			dataRow[dataEntryKey]
 		).some(dataEntry =>
@@ -12,49 +11,88 @@ export const createCharacterDataCategoryObj = (activeGame: GameName, charName: P
 }
 
 export const createOrderedLandscapeColsObj = (
-	activeGame: GameName,
-	landscapeCols: {[key: string]: string},
-	dataEntryKey: string,
-	dataTableHeader: string,
+	gameDetails: any,
+	currentLandscapeCols: {[key: string]: string},
+	colsToSetArray: {[key: string]: string},
 	forceMode: "off" | "on" | "none",
 ) => {
-
+	// duplicate the cols obj
 	const keysInOrder = [];
-	const landscapeColsInOrder = {};
+	const currentLandscapeColsDupe = {...currentLandscapeCols}
+	const newLandscapeColsInOrder = {};
 
 	// extract the keys from the 2 data table entry files so we can order our landscape cols
-	Object.keys(GAME_DETAILS[activeGame].universalDataPoints).forEach(dataCategory =>
-		GAME_DETAILS[activeGame].universalDataPoints[dataCategory].forEach(dataRow =>
+	Object.keys(gameDetails.universalDataPoints).forEach(dataCategory =>
+		gameDetails.universalDataPoints[dataCategory].forEach(dataRow =>
 			Object.keys(dataRow).forEach(dataEntryKey =>
 				keysInOrder.push(dataEntryKey)
 			)
 		)
 	)
-	GAME_DETAILS[activeGame].specificCancels.forEach(dataCategory =>
+	gameDetails.specificCancels.forEach(dataCategory =>
 		Object.keys(dataCategory).forEach(dataRow =>
 			keysInOrder.push(dataCategory[dataRow].dataFileKey)
 		)
 	)
 
-	// Handle the new landscape column to be set
-	if (forceMode === "off") {
-		delete landscapeCols[dataEntryKey];
-	} else if (forceMode === "on" || !landscapeCols[dataEntryKey]) {
-		landscapeCols[dataEntryKey] = dataTableHeader;
-	} else {
-		delete landscapeCols[dataEntryKey];
-	}
+	// loop through the provided array of columns to toggle
+	Object.keys(colsToSetArray).forEach(dataEntryKey => {
+		if (forceMode === "off") {
+			delete currentLandscapeColsDupe[dataEntryKey];
+		} else if (forceMode === "on" || !currentLandscapeColsDupe[dataEntryKey]) {
+			currentLandscapeColsDupe[dataEntryKey] = colsToSetArray[dataEntryKey];
+		} else {
+			delete currentLandscapeColsDupe[dataEntryKey];
+		}
+	})
+	
 
-	// reorder the landscape columns before returning it
+	// call the reorder function
 	keysInOrder.forEach(detailKey => {
-		Object.keys(landscapeCols).forEach(key => {
+		Object.keys(currentLandscapeColsDupe).forEach(key => {
 			if (detailKey === key) {
-				landscapeColsInOrder[key] = landscapeCols[key]
+				newLandscapeColsInOrder[key] = currentLandscapeColsDupe[key]
 			}
 		})
 	})
 
-	return landscapeColsInOrder;
-
+	// return the new obj
+	return newLandscapeColsInOrder
 }
 
+export const handleNewCharacterLandscapeCols = (
+	gameDetails: any,
+	oldCharName: PlayerData["name"],
+	newCharName: PlayerData["name"],
+	autoSetSpecificCols: Boolean,
+	currentLandscapeCols: {[key: string]: string},
+) => {
+
+	if (!autoSetSpecificCols) {
+		return false;
+	}
+	
+	const charNames = [oldCharName, newCharName]
+	let oldCharColsRemoved;
+	let newLandscapeColsInOrder;
+	
+	charNames.forEach((charName, index) => {
+		const characterDataCategoryObj = createCharacterDataCategoryObj(charName, gameDetails.specificCancels)
+		const colsToSet = {}
+		Object.keys(characterDataCategoryObj).forEach(dataRow =>
+			Object.keys(characterDataCategoryObj[dataRow]).forEach(dataEntryKey =>
+				colsToSet[dataEntryKey] = characterDataCategoryObj[dataRow][dataEntryKey]["dataTableHeader"]
+			)
+		)
+		
+		if (index === 0) {
+			oldCharColsRemoved = createOrderedLandscapeColsObj(gameDetails, currentLandscapeCols, colsToSet, "off")
+		} else {
+			newLandscapeColsInOrder = createOrderedLandscapeColsObj(gameDetails, oldCharColsRemoved, colsToSet, "on")
+		}
+		
+	})
+	
+	return newLandscapeColsInOrder
+
+}

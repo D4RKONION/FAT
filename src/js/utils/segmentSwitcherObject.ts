@@ -1,12 +1,9 @@
-import GAME_DETAILS from "../constants/GameDetails";
-import { GameName, PlayerData } from "../types";
-
-export const createSegmentSwitcherObject = (gameName: GameName, charName: PlayerData["name"]) => {
+export const createSegmentSwitcherObject = (selectedCharacterSpecificStates) => {
   const segmentSwitcherObject = {
     normal: "Normal"
   }
-  GAME_DETAILS[gameName].specificCharacterStates[charName] &&
-    GAME_DETAILS[gameName].specificCharacterStates[charName].forEach(stateName => {
+  selectedCharacterSpecificStates &&
+    selectedCharacterSpecificStates.forEach(stateName => {
       segmentSwitcherObject[stateName] = stateName
     })
   

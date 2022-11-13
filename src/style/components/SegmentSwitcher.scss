@@ -37,6 +37,7 @@
   &.vtrigger {
     ion-segment-button {
     
+      min-width: 0;
       &.md {
         --background-hover: var(--fat-switcher-vtrigger-checked-contrast);
         --color-checked: var(--fat-switcher-vtrigger-checked-contrast);

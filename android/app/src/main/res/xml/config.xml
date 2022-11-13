@@ -10,5 +10,9 @@
     <param name="android-package" value="com.verso.cordova.clipboard.Clipboard"/>
   </feature>
 
+  <feature name="InAppBillingPlugin">
+    <param name="android-package" value="cc.fovea.PurchasePlugin"/>
+  </feature>
+
   
 </widget>

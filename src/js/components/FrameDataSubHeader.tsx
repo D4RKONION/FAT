@@ -3,11 +3,10 @@ import '../../style/components/FrameDataSubHeader.scss'
 import { IonCol, IonGrid, IonRow } from "@ionic/react";
 import CharacterPortrait from "./CharacterPortrait";
 import { useEffect, useState } from "react";
-import GAME_DETAILS from "../constants/GameDetails";
 import { GameName, PlayerData } from "../types";
 import { useDispatch, useSelector } from "react-redux";
 import { setModalVisibility } from "../actions";
-import { dataDisplaySettingsSelector, frameDataSelector } from "../selectors";
+import { dataDisplaySettingsSelector, frameDataSelector, gameDetailsSelector } from "../selectors";
 
 type FrameDataSubHeaderProps = {
   charName: PlayerData["name"],
@@ -23,6 +22,7 @@ const FrameDataSubHeader = ({ charName, charStats, activeGame }: FrameDataSubHea
 	
 
 	const frameData = useSelector(frameDataSelector);
+	const gameDetails = useSelector(gameDetailsSelector);
 	const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
 	const moveNotation = 
 		dataDisplaySettings.moveNameType === "common"
@@ -30,7 +30,7 @@ const FrameDataSubHeader = ({ charName, charStats, activeGame }: FrameDataSubHea
 		: dataDisplaySettings.inputNotationType
 
 	const labelObj = {}
-	Object.keys(GAME_DETAILS[activeGame].statsPoints).map(keyName => labelObj[keyName] = keyName)
+	Object.keys(gameDetails.statsPoints).map(keyName => labelObj[keyName] = keyName)
 
 	useEffect(() => {
 		setStatCategory("The Basics");
@@ -40,7 +40,7 @@ const FrameDataSubHeader = ({ charName, charStats, activeGame }: FrameDataSubHea
 		<IonGrid id="frameDataSubHeader">
 			<IonRow>
 				<IonCol className ="character-portrait-container" size="1.6">
-					<CharacterPortrait charName={charName} game={activeGame} charColor={charStats.color as string} showName={false}
+					<CharacterPortrait charName={charName} game={activeGame} charColor={charStats.color as string} remoteImage={charStats.remoteImage as unknown as Boolean} showName={false}
 						onClick={() => dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true })) }
 					/>
 				</IonCol>
@@ -57,8 +57,8 @@ const FrameDataSubHeader = ({ charName, charStats, activeGame }: FrameDataSubHea
 				clickFunc={ (eventValue) => setStatCategory(eventValue) }
 			/>
 			<IonRow className="stat-row">
-				{GAME_DETAILS[activeGame].statsPoints[statCategory] && 
-					GAME_DETAILS[activeGame].statsPoints[statCategory].map(dataRowObj =>
+				{gameDetails.statsPoints[statCategory] && 
+					gameDetails.statsPoints[statCategory].map(dataRowObj =>
 						Object.keys(dataRowObj).map(statKey =>
 							charStats[statKey] && charStats[statKey] !== "~" &&
 							<IonCol key={`stat-entry-${statKey}`} className="stat-entry">

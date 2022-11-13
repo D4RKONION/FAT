@@ -1,14 +1,21 @@
 import { Plugins } from '@capacitor/core';
 
 import { helpCreateFrameDataJSON } from '../utils';
-import GAME_DETAILS from '../constants/GameDetails';
 import type { AdviceToastPrevRead, AppModal, NormalNotationType, GameName, InputNotationType, MoveNameType, Orientation, PlayerData, PlayerId, ThemeAlias, ThemeBrightness, ThemeShortId, VtState, ThemeAccessibility } from '../types'
 
 import AppSFVFrameData from '../constants/framedata/SFVFrameData.json';
-import USF4FrameData from '../constants/framedata/USF4FrameData.json';
-import SF3FrameData from '../constants/framedata/3SFrameData.json';
+import AppUSF4FrameData from '../constants/framedata/USF4FrameData.json';
+import AppSF3FrameData from '../constants/framedata/3SFrameData.json';
 import AppGGSTFrameData from '../constants/framedata/GGSTFrameData.json';
-import { APP_SFV_FRAME_DATA_CODE, APP_GGST_FRAME_DATA_CODE } from '../constants/VersionLogs';
+import AppSF6FrameData from '../constants/framedata/SF6FrameData.json';
+
+import AppSFVGameDetails from '../constants/gamedetails/SFVGameDetails.json';
+import USF4GameDetails from '../constants/gamedetails/USF4GameDetails.json';
+import SF3GameDetails from '../constants/gamedetails/3SGameDetails.json';
+import AppGGSTGameDetails from '../constants/gamedetails/GGSTGameDetails.json';
+import AppSF6GameDetails from '../constants/gamedetails/SF6GameDetails.json';
+
+import { UPDATABLE_GAMES, UPDATABLE_GAMES_APP_CODES } from '../constants/VersionLogs';
 import { RootState } from '../reducers';
 import { ThunkAction } from 'redux-thunk';
 import { AnyAction } from 'redux';
@@ -38,65 +45,102 @@ const setFrameData = (frameData) => ({
   frameData,
 })
 
-const getFrameData = (gameName: GameName, stateReset?: Boolean) => {
+const getFrameData = (gameName: GameName) => {
   return async function(dispatch, getState) {
-    const { selectedCharactersState } = getState();
+    const { selectedCharactersState, gameDetailsState } = getState();
+    const appFrameData = 
+      gameName === "SFV" ? AppSFVFrameData
+      : gameName === "GGST" ? AppGGSTFrameData
+      : gameName === "SF6" ? AppSF6FrameData
+      : gameName === "3S" ? AppSF3FrameData
+      : gameName === "USF4" ? AppUSF4FrameData
+      : {};
+    
+    if (UPDATABLE_GAMES.includes(gameName)) {
 
-    if (gameName === "SFV") {
+      const LS_FRAME_DATA_CODE = parseInt(localStorage.getItem(`ls${gameName}FrameDataCode`));
+      const APP_FRAME_DATA_CODE = UPDATABLE_GAMES_APP_CODES[gameName]["FrameData"]
+      
+      let lsFrameData: string;
 
-      const LS_FRAME_DATA_CODE = parseInt(localStorage.getItem("lsSFVFrameDataCode"));
-      let lsSFVFrameData: string;
       try {
-        lsSFVFrameData = JSON.parse((await Plugins.Storage.get({ key: 'lsSFVFrameData' })).value);
+        lsFrameData = JSON.parse((await Plugins.Storage.get({ key: `ls${gameName}FrameData` })).value);
       } catch {
-        lsSFVFrameData = '';
+        lsFrameData = '';
       }
 
-      if (!lsSFVFrameData || !LS_FRAME_DATA_CODE || LS_FRAME_DATA_CODE <= APP_SFV_FRAME_DATA_CODE) {
-        dispatch(setFrameData(AppSFVFrameData));
+      if (!lsFrameData || !LS_FRAME_DATA_CODE || LS_FRAME_DATA_CODE <= APP_FRAME_DATA_CODE) {
+        dispatch(setFrameData(appFrameData));
       } else {
-        dispatch(setFrameData(lsSFVFrameData))
+        dispatch(setFrameData(lsFrameData));
       }
-
-    } else if (gameName === "USF4") {
-      dispatch(setFrameData(USF4FrameData));
-    } else if (gameName === "3S") {
-      dispatch(setFrameData(SF3FrameData));
-    } else if (gameName === "GGST") {
-
-      const LS_FRAME_DATA_CODE = parseInt(localStorage.getItem("lsGGSTFrameDataCode"));
-      let lsGGSTFrameData: string;
-      try {
-        lsGGSTFrameData = JSON.parse((await Plugins.Storage.get({ key: 'lsGGSTFrameData' })).value);
-      } catch {
-        lsGGSTFrameData = '';
-      }
-
-      if (!lsGGSTFrameData || !LS_FRAME_DATA_CODE || LS_FRAME_DATA_CODE <= APP_GGST_FRAME_DATA_CODE) {
-        dispatch(setFrameData(AppGGSTFrameData));
-      } else {
-        dispatch(setFrameData(lsGGSTFrameData))
-      }
-
+    } else {
+      //every other game
+      dispatch(setFrameData(appFrameData));
     }
-
-    const gameCharList = GAME_DETAILS[gameName].characterList as any;
+    
+    const gameCharList = gameDetailsState.characterList as any;
     dispatch(setPlayerAttr("playerOne", gameCharList.includes(selectedCharactersState.playerOne.name) ? selectedCharactersState.playerOne.name : gameCharList[0], {vtState: "normal"}) );
-    dispatch(setPlayerAttr("playerTwo", gameCharList.includes(selectedCharactersState.playerTwo.name) ? selectedCharactersState.playerTwo.name : gameCharList[2], {vtState: "normal"}) );
+    dispatch(setPlayerAttr("playerTwo", gameCharList.includes(selectedCharactersState.playerTwo.name) ? selectedCharactersState.playerTwo.name : gameCharList[1], {vtState: "normal"}) );
   }
+}
+
+const setGameDetails = (gameDetails) => ({
+  type: 'SET_GAME_DETAILS',
+  gameDetails,
+})
+
+const getGameDetails = (gameName: GameName) => {
+  return async function(dispatch) {
+    const appGameDetails = 
+      gameName === "SFV" ? AppSFVGameDetails
+      : gameName === "GGST" ? AppGGSTGameDetails
+      : gameName === "SF6" ? AppSF6GameDetails
+      : gameName === "3S" ? SF3GameDetails
+      : gameName === "USF4" ? USF4GameDetails
+      : {};
+      
+    if (UPDATABLE_GAMES.includes(gameName)) {
+
+      const LS_GAME_DETAILS_CODE = parseInt(localStorage.getItem(`ls${gameName}GameDetailsCode`));
+      const APP_GAME_DETAILS_CODE = UPDATABLE_GAMES_APP_CODES[gameName]["GameDetails"]
+      
+      
+      let lsGameDetails: string;
+
+      try {
+        lsGameDetails = JSON.parse((await Plugins.Storage.get({ key: `ls${gameName}GameDetails` })).value);
+      } catch {
+        lsGameDetails = '';
+      }
+
+      if (!lsGameDetails || !LS_GAME_DETAILS_CODE || LS_GAME_DETAILS_CODE <= APP_GAME_DETAILS_CODE) {
+        dispatch(setGameDetails(appGameDetails));
+      } else {
+        dispatch(setGameDetails(lsGameDetails));
+      }
+    } else {
+      //every other game
+      dispatch(setGameDetails(appGameDetails));
+    }
+  }
+  
 }
 
 export const setActiveGame = (gameName: GameName, colReset: Boolean): ThunkAction<void, RootState, unknown, AnyAction> => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    await dispatch(getGameDetails(gameName))
+    
+    const { gameDetailsState } = getState();
     if (colReset) {
-      dispatch(setLandscapeCols(GAME_DETAILS[gameName].defaultLandscapeCols))
+      dispatch(setLandscapeCols(gameDetailsState.defaultLandscapeCols))
     }
     dispatch(setGameName(gameName));
-    await dispatch(getFrameData(gameName, true));
+    await dispatch(getFrameData(gameName));
   }
 }
 
-// andle frame data page stuff
+// handle frame data page stuff
 export const setActiveFrameDataPlayer = (oneOrTwo: PlayerId) => ({
   type: 'SET_ACTIVE_PLAYER',
   oneOrTwo
@@ -123,7 +167,7 @@ export const  setPlayer = (playerId: PlayerId, charName: PlayerData["name"]) => 
   return function(dispatch, getState) {
     const { frameDataState, dataDisplaySettingsState, selectedCharactersState, activeGameState }: RootState  = getState();
     const stateToSet: VtState =
-      activeGameState === "SFV" || (activeGameState === "GGST" && selectedCharactersState[playerId].name === charName)
+      activeGameState === "SFV" || ((activeGameState === "GGST" || activeGameState === "SF6")  && selectedCharactersState[playerId].name === charName)
         ? selectedCharactersState[playerId].vtState
         : "normal"
     const playerData: PlayerData = {

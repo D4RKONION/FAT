@@ -7,9 +7,8 @@ import PageHeader from '../components/PageHeader';
 import { setPlayerAttr, setPlayer } from '../actions';
 import { useHistory } from 'react-router';
 import { close, searchOutline, trashBinOutline } from 'ionicons/icons';
-import GAME_DETAILS from '../constants/GameDetails';
 import {ratio as fuzzratio, extract as fuzzextract } from 'fuzzball'
-import { activeGameSelector, dataDisplaySettingsSelector, frameDataSelector, selectedCharactersSelector } from '../selectors';
+import { activeGameSelector, dataDisplaySettingsSelector, frameDataSelector, gameDetailsSelector, selectedCharactersSelector } from '../selectors';
 
 const YAKSHA_HEADERS = [
   {
@@ -53,7 +52,6 @@ const CHARACTER_NAME_DICTIONARY = {
     "sim": "Dhalsim",
   },
   "GGST": {
-    
     "ino": "I-No",
     "zato": "Zato-1",
   }
@@ -66,6 +64,7 @@ const Yaksha = () => {
   const frameDataFile = useSelector(frameDataSelector);
   const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
   const selectedCharacters = useSelector(selectedCharactersSelector);
+  const gameDetails = useSelector(gameDetailsSelector);
 
   const dispatch = useDispatch();
 
@@ -79,8 +78,8 @@ const Yaksha = () => {
   },[activeGame]);
 
   const fuzzyNameScorer = (possibleCharName: string) => {
-    const possibleCharFuzzObj = fuzzextract(possibleCharName, GAME_DETAILS[activeGame].characterList)[0];
-    if (CHARACTER_NAME_DICTIONARY[activeGame][possibleCharName.toLowerCase()]) {
+    const possibleCharFuzzObj = fuzzextract(possibleCharName, gameDetails.characterList)[0];
+    if (CHARACTER_NAME_DICTIONARY[activeGame] && CHARACTER_NAME_DICTIONARY[activeGame][possibleCharName.toLowerCase()]) {
       return CHARACTER_NAME_DICTIONARY[activeGame][possibleCharName.toLowerCase()]
     } else if (possibleCharFuzzObj[1] > 75) {
       return possibleCharFuzzObj[0];

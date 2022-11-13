@@ -2,13 +2,12 @@ import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCon
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useParams } from 'react-router';
-import GAME_DETAILS from '../constants/GameDetails'
 import '../../style/components/DetailCards.scss';
 import PageHeader from '../components/PageHeader';
 import SubHeader from '../components/SubHeader';
 import SegmentSwitcher from '../components/SegmentSwitcher';
-import { setActiveGame, setPlayerAttr } from '../actions';
-import { activeGameSelector, activePlayerSelector, selectedCharactersSelector } from '../selectors';
+import { setPlayerAttr } from '../actions';
+import { activeGameSelector, activePlayerSelector, gameDetailsSelector, selectedCharactersSelector } from '../selectors';
 import { FrameDataSlug } from '../types';
 import { isPlatform } from '@ionic/core';
 import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
@@ -20,6 +19,7 @@ const MoveDetail = () => {
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const activePlayer = useSelector(activePlayerSelector);
   const activeGame = useSelector(activeGameSelector);
+  const gameDetails = useSelector(gameDetailsSelector);
 
   const dispatch = useDispatch();
 
@@ -28,11 +28,7 @@ const MoveDetail = () => {
 
   useEffect(() => {
     (async () => {
-      if (activeGame !== slugs.gameSlug) {
-        console.log("URL game mismatch");
-        await dispatch(setActiveGame(slugs.gameSlug, true));
-      }
-      
+           
       if ((selectedCharacters[activePlayer].name !== slugs.characterSlug || selectedCharacters[activePlayer].vtState !== slugs.vtStateSlug) ) {
         console.log("URL character/vtState mismatch");
         dispatch(setPlayerAttr(activePlayer, slugs.characterSlug, {vtState: slugs.vtStateSlug}));
@@ -63,8 +59,8 @@ const MoveDetail = () => {
   }
 
 
-  const universalDataPoints = GAME_DETAILS[activeGame].universalDataPoints;
-  const specificCancelRows = GAME_DETAILS[activeGame].specificCancels ? GAME_DETAILS[activeGame].specificCancels.filter(cancelRow =>
+  const universalDataPoints = gameDetails.universalDataPoints;
+  const specificCancelRows = gameDetails.specificCancels ? gameDetails.specificCancels.filter(cancelRow =>
     Object.keys(cancelRow).every(key => selectedMoveData[key] !== undefined)
   ) : [];
 
@@ -104,11 +100,11 @@ const MoveDetail = () => {
                 labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
                 clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
               />
-            : (activeGame === "GGST") && !selectedMoveData["uniqueInVt"] &&
+            : (activeGame === "GGST" || activeGame === "SF6") && !selectedMoveData["uniqueInVt"] &&
               <SegmentSwitcher
                 segmentType={"vtrigger"}
                 valueToTrack={selectedCharacters[activePlayer].vtState}
-                labels={createSegmentSwitcherObject(activeGame, selectedCharacters[activePlayer].name)}
+                labels={createSegmentSwitcherObject(gameDetails.specificCharacterStates[selectedCharacters[activePlayer].name])}
                 clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
               />
             }
@@ -210,6 +206,25 @@ const MoveDetail = () => {
             </IonCard>
           }
           
+          {gameDetails.supercomboLink && 
+            <IonCard className="final-card">
+              <IonCardHeader>
+                <IonCardTitle>Move Images & More On SuperCombo.gg</IonCardTitle>
+              </IonCardHeader>
+              <IonCardContent>
+                <div className="row">
+                  <div className="col">
+                    <IonButton expand="full" fill="clear" onClick={() => window.open(`${gameDetails.supercomboLink}/${selectedCharacters[activePlayer].name}#${selectedMoveData.moveName.replaceAll(" ", "_")}`, '_blank')}>
+                      <IonIcon slot="end" icon={openOutline} />
+                      Take me there!
+                    </IonButton>
+                  </div>
+                </div>
+                
+            
+              </IonCardContent>
+            </IonCard>
+          }
 
           
 

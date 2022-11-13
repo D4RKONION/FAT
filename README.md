@@ -13,7 +13,6 @@ If you'd like to contribute to FAT, please open an issue about what you're inter
 ### Frame Data & General data corrections
 Frame Data corrections need to be fixed via our team's spreadsheet. We don't directly edit the JSON file. Please report any and all frame data mistakes in our [discord channel](https://discord.gg/9BK8hHS). The same goes for the Combos & Moveslist section.
 
-
 ## Reusing FAT source code
 For more details, you can read the license but essentially anything you make with FAT's source code
 - must be open source as well
@@ -68,3 +67,20 @@ and then doing
 ```
 ionic build
 ```
+## Adding a new game
+
+Changes to `./src/js/actions/index.ts` 
+- Import the framedataJSON
+- Dispatch the frame data in getFrameData()
+- If the game requires state switchers (like VT) amend setPlayer()
+- Import the gamedetailsJSON
+- Dispatch the game details in getGameDetails()
+
+General Changes
+- Add the menu Radio in `src/js/components/Menu.tsx`
+- Set up the Game Details in `src/js/constants/GameDetails.ts`
+- Add to type GameName in `src/js/types/index.ts`
+- Add to type VtState in `src/js/types/index.ts`
+
+Updatable Game (if the game is going to receive server updates)
+- Add to the UDPATABLE_GAMES and UPDATABLE_GAMES_APP_CODES obj in `src/js/constants/VersionLogs.ts`

@@ -7,8 +7,7 @@ import '../../style/components/FAB.scss'
 import { setModalVisibility } from '../actions';
 import { person } from 'ionicons/icons';
 import CharacterPortrait from '../components/CharacterPortrait';
-import { activeGameSelector, frameDataSelector, selectedCharactersSelector } from '../selectors';
-import GAME_DETAILS from '../constants/GameDetails';
+import { activeGameSelector, frameDataSelector, gameDetailsSelector, selectedCharactersSelector } from '../selectors';
 
 
 const StatCompare = () => {
@@ -16,13 +15,14 @@ const StatCompare = () => {
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const activeGame = useSelector(activeGameSelector);
   const frameDataFile = useSelector(frameDataSelector);
+  const gameDetails = useSelector(gameDetailsSelector);
 
   const dispatch = useDispatch();
 
 
   
   const [statHeadings, setStatHeadings] = useState([]);
-  const gameStatsObj = GAME_DETAILS[activeGame].statsPoints;
+  const gameStatsObj = gameDetails.statsPoints;
   const allStats = {}
   Object.keys(gameStatsObj).forEach(dataSection =>
     gameStatsObj[dataSection].map(dataRow =>
@@ -92,6 +92,7 @@ const StatCompare = () => {
                           selected={ (charName === selectedCharacters.playerOne.name || charName === selectedCharacters.playerTwo.name) && true}
                           charThreeLetterCode={frameDataFile[charName].stats.threeLetterCode.toUpperCase()}
                           charColor={frameDataFile[charName].stats.color}
+                          remoteImage={frameDataFile[charName].stats.remoteImage}
                           showName={true}
                         />
                     )}

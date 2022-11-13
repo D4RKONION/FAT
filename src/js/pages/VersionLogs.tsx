@@ -2,17 +2,11 @@ import { IonContent, IonGrid, IonItem, IonItemDivider, IonLabel, IonList, IonPag
 import { useState } from "react";
 import PageHeader from "../components/PageHeader";
 import styles from '../../style/components/VersionLogs.module.scss'
-import { VERSION_LOGS, APP_CURRENT_VERSION_NAME, UPDATABLE_GAMES } from "../constants/VersionLogs";
+import { VERSION_LOGS, APP_CURRENT_VERSION_NAME, UPDATABLE_GAMES, UPDATABLE_GAMES_APP_CODES, APP_DATE_UPDATED } from "../constants/VersionLogs";
 
 const VersionLogs = () => {
 
 	const [selectedVersionName, setSelectedVersionName] = useState(APP_CURRENT_VERSION_NAME);
-
-	const LS_SFV_FRAME_DATA_CODE = localStorage.getItem("lsSFVFrameDataCode");
-	const LS_SFV_FRAME_DATA_LAST_UPDATED = localStorage.getItem("lsSFVFrameDataLastUpdated");
-  const LS_GGST_FRAME_DATA_CODE = localStorage.getItem("lsGGSTFrameDataCode");
-  const LS_GGST_FRAME_DATA_LAST_UPDATED = localStorage.getItem("lsGGSTFrameDataLastUpdated");
-
 
 	return (
 		<IonPage id={styles.versionLogs}>
@@ -54,20 +48,37 @@ const VersionLogs = () => {
 						)}
 						{UPDATABLE_GAMES.map(gameName => 
 							<div key={`version-section-${gameName}`}>
-								<IonItemDivider>{gameName} Frame Data 
-									v{
-										gameName === "SFV" ? LS_SFV_FRAME_DATA_CODE :
-										gameName === "GGST" ? LS_GGST_FRAME_DATA_CODE :
-										"something broke! Email me a screenshot"
-									}
+								<IonItemDivider>{gameName} File Versions
+									
 								</IonItemDivider>
 								<IonItem>
 									<IonLabel>
-										<h3>Last Updated: {
-											gameName === "SFV" ? LS_SFV_FRAME_DATA_LAST_UPDATED :
-											gameName === "GGST" ? LS_GGST_FRAME_DATA_LAST_UPDATED :
-											"something broke! Email me a screenshot"
-										}</h3>
+										<h2><strong>Frame Data</strong></h2>
+										<h3>
+											Version Code: {
+												localStorage.getItem(`ls${gameName}FrameDataCode`) || UPDATABLE_GAMES_APP_CODES[gameName].FrameData
+											}
+										</h3>
+										{localStorage.getItem(`ls${gameName}FrameDataLastUpdated`) ?
+											<h3>Remote updated on {localStorage.getItem(`ls${gameName}FrameDataLastUpdated`)}</h3>
+											: <h3>Using local app file</h3>
+
+										}
+									</IonLabel>
+								</IonItem>
+								<IonItem>
+									<IonLabel>
+										<h2><strong>Game Details</strong></h2>
+										<h3>
+											Version Code: {
+												localStorage.getItem(`ls${gameName}GameDetailsCode`) || UPDATABLE_GAMES_APP_CODES[gameName].GameDetails
+											}
+										</h3>
+										{localStorage.getItem(`ls${gameName}GameDetailsLastUpdated`) ?
+											<h3>Remote updated on {localStorage.getItem(`ls${gameName}GameDetailsLastUpdated`)}</h3>
+											: <h3>Using local app file</h3>
+
+										}
 									</IonLabel>
 								</IonItem>
 							</div>
