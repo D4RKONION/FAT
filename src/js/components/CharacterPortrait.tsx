@@ -1,5 +1,6 @@
 import '../../style/components/CharacterPortrait.scss';
 import { GameName } from '../types';
+import fallbackFist from '../../images/icons/fallbackfist.png';
 
 type CharacterPortraitProps = {
   charName: string;
@@ -26,7 +27,7 @@ const CharacterPortrait = ( {charName, charThreeLetterCode, game, selected, char
         // https://stackoverflow.com/a/48222599
         onError={({ currentTarget }) => {
           currentTarget.onerror = null; // prevents looping
-          currentTarget.src=`${process.env.PUBLIC_URL}/assets/images/characters/ggst/Axl.png`;
+          currentTarget.src = fallbackFist;
         }}
         src={
           remoteImage ?
