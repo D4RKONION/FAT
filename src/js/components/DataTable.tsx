@@ -1,4 +1,4 @@
-import { isPlatform } from '@ionic/core';
+import { isPlatform } from '@ionic/core/components';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router'

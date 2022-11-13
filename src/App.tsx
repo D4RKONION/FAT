@@ -2,7 +2,7 @@ import React, { useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Plugins } from '@capacitor/core';
 import { IonApp, IonRouterOutlet, IonSplitPane, IonAlert, isPlatform } from '@ionic/react';
-import { menuController } from "@ionic/core";
+import { menuController } from "@ionic/core/components";
 import { IonReactHashRouter } from '@ionic/react-router';
 import { InAppPurchase2 as iapStore} from '@awesome-cordova-plugins/in-app-purchase-2';
 import { Route } from 'react-router-dom';

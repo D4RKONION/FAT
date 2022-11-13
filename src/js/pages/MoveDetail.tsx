@@ -9,7 +9,7 @@ import SegmentSwitcher from '../components/SegmentSwitcher';
 import { setPlayerAttr } from '../actions';
 import { activeGameSelector, activePlayerSelector, gameDetailsSelector, selectedCharactersSelector } from '../selectors';
 import { FrameDataSlug } from '../types';
-import { isPlatform } from '@ionic/core';
+import { isPlatform } from '@ionic/core/components';
 import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
 import { openOutline } from 'ionicons/icons';
 

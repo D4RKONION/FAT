@@ -9,7 +9,7 @@ import { useHistory, useParams } from 'react-router';
 import AdviceToast from '../components/AdviceToast';
 import { activeGameSelector, activePlayerSelector, dataDisplaySettingsSelector, gameDetailsSelector, selectedCharactersSelector } from '../selectors';
 import { FrameDataSlug } from '../types';
-import { isPlatform } from '@ionic/core';
+import { isPlatform } from '@ionic/core/components';
 import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
 
 

@@ -11,9 +11,9 @@
     "@capacitor/ios": "^2.4.8",
     "@ionic-native/clipboard": "^5.31.1",
     "@ionic-native/core": "^5.31.1",
-    "@ionic/core": "^5.6.0",
-    "@ionic/react": "^5.6.0",
-    "@ionic/react-router": "^5.6.0",
+    "@ionic/core": "^6.3.6",
+    "@ionic/react": "^6.3.6",
+    "@ionic/react-router": "^6.3.6",
     "@redux-devtools/core": "^3.13.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12.0.0",
@@ -31,7 +31,7 @@
     "cordova-plugin-purchase": "^11.0.0",
     "fuzzball": "^2.0.0",
     "html-react-parser": "^1.2.4",
-    "ionicons": "^5.5.0",
+    "ionicons": "^6.0.4",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-markdown": "^6.0.0",
@@ -48,7 +48,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!(@ionic/react|@ionic/react-router|@ionic/core|@stencil/core|ionicons)/)'",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

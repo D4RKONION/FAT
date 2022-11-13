@@ -1,4 +1,4 @@
-import { setupConfig } from '@ionic/react';
+import { setupIonicReact } from '@ionic/react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react';
@@ -8,7 +8,7 @@ import FrameDataGate from './js/components/FrameDataGate';
 import { persistor, store } from './js/store'
 import * as serviceWorker from './serviceWorker';
 
-setupConfig({
+setupIonicReact({
   hardwareBackButton: false,
 });
 

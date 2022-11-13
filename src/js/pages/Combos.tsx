@@ -11,7 +11,7 @@ import AdviceToast from '../components/AdviceToast';
 import { useParams } from 'react-router';
 import { activeGameSelector, activePlayerSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
 import { FrameDataSlug } from '../types';
-import { isPlatform } from '@ionic/core';
+import { isPlatform } from '@ionic/core/components';
 
 
 

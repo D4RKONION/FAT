@@ -75,3 +75,7 @@ ion-alert {
     color: var(--fat-ionalert-confirm-buttons)
   }
 }
+
+ion-popover::part(arrow) {
+  --background: var(--fat-popover-bg);
+}
