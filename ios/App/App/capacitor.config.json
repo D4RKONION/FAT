@@ -1,15 +1,15 @@
 {
-  "appId": "com.fullmeter.fat",
-  "appName": "FAT",
-  "bundledWebRuntime": false,
-  "npmClient": "npm",
-  "webDir": "build",
-  "cordova": {},
-  "linuxAndroidStudioPath": "/snap/android-studio/current/android-studio/bin/studio.sh",
-  "plugins": {
-    "SplashScreen": {
-      "launchAutoHide": false,
-      "androidScaleType": "CENTER_CROP"
-    }
-  }
+	"appId": "com.fullmeter.fat",
+	"appName": "FAT",
+	"bundledWebRuntime": false,
+	"npmClient": "npm",
+	"webDir": "build",
+	"cordova": {},
+	"linuxAndroidStudioPath": "/snap/android-studio/current/android-studio/bin/studio.sh",
+	"plugins": {
+		"SplashScreen": {
+			"launchAutoHide": false,
+			"androidScaleType": "CENTER_CROP"
+		}
+	}
 }

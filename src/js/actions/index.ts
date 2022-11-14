@@ -1,5 +1,3 @@
-import { Plugins } from '@capacitor/core';
-
 import { helpCreateFrameDataJSON } from '../utils';
 import type { AdviceToastPrevRead, AppModal, NormalNotationType, GameName, InputNotationType, MoveNameType, Orientation, PlayerData, PlayerId, ThemeAlias, ThemeBrightness, ThemeShortId, VtState, ThemeAccessibility } from '../types'
 
@@ -19,6 +17,7 @@ import { UPDATABLE_GAMES, UPDATABLE_GAMES_APP_CODES } from '../constants/Version
 import { RootState } from '../reducers';
 import { ThunkAction } from 'redux-thunk';
 import { AnyAction } from 'redux';
+import { Preferences } from '@capacitor/preferences';
 
 // ACTION CREATORS
 //handle global things
@@ -64,7 +63,7 @@ const getFrameData = (gameName: GameName) => {
       let lsFrameData: string;
 
       try {
-        lsFrameData = JSON.parse((await Plugins.Storage.get({ key: `ls${gameName}FrameData` })).value);
+        lsFrameData = JSON.parse((await Preferences.get({ key: `ls${gameName}FrameData` })).value);
       } catch {
         lsFrameData = '';
       }
@@ -109,7 +108,7 @@ const getGameDetails = (gameName: GameName) => {
       let lsGameDetails: string;
 
       try {
-        lsGameDetails = JSON.parse((await Plugins.Storage.get({ key: `ls${gameName}GameDetails` })).value);
+        lsGameDetails = JSON.parse((await Preferences.get({ key: `ls${gameName}GameDetails` })).value);
       } catch {
         lsGameDetails = '';
       }

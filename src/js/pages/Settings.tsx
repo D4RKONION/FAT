@@ -1,7 +1,7 @@
 import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, IonList, IonListHeader, IonIcon, useIonViewDidEnter, isPlatform, IonButton, IonToast, IonGrid  } from '@ionic/react';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Clipboard } from '@ionic-native/clipboard';
+import { Clipboard } from '@capacitor/clipboard';
 
 import { setActiveGame, setAdviceToastShown, setDataDisplaySettings, setPlayer, setThemeAccessibility, setThemeColor } from '../actions'
 import '../../style/pages/Settings.scss';
@@ -185,7 +185,9 @@ const Settings = () => {
                         // Android wont allow me to use nav.clip so I have to use a Cordova plugin instead.
                         // Maybe in the future we can go back to web api
                         // await navigator.clipboard.writeText(localStorage.getItem("localNotes"));
-                        await Clipboard.copy(localStorage.getItem("localNotes"));
+                        await Clipboard.write({
+                          string: localStorage.getItem("localNotes")
+                        });
                         setCopyToastShown(true);
                       } catch (err) {
                         console.error('Failed to copy: ', err);

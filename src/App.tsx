@@ -1,6 +1,6 @@
 import React, { useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Plugins } from '@capacitor/core';
+import { App as CapAppPlugin } from '@capacitor/app';
 import { IonApp, IonRouterOutlet, IonSplitPane, IonAlert, isPlatform } from '@ionic/react';
 import { menuController } from "@ionic/core/components";
 import { IonReactHashRouter } from '@ionic/react-router';
@@ -69,6 +69,8 @@ import { activeGameSelector, themeAccessibilitySelector, themeBrightnessSelector
 import { setOrientation, setModalVisibility, setThemeOwned, setThemeBrightness, setActiveGame } from './js/actions';
 import { store } from './js/store';
 import { APP_CURRENT_VERSION_CODE, APP_DATE_UPDATED, UPDATABLE_GAMES, TYPES_OF_UPDATES, UPDATABLE_GAMES_APP_CODES } from './js/constants/VersionLogs';
+import { SplashScreen } from '@capacitor/splash-screen';
+import { Preferences } from '@capacitor/preferences';
 
 const App = () => {
 
@@ -81,14 +83,14 @@ const App = () => {
 
   const [exitAlert, setExitAlert] = useState(false);
 
-  const { SplashScreen } = Plugins;
   useEffect(() => {
     SplashScreen.hide();
-  }, [SplashScreen])
+  }, [])
 
-  const { App: CapAppPlugin }  = Plugins;
+  
   useEffect(() => {
-    const { remove } = CapAppPlugin.addListener("backButton", async () => {
+    
+    CapAppPlugin.addListener("backButton", async () => {
       const currentModalState = store.getState().modalVisibilityState;
       const modeNameState = store.getState().modeNameState;
       if (currentModalState.visible) {
@@ -105,8 +107,8 @@ const App = () => {
       }
     })
 
-    return remove;
-  }, [CapAppPlugin])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     if (isPlatform("capacitor") && iapStore.when("").updated) {
@@ -235,7 +237,7 @@ useEffect(() => {
         const WHATS_BEING_UPDATED_json_response = await fetch(`https://fullmeter.com/fatfiles/test/${gameName}/${updateType}/${gameName}${updateType}.json?ts=${Date.now()}`)
         const SERVER_DATA = await WHATS_BEING_UPDATED_json_response.json();
         
-        await Plugins.Storage.set({
+        await Preferences.set({
           key: `ls${gameName}${updateType}`,
           value: JSON.stringify(SERVER_DATA),
         });
