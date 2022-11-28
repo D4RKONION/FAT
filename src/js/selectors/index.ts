@@ -32,6 +32,8 @@ export const onBlockColoursSelector =  (state: RootState) => state.onBlockColour
 
 export const counterHitSelector =  (state: RootState) => state.counterHitState;
 
+export const vsBurntoutOpponentSelector =  (state: RootState) => state.vsBurntoutOpponentState;
+
 export const autoSetSpecificColsSelector =  (state: RootState) => state.autoSetSpecificColsState;
 
 export const adviceToastShownSelector =  (state: RootState) => state.adviceToastShownState;

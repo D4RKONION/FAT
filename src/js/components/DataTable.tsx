@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router'
 import '../../style/components/DataTable.scss';
 import { setModalVisibility, setPlayerAttr } from '../actions';
-import { activeGameSelector, activePlayerSelector, counterHitSelector, landscapeColsSelector, onBlockColoursSelector, orientationSelector, selectedCharactersSelector, themeBrightnessSelector } from '../selectors';
+import { activeGameSelector, activePlayerSelector, counterHitSelector, landscapeColsSelector, onBlockColoursSelector, orientationSelector, selectedCharactersSelector, themeBrightnessSelector, vsBurntoutOpponentSelector } from '../selectors';
 
 const portraitCols: {[key: string]: string} = {startup: "S", active: "A", recovery: "R", onHit: "oH", onBlock: "oB",};
 
@@ -22,6 +22,7 @@ const DataTable = ({ searchText, previewTable }: DataTableProps) => {
   const landscapeCols = useSelector(landscapeColsSelector);
   const onBlockColours = useSelector(onBlockColoursSelector);
   const counterHit = useSelector(counterHitSelector);
+  const vsBurntoutOpponent = useSelector(vsBurntoutOpponentSelector);
   const themeBrightness = useSelector(themeBrightnessSelector);
 
   const dispatch = useDispatch();
@@ -123,7 +124,8 @@ const DataTable = ({ searchText, previewTable }: DataTableProps) => {
                     key={detailKey}
 
                     style={
-                      activeGame === "GGST" && counterHit && detailKey === "onHit" && moveData.chAdv ? (themeBrightness === "light" ? {backgroundColor:  "var(--fat-datatable-very-pun"} : {backgroundColor:  "var(--fat-datatable-very-pun"})
+                      activeGame === "SF6" && vsBurntoutOpponent && detailKey === "onBlock" && typeof moveData[detailKey] !== "string" && !isNaN(moveData[detailKey]) ? {backgroundColor: "var(--fat-datatable-very-plus"}
+                      : activeGame === "GGST" && counterHit && detailKey === "onHit" && moveData.chAdv ? (themeBrightness === "light" ? {backgroundColor:  "var(--fat-datatable-very-pun"} : {backgroundColor:  "var(--fat-datatable-very-pun"})
                       : activeGame === "SFV" && counterHit && detailKey === "onHit" && moveData.ccState ? (themeBrightness === "light" ? {backgroundColor:  "var(--fat-datatable-very-pun"} : {backgroundColor:  "var(--fat-datatable-very-pun"})
                       : activeGame !== "3S"  && activeGame !== "GGST" && counterHit && detailKey === "onHit" && typeof moveData[detailKey] !== "string" && !isNaN(moveData[detailKey]) ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-just-pun"} : {backgroundColor:  "var(--fat-datatable-just-pun"})
                       :	onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < -8 ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-serverely-pun"} : {backgroundColor:  "var(--fat-datatable-serverely-pun"})
@@ -143,6 +145,8 @@ const DataTable = ({ searchText, previewTable }: DataTableProps) => {
                   >
                     {
                       moveData.extraInfo && detailKey === "extraInfo" ? moveData.extraInfo.map((note, index) => <li className="note" key={index}>{note}</li>)
+                      : activeGame === "SF6" && vsBurntoutOpponent && detailKey === "onBlock" && typeof moveData[detailKey] !== "string" && (!!parseInt(moveData[detailKey]) || moveData[detailKey] === 0) ? moveData[detailKey] + 4
+                      : activeGame === "SF6" && counterHit && detailKey === "onHit" && typeof moveData[detailKey] !== "string" && (!!parseInt(moveData[detailKey]) || moveData[detailKey] === 0) ? moveData[detailKey] + 2
                       : activeGame === "GGST" && counterHit && detailKey === "onHit" && moveData.chAdv ? moveData.chAdv
                       : activeGame === "SFV" && counterHit && detailKey === "onHit" && moveData.ccAdv ? moveData.ccAdv
                       : activeGame === "SFV" && counterHit && detailKey === "onHit" && typeof moveData[detailKey] !== "string" && (!!parseInt(moveData[detailKey]) || moveData[detailKey] === 0) ? moveData[detailKey] + 2

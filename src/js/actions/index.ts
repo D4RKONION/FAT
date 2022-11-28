@@ -156,6 +156,10 @@ export const setCounterHit = (counterHitOn: Boolean) => ({
   type: 'SET_COUNTER_HIT',
   counterHitOn,
 })
+export const setVsBurntoutOpponent = (vsBurntoutOpponentOn: Boolean) => ({
+  type: 'SET_VS_BURNTOUT_OPPONENT',
+  vsBurntoutOpponentOn,
+})
 export const setAutoSetSpecificCols = (autoSetColsOn: Boolean) => ({
   type: 'SET_AUTO_SET_SPECIFIC_COLS',
   autoSetColsOn,
