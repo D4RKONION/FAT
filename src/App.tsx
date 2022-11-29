@@ -223,7 +223,7 @@ useEffect(() => {
         console.log(`something has gone horribly wrong with ${gameName} ${updateType} updating process`)
       }
 
-      const version_response = await fetch(`https://fullmeter.com/fatfiles/test/${gameName}/${updateType}/${gameName}${updateType}VersionDetails.json?ts=${Date.now()}`)
+      const version_response = await fetch(`https://fullmeter.com/fatfiles/release/${gameName}/${updateType}/${gameName}${updateType}VersionDetails.json?ts=${Date.now()}`)
       const SERVER_WHATS_BEING_UPDATED_VERSION_DETAILS = await version_response.json();
       
       // this stops the update process accidentally being ruined
@@ -234,7 +234,7 @@ useEffect(() => {
       
       if (SERVER_WHATS_BEING_UPDATED_VERSION_DETAILS.VERSION_CODE > LS_WHATS_BEING_UPDATED_CODE) {
         console.log(`there's a new ${gameName} ${updateType} file on the server, get it`);
-        const WHATS_BEING_UPDATED_json_response = await fetch(`https://fullmeter.com/fatfiles/test/${gameName}/${updateType}/${gameName}${updateType}.json?ts=${Date.now()}`)
+        const WHATS_BEING_UPDATED_json_response = await fetch(`https://fullmeter.com/fatfiles/release/${gameName}/${updateType}/${gameName}${updateType}.json?ts=${Date.now()}`)
         const SERVER_DATA = await WHATS_BEING_UPDATED_json_response.json();
         
         await Preferences.set({
