@@ -53,7 +53,9 @@ sdk.dir=/home/you/location/of/Android/Sdk
 ```
 
 ## Deployment
-Add a new version log and bump the 4 constants at the top of the page to the correct values in ```src/js/constants/VersionLogs.js```.
+Add a new version log and bump the 3 constants at the top of the page to the correct values in ```src/js/constants/VersionLogs.js```. Also adjust the FrameData and GameDetails codes as required.
+
+If previously remote fetched characters have been moved to the local build, be sure to remote their remoteImage Boolean from the sheet
 
 Because it's Capacitor, you'll need to build for iOS and Android in XCode and Studio respectively.
 
