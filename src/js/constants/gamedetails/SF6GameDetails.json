@@ -4,7 +4,9 @@
   "characterStates": ["normal"],
   "specificCharacterStates": {
     "Guile": ["Super Install"],
-    "Jamie": ["D1", "D2", "D3", "D4"]
+    "Jamie": ["D1", "D2", "D3", "D4"],
+    "Juri": ["Super Install"],
+    "Kimberly": ["Super Install"]
   },
   "characterList": [
     "Chun-Li",
