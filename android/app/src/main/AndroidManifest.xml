@@ -45,7 +45,10 @@
 
     <!-- Permissions -->
 
-<!--    <uses-permission android:name="android.permission.INTERNET" />-->
+   <uses-permission android:name="android.permission.INTERNET" />
+   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+   <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+   <uses-permission android:name="com.android.vending.BILLING" />
 <!--    &lt;!&ndash; Camera, Photos, input file &ndash;&gt;-->
 <!--    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>-->
 <!--    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
@@ -54,12 +57,11 @@
 <!--    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
 <!--    <uses-feature android:name="android.hardware.location.gps" />-->
 <!--    &lt;!&ndash; Network API &ndash;&gt;-->
-<!--    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />-->
+   
 <!--    &lt;!&ndash; Navigator.getUserMedia &ndash;&gt;-->
 <!--    &lt;!&ndash; Video &ndash;&gt;-->
 <!--    <uses-permission android:name="android.permission.CAMERA" />-->
 <!--    &lt;!&ndash; Audio &ndash;&gt;-->
 <!--    <uses-permission android:name="android.permission.RECORD_AUDIO" />-->
 <!--    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>-->
-	<uses-permission android:name="com.android.vending.BILLING" />
 </manifest>
