@@ -1,6 +1,6 @@
 {
   "name": "fat-os",
-  "version": "3.4.5",
+  "version": "3.5.0",
   "private": true,
   "dependencies": {
     "@awesome-cordova-plugins/core": "^6.2.0",
