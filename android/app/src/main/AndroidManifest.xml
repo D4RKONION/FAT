@@ -15,7 +15,7 @@
             android:name="com.fullmeter.fat.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBarLaunch"
-            android:exported="false"
+            android:exported="true"
             android:launchMode="singleTask">
 
             <intent-filter>

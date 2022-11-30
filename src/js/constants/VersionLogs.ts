@@ -1,6 +1,6 @@
-export const APP_CURRENT_VERSION_NAME = "3.5.0";
-export const APP_CURRENT_VERSION_CODE = 30500;
-export const APP_DATE_UPDATED = "Nov 29 2022"; // new Date().toDateString().substring(4) 
+export const APP_CURRENT_VERSION_NAME = "3.5.1";
+export const APP_CURRENT_VERSION_CODE = 30501;
+export const APP_DATE_UPDATED = "Nov 30 2022"; // new Date().toDateString().substring(4) 
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"]
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"]
@@ -22,6 +22,21 @@ export const UPDATABLE_GAMES_APP_CODES = {
 
 
 export const VERSION_LOGS = {
+  "3.5.1": {
+    "New Features": [
+      "This is the same as 3.5.0, but fixes the teeny tiny bug that the app literally wouldn't open an android. Whoops...",
+      "New Game! Added SF6. The data is from the closed beta and is subject to change",
+      "Improved remote updating! Expect faster DLC characters without the need for an app store update",
+      "Improved efficiency on startup and downloading updates",
+      "The above two features required extensive rewrites of core code. Please report any new bugs to apps@fullmeter.com",
+      "Added a VS Burnout checkbox to the framedata page for SF6",
+      "Removed the frame data version numbers from the menu. You can still find these in the settings menu",
+      "Added a link to the SuperCombo.gg entry for SFV moves so you can see move images"
+    ],
+    "Bug Fixes": [
+      "Fixed a bug where landscape columns weren't setting proprely",
+    ]
+  },
   "3.5.0": {
     "New Features": [
       "New Game! Added SF6. The data is from the closed beta and is subject to change",
