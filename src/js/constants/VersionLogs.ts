@@ -1,6 +1,6 @@
-export const APP_CURRENT_VERSION_NAME = "3.5.1";
-export const APP_CURRENT_VERSION_CODE = 30501;
-export const APP_DATE_UPDATED = "Nov 30 2022"; // new Date().toDateString().substring(4) 
+export const APP_CURRENT_VERSION_NAME = "3.5.2";
+export const APP_CURRENT_VERSION_CODE = 30502;
+export const APP_DATE_UPDATED = "Jan 18 2023"; // new Date().toDateString().substring(4) 
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"]
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"]
@@ -22,6 +22,14 @@ export const UPDATABLE_GAMES_APP_CODES = {
 
 
 export const VERSION_LOGS = {
+  "3.5.2": {
+    "New Features": [
+      "Added Privacy Policy to the settings menu"
+    ],
+    "Bug Fixes": [
+      "",
+    ]
+  },
   "3.5.1": {
     "New Features": [
       "This is the same as 3.5.0, but fixes the teeny tiny bug that the app literally wouldn't open an android. Whoops...",

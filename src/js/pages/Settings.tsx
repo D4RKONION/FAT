@@ -6,7 +6,7 @@ import { Clipboard } from '@capacitor/clipboard';
 import { setActiveGame, setAdviceToastShown, setDataDisplaySettings, setPlayer, setThemeAccessibility, setThemeColor } from '../actions'
 import '../../style/pages/Settings.scss';
 import PageHeader from '../components/PageHeader';
-import { logoTwitter, chevronForward, mailOutline, starOutline, heartOutline, openOutline, globeOutline, logoGithub, bulbOutline } from 'ionicons/icons';
+import { logoTwitter, chevronForward, mailOutline, starOutline, heartOutline, openOutline, globeOutline, logoGithub, bulbOutline, lockClosedOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router';
 import { APP_CURRENT_VERSION_NAME } from '../constants/VersionLogs';
 import { activeGameSelector, adviceToastShownSelector, dataDisplaySettingsSelector, selectedCharactersSelector, themeAccessibilitySelector } from '../selectors';
@@ -245,11 +245,18 @@ const Settings = () => {
               <IonIcon icon={logoTwitter} slot="start" />
               <IonIcon icon={openOutline} slot="end" />
             </IonItem>
-            <IonItem detail={false} lines="full" href="https://github.com/D4RKONION/FAT" target="_system" button>
+            <IonItem detail={false} lines="none" href="https://github.com/D4RKONION/FAT" target="_system" button>
               <IonLabel>
                 <h2>Github</h2>
               </IonLabel>
               <IonIcon icon={logoGithub} slot="start" />
+              <IonIcon icon={openOutline} slot="end" />
+            </IonItem>
+            <IonItem detail={false} lines="full" href="https://fullmeter.com/fat/privacy" target="_system" button>
+              <IonLabel>
+                <h2>Privacy Policy</h2>
+              </IonLabel>
+              <IonIcon icon={lockClosedOutline} slot="start" />
               <IonIcon icon={openOutline} slot="end" />
             </IonItem>
 
