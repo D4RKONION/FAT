@@ -69,7 +69,7 @@ export const handleNewCharacterLandscapeCols = (
 ) => {
 
 	if (!autoSetSpecificCols) {
-		return false;
+		return currentLandscapeCols;
 	}
 	
 	const charNames = [oldCharName, newCharName]
