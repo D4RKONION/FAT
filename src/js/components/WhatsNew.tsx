@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import PageHeader from './PageHeader';
 import '../../style/components/WhatsNew.scss'
 import {APP_CURRENT_VERSION_NAME, APP_DATE_UPDATED, VERSION_LOGS} from '../constants/VersionLogs';
-import { setModalVisibility } from '../actions';
+import { setModalVisibility, setThemeColor } from '../actions';
 import { modalVisibilitySelector } from '../selectors';
 
 const WhatsNewModal = () => {
@@ -11,14 +11,28 @@ const WhatsNewModal = () => {
   const modalVisibility = useSelector(modalVisibilitySelector);
   
   const dispatch = useDispatch();
-
+  
   return(
     <IonModal
       isOpen={modalVisibility.visible && modalVisibility.currentModal === "whatsNew"}
       onDidDismiss={ () => modalVisibility.visible && dispatch(setModalVisibility({ currentModal: "whatsNew", visible: false })) }
     >
       <PageHeader
-        buttonsToShow={[{ slot: "end", buttons: [{ text: "Close", buttonFunc: () => dispatch(setModalVisibility({ currentModal: "whatsNew", visible: false })) }] }]}
+        buttonsToShow={[
+          { slot: "end",
+            buttons: [
+              {
+                text: "Close",
+                buttonFunc: () => {
+                  // DELETE THIS FOR THE NEXT VERSION, AND REMOVE THE SET COLOR THEME IMPORT
+                  dispatch(setThemeColor("classic"));
+                  dispatch(setModalVisibility({ currentModal: "whatsNew", visible: false }));
+                } 
+                  
+              }
+            ]
+          }
+        ]}
         title="What's New"
       />
       <IonContent id="whatsNew">
