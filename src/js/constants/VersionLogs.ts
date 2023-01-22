@@ -6,15 +6,15 @@ export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"]
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"]
 export const UPDATABLE_GAMES_APP_CODES = {
   "SFV": {
-    "FrameData": 89,
+    "FrameData": 90,
     "GameDetails": 1
   },
   "GGST": {
-    "FrameData": 87,
+    "FrameData": 94,
     "GameDetails": 1
   },
   "SF6": {
-    "FrameData": 1,
+    "FrameData": 2,
     "GameDetails": 1
   }
 }
