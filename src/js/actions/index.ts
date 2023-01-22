@@ -234,6 +234,10 @@ export const setThemeOwned = (themeToAdd: ThemeAlias) => ({
   themeToAdd,
 })
 
+export const resetThemesOwned = () => ({
+  type: 'RESET_THEMES_OWNED',
+})
+
 //handle turning advice toast on and off
 export const setAdviceToastShown = (adviceToastShown: Boolean) => ({
   type: 'SET_ADVICE_TOAST_SHOWN',
