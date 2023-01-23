@@ -1,6 +1,6 @@
 export const APP_CURRENT_VERSION_NAME = "3.5.2";
 export const APP_CURRENT_VERSION_CODE = 30502;
-export const APP_DATE_UPDATED = "Jan 22 2023"; // new Date().toDateString().substring(4) 
+export const APP_DATE_UPDATED = "Jan 22 2023"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"]
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"]
@@ -28,7 +28,7 @@ export const VERSION_LOGS = {
     ],
     "Bug Fixes": [
       "Fixed a bug where sometimes all landscape columns would disappear",
-      "Fixed a bug where all themes were available to use without purcahse. Let's call it a promotion... I have to reset all themes to classic but you can change back in the theme store if you own the theme!"
+      "Fixed a bug where all themes were available to use without purchase. Let's call it a promotion..."
     ]
   },
   "3.5.1": {
