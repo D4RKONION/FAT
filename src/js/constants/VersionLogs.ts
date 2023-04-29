@@ -22,6 +22,14 @@ export const UPDATABLE_GAMES_APP_CODES = {
 
 
 export const VERSION_LOGS = {
+  "3.5.3": {
+    "New Features": [
+      "SF6: Made it so searching EX works for OD moves",
+    ],
+    "Bug Fixes": [
+      "Fixed a bug where you could only search for official move names if you had official move names set."
+    ]
+  },
   "3.5.2": {
     "New Features": [
       "Added Privacy Policy to the settings menu. Long story short, we collect 0 data from this app",

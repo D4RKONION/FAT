@@ -69,26 +69,32 @@ const DataTable = ({ searchText, previewTable }: DataTableProps) => {
         </div>
 
         {Object.entries(selectedCharacters[activePlayer].frameData).filter(([moveName, moveData]) => {
-          if (searchText.includes("xx") && moveData["cancelsTo"]) {
-            return moveData["cancelsTo"].includes(searchText.toLowerCase().substring(searchText.indexOf("=") + 1))
-          } else if (searchText.includes("info=") && moveData["extraInfo"] && moveData["extraInfo"].findIndex(entry => entry.toLowerCase().includes(searchText.toLowerCase().substring(searchText.indexOf("=") + 1))) !== -1 ) {
+          let tempSearchTerm = searchText;
+          // Allow people to filter for OD moves using the characters EX
+          if (activeGame === "SF6" && tempSearchTerm.includes("EX")) {
+            tempSearchTerm = tempSearchTerm.replaceAll("EX", "OD")
+          }
+    
+          if (tempSearchTerm.includes("xx") && moveData["cancelsTo"]) {
+            return moveData["cancelsTo"].includes(tempSearchTerm.toLowerCase().substring(tempSearchTerm.indexOf("=") + 1))
+          } else if (tempSearchTerm.includes("info=") && moveData["extraInfo"] && moveData["extraInfo"].findIndex(entry => entry.toLowerCase().includes(tempSearchTerm.toLowerCase().substring(tempSearchTerm.indexOf("=") + 1))) !== -1 ) {
             return moveData
-          } else if (searchText.includes("=") && moveData[searchableHeaders[searchText.toLowerCase().substring(0, searchText.indexOf("="))]] ) {
-            return moveData[searchableHeaders[searchText.toLowerCase().substring(0, searchText.indexOf("="))]].toString() === searchText.substring(searchText.indexOf("=") + 1)
-          } else if (searchText.includes(">=") && moveData[searchableHeaders[searchText.toLowerCase().substring(0, searchText.indexOf(">"))]] ) {
-            return moveData[searchableHeaders[searchText.toLowerCase().substring(0, searchText.indexOf(">"))]] >= parseInt(searchText.substring(searchText.indexOf("=") + 1))
-          } else if (searchText.includes("<=") && moveData[searchableHeaders[searchText.toLowerCase().substring(0, searchText.indexOf("<"))]] ) {
-            return moveData[searchableHeaders[searchText.toLowerCase().substring(0, searchText.indexOf("<"))]] <= parseInt(searchText.substring(searchText.indexOf("=") + 1))
-          } else if (searchText.includes(">") && moveData[searchableHeaders[searchText.toLowerCase().substring(0, searchText.indexOf(">"))]] ) {
-            return moveData[searchableHeaders[searchText.toLowerCase().substring(0, searchText.indexOf(">"))]] > parseInt(searchText.substring(searchText.indexOf(">") + 1))
-          } else if (searchText.includes("<") && moveData[searchableHeaders[searchText.toLowerCase().substring(0, searchText.indexOf("<"))]] ) {
-            return moveData[searchableHeaders[searchText.toLowerCase().substring(0, searchText.indexOf("<"))]] < parseInt(searchText.substring(searchText.indexOf("<") + 1))
+          } else if (tempSearchTerm.includes("=") && moveData[searchableHeaders[tempSearchTerm.toLowerCase().substring(0, tempSearchTerm.indexOf("="))]] ) {
+            return moveData[searchableHeaders[tempSearchTerm.toLowerCase().substring(0, tempSearchTerm.indexOf("="))]].toString() === tempSearchTerm.substring(tempSearchTerm.indexOf("=") + 1)
+          } else if (tempSearchTerm.includes(">=") && moveData[searchableHeaders[tempSearchTerm.toLowerCase().substring(0, tempSearchTerm.indexOf(">"))]] ) {
+            return moveData[searchableHeaders[tempSearchTerm.toLowerCase().substring(0, tempSearchTerm.indexOf(">"))]] >= parseInt(tempSearchTerm.substring(tempSearchTerm.indexOf("=") + 1))
+          } else if (tempSearchTerm.includes("<=") && moveData[searchableHeaders[tempSearchTerm.toLowerCase().substring(0, tempSearchTerm.indexOf("<"))]] ) {
+            return moveData[searchableHeaders[tempSearchTerm.toLowerCase().substring(0, tempSearchTerm.indexOf("<"))]] <= parseInt(tempSearchTerm.substring(tempSearchTerm.indexOf("=") + 1))
+          } else if (tempSearchTerm.includes(">") && moveData[searchableHeaders[tempSearchTerm.toLowerCase().substring(0, tempSearchTerm.indexOf(">"))]] ) {
+            return moveData[searchableHeaders[tempSearchTerm.toLowerCase().substring(0, tempSearchTerm.indexOf(">"))]] > parseInt(tempSearchTerm.substring(tempSearchTerm.indexOf(">") + 1))
+          } else if (tempSearchTerm.includes("<") && moveData[searchableHeaders[tempSearchTerm.toLowerCase().substring(0, tempSearchTerm.indexOf("<"))]] ) {
+            return moveData[searchableHeaders[tempSearchTerm.toLowerCase().substring(0, tempSearchTerm.indexOf("<"))]] < parseInt(tempSearchTerm.substring(tempSearchTerm.indexOf("<") + 1))
           } else {
-            return moveName.toLowerCase().includes(searchText.toLowerCase())
-          || (moveData.moveName && moveData.moveName.toLowerCase().includes(searchText.toLowerCase()))
-          || (moveData.cmnName && moveData.cmnName.toLowerCase().includes(searchText.toLowerCase()))
-          || (moveData.plnCmd && moveData.plnCmd.toLowerCase().includes(searchText.toLowerCase()))
-          || (moveData.numCmd && moveData.numCmd.toLowerCase().includes(searchText.toLowerCase()))
+            return moveName.toLowerCase().includes(tempSearchTerm.toLowerCase())
+          || (moveData.moveName && moveData.moveName.toLowerCase().includes(tempSearchTerm.toLowerCase()))
+          || (moveData.cmnName && moveData.cmnName.toLowerCase().includes(tempSearchTerm.toLowerCase()))
+          || (moveData.plnCmd && moveData.plnCmd.toLowerCase().includes(tempSearchTerm.toLowerCase()))
+          || (moveData.numCmd && moveData.numCmd.toLowerCase().includes(tempSearchTerm.toLowerCase()))
           }
           
         }).map(([moveName, moveData]) => {
