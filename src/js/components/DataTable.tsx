@@ -85,6 +85,7 @@ const DataTable = ({ searchText, previewTable }: DataTableProps) => {
             return moveData[searchableHeaders[searchText.toLowerCase().substring(0, searchText.indexOf("<"))]] < parseInt(searchText.substring(searchText.indexOf("<") + 1))
           } else {
             return moveName.toLowerCase().includes(searchText.toLowerCase())
+          || (moveData.moveName && moveData.moveName.toLowerCase().includes(searchText.toLowerCase()))
           || (moveData.cmnName && moveData.cmnName.toLowerCase().includes(searchText.toLowerCase()))
           || (moveData.plnCmd && moveData.plnCmd.toLowerCase().includes(searchText.toLowerCase()))
           || (moveData.numCmd && moveData.numCmd.toLowerCase().includes(searchText.toLowerCase()))
