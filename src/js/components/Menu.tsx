@@ -209,7 +209,7 @@ const Menu = () => {
               </IonCol>
               {isWideFullMenuOpen &&
                 <IonCol>
-                  <p>FAT {APP_CURRENT_VERSION_NAME} - <span onClick={() => modeName !== "movedetail" && setActiveGameAlertOpen(true)}>{activeGame} <IonIcon icon={caretDownOutline} /></span> </p>
+                  <p><span style={{cursor: "pointer"}}onClick={() => modeName !== "movedetail" && setActiveGameAlertOpen(true)}>FAT {APP_CURRENT_VERSION_NAME} - {activeGame} <IonIcon icon={caretDownOutline} /></span> </p>
                 </IonCol>
               }
             </IonRow>
