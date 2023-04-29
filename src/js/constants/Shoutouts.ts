@@ -19,6 +19,8 @@ export const DATA_TEAM = {
 export const AWESOME_PEOPLE = [
   "David Parries",
   "Steve Quinteros",
+  "Peejie",
+  "Jaded"
 ]
 
 export const DONATORS = {

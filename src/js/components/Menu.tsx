@@ -1,5 +1,5 @@
 import { IonContent, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonAlert, isPlatform, IonButton, IonGrid, IonRow, IonCol } from '@ionic/react';
-import { peopleOutline, settingsOutline, settingsSharp, moon, sunny, gameControllerOutline, gameControllerSharp, libraryOutline, librarySharp, calculatorOutline, calculatorSharp, caretDownOutline, searchOutline, searchSharp, statsChartOutline, statsChartSharp, barbellOutline, barbellSharp, colorPaletteOutline, colorPaletteSharp, menuSharp, logoPaypal, phonePortraitOutline, phonePortraitSharp } from 'ionicons/icons';
+import { peopleOutline, settingsOutline, settingsSharp, moon, sunny, gameControllerOutline, gameControllerSharp, libraryOutline, librarySharp, calculatorOutline, calculatorSharp, caretDownOutline, searchOutline, searchSharp, statsChartOutline, statsChartSharp, barbellOutline, barbellSharp, colorPaletteOutline, colorPaletteSharp, menuSharp, logoPaypal, phonePortraitOutline, phonePortraitSharp, cafe } from 'ionicons/icons';
 
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -123,6 +123,15 @@ const Menu = () => {
       desktopOnly: true,
     },
     {
+      title: 'Support on Ko-Fi',
+      url: '#',
+      externalUrl: "https://ko-fi.com/fullmeter",
+      iosIcon: cafe,
+      mdIcon: cafe,
+      modeName: null,
+      desktopOnly: true,
+    },
+    {
       title: 'Support on Patreon',
       externalUrl: "https://www.patreon.com/d4rk_onion",
       url: '#',
@@ -140,6 +149,7 @@ const Menu = () => {
       modeName: null,
       desktopOnly: true,
     },
+    
   ];
 
   // populate the menu game switcher array
