@@ -1,6 +1,10 @@
 .segment-switcher {
   &.ios {
     margin: 7px auto;
+    ion-segment-button {
+      --color: var(--fat-background-contrast);
+    }
+
     &.active-player, &.link-or-cancel, &.recovery-type, &.stat-chooser {
       width: 70%;
       --background: var(--fat-switcher-primary-ios-background);
@@ -85,6 +89,7 @@
       #characterSelect .segments.md {
         margin: 0 auto;
         display: flex;
+        width: 100%;
       }
     }
   }

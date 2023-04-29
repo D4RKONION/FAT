@@ -62,7 +62,6 @@ const CharacterSelectModal = () => {
         searchText={searchText}
         onSearchHandler={ (text: string) => setSearchText(text)}
       />
-      <IonContent>
         <div className={`segments ${!isPlatform("ios") && "md"}`}>
           {modeName !== "calc-frametrapchecker" && modeName !== "calc-frametraplister" && modeName !== "calc-framekillgenerator" &&
             <SegmentSwitcher
@@ -90,7 +89,15 @@ const CharacterSelectModal = () => {
             }
         </div>
 
-        <div id="characterSelectGrid">
+        <div
+          id="characterSelectGrid"
+          style={{gridTemplateColumns: `repeat(${
+            Object.keys(frameDataFile).length < 22 ? "7" :
+            Object.keys(frameDataFile).length < 25 ? "8" :
+            Object.keys(frameDataFile).length < 46 ? "9" :
+            "10"
+          }, 1fr [col-start])`}}
+        >
           {(gameDetails.characterList as unknown as string[]).filter(charName => charName.toLowerCase().includes(searchText.toLowerCase())).map(charName => {
             const charData = frameDataFile[charName];
             if (!charData || charData.stats.hideCharacter) {return null}
@@ -99,6 +106,7 @@ const CharacterSelectModal = () => {
                 key={`selectportrait-${activeGame}-${charName}`}
                 game={activeGame}
                 charName={charName}
+                charThreeLetterCode={charData.stats.threeLetterCode.toUpperCase()}
                 charColor={charData.stats.color}
                 remoteImage={charData.stats.remoteImage}
                 showName={true}
@@ -108,8 +116,10 @@ const CharacterSelectModal = () => {
           }
 
           )}
+          <div className="hidden-flex-item"></div>
+          <div className="hidden-flex-item"></div>
+          <div className="hidden-flex-item"></div>
         </div>
-      </IonContent>
     </IonModal>
   )
 }

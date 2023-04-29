@@ -2,25 +2,33 @@
   #characterSelectGrid {
     display: flex;
     flex-wrap: wrap;
+    overflow: auto;
+
   
-    .character-block {
+    .character-block, .hidden-flex-item {
       flex-grow: 1;
       width: 24%;
       min-width: 119px;
-      max-width: 50%;
       cursor: pointer;
+    }
+    .hidden-flex-item {
+      content: "";
+      visibility: hidden;
+      margin: 0.5px;
     }
   }  
 }
 
 @media (min-width: 992px) {
   #characterSelect {
-    --width: 860px;
-    --height: 550px;
+    --width: 90%;
+    --min-width: 975px;
+    --max-width: 1200px;
+    --height: fit-content;
 
     #characterSelectGrid {
       display: grid;
-      grid-template-columns: repeat(10, 1fr [col-start]);
+      padding: 0.5px;
 
       .character-block {
         cursor: pointer;

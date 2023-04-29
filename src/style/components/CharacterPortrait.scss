@@ -4,20 +4,18 @@
   //widths defined in individual page css
 
   img {
-    opacity: 0.55;
     display: block;
     width: 100%;
   }
   h2 {
     position: absolute;
     bottom: 0;
-    left: 0;
     right: 0;
     margin: 0;
-    padding: 5px 0;
-    font-size: 21px;
+    padding: 5px;
+    font-size: 15px;
     text-align: center;
-    background: linear-gradient(90deg, #000000a1 0%, #0000003d 30%, #0000003d 70%, #000000a1 100%);
+    background: #000000a0;
     color: #e6e6e6;
   }
 }

@@ -25,6 +25,7 @@ export const VERSION_LOGS = {
   "3.5.3": {
     "New Features": [
       "SF6: Made it so searching EX works for OD moves",
+      "Overhauled the character images and the character select menu."
     ],
     "Bug Fixes": [
       "Fixed a bug where you could only search for official move names if you had official move names set."

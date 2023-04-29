@@ -18,11 +18,11 @@ const CharacterPortrait = ( {charName, charThreeLetterCode, game, selected, char
   return(
     <div
       className="character-block"
-      style={{ background: `${charColor}`}}
+      style={{ background: `${charColor}45`}}
       onClick={onClick}
     >
       <img
-        alt={`${charName} portrait`}
+        alt={`${charName}`}
         // Catch failed image fetches
         // https://stackoverflow.com/a/48222599
         onError={({ currentTarget }) => {
