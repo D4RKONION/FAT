@@ -3,6 +3,7 @@
   "abbrName": "GGST",
   "characterStates": ["normal"],
   "specificCharacterStates": {
+    "Bedman": ["Install"],
     "Goldlewis": ["L2", "L3"],
     "Ky": ["Dragon Install"],
     "Nagoriyuki": ["L2", "L3", "BR"]
@@ -11,6 +12,7 @@
     "Anji",
     "Axl",
     "Baiken",
+    "Bedman",
     "Bridget",
     "Chipp",
     "Faust",

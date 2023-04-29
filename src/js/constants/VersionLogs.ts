@@ -1,6 +1,6 @@
-export const APP_CURRENT_VERSION_NAME = "3.5.2";
-export const APP_CURRENT_VERSION_CODE = 30502;
-export const APP_DATE_UPDATED = "Jan 22 2023"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "3.5.3";
+export const APP_CURRENT_VERSION_CODE = 30503;
+export const APP_DATE_UPDATED = "Apr 29 2023"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"]
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"]
@@ -10,11 +10,11 @@ export const UPDATABLE_GAMES_APP_CODES = {
     "GameDetails": 1
   },
   "GGST": {
-    "FrameData": 94,
-    "GameDetails": 1
+    "FrameData": 98,
+    "GameDetails": 2
   },
   "SF6": {
-    "FrameData": 2,
+    "FrameData": 3,
     "GameDetails": 1
   }
 }
@@ -24,6 +24,8 @@ export const UPDATABLE_GAMES_APP_CODES = {
 export const VERSION_LOGS = {
   "3.5.3": {
     "New Features": [
+      "GGST: Added Bedman? (Yes, added Bedman)",
+      "All: Updated local Frame Data files",
       "SF6: Made it so searching EX works for OD moves",
       "Overhauled the character images and the character select menu."
     ],
