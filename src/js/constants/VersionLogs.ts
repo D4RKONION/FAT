@@ -22,6 +22,14 @@ export const UPDATABLE_GAMES_APP_CODES = {
 
 
 export const VERSION_LOGS = {
+  "3.5.4": {
+    "New Features": [
+      "Desktop/Tablet: Selecting Best Reversal & Fastest Normal now takes you to the entries for those moves"
+    ],
+    "Bug Fixes": [
+      "None??"
+    ]
+  },
   "3.5.3": {
     "New Features": [
       "GGST: Added Bedman? (Yes, added Bedman)",

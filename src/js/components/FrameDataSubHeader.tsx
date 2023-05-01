@@ -5,8 +5,9 @@ import CharacterPortrait from "./CharacterPortrait";
 import { useEffect, useState } from "react";
 import { GameName, PlayerData } from "../types";
 import { useDispatch, useSelector } from "react-redux";
-import { setModalVisibility } from "../actions";
-import { dataDisplaySettingsSelector, frameDataSelector, gameDetailsSelector } from "../selectors";
+import { setModalVisibility, setPlayerAttr } from "../actions";
+import { activePlayerSelector, dataDisplaySettingsSelector, frameDataSelector, gameDetailsSelector, selectedCharactersSelector } from "../selectors";
+import { useHistory } from "react-router";
 
 type FrameDataSubHeaderProps = {
   charName: PlayerData["name"],
@@ -19,11 +20,14 @@ const FrameDataSubHeader = ({ charName, charStats, activeGame }: FrameDataSubHea
 	const [statCategory, setStatCategory] = useState("The Basics");
 
 	const dispatch = useDispatch();
+	let history = useHistory();
 	
 
 	const frameData = useSelector(frameDataSelector);
 	const gameDetails = useSelector(gameDetailsSelector);
 	const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
+	const selectedCharacters = useSelector(selectedCharactersSelector);
+	const activePlayer = useSelector(activePlayerSelector);
 	const moveNotation = 
 		dataDisplaySettings.moveNameType === "common"
 			? "cmnName"
@@ -61,7 +65,27 @@ const FrameDataSubHeader = ({ charName, charStats, activeGame }: FrameDataSubHea
 					gameDetails.statsPoints[statCategory].map(dataRowObj =>
 						Object.keys(dataRowObj).map(statKey =>
 							charStats[statKey] && charStats[statKey] !== "~" &&
-							<IonCol key={`stat-entry-${statKey}`} className="stat-entry">
+								<IonCol key={`stat-entry-${statKey}`} className="stat-entry" style={statKey === "bestReversal" || statKey === "fastestNormal" ? { cursor: "pointer" } : {}}
+									onClick={() => {
+										if (statKey === "bestReversal") {
+											dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {selectedMove: frameData[charName].moves.normal[charStats[statKey]][moveNotation]}));
+											history.push(`/framedata/movedetail/${activeGame}/${selectedCharacters[activePlayer].name}/${selectedCharacters[activePlayer].vtState}/${charStats[statKey]}`)
+										} else if (statKey === "fastestNormal") {
+											let fastestNormalName: string;
+											Object.keys(frameData[charName].moves.normal).filter(moveEntry => {
+												if (
+													frameData[charName].moves.normal[moveEntry].moveType === "normal" &&
+													!frameData[charName].moves.normal[moveEntry].airmove &&
+													frameData[charName].moves.normal[moveEntry].startup == charStats[statKey][0]
+												) {
+													fastestNormalName = moveEntry
+												}
+											})
+											dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {selectedMove: frameData[charName].moves.normal[fastestNormalName][moveNotation]}));
+											history.push(`/framedata/movedetail/${activeGame}/${selectedCharacters[activePlayer].name}/${selectedCharacters[activePlayer].vtState}/${fastestNormalName}`)
+										}
+									}}
+								>
 								<h2>
 									{
 										statKey === "bestReversal" && frameData[charName] && frameData[charName].moves.normal[charStats[statKey]]
