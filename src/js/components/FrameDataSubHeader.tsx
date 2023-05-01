@@ -71,16 +71,11 @@ const FrameDataSubHeader = ({ charName, charStats, activeGame }: FrameDataSubHea
 											dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {selectedMove: frameData[charName].moves.normal[charStats[statKey]][moveNotation]}));
 											history.push(`/framedata/movedetail/${activeGame}/${selectedCharacters[activePlayer].name}/${selectedCharacters[activePlayer].vtState}/${charStats[statKey]}`)
 										} else if (statKey === "fastestNormal") {
-											let fastestNormalName: string;
-											Object.keys(frameData[charName].moves.normal).filter(moveEntry => {
-												if (
-													frameData[charName].moves.normal[moveEntry].moveType === "normal" &&
-													!frameData[charName].moves.normal[moveEntry].airmove &&
-													frameData[charName].moves.normal[moveEntry].startup == charStats[statKey][0]
-												) {
-													fastestNormalName = moveEntry
-												}
-											})
+											const fastestNormalName = Object.keys(frameData[charName].moves.normal).find(moveEntry =>
+												frameData[charName].moves.normal[moveEntry].moveType === "normal" &&
+												!frameData[charName].moves.normal[moveEntry].airmove &&
+												frameData[charName].moves.normal[moveEntry].startup === Number(charStats[statKey][0])
+											)
 											dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {selectedMove: frameData[charName].moves.normal[fastestNormalName][moveNotation]}));
 											history.push(`/framedata/movedetail/${activeGame}/${selectedCharacters[activePlayer].name}/${selectedCharacters[activePlayer].vtState}/${fastestNormalName}`)
 										}
