@@ -3,8 +3,8 @@
     display: flex;
     flex-wrap: wrap;
     overflow: auto;
+    padding-bottom: env(safe-area-inset-bottom);
 
-  
     .character-block, .hidden-flex-item {
       flex-grow: 1;
       width: 24%;
@@ -16,7 +16,7 @@
       visibility: hidden;
       margin: 0.5px;
     }
-  }  
+  }
 }
 
 @media (min-width: 992px) {

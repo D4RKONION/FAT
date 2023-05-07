@@ -15,7 +15,7 @@
 				transform: translate(-53%, 0);
 			}
 
-		} 
+		}
 	}
 }
 
@@ -32,4 +32,8 @@ ion-toolbar.sc-ion-searchbar-ios-h, ion-toolbar .sc-ion-searchbar-ios-h {
 	padding-top: 0;
 	padding-bottom: 0;
 	max-height: 32px;
+}
+
+ion-toolbar .searchbar-input-container.sc-ion-searchbar-ios {
+	height: 32px;
 }
