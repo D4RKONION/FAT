@@ -24,7 +24,9 @@ export const UPDATABLE_GAMES_APP_CODES = {
 export const VERSION_LOGS = {
   "3.5.4": {
     "New Features": [
-      "Desktop/Tablet: Selecting Best Reversal & Fastest Normal now takes you to the entries for those moves"
+      "GGST: Added Asuka",
+      "Added a tab in Frame Data for characters with moves that have large variations (like Asuka's Spells & Faust's items)",
+      "Desktop/Tablet: Selecting Best Reversal & Fastest Normal now takes you to the entries for those moves",
     ],
     "Bug Fixes": [
       "None??"

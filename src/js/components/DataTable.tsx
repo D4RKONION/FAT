@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router'
 import '../../style/components/DataTable.scss';
 import { setModalVisibility, setPlayerAttr } from '../actions';
-import { activeGameSelector, activePlayerSelector, counterHitSelector, landscapeColsSelector, onBlockColoursSelector, orientationSelector, selectedCharactersSelector, themeBrightnessSelector, vsBurntoutOpponentSelector } from '../selectors';
+import { activeGameSelector, activePlayerSelector, counterHitSelector, dataDisplaySettingsSelector, landscapeColsSelector, onBlockColoursSelector, orientationSelector, selectedCharactersSelector, themeBrightnessSelector, vsBurntoutOpponentSelector } from '../selectors';
 
 const portraitCols: {[key: string]: string} = {startup: "S", active: "A", recovery: "R", onHit: "oH", onBlock: "oB",};
 
@@ -24,6 +24,7 @@ const DataTable = ({ searchText, previewTable }: DataTableProps) => {
   const counterHit = useSelector(counterHitSelector);
   const vsBurntoutOpponent = useSelector(vsBurntoutOpponentSelector);
   const themeBrightness = useSelector(themeBrightnessSelector);
+  const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
 
   const dispatch = useDispatch();
 
@@ -44,6 +45,20 @@ const DataTable = ({ searchText, previewTable }: DataTableProps) => {
     }
   }, [landscapeCols, currentOrientation])
 
+  // Check if the first move's i===0. If it is, that means
+  // we only want to display the VTState moves. This is used
+  // in the table below to skip highlighting and rendering
+  // of moves that are not state unique in certain cases (Asuka Spells)
+  const [displayOnlyStateMoves, setDisplayOnlyStateMoves] = useState(false);
+
+  useEffect(() => {
+    const firstMove = selectedCharacters[activePlayer].frameData[Object.keys(selectedCharacters[activePlayer].frameData)[0]]
+    if (firstMove.i === 0) {
+      setDisplayOnlyStateMoves(true)
+    } else {
+      setDisplayOnlyStateMoves(false)
+    }
+  }, [selectedCharacters, activePlayer])
 
 
   //we need to know who the other character is to set Seth's V-Skill steal
@@ -100,6 +115,8 @@ const DataTable = ({ searchText, previewTable }: DataTableProps) => {
         }).map(([moveName, moveData]) => {
           if ( selectedCharacters[activePlayer].name === "Seth" && moveData["moveType"] === "vskill" && !moveName.includes(`[${inactivePlayerName}]`) && !/VS[12]/.test(moveData.numCmd) ) {
             return false;
+          } else if (displayOnlyStateMoves && moveData.i >= 1) {
+            return false;
           } else {
             return (
               <div className="move-row" key={`table-row-${moveName}`}
@@ -109,7 +126,7 @@ const DataTable = ({ searchText, previewTable }: DataTableProps) => {
                   dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {selectedMove: moveName}));
                   history.push(`/framedata/movedetail/${activeGame}/${selectedCharacters[activePlayer].name}/${selectedCharacters[activePlayer].vtState}/${selectedCharacters[activePlayer].frameData[moveName]["moveName"]}`)
                 }}>
-              
+                
                 <span
                   style={
                     moveData.extraInfo && ((moveData.changedValues && moveData.changedValues.includes("extraInfo")) || moveData.uniqueInVt) ?  {borderRightColor: "var(--fat-vtrigger)" }
@@ -118,12 +135,12 @@ const DataTable = ({ searchText, previewTable }: DataTableProps) => {
                     : null
                   }
                   className={`cell move-name ${
-                    moveData.changedValues && selectedCharacters[activePlayer].vtState !== "normal" && !moveData.noHL ? "triggered-data"
-                    : selectedCharacters[activePlayer].vtState !== "normal" ? "untriggered-data"
+                    moveData.changedValues && !displayOnlyStateMoves && selectedCharacters[activePlayer].vtState !== "normal" && !moveData.noHL ? "triggered-data"
+                    : selectedCharacters[activePlayer].vtState !== "normal" && !displayOnlyStateMoves  ? "untriggered-data"
                     : "normal-state"
                   }`}
                 >
-                  {moveName}
+                  {displayOnlyStateMoves && dataDisplaySettings.moveNameType === "inputs" ? moveName.substring(moveName.indexOf("(") +1, moveName.indexOf(")")) : moveName}
                 </span>
 
                 {Object.keys(colsToDisplay).map(detailKey =>
@@ -145,8 +162,8 @@ const DataTable = ({ searchText, previewTable }: DataTableProps) => {
                     }
 
                     className={`cell 
-                      ${selectedCharacters[activePlayer].vtState !== "normal" && ((moveData.changedValues && moveData.changedValues.includes(detailKey)) || moveData.uniqueInVt) ? "triggered-data"
-                      : selectedCharacters[activePlayer].vtState !== "normal" ? "untriggered-data"
+                      ${selectedCharacters[activePlayer].vtState !== "normal" && ((moveData.changedValues && moveData.changedValues.includes(detailKey)) || moveData.uniqueInVt) && !displayOnlyStateMoves ? "triggered-data"
+                      : selectedCharacters[activePlayer].vtState !== "normal" && !displayOnlyStateMoves ? "untriggered-data"
                       : "normal-state"}
                     `}
                   >
