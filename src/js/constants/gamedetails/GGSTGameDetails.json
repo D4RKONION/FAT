@@ -3,6 +3,7 @@
   "abbrName": "GGST",
   "characterStates": ["normal"],
   "specificCharacterStates": {
+    "Asuka": ["Spells"],
     "Bedman": ["Install"],
     "Goldlewis": ["L2", "L3"],
     "Ky": ["Dragon Install"],
@@ -10,6 +11,7 @@
   },
   "characterList": [
     "Anji",
+    "Asuka",
     "Axl",
     "Baiken",
     "Bedman",
