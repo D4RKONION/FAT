@@ -3,20 +3,31 @@
   "abbrName": "SF6",
   "characterStates": ["normal"],
   "specificCharacterStates": {
+    "Blanka": ["Super Install"],
     "Guile": ["Super Install"],
     "Jamie": ["D1", "D2", "D3", "D4"],
     "Juri": ["Super Install"],
     "Kimberly": ["Super Install"]
   },
   "characterList": [
+    "Blanka",
+    "Cammy",
     "Chun-Li",
+    "DeeJay",
+    "Dhalsim",
+    "E.Honda",
     "Guile",
     "Jamie",
+    "JP",
     "Juri",
     "Ken",
     "Kimberly",
+    "Lily",
     "Luke",
-    "Ryu"
+    "Manon",
+    "Marisa",
+    "Ryu",
+    "Zangief"
   ],
 
   "universalDataPoints": {
@@ -63,7 +74,33 @@
         }
       }
     ],
-    "Drive Data": [
+    "Move Properties": [
+      {
+        "moveType": {
+          "dataTableHeader": "mT",
+          "detailedHeader": "Move Type",
+          "dataFileKey": "moveType"
+        },
+        "cancelsTo": {
+          "dataTableHeader": "xx",
+          "detailedHeader": "Cancels To",
+          "dataFileKey": "cancelsTo"
+        }
+      },
+      {
+        "damage": {
+          "dataTableHeader": "dmg",
+          "detailedHeader": "Damage",
+          "dataFileKey": "damage"
+        },
+        "attackLevel": {
+          "dataTableHeader": "attLvl",
+          "detailedHeader": "Attack Level",
+          "dataFileKey": "attackLevel"
+        }
+      }
+    ],
+    "Drive Frame Data": [
       {
         "DRoH": {
           "dataTableHeader": "dr-oH",
@@ -110,55 +147,51 @@
         }
       }
     ],
-    "Move Properties": [
+    "Drive Meter Data": [
       {
-        "moveType": {
-          "dataTableHeader": "mT",
-          "detailedHeader": "Move Type",
-          "dataFileKey": "moveType"
+        "DDoH": {
+          "dataTableHeader": "DDmg-oH",
+          "detailedHeader": "Drive Dmg On Hit",
+          "dataFileKey": "DDoH"
         },
-        "cancelsTo": {
-          "dataTableHeader": "xx",
-          "detailedHeader": "Cancels To",
-          "dataFileKey": "cancelsTo"
-        },
-        "attackLevel": {
-          "dataTableHeader": "attLvl",
-          "detailedHeader": "Attack Level",
-          "dataFileKey": "attackLevel"
+        "DDoB": {
+          "dataTableHeader": "DDmg-oB",
+          "detailedHeader": "Drive Dmg On Block",
+          "dataFileKey": "DDoB"
         }
       },
       {
-        "damage": {
-          "dataTableHeader": "dmg",
-          "detailedHeader": "Damage",
-          "dataFileKey": "damage"
-        },
-        "stun": {
-          "dataTableHeader": "stun",
-          "detailedHeader": "Stun",
-          "dataFileKey": "stun"
+        "DGain": {
+          "dataTableHeader": "D-Gain",
+          "detailedHeader": "Drive Gain",
+          "dataFileKey": "DGain"
         }
       }
     ],
-    "Knockdown": [
+    "Super Meter Data": [
       {
-        "kd": {
-          "dataTableHeader": "kd",
-          "detailedHeader": "KD Adv",
-          "dataFileKey": "kd"
+        "SelfSoH": {
+          "dataTableHeader": "SelfSoH",
+          "detailedHeader": "Self Super Gain oH",
+          "dataFileKey": "SelfSoH"
         },
-        "kdr": {
-          "dataTableHeader": "kdr",
-          "detailedHeader": "Quick Rise Adv",
-          "dataFileKey": "kdr"
-        },
-        "kdrb": {
-          "dataTableHeader": "kdrb",
-          "detailedHeader": "Back Rise Adv",
-          "dataFileKey": "kdrb"
+        "SelfSoB": {
+          "dataTableHeader": "SelfSoB",
+          "detailedHeader": "Self Super Gain oB",
+          "dataFileKey": "SelfSoB"
         }
-
+      },
+      {
+        "OppSoH": {
+          "dataTableHeader": "OppSoH",
+          "detailedHeader": "Opp Super Gain oH",
+          "dataFileKey": "OppSoH"
+        },
+        "OppSoB": {
+          "dataTableHeader": "OppSoB",
+          "detailedHeader": "Opp Super Gain oB",
+          "dataFileKey": "OppSoB"
+        }
       }
     ],
     "Extra Information": [
@@ -173,39 +206,57 @@
   },
   "specificCancels": [{"runStopOH":{"dataTableHeader":"RunStopOH","detailedHeader":"xx Run Stop oH","dataFileKey":"runStopOH","usedBy":["Ken","Kimberly"]},"runStopOB":{"dataTableHeader":"RunStopOB","detailedHeader":"xx Run Stop oB","dataFileKey":"runStopOB","usedBy":["Ken","Kimberly"]}},{"drinkOH":{"dataTableHeader":"Drink oH","detailedHeader":"xx Drink oH","dataFileKey":"drinkOH","usedBy":["Jamie"]},"drinkOB":{"dataTableHeader":"Drink oB","detailedHeader":"xx Drink oB","dataFileKey":"drinkOB","usedBy":["Jamie"]}},{"SSoH":{"dataTableHeader":"SS oH","detailedHeader":"xx Stance oH","dataFileKey":"SSoH","usedBy":["Chun-Li"]},"SSoB":{"dataTableHeader":"SS oB","detailedHeader":"xx Stance oB","dataFileKey":"SSoB","usedBy":["Chun-Li"]}}],
     "statsPoints": {
-    "The Basics": [
-      {
-        "defense": "Defense",
-        "guts": "Guts"
-      },
-      {
-        "weight": "Weight",
-        "bestReversal": "Best Reversal",
-        "fastestNormal": "Fastest Normal"
-      }
-    ],
-    "Dashing": [
-      {
-        "bDash": "Back Dash Frames",
-        "fDash": "Forward Dash Frames"
-      }
-    ],
-    "Jumping": [
-      {
-        "prejump": "Prejump Frames",
-        "jumpTotal": "Total Jump Frames",
-        "highJumpTotal": "Total High Jump Frames"
-
-      }
-    ],
-    "Defense": [
-      {
-        "effectiveHealth": "Effective Health",
-        "defense": "Defense",
-        "riscMod": "RISC Modifier",
-        "guts": "guts"
-      }
-    ]
+      "The Basics": [
+        {
+          "health": "Health"
+        },
+        {
+          "fastestNormal": "Fastest Normal",
+          "bestReversal": "Best Reversal"
+        }
+      ],
+      "Drive System": [
+        {
+          "dRushDist": "Drive Rush Dist."
+        }
+      ],
+      "Walking": [
+        {
+          "bWalk": "Back Walk Speed",
+          "fWalk": "Forward Walk Speed"
+        }
+      ],
+      "Dashing": [
+        {
+          "bDash": "Back Dash Frames",
+          "fDash": "Forward Dash Frames"
+        },
+        {
+          "bDashCHFrames": "Back Dash CH Frames"
+        },
+        {
+          "bDashDist": "Back Dash Dist.",
+          "fDashDist": "Forward Dash Dist."
+        }
+      ],
+      "Jumping": [
+        {
+          "bJump": "Back Jump",
+          "nJump": "Neutral Jump",
+          "fJump": "Forward Jump"
+        },
+        {
+          "bJumpDist": "Back Jump Distance",
+          "fJumpDist": "Forward Jump Distance"
+        }
+      ],
+      "Throwing": [
+        {
+          "throwHurt": "Throw Hurtbox",
+          "throwRange": "Throw Range"
+        }
+  
+      ]
   },
   "defaultLandscapeCols": {"startup": "S", "active": "A", "recovery": "R", "onBlock": "oB", "onHit": "oH", "onPC":"onPC", "attackLevel": "lvl", "DRoH": "dr-oH", "DRoB": "dr-oB", "afterDRoH": "dr-oH >", "afterDRoB": "dr-oB >" }
 }

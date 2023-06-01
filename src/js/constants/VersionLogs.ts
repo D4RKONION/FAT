@@ -1,12 +1,12 @@
-export const APP_CURRENT_VERSION_NAME = "3.5.3";
-export const APP_CURRENT_VERSION_CODE = 30503;
-export const APP_DATE_UPDATED = "Apr 29 2023"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "3.5.4";
+export const APP_CURRENT_VERSION_CODE = 30504;
+export const APP_DATE_UPDATED = "Jun 01 2023"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"]
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"]
 export const UPDATABLE_GAMES_APP_CODES = {
   "SFV": {
-    "FrameData": 90,
+    "FrameData": 91,
     "GameDetails": 1
   },
   "GGST": {
@@ -14,8 +14,8 @@ export const UPDATABLE_GAMES_APP_CODES = {
     "GameDetails": 2
   },
   "SF6": {
-    "FrameData": 3,
-    "GameDetails": 1
+    "FrameData": 4,
+    "GameDetails": 2
   }
 }
 
@@ -25,11 +25,14 @@ export const VERSION_LOGS = {
   "3.5.4": {
     "New Features": [
       "GGST: Added Asuka",
+      "SF6: Added the rest of the base roster characters",
+      "SF6: Added Move Lists for all characters (check the menu!)",
+      "SF6: Added data points related to drive and super meter gain",
       "Added a tab in Frame Data for characters with moves that have large variations (like Asuka's Spells & Faust's items)",
-      "Desktop/Tablet: Selecting Best Reversal & Fastest Normal now takes you to the entries for those moves",
+      "Desktop/Tablet: Clicking 'Best Reversal' or 'Fastest Normal' now takes you to the frame data page for those moves",
     ],
     "Bug Fixes": [
-      "None??"
+      "None!"
     ]
   },
   "3.5.3": {
