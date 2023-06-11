@@ -22,6 +22,15 @@ export const UPDATABLE_GAMES_APP_CODES = {
 
 
 export const VERSION_LOGS = {
+  "3.5.5": {
+    "New Features": [
+      "SF6 is now the default game on first run",
+      "SF6: -3 moves are now yellow rather than red in the table"
+    ],
+    "Bug Fixes": [
+      "None!"
+    ]
+  },
   "3.5.4": {
     "New Features": [
       "GGST: Added Asuka",

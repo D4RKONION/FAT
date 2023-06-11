@@ -7,7 +7,7 @@ type ActiveGameReducerAction = {
   gameName: GameName
 }
 
-const defaultState: ActiveGameReducerState = "SFV";
+const defaultState: ActiveGameReducerState = "SF6";
 
 export const activeGameReducer = (state = defaultState, action: ActiveGameReducerAction) => {
   switch(action.type) {
