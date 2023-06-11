@@ -232,9 +232,6 @@
           "fDash": "Forward Dash Frames"
         },
         {
-          "bDashCHFrames": "Back Dash CH Frames"
-        },
-        {
           "bDashDist": "Back Dash Dist.",
           "fDashDist": "Forward Dash Dist."
         }
