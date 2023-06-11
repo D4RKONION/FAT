@@ -205,7 +205,8 @@
       ],
       "Drive System": [
         {
-          "dRushDist": "Drive Rush Dist."
+          "dRushDistMin": "Min Drive Rush Dist",
+          "dRushDistMax": "Max Drive Rush Dist"
         }
       ],
       "Walking": [
@@ -220,8 +221,8 @@
           "fDash": "Forward Dash Frames"
         },
         {
-          "bDashDist": "Back Dash Dist.",
-          "fDashDist": "Forward Dash Dist."
+          "bDashDist": "Back Dash Dist",
+          "fDashDist": "Forward Dash Dist"
         }
       ],
       "Jumping": [

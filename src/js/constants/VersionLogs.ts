@@ -24,6 +24,8 @@ export const UPDATABLE_GAMES_APP_CODES = {
 export const VERSION_LOGS = {
   "3.5.5": {
     "New Features": [
+      "Changed Drive Rush Distance stat to min and max versions",
+      "Added a toggle for Raw DR that changes oH and oB, rather than being their own columns",
       "SF6 is now the default game on first run",
       "SF6: -3 moves are now yellow rather than red in the table",
       "GGST/SF6: Added Twitter hashtags to stats so you can get the tech" 
