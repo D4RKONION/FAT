@@ -128,7 +128,7 @@ const MoveDetail = () => {
                   dataSection !== "Extra Information" ?
                     <div key={index} className="row">
                       {Object.entries(dataRow).map(([dataId, headerObj]: [string, {[key: string]: {"dataTableHeader": string, "detailedHeader": string, "dataFileKey": string}}]) => {
-                          if (dataId === "cancelsTo" || dataId === "gatling") {
+                          if (dataId === "xx" || dataId === "gatling") {
                             return (
                               <div
                                 className={`col ${selectedMoveData.changedValues && selectedMoveData.changedValues.includes(dataId) ? "triggered-data" : "normal-state"}`}

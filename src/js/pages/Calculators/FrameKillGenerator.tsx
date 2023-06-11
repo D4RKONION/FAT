@@ -64,7 +64,7 @@ const FrameKillGenerator = () => {
         knockdownFrames = playerOneMoves[knockdownMove][recoveryType] + 1;
       }
 
-      if (playerOneMoves[targetMeaty]["attackLevel"] === "T" ) {
+      if (playerOneMoves[targetMeaty]["atkLvl"] === "T" ) {
         knockdownFrames +=2;
       }
 
@@ -260,7 +260,7 @@ const FrameKillGenerator = () => {
           processedResults = {"Natural Setups": {}, "One Move Setups": {}, "Two Move Setups": {}, "Three Move Setups": {}};
 
           knockdownFrames = playerOneMoves[knockdownMove]["kdrb"] + 1;
-          if (playerOneMoves[targetMeaty]["attackLevel"] === "T" ) {
+          if (playerOneMoves[targetMeaty]["atkLvl"] === "T" ) {
             knockdownFrames +=2;
           }
 
@@ -323,7 +323,7 @@ const FrameKillGenerator = () => {
           let kdrResults = {...processedResults}
           processedResults = {"Natural Setups": {}, "One Move Setups": {}, "Two Move Setups": {}, "Three Move Setups": {}};
           knockdownFrames = playerOneMoves[knockdownMove]["kdrb"] + 1;
-          if (playerOneMoves[targetMeaty]["attackLevel"] === "T" ) {
+          if (playerOneMoves[targetMeaty]["atkLvl"] === "T" ) {
             knockdownFrames +=2;
           }
 

@@ -75,17 +75,17 @@
           "detailedHeader": "Move Type",
           "dataFileKey": "moveType"
         },
-        "cancelsTo": {
+        "xx": {
           "dataTableHeader": "xx",
           "detailedHeader": "Cancels To",
-          "dataFileKey": "cancelsTo"
+          "dataFileKey": "xx"
         }
       },
       {
-        "damage": {
+        "dmg": {
           "dataTableHeader": "dmg",
           "detailedHeader": "Damage",
-          "dataFileKey": "damage"
+          "dataFileKey": "dmg"
         },
         "stun": {
           "dataTableHeader": "stun",
@@ -94,10 +94,10 @@
         }
       },
       {
-        "attackLevel": {
+        "atkLvl": {
           "dataTableHeader": "attLvl",
           "detailedHeader": "Attack Level",
-          "dataFileKey": "attackLevel"
+          "dataFileKey": "atkLvl"
         },
         "parry": {
           "dataTableHeader": "parry",
@@ -172,5 +172,5 @@
       }
     ]
   },
-  "defaultLandscapeCols": {"startup": "S", "active": "A", "recovery": "R", "onBlock": "oB", "onHit": "oH", "damage":"dmg", "stun":"stun", "cancelsTo": "xx", "parry": "parry"}
+  "defaultLandscapeCols": {"startup": "S", "active": "A", "recovery": "R", "onBlock": "oB", "onHit": "oH", "dmg":"dmg", "stun":"stun", "xx": "xx", "parry": "parry"}
 }

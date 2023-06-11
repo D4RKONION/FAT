@@ -81,27 +81,27 @@
           "detailedHeader": "Move Type",
           "dataFileKey": "moveType"
         },
-        "cancelsTo": {
+        "xx": {
           "dataTableHeader": "xx",
           "detailedHeader": "Cancels To",
-          "dataFileKey": "cancelsTo"
+          "dataFileKey": "xx"
         }
       },
       {
-        "damage": {
+        "dmg": {
           "dataTableHeader": "dmg",
           "detailedHeader": "Damage",
-          "dataFileKey": "damage"
+          "dataFileKey": "dmg"
         },
         "chp": {
           "dataTableHeader": "chip",
           "detailedHeader": "Chip",
           "dataFileKey": "chp"
         },
-        "attackLevel": {
-          "dataTableHeader": "attLvl",
+        "atkLvl": {
+          "dataTableHeader": "atkLvl",
           "detailedHeader": "Attack Level",
-          "dataFileKey": "attackLevel"
+          "dataFileKey": "atkLvl"
         }
       }
     ],
@@ -249,5 +249,5 @@
   
       ]
   },
-  "defaultLandscapeCols": {"startup": "S", "active": "A", "recovery": "R", "onBlock": "oB", "onHit": "oH", "onPC":"onPC", "cancelsTo": "xx", "damage": "dmg", "attackLevel": "lvl", "DRoH": "dr-oH", "DRoB": "dr-oB" }
+  "defaultLandscapeCols": {"startup": "S", "active": "A", "recovery": "R", "onBlock": "oB", "onHit": "oH", "onPC":"onPC", "xx": "xx", "dmg": "dmg", "atkLvl": "lvl", "DRoH": "dr-oH", "DRoB": "dr-oB" }
 }

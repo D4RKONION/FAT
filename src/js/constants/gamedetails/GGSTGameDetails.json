@@ -83,10 +83,10 @@
           "detailedHeader": "Move Type",
           "dataFileKey": "moveType"
         },
-        "cancelsTo": {
+        "xx": {
           "dataTableHeader": "xx",
           "detailedHeader": "Cancels To",
-          "dataFileKey": "cancelsTo"
+          "dataFileKey": "xx"
         }
       },
       {
@@ -99,15 +99,15 @@
     ],
     "Offensive Properties": [
       {
-        "damage": {
+        "dmg": {
           "dataTableHeader": "dmg",
           "detailedHeader": "Damage",
-          "dataFileKey": "damage"
+          "dataFileKey": "dmg"
         },
-        "attackLevel": {
+        "atkLvl": {
           "dataTableHeader": "atkLvl",
           "detailedHeader": "Attack Level",
-          "dataFileKey": "attackLevel"
+          "dataFileKey": "atkLvl"
         }
       },
       {
@@ -201,5 +201,5 @@
       }
     ]
   },
-  "defaultLandscapeCols": {"startup": "S", "active": "A", "recovery": "R", "onBlock": "oB", "onHit": "oH", "damage":"dmg", "attackLevel": "lvl", "riscGain": "risc", "prorate": "prorate", "guardLevel": "guard"}
+  "defaultLandscapeCols": {"startup": "S", "active": "A", "recovery": "R", "onBlock": "oB", "onHit": "oH", "dmg":"dmg", "atkLvl": "lvl", "riscGain": "risc", "prorate": "prorate", "guardLevel": "guard"}
 }

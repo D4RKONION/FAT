@@ -91,8 +91,8 @@ const DataTable = ({ searchText, previewTable }: DataTableProps) => {
             tempSearchTerm = tempSearchTerm.replaceAll("EX", "OD")
           }
     
-          if (tempSearchTerm.includes("xx") && moveData["cancelsTo"]) {
-            return moveData["cancelsTo"].includes(tempSearchTerm.toLowerCase().substring(tempSearchTerm.indexOf("=") + 1))
+          if (tempSearchTerm.includes("xx") && moveData["xx"]) {
+            return moveData["xx"].includes(tempSearchTerm.toLowerCase().substring(tempSearchTerm.indexOf("=") + 1))
           } else if (tempSearchTerm.includes("info=") && moveData["extraInfo"] && moveData["extraInfo"].findIndex(entry => entry.toLowerCase().includes(tempSearchTerm.toLowerCase().substring(tempSearchTerm.indexOf("=") + 1))) !== -1 ) {
             return moveData
           } else if (tempSearchTerm.includes("=") && moveData[searchableHeaders[tempSearchTerm.toLowerCase().substring(0, tempSearchTerm.indexOf("="))]] ) {
@@ -184,7 +184,7 @@ const DataTable = ({ searchText, previewTable }: DataTableProps) => {
                       : activeGame === "SFV" && counterHit && detailKey === "onHit" && typeof moveData[detailKey] !== "string" && (!!parseInt(moveData[detailKey]) || moveData[detailKey] === 0) ? moveData[detailKey] + 2
                       : activeGame === "USF4" && counterHit && detailKey === "onHit" && typeof moveData[detailKey] !== "string" && (!!parseInt(moveData[detailKey]) || moveData[detailKey] === 0) && moveData.moveType === "normal" && moveData.moveButton.includes("L") ? moveData[detailKey] + 1
                       : activeGame === "USF4" && counterHit && detailKey === "onHit" && typeof moveData[detailKey] !== "string" && (!!parseInt(moveData[detailKey]) || moveData[detailKey] === 0) ? moveData[detailKey] + 3
-                      : detailKey === "cancelsTo" && typeof moveData[detailKey] === "object" ? moveData[detailKey].map(cancelType => `${cancelType} `)
+                      : detailKey === "xx" && typeof moveData[detailKey] === "object" ? moveData[detailKey].map(cancelType => `${cancelType} `)
                       : detailKey === "gatling" && typeof moveData[detailKey] === "object" ? moveData[detailKey].map(gatlingOption => `${gatlingOption} `)
                       : moveData[detailKey] || moveData[detailKey] === 0 ? moveData[detailKey]
                       : "~"

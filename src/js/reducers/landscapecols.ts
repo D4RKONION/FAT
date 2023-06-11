@@ -5,7 +5,7 @@ type LandscapeColsReducerAction = {
   listOfCols: {[key: string]: string};
 }
 
-const defaultState: LandscapeColsReducerState = {startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", damage:"dmg", stun:"stun", kd:"kd", kdr:"kdr", kdrb:"kdrb"};
+const defaultState: LandscapeColsReducerState = {startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", onPC:"onPC", xx: "xx", dmg: "dmg", atkLvl: "lvl", DRoH: "dr-oH", DRoB: "dr-oB" };
 
 export const landscapeColsReducer = (state = defaultState, action: LandscapeColsReducerAction) => {
 	switch(action.type) {

@@ -88,7 +88,7 @@ const FrameTrapChecker = () => {
                     <IonSelectOption key={`firstMove-${move}`} value={move}>{move}</IonSelectOption>
                   )
                 : Object.keys(playerOneMoves).filter(move =>
-                  playerOneMoves[move].cancelsTo &&
+                  playerOneMoves[move].xx &&
                   playerOneMoves[move].moveType !== "movement-special" &&
                   playerOneMoves[move].moveType !== "throw" &&
                   playerOneMoves[move].moveType !== "command-grab" &&
@@ -96,10 +96,10 @@ const FrameTrapChecker = () => {
                   !isNaN(playerOneMoves[move].onBlock) &&
                   !playerOneMoves[move].nonHittingMove &&
                   !playerOneMoves[move].antiAirMove &&
-                  !(playerOneMoves[move].cancelsTo.includes("su") && (playerOneMoves[move].moveButton === "2P" || playerOneMoves[move].moveButton === "2K")) &&
-                  !playerOneMoves[move].cancelsTo.every(entry => entry === "vt1") &&
-                  !playerOneMoves[move].cancelsTo.every(entry => entry === "vt2") &&
-                  !playerOneMoves[move].cancelsTo.every(entry => entry === "FADC") &&
+                  !(playerOneMoves[move].xx.includes("su") && (playerOneMoves[move].moveButton === "2P" || playerOneMoves[move].moveButton === "2K")) &&
+                  !playerOneMoves[move].xx.every(entry => entry === "vt1") &&
+                  !playerOneMoves[move].xx.every(entry => entry === "vt2") &&
+                  !playerOneMoves[move].xx.every(entry => entry === "FADC") &&
                   !(isNaN(playerOneMoves[move].recovery))
                 ).map(move =>
                   <IonSelectOption key={`firstMove-${move}`} value={move}>{move}</IonSelectOption>
@@ -126,10 +126,10 @@ const FrameTrapChecker = () => {
                     !playerOneMoves[move].airmove &&
                     !playerOneMoves[move].followUp &&
                     (
-                        (playerOneMoves[move].moveType === "super" && playerOneMoves[firstMove].cancelsTo.includes("su")) ||
-                        (playerOneMoves[move].moveType === "vskill" && (playerOneMoves[firstMove].cancelsTo.includes("vs1") || playerOneMoves[firstMove].cancelsTo.includes("vs2"))) ||
-                        (playerOneMoves[move].moveType === "vtrigger" && (playerOneMoves[firstMove].cancelsTo.includes("vt1") || playerOneMoves[firstMove].cancelsTo.includes("vt2"))) ||
-                        ((playerOneMoves[move].moveType === "special" || playerOneMoves[move].moveType === "movement-special" ) && playerOneMoves[firstMove].cancelsTo.includes("sp"))
+                        (playerOneMoves[move].moveType === "super" && playerOneMoves[firstMove].xx.includes("su")) ||
+                        (playerOneMoves[move].moveType === "vskill" && (playerOneMoves[firstMove].xx.includes("vs1") || playerOneMoves[firstMove].xx.includes("vs2"))) ||
+                        (playerOneMoves[move].moveType === "vtrigger" && (playerOneMoves[firstMove].xx.includes("vt1") || playerOneMoves[firstMove].xx.includes("vt2"))) ||
+                        ((playerOneMoves[move].moveType === "special" || playerOneMoves[move].moveType === "movement-special" ) && playerOneMoves[firstMove].xx.includes("sp"))
                     )
                   ).map(move =>
                     <IonSelectOption key={`secondMove-${move}`} value={move}>{move}</IonSelectOption>

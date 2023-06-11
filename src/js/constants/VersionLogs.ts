@@ -10,7 +10,7 @@ export const UPDATABLE_GAMES_APP_CODES = {
     "GameDetails": 1
   },
   "GGST": {
-    "FrameData": 99,
+    "FrameData": 100,
     "GameDetails": 3
   },
   "SF6": {
@@ -24,6 +24,7 @@ export const UPDATABLE_GAMES_APP_CODES = {
 export const VERSION_LOGS = {
   "3.5.5": {
     "New Features": [
+      "Added Chip values",
       "Changed Drive Rush Distance stat to min and max versions",
       "Added a toggle for Raw DR that changes oH and oB, rather than being their own columns",
       "SF6 is now the default game on first run",
