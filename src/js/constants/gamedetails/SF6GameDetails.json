@@ -114,18 +114,6 @@
         }
       },
       {
-        "afterDRoH": {
-          "dataTableHeader": "dr-oH >",
-          "detailedHeader": "After DR On Hit",
-          "dataFileKey": "afterDRoH"
-        },
-        "afterDRoB": {
-          "dataTableHeader": "dr-oB >",
-          "detailedHeader": "After DR On Block",
-          "dataFileKey": "afterDRoB"
-        }
-      },
-      {
         "onPP": {
           "dataTableHeader": "on PP",
           "detailedHeader": "On Perfect Parry",
@@ -255,5 +243,5 @@
   
       ]
   },
-  "defaultLandscapeCols": {"startup": "S", "active": "A", "recovery": "R", "onBlock": "oB", "onHit": "oH", "onPC":"onPC", "attackLevel": "lvl", "DRoH": "dr-oH", "DRoB": "dr-oB", "afterDRoH": "dr-oH >", "afterDRoB": "dr-oB >" }
+  "defaultLandscapeCols": {"startup": "S", "active": "A", "recovery": "R", "onBlock": "oB", "onHit": "oH", "onPC":"onPC", "cancelsTo": "xx", "damage": "dmg", "attackLevel": "lvl", "DRoH": "dr-oH", "DRoB": "dr-oB" }
 }

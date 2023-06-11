@@ -9,6 +9,7 @@ import { activePlayerReducer } from './activeplayer';
 import { landscapeColsReducer } from './landscapecols';
 import { onBlockColoursReducer } from './onblockcolours';
 import { counterHitReducer } from './counterhit';
+import { rawDriveRushReducer } from './rawdriverush';
 import { vsBurntoutOpponentReducer } from './vsburntoutopponent';
 import { selectedCharactersReducer } from './selectedcharacters';
 import { modalVisibilityReducer } from './modalvisibility';
@@ -40,6 +41,7 @@ const rootReducer = combineReducers({
   themesOwnedState: themesOwnedReducer,
   onBlockColoursState: onBlockColoursReducer,
   counterHitState: counterHitReducer,
+  rawDriveRushState: rawDriveRushReducer,
   vsBurntoutOpponentState: vsBurntoutOpponentReducer,
   autoSetSpecificColsState: autoSetSpecificColsReducer,
   adviceToastShownState: adviceToastShownReducer,

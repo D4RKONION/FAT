@@ -156,6 +156,10 @@ export const setCounterHit = (counterHitOn: Boolean) => ({
   type: 'SET_COUNTER_HIT',
   counterHitOn,
 })
+export const setRawDriveRush = (rawDriveRushOn: Boolean) => ({
+  type: 'SET_RAW_DRIVE_RUSH',
+  rawDriveRushOn,
+})
 export const setVsBurntoutOpponent = (vsBurntoutOpponentOn: Boolean) => ({
   type: 'SET_VS_BURNTOUT_OPPONENT',
   vsBurntoutOpponentOn,

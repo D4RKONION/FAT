@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { IonButton, IonButtons, IonIcon, IonItem, IonList, IonPopover, IonLabel, IonToggle } from '@ionic/react';
 import { ellipsisHorizontal, ellipsisVertical } from 'ionicons/icons';
 import '../../style/components/PopoverButton.scss';
-import { setModalVisibility, setOnBlockColours, setCounterHit, setVsBurntoutOpponent } from '../actions';
-import { activeGameSelector, counterHitSelector, modeNameSelector, onBlockColoursSelector, vsBurntoutOpponentSelector } from '../selectors';
+import { setModalVisibility, setOnBlockColours, setCounterHit, setRawDriveRush, setVsBurntoutOpponent } from '../actions';
+import { activeGameSelector, counterHitSelector, modeNameSelector, onBlockColoursSelector, rawDriveRushSelector, vsBurntoutOpponentSelector } from '../selectors';
 
 
 
@@ -14,6 +14,7 @@ const PopoverButton = () => {
   const modeName = useSelector(modeNameSelector);
   const onBlockColours = useSelector(onBlockColoursSelector);
   const counterHit = useSelector(counterHitSelector);
+  const rawDriveRush = useSelector(rawDriveRushSelector);
   const vsBurntoutOpponent = useSelector(vsBurntoutOpponentSelector);
   const activeGame = useSelector(activeGameSelector);
 
@@ -60,12 +61,21 @@ const PopoverButton = () => {
             }
             {
               activeGame === "SF6" &&
+              <>
               <IonItem lines="none">
                 <IonLabel>
-                  VS Burnout
+                  Raw DR
                 </IonLabel>
-                <IonToggle checked={!!vsBurntoutOpponent} onIonChange={e => dispatch(setVsBurntoutOpponent(e.detail.checked)) } />
+                <IonToggle checked={!!rawDriveRush} onIonChange={e => dispatch(setRawDriveRush(e.detail.checked)) } />
               </IonItem>
+
+              <IonItem lines="none">
+              <IonLabel>
+                VS Burnout
+              </IonLabel>
+              <IonToggle checked={!!vsBurntoutOpponent} onIonChange={e => dispatch(setVsBurntoutOpponent(e.detail.checked)) } />
+            </IonItem>
+            </>
             }
 
 
