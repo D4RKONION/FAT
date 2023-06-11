@@ -25,10 +25,11 @@ export const VERSION_LOGS = {
   "3.5.5": {
     "New Features": [
       "SF6 is now the default game on first run",
-      "SF6: -3 moves are now yellow rather than red in the table"
+      "SF6: -3 moves are now yellow rather than red in the table",
+      
     ],
     "Bug Fixes": [
-      "None!"
+      "Some stat points weren't displaying correctly on mobile"
     ]
   },
   "3.5.4": {

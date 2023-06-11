@@ -161,21 +161,14 @@
         "stun": "Stun"
       },
       {
-        "wUltra": "Double Ultra Scaling"
+        "bDash": "Back Dash",
+        "fDash": "Forward Dash"
       }
     ],
     "Ground Movement": [
       {
         "bDash": "Back Dash Frames",
         "fDash": "Forward Dash Frames"
-      },
-      {
-        "lvlOneB": "Level 1 Focus Back",
-        "lvlOneF": "Level 1 Focus Forward"
-      },
-      {
-        "lvlTwoB": "Level 2 Focus Back",
-        "lvlTwoF": "Level 2 Focus Forward"
       }
     ]
   },

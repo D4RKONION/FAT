@@ -104,32 +104,16 @@ const FrameData = () => {
         <SubHeader
           adaptToShortScreens={true}
           hideOnWideScreens={true}
-          rowsToDisplay={activeGame !== "GGST" ? 
-            [
+          rowsToDisplay={
+            gameDetails.statsPoints["The Basics"].map((dataRow, index) => 
               [
-                <><b>Health</b><br />{selectedCharacters[activePlayer].stats.health}</>,
-                <><b>Stun</b><br />{selectedCharacters[activePlayer].stats.stun}</>,
-                <div onClick={() => {history.push(`/stats/${selectedCharacters[activePlayer].name}`)}}><b>Tap for more</b><br /><IonIcon icon={informationCircle} /></div>
-              ],
-              [
-                <><b>Fwd Dash</b><br />{selectedCharacters[activePlayer].stats.fDash}</>,
-                <><b>Back Dash</b><br />{selectedCharacters[activePlayer].stats.bDash}</>,
-
+                ...Object.keys(dataRow).map(dataPointKey =>
+                  !(dataPointKey === "bestReversal" && activeGame === "GGST") && <div key={`stat-point-${dataRow}-${dataPointKey}`}><b>{dataRow[dataPointKey]}</b><br />{selectedCharacters[activePlayer].stats[dataPointKey]}</div>
+                ),
+                index === 0 && <div onClick={() => {history.push(`/stats/${selectedCharacters[activePlayer].name}`)}}><b>Tap for more</b><br /><IonIcon icon={informationCircle} /></div>
               ]
-            ]
-          :
-            [
-              [
-                <><b>Defense</b><br />{selectedCharacters[activePlayer].stats.defense}</>,
-                <><b>Guts</b><br />{selectedCharacters[activePlayer].stats.guts}</>,
-                <div onClick={() => {history.push(`/stats/${selectedCharacters[activePlayer].name}`)}}><b>Tap for more</b><br /><IonIcon icon={informationCircle} /></div>
-              ],
-              [
-                <><b>Weight</b><br />{selectedCharacters[activePlayer].stats.weight}</>,
-                <><b>Back Dash</b><br />{selectedCharacters[activePlayer].stats.backdashSpeed}</>,
-              ]
-            ]
-          }
+            )
+          }    
         />
         <FrameDataSubHeader
           charName={selectedCharacters[activePlayer].name}
