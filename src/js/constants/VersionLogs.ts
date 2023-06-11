@@ -1,20 +1,20 @@
-export const APP_CURRENT_VERSION_NAME = "3.5.4";
-export const APP_CURRENT_VERSION_CODE = 30504;
-export const APP_DATE_UPDATED = "Jun 01 2023"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "3.5.5";
+export const APP_CURRENT_VERSION_CODE = 30505;
+export const APP_DATE_UPDATED = "Jun 11 2023"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"]
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"]
 export const UPDATABLE_GAMES_APP_CODES = {
   "SFV": {
-    "FrameData": 91,
-    "GameDetails": 1
+    "FrameData": 92,
+    "GameDetails": 2
   },
   "GGST": {
     "FrameData": 100,
     "GameDetails": 3
   },
   "SF6": {
-    "FrameData": 13,
+    "FrameData": 11,
     "GameDetails": 3
   }
 }
@@ -24,12 +24,12 @@ export const UPDATABLE_GAMES_APP_CODES = {
 export const VERSION_LOGS = {
   "3.5.5": {
     "New Features": [
-      "Added Chip values",
-      "Changed Drive Rush Distance stat to min and max versions",
-      "Added a toggle for Raw DR that changes oH and oB, rather than being their own columns",
       "SF6 is now the default game on first run",
+      "GGST/SF6: Added Twitter hashtags to stats so you can get that tech",
+      "SF6: Added a toggle for Raw DR that changes oH and oB, rather than being their own columns",
       "SF6: -3 moves are now yellow rather than red in the table",
-      "GGST/SF6: Added Twitter hashtags to stats so you can get the tech" 
+      "Added Chip values (still working on the whole cast)",
+      "Changed Drive Rush Distance stat to min and max versions"
     ],
     "Bug Fixes": [
       "Some stat points weren't displaying correctly on mobile"
