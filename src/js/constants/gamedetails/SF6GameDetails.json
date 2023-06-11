@@ -93,6 +93,11 @@
           "detailedHeader": "Damage",
           "dataFileKey": "damage"
         },
+        "chp": {
+          "dataTableHeader": "chip",
+          "detailedHeader": "Chip",
+          "dataFileKey": "chp"
+        },
         "attackLevel": {
           "dataTableHeader": "attLvl",
           "detailedHeader": "Attack Level",
