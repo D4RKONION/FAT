@@ -10,12 +10,12 @@ export const UPDATABLE_GAMES_APP_CODES = {
     "GameDetails": 1
   },
   "GGST": {
-    "FrameData": 98,
-    "GameDetails": 2
+    "FrameData": 99,
+    "GameDetails": 3
   },
   "SF6": {
-    "FrameData": 4,
-    "GameDetails": 2
+    "FrameData": 12,
+    "GameDetails": 3
   }
 }
 
@@ -26,7 +26,7 @@ export const VERSION_LOGS = {
     "New Features": [
       "SF6 is now the default game on first run",
       "SF6: -3 moves are now yellow rather than red in the table",
-      
+      "GGST/SF6: Added Twitter hashtags to stats so you can get the tech" 
     ],
     "Bug Fixes": [
       "Some stat points weren't displaying correctly on mobile"

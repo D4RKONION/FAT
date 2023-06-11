@@ -58,10 +58,15 @@ const FrameDataSubHeader = ({ charName, charStats, activeGame }: FrameDataSubHea
 				segmentType={"stat-chooser"}
 				valueToTrack={statCategory}
 				labels={ labelObj }
+				hashtag={
+					selectedCharacters[activePlayer].stats.hashtag ?
+						selectedCharacters[activePlayer].stats.hashtag as string
+					: "false"
+				}
 				clickFunc={ (eventValue) => setStatCategory(eventValue) }
 			/>
 			<IonRow className="stat-row">
-				{gameDetails.statsPoints[statCategory] && 
+				{gameDetails.statsPoints[statCategory] ? 
 					gameDetails.statsPoints[statCategory].map(dataRowObj =>
 						Object.keys(dataRowObj).map(statKey =>
 							charStats[statKey] && charStats[statKey] !== "~" &&
@@ -84,7 +89,7 @@ const FrameDataSubHeader = ({ charName, charStats, activeGame }: FrameDataSubHea
 								<h2>
 									{
 										statKey === "bestReversal" && frameData[charName] && frameData[charName].moves.normal[charStats[statKey]]
-											? frameData[charName].moves.normal[charStats[statKey]][moveNotation]								
+											? frameData[charName].moves.normal[charStats[statKey]][moveNotation]
 											: charStats[statKey]
 									}
 								</h2>
@@ -92,6 +97,10 @@ const FrameDataSubHeader = ({ charName, charStats, activeGame }: FrameDataSubHea
 							</IonCol>
 						)
 					)
+				: <IonCol key={`stat-entry-hashtag`} className="stat-entry">
+						<h2>Did you get that sick Twitter tech??</h2>
+						<p style={{margin: "2px 0 -2px"}}><a target="_blank" href="https://twitter.com/D4RK_ONION" style={{color: "inherit"}}>The sickest twitter tech is following me... /shameless</a></p>
+					</IonCol>
 				}
 			</IonRow>
 		</IonGrid>

@@ -1,9 +1,10 @@
-import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonPage } from '@ionic/react';
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonIcon, IonPage } from '@ionic/react';
 import { useSelector } from 'react-redux';
 import '../../style/components/DetailCards.scss';
 import PageHeader from '../components/PageHeader';
 import SubHeader from '../components/SubHeader';
 import { activePlayerSelector, dataDisplaySettingsSelector, frameDataSelector, gameDetailsSelector, selectedCharactersSelector } from '../selectors';
+import { openOutline } from 'ionicons/icons';
 
 
 const CharacterStats = () => {
@@ -72,6 +73,26 @@ const CharacterStats = () => {
             </IonCard>
             )
           )}
+          
+          {selectedCharacters[activePlayer].stats.hashtag && 
+            <IonCard className="final-card">
+              <IonCardHeader>
+                <IonCardTitle>Check out the Twitter tech</IonCardTitle>
+              </IonCardHeader>
+              <IonCardContent>
+                <div className="row">
+                  <div className="col">
+                    <IonButton expand="full" fill="clear" onClick={() => window.open(`https://twitter.com/search?q=%23${(selectedCharacters[activePlayer].stats.hashtag as string).substring(1)}`, '_blank')}>
+                      <IonIcon slot="end" icon={openOutline} />
+                      {selectedCharacters[activePlayer].stats.hashtag}
+                    </IonButton>
+                  </div>
+                </div>
+                
+            
+              </IonCardContent>
+            </IonCard>
+          }
         </div>
 
       </IonContent>

@@ -5,6 +5,7 @@ type SegmentSwitcherProps = {
   segmentType: string,
   valueToTrack: string,
   labels: {[key: string]: string},
+  hashtag?: string,
   clickFunc: (segmentValue) => void;
 }
 
@@ -12,6 +13,7 @@ const SegmentSwitcher = ({
   segmentType,
   valueToTrack,
   labels,
+  hashtag,
   clickFunc,
 }: SegmentSwitcherProps) => {
 
@@ -24,6 +26,11 @@ const SegmentSwitcher = ({
           <IonLabel>{label}</IonLabel>
         </IonSegmentButton>
       )}
+      {segmentType === "stat-chooser" && hashtag !== "false" &&
+        <IonSegmentButton value="hashtag" onClick={ e => window.open(`https://twitter.com/search?q=%23${hashtag.substring(1)}`, '_blank')}>
+          <IonLabel>{hashtag}</IonLabel>
+        </IonSegmentButton>
+      }
     </IonSegment>
   )
 }
