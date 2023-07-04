@@ -1,10 +1,10 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { setActiveGame } from '../actions';
+import { setActiveGame, setLandscapeCols } from '../actions';
 import { GAME_NAMES } from '../constants/ImmutableGameDetails';
-import { activeGameSelector } from '../selectors';
+import { activeGameSelector, gameDetailsSelector, landscapeColsSelector } from '../selectors';
 import { GameName } from '../types';
+import { removeAllSpecificCancels } from '../utils/landscapecols';
 
 type FrameDataGateProps = {
   children: ReactNode;
@@ -15,19 +15,27 @@ type FrameDataGateProps = {
 const FrameDataGate = ({ children }: FrameDataGateProps) => {
   const dispatch = useDispatch();
   const activeGame = useSelector(activeGameSelector);
+  const landscapeCols = useSelector(landscapeColsSelector);
+  const gameDetails = useSelector(gameDetailsSelector);
 
   const [isReady, setIsReady] = useState(false);
   
- 
-
   useEffect(() => {
     // do an initial frame data load
-    if (GAME_NAMES.includes(window.location.hash.split("/")[2] as GameName)) {
+    const SLUG_GAME_NAME =
+      GAME_NAMES.includes(window.location.hash.split("/")[2] as GameName) ? window.location.hash.split("/")[2]
+      :  GAME_NAMES.includes(window.location.hash.split("/")[3] as GameName) ? window.location.hash.split("/")[3]
+      : null
+
+    const SLUG_CHARACTER_NAME =
+    GAME_NAMES.includes(window.location.hash.split("/")[2] as GameName) ? window.location.hash.split("/")[3]
+      :  GAME_NAMES.includes(window.location.hash.split("/")[3] as GameName) ? window.location.hash.split("/")[4]
+      : null
+
+    if (SLUG_GAME_NAME) {
+      dispatch(setLandscapeCols(removeAllSpecificCancels(gameDetails, landscapeCols)))
       // @ts-ignore
-      dispatch(setActiveGame(window.location.hash.split("/")[2], true)).then(() => setIsReady(true));
-    } else if (GAME_NAMES.includes(window.location.hash.split("/")[3] as GameName)) {
-      // @ts-ignore
-      dispatch(setActiveGame(window.location.hash.split("/")[3], true)).then(() => setIsReady(true));
+      dispatch(setActiveGame(SLUG_GAME_NAME, SLUG_GAME_NAME === activeGame ? false : true)).then(() => setIsReady(true));
     } else {
       // @ts-ignore
       dispatch(setActiveGame(activeGame, false)).then(() => setIsReady(true));

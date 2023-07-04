@@ -41,14 +41,9 @@ const FrameData = () => {
 
   useEffect(() => {
     (async () => {
-
+      dispatch(setLandscapeCols(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters["playerOne"].name, slugs.characterSlug, autoSetSpecificCols, landscapeCols)));
       if (selectedCharacters["playerOne"].name !== slugs.characterSlug) {
         console.log("URL character mismatch");
-        if (activeGame === slugs.gameSlug) {
-          // this has to be dispatched twice to wipe both old characers cols out of the obj
-          dispatch(setLandscapeCols(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters["playerOne"].name, slugs.characterSlug, autoSetSpecificCols, landscapeCols)));
-          dispatch(setLandscapeCols(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters["playerTwo"].name, slugs.characterSlug, autoSetSpecificCols, landscapeCols)));
-        }
         dispatch(setPlayer("playerOne", slugs.characterSlug));
       }
       if (!localStorage.getItem("lsCurrentVersionCode") || parseInt(localStorage.getItem("lsCurrentVersionCode")) < APP_CURRENT_VERSION_CODE) {

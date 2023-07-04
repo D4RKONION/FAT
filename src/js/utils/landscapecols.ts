@@ -34,7 +34,7 @@ export const createOrderedLandscapeColsObj = (
 			keysInOrder.push(dataCategory[dataRow].dataFileKey)
 		)
 	)
-
+	
 	// loop through the provided array of columns to toggle
 	Object.keys(colsToSetArray).forEach(dataEntryKey => {
 		if (forceMode === "off") {
@@ -58,6 +58,21 @@ export const createOrderedLandscapeColsObj = (
 
 	// return the new obj
 	return newLandscapeColsInOrder
+}
+
+export const removeAllSpecificCancels = (
+	gameDetails: any,
+	currentLandscapeCols: {[key: string]: string},
+) => {
+	const allCancelsinObj = {}
+	
+	gameDetails.specificCancels.forEach(cancelObj =>
+		Object.keys(cancelObj).forEach(cancelKey =>
+			allCancelsinObj[cancelObj[cancelKey].dataFileKey] = cancelObj[cancelKey].dataTableHeader
+		)
+	)
+
+	return createOrderedLandscapeColsObj(gameDetails, currentLandscapeCols, allCancelsinObj, "off")
 }
 
 export const handleNewCharacterLandscapeCols = (
