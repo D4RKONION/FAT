@@ -12,6 +12,7 @@ stale_outputs_checked
 
 # production
 /build
+local.properties
 
 # misc
 .DS_Store

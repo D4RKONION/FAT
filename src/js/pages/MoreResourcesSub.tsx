@@ -4,9 +4,13 @@ import PageHeader from '../components/PageHeader';
 import { openOutline } from 'ionicons/icons';
 import { RES_DISCORDS_LIST, RES_APPS_LIST, RES_DOCS_LIST, RES_SOC_LIST, RES_FAT_LIST } from '../constants/MenuLists';
 import { useParams } from 'react-router';
+import { useSelector } from 'react-redux';
+import { activeGameSelector } from '../selectors';
 
 
 const MoreResourcesSub = () => {
+
+  const activeGame = useSelector(activeGameSelector);
   
   const { resourcePageSlug }: { resourcePageSlug: string } = useParams();
   const resourcePageData = {
@@ -43,15 +47,17 @@ const MoreResourcesSub = () => {
         <IonGrid fixed>
           <IonList>
               {
-                Object.keys(resourcePageData.obj).map(listHeader =>
+                Object.keys(resourcePageData.obj).filter(
+                  resourceObj => resourcePageData.obj[resourceObj].game === "any" || resourcePageData.obj[resourceObj].game === activeGame  
+                ).map(listHeader =>
                   <IonItemGroup key={`${listHeader}-options`}>
                     <IonListHeader>{listHeader}</IonListHeader>
-                    {Object.keys(resourcePageData.obj[listHeader]).map(discordItem =>
-                      <IonItem detail={false} lines="full" key={`${discordItem}-discordItem`} href={resourcePageData.obj[listHeader][discordItem].url} button>
+                      {Object.keys(resourcePageData.obj[listHeader].data).map(menuEntry => 
+                        <IonItem detail={false} lines="full" key={`${menuEntry}-menuEntry`} href={resourcePageData.obj[listHeader].data[menuEntry].url} button>
                         <IonLabel>
-                          <h2>{discordItem}</h2>
-                          {resourcePageData.obj[listHeader][discordItem].desc && 
-                            <p>{resourcePageData.obj[listHeader][discordItem].desc}</p>
+                          <h2>{menuEntry}</h2>
+                          {resourcePageData.obj[listHeader].data[menuEntry].desc && 
+                            <p>{resourcePageData.obj[listHeader].data[menuEntry].desc}</p>
 
                           }
                         </IonLabel>
