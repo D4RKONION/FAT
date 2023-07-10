@@ -10,6 +10,31 @@ import { person } from 'ionicons/icons';
 import SegmentSwitcher from '../../components/SegmentSwitcher';
 import { selectedCharactersSelector } from '../../selectors';
 
+// We used to keep multiActive arrays in the sheets, but for consistency and ease
+// it's now generated on the fly. This adds a little more computational overhead
+// but it seems to be fine
+const multiActiveGenerator = (move) => {
+  
+  let tempMultiActive = [];        
+  move.active.replaceAll("*", "(").split("(").forEach(frameChunk => {
+    if (!frameChunk.includes(")")) {
+      const mostRecentActiveFrame = Number(tempMultiActive.at(-1)) + 1 || Number(move.startup)
+      for(let i=0; i<Number(frameChunk); i++) {
+        tempMultiActive.push(mostRecentActiveFrame + i);
+      }
+    } else if (frameChunk.includes(")")) {
+      const frameGap = Number(frameChunk.split(")")[0])
+      const activeFrames = Number(frameChunk.split(")")[1])
+      const mostRecentActiveFrame = Number(tempMultiActive.at(-1)); 
+      for(let i = mostRecentActiveFrame + frameGap; i<mostRecentActiveFrame + frameGap + activeFrames; i++) {
+        tempMultiActive.push(i +1);
+      }
+    }
+  })
+
+  return tempMultiActive;
+}
+
 
 const FrameKillGenerator = () => {
   
@@ -107,6 +132,11 @@ const FrameKillGenerator = () => {
 
         // loop through the entire move set
         for (var firstOkiMove in firstOkiMoveModel) {
+          
+          // Generate multiActive frames if needed
+          if (typeof firstOkiMoveModel[firstOkiMove]["active"] === "string" && (firstOkiMoveModel[firstOkiMove]["active"].includes("(") || firstOkiMoveModel[firstOkiMove]["active"].includes("*")) && typeof firstOkiMoveModel[firstOkiMove]["startup"] === "number") {
+            firstOkiMoveModel[firstOkiMove].multiActive = multiActiveGenerator(firstOkiMoveModel[firstOkiMove])
+          }
           // First we check if a move is a viable setup move (has fixed startup/active/recovery; takes place on the ground etc.)
           if (((typeof firstOkiMoveModel[firstOkiMove]["startup"] === "number" && typeof firstOkiMoveModel[firstOkiMove]["active"] === "number") || firstOkiMoveModel[firstOkiMove]["multiActive"]) && typeof firstOkiMoveModel[firstOkiMove]["recovery"] === "number" && firstOkiMoveModel[firstOkiMove]["followUp"] !== true && firstOkiMoveModel[firstOkiMove]["moveType"] !== "alpha" && firstOkiMoveModel[firstOkiMove]["moveType"] !== "super" && !firstOkiMoveModel[firstOkiMove]["airmove"]) {
 
@@ -135,6 +165,11 @@ const FrameKillGenerator = () => {
             // Pretty much the same as oki loop one
             for (var secondOkiMove in playerOneMoves) {
 
+              // Generate multiActive frames if needed
+              if (typeof playerOneMoves[secondOkiMove]["active"] === "string" && (playerOneMoves[secondOkiMove]["active"].includes("(") || playerOneMoves[secondOkiMove]["active"].includes("*")) && typeof playerOneMoves[secondOkiMove]["startup"] === "number") {
+                playerOneMoves[secondOkiMove].multiActive = multiActiveGenerator(playerOneMoves[secondOkiMove])
+              }
+              
               if (((typeof playerOneMoves[secondOkiMove]["startup"] === "number" && typeof playerOneMoves[secondOkiMove]["active"] === "number") || playerOneMoves[secondOkiMove]["multiActive"]) && typeof playerOneMoves[secondOkiMove]["recovery"] === "number" && playerOneMoves[secondOkiMove]["followUp"] !== true && playerOneMoves[secondOkiMove]["moveType"] !== "alpha" && playerOneMoves[secondOkiMove]["moveType"] !== "super" && !playerOneMoves[secondOkiMove]["airmove"]) {
 
                 let secondOkiMoveTotalFrames;
@@ -166,6 +201,12 @@ const FrameKillGenerator = () => {
 
                 // Exactly the same as loop 2
                 for (var thirdOkiMove in playerOneMoves) {
+
+                  // Generate multiActive frames if needed
+                  if (typeof playerOneMoves[thirdOkiMove]["active"] === "string" && (playerOneMoves[thirdOkiMove]["active"].includes("(") || playerOneMoves[thirdOkiMove]["active"].includes("*")) && typeof playerOneMoves[thirdOkiMove]["startup"] === "number") {
+                    playerOneMoves[thirdOkiMove].multiActive = multiActiveGenerator(playerOneMoves[thirdOkiMove])
+                  }
+
                   if (((typeof playerOneMoves[thirdOkiMove]["startup"] === "number" && typeof playerOneMoves[thirdOkiMove]["active"] === "number") ||  playerOneMoves[thirdOkiMove]["multiActive"]) && typeof playerOneMoves[thirdOkiMove]["recovery"] === "number" && playerOneMoves[thirdOkiMove]["followUp"] !== true && playerOneMoves[thirdOkiMove]["moveType"] !== "alpha" && playerOneMoves[thirdOkiMove]["moveType"] !== "super" && !playerOneMoves[thirdOkiMove]["airmove"]) {
 
                     let thirdOkiMoveTotalFrames
@@ -224,27 +265,28 @@ const FrameKillGenerator = () => {
         }
       }
 
-      if (playerOneMoves[targetMeaty]["multiActive"]) {
+      if (typeof playerOneMoves[targetMeaty]["active"] === "string" && (playerOneMoves[targetMeaty]["active"].includes("(") || playerOneMoves[targetMeaty]["active"].includes("*")) && typeof playerOneMoves[targetMeaty]["startup"] === "number") {
+        
+        // Generate multiActive frames
+        playerOneMoves[targetMeaty].multiActive = multiActiveGenerator(playerOneMoves[targetMeaty])
         var currentActiveFrame = 1;
         let targetMeatyFrames;
+        
         // This first for loop is used to allow for late meaties.
         for (var currentLateByFramesSearch = 0; currentLateByFramesSearch <= lateByFrames; currentLateByFramesSearch++) {
           //First, perfect meaties are checked for
           if (currentLateByFramesSearch === 0) {
             // Begin the for loop. We loop through once for each active frame the targe meaty has)
             for (var frame in playerOneMoves[targetMeaty]["multiActive"]) {
-
+              
               // multiActive is a direct array of when each active frame occurs. No need for any extra calculation
               targetMeatyFrames = playerOneMoves[targetMeaty]["multiActive"][frame];
-
               moveSetLoop(currentLateByFramesSearch, targetMeatyFrames);
-
               currentActiveFrame++
             }
           } else {
             // Then we do a late meaty search. Late meaties are only ever going to happen on the first active frame, so
             //we don't need to loop this time
-            console.log("loop: " + currentLateByFramesSearch)
             currentActiveFrame = 1;
             targetMeatyFrames = parseInt(playerOneMoves[targetMeaty]["startup"]);
             moveSetLoop(currentLateByFramesSearch, targetMeatyFrames)
@@ -281,7 +323,6 @@ const FrameKillGenerator = () => {
             } else {
               // Then we do a late meaty search. Late meaties are only ever going to happen on the first active frame, so
               //we don't need to loop this time
-              console.log("loop: " + currentLateByFramesSearch)
               currentActiveFrame = 1;
               targetMeatyFrames = parseInt(playerOneMoves[targetMeaty]["startup"]);
               moveSetLoop(currentLateByFramesSearch, targetMeatyFrames)
@@ -343,7 +384,6 @@ const FrameKillGenerator = () => {
             } else {
               // Then we do a late meaty search. Late meaties are only ever going to happen on the first active frame, so
               //we don't need to loop this time
-              console.log("loop: " + currentLateByFramesSearch)
               currentActiveFrame = 1;
               targetMeatyFrames = parseInt(playerOneMoves[targetMeaty]["startup"]);
               moveSetLoop(currentLateByFramesSearch, targetMeatyFrames)
