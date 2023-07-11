@@ -33,7 +33,9 @@ const FrameDataGate = ({ children }: FrameDataGateProps) => {
       : null
 
     if (SLUG_GAME_NAME) {
-      dispatch(setLandscapeCols(removeAllSpecificCancels(gameDetails, landscapeCols)))
+      if (gameDetails) {
+        dispatch(setLandscapeCols(removeAllSpecificCancels(gameDetails, landscapeCols)))
+      }
       // @ts-ignore
       dispatch(setActiveGame(SLUG_GAME_NAME, SLUG_GAME_NAME === activeGame ? false : true)).then(() => setIsReady(true));
     } else {
