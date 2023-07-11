@@ -77,6 +77,12 @@
         border-bottom: 1px solid var(--fat-surface-border);
         color: var(--fat-surface-contrast);
 
+        &.compact {
+          overflow: clip;
+          white-space: pre;
+          text-overflow: ellipsis;
+        }
+
         &:last-child {
           border-right: none;
         }

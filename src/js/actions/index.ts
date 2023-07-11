@@ -148,6 +148,10 @@ export const setLandscapeCols = (listOfCols: {[key: string]: string}) => ({
   type: 'SET_LANDSCAPE_COLS',
   listOfCols
 })
+export const setCompactView = (compactViewOn: Boolean) => ({
+  type: 'SET_COMPACT_VIEW',
+  compactViewOn,
+})
 export const setOnBlockColours = (coloursOn: Boolean) => ({
   type: 'SET_ON_BLOCK_COLOURS',
   coloursOn,

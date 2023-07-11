@@ -28,6 +28,8 @@ export const themeColorSelector =  (state: RootState) => state.themeColorState;
 
 export const themesOwnedSelector =  (state: RootState) => state.themesOwnedState;
 
+export const compactViewSelector =  (state: RootState) => state.compactViewState;
+
 export const onBlockColoursSelector =  (state: RootState) => state.onBlockColoursState;
 
 export const counterHitSelector =  (state: RootState) => state.counterHitState;

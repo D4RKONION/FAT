@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { IonButton, IonButtons, IonIcon, IonItem, IonList, IonPopover, IonLabel, IonToggle } from '@ionic/react';
 import { ellipsisHorizontal, ellipsisVertical } from 'ionicons/icons';
 import '../../style/components/PopoverButton.scss';
-import { setModalVisibility, setOnBlockColours, setCounterHit, setRawDriveRush, setVsBurntoutOpponent } from '../actions';
-import { activeGameSelector, counterHitSelector, modeNameSelector, onBlockColoursSelector, rawDriveRushSelector, vsBurntoutOpponentSelector } from '../selectors';
+import { setModalVisibility, setOnBlockColours, setCounterHit, setRawDriveRush, setVsBurntoutOpponent, setCompactView } from '../actions';
+import { activeGameSelector, compactViewSelector, counterHitSelector, modeNameSelector, onBlockColoursSelector, rawDriveRushSelector, vsBurntoutOpponentSelector } from '../selectors';
 
 
 
@@ -12,6 +12,7 @@ import { activeGameSelector, counterHitSelector, modeNameSelector, onBlockColour
 const PopoverButton = () => {
 
   const modeName = useSelector(modeNameSelector);
+  const compactView = useSelector(compactViewSelector);
   const onBlockColours = useSelector(onBlockColoursSelector);
   const counterHit = useSelector(counterHitSelector);
   const rawDriveRush = useSelector(rawDriveRushSelector);
@@ -43,6 +44,12 @@ const PopoverButton = () => {
             <>
             <IonItem lines="none"  onClick={() => { dispatch(setModalVisibility({ currentModal: "landscapeOptions", visible: true })); setPopoverVisible({open: false, event: undefined})}} button>
               Landscape Columns
+            </IonItem>
+            <IonItem lines="none">
+              <IonLabel>
+                Compact
+              </IonLabel>
+              <IonToggle checked={!!compactView} onIonChange={e => dispatch(setCompactView(e.detail.checked)) } />
             </IonItem>
             <IonItem lines="none">
               <IonLabel>

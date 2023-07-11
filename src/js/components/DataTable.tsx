@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router'
 import '../../style/components/DataTable.scss';
 import { setModalVisibility, setPlayerAttr } from '../actions';
-import { activeGameSelector, activePlayerSelector, counterHitSelector, dataDisplaySettingsSelector, landscapeColsSelector, onBlockColoursSelector, orientationSelector, rawDriveRushSelector, selectedCharactersSelector, themeBrightnessSelector, vsBurntoutOpponentSelector } from '../selectors';
+import { activeGameSelector, activePlayerSelector, counterHitSelector, dataDisplaySettingsSelector, landscapeColsSelector, compactViewSelector, onBlockColoursSelector, orientationSelector, rawDriveRushSelector, selectedCharactersSelector, themeBrightnessSelector, vsBurntoutOpponentSelector } from '../selectors';
 
 const portraitCols: {[key: string]: string} = {startup: "S", active: "A", recovery: "R", onHit: "oH", onBlock: "oB",};
 
@@ -20,6 +20,7 @@ const DataTable = ({ searchText, previewTable }: DataTableProps) => {
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const activePlayer = useSelector(activePlayerSelector);
   const landscapeCols = useSelector(landscapeColsSelector);
+  const compactView = useSelector(compactViewSelector);
   const onBlockColours = useSelector(onBlockColoursSelector);
   const counterHit = useSelector(counterHitSelector);
   const rawDriveRush = useSelector(rawDriveRushSelector);
@@ -148,29 +149,33 @@ const DataTable = ({ searchText, previewTable }: DataTableProps) => {
                   <span
                     key={detailKey}
 
-                    style={
-                      activeGame === "SF6" && (vsBurntoutOpponent && (rawDriveRush && moveData.moveType === "normal")) && detailKey === "onBlock" && typeof moveData[detailKey] !== "string" && !isNaN(moveData[detailKey]) ? {backgroundColor: "var(--fat-datatable-very-plus"}
-                      : activeGame === "SF6" && (vsBurntoutOpponent || (rawDriveRush && moveData.moveType === "normal")) && detailKey === "onBlock" && typeof moveData[detailKey] !== "string" && !isNaN(moveData[detailKey]) ? {backgroundColor: "var(--fat-datatable-just-plus"}
-                      : activeGame === "SF6" && (rawDriveRush && moveData.moveType === "normal") && detailKey === "onHit" && typeof moveData[detailKey] !== "string" && !isNaN(moveData[detailKey]) ? {backgroundColor: "var(--fat-datatable-just-plus"}
-                      : activeGame === "SF6" && rawDriveRush && detailKey === "onHit" && (moveData.afterDRoH) ? {backgroundColor: "var(--fat-datatable-just-plus"}
-                      : activeGame === "GGST" && counterHit && detailKey === "onHit" && moveData.chAdv ? (themeBrightness === "light" ? {backgroundColor:  "var(--fat-datatable-very-pun"} : {backgroundColor:  "var(--fat-datatable-very-pun"})
-                      : activeGame === "SFV" && counterHit && detailKey === "onHit" && moveData.ccState ? (themeBrightness === "light" ? {backgroundColor:  "var(--fat-datatable-very-pun"} : {backgroundColor:  "var(--fat-datatable-very-pun"})
-                      : activeGame !== "3S"  && activeGame !== "GGST" && counterHit && detailKey === "onHit" && typeof moveData[detailKey] !== "string" && !isNaN(moveData[detailKey]) ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-just-pun"} : {backgroundColor:  "var(--fat-datatable-just-pun"})
-                      :	onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < -8 ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-serverely-pun"} : {backgroundColor:  "var(--fat-datatable-serverely-pun"})
-                      : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < -5 ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-very-pun"} : {backgroundColor:  "var(--fat-datatable-very-pun"})
-                      // SF6 fastest moves are 4f generally, so we need to colour for < -3 instead of < -2
-                      : activeGame === "SF6" && onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < -3 ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-just-pun"} : {backgroundColor:  "var(--fat-datatable-just-pun"})
-                      : activeGame !== "SF6" && onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < -2 ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-just-pun"} : {backgroundColor:  "var(--fat-datatable-just-pun"})
-                      : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < 1 ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-not-pun"} : {backgroundColor:  "var(--fat-datatable-not-pun"})
-                      : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && (moveData[detailKey] > 2 || moveData[detailKey] === "KD") ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-very-plus"} : {backgroundColor:  "var(--fat-datatable-very-plus"})
-                      : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && (moveData[detailKey] > 0) ? (themeBrightness === "light" ? {backgroundColor: "var(--fat-datatable-just-plus"} : {backgroundColor:  "var(--fat-datatable-just-plus"})
-                      : null
-                    }
+                    style={{
+
+                      backgroundColor: 
+                        activeGame === "SF6" && (vsBurntoutOpponent && (rawDriveRush && moveData.moveType === "normal")) && detailKey === "onBlock" && typeof moveData[detailKey] !== "string" && !isNaN(moveData[detailKey]) ? "var(--fat-datatable-very-plus"
+                        : activeGame === "SF6" && (vsBurntoutOpponent || (rawDriveRush && moveData.moveType === "normal")) && detailKey === "onBlock" && typeof moveData[detailKey] !== "string" && !isNaN(moveData[detailKey]) ? "var(--fat-datatable-just-plus"
+                        : activeGame === "SF6" && (rawDriveRush && moveData.moveType === "normal") && detailKey === "onHit" && typeof moveData[detailKey] !== "string" && !isNaN(moveData[detailKey]) ? "var(--fat-datatable-just-plus"
+                        : activeGame === "SF6" && rawDriveRush && detailKey === "onHit" && (moveData.afterDRoH) ? "var(--fat-datatable-just-plus"
+                        : activeGame === "GGST" && counterHit && detailKey === "onHit" && moveData.chAdv ? (themeBrightness === "light" ? "var(--fat-datatable-very-pun" : "var(--fat-datatable-very-pun")
+                        : activeGame === "SFV" && counterHit && detailKey === "onHit" && moveData.ccState ? (themeBrightness === "light" ? "var(--fat-datatable-very-pun" : "var(--fat-datatable-very-pun")
+                        : activeGame !== "3S"  && activeGame !== "GGST" && counterHit && detailKey === "onHit" && typeof moveData[detailKey] !== "string" && !isNaN(moveData[detailKey]) ? (themeBrightness === "light" ? "var(--fat-datatable-just-pun" : "var(--fat-datatable-just-pun")
+                        :	onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < -8 ? (themeBrightness === "light" ? "var(--fat-datatable-serverely-pun" : "var(--fat-datatable-serverely-pun")
+                        : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < -5 ? (themeBrightness === "light" ? "var(--fat-datatable-very-pun" : "var(--fat-datatable-very-pun")
+                        // SF6 fastest moves are 4f generally, so we need to colour for < -3 instead of < -2
+                        : activeGame === "SF6" && onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < -3 ? (themeBrightness === "light" ? "var(--fat-datatable-just-pun" : "var(--fat-datatable-just-pun")
+                        : activeGame !== "SF6" && onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < -2 ? (themeBrightness === "light" ? "var(--fat-datatable-just-pun" : "var(--fat-datatable-just-pun")
+                        : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < 1 ? (themeBrightness === "light" ? "var(--fat-datatable-not-pun" : "var(--fat-datatable-not-pun")
+                        : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && (moveData[detailKey] > 2 || moveData[detailKey] === "KD") ? (themeBrightness === "light" ? "var(--fat-datatable-very-plus" : "var(--fat-datatable-very-plus")
+                        : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && (moveData[detailKey] > 0) ? (themeBrightness === "light" ? "var(--fat-datatable-just-plus" : "var(--fat-datatable-just-plus")
+                        : null
+                    }}
 
                     className={`cell 
                       ${selectedCharacters[activePlayer].vtState !== "normal" && ((moveData.changedValues && moveData.changedValues.includes(detailKey)) || moveData.uniqueInVt) && !displayOnlyStateMoves ? "triggered-data"
                       : selectedCharacters[activePlayer].vtState !== "normal" && !displayOnlyStateMoves ? "untriggered-data"
                       : "normal-state"}
+
+                      ${compactView && "compact"}
                     `}
                   >
                     {

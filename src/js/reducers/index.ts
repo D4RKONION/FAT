@@ -7,6 +7,7 @@ import { frameDataReducer } from './framedata';
 import { gameDetailsReducer } from './gamedetails';
 import { activePlayerReducer } from './activeplayer';
 import { landscapeColsReducer } from './landscapecols';
+import { compactViewReducer } from './compactview';
 import { onBlockColoursReducer } from './onblockcolours';
 import { counterHitReducer } from './counterhit';
 import { rawDriveRushReducer } from './rawdriverush';
@@ -39,6 +40,7 @@ const rootReducer = combineReducers({
   themeAccessibilityState: themeAccessibilityReducer,
   themeColorState: themeColorReducer,
   themesOwnedState: themesOwnedReducer,
+  compactViewState: compactViewReducer,
   onBlockColoursState: onBlockColoursReducer,
   counterHitState: counterHitReducer,
   rawDriveRushState: rawDriveRushReducer,
