@@ -8,7 +8,7 @@ import '../../../style/components/FAB.scss'
 import { setActiveFrameDataPlayer, setModalVisibility } from '../../actions';
 import { person } from 'ionicons/icons';
 import SegmentSwitcher from '../../components/SegmentSwitcher';
-import { selectedCharactersSelector } from '../../selectors';
+import { activeGameSelector, selectedCharactersSelector } from '../../selectors';
 
 // We used to keep multiActive arrays in the sheets, but for consistency and ease
 // it's now generated on the fly. This adds a little more computational overhead
@@ -39,14 +39,25 @@ const multiActiveGenerator = (move) => {
 const FrameKillGenerator = () => {
   
   const selectedCharacters = useSelector(selectedCharactersSelector);
+  const activeGame = useSelector(activeGameSelector);
 
-  const dispatch = useDispatch();  
+  const dispatch = useDispatch();
+
+  const GAME_KNOCKDOWN_LABELS = {
+    "3S": {disabled: "disabled"},
+    "USF4": {disabled: "disabled"},
+    "SFV": {kdr: "Quick", kdrb: "Back", both: "Q&B", kd: "None"},
+    "SF6": {onHit: "Normal Hit", onPC: "Punish Counter"},
+    "GGST": {disabled: "disabled"},
+  }
   
-  const [recoveryType, setRecoveryType] = useState("kdr");
+  const [recoveryType, setRecoveryType] = useState(Object.keys(GAME_KNOCKDOWN_LABELS[activeGame])[0]);
   const [knockdownMove, setKnockdownMove] = useState(null);
   const [lateByFrames, setLateByFrames] = useState(0);
   const [specificSetupMove, setSpecificSetupMove] = useState("anything");
   const [targetMeaty, setTargetMeaty] = useState(null);
+
+  
 
   const [okiResults, setOkiResults] = useState({});
 
@@ -64,6 +75,10 @@ const FrameKillGenerator = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[selectedCharacters]);
+
+  useEffect(() => {
+    setRecoveryType(Object.keys(GAME_KNOCKDOWN_LABELS[activeGame])[0])
+  }, [activeGame])
 
   useMemo(() => {
     if (typeof knockdownMove === "string" && typeof targetMeaty === "string" && typeof playerOneMoves[knockdownMove] !== "undefined" && typeof playerOneMoves[targetMeaty] !== "undefined") {
@@ -85,8 +100,10 @@ const FrameKillGenerator = () => {
       if (recoveryType === "both") {
         knockdownFrames = playerOneMoves[knockdownMove]["kdr"] + 1;
         coverBothKDs = true;
-      } else {
+      } else if (activeGame === "SFV") {
         knockdownFrames = playerOneMoves[knockdownMove][recoveryType] + 1;
+      } else if (activeGame === "SF6") {
+        knockdownFrames = Number(playerOneMoves[knockdownMove][recoveryType].split("KD +").at(-1)) + 1;
       }
 
       if (playerOneMoves[targetMeaty]["atkLvl"] === "T" ) {
@@ -415,6 +432,26 @@ const FrameKillGenerator = () => {
     }
   },[recoveryType, knockdownMove, lateByFrames, specificSetupMove, targetMeaty, playerOneMoves, selectedCharacters.playerOne.stats.fDash]);
 
+  if (Object.keys(GAME_KNOCKDOWN_LABELS[activeGame])[0] === "disabled") {
+    return(
+      <IonPage>
+        <PageHeader
+          componentsToShow={{back: true, popover: true}}
+          title={`Oki - ${selectedCharacters.playerOne.name}`}
+        />
+        
+
+        <IonContent id="FrameKillGenerator" className="calculators">
+        <IonGrid fixed>
+        <div>
+          <h4>Sorry, this calculator doesn't work with {activeGame}</h4>
+        </div>
+        </IonGrid>
+      </IonContent>
+      </IonPage>
+      
+ )
+  }
   return (
     <IonPage>
       <PageHeader
@@ -429,7 +466,7 @@ const FrameKillGenerator = () => {
             key={"Oki KD type"}
             valueToTrack={recoveryType}
             segmentType={"recovery-type"}
-            labels={ {kdr: "Quick", kdrb: "Back", both: "Q&B", kd: "None"}}
+            labels={ GAME_KNOCKDOWN_LABELS[activeGame] }
             clickFunc={ (eventValue) => recoveryType !== eventValue &&
               setRecoveryType(eventValue)}
           />
@@ -446,8 +483,12 @@ const FrameKillGenerator = () => {
               onIonChange={e => setKnockdownMove(e.detail.value)}
             >
               <IonSelectOption key="knockdownMove-select" value={null}>Select a move</IonSelectOption>
-              {Object.keys(playerOneMoves).filter(move =>
-                playerOneMoves[move].kd|| playerOneMoves[move].kdr || playerOneMoves[move].kdrb
+              {Object.keys(playerOneMoves).filter(move => 
+                activeGame === "SFV" ?
+                  playerOneMoves[move].kd || playerOneMoves[move].kdr || playerOneMoves[move].kdrb
+                : activeGame === "SF6" ?
+                  playerOneMoves[move][recoveryType] && isNaN(playerOneMoves[move][recoveryType]) && !isNaN(Number(playerOneMoves[move][recoveryType].split("KD +").at(-1)))
+                : null
               ).map(move =>
                 <IonSelectOption key={`knockdownMove-${move}`} value={move}>{move}</IonSelectOption>
               )
@@ -539,7 +580,7 @@ const FrameKillGenerator = () => {
                       <p>KD Advantage (Q): <strong>{playerOneMoves[knockdownMove]["kdr"]}</strong></p>
                       <p>KD Advantage (B): <strong>{playerOneMoves[knockdownMove]["kdrb"]}</strong></p>
                     </>
-                  : <p>KD Advantage: <strong>{playerOneMoves[knockdownMove][recoveryType]}</strong></p>
+                  : <p>KD Advantage: <strong>{playerOneMoves[knockdownMove][recoveryType] || playerOneMoves[knockdownMove].onHit.split("KD +").at(-1)}</strong></p>
                 }
                 </>
 

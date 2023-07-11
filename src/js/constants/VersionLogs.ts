@@ -22,6 +22,15 @@ export const UPDATABLE_GAMES_APP_CODES = {
 
 
 export const VERSION_LOGS = {
+  "3.5.6": {
+    "New Features": [
+      "Oki Calculator now works with SF6",
+      "Added more resources for different games to the 'More Resources' page."
+    ],
+    "Bug Fixes": [
+      "Fixed a bug where chosen landscape columns would often reset"
+    ]
+  },
   "3.5.5": {
     "New Features": [
       "SF6 is now the default game on first run",
