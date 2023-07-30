@@ -25,3 +25,16 @@ local.properties
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# fastlane
+
+**/fastlane/report.xml
+**/fastlane/Preview.html
+**/fastlane/screenshots
+**/fastlane/metadata
+**/fastlane/README.md
+**/fastlane/pc-api*.json
+**/fastlane/*.p8
+**/fastlane/.env
+ios/App/*.ipa
+ios/App/*.dSYM.zip

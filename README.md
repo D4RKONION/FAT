@@ -4,7 +4,7 @@ Welcome to FAT! The most popular SFV app in the world! You can check out live ve
 [Webapp](https://fullmeter.com/fatonline)
 
 [Mobile App](https://fullmeter.com/fat)
-  
+
 ## Contributing to FAT
 
 ### Developing
@@ -17,7 +17,7 @@ Frame Data corrections need to be fixed via our team's spreadsheet. We don't dir
 For more details, you can read the license but essentially anything you make with FAT's source code
 - must be open source as well
 - must link to this repository in your own repository
-- must visibly credit FAT in the final product 
+- must visibly credit FAT in the final product
 
 ## Developing for FAT
 FAT is an Ionic React app built with Capacitor. You'll need npm to get going and then
@@ -69,9 +69,26 @@ and then doing
 ```
 ionic build
 ```
+
+### iOS App Store
+
+> Deployment of the iOS app can only be done by the core developers who have access to the team's Apple Developer account
+
+Deployment of release builds on iOS is done using [Fastlane](https://fastlane.tools). To use this, you will need to follow [Fastlane's setup docs](https://docs.fastlane.tools/getting-started/ios/setup/). Once you've done this, follow these steps to get set up:
+
+- Copy `ios/App/fastlane/.env.sample` to `ios/App/fastlane/.env` and replace it with the actual values from the Apple Developer site
+- Download the existing metadata with `fastlane deliver download_metadata`
+- Download the existing screenshots with `fastlane deliver download_screenshots --use_live_version true`
+
+Once you have all this set up, you can release a new version:
+
+- Increase the version number in Xcode
+- Update the changelog in `ios/App/fastlane/metadata/en-US/release_notes.txt`
+- Run `npm run ios:release`
+
 ## Adding a new game
 
-Changes to `./src/js/actions/index.ts` 
+Changes to `./src/js/actions/index.ts`
 - Import the framedataJSON
 - Dispatch the frame data in getFrameData()
 - If the game requires state switchers (like VT) amend setPlayer()

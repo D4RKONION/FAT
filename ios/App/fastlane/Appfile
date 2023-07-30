@@ -1,0 +1,4 @@
+app_identifier("com.fullmeter.fat") # The bundle identifier of your app
+apple_id(ENV['APPLE_ID_EMAIL']) # Your Apple email address
+itc_team_id(ENV['APPLE_ITC_TEAM_ID']) # App Store Connect Team ID
+team_id(ENV['APPLE_DEVELOPER_TEAM_ID']) # Developer Portal Team ID
