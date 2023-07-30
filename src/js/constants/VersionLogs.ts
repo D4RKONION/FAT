@@ -14,8 +14,8 @@ export const UPDATABLE_GAMES_APP_CODES = {
     "GameDetails": 3
   },
   "SF6": {
-    "FrameData": 11,
-    "GameDetails": 3
+    "FrameData": 19,
+    "GameDetails": 4
   }
 }
 
@@ -24,6 +24,7 @@ export const UPDATABLE_GAMES_APP_CODES = {
 export const VERSION_LOGS = {
   "3.5.6": {
     "New Features": [
+      "SF6: Added Rashid",
       "Added Compact View, so large cells are cut short. This can be switched off using the menu in the top right",
       "Oki Calculator now works with SF6",
       "Added more resources for different games to the 'More Resources' page."
