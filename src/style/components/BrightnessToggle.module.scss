@@ -1,12 +1,12 @@
 .brightnessToggle {
-	&[aria-checked=false]::part(handle) {
+	&[checked=false]::part(handle) {
 		border-radius: 0;
 		box-shadow: none;
 		background: url(../../images/icons/light.png);
 		background-size: cover;
 	}
 
-	&[aria-checked=true]::part(handle) {
+	&[checked=true]::part(handle) {
 		border-radius: 0;
 		box-shadow: none;
 		background: url(../../images/icons/dark.png);

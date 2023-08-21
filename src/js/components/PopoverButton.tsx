@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { IonButton, IonButtons, IonIcon, IonItem, IonList, IonPopover, IonLabel, IonToggle } from '@ionic/react';
+import { IonButton, IonButtons, IonIcon, IonItem, IonList, IonPopover, IonToggle } from '@ionic/react';
 import { ellipsisHorizontal, ellipsisVertical } from 'ionicons/icons';
 import '../../style/components/PopoverButton.scss';
 import { setModalVisibility, setOnBlockColours, setCounterHit, setRawDriveRush, setVsBurntoutOpponent, setCompactView } from '../actions';
@@ -45,43 +45,30 @@ const PopoverButton = () => {
             <IonItem lines="none"  onClick={() => { dispatch(setModalVisibility({ currentModal: "landscapeOptions", visible: true })); setPopoverVisible({open: false, event: undefined})}} button>
               Landscape Columns
             </IonItem>
+
             <IonItem lines="none">
-              <IonLabel>
-                Compact
-              </IonLabel>
-              <IonToggle checked={!!compactView} onIonChange={e => dispatch(setCompactView(e.detail.checked)) } />
+              <IonToggle checked={!!compactView} onIonChange={e => dispatch(setCompactView(e.detail.checked)) } >Compact</IonToggle>
             </IonItem>
-            <IonItem lines="none">
-              <IonLabel>
-                oB Colours
-              </IonLabel>
-              <IonToggle checked={!!onBlockColours} onIonChange={e => dispatch(setOnBlockColours(e.detail.checked)) } />
+
+            <IonItem lines="none">  
+              <IonToggle checked={!!onBlockColours} onIonChange={e => dispatch(setOnBlockColours(e.detail.checked)) } >oB Colours</IonToggle>
             </IonItem>
             {
               activeGame !== "3S" &&
               <IonItem lines="none">
-                <IonLabel>
-                  Counter Hit
-                </IonLabel>
-                <IonToggle checked={!!counterHit} onIonChange={e => dispatch(setCounterHit(e.detail.checked)) } />
+                <IonToggle checked={!!counterHit} onIonChange={e => dispatch(setCounterHit(e.detail.checked)) } >Counter Hit</IonToggle>
               </IonItem>
             }
             {
               activeGame === "SF6" &&
               <>
               <IonItem lines="none">
-                <IonLabel>
-                  Raw DR
-                </IonLabel>
-                <IonToggle checked={!!rawDriveRush} onIonChange={e => dispatch(setRawDriveRush(e.detail.checked)) } />
+                <IonToggle checked={!!rawDriveRush} onIonChange={e => dispatch(setRawDriveRush(e.detail.checked)) } >Raw DR</IonToggle>
               </IonItem>
 
               <IonItem lines="none">
-              <IonLabel>
-                VS Burnout
-              </IonLabel>
-              <IonToggle checked={!!vsBurntoutOpponent} onIonChange={e => dispatch(setVsBurntoutOpponent(e.detail.checked)) } />
-            </IonItem>
+                <IonToggle checked={!!vsBurntoutOpponent} onIonChange={e => dispatch(setVsBurntoutOpponent(e.detail.checked)) }>VS Burnout</IonToggle>
+              </IonItem>
             </>
             }
 

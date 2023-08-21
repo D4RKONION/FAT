@@ -32,7 +32,7 @@ const FrameTrapLister = () => {
         <IonGrid fixed>
           <IonItem>
             <IonLabel position="fixed">Frame Gap</IonLabel>
-            <IonInput slot="end" type="number" value={frameGap} placeholder="Enter Number" onIonChange={e => setFrameGap(!!parseInt(e.detail.value) &&  parseInt(e.detail.value))}></IonInput>
+            <IonInput slot="end" type="number" value={frameGap} placeholder="Enter Number" onIonInput={e => setFrameGap(!!parseInt(e.detail.value) &&  parseInt(e.detail.value))}></IonInput>
           </IonItem>
           {/* TODO: return a message if the array is empty */}
           <IonList>

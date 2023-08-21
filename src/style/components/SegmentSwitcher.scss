@@ -21,6 +21,8 @@
     }
     &.stat-chooser {
       margin: 10px 0;
+      max-width: 100%;
+      width: fit-content;
     }
   }
 

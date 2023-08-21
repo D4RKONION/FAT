@@ -43,6 +43,14 @@ const YAKSHA_HEADERS = [
 ]
 
 const CHARACTER_NAME_DICTIONARY = {
+  "SF6": {
+    "chun": "Chun-Li",
+    "e": "E.Honda",
+    "kim": "Kimberly",
+    "gief": "Zangief",
+    "sim": "Dhalsim",
+    "dj": "DeeJay",
+  },
   "SFV": {
     "chun": "Chun-Li",
     "e": "E.Honda", 
@@ -137,7 +145,7 @@ const Yaksha = () => {
       <IonContent>
         <IonGrid fixed>
         <IonItem>
-          <IonInput clearInput onKeyUp={(event) => event.key === "Enter" && searchHandler()} value={searchbarText} placeholder="charactername move" onIonChange={e => setSearchbarText(e.detail.value)}></IonInput>
+          <IonInput clearInput onKeyUp={(event) => event.key === "Enter" && searchHandler()} value={searchbarText} placeholder="charactername move" onIonInput={e => setSearchbarText(e.detail.value)}></IonInput>
           <IonIcon color="primary" slot="end" icon={searchOutline} onClick={() => searchHandler()}
           ></IonIcon>
         </IonItem>

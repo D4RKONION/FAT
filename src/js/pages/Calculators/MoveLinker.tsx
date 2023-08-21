@@ -87,10 +87,7 @@ const MoveLinker = () => {
           {
             activeGame !== "3S" &&
             <IonItem lines="full">
-              <IonLabel>
-                Counter Hit
-              </IonLabel>
-              <IonToggle checked={counterHitState} onIonChange={e => setCounterHitState(e.detail.checked)} />
+              <IonToggle checked={counterHitState} onIonChange={e => setCounterHitState(e.detail.checked)}>Counter Hit</IonToggle>
             </IonItem>
           }
 
@@ -98,7 +95,7 @@ const MoveLinker = () => {
 
             {playerOneMoves[firstMove] &&
               <>
-                <IonItem lines="full" class="selected-move-info">
+                <IonItem lines="full" className="selected-move-info">
                   <IonLabel>
                     <h3>First Move</h3>
                     <h2>{firstMove}</h2>

@@ -197,7 +197,7 @@ const StringInterrupter = () => {
           </IonItem>
           {playerTwoMoves[firstMove] && playerTwoMoves[secondMove] &&
             <>
-              <IonItem lines="full" class="selected-move-info">
+              <IonItem lines="full" className="selected-move-info">
                 <IonLabel>
                   <h3>First Move</h3>
                   <h2>{firstMove}</h2>

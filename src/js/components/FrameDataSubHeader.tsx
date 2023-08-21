@@ -99,7 +99,7 @@ const FrameDataSubHeader = ({ charName, charStats, activeGame }: FrameDataSubHea
 					)
 				: <IonCol key={`stat-entry-hashtag`} className="stat-entry">
 						<h2>Did you get that sick Twitter tech??</h2>
-						<p style={{margin: "2px 0 -2px"}}>The sickest twitter tech is <a target="_blank" href="https://twitter.com/D4RK_ONION" style={{color: "inherit"}}>following me</a>... #shameless</p>
+						<p style={{margin: "2px 0 -2px"}}>The sickest twitter tech is <a target="_blank" rel="noreferrer" href="https://twitter.com/D4RK_ONION" style={{color: "inherit"}}>following me</a>... #shameless</p>
 					</IonCol>
 				}
 			</IonRow>

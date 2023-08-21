@@ -80,7 +80,7 @@ const MovePunisher = () => {
           </IonItem>
 
           {playerTwoMoves[blockedMove] &&
-              <IonItem lines="full" class="selected-move-info">
+              <IonItem lines="full" className="selected-move-info">
                 <IonLabel>
                   <h3>Blocked Move</h3>
                   <h2>{blockedMove}</h2>

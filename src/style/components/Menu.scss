@@ -82,8 +82,13 @@
           color: white;
           --background: #ffffff00;
           &.ios {
-            margin: 0;
+            &::part(native) {
+            min-height: 0px;
             height: 32px;
+            }
+            &.button-solid {
+              margin: 0;
+            }
           }
         }
         ion-col > p {
@@ -102,6 +107,12 @@
         }
         ion-col {
           margin: 0;
+          &:first-child {
+            z-index: 2;
+          }
+          &.ios{
+            height: 65px;
+          }
 
           ion-button {
             color: #fffffff1;
@@ -172,9 +183,10 @@ ion-menu {
     }
 
     ion-item {
+      --transition: none;
       --padding-start: 16px;
       --padding-end: 16px;
-      --min-height: 50px;
+      --min-height: 60px;
 
       ion-icon {
         font-size: 24px;

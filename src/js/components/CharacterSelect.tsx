@@ -1,4 +1,4 @@
-import { IonContent, IonModal, IonRouterContext } from '@ionic/react';
+import { IonModal, IonRouterContext } from '@ionic/react';
 import { useContext, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 

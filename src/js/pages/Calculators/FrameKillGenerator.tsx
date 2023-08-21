@@ -78,6 +78,7 @@ const FrameKillGenerator = () => {
 
   useEffect(() => {
     setRecoveryType(Object.keys(GAME_KNOCKDOWN_LABELS[activeGame])[0])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeGame])
 
   useMemo(() => {
@@ -430,6 +431,7 @@ const FrameKillGenerator = () => {
       }
 
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[recoveryType, knockdownMove, lateByFrames, specificSetupMove, targetMeaty, playerOneMoves, selectedCharacters.playerOne.stats.fDash]);
 
   if (Object.keys(GAME_KNOCKDOWN_LABELS[activeGame])[0] === "disabled") {
@@ -570,7 +572,7 @@ const FrameKillGenerator = () => {
           </IonItem>
 
           {playerOneMoves[knockdownMove] && playerOneMoves[targetMeaty] &&
-            <IonItem lines="full" class="selected-move-info">
+            <IonItem lines="full" className="selected-move-info">
               <IonLabel>
                 <h3>Knockdown with</h3>
                 <h2>{knockdownMove}</h2>

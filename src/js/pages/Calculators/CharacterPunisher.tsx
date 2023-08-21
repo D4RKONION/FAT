@@ -67,7 +67,7 @@ const CharacterPunisher = () => {
 
             {playerOneMoves[punishingMove] &&
               <>
-                <IonItem lines="full" class="selected-move-info">
+                <IonItem lines="full" className="selected-move-info">
                   <IonLabel>
                     <h3>Punish With</h3>
                     <h2>{punishingMove}</h2>

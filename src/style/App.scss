@@ -14,7 +14,7 @@ ion-button.button.button-default.button-solid {
 }
 ion-toggle {
   --handle-background: var(--fat-toggle-handle-background);
-  --background-checked: var(--fat-toggle-background-checked);
+  --track-background-checked: var(--fat-toggle-background-checked);
   --handle-background-checked: var(--fat-toggle-handle-background-checked);
 }
 
@@ -78,4 +78,8 @@ ion-alert {
 
 ion-popover::part(arrow) {
   --background: var(--fat-popover-bg);
+}
+
+ion-item {
+  --transition: none;
 }

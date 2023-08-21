@@ -66,7 +66,7 @@ const PageHeader = ( { componentsToShow, buttonsToShow, title, onSearchHandler, 
         ))}
         
         {componentsToShow && componentsToShow.search
-          ? <IonSearchbar value={searchText} onIonChange={e => onSearchHandler(e.detail.value!)} placeholder={title}></IonSearchbar>
+          ? <IonSearchbar value={searchText} onIonInput={e => onSearchHandler(e.detail.value!)} placeholder={title}></IonSearchbar>
           : <IonTitle>{title}</IonTitle>
         }
        

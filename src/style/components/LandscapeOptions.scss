@@ -5,6 +5,10 @@
       color: var(--fat-ionlist-header);
       border-color: var(--fat-ionlist-border);
     }
+    ion-item-divider.ios.item {
+      --background: var(--fat-ionlist-thick-header);
+      color: var(--fat-ionlist-header);
+    }
     ion-item {
       --border-color: var(--fat-ionlist-border);
       &:last-child {
@@ -15,7 +19,7 @@
       }
     }
     ion-checkbox {
-      --background-checked: var(--fat-checkbox-checked);
+      --checkbox-background-checked: var(--fat-checkbox-checked);
       --border-color-checked: var(--fat-checkbox-checked);
       --border-color: var(--fat-primary);
     }

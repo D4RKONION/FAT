@@ -27,11 +27,6 @@ const FrameDataGate = ({ children }: FrameDataGateProps) => {
       :  GAME_NAMES.includes(window.location.hash.split("/")[3] as GameName) ? window.location.hash.split("/")[3]
       : null
 
-    const SLUG_CHARACTER_NAME =
-    GAME_NAMES.includes(window.location.hash.split("/")[2] as GameName) ? window.location.hash.split("/")[3]
-      :  GAME_NAMES.includes(window.location.hash.split("/")[3] as GameName) ? window.location.hash.split("/")[4]
-      : null
-
     if (SLUG_GAME_NAME) {
       if (gameDetails) {
         dispatch(setLandscapeCols(removeAllSpecificCancels(gameDetails, landscapeCols)))

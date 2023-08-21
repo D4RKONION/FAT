@@ -1,4 +1,4 @@
-import { IonContent, IonModal, IonList, IonItem, IonItemDivider, IonLabel, IonCheckbox, IonIcon, IonButton, IonToggle, } from '@ionic/react';
+import { IonContent, IonModal, IonList, IonItem, IonItemDivider, IonCheckbox, IonIcon, IonButton, IonToggle, } from '@ionic/react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { setModalVisibility, setLandscapeCols, setAutoSetSpecificCols } from '../actions';
@@ -79,9 +79,7 @@ const LandscapeOptions = () => {
             <IonToggle
               checked={autoSetSpecificCols ? true : false}
               onIonChange={e => { e.detail.checked ? dispatch(setAutoSetSpecificCols(true)) : dispatch(setAutoSetSpecificCols(false))}}
-              slot="end"
-            />
-            <IonLabel>{autoSetSpecificCols ? "Specific cols will auto set" : "Specific cols will NOT auto set"}</IonLabel>
+            >{autoSetSpecificCols ? "Specific cols will auto set" : "Specific cols will NOT auto set"}</IonToggle>
           </IonItem>
         </div>
         
@@ -99,8 +97,7 @@ const LandscapeOptions = () => {
                   dataRow[dataEntryKey].usedBy.includes(activePlayerName)
                 ).map(dataEntryKey =>
                   <IonItem key={dataRow[dataEntryKey].dataFileKey}>
-                    <IonLabel>{dataRow[dataEntryKey].detailedHeader}</IonLabel>
-                    <IonCheckbox slot="end" checked={!!landscapeCols[dataEntryKey]} value={dataRow[dataEntryKey].dataFileKey} onClick={() => dispatch(setLandscapeCols(createOrderedLandscapeColsObj(gameDetails, landscapeCols, {[dataEntryKey]: dataRow[dataEntryKey].dataTableHeader}, "none")))} />
+                    <IonCheckbox checked={!!landscapeCols[dataEntryKey]} value={dataRow[dataEntryKey].dataFileKey} onIonChange={() => dispatch(setLandscapeCols(createOrderedLandscapeColsObj(gameDetails, landscapeCols, {[dataEntryKey]: dataRow[dataEntryKey].dataTableHeader}, "none")))}>{dataRow[dataEntryKey].detailedHeader}</IonCheckbox>
                   </IonItem>
                 )
               )}
@@ -115,8 +112,7 @@ const LandscapeOptions = () => {
                 {gameDetails.universalDataPoints[dataCategory].map(dataRow =>
                   Object.keys(dataRow).map((dataEntryKey) =>
                     <IonItem key={dataRow[dataEntryKey].dataFileKey}>
-                      <IonLabel>{dataRow[dataEntryKey].detailedHeader}</IonLabel>
-                      <IonCheckbox slot="end" checked={!!landscapeCols[dataEntryKey]} value={dataRow[dataEntryKey].dataFileKey} onClick={() => dispatch(setLandscapeCols(createOrderedLandscapeColsObj(gameDetails, landscapeCols, {[dataEntryKey]: dataRow[dataEntryKey].dataTableHeader}, "none")))} />
+                      <IonCheckbox checked={!!landscapeCols[dataEntryKey]} value={dataRow[dataEntryKey].dataFileKey} onIonChange={() => dispatch(setLandscapeCols(createOrderedLandscapeColsObj(gameDetails, landscapeCols, {[dataEntryKey]: dataRow[dataEntryKey].dataTableHeader}, "none")))}>{dataRow[dataEntryKey].detailedHeader}</IonCheckbox>
                     </IonItem>
                   )
                 )}

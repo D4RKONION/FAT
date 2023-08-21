@@ -54,6 +54,7 @@ const Settings = () => {
                 <p>Research a different game</p>
               </IonLabel>
               <IonSelect
+                legacy={true}
                 interfaceOptions={{ header: "Select Game" }}
                 value={activeGame}
                 okText="Select"
@@ -72,6 +73,7 @@ const Settings = () => {
                 <p>Change how moves are named</p>
               </IonLabel>
               <IonSelect
+                legacy={true}
                 interfaceOptions={{ header: "Select a Naming Type" }}
                 value={dataDisplaySettings.moveNameType}
                 okText="Select"
@@ -94,6 +96,7 @@ const Settings = () => {
                 <p>Change how inputs are displayed</p>
               </IonLabel>
               <IonSelect
+                legacy={true}
                 interfaceOptions={{ header: "Select a Naming Type" }}
                 value={dataDisplaySettings.inputNotationType}
                 okText="Select"
@@ -118,6 +121,7 @@ const Settings = () => {
                 <p>Choose long or short normal names</p>
               </IonLabel>
               <IonSelect
+                legacy={true}
                 interfaceOptions={{ header: "Select a Naming Type" }}
                 value={dataDisplaySettings.normalNotationType}
                 okText="Select"
@@ -144,6 +148,7 @@ const Settings = () => {
                   <p>Turn the advice popups on and off</p>
                 </IonLabel>
                 <IonSelect
+                  legacy={true}
                   interfaceOptions={{ header: "Toggle Advice Popups" }}
                   value={adviceToastShown}
                   okText="Select"
@@ -161,6 +166,7 @@ const Settings = () => {
                   <p>Use colour blind safe palettes</p>
                 </IonLabel>
                 <IonSelect
+                  legacy={true}
                   interfaceOptions={{ header: "Colour Blind Mode" }}
                   value={themeAccessibility}
                   okText="Select"
