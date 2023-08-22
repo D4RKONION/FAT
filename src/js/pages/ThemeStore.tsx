@@ -46,7 +46,7 @@ const ThemeStore = () => {
       />
 
       <IonContent className="themeStore">
-        {themeAccessibility === "colorBlind" && 
+        {themeAccessibility === "colorBlind" &&
           <SubHeader
           adaptToShortScreens={false}
           hideOnWideScreens={false}
@@ -57,7 +57,7 @@ const ThemeStore = () => {
           ]}
         />
         }
-      
+
         <IonGrid fixed>
           <IonList>
             <IonItem lines="full" key={`default-theme-item`}>
@@ -81,10 +81,10 @@ const ThemeStore = () => {
                         dispatch(setThemeColor("classic"));
                       }}>Use</IonButton>
                   </IonCol>
-                  
+
                   }
-                  
-                </IonRow>			
+
+                </IonRow>
               </IonGrid>
             </IonItem>
 
@@ -118,7 +118,7 @@ const ThemeStore = () => {
                       </IonCol>
                       }
                       </>
-                    }			
+                    }
                   </IonRow>
                   {!themesOwned.includes(iapStoreObj.alias) &&
                     <IonRow className="purchasable-theme-row center-in-row">
@@ -140,10 +140,10 @@ const ThemeStore = () => {
                     </IonRow>
                   }
                 </IonGrid>
-              </IonItem>	
+              </IonItem>
             )}
 
-            
+
 
             {isPlatform('ios') && (
               <IonItem lines="full" key={`restore-theme-item`}>
@@ -153,7 +153,7 @@ const ThemeStore = () => {
               </IonLabel>
               <IonButton
                 fill="solid" slot="end" size="default"
-                onClick={() => iapStore.refresh()}
+                onClick={() => iapStore.restorePurchases()}
               >Restore</IonButton>
               </IonItem>
             )}
