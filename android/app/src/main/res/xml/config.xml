@@ -6,9 +6,5 @@
     <param name="android-package" value="cc.fovea.PurchasePlugin"/>
   </feature>
 
-  <feature name="InAppBillingPlugin">
-    <param name="android-package" value="cc.fovea.PurchasePlugin"/>
-  </feature>
-
   
 </widget>

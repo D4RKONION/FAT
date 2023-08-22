@@ -1,7 +1,7 @@
 import { IonContent, IonPage, IonList, IonItem, IonLabel, IonGrid, IonButton, isPlatform, IonIcon, IonRow, IonCol, IonSelect, IonSelectOption } from '@ionic/react';
 import { useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { InAppPurchase2 as iapStore} from '@awesome-cordova-plugins/in-app-purchase-2';
+import "cordova-plugin-purchase";
 import PageHeader from '../components/PageHeader';
 import { checkmarkSharp } from 'ionicons/icons';
 import '../../style/pages/ThemeStore.scss'
@@ -10,6 +10,7 @@ import { themeAccessibilitySelector, themeColorSelector, themesOwnedSelector } f
 import THEMES from '../constants/Themes';
 import SubHeader from '../components/SubHeader';
 
+
 const defaultPrice = isPlatform('android') ? '€1.79' : '$1.99';
 
 const PRODUCTS = THEMES.map(themeObj => (
@@ -17,6 +18,8 @@ const PRODUCTS = THEMES.map(themeObj => (
 ))
 
 const ThemeStore = () => {
+
+  const { store: iapStore } = CdvPurchase;
 
   const themeColor = useSelector(themeColorSelector);
   const themeAccessibility = useSelector(themeAccessibilitySelector);
@@ -29,7 +32,7 @@ const ThemeStore = () => {
       const iapProduct = iapStore?.products?.find(p => p.id === product.id);
       return {
         ...product,
-        price: iapProduct?.price ?? product.price,
+        price: iapProduct?.pricing.price ?? product.price,
       };
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -130,7 +133,7 @@ const ThemeStore = () => {
                       <IonButton
                         fill="solid" expand="block" size="default"
                         onClick={ () => {
-                          iapStore.order(iapStoreObj.id);
+                          iapStore.get(iapStoreObj.id, isPlatform('android') ? CdvPurchase.Platform.GOOGLE_PLAY : CdvPurchase.Platform.APPLE_APPSTORE).getOffer().order()
                         }}
                       >{iapStoreObj.price || defaultPrice}</IonButton>
                       </IonCol>

@@ -1,10 +1,10 @@
-import React, { useEffect, useState} from 'react';
+import { useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { App as CapAppPlugin } from '@capacitor/app';
 import { IonApp, IonRouterOutlet, IonSplitPane, IonAlert, isPlatform } from '@ionic/react';
 import { menuController } from "@ionic/core/components";
 import { IonReactHashRouter } from '@ionic/react-router';
-import { InAppPurchase2 as iapStore} from '@awesome-cordova-plugins/in-app-purchase-2';
+import "cordova-plugin-purchase";
 import { Route } from 'react-router-dom';
 
 
@@ -111,56 +111,42 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    if (isPlatform("capacitor") && iapStore.when("").updated) {
+    if (isPlatform("capacitor") && CdvPurchase.store.when().productUpdated) {
+
+      // Awesome Cordova Plugins has not updated it's iap wrapper, so we have to import the entire store
+      // https://github.com/danielsogl/awesome-cordova-plugins/issues/4457
+      const { store: iapStore, Platform, ProductType } = CdvPurchase;
+      const currentPlatform = isPlatform('android') ? Platform.GOOGLE_PLAY : Platform.APPLE_APPSTORE;
       const productList = [
-        { id: "com.fullmeter.fat.theme.reddragon", alias: "Red Dragon", type: iapStore.NON_CONSUMABLE },
-        { id: "com.fullmeter.fat.theme.secondincommand", alias: "Second in Command", type: iapStore.NON_CONSUMABLE },
-        { id: "com.fullmeter.fat.theme.deltagreen", alias: "Delta Green", type: iapStore.NON_CONSUMABLE },
-        { id: "com.fullmeter.fat.theme.poisonouspink", alias: "Poisonous Pink", type: iapStore.NON_CONSUMABLE },
+        { id: "com.fullmeter.fat.theme.reddragon", type: ProductType.NON_CONSUMABLE, platform: currentPlatform },
+        { id: "com.fullmeter.fat.theme.secondincommand", type: ProductType.NON_CONSUMABLE, platform: currentPlatform },
+        { id: "com.fullmeter.fat.theme.deltagreen", type: ProductType.NON_CONSUMABLE, platform: currentPlatform },
+        { id: "com.fullmeter.fat.theme.poisonouspink", type: ProductType.NON_CONSUMABLE, platform: currentPlatform },
       ]
 
-      iapStore.verbosity = iapStore.DEBUG;
+      const productAliasDict = {
+        "com.fullmeter.fat.theme.reddragon" : "Red Dragon",
+        "com.fullmeter.fat.theme.secondincommand" : "Second in Command",
+        "com.fullmeter.fat.theme.deltagreen" : "Delta Green",
+        "com.fullmeter.fat.theme.poisonouspink" : "Poisonous Pink",
+      }
+
+      iapStore.verbosity = CdvPurchase.LogLevel.DEBUG;
+
       
-      productList.forEach(productEntry => {
-        iapStore.register({
-          id: productEntry.id,
-          alias: productEntry.alias,
-          type: productEntry.type,
-        })
+      iapStore.register(productList)
 
-        iapStore.when(productEntry.id).registered( (product => {
-          console.log('Registered: ' + JSON.stringify(product));
-        }))
-  
-        iapStore.when(productEntry.id).updated( (product => {
-          console.log('Updated: ' + JSON.stringify(product));
-        }))
-  
-        iapStore.when(productEntry.id).cancelled( (product => {
-          console.log('Cancelled: ' + JSON.stringify(product));
-        }))
-
-        iapStore.when(productEntry.id).approved( (product => {
-          console.log('Approved: ' + JSON.stringify(product));
-          product.finish();
-        }))
-
-        iapStore.when(productEntry.id).owned( (product => {
-          dispatch(setThemeOwned(product.alias))
-        }))
+      iapStore.when().approved(transaction => {
+        transaction.finish()
+        transaction.products.forEach(purchase => {
+          if (iapStore.owned(purchase)) {
+            dispatch(setThemeOwned(productAliasDict[purchase.id]))
+          }
+        });
       })
-      
-
-      iapStore.error( error => {
-        console.log('Store Error: ' + JSON.stringify(error));
-      })
-
-      iapStore.ready(() =>  {
-        console.log('Store is ready');
-        console.log('Products: ' + JSON.stringify(iapStore.products));
-      });
-
-      iapStore.refresh();
+        
+      iapStore.initialize([currentPlatform]);
+      iapStore.restorePurchases();
 
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
