@@ -21,11 +21,12 @@
     padding-bottom: env(safe-area-inset-bottom);
     
     .character-block {
-      max-width: 82px;
+      max-width: 100px;
       min-width: 59px;
       width: 19%;
-      transform: skew(-7deg, 0);
-      margin: 1px;
+      transform: skew(-8deg, 0);
+      margin: 2px;
+      border-radius: 0;
 
 
       h2 {
@@ -35,6 +36,9 @@
           font-weight: bold; 
         }
       }
+    }
+    img {
+      transform: scale(1.15) skew(8deg);
     }
   }
 
