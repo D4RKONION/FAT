@@ -44,6 +44,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!(@ionic/react|@ionic/react-router|@ionic/core|@stencil/core|ionicons)/)'",
     "eject": "react-scripts eject",
+    "android:release": "ionic cap sync android && (cd android && bundle exec fastlane release)",
     "ios:release": "ionic cap sync ios && (cd ios/App && fastlane release)"
   },
   "eslintConfig": {

@@ -1,0 +1,15 @@
+opt_out_usage
+
+default_platform(:android)
+
+platform :android do
+  lane :release do
+    gradle(task: "clean bundleRelease")
+    upload_to_play_store(
+      rollout: "1",
+      skip_upload_metadata: true,
+      skip_upload_screenshots: true,
+      skip_upload_images: true,
+    )
+  end
+end

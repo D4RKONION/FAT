@@ -31,7 +31,7 @@ yarn-error.log*
 **/fastlane/report.xml
 **/fastlane/Preview.html
 **/fastlane/screenshots
-**/fastlane/metadata
+**/fastlane/metadata/android/*/images
 **/fastlane/README.md
 **/fastlane/pc-api*.json
 **/fastlane/*.p8

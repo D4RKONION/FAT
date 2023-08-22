@@ -59,7 +59,7 @@ If previously remote fetched characters have been moved to the local build, be s
 
 Because it's Capacitor, you'll need to build for iOS and Android in XCode and Studio respectively.
 
-Bump the versionCode and versionName in ```android/app/build.gradle```
+Alternatively you can deploy the apps using fastlane, as laid out below
 
 Deploying to the web is just a matter of setting the homepage in ./package.json with
 ```
@@ -85,6 +85,21 @@ Once you have all this set up, you can release a new version:
 - Increase the version number in Xcode
 - Update the changelog in `ios/App/fastlane/metadata/en-US/release_notes.txt`
 - Run `npm run ios:release`
+
+### Google Play Store
+
+> Deployment of the Google Play app can only be done by the core developers who have access to the team's Google Developer account
+
+Deployment of release builds on Google Play is done using [Fastlane](https://fastlane.tools). To use this, you will need to follow [Fastlane's setup docs](https://docs.fastlane.tools/getting-started/android/setup/). Once you've done this, follow these steps to get set up:
+
+- Copy `android/fastlane/.env.sample` to `android/fastlane/.env` and replace it with the actual values from the Google Developer site
+- Download the metadata with `bundle exec fastlane supply init`
+
+Once you have all this set up, you can release a new version:
+
+- Bump the versionCode and versionName in ```android/app/build.gradle```
+- Update the changelog in `android/fastlane/metadata/android/en-GB/changelogs/VERSIONNUMBER.txt`
+- Run `npm run android:release`
 
 ## Adding a new game
 

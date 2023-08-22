@@ -1,0 +1,5 @@
+- SF6: Added Rashid
+- Added Compact View, so large cells are cut short. This can be switched off using the menu in the top right
+- Oki Calculator now works with SF6
+- Added more resources for different games to the 'More Resources' page
+- Fixed a bug where chosen landscape columns would often reset

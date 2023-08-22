@@ -1,0 +1,15 @@
+FAT 3.0 is here! We have frame data for many popular fighting games and more! Built from the ground up, FAT 3 is filled with new features and tons of polish on old ones, including a dark theme, better layouts and the all new stat compare mode. Check it out!
+
+Modes include: 
+* Frame Data
+* Move Searcher
+* Moves List
+* Combos & Tech
+* Stat Compare
+* 7 Unique Calculators
+* More Resources
+* Theme Store
+
+Then, choose a character and input what you need to know. It's as simple as that. FAT will give you back an answer instantaneously. No PDFs; no fancy images. Just information at your fingertips.
+
+If you notice any bugs or incorrect data, please leave a comment below or email me at apps@fullmeter.com and I'll get back to you ASAP
