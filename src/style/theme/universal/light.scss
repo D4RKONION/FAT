@@ -146,6 +146,11 @@ ion-app.universal-light-none, .themePreview.universal-light-none {
   --fat-datatable-just-plus: #d8ffec;
   --fat-datatable-very-plus: #9affcc;
 
+  // Character Select & Portrait
+  --fat-portrait-opacity: 1;
+  --fat-portrait-bg: #e6e6e6;
+  --fat-portrait-border: #858585;
+
   // Stat Compare
   --fat-statcompare-big-header: var(--fat-primary);
 
@@ -310,6 +315,11 @@ ion-app.universal-light-colorBlind, .themePreview.universal-light-colorBlind {
   --fat-datatable-not-pun: #d8eafb;
   --fat-datatable-just-plus: #a6d2f9;
   --fat-datatable-very-plus: #50a1e9;
+
+  // Character Select & Portrait
+  --fat-portrait-opacity: 1;
+  --fat-portrait-bg: #e6e6e6;
+  --fat-portrait-border: #858585;
 
   // Stat Compare
   --fat-statcompare-big-header: var(--fat-primary);

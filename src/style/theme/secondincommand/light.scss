@@ -82,4 +82,7 @@ ion-app.secondincommand-light-theme, .themePreview.secondincommand-light-theme {
   --fat-datatable-header-contrast: #ffffff;
   --fat-datatable-hover-border: #b7ace7;
 
+  // Character Select & Portrait
+  --fat-silouette-filter: brightness(0) saturate(100%) invert(7%) sepia(80%) saturate(2855%) hue-rotate(245deg) brightness(90%) contrast(91%);
+  --fat-portrait-bg: #b8acd2;;
  }

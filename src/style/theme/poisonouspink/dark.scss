@@ -106,6 +106,9 @@ ion-app.poisonouspink-dark-theme, .themePreview.poisonouspink-dark-theme {
   --fat-datatable-header-contrast: #ffffff;
   --fat-datatable-hover-border: #4b2246;
 
+  // Character Select & Portrait
+  --fat-silouette-filter: brightness(0) saturate(100%) invert(9%) sepia(30%) saturate(5649%) hue-rotate(288deg) brightness(94%) contrast(87%);
+
   // Stat Compare
   --fat-statcompare-big-header: #f287f6;
 

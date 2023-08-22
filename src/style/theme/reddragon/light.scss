@@ -82,4 +82,7 @@ ion-app.reddragon-light-theme, .themePreview.reddragon-light-theme {
   --fat-datatable-header-contrast: #ffffff;
   --fat-datatable-hover-border: #e7acac;
 
+  // Character Select & Portrait
+  --fat-silouette-filter: brightness(0) saturate(100%) invert(6%) sepia(68%) saturate(5591%) hue-rotate(350deg) brightness(94%) contrast(98%);
+  --fat-portrait-bg: #eeacac;
  }

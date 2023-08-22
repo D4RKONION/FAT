@@ -82,4 +82,7 @@ ion-app.deltagreen-light-theme, .themePreview.deltagreen-light-theme {
   --fat-datatable-header-contrast: #ffffff;
   --fat-datatable-hover-border: #ace7af;
 
+  // Character Select & Portrait
+  --fat-silouette-filter: brightness(0) saturate(100%) invert(20%) sepia(11%) saturate(6312%) hue-rotate(88deg) brightness(97%) contrast(93%);
+  --fat-portrait-bg: #a7cbab;
  }

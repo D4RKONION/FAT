@@ -1,8 +1,14 @@
+#characterSelect > .ion-page {
+  justify-content: start;
+}
+
 @media (max-width: 992px) {
   #characterSelectGrid {
     display: flex;
     flex-wrap: wrap;
     overflow: auto;
+    margin: 4px;
+    gap: 4px;
     padding-bottom: env(safe-area-inset-bottom);
 
     .character-block, .hidden-flex-item {
@@ -14,7 +20,6 @@
     .hidden-flex-item {
       content: "";
       visibility: hidden;
-      margin: 0.5px;
     }
   }
 }
@@ -28,13 +33,18 @@
 
     #characterSelectGrid {
       display: grid;
-      padding: 0.5px;
+      margin: 0 9px 9px;
+      gap: 9px;
 
       .character-block {
         cursor: pointer;
         h2 {
           font-size: 15px;
         }
+      }
+
+      .hidden-flex-item {
+        display: none;
       }
     }
   }

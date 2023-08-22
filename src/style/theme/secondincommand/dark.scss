@@ -105,6 +105,9 @@ ion-app.secondincommand-dark-theme, .themePreview.secondincommand-dark-theme {
   --fat-datatable-header-contrast: #ffffff;
   --fat-datatable-hover-border: #28224b;
 
+  // Character Select & Portrait
+  --fat-silouette-filter: brightness(0) saturate(100%) invert(7%) sepia(80%) saturate(2855%) hue-rotate(245deg) brightness(90%) contrast(91%);
+
   // Stat Compare
   --fat-statcompare-big-header: #ae87f6;
 

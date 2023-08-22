@@ -22,6 +22,14 @@ export const UPDATABLE_GAMES_APP_CODES = {
 
 
 export const VERSION_LOGS = {
+  "3.6.0": {
+    "New Features": [
+      "Character Portraits restyled"
+    ],
+    "Bug Fixes": [
+      "Due to some major under the hood upgrades, there may be bugs! Please let me know if you find any"
+    ]
+  },
   "3.5.6": {
     "New Features": [
       "SF6: Added Rashid",

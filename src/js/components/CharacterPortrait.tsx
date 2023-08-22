@@ -18,9 +18,20 @@ const CharacterPortrait = ( {charName, charThreeLetterCode, game, selected, char
   return(
     <div
       className="character-block"
-      style={{ background: `${charColor}45`}}
+      // style={{ background: `${charColor}45`}}
       onClick={onClick}
     >
+      <img
+        className='silouette'
+        alt={`${charName}-silouette`}
+        src={
+          remoteImage ?
+            //fetch the image from the server
+            `https://fullmeter.com/fatfiles/release/${game}/images/characters/${charName}.png`
+          : //local app image
+            `${process.env.PUBLIC_URL}/assets/images/characters/${game.toLowerCase()}/${charName}.png`
+        }
+      />
       <img
         alt={`${charName}`}
         // Catch failed image fetches

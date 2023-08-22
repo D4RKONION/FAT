@@ -1,11 +1,26 @@
 .character-block {
   position: relative;
-  margin: 0.5px;
+  display: flex;
+  overflow: hidden;
+  background-color: var(--fat-portrait-bg);
+  border-radius: 7px;
+  // border: 1px solid var(--fat-portrait-border);
   //widths defined in individual page css
 
   img {
     display: block;
-    width: 100%;
+    z-index: 1;
+    opacity: var(--fat-portrait-opacity);
+
+    &.silouette {
+      right: 18px;
+      bottom: 5px;
+      overflow: hidden;
+      filter: var(--fat-silouette-filter);
+      z-index: 0;
+      position: absolute;
+      opacity: 1;
+    }
   }
   h2 {
     position: absolute;
@@ -13,6 +28,7 @@
     right: 0;
     margin: 0;
     padding: 5px;
+    z-index: 2;
     font-size: 15px;
     text-align: center;
     background: #000000a0;
