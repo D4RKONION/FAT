@@ -155,13 +155,16 @@ const FrameKillGenerator = () => {
           if (typeof firstOkiMoveModel[firstOkiMove]["active"] === "string" && (firstOkiMoveModel[firstOkiMove]["active"].includes("(") || firstOkiMoveModel[firstOkiMove]["active"].includes("*")) && typeof firstOkiMoveModel[firstOkiMove]["startup"] === "number") {
             firstOkiMoveModel[firstOkiMove].multiActive = multiActiveGenerator(firstOkiMoveModel[firstOkiMove])
           }
-          // First we check if a move is a viable setup move (has fixed startup/active/recovery; takes place on the ground etc.)
-          if (((typeof firstOkiMoveModel[firstOkiMove]["startup"] === "number" && typeof firstOkiMoveModel[firstOkiMove]["active"] === "number") || firstOkiMoveModel[firstOkiMove]["multiActive"]) && typeof firstOkiMoveModel[firstOkiMove]["recovery"] === "number" && firstOkiMoveModel[firstOkiMove]["followUp"] !== true && firstOkiMoveModel[firstOkiMove]["moveType"] !== "alpha" && firstOkiMoveModel[firstOkiMove]["moveType"] !== "super" && !firstOkiMoveModel[firstOkiMove]["airmove"]) {
+          // First we check if a move is a viable setup move (has fixed total OR startup/active/recovery; takes place on the ground etc.)
+          if ((typeof firstOkiMoveModel[firstOkiMove]["total"] === "number" ||(typeof firstOkiMoveModel[firstOkiMove]["startup"] === "number" && typeof firstOkiMoveModel[firstOkiMove]["active"] === "number") || firstOkiMoveModel[firstOkiMove]["multiActive"]) && typeof firstOkiMoveModel[firstOkiMove]["recovery"] === "number" && firstOkiMoveModel[firstOkiMove]["followUp"] !== true && firstOkiMoveModel[firstOkiMove]["moveType"] !== "alpha" && firstOkiMoveModel[firstOkiMove]["moveType"] !== "super" && !firstOkiMoveModel[firstOkiMove]["airmove"]) {
 
             let firstOkiMoveTotalFrames
+            // If a move has total frames, just use that
             // If a move has multiActive, we take the last element (last active frame) and add it to recovery to calculate total frames.
             // Otherwise, we just add startup active and recovery
-            if (firstOkiMoveModel[firstOkiMove]["multiActive"]) {
+            if (firstOkiMoveModel[firstOkiMove]["total"]) {
+              firstOkiMoveTotalFrames = firstOkiMoveModel[firstOkiMove]["total"];
+            } else if (firstOkiMoveModel[firstOkiMove]["multiActive"]) {
               firstOkiMoveTotalFrames = firstOkiMoveModel[firstOkiMove]["multiActive"][(firstOkiMoveModel[firstOkiMove]["multiActive"].length -1)]  + firstOkiMoveModel[firstOkiMove]["recovery"];
 
             } else {

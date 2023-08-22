@@ -125,6 +125,7 @@ const FrameTrapChecker = () => {
                 ? Object.keys(playerOneMoves).filter(move =>
                     !playerOneMoves[move].airmove &&
                     !playerOneMoves[move].followUp &&
+                    !isNaN(playerOneMoves[move].startup) &&
                     (
                         (playerOneMoves[move].moveType === "super" && playerOneMoves[firstMove].xx.includes("su")) ||
                         (playerOneMoves[move].moveType === "vskill" && (playerOneMoves[firstMove].xx.includes("vs1") || playerOneMoves[firstMove].xx.includes("vs2"))) ||
