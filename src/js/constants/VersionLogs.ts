@@ -1,6 +1,6 @@
-export const APP_CURRENT_VERSION_NAME = "3.5.6";
-export const APP_CURRENT_VERSION_CODE = 30506;
-export const APP_DATE_UPDATED = "Jul 30 2023"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "3.6.0";
+export const APP_CURRENT_VERSION_CODE = 30600;
+export const APP_DATE_UPDATED = "Aug 23 2023"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"]
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"]
@@ -10,11 +10,11 @@ export const UPDATABLE_GAMES_APP_CODES = {
     "GameDetails": 2
   },
   "GGST": {
-    "FrameData": 100,
-    "GameDetails": 3
+    "FrameData": 101,
+    "GameDetails": 4
   },
   "SF6": {
-    "FrameData": 19,
+    "FrameData": 21,
     "GameDetails": 4
   }
 }
@@ -24,10 +24,12 @@ export const UPDATABLE_GAMES_APP_CODES = {
 export const VERSION_LOGS = {
   "3.6.0": {
     "New Features": [
+      "GGST: Added Johnny",
       "Character Portraits restyled"
     ],
     "Bug Fixes": [
-      "Due to some major under the hood upgrades, there may be bugs! Please let me know if you find any"
+      "Due to some major 'under the hood' upgrades, there may be new bugs! Please let me know if you find any",
+      "Fixed a few unrelated calculator bugs",
     ]
   },
   "3.5.6": {

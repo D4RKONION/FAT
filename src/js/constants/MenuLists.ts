@@ -90,7 +90,7 @@ export const RES_DISCORDS_LIST = {
     data: {
       "SF6 Resource Hub": {
         desc: "The central spot to discuss SF6",
-        url: "https://discord.gg/dmEDFsc9wE"
+        url: "https://discord.gg/sf6hub"
       }
     }
   },
