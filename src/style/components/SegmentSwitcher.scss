@@ -1,4 +1,5 @@
 .segment-switcher {
+
   &.ios {
     margin: 7px auto;
     ion-segment-button {
@@ -28,6 +29,10 @@
 
   &.md {
     --background: var(--fat-switcher-android-background);
+
+    &.stat-chooser {
+      min-width: 870px;
+    }
   }
   &.active-player, &.link-or-cancel, &.recovery-type, &.stat-chooser {
     ion-segment-button {
@@ -70,9 +75,9 @@
   @media screen and (min-width: 992px) {
     &.md {
       display: inline-block;
-      width: auto;
-      max-width: 900px;
-      margin-bottom: 5px;
+      width: 85%;
+      max-width: 1000px;
+
 
       ion-segment-button.md {
         margin: 0 5px;
@@ -80,12 +85,21 @@
         text-transform: none;
         display: inline-block;
       }
+
+      &.collapsed {
+        transition: all 270ms ease-in-out;
+        opacity: 0;
+      }
+    
+      &.expanded {
+         transition: all 270ms ease-in-out;
+         opacity: 1;
+      }
+
     }
 
     @at-root {
       #frameData .segments.md, #movesList .segments.md, #combos .segments.md, #moveDetail .segments.md {
-        width: 82%;
-        margin: 0 auto;
         display: flex;
       }
       #characterSelect .segments.md {
@@ -93,6 +107,21 @@
         display: flex;
         width: 100%;
       }
+    }
+  }
+
+  @media screen and (max-width:992px) {
+    &.collapsed {
+      max-height: 0px;
+      transition: all 270ms ease-in-out;
+      opacity: 0;
+    }
+  
+    &.expanded {
+       height: fit-content;
+       max-height: 50px;
+       transition: max-height 270ms ease-in-out;
+       opacity: 1;
     }
   }
 }

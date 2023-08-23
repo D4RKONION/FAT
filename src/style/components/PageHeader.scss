@@ -19,21 +19,33 @@
 	}
 }
 
-ion-toolbar.sc-ion-searchbar-md-h, ion-toolbar .sc-ion-searchbar-md-h {
-	max-width: 400px;
+ion-toolbar {
+	&.sc-ion-searchbar-md-h, .sc-ion-searchbar-md-h {
+		max-width: 400px;
 	--background: var(--fat-surface);
 	--color: var(--fat-surface-contrast);
+	}
+
+	&.sc-ion-searchbar-ios-h, .sc-ion-searchbar-ios-h {
+		max-width: 400px;
+		--background: var(--fat-surface);
+		--color: var(--fat-surface-contrast);
+		padding-top: 0;
+		padding-bottom: 0;
+		max-height: 32px;
+	}
+
+	.searchbar-input.sc-ion-searchbar-md, .searchbar-input.sc-ion-searchbar-ios {
+		padding-inline-end: 15px;
+	}
+
+	.searchbar-input-container.sc-ion-searchbar-ios {
+		height: 32px;
+	}
+	
+
 }
 
-ion-toolbar.sc-ion-searchbar-ios-h, ion-toolbar .sc-ion-searchbar-ios-h {
-	max-width: 400px;
-	--background: var(--fat-surface);
-	--color: var(--fat-surface-contrast);
-	padding-top: 0;
-	padding-bottom: 0;
-	max-height: 32px;
-}
-
-ion-toolbar .searchbar-input-container.sc-ion-searchbar-ios {
-	height: 32px;
+ion-toolbar searchbar-input.sc-ion-searchbar-md {
+	
 }

@@ -31,6 +31,10 @@ const FrameData = () => {
   const gameDetails = useSelector(gameDetailsSelector);
 
   const [searchText, setSearchText] = useState('');
+  const [characterHasStates, setCharacterHasStates] = useState(false);
+
+  const searchBoxMessages = [`Search ${selectedCharacters[activePlayer].name}`, 'Type a move name', 'Try searching s=4', 'Try searching a>3', 'Try searching r<10', 'Try searching oH>=3', 'Try searching xx=sp', 'Try searching info=fully inv', 'Try searching oB<=-4', 'FAT supports: =, >, <, >=, <=']
+  const [searchPlaceholderText, setSearchPlaceholderText] = useState(searchBoxMessages[0]);
 
   const dispatch = useDispatch();
   
@@ -51,6 +55,8 @@ const FrameData = () => {
         dispatch(setModalVisibility({ currentModal: "whatsNew", visible: true }))
       }
     })();
+
+    setSearchPlaceholderText(searchBoxMessages[Math.floor(Math.random() * searchBoxMessages.length)])
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -85,13 +91,18 @@ const FrameData = () => {
     }
   }, [gesture, DataTableEl])
 
-  const searchBoxMessages = [`Search ${selectedCharacters[activePlayer].name}`, 'Type a move name', 'Try searching s=4', 'Try searching a>3', 'Try searching r<10', 'Try searching oH>=3', 'Try searching xx=sp', 'Try searching info=fully inv', 'Try searching oB<=-4', 'FAT supports: =, >, <, >=, <=']
+  useEffect(() => {
+    setCharacterHasStates(!!gameDetails.specificCharacterStates[selectedCharacters[activePlayer].name])
+  }, [selectedCharacters, gameDetails, activePlayer])
+
+  
+  
 
   return (
     <IonPage id="frameData">
       <PageHeader
         componentsToShow={{menu: true, popover: true, search: true}}
-        title={searchBoxMessages[Math.floor(Math.random() * searchBoxMessages.length)]}
+        title={searchPlaceholderText}
         searchText={searchText}
         onSearchHandler={ (text: string) => setSearchText(text)}
       />
@@ -137,20 +148,14 @@ const FrameData = () => {
               labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
               clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
             />
-          : (activeGame === "GGST") ?
+          : (activeGame === "GGST" || activeGame === "SF6") &&
             <SegmentSwitcher
+              passedClassNames={!characterHasStates ? "collapsed" : "expanded"}
               segmentType={"vtrigger"}
               valueToTrack={selectedCharacters[activePlayer].vtState}
               labels={createSegmentSwitcherObject(gameDetails.specificCharacterStates[selectedCharacters[activePlayer].name])}
               clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
             />
-          : (activeGame === "SF6") &&
-          <SegmentSwitcher
-            segmentType={"vtrigger"}
-            valueToTrack={selectedCharacters[activePlayer].vtState}
-            labels={createSegmentSwitcherObject(gameDetails.specificCharacterStates[selectedCharacters[activePlayer].name])}
-            clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
-          />
           }
         </div>
         

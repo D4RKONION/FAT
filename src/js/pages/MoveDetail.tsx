@@ -1,5 +1,5 @@
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonIcon, IonPage } from '@ionic/react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useParams } from 'react-router';
 import '../../style/components/DetailCards.scss';
@@ -26,6 +26,8 @@ const MoveDetail = () => {
   const slugs: FrameDataSlug = useParams();
   const modeBackTo = useLocation().pathname.split("/")[1];
 
+  const [characterHasStates, setCharacterHasStates] = useState(false);
+
   useEffect(() => {
     (async () => {
            
@@ -48,6 +50,10 @@ const MoveDetail = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCharacters["playerOne"].name])
+
+  useEffect(() => {
+    setCharacterHasStates(!!gameDetails.specificCharacterStates[selectedCharacters[activePlayer].name])
+  }, [])
 
   const activeCharName = selectedCharacters[activePlayer].name;
   const charFrameData = selectedCharacters[activePlayer].frameData;
@@ -100,7 +106,9 @@ const MoveDetail = () => {
                 labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
                 clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
               />
-            : (activeGame === "GGST" || activeGame === "SF6") && !selectedMoveData["uniqueInVt"] &&
+            : ((activeGame === "GGST" || activeGame === "SF6") &&
+                (characterHasStates && selectedCharacters[activePlayer].frameData[Object.keys(selectedCharacters[activePlayer].frameData)[0]].i !== 0)
+              ) &&
               <SegmentSwitcher
                 segmentType={"vtrigger"}
                 valueToTrack={selectedCharacters[activePlayer].vtState}

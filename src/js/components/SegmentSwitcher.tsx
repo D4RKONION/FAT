@@ -2,6 +2,7 @@ import { IonLabel, IonSegment, IonSegmentButton } from '@ionic/react';
 import '../../style/components/SegmentSwitcher.scss';
 
 type SegmentSwitcherProps = {
+  passedClassNames?: string,
   segmentType: string,
   valueToTrack: string,
   labels: {[key: string]: string},
@@ -10,6 +11,7 @@ type SegmentSwitcherProps = {
 }
 
 const SegmentSwitcher = ({
+  passedClassNames,
   segmentType,
   valueToTrack,
   labels,
@@ -19,7 +21,7 @@ const SegmentSwitcher = ({
 
 
   return(
-    <IonSegment className={`segment-switcher ${segmentType}`} value={valueToTrack} onClick={ e => clickFunc(e.currentTarget.value) }>
+    <IonSegment className={`segment-switcher ${passedClassNames} ${segmentType}`} value={valueToTrack} onClick={ e => clickFunc(e.currentTarget.value) }>
       {Object.entries(labels).map(
       ([value, label]) =>
         <IonSegmentButton key={value} value={value}>
