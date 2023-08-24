@@ -1,14 +1,13 @@
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonIcon, IonPage } from '@ionic/react';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation, useParams } from 'react-router';
+import { useLocation } from 'react-router';
 import '../../style/components/DetailCards.scss';
 import PageHeader from '../components/PageHeader';
 import SubHeader from '../components/SubHeader';
 import SegmentSwitcher from '../components/SegmentSwitcher';
 import { setPlayerAttr } from '../actions';
 import { activeGameSelector, activePlayerSelector, gameDetailsSelector, selectedCharactersSelector } from '../selectors';
-import { FrameDataSlug } from '../types';
 import { isPlatform } from '@ionic/core/components';
 import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
 import { openOutline } from 'ionicons/icons';
@@ -23,36 +22,13 @@ const MoveDetail = () => {
 
   const dispatch = useDispatch();
 
-  const slugs: FrameDataSlug = useParams();
   const modeBackTo = useLocation().pathname.split("/")[1];
 
   const [characterHasStates, setCharacterHasStates] = useState(false);
 
   useEffect(() => {
-    (async () => {
-           
-      if ((selectedCharacters[activePlayer].name !== slugs.characterSlug || selectedCharacters[activePlayer].vtState !== slugs.vtStateSlug) ) {
-        console.log("URL character/vtState mismatch");
-        dispatch(setPlayerAttr(activePlayer, slugs.characterSlug, {vtState: slugs.vtStateSlug}));
-      }
-    })();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  useEffect(() => {
-    if (activePlayer === "playerOne") {
-      console.log("URL movename mismatch")
-      const urlMove = Object.keys(selectedCharacters[activePlayer].frameData).filter(moveDetail => 
-        selectedCharacters[activePlayer].frameData[moveDetail].moveName === slugs.moveNameSlug
-      )[0]
-      dispatch(setPlayerAttr("playerOne", slugs.characterSlug, {selectedMove: urlMove}));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedCharacters["playerOne"].name])
-
-  useEffect(() => {
     setCharacterHasStates(!!gameDetails.specificCharacterStates[selectedCharacters[activePlayer].name])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const activeCharName = selectedCharacters[activePlayer].name;

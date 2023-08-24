@@ -44,17 +44,12 @@ const FrameData = () => {
 
 
   useEffect(() => {
-    (async () => {
-      dispatch(setLandscapeCols(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters["playerOne"].name, slugs.characterSlug, autoSetSpecificCols, landscapeCols)));
-      if (selectedCharacters["playerOne"].name !== slugs.characterSlug) {
-        console.log("URL character mismatch");
-        dispatch(setPlayer("playerOne", slugs.characterSlug));
-      }
-      if (!localStorage.getItem("lsCurrentVersionCode") || parseInt(localStorage.getItem("lsCurrentVersionCode")) < APP_CURRENT_VERSION_CODE) {
-        localStorage.setItem("lsCurrentVersionCode", APP_CURRENT_VERSION_CODE.toString());
-        dispatch(setModalVisibility({ currentModal: "whatsNew", visible: true }))
-      }
-    })();
+    dispatch(setLandscapeCols(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters["playerOne"].name, slugs.characterSlug, autoSetSpecificCols, landscapeCols)));
+
+    if (!localStorage.getItem("lsCurrentVersionCode") || parseInt(localStorage.getItem("lsCurrentVersionCode")) < APP_CURRENT_VERSION_CODE) {
+      localStorage.setItem("lsCurrentVersionCode", APP_CURRENT_VERSION_CODE.toString());
+      dispatch(setModalVisibility({ currentModal: "whatsNew", visible: true }))
+    }
 
     setSearchPlaceholderText(searchBoxMessages[Math.floor(Math.random() * searchBoxMessages.length)])
 

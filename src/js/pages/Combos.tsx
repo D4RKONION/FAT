@@ -1,16 +1,14 @@
 import { IonContent, IonPage, IonList, IonItemDivider, IonLabel, IonItem, IonIcon, IonGrid } from '@ionic/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import '../../style/pages/Combos.scss';
 import SegmentSwitcher from '../components/SegmentSwitcher';
 import PageHeader from '../components/PageHeader';
-import { setActiveFrameDataPlayer, setModalVisibility, setPlayer } from '../actions';
+import { setActiveFrameDataPlayer, setModalVisibility } from '../actions';
 import { SFV_COMBOS } from '../constants/Combos';
 import { informationCircleOutline, openOutline } from 'ionicons/icons';
 import AdviceToast from '../components/AdviceToast';
-import { useParams } from 'react-router';
 import { activeGameSelector, activePlayerSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
-import { FrameDataSlug } from '../types';
 import { isPlatform } from '@ionic/core/components';
 
 
@@ -24,24 +22,7 @@ const Combos = () => {
 
   const dispatch = useDispatch();
 
-  const slugs: FrameDataSlug = useParams();
-  useEffect(() => {
-    (async () => {
-      // if (activeGame !== slugs.gameSlug) {
-      //   console.log(activeGame)
-      //   console.log("URL game mismatch");
-      //   await dispatch(setActiveGame(slugs.gameSlug, true));
-      // }
 
-      if (selectedCharacters["playerOne"].name !== slugs.characterSlug) {
-        console.log("URL character mismatch");
-        dispatch(setPlayer("playerOne", slugs.characterSlug));
-      }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    })();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   const [selectedCombo, setSelectedCombo] = useState(null);
   return (

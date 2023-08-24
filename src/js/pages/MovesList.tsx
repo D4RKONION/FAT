@@ -1,14 +1,12 @@
 import { IonContent, IonPage, IonList, IonItem, IonLabel, IonItemDivider, IonGrid } from '@ionic/react';
-import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PageHeader from '../components/PageHeader';
 import SegmentSwitcher from '../components/SegmentSwitcher';
 import '../../style/pages/MovesList.scss';
-import { setPlayerAttr, setModalVisibility, setActiveFrameDataPlayer, setPlayer } from '../actions';
-import { useHistory, useParams } from 'react-router';
+import { setPlayerAttr, setModalVisibility, setActiveFrameDataPlayer } from '../actions';
+import { useHistory } from 'react-router';
 import AdviceToast from '../components/AdviceToast';
 import { activeGameSelector, activePlayerSelector, dataDisplaySettingsSelector, gameDetailsSelector, selectedCharactersSelector } from '../selectors';
-import { FrameDataSlug } from '../types';
 import { isPlatform } from '@ionic/core/components';
 import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
 
@@ -24,25 +22,8 @@ const MovesList = () => {
   const dispatch = useDispatch();
   
   const history = useHistory();
-  const slugs: FrameDataSlug = useParams();
   const moveData = selectedCharacters[activePlayer].frameData;
 
-  useEffect(() => {
-    (async () => {
-      // if (activeGame !== slugs.gameSlug) {
-      //   console.log(activeGame)
-      //   console.log("URL game mismatch");
-      //   await dispatch(setActiveGame(slugs.gameSlug, true));
-      // }
-
-      if (selectedCharacters["playerOne"].name !== slugs.characterSlug) {
-        console.log("URL character mismatch");
-        dispatch(setPlayer("playerOne", slugs.characterSlug));
-      }
-    })();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
   
   const moveListEntryKeys = Object.keys(moveData).filter(moveKey => {
     if (selectedCharacters[activePlayer].vtState !== "normal") {
