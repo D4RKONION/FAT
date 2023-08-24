@@ -6,7 +6,7 @@ import SegmentSwitcher from '../components/SegmentSwitcher';
 import SubHeader from '../components/SubHeader';
 import LandscapeOptions from '../components/LandscapeOptions';
 import PageHeader from '../components/PageHeader';
-import { setActiveFrameDataPlayer, setModalVisibility, setPlayerAttr, setPlayer, setLandscapeCols } from '../actions';
+import { setActiveFrameDataPlayer, setModalVisibility, setPlayerAttr, setLandscapeCols } from '../actions';
 import { useHistory, useParams } from 'react-router';
 import { informationCircle } from 'ionicons/icons';
 import AdviceToast from '../components/AdviceToast';

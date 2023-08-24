@@ -1,3 +1,5 @@
+import AppSF6GameDetails from '../constants/gamedetails/SF6GameDetails.json';
+
 type GameDetailsReducerState = any;
 
 type GameDetailsReducerAction = {
@@ -5,7 +7,9 @@ type GameDetailsReducerAction = {
   gameDetails: any;
 }
 
-export const gameDetailsReducer = (state: GameDetailsReducerState = null, action: GameDetailsReducerAction) => {
+const defaultState = AppSF6GameDetails;
+
+export const gameDetailsReducer = (state: GameDetailsReducerState = defaultState, action: GameDetailsReducerAction) => {
   switch(action.type) {
     case 'SET_GAME_DETAILS':
       return action.gameDetails;

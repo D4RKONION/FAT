@@ -23,16 +23,9 @@ const FrameDataGate = ({ children }: FrameDataGateProps) => {
     game: GAME_NAMES.includes(decodeURIComponent(window.location.hash.split("/")[2]) as GameName) ? decodeURIComponent(window.location.hash.split("/")[2])
     : GAME_NAMES.includes(decodeURIComponent(window.location.hash.split("/")[3]) as GameName) ? decodeURIComponent(window.location.hash.split("/")[3])
     : null,
-    char: gameDetails.characterList.includes(decodeURIComponent(window.location.hash.split("/")[3])) ? decodeURIComponent(window.location.hash.split("/")[3])
-    : gameDetails.characterList.includes(decodeURIComponent(window.location.hash.split("/")[4])) ? decodeURIComponent(window.location.hash.split("/")[4])
-    : null,
-    state: gameDetails.characterStates.includes(decodeURIComponent(window.location.hash.split("/")[5])) ? decodeURIComponent(window.location.hash.split("/")[5])
-    : gameDetails.specificCharacterStates?.[decodeURIComponent(window.location.hash.split("/")[3])]?.includes(decodeURIComponent(window.location.hash.split("/")[5])) ? decodeURIComponent(window.location.hash.split("/")[5])
-    : gameDetails.specificCharacterStates?.[decodeURIComponent(window.location.hash.split("/")[4])]?.includes(decodeURIComponent(window.location.hash.split("/")[5])) ? decodeURIComponent(window.location.hash.split("/")[5])
-    : null,
-    move: Object.keys(selectedCharacters["playerOne"].frameData).filter(moveName => 
-      selectedCharacters["playerOne"].frameData[moveName].moveName === decodeURIComponent(window.location.hash.split("/")[6])
-    )[0]
+    char: null,
+    state: null,
+    move: null
   })
 
   const [gameIsSetup, setGameIsSetup] = useState(false);
@@ -61,6 +54,15 @@ const FrameDataGate = ({ children }: FrameDataGateProps) => {
   useEffect(() => {
 
     if (gameIsSetup) {
+      
+      slugs.current.char = gameDetails.characterList.includes(decodeURIComponent(window.location.hash.split("/")[3])) ? decodeURIComponent(window.location.hash.split("/")[3])
+      : gameDetails.characterList.includes(decodeURIComponent(window.location.hash.split("/")[4])) ? decodeURIComponent(window.location.hash.split("/")[4])
+      : null;
+
+      slugs.current.state =  gameDetails.characterStates.includes(decodeURIComponent(window.location.hash.split("/")[5])) ? decodeURIComponent(window.location.hash.split("/")[5])
+      : gameDetails.specificCharacterStates?.[decodeURIComponent(window.location.hash.split("/")[3])]?.includes(decodeURIComponent(window.location.hash.split("/")[5])) ? decodeURIComponent(window.location.hash.split("/")[5])
+      : gameDetails.specificCharacterStates?.[decodeURIComponent(window.location.hash.split("/")[4])]?.includes(decodeURIComponent(window.location.hash.split("/")[5])) ? decodeURIComponent(window.location.hash.split("/")[5])
+      : null;
 
       if (slugs.current.state && selectedCharacters["playerOne"].vtState !== slugs.current.state) {
         console.log("URL state mismatch");
@@ -82,6 +84,11 @@ const FrameDataGate = ({ children }: FrameDataGateProps) => {
   // Finally, once the character is setup we can check for a move mismatch supplied by the URL
   useEffect(() => {
     if (characterIsSetup) {
+
+      slugs.current.move = Object.keys(selectedCharacters["playerOne"].frameData).filter(moveName => 
+        selectedCharacters["playerOne"].frameData[moveName].moveName === decodeURIComponent(window.location.hash.split("/")[6])
+      )[0]
+
       if (slugs.current.move && selectedCharacters["playerOne"].selectedMove !== slugs.current.move) {
         console.log("URL move mismatch");
         // @ts-ignore
