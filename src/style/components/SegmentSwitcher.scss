@@ -32,6 +32,12 @@
 
     &.stat-chooser {
       min-width: 870px;
+      text-align: left;
+      margin-top:5px;
+
+      > ion-segment-button  {
+        margin: 2px 0 0 !important;
+      }
     }
   }
   &.active-player, &.link-or-cancel, &.recovery-type, &.stat-chooser {
@@ -87,12 +93,12 @@
       }
 
       &.collapsed {
-        transition: all 270ms ease-in-out;
+        transition: opacity 270ms ease-in-out;
         opacity: 0;
       }
     
       &.expanded {
-         transition: all 270ms ease-in-out;
+         transition: opacity 270ms ease-in-out;
          opacity: 1;
       }
 
