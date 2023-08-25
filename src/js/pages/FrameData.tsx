@@ -112,11 +112,12 @@ const FrameData = () => {
                   <div key={`stat-point-${dataRow}-${statKey}`}><b>{dataRow[statKey]}</b><br />{
                       statKey === "bestReversal" ? Object.keys(selectedCharacters[activePlayer].frameData).find(moveEntry => 
                         selectedCharacters[activePlayer].frameData[moveEntry].moveName === selectedCharacters[activePlayer].stats[statKey]
-                      ) : selectedCharacters[activePlayer].stats[statKey]
+                      ) || selectedCharacters[activePlayer].stats[statKey]
+                      : selectedCharacters[activePlayer].stats[statKey]
                     
                   }</div>
                 ),
-                index === 0 && <div key={"tap-stats"} onClick={() => {history.push(`/stats/${selectedCharacters[activePlayer].name}`)}}><b>Tap for more</b><br /><IonIcon icon={informationCircle} /></div>
+                index === 0 && <div key={"tap-stats"} onClick={() => {history.push(`/stats/${selectedCharacters[activePlayer].name}`)}}><b>More Stats</b><br /><IonIcon icon={informationCircle} /></div>
               ]
             )
           }    

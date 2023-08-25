@@ -25,7 +25,7 @@ export const VERSION_LOGS = {
   "3.6.0": {
     "New Features": [
       "GGST: Added Johnny",
-      "Tweaks to several UI elements such as Character Portraits & State Switchers"
+      "Tweaks to several UI elements such as Character Portraits, Mobile Stats & State Switchers"
     ],
     "Bug Fixes": [
       "Due to some major 'under the hood' upgrades, there may be new bugs! Please let me know if you find any",

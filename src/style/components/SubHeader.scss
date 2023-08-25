@@ -18,6 +18,12 @@
     &.tap-stats {
       background: var(--fat-page-subheader-highlight);
       border-radius: 0 0 0 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @media (min-width: 802px) {
+        border-radius: 0 0 10px 10px;
+      } 
     }
     h4 {
       font-style: italic;
