@@ -19,7 +19,7 @@ const SubHeader = ({ adaptToShortScreens, hideOnWideScreens, rowsToDisplay }: Ch
         <IonRow key={`subheader-row-${index}`} className={index > 0 && adaptToShortScreens ? "hidden-short-screens" : "visible"}>
           {rowContents.map((col, index) =>
               col &&
-                <IonCol key={`subheader-col-${index}`} sizeXs={setRows ? "6" : null} sizeSm={setRows ? "6" : null} sizeMd={setRows ? "3": null}>
+                <IonCol key={`subheader-col-${index}`} sizeXs={setRows ? "6" : null} sizeSm={setRows ? "6" : null} sizeMd={setRows ? "3": null} className={col.key && col.key.includes("tap-stats") ? "tap-stats" : null}>
                   {col} {setRows}
                 </IonCol>
             )}

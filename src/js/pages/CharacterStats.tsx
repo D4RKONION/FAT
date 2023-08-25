@@ -57,14 +57,14 @@ const CharacterStats = () => {
                   <div key={index} className="row">
                     {Object.entries(dataRow).map(([dataId, headerObj]) =>
                       <div key={dataId} className="col">
-                        <h2>{headerObj}</h2>
-                        <p>
+                        <p>{headerObj}</p>
+                        <h2>
                           {
                             dataId === "bestReversal" && frameData[activeCharName] && frameData[activeCharName].moves.normal[charStatsData[dataId]]
                               ? frameData[activeCharName].moves.normal[charStatsData[dataId]][moveNotation]								
                               : charStatsData[dataId]
                           }
-                        </p>
+                        </h2>
                       </div>
                     )}
                   </div>

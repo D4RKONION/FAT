@@ -14,6 +14,11 @@
     padding: 5px;
     line-height: 20px;
     overflow: auto;
+
+    &.tap-stats {
+      background: var(--fat-page-subheader-highlight);
+      border-radius: 0 0 0 10px;
+    }
     h4 {
       font-style: italic;
       margin: 6px 0;

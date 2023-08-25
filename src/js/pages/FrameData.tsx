@@ -108,10 +108,15 @@ const FrameData = () => {
           rowsToDisplay={
             gameDetails.statsPoints["The Basics"].map((dataRow, index) => 
               [
-                ...Object.keys(dataRow).map(dataPointKey =>
-                  !(dataPointKey === "bestReversal" && activeGame === "GGST") && <div key={`stat-point-${dataRow}-${dataPointKey}`}><b>{dataRow[dataPointKey]}</b><br />{selectedCharacters[activePlayer].stats[dataPointKey]}</div>
+                ...Object.keys(dataRow).map(statKey =>
+                  <div key={`stat-point-${dataRow}-${statKey}`}><b>{dataRow[statKey]}</b><br />{
+                      statKey === "bestReversal" ? Object.keys(selectedCharacters[activePlayer].frameData).find(moveEntry => 
+                        selectedCharacters[activePlayer].frameData[moveEntry].moveName === selectedCharacters[activePlayer].stats[statKey]
+                      ) : selectedCharacters[activePlayer].stats[statKey]
+                    
+                  }</div>
                 ),
-                index === 0 && <div onClick={() => {history.push(`/stats/${selectedCharacters[activePlayer].name}`)}}><b>Tap for more</b><br /><IonIcon icon={informationCircle} /></div>
+                index === 0 && <div key={"tap-stats"} onClick={() => {history.push(`/stats/${selectedCharacters[activePlayer].name}`)}}><b>Tap for more</b><br /><IonIcon icon={informationCircle} /></div>
               ]
             )
           }    
