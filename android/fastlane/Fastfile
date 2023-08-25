@@ -4,7 +4,15 @@ default_platform(:android)
 
 platform :android do
   lane :release do
-    gradle(task: "clean bundleRelease")
+    gradle(
+      task: "clean bundleRelease",
+      properties: {
+        "android.injected.signing.store.file" => ENV['STORE_FILE_PATH'],
+        "android.injected.signing.store.password" => ENV['STORE_PASSWORD'],
+        "android.injected.signing.key.alias" => ENV['KEY_ALIAS'],
+        "android.injected.signing.key.password" => ENV['KEY_PASSWORD'],
+      }
+    )
     upload_to_play_store(
       rollout: "1",
       skip_upload_metadata: true,

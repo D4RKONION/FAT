@@ -1,6 +1,6 @@
 export const APP_CURRENT_VERSION_NAME = "3.6.0";
 export const APP_CURRENT_VERSION_CODE = 30600;
-export const APP_DATE_UPDATED = "Aug 23 2023"; // new Date().toDateString().substring(4)
+export const APP_DATE_UPDATED = "Aug 25 2023"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"]
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"]

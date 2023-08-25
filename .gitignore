@@ -36,5 +36,6 @@ yarn-error.log*
 **/fastlane/pc-api*.json
 **/fastlane/*.p8
 **/fastlane/.env
+**/FA-Tool.keystore
 ios/App/*.ipa
 ios/App/*.dSYM.zip
