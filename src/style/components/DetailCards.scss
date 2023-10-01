@@ -86,11 +86,16 @@
           border-bottom: 1px solid var(--fat-card-border);
 
           .col {
-            flex: 1 1 auto;
+            flex: 1 1 0;
             border-right: 1px solid var(--fat-card-border);
             color: var(--fat-card-p);
             line-height: 17px;
-            padding: 4px 0;
+            padding: 6px 8px;
+            overflow-wrap: anywhere;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
 
             h2 {
               margin: 0;
