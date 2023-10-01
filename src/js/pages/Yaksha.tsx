@@ -49,7 +49,8 @@ const CHARACTER_NAME_DICTIONARY = {
     "kim": "Kimberly",
     "gief": "Zangief",
     "sim": "Dhalsim",
-    "dj": "DeeJay",
+    "deejay": "Dee Jay",
+    "dj": "Dee Jay",
   },
   "SFV": {
     "chun": "Chun-Li",

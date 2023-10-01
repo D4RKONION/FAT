@@ -1,20 +1,20 @@
-export const APP_CURRENT_VERSION_NAME = "3.6.0";
-export const APP_CURRENT_VERSION_CODE = 30600;
-export const APP_DATE_UPDATED = "Aug 25 2023"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "3.7.0";
+export const APP_CURRENT_VERSION_CODE = 30700;
+export const APP_DATE_UPDATED = "Oct 01 2023"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"]
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"]
 export const UPDATABLE_GAMES_APP_CODES = {
   "SFV": {
-    "FrameData": 92,
+    "FrameData": 93,
     "GameDetails": 2
   },
   "GGST": {
-    "FrameData": 101,
+    "FrameData": 103,
     "GameDetails": 4
   },
   "SF6": {
-    "FrameData": 21,
+    "FrameData": 22,
     "GameDetails": 4
   }
 }
@@ -22,6 +22,17 @@ export const UPDATABLE_GAMES_APP_CODES = {
 
 
 export const VERSION_LOGS = {
+  "3.7.0": {
+    "New Features": [
+      "SF6: Added A.K.I.",
+      "Added Sobat & Slasher Cancels to Dee Jay"
+    ],
+    "Bug Fixes": [
+      "Fixed a typo in Dee Jay's name (from DeeJay)",
+      "Fixed a bug where long active frames got a bit out of hand in detail view",
+      "Fixed a bug where the GGST spreadsheet link wasn't working properly"
+    ]
+  },
   "3.6.0": {
     "New Features": [
       "GGST: Added Johnny",

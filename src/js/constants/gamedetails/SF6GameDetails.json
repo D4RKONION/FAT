@@ -10,10 +10,11 @@
     "Kimberly": ["Super Install"]
   },
   "characterList": [
+    "A.K.I.",
     "Blanka",
     "Cammy",
     "Chun-Li",
-    "DeeJay",
+    "Dee Jay",
     "Dhalsim",
     "E.Honda",
     "Guile",
@@ -198,8 +199,8 @@
       }
     ]
   },
-  "specificCancels": [{"runStopOH":{"dataTableHeader":"RunStopOH","detailedHeader":"xx Run Stop oH","dataFileKey":"runStopOH","usedBy":["Ken","Kimberly"]},"runStopOB":{"dataTableHeader":"RunStopOB","detailedHeader":"xx Run Stop oB","dataFileKey":"runStopOB","usedBy":["Ken","Kimberly"]}},{"drinkOH":{"dataTableHeader":"Drink oH","detailedHeader":"xx Drink oH","dataFileKey":"drinkOH","usedBy":["Jamie"]},"drinkOB":{"dataTableHeader":"Drink oB","detailedHeader":"xx Drink oB","dataFileKey":"drinkOB","usedBy":["Jamie"]}},{"SSoH":{"dataTableHeader":"SS oH","detailedHeader":"xx Stance oH","dataFileKey":"SSoH","usedBy":["Chun-Li"]},"SSoB":{"dataTableHeader":"SS oB","detailedHeader":"xx Stance oB","dataFileKey":"SSoB","usedBy":["Chun-Li"]}}],
-    "statsPoints": {
+  "specificCancels": [{"runStopOH":{"dataTableHeader":"RunStopOH","detailedHeader":"xx Run Stop oH","dataFileKey":"runStopOH","usedBy":["Ken","Kimberly"]},"runStopOB":{"dataTableHeader":"RunStopOB","detailedHeader":"xx Run Stop oB","dataFileKey":"runStopOB","usedBy":["Ken","Kimberly"]}},{"drinkOH":{"dataTableHeader":"Drink oH","detailedHeader":"xx Drink oH","dataFileKey":"drinkOH","usedBy":["Jamie"]},"drinkOB":{"dataTableHeader":"Drink oB","detailedHeader":"xx Drink oB","dataFileKey":"drinkOB","usedBy":["Jamie"]}},{"SSoH":{"dataTableHeader":"SS oH","detailedHeader":"xx Stance oH","dataFileKey":"SSoH","usedBy":["Chun-Li","A.K.I."]},"SSoB":{"dataTableHeader":"SS oB","detailedHeader":"xx Stance oB","dataFileKey":"SSoB","usedBy":["Chun-Li","A.K.I."]}},{"CCoH":{"dataTableHeader":"Crouch oH","detailedHeader":"xx Coward Crouch oH","dataFileKey":"CCoH","usedBy":["Blanka"]},"CCoB":{"dataTableHeader":"Crouch oB","detailedHeader":"xx Coward Crouch oB","dataFileKey":"CCoB","usedBy":["Blanka"]}},{"SlasherOH":{"dataTableHeader":"Slasher oH","detailedHeader":"xx Slasher oH","dataFileKey":"SlasherOH","usedBy":["Dee Jay"]},"SlasherOB":{"dataTableHeader":"Slasher oB","detailedHeader":"xx Slasher oB","dataFileKey":"SlasherOB","usedBy":["Dee Jay"]}},{"SobatOH":{"dataTableHeader":"Sobat oH","detailedHeader":"xx Sobat oH","dataFileKey":"SobatOH","usedBy":["Dee Jay"]},"SobatOB":{"dataTableHeader":"Sobat oB","detailedHeader":"xx Sobat oB","dataFileKey":"SobatOB","usedBy":["Dee Jay"]}},{"ToxicBlossom":{"dataTableHeader":"T-Blossom","detailedHeader":"Toxic Blossom","dataFileKey":"ToxicBlossom","usedBy":["A.K.I."]}}],
+  "statsPoints": {
       "The Basics": [
         {
           "health": "Health"
