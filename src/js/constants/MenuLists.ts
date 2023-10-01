@@ -234,77 +234,77 @@ export const RES_DISCORDS_LIST = {
   "GGST Character Discords": {
     game: "GGST",
     data: {
-        "Anji": {
-          "url": "https://discord.com/invite/QNertwjTbT"
+      "Anji": {
+        "url": "https://discord.com/invite/QNertwjTbT"
       },
       "Asuka": {
-          "url": "https://discord.com/invite/rgQ4HH74AQ"
+        "url": "https://discord.com/invite/rgQ4HH74AQ"
       },
       "Axl": {
-          "url": "https://discord.com/invite/Jmykxqw"
+        "url": "https://discord.com/invite/Jmykxqw"
       },
       "Baiken": {
-          "url": "https://discord.com/invite/pwF4pC3"
+        "url": "https://discord.com/invite/pwF4pC3"
       },
       "Bedman": {
-          "url": "https://discord.com/invite/TTWraKdraG"
+        "url": "https://discord.com/invite/TTWraKdraG"
       },
       "Bridget": {
-          "url": "https://discord.com/invite/5WD2yxfrGb"
+        "url": "https://discord.com/invite/5WD2yxfrGb"
       },
       "Chipp": {
-          "url": "https://discord.com/invite/vgjNgxYNPN"
+        "url": "https://discord.com/invite/vgjNgxYNPN"
       },
       "Faust": {
-          "url": "https://discord.com/invite/8K3FX7cHat"
+        "url": "https://discord.com/invite/8K3FX7cHat"
       },
       "Giovanna": {
-          "url": "?"
+        "url": "?"
       },
       "Goldlewis": {
-          "url": "https://discord.com/invite/XC8ZRHebtC"
+        "url": "https://discord.com/invite/XC8ZRHebtC"
       },
       "H. Chaos": {
-          "url": "https://discord.com/invite/Xfzd7mkamF"
+        "url": "https://discord.com/invite/Xfzd7mkamF"
       },
       "I-No": {
-          "url": "https://discord.com/invite/bJv9ZD8ZPf"
+        "url": "https://discord.com/invite/bJv9ZD8ZPf"
       },
       "Jack-O": {
-          "url": "https://discord.com/invite/4WRSEsaPMW"
+        "url": "https://discord.com/invite/4WRSEsaPMW"
       },
       "Ky": {
-          "url": "https://discord.com/invite/HSEbnjrCYt"
+        "url": "https://discord.com/invite/HSEbnjrCYt"
       },
       "Leo": {
-          "url": "https://discord.com/invite/3WdB3qXP7K"
+        "url": "https://discord.com/invite/3WdB3qXP7K"
       },
       "May": {
-          "url": "https://discord.com/invite/0TarBXRJrjkn08Ln"
+        "url": "https://discord.com/invite/0TarBXRJrjkn08Ln"
       },
       "Millia": {
-          "url": "https://discord.com/invite/uJKdbx6TdP"
+        "url": "https://discord.com/invite/uJKdbx6TdP"
       },
       "Nagoriyuki": {
-          "url": "https://discord.com/invite/6SVCgZwF7R"
+        "url": "https://discord.com/invite/6SVCgZwF7R"
       },
       "Potemkin": {
-          "url": "https://discord.com/invite/e26ZQmDeny"
+        "url": "https://discord.com/invite/e26ZQmDeny"
       },
       "Ramlethal": {
-          "url": "https://discord.com/invite/vHKAwFjES6"
+        "url": "https://discord.com/invite/vHKAwFjES6"
       },
       "Sin": {
-          "url": "https://discord.com/invite/c29MewwcD5"
+        "url": "https://discord.com/invite/c29MewwcD5"
       },
       "Sol": {
-          "url": "?"
+        "url": "?"
       },
       "Testament": {
-          "url": "https://discord.com/invite/QZEHkcfCXf"
+        "url": "https://discord.com/invite/QZEHkcfCXf"
       },
       "Zato-1": {
-          "url": "https://discord.com/invite/fKS9CRXJrt"
+        "url": "https://discord.com/invite/fKS9CRXJrt"
       }
     }
   }
@@ -438,7 +438,7 @@ export const RES_DOCS_LIST = {
     data: {
       "FAT GGST Spreadsheet": {
         desc: "This is the document that we use to compile the GGST data",
-        url: "https://docs.google.com/spreadsheets/d/1nlbWon7SYhhO5TSpNx06qQrw2TRDEZ85HQrNherXioY/"
+        url: "https://docs.google.com/spreadsheets/d/1gEDhZ-_N5VSKJiPm3g1lbWpo1iuaxnfdRupYavHWNNE/"
       },
       "NCH GGST Resource Compilation": {
         desc: "As above, but for GGST!",
