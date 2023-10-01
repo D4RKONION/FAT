@@ -1,0 +1,5 @@
+- SF6: Added A.K.I.
+- Added Sobat & Slasher Cancels to Dee Jay
+- Fixed a typo in Dee Jay's name (from DeeJay)
+- Fixed a bug where long active frames got a bit out of hand in detail view
+- Fixed a bug where the GGST spreadsheet link wasn't working properly
