@@ -19,6 +19,7 @@
     "Bridget",
     "Chipp",
     "Faust",
+    "Elphelt",
     "Giovanna",
     "Goldlewis",
     "H. Chaos",
@@ -113,9 +114,14 @@
       },
       {
         "riscGain": {
-          "dataTableHeader": "risc",
+          "dataTableHeader": "riscGain",
           "detailedHeader": "Risc Gain",
           "dataFileKey": "riscGain"
+        },
+        "riscLoss": {
+          "dataTableHeader": "riscLoss",
+          "detailedHeader": "Risc Loss",
+          "dataFileKey": "riscLoss"
         },
         "prorate": {
           "dataTableHeader": "prorate",
@@ -201,5 +207,5 @@
       }
     ]
   },
-  "defaultLandscapeCols": {"startup": "S", "active": "A", "recovery": "R", "onBlock": "oB", "onHit": "oH", "dmg":"dmg", "atkLvl": "lvl", "riscGain": "risc", "prorate": "prorate", "guardLevel": "guard"}
+  "defaultLandscapeCols": {"startup": "S", "active": "A", "recovery": "R", "onBlock": "oB", "onHit": "oH", "dmg":"dmg", "atkLvl": "lvl", "riscGain": "riscGain", "prorate": "prorate", "guardLevel": "guard"}
 }

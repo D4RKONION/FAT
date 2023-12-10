@@ -1,6 +1,6 @@
-export const APP_CURRENT_VERSION_NAME = "3.7.0";
-export const APP_CURRENT_VERSION_CODE = 30700;
-export const APP_DATE_UPDATED = "Oct 01 2023"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "3.8.0";
+export const APP_CURRENT_VERSION_CODE = 30800;
+export const APP_DATE_UPDATED = "Dec 10 2023"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"]
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"]
@@ -10,11 +10,11 @@ export const UPDATABLE_GAMES_APP_CODES = {
     "GameDetails": 2
   },
   "GGST": {
-    "FrameData": 103,
-    "GameDetails": 4
+    "FrameData": 106,
+    "GameDetails": 5
   },
   "SF6": {
-    "FrameData": 22,
+    "FrameData": 24,
     "GameDetails": 4
   }
 }
@@ -22,6 +22,14 @@ export const UPDATABLE_GAMES_APP_CODES = {
 
 
 export const VERSION_LOGS = {
+  "3.8.0": {
+    "New Features": [
+      "GGST: Added Elphelt"
+    ],
+    "Bug Fixes": [
+      "All good!"
+    ]
+  },
   "3.7.0": {
     "New Features": [
       "SF6: Added A.K.I.",
