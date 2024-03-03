@@ -1,0 +1,6 @@
+SF6
+- Added Ed
+- Added Modern Controls, including the option to view the data with these names
+- Added new data, see app for more
+GGST
+- NumPad will be set as the default input type when switching to this game

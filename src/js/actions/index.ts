@@ -130,9 +130,14 @@ export const setActiveGame = (gameName: GameName, colReset: Boolean): ThunkActio
   return async (dispatch, getState) => {
     await dispatch(getGameDetails(gameName))
     
-    const { gameDetailsState } = getState();
+    const { gameDetailsState, dataDisplaySettingsState } = getState();
     if (colReset) {
       dispatch(setLandscapeCols(gameDetailsState.defaultLandscapeCols))
+    }
+    if (gameName === "GGST") {
+      dispatch(setDataDisplaySettings({inputNotationType: "numCmd"}));
+    } else if (dataDisplaySettingsState.inputNotationType === "ezCmd") {
+      dispatch(setDataDisplaySettings({inputNotationType: "plnCmd"}));
     }
     dispatch(setGameName(gameName));
     await dispatch(getFrameData(gameName));

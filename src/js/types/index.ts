@@ -7,7 +7,7 @@ export type AppModal = 'characterSelect' | 'help' | 'landscapeOptions' | 'whatsN
 
 export type MoveNameType = 'official' | 'common' | 'inputs';
 
-export type InputNotationType = 'plnCmd' | 'numCmd';
+export type InputNotationType = 'plnCmd' | 'numCmd' | 'ezCmd';
 
 export type NormalNotationType = 'fullWord' | 'shorthand';
 

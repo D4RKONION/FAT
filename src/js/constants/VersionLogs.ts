@@ -1,6 +1,6 @@
-export const APP_CURRENT_VERSION_NAME = "3.8.0";
-export const APP_CURRENT_VERSION_CODE = 30800;
-export const APP_DATE_UPDATED = "Dec 10 2023"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "3.9.0";
+export const APP_CURRENT_VERSION_CODE = 30900;
+export const APP_DATE_UPDATED = "Mar 03 2024"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"]
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"]
@@ -10,18 +10,31 @@ export const UPDATABLE_GAMES_APP_CODES = {
     "GameDetails": 2
   },
   "GGST": {
-    "FrameData": 106,
+    "FrameData": 109,
     "GameDetails": 5
   },
   "SF6": {
-    "FrameData": 24,
-    "GameDetails": 4
+    "FrameData": 25,
+    "GameDetails": 5
   }
 }
 
 
 
 export const VERSION_LOGS = {
+  "3.9.0": {
+    "New Features": [
+      "SF6: Added Ed",
+      "SF6: Added Modern Controls, including the option to view the data with these names",
+      "SF6: Added Surprise Hop as a specific cancel for Blanka",
+      "SF6: Added hitsun, blockstun, hitstop & hit confirm window information", 
+      "SF6: Prepping app for Juggle Data, arriving with a frame data update shortly",
+      "GGST: NumPad will be set as the default input type when switching to this game"
+    ],
+    "Bug Fixes": [
+      "None!"
+    ]
+  },
   "3.8.0": {
     "New Features": [
       "GGST: Added Elphelt"

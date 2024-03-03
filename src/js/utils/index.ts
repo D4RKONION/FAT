@@ -58,10 +58,18 @@ function vTriggerMerge(rawFrameData, vtState) {
 
 // this allow me to build the JSON for the setPlayer action creator in selectCharacter, SegmentSwitcher and ____ componenet
 export function helpCreateFrameDataJSON(rawFrameData, moveNameType, inputNotationType, normalNotationType, vtState) {
-  
+
   const dataToRename = vtState === "normal"
-    ? rawFrameData.normal
+    ? {...rawFrameData.normal}
     : vTriggerMerge(rawFrameData, vtState);
+    
+
+  if (inputNotationType === "ezCmd") {
+    Object.keys(dataToRename).forEach(moveName => {
+      if (!dataToRename[moveName].ezCmd) {
+        delete dataToRename[moveName]
+    }}) 
+  }
 
   return moveNameType === "official" ? dataToRename : renameData(dataToRename, moveNameType, inputNotationType);
 

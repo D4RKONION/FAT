@@ -17,6 +17,7 @@
     "Dee Jay",
     "Dhalsim",
     "E.Honda",
+    "Ed",
     "Guile",
     "Jamie",
     "JP",
@@ -95,6 +96,11 @@
           "detailedHeader": "Damage",
           "dataFileKey": "dmg"
         },
+        "dmgScaling": {
+          "dataTableHeader": "dmgScl",
+          "detailedHeader": "Damage Scaling",
+          "dataFileKey": "dmgScl"
+        },
         "chp": {
           "dataTableHeader": "chip",
           "detailedHeader": "Chip",
@@ -110,13 +116,13 @@
     "Drive Frame Data": [
       {
         "DRoH": {
-          "dataTableHeader": "dr-oH",
-          "detailedHeader": "DR On Hit",
+          "dataTableHeader": "DRC-oH",
+          "detailedHeader": "DR Cancel On Hit",
           "dataFileKey": "DRoH"
         },
         "DRoB": {
-          "dataTableHeader": "dr-oB",
-          "detailedHeader": "DR On Block",
+          "dataTableHeader": "DRC-oB",
+          "detailedHeader": "DR Cancel On Block",
           "dataFileKey": "DRoB"
         }
       },
@@ -125,20 +131,6 @@
           "dataTableHeader": "on PP",
           "detailedHeader": "On Perfect Parry",
           "dataFileKey": "onPP"
-        }
-      }
-    ],
-    "Super Cancels": [
-      {
-        "SA2oH": {
-          "dataTableHeader": "SA2oH",
-          "detailedHeader": "S.Art 2 On Hit",
-          "dataFileKey": "SA2oH"
-        },
-        "SA2oB": {
-          "dataTableHeader": "SA2oB",
-          "detailedHeader": "S.Art 2 On Block",
-          "dataFileKey": "SA2oB"
         }
       }
     ],
@@ -160,6 +152,20 @@
           "dataTableHeader": "D-Gain",
           "detailedHeader": "Drive Gain",
           "dataFileKey": "DGain"
+        }
+      }
+    ],
+    "Super Cancels": [
+      {
+        "SA2oH": {
+          "dataTableHeader": "SA2oH",
+          "detailedHeader": "S.Art 2 On Hit",
+          "dataFileKey": "SA2oH"
+        },
+        "SA2oB": {
+          "dataTableHeader": "SA2oB",
+          "detailedHeader": "S.Art 2 On Block",
+          "dataFileKey": "SA2oB"
         }
       }
     ],
@@ -189,6 +195,69 @@
         }
       }
     ],
+    "Hit Confirm Window": [
+      {
+        "hcWinSpCa": {
+          "dataTableHeader": "hc-Sp/Ca",
+          "detailedHeader": "Specials & CAs",
+          "dataFileKey": "hcWinSpCa"
+        },
+        "hcWinTc": {
+          "dataTableHeader": "hc-TC",
+          "detailedHeader": "Target Combos",
+          "dataFileKey": "hcWinTc"
+        }
+      },
+      {
+        "hcWinNotes": {
+          "dataTableHeader": "hc-n",
+          "detailedHeader": "Notes",
+          "dataFileKey": "hcWinNotes"
+        }
+      }
+    ],
+    "Juggle Data": [
+      {
+        "jugLimit": {
+          "dataTableHeader": "jugLim",
+          "detailedHeader": "Juggle Limit",
+          "dataFileKey": "jugLimit"
+        },
+        "jugIncr": {
+          "dataTableHeader": "jugIncr",
+          "detailedHeader": "Juggle Increase",
+          "dataFileKey": "jugIncr"
+        },
+        "jugStart": {
+          "dataTableHeader": "jugSt",
+          "detailedHeader": "Juggle Start",
+          "dataFileKey": "jugStart"
+        }
+        
+      }
+      
+    ],
+    "Stun/Stop Data": [
+      {
+        "hitstun": {
+          "dataTableHeader": "h.stun",
+          "detailedHeader": "Hitstun",
+          "dataFileKey": "hitstun"
+        },
+        "blockstun": {
+          "dataTableHeader": "b.stun",
+          "detailedHeader": "Blockstun",
+          "dataFileKey": "blockstun"
+        },
+        "hitstop": {
+          "dataTableHeader": "h.stop",
+          "detailedHeader": "Hitstop",
+          "dataFileKey": "hitstop"
+        }
+        
+      }
+      
+    ],
     "Extra Information": [
       {
         "extraInfo": {
@@ -199,7 +268,7 @@
       }
     ]
   },
-  "specificCancels": [{"runStopOH":{"dataTableHeader":"RunStopOH","detailedHeader":"xx Run Stop oH","dataFileKey":"runStopOH","usedBy":["Ken","Kimberly"]},"runStopOB":{"dataTableHeader":"RunStopOB","detailedHeader":"xx Run Stop oB","dataFileKey":"runStopOB","usedBy":["Ken","Kimberly"]}},{"drinkOH":{"dataTableHeader":"Drink oH","detailedHeader":"xx Drink oH","dataFileKey":"drinkOH","usedBy":["Jamie"]},"drinkOB":{"dataTableHeader":"Drink oB","detailedHeader":"xx Drink oB","dataFileKey":"drinkOB","usedBy":["Jamie"]}},{"SSoH":{"dataTableHeader":"SS oH","detailedHeader":"xx Stance oH","dataFileKey":"SSoH","usedBy":["Chun-Li","A.K.I."]},"SSoB":{"dataTableHeader":"SS oB","detailedHeader":"xx Stance oB","dataFileKey":"SSoB","usedBy":["Chun-Li","A.K.I."]}},{"CCoH":{"dataTableHeader":"Crouch oH","detailedHeader":"xx Coward Crouch oH","dataFileKey":"CCoH","usedBy":["Blanka"]},"CCoB":{"dataTableHeader":"Crouch oB","detailedHeader":"xx Coward Crouch oB","dataFileKey":"CCoB","usedBy":["Blanka"]}},{"SlasherOH":{"dataTableHeader":"Slasher oH","detailedHeader":"xx Slasher oH","dataFileKey":"SlasherOH","usedBy":["Dee Jay"]},"SlasherOB":{"dataTableHeader":"Slasher oB","detailedHeader":"xx Slasher oB","dataFileKey":"SlasherOB","usedBy":["Dee Jay"]}},{"SobatOH":{"dataTableHeader":"Sobat oH","detailedHeader":"xx Sobat oH","dataFileKey":"SobatOH","usedBy":["Dee Jay"]},"SobatOB":{"dataTableHeader":"Sobat oB","detailedHeader":"xx Sobat oB","dataFileKey":"SobatOB","usedBy":["Dee Jay"]}},{"ToxicBlossom":{"dataTableHeader":"T-Blossom","detailedHeader":"Toxic Blossom","dataFileKey":"ToxicBlossom","usedBy":["A.K.I."]}}],
+  "specificCancels": [{"runStopOH":{"dataTableHeader":"RunStopOH","detailedHeader":"xx Run Stop oH","dataFileKey":"runStopOH","usedBy":["Ken","Kimberly"]},"runStopOB":{"dataTableHeader":"RunStopOB","detailedHeader":"xx Run Stop oB","dataFileKey":"runStopOB","usedBy":["Ken","Kimberly"]}},{"drinkOH":{"dataTableHeader":"Drink oH","detailedHeader":"xx Drink oH","dataFileKey":"drinkOH","usedBy":["Jamie"]},"drinkOB":{"dataTableHeader":"Drink oB","detailedHeader":"xx Drink oB","dataFileKey":"drinkOB","usedBy":["Jamie"]}},{"SSoH":{"dataTableHeader":"SS oH","detailedHeader":"xx Stance oH","dataFileKey":"SSoH","usedBy":["Chun-Li","A.K.I."]},"SSoB":{"dataTableHeader":"SS oB","detailedHeader":"xx Stance oB","dataFileKey":"SSoB","usedBy":["Chun-Li","A.K.I."]}},{"CCoH":{"dataTableHeader":"Crouch oH","detailedHeader":"xx Coward Crouch oH","dataFileKey":"CCoH","usedBy":["Blanka"]},"CCoB":{"dataTableHeader":"Crouch oB","detailedHeader":"xx Coward Crouch oB","dataFileKey":"CCoB","usedBy":["Blanka"]}},{"SlasherOH":{"dataTableHeader":"Slasher oH","detailedHeader":"xx Slasher oH","dataFileKey":"SlasherOH","usedBy":["Dee Jay"]},"SlasherOB":{"dataTableHeader":"Slasher oB","detailedHeader":"xx Slasher oB","dataFileKey":"SlasherOB","usedBy":["Dee Jay"]}},{"SobatOH":{"dataTableHeader":"Sobat oH","detailedHeader":"xx Sobat oH","dataFileKey":"SobatOH","usedBy":["Dee Jay"]},"SobatOB":{"dataTableHeader":"Sobat oB","detailedHeader":"xx Sobat oB","dataFileKey":"SobatOB","usedBy":["Dee Jay"]}},{"ToxicBlossom":{"dataTableHeader":"T.Blossom","detailedHeader":"Toxic Blossom","dataFileKey":"ToxicBlossom","usedBy":["A.K.I."]}},{"hopOH":{"dataTableHeader":"Hop oH","detailedHeader":"xx Surprise Hop oH","dataFileKey":"hopOH","usedBy":["Blanka"]},"hopOB":{"dataTableHeader":"Hop oB","detailedHeader":"xx Surprise Hop oB","dataFileKey":"hopOB","usedBy":["Blanka"]}},{"duckOH":{"dataTableHeader":"Duck oH","detailedHeader":"xx Kill Rush oH","dataFileKey":"duckOH","usedBy":["Ed"]},"duckOB":{"dataTableHeader":"Duck oB","detailedHeader":"xx Kill Rush oB","dataFileKey":"duckOB","usedBy":["Ed"]}}],
   "statsPoints": {
       "The Basics": [
         {
@@ -251,5 +320,5 @@
   
       ]
   },
-  "defaultLandscapeCols": {"startup": "S", "active": "A", "recovery": "R", "onBlock": "oB", "onHit": "oH", "onPC":"onPC", "xx": "xx", "dmg": "dmg", "atkLvl": "lvl", "DRoH": "dr-oH", "DRoB": "dr-oB" }
+  "defaultLandscapeCols": {"startup": "S", "active": "A", "recovery": "R", "onBlock": "oB", "onHit": "oH", "onPC":"onPC", "xx": "xx", "dmg": "dmg", "atkLvl": "lvl", "DRoH": "DRC-oH", "DRoB": "DRC-oB" }
 }

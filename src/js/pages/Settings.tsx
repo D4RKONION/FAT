@@ -103,7 +103,7 @@ const Settings = () => {
                 cancelText="Cancel"
                 onIonChange={e => {
                   dispatch(setDataDisplaySettings({inputNotationType: e.detail.value}));
-                  if (dataDisplaySettings.moveNameType === "inputs") {
+                  if (dataDisplaySettings.moveNameType === "inputs" || dataDisplaySettings.inputNotationType === "ezCmd" || e.detail.value === "ezCmd") {
                     dispatch(setPlayer("playerOne", selectedCharacters.playerOne.name));
                     dispatch(setPlayer("playerTwo", selectedCharacters.playerTwo.name));
                   }
@@ -111,6 +111,7 @@ const Settings = () => {
               >
                 <IonSelectOption value="plnCmd">Motion</IonSelectOption>
                 <IonSelectOption value="numCmd">NumPad</IonSelectOption>
+                {activeGame === "SF6" && <IonSelectOption value="ezCmd">Modern</IonSelectOption>}
               </IonSelect>
             </IonItem>
 

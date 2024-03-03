@@ -7,7 +7,7 @@ import PageHeader from '../components/PageHeader';
 import SubHeader from '../components/SubHeader';
 import SegmentSwitcher from '../components/SegmentSwitcher';
 import { setPlayerAttr } from '../actions';
-import { activeGameSelector, activePlayerSelector, gameDetailsSelector, selectedCharactersSelector } from '../selectors';
+import { activeGameSelector, activePlayerSelector, dataDisplaySettingsSelector, gameDetailsSelector, selectedCharactersSelector } from '../selectors';
 import { isPlatform } from '@ionic/core/components';
 import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
 import { openOutline } from 'ionicons/icons';
@@ -19,6 +19,7 @@ const MoveDetail = () => {
   const activePlayer = useSelector(activePlayerSelector);
   const activeGame = useSelector(activeGameSelector);
   const gameDetails = useSelector(gameDetailsSelector);
+  const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
 
   const dispatch = useDispatch();
 
@@ -68,8 +69,14 @@ const MoveDetail = () => {
             [
               <><b>Official Name</b><br />{selectedMoveData["moveName"]}</>,
               <><b>Common Name</b><br />{selectedMoveData["cmnName"] ? selectedMoveData["cmnName"] : selectedMoveData["moveName"]}</>,
-              <><b>Motion</b><br />{selectedMoveData["plnCmd"]}</>,
-              <><b>NumPad</b><br />{selectedMoveData["numCmd"]}</>
+              <><b>{dataDisplaySettings.inputNotationType === "ezCmd" ? "Classic" : "Motion"}</b><br />{selectedMoveData["plnCmd"]}</>,
+              <>
+              {dataDisplaySettings.inputNotationType === "ezCmd"
+                ? <><b>Modern</b><br />{selectedMoveData["ezCmd"]}</>
+                : <><b>NumPad</b><br />{selectedMoveData["numCmd"]}</>
+              }
+              </>
+              
             ]
           ]}
         />
