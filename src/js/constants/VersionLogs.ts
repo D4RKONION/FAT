@@ -24,6 +24,7 @@ export const UPDATABLE_GAMES_APP_CODES = {
 export const VERSION_LOGS = {
   "3.9.0": {
     "New Features": [
+      "Android 13+: Added a Themed Icon",
       "SF6: Added Ed",
       "SF6: Added Modern Controls, including the option to view the data with these names",
       "SF6: Added Surprise Hop as a specific cancel for Blanka",

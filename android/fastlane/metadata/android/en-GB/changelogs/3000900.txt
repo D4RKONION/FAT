@@ -1,4 +1,5 @@
 SF6
+- Android 13+: Added a Themed Icon
 - Added Ed
 - Added Modern Controls, including the option to view the data with these names
 - Added new data, see app for more
