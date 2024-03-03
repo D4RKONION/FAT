@@ -14,7 +14,7 @@ export const UPDATABLE_GAMES_APP_CODES = {
     "GameDetails": 5
   },
   "SF6": {
-    "FrameData": 25,
+    "FrameData": 26,
     "GameDetails": 5
   }
 }
