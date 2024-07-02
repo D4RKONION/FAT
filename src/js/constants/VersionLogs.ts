@@ -1,6 +1,6 @@
-export const APP_CURRENT_VERSION_NAME = "3.10.0";
-export const APP_CURRENT_VERSION_CODE = 31000;
-export const APP_DATE_UPDATED = "May 03 2024"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "3.11.0";
+export const APP_CURRENT_VERSION_CODE = 31100;
+export const APP_DATE_UPDATED = "Jul 02 2024"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"]
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"]
@@ -10,18 +10,24 @@ export const UPDATABLE_GAMES_APP_CODES = {
     "GameDetails": 2
   },
   "GGST": {
-    "FrameData": 111,
+    "FrameData": 114,
     "GameDetails": 6
   },
   "SF6": {
-    "FrameData": 31,
-    "GameDetails": 6
+    "FrameData": 36,
+    "GameDetails": 7
   }
 }
 
-
-
 export const VERSION_LOGS = {
+  "3.11.0": {
+    "New Features": [
+      "SF6: Added M.Bison"
+    ],
+    "Bug Fixes": [
+      "None!"
+    ]
+  },
   "3.10.0": {
     "New Features": [
       "GGST: Added ABA",
