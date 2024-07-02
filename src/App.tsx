@@ -71,6 +71,7 @@ import { store } from './js/store';
 import { APP_CURRENT_VERSION_CODE, APP_DATE_UPDATED, UPDATABLE_GAMES, TYPES_OF_UPDATES, UPDATABLE_GAMES_APP_CODES } from './js/constants/VersionLogs';
 import { SplashScreen } from '@capacitor/splash-screen';
 import { Preferences } from '@capacitor/preferences';
+import { createStorage, storageGet, storageRemove, storageSet } from './js/utils/ionicStorage';
 
 const App = () => {
 
@@ -131,7 +132,7 @@ const App = () => {
         "com.fullmeter.fat.theme.poisonouspink" : "Poisonous Pink",
       }
 
-      iapStore.verbosity = CdvPurchase.LogLevel.DEBUG;
+      iapStore.verbosity = CdvPurchase.LogLevel.QUIET;
 
       
       iapStore.register(productList)
@@ -173,15 +174,15 @@ useEffect(() => {
       const APP_WHATS_BEING_UPDATED_CODE = UPDATABLE_GAMES_APP_CODES[gameName][updateType];
 
       // check if the element was updated
-      let LS_WHATS_BEING_UPDATED_CODE = parseInt(localStorage.getItem(`ls${gameName}${updateType}Code`));
+      let LS_WHATS_BEING_UPDATED_CODE = parseInt(await storageGet(`ls${gameName}${updateType}Code`));
       if (!LS_WHATS_BEING_UPDATED_CODE) {
         // fresh install, local code doesn't exist, set it up using the app's local data
         console.log(`local ${gameName} ${updateType} code don't exist, set it up using the app's local data`)
-        localStorage.setItem(`ls${gameName}${updateType}Code`, APP_WHATS_BEING_UPDATED_CODE.toString())
+        storageSet(`ls${gameName}${updateType}Code`, APP_WHATS_BEING_UPDATED_CODE.toString())
         // regardless of the game, if this is a store update we want to set the element being updated's last updated date to the app's last update
-        localStorage.setItem(`ls${gameName}${updateType}LastUpdated`, APP_DATE_UPDATED.toString())
+        storageSet(`ls${gameName}${updateType}LastUpdated`, APP_DATE_UPDATED.toString())
 
-        LS_WHATS_BEING_UPDATED_CODE = parseInt(localStorage.getItem(`ls${gameName}${updateType}Code`));
+        LS_WHATS_BEING_UPDATED_CODE = parseInt(await storageGet(`ls${gameName}${updateType}Code`));
 
         // also because this is a fresh install, we're going to do a cheeky check for if
         // the user likes dark mode right here. We only do this once, the first time through
@@ -194,13 +195,13 @@ useEffect(() => {
       } else if (LS_WHATS_BEING_UPDATED_CODE <= APP_WHATS_BEING_UPDATED_CODE) {
         // the app has been updated via the store, delete the LS updatetype.json and update the LS updatetype code
         console.log(`the app has been updated via the store, delete the LS ${gameName} ${updateType}.json and update the LS code`);
-        localStorage.setItem(`ls${gameName}${updateType}Code`, APP_WHATS_BEING_UPDATED_CODE.toString())
-        localStorage.removeItem(`ls${gameName}${updateType}`);
+        storageSet(`ls${gameName}${updateType}Code`, APP_WHATS_BEING_UPDATED_CODE.toString())
+        storageRemove(`ls${gameName}${updateType}`);
 
-        LS_WHATS_BEING_UPDATED_CODE = parseInt(localStorage.getItem(`ls${gameName}${updateType}Code`));
+        LS_WHATS_BEING_UPDATED_CODE = parseInt(await storageGet(`ls${gameName}${updateType}Code`));
 
         // regardless of the game, if this is a store update we want to set the frame-data last updated date to the app's last update
-        localStorage.setItem(`ls${gameName}${updateType}LastUpdated`, APP_DATE_UPDATED.toString())
+        storageSet(`ls${gameName}${updateType}LastUpdated`, APP_DATE_UPDATED.toString())
 
       } else if (LS_WHATS_BEING_UPDATED_CODE > APP_WHATS_BEING_UPDATED_CODE) {
         // the app has downloaded an updateType update
@@ -228,8 +229,8 @@ useEffect(() => {
           value: JSON.stringify(SERVER_DATA),
         });
         
-        localStorage.setItem(`ls${gameName}${updateType}Code`, SERVER_WHATS_BEING_UPDATED_VERSION_DETAILS.VERSION_CODE)
-        localStorage.setItem(`ls${gameName}${updateType}LastUpdated`, SERVER_WHATS_BEING_UPDATED_VERSION_DETAILS.DATE_UPDATED) 
+        storageSet(`ls${gameName}${updateType}Code`, SERVER_WHATS_BEING_UPDATED_VERSION_DETAILS.VERSION_CODE)
+        storageSet(`ls${gameName}${updateType}LastUpdated`, SERVER_WHATS_BEING_UPDATED_VERSION_DETAILS.DATE_UPDATED) 
         
         dispatch(setActiveGame(activeGame, true))
         

@@ -5,6 +5,7 @@ import { GAME_NAMES } from '../constants/ImmutableGameDetails';
 import { activeGameSelector, gameDetailsSelector, landscapeColsSelector, selectedCharactersSelector } from '../selectors';
 import { GameName } from '../types';
 import { removeAllSpecificCancels } from '../utils/landscapecols';
+import { createStorage } from '../utils/ionicStorage';
 
 type FrameDataGateProps = {
   children: ReactNode;
@@ -31,6 +32,16 @@ const FrameDataGate = ({ children }: FrameDataGateProps) => {
   const [gameIsSetup, setGameIsSetup] = useState(false);
   const [characterIsSetup, setCharacterIsSetup] = useState(false);
   const [isReady, setIsReady] = useState(false);
+
+
+  useEffect(() => {
+
+		const setupStore = async () => {
+			await createStorage("FatDB");
+		}
+
+		setupStore();
+	}, []);
 
   useEffect(() => {
     // do an initial frame data load

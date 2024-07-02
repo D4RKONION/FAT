@@ -11,6 +11,7 @@ import { useHistory } from 'react-router';
 import { APP_CURRENT_VERSION_NAME } from '../constants/VersionLogs';
 import { activeGameSelector, adviceToastShownSelector, dataDisplaySettingsSelector, selectedCharactersSelector, themeAccessibilitySelector } from '../selectors';
 import { GAME_NAMES } from '../constants/ImmutableGameDetails';
+import { storageGet } from '../utils/ionicStorage';
 
 const Settings = () => {
   
@@ -27,8 +28,8 @@ const Settings = () => {
 
   const [copyToastShown, setCopyToastShown] = useState(false);
 
-  const LS_SFV_FRAME_DATA_CODE = localStorage.getItem("lsSFVFrameDataCode");
-  const LS_GGST_FRAME_DATA_CODE = localStorage.getItem("lsGGSTFrameDataCode");
+  const LS_SFV_FRAME_DATA_CODE = storageGet("lsSFVFrameDataCode");
+  const LS_GGST_FRAME_DATA_CODE = storageGet("lsGGSTFrameDataCode");
 
   useIonViewDidEnter(() => {
      urlHash &&
@@ -178,36 +179,6 @@ const Settings = () => {
                   <IonSelectOption value={"none"}>Off</IonSelectOption>
                 </IonSelect>
               </IonItem>
-              
-              {Object.keys(localStorage).includes("localNotes") &&
-                <IonItem lines="full">
-                  <IonLabel>
-                    <h2>Legacy Notes Retrieval</h2>
-                    <p>Add your notes from FAT 2.X to your clipboard</p>
-                  </IonLabel>
-                  <IonButton
-                    fill="outline" slot="end" size="default"
-                    onClick={async () => {
-                      try {
-                        // Android wont allow me to use nav.clip so I have to use a Cordova plugin instead.
-                        // Maybe in the future we can go back to web api
-                        // await navigator.clipboard.writeText(localStorage.getItem("localNotes"));
-                        await Clipboard.write({
-                          string: localStorage.getItem("localNotes")
-                        });
-                        setCopyToastShown(true);
-                      } catch (err) {
-                        console.error('Failed to copy: ', err);
-                      }									
-                    }}
-                  >Copy</IonButton>
-                </IonItem>
-                
-              }
-
-              
-              
-
 
             {/* FEEDBACK OPTIONS */}
             <IonListHeader>Feedback</IonListHeader>

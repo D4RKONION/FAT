@@ -17,7 +17,7 @@ import { UPDATABLE_GAMES, UPDATABLE_GAMES_APP_CODES } from '../constants/Version
 import { RootState } from '../reducers';
 import { ThunkAction } from 'redux-thunk';
 import { AnyAction } from 'redux';
-import { Preferences } from '@capacitor/preferences';
+import { storageGet } from '../utils/ionicStorage';
 
 // ACTION CREATORS
 //handle global things
@@ -57,14 +57,16 @@ const getFrameData = (gameName: GameName) => {
     
     if (UPDATABLE_GAMES.includes(gameName)) {
 
-      const LS_FRAME_DATA_CODE = parseInt(localStorage.getItem(`ls${gameName}FrameDataCode`));
+      const LS_FRAME_DATA_CODE = parseInt(await storageGet(`ls${gameName}FrameDataCode`));
       const APP_FRAME_DATA_CODE = UPDATABLE_GAMES_APP_CODES[gameName]["FrameData"]
       
       let lsFrameData: string;
 
       try {
-        lsFrameData = JSON.parse((await Preferences.get({ key: `ls${gameName}FrameData` })).value);
-      } catch {
+        console.log(await storageGet(`ls${gameName}FrameData`))
+        lsFrameData = JSON.parse((await storageGet(`ls${gameName}FrameData`)).value);
+      } catch (error) {
+        console.log(error)
         lsFrameData = '';
       }
 
@@ -101,14 +103,16 @@ const getGameDetails = (gameName: GameName) => {
       
     if (UPDATABLE_GAMES.includes(gameName)) {
 
-      const LS_GAME_DETAILS_CODE = parseInt(localStorage.getItem(`ls${gameName}GameDetailsCode`));
+
+      console.log(storageGet)
+      const LS_GAME_DETAILS_CODE = parseInt(await storageGet(`ls${gameName}GameDetailsCode`));
       const APP_GAME_DETAILS_CODE = UPDATABLE_GAMES_APP_CODES[gameName]["GameDetails"]
       
       
       let lsGameDetails: string;
 
       try {
-        lsGameDetails = JSON.parse((await Preferences.get({ key: `ls${gameName}GameDetails` })).value);
+        lsGameDetails = JSON.parse((await storageGet(`ls${gameName}GameDetails`)).value);
       } catch {
         lsGameDetails = '';
       }

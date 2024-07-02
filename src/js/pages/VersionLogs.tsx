@@ -3,6 +3,7 @@ import { useState } from "react";
 import PageHeader from "../components/PageHeader";
 import styles from '../../style/components/VersionLogs.module.scss'
 import { VERSION_LOGS, APP_CURRENT_VERSION_NAME, UPDATABLE_GAMES, UPDATABLE_GAMES_APP_CODES } from "../constants/VersionLogs";
+import { storageGet } from "../utils/ionicStorage";
 
 const VersionLogs = () => {
 
@@ -56,11 +57,11 @@ const VersionLogs = () => {
 										<h2><strong>Frame Data</strong></h2>
 										<h3>
 											Version Code: {
-												localStorage.getItem(`ls${gameName}FrameDataCode`) || UPDATABLE_GAMES_APP_CODES[gameName].FrameData
+												storageGet(`ls${gameName}FrameDataCode`) || UPDATABLE_GAMES_APP_CODES[gameName].FrameData
 											}
 										</h3>
-										{localStorage.getItem(`ls${gameName}FrameDataLastUpdated`) ?
-											<h3>Remote updated on {localStorage.getItem(`ls${gameName}FrameDataLastUpdated`)}</h3>
+										{storageGet(`ls${gameName}FrameDataLastUpdated`) ?
+											<h3>Remote updated on {storageGet(`ls${gameName}FrameDataLastUpdated`)}</h3>
 											: <h3>Using local app file</h3>
 
 										}
@@ -71,11 +72,11 @@ const VersionLogs = () => {
 										<h2><strong>Game Details</strong></h2>
 										<h3>
 											Version Code: {
-												localStorage.getItem(`ls${gameName}GameDetailsCode`) || UPDATABLE_GAMES_APP_CODES[gameName].GameDetails
+												storageGet(`ls${gameName}GameDetailsCode`) || UPDATABLE_GAMES_APP_CODES[gameName].GameDetails
 											}
 										</h3>
-										{localStorage.getItem(`ls${gameName}GameDetailsLastUpdated`) ?
-											<h3>Remote updated on {localStorage.getItem(`ls${gameName}GameDetailsLastUpdated`)}</h3>
+										{storageGet(`ls${gameName}GameDetailsLastUpdated`) ?
+											<h3>Remote updated on {storageGet(`ls${gameName}GameDetailsLastUpdated`)}</h3>
 											: <h3>Using local app file</h3>
 
 										}

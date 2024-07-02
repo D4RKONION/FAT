@@ -17,6 +17,7 @@ import { handleNewCharacterLandscapeCols } from '../utils/landscapecols';
 import { isPlatform } from '@ionic/core/components';
 import FrameDataSubHeader from '../components/FrameDataSubHeader';
 import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
+import { storageGet, storageSet } from '../utils/ionicStorage';
 
 
 
@@ -46,8 +47,8 @@ const FrameData = () => {
   useEffect(() => {
     dispatch(setLandscapeCols(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters["playerOne"].name, slugs.characterSlug, autoSetSpecificCols, landscapeCols)));
 
-    if (!localStorage.getItem("lsCurrentVersionCode") || parseInt(localStorage.getItem("lsCurrentVersionCode")) < APP_CURRENT_VERSION_CODE) {
-      localStorage.setItem("lsCurrentVersionCode", APP_CURRENT_VERSION_CODE.toString());
+    if (!storageGet("lsCurrentVersionCode") || parseInt(storageGet("lsCurrentVersionCode") as unknown as string) < APP_CURRENT_VERSION_CODE) {
+      storageSet("lsCurrentVersionCode", APP_CURRENT_VERSION_CODE.toString());
       dispatch(setModalVisibility({ currentModal: "whatsNew", visible: true }))
     }
 
