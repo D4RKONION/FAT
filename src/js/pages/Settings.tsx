@@ -28,9 +28,6 @@ const Settings = () => {
 
   const [copyToastShown, setCopyToastShown] = useState(false);
 
-  const LS_SFV_FRAME_DATA_CODE = storageGet("lsSFVFrameDataCode");
-  const LS_GGST_FRAME_DATA_CODE = storageGet("lsGGSTFrameDataCode");
-
   useIonViewDidEnter(() => {
      urlHash &&
        document.getElementById(urlHash).scrollIntoView({behavior: "smooth"});
@@ -240,7 +237,7 @@ const Settings = () => {
 
 
           </IonList>
-          <p className="final-fat">FAT {`${APP_CURRENT_VERSION_NAME}.${LS_SFV_FRAME_DATA_CODE}.${LS_GGST_FRAME_DATA_CODE}`}</p>
+          <p className="final-fat">FAT ${APP_CURRENT_VERSION_NAME}</p>
 
           <IonToast
             isOpen={copyToastShown}

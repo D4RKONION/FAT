@@ -70,8 +70,7 @@ import { setOrientation, setModalVisibility, setThemeOwned, setThemeBrightness, 
 import { store } from './js/store';
 import { APP_CURRENT_VERSION_CODE, APP_DATE_UPDATED, UPDATABLE_GAMES, TYPES_OF_UPDATES, UPDATABLE_GAMES_APP_CODES } from './js/constants/VersionLogs';
 import { SplashScreen } from '@capacitor/splash-screen';
-import { Preferences } from '@capacitor/preferences';
-import { createStorage, storageGet, storageRemove, storageSet } from './js/utils/ionicStorage';
+import { storageGet, storageRemove, storageSet } from './js/utils/ionicStorage';
 
 const App = () => {
 
@@ -224,10 +223,7 @@ useEffect(() => {
         const WHATS_BEING_UPDATED_json_response = await fetch(`https://fullmeter.com/fatfiles/release/${gameName}/${updateType}/${gameName}${updateType}.json?ts=${Date.now()}`)
         const SERVER_DATA = await WHATS_BEING_UPDATED_json_response.json();
         
-        await Preferences.set({
-          key: `ls${gameName}${updateType}`,
-          value: JSON.stringify(SERVER_DATA),
-        });
+        storageSet(`ls${gameName}${updateType}`, JSON.stringify(SERVER_DATA))
         
         storageSet(`ls${gameName}${updateType}Code`, SERVER_WHATS_BEING_UPDATED_VERSION_DETAILS.VERSION_CODE)
         storageSet(`ls${gameName}${updateType}LastUpdated`, SERVER_WHATS_BEING_UPDATED_VERSION_DETAILS.DATE_UPDATED) 

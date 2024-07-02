@@ -63,8 +63,7 @@ const getFrameData = (gameName: GameName) => {
       let lsFrameData: string;
 
       try {
-        console.log(await storageGet(`ls${gameName}FrameData`))
-        lsFrameData = JSON.parse((await storageGet(`ls${gameName}FrameData`)).value);
+        lsFrameData = JSON.parse(await storageGet(`ls${gameName}FrameData`));
       } catch (error) {
         console.log(error)
         lsFrameData = '';
@@ -103,8 +102,6 @@ const getGameDetails = (gameName: GameName) => {
       
     if (UPDATABLE_GAMES.includes(gameName)) {
 
-
-      console.log(storageGet)
       const LS_GAME_DETAILS_CODE = parseInt(await storageGet(`ls${gameName}GameDetailsCode`));
       const APP_GAME_DETAILS_CODE = UPDATABLE_GAMES_APP_CODES[gameName]["GameDetails"]
       
@@ -112,8 +109,9 @@ const getGameDetails = (gameName: GameName) => {
       let lsGameDetails: string;
 
       try {
-        lsGameDetails = JSON.parse((await storageGet(`ls${gameName}GameDetails`)).value);
-      } catch {
+        lsGameDetails = JSON.parse(await storageGet(`ls${gameName}GameDetails`));
+      } catch (error) {
+        console.log(error)
         lsGameDetails = '';
       }
 

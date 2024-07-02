@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import PageHeader from './PageHeader';
 import '../../style/components/WhatsNew.scss'
 import {APP_CURRENT_VERSION_NAME, APP_DATE_UPDATED, VERSION_LOGS} from '../constants/VersionLogs';
-import { resetThemesOwned, setModalVisibility } from '../actions';
+import { setModalVisibility } from '../actions';
 import { modalVisibilitySelector } from '../selectors';
 
 const WhatsNewModal = () => {
@@ -24,8 +24,6 @@ const WhatsNewModal = () => {
               {
                 text: "Close",
                 buttonFunc: () => {
-                  // DELETE THIS FOR THE NEXT VERSION, AND REMOVE THE SET COLOR THEME IMPORT
-                  dispatch(resetThemesOwned());
                   dispatch(setModalVisibility({ currentModal: "whatsNew", visible: false }));
                 } 
                   

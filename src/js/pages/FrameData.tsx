@@ -47,12 +47,18 @@ const FrameData = () => {
   useEffect(() => {
     dispatch(setLandscapeCols(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters["playerOne"].name, slugs.characterSlug, autoSetSpecificCols, landscapeCols)));
 
-    if (!storageGet("lsCurrentVersionCode") || parseInt(storageGet("lsCurrentVersionCode") as unknown as string) < APP_CURRENT_VERSION_CODE) {
-      storageSet("lsCurrentVersionCode", APP_CURRENT_VERSION_CODE.toString());
-      dispatch(setModalVisibility({ currentModal: "whatsNew", visible: true }))
-    }
+    const checkForNewAppVersion = async () => {
+			const lsCurrentVersionCode = await storageGet("lsCurrentVersionCode")
+
+      if (!lsCurrentVersionCode || parseInt(lsCurrentVersionCode as unknown as string) < APP_CURRENT_VERSION_CODE) {
+        storageSet("lsCurrentVersionCode", APP_CURRENT_VERSION_CODE.toString());
+        dispatch(setModalVisibility({ currentModal: "whatsNew", visible: true }))
+      }
+		}
+		checkForNewAppVersion();
 
     setSearchPlaceholderText(searchBoxMessages[Math.floor(Math.random() * searchBoxMessages.length)])
+
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

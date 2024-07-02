@@ -13,7 +13,6 @@ dependencies {
     implementation project(':capacitor-clipboard')
     implementation project(':capacitor-haptics')
     implementation project(':capacitor-keyboard')
-    implementation project(':capacitor-preferences')
     implementation project(':capacitor-splash-screen')
     implementation project(':capacitor-status-bar')
     implementation "com.android.billingclient:billing:5.0.0"
