@@ -32,6 +32,7 @@ const FrameDataGate = ({ children }: FrameDataGateProps) => {
   const [characterIsSetup, setCharacterIsSetup] = useState(false);
   const [isReady, setIsReady] = useState(false);
 
+
   useEffect(() => {
     // do an initial frame data load
     if (slugs.current.game) {

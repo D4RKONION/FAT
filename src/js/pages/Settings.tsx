@@ -1,7 +1,6 @@
 import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, IonList, IonListHeader, IonIcon, useIonViewDidEnter, isPlatform, IonButton, IonToast, IonGrid  } from '@ionic/react';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Clipboard } from '@capacitor/clipboard';
 
 import { setActiveGame, setAdviceToastShown, setDataDisplaySettings, setPlayer, setThemeAccessibility, setThemeColor } from '../actions'
 import '../../style/pages/Settings.scss';
@@ -26,9 +25,6 @@ const Settings = () => {
   let urlHash = history.location.hash.substring(1);
 
   const [copyToastShown, setCopyToastShown] = useState(false);
-
-  const LS_SFV_FRAME_DATA_CODE = localStorage.getItem("lsSFVFrameDataCode");
-  const LS_GGST_FRAME_DATA_CODE = localStorage.getItem("lsGGSTFrameDataCode");
 
   useIonViewDidEnter(() => {
      urlHash &&
@@ -178,36 +174,6 @@ const Settings = () => {
                   <IonSelectOption value={"none"}>Off</IonSelectOption>
                 </IonSelect>
               </IonItem>
-              
-              {Object.keys(localStorage).includes("localNotes") &&
-                <IonItem lines="full">
-                  <IonLabel>
-                    <h2>Legacy Notes Retrieval</h2>
-                    <p>Add your notes from FAT 2.X to your clipboard</p>
-                  </IonLabel>
-                  <IonButton
-                    fill="outline" slot="end" size="default"
-                    onClick={async () => {
-                      try {
-                        // Android wont allow me to use nav.clip so I have to use a Cordova plugin instead.
-                        // Maybe in the future we can go back to web api
-                        // await navigator.clipboard.writeText(localStorage.getItem("localNotes"));
-                        await Clipboard.write({
-                          string: localStorage.getItem("localNotes")
-                        });
-                        setCopyToastShown(true);
-                      } catch (err) {
-                        console.error('Failed to copy: ', err);
-                      }									
-                    }}
-                  >Copy</IonButton>
-                </IonItem>
-                
-              }
-
-              
-              
-
 
             {/* FEEDBACK OPTIONS */}
             <IonListHeader>Feedback</IonListHeader>
@@ -269,7 +235,7 @@ const Settings = () => {
 
 
           </IonList>
-          <p className="final-fat">FAT {`${APP_CURRENT_VERSION_NAME}.${LS_SFV_FRAME_DATA_CODE}.${LS_GGST_FRAME_DATA_CODE}`}</p>
+          <p className="final-fat">FAT ${APP_CURRENT_VERSION_NAME}</p>
 
           <IonToast
             isOpen={copyToastShown}

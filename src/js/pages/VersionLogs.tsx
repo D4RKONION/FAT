@@ -1,13 +1,33 @@
 import { IonContent, IonGrid, IonItem, IonItemDivider, IonLabel, IonList, IonPage, IonSelect, IonSelectOption } from "@ionic/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PageHeader from "../components/PageHeader";
 import styles from '../../style/components/VersionLogs.module.scss'
 import { VERSION_LOGS, APP_CURRENT_VERSION_NAME, UPDATABLE_GAMES, UPDATABLE_GAMES_APP_CODES } from "../constants/VersionLogs";
+import { Preferences } from "@capacitor/preferences";
 
 const VersionLogs = () => {
 
 	const [selectedVersionName, setSelectedVersionName] = useState(APP_CURRENT_VERSION_NAME);
+	const [fileDetails, setFileDetails] = useState({});
 
+	useEffect(() => {
+
+		const getFileDetails = () => {
+			const tempFileDetails = {}
+			UPDATABLE_GAMES.forEach(async gameName => {
+				tempFileDetails[gameName] = {}
+				tempFileDetails[gameName].frameDataCode = await Preferences.get({key: `ls${gameName}FrameDataCode`})
+				tempFileDetails[gameName].frameDataLastUpdated = await Preferences.get({key: `ls${gameName}FrameDataLastUpdated`})
+				tempFileDetails[gameName].gameDetailsCode = await Preferences.get({key: `ls${gameName}GameDetails`})
+				tempFileDetails[gameName].gameDetailsLastUpdated = await Preferences.get({key: `ls${gameName}GameDetailsLastUpdated`})
+			})
+			setFileDetails(tempFileDetails)
+		}
+		
+		getFileDetails();
+	}, []);
+
+	
 	return (
 		<IonPage id={styles.versionLogs}>
 			<PageHeader
@@ -46,7 +66,8 @@ const VersionLogs = () => {
 								)}
 							</div>
 						)}
-						{UPDATABLE_GAMES.map(gameName => 
+						
+						{fileDetails[UPDATABLE_GAMES[0]] && UPDATABLE_GAMES.map(gameName => 
 							<div key={`version-section-${gameName}`}>
 								<IonItemDivider>{gameName} File Versions
 									
@@ -56,11 +77,11 @@ const VersionLogs = () => {
 										<h2><strong>Frame Data</strong></h2>
 										<h3>
 											Version Code: {
-												localStorage.getItem(`ls${gameName}FrameDataCode`) || UPDATABLE_GAMES_APP_CODES[gameName].FrameData
+												fileDetails[gameName].frameDataCode || UPDATABLE_GAMES_APP_CODES[gameName].FrameData
 											}
 										</h3>
-										{localStorage.getItem(`ls${gameName}FrameDataLastUpdated`) ?
-											<h3>Remote updated on {localStorage.getItem(`ls${gameName}FrameDataLastUpdated`)}</h3>
+										{fileDetails[gameName].frameDataLastUpdated ?
+											<h3>Remote updated on {fileDetails[gameName].frameDataLastUpdated}</h3>
 											: <h3>Using local app file</h3>
 
 										}
@@ -71,11 +92,11 @@ const VersionLogs = () => {
 										<h2><strong>Game Details</strong></h2>
 										<h3>
 											Version Code: {
-												localStorage.getItem(`ls${gameName}GameDetailsCode`) || UPDATABLE_GAMES_APP_CODES[gameName].GameDetails
+												fileDetails[gameName].gameDetailsCode || UPDATABLE_GAMES_APP_CODES[gameName].GameDetails
 											}
 										</h3>
-										{localStorage.getItem(`ls${gameName}GameDetailsLastUpdated`) ?
-											<h3>Remote updated on {localStorage.getItem(`ls${gameName}GameDetailsLastUpdated`)}</h3>
+										{fileDetails[gameName].gameDetailsLastUpdated ?
+											<h3>Remote updated on {fileDetails[gameName].gameDetailsLastUpdated}</h3>
 											: <h3>Using local app file</h3>
 
 										}

@@ -123,7 +123,6 @@ const Yaksha = () => {
     }
     const prevSearchMinusDupes = searchResults.filter(entry => {
       if ( !(entry.charName === fuzzyCharName && entry.moveNameKey === fuzzyMoveNameKey) ) {
-        console.log("duplicate found")
         return true
       } else {
         return false;

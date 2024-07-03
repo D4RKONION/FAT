@@ -57,14 +57,16 @@ const getFrameData = (gameName: GameName) => {
     
     if (UPDATABLE_GAMES.includes(gameName)) {
 
-      const LS_FRAME_DATA_CODE = parseInt(localStorage.getItem(`ls${gameName}FrameDataCode`));
+      const LS_FRAME_DATA_CODE = parseInt((await Preferences.get({ key: `ls${gameName}FrameDataCode`})).value);
+      
       const APP_FRAME_DATA_CODE = UPDATABLE_GAMES_APP_CODES[gameName]["FrameData"]
       
       let lsFrameData: string;
 
       try {
-        lsFrameData = JSON.parse((await Preferences.get({ key: `ls${gameName}FrameData` })).value);
-      } catch {
+        lsFrameData = JSON.parse((await Preferences.get({ key: `ls${gameName}FrameData`})).value);
+      } catch (error) {
+        console.log(error)
         lsFrameData = '';
       }
 
@@ -101,15 +103,16 @@ const getGameDetails = (gameName: GameName) => {
       
     if (UPDATABLE_GAMES.includes(gameName)) {
 
-      const LS_GAME_DETAILS_CODE = parseInt(localStorage.getItem(`ls${gameName}GameDetailsCode`));
+      const LS_GAME_DETAILS_CODE = parseInt((await Preferences.get({ key: `ls${gameName}GameDetailsCode`})).value);
       const APP_GAME_DETAILS_CODE = UPDATABLE_GAMES_APP_CODES[gameName]["GameDetails"]
       
       
       let lsGameDetails: string;
 
       try {
-        lsGameDetails = JSON.parse((await Preferences.get({ key: `ls${gameName}GameDetails` })).value);
-      } catch {
+        lsGameDetails = JSON.parse((await Preferences.get({ key: `ls${gameName}GameDetails`})).value)
+      } catch (error) {
+        console.log(error)
         lsGameDetails = '';
       }
 
