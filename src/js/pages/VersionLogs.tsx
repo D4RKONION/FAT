@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import PageHeader from "../components/PageHeader";
 import styles from '../../style/components/VersionLogs.module.scss'
 import { VERSION_LOGS, APP_CURRENT_VERSION_NAME, UPDATABLE_GAMES, UPDATABLE_GAMES_APP_CODES } from "../constants/VersionLogs";
-import { storageGet } from "../utils/ionicStorage";
+import { Preferences } from "@capacitor/preferences";
 
 const VersionLogs = () => {
 
@@ -16,10 +16,10 @@ const VersionLogs = () => {
 			const tempFileDetails = {}
 			UPDATABLE_GAMES.forEach(async gameName => {
 				tempFileDetails[gameName] = {}
-				tempFileDetails[gameName].frameDataCode = await storageGet(`ls${gameName}FrameDataCode`)
-				tempFileDetails[gameName].frameDataLastUpdated = await storageGet(`ls${gameName}FrameDataLastUpdated`)
-				tempFileDetails[gameName].gameDetailsCode = await storageGet(`ls${gameName}GameDetails`)
-				tempFileDetails[gameName].gameDetailsLastUpdated = await storageGet(`ls${gameName}GameDetailsLastUpdated`)
+				tempFileDetails[gameName].frameDataCode = await Preferences.get({key: `ls${gameName}FrameDataCode`})
+				tempFileDetails[gameName].frameDataLastUpdated = await Preferences.get({key: `ls${gameName}FrameDataLastUpdated`})
+				tempFileDetails[gameName].gameDetailsCode = await Preferences.get({key: `ls${gameName}GameDetails`})
+				tempFileDetails[gameName].gameDetailsLastUpdated = await Preferences.get({key: `ls${gameName}GameDetailsLastUpdated`})
 			})
 			setFileDetails(tempFileDetails)
 		}

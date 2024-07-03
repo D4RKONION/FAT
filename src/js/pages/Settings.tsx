@@ -1,7 +1,6 @@
 import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, IonList, IonListHeader, IonIcon, useIonViewDidEnter, isPlatform, IonButton, IonToast, IonGrid  } from '@ionic/react';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Clipboard } from '@capacitor/clipboard';
 
 import { setActiveGame, setAdviceToastShown, setDataDisplaySettings, setPlayer, setThemeAccessibility, setThemeColor } from '../actions'
 import '../../style/pages/Settings.scss';
@@ -11,7 +10,6 @@ import { useHistory } from 'react-router';
 import { APP_CURRENT_VERSION_NAME } from '../constants/VersionLogs';
 import { activeGameSelector, adviceToastShownSelector, dataDisplaySettingsSelector, selectedCharactersSelector, themeAccessibilitySelector } from '../selectors';
 import { GAME_NAMES } from '../constants/ImmutableGameDetails';
-import { storageGet } from '../utils/ionicStorage';
 
 const Settings = () => {
   

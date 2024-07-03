@@ -4,12 +4,12 @@
   "private": true,
   "dependencies": {
     "@babel/core": "^7.22.6",
+    "@capacitor/preferences": "^5.0.8",
     "@ionic-native/core": "^5.36.0",
     "@ionic/cli": "^7.1.1",
     "@ionic/core": "^7.3.0",
     "@ionic/react": "^7.3.0",
     "@ionic/react-router": "^7.3.0",
-    "@ionic/storage": "^4.0.0",
     "@redux-devtools/core": "^3.13.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12.1.5",
