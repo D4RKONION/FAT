@@ -77,11 +77,11 @@ const VersionLogs = () => {
 										<h2><strong>Frame Data</strong></h2>
 										<h3>
 											Version Code: {
-												fileDetails[gameName].frameDataCode || UPDATABLE_GAMES_APP_CODES[gameName].FrameData
+												(fileDetails[gameName].frameDataCode && fileDetails[gameName].frameDataCode.value) || UPDATABLE_GAMES_APP_CODES[gameName].FrameData
 											}
 										</h3>
-										{fileDetails[gameName].frameDataLastUpdated ?
-											<h3>Remote updated on {fileDetails[gameName].frameDataLastUpdated}</h3>
+										{fileDetails[gameName].frameDataLastUpdated && fileDetails[gameName].frameDataLastUpdated.value ?
+											<h3>Remote updated on {fileDetails[gameName].frameDataLastUpdated && fileDetails[gameName].frameDataLastUpdated.value}</h3>
 											: <h3>Using local app file</h3>
 
 										}
@@ -92,11 +92,11 @@ const VersionLogs = () => {
 										<h2><strong>Game Details</strong></h2>
 										<h3>
 											Version Code: {
-												fileDetails[gameName].gameDetailsCode || UPDATABLE_GAMES_APP_CODES[gameName].GameDetails
+												(fileDetails[gameName].gameDetailsCode && fileDetails[gameName].gameDetailsCode.value) || UPDATABLE_GAMES_APP_CODES[gameName].GameDetails
 											}
 										</h3>
-										{fileDetails[gameName].gameDetailsLastUpdated ?
-											<h3>Remote updated on {fileDetails[gameName].gameDetailsLastUpdated}</h3>
+										{fileDetails[gameName].gameDetailsLastUpdated && fileDetails[gameName].gameDetailsLastUpdated.value ?
+											<h3>Remote updated on {fileDetails[gameName].gameDetailsLastUpdated && fileDetails[gameName].gameDetailsLastUpdated.value}</h3>
 											: <h3>Using local app file</h3>
 
 										}

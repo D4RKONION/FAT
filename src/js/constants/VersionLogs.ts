@@ -1,6 +1,6 @@
-export const APP_CURRENT_VERSION_NAME = "3.11.0";
-export const APP_CURRENT_VERSION_CODE = 31100;
-export const APP_DATE_UPDATED = "Jul 02 2024"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "3.12.0";
+export const APP_CURRENT_VERSION_CODE = 31200;
+export const APP_DATE_UPDATED = "Sep 24 2024"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"]
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"]
@@ -14,12 +14,25 @@ export const UPDATABLE_GAMES_APP_CODES = {
     "GameDetails": 6
   },
   "SF6": {
-    "FrameData": 36,
-    "GameDetails": 7
+    "FrameData": 39,
+    "GameDetails": 8
   }
 }
 
 export const VERSION_LOGS = {
+  "3.12.0": {
+    "New Features": [
+      "SF6: Added Terry"
+    ],
+    "Bug Fixes": [
+      "Fixed a bug where the Stat Comparer was getting confused by certain characters",
+      "Fixed a bug where some moves weren't showing up in the Oki Calculator", 
+      "Fixed a bug where counter and punish counter weren't working in the link calculator for SF6", 
+      "Fixed a bug where the frame trap calculator was crashing when changing modes",
+      "Fixed bugs on What's New and Version Logs",
+      "Made it so 'ex' works for searching OD moves in SF6", 
+    ]
+  },
   "3.11.0": {
     "New Features": [
       "SF6: Added M.Bison"

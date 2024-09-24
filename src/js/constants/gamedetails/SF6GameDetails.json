@@ -1,6 +1,7 @@
 {
   "fullName": "Street Fighter 6",
   "abbrName": "SF6",
+  "supercomboLink": "https://wiki.supercombo.gg/w/Street_Fighter_6",
   "characterStates": ["normal"],
   "specificCharacterStates": {
     "Blanka": ["Super Install"],
@@ -32,6 +33,7 @@
     "Marisa",
     "Rashid",
     "Ryu",
+    "Terry",
     "Zangief"
   ],
 

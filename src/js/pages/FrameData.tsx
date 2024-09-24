@@ -48,7 +48,8 @@ const FrameData = () => {
     dispatch(setLandscapeCols(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters["playerOne"].name, slugs.characterSlug, autoSetSpecificCols, landscapeCols)));
 
     const checkForNewAppVersion = async () => {
-			const lsCurrentVersionCode = await Preferences.get({key: "lsCurrentVersionCode"})
+			const lsCurrentVersionCode = await (await Preferences.get({key: "lsCurrentVersionCode"})).value
+      console.log(lsCurrentVersionCode)
 
       if (!lsCurrentVersionCode || parseInt(lsCurrentVersionCode as unknown as string) < APP_CURRENT_VERSION_CODE) {
         await Preferences.set({

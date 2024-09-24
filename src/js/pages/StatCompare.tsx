@@ -41,9 +41,14 @@ const StatCompare = () => {
       !statHeadingsTemp.includes(frameDataFile[character].stats[selectedStat]) &&
         statHeadingsTemp.push(frameDataFile[character].stats[selectedStat])
     )
+    console.log(statHeadingsTemp)
     isNaN(statHeadingsTemp[0])
       ? statHeadingsTemp.sort()
-      : statHeadingsTemp.sort((a, b) => a - b).reverse()
+      : statHeadingsTemp.sort((a, b) => {
+        const y = a.match(/[^0-9.f]/g) ? a.split(/[^0-9.f]/g)[0] : a
+        const z = b.match(/[^0-9.f]/g) ? b.split(/[^0-9.f]/g)[0] : b
+        return y - z
+      }).reverse()
     setStatHeadings(statHeadingsTemp);
 
   },[selectedStat, frameDataFile]);

@@ -104,7 +104,7 @@ const FrameKillGenerator = () => {
       } else if (activeGame === "SFV") {
         knockdownFrames = playerOneMoves[knockdownMove][recoveryType] + 1;
       } else if (activeGame === "SF6") {
-        knockdownFrames = Number(playerOneMoves[knockdownMove][recoveryType].split("KD +").at(-1)) + 1;
+        knockdownFrames = Number(playerOneMoves[knockdownMove][recoveryType].split("KD +").at(-1).split("(")[0]) + 1;
       }
 
       if (playerOneMoves[targetMeaty]["atkLvl"] === "T" ) {
@@ -492,7 +492,7 @@ const FrameKillGenerator = () => {
                 activeGame === "SFV" ?
                   playerOneMoves[move].kd || playerOneMoves[move].kdr || playerOneMoves[move].kdrb
                 : activeGame === "SF6" ?
-                  playerOneMoves[move][recoveryType] && isNaN(playerOneMoves[move][recoveryType]) && !isNaN(Number(playerOneMoves[move][recoveryType].split("KD +").at(-1)))
+                  playerOneMoves[move][recoveryType] && isNaN(playerOneMoves[move][recoveryType]) && !isNaN(Number(playerOneMoves[move][recoveryType].split("KD +").at(-1).split("(")[0]))
                 : null
               ).map(move =>
                 <IonSelectOption key={`knockdownMove-${move}`} value={move}>{move}</IonSelectOption>

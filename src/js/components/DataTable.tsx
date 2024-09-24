@@ -88,8 +88,8 @@ const DataTable = ({ searchText, previewTable }: DataTableProps) => {
         {Object.entries(selectedCharacters[activePlayer].frameData).filter(([moveName, moveData]) => {
           let tempSearchTerm = searchText;
           // Allow people to filter for OD moves using the characters EX
-          if (activeGame === "SF6" && tempSearchTerm.includes("EX")) {
-            tempSearchTerm = tempSearchTerm.replaceAll("EX", "OD")
+          if (activeGame === "SF6" && tempSearchTerm.toLowerCase().includes("ex")) {
+            tempSearchTerm = tempSearchTerm.toLowerCase().replaceAll("ex", "od")
           }
     
           if (tempSearchTerm.includes("xx") && moveData["xx"]) {

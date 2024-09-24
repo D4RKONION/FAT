@@ -121,7 +121,7 @@ const FrameTrapChecker = () => {
               disabled={linkOrCancel === "cancel" && !firstMove && true}
             >
               <IonSelectOption key="secondMove-select" value={null}>Select a move</IonSelectOption>
-              {linkOrCancel === "cancel" && firstMove
+              {linkOrCancel === "cancel" && firstMove && playerOneMoves[firstMove].xx
                 ? Object.keys(playerOneMoves).filter(move =>
                     !playerOneMoves[move].airmove &&
                     !playerOneMoves[move].followUp &&

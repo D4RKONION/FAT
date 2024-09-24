@@ -18,15 +18,20 @@ const MoveLinker = () => {
 
   const [firstMove, setFirstMove] = useState(null);
   const [counterHitState, setCounterHitState] = useState(false);
+  const [punishCounterState, setPunishCounterState] = useState(false);
   const [counterHitBonus, setCounterHitBonus] = useState(0);
 
   const playerOneMoves = selectedCharacters["playerOne"].frameData;
 
   useEffect(() => {
     if (playerOneMoves[firstMove]) {
-        if (counterHitState && playerOneMoves[firstMove]) {
-          if (activeGame === "SFV" && playerOneMoves.ccAdv) {
-            setCounterHitBonus(playerOneMoves.ccAdv)
+        if ((counterHitState || punishCounterState) && playerOneMoves[firstMove]) {
+          if (activeGame === "SF6" && punishCounterState && playerOneMoves[firstMove].onPC) {
+            setCounterHitBonus(playerOneMoves[firstMove].onPC - playerOneMoves[firstMove].onHit)
+          } else if (activeGame === "SF6" && (!!parseInt(playerOneMoves[firstMove].onHit) || playerOneMoves[firstMove].onHit === 0)) {
+            setCounterHitBonus(2)
+          } else if (activeGame === "SFV" && playerOneMoves[firstMove].ccAdv) {
+            setCounterHitBonus(playerOneMoves[firstMove].ccAdv - playerOneMoves[firstMove].onHit)
           } else if (activeGame === "SFV" && (!!parseInt(playerOneMoves[firstMove].onHit) || playerOneMoves[firstMove].onHit === 0)) {
             setCounterHitBonus(2)
           } else if (activeGame === "USF4" && (!!parseInt(playerOneMoves[firstMove].onHit) || playerOneMoves[firstMove].onHit === 0) && playerOneMoves[firstMove].moveType === "normal" && playerOneMoves[firstMove].moveButton.includes("L")) {
@@ -42,7 +47,7 @@ const MoveLinker = () => {
     } else {
       setFirstMove(null);
     }
-  },[playerOneMoves, firstMove, selectedCharacters, counterHitState, activeGame]);
+  },[playerOneMoves, firstMove, selectedCharacters, counterHitState, punishCounterState, activeGame]);
 
 
 
@@ -90,6 +95,12 @@ const MoveLinker = () => {
               <IonToggle checked={counterHitState} onIonChange={e => setCounterHitState(e.detail.checked)}>Counter Hit</IonToggle>
             </IonItem>
           }
+          {
+            activeGame === "SF6" &&
+            <IonItem lines="full">
+              <IonToggle checked={punishCounterState} onIonChange={e => setPunishCounterState(e.detail.checked)}>Punish Counter</IonToggle>
+            </IonItem>
+          }
 
 
 
@@ -99,7 +110,7 @@ const MoveLinker = () => {
                   <IonLabel>
                     <h3>First Move</h3>
                     <h2>{firstMove}</h2>
-                    <p><b>{playerOneMoves[firstMove].onHit + counterHitBonus}</b> On Hit <em>{counterHitState && `(inc. CH +${counterHitBonus})`}</em></p>
+                    <p><b>{playerOneMoves[firstMove].onHit + counterHitBonus}</b> On Hit <em>{(counterHitState || punishCounterState) && `(inc. CH +${counterHitBonus})`}</em></p>
                   </IonLabel>
                 </IonItem>
                 <IonList>
