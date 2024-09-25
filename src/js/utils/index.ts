@@ -52,25 +52,57 @@ function vTriggerMerge(rawFrameData, vtState) {
         [k]: v
       }), {})
   )
+}
 
+const paddingValues = {
+  SF6: {
+    jugLimit: {
+      affects: ["normal"],
+      value: 0
+    },
+    jugIncr: {
+      affects: ["normal"],
+      value: 1
+    },
+    jugStart: {
+      affects: ["normal"],
+      value: 1
+    },
+  }
+}
 
+const padWithDefaultValues = (frameDataMerged, gameName) => {
+  if (!paddingValues[gameName]) {
+    return frameDataMerged
+  }
+
+  Object.keys(frameDataMerged).forEach(moveName => {
+    Object.keys(paddingValues[gameName]).forEach(dataPoint => {
+      if (!frameDataMerged[moveName][dataPoint] && paddingValues[gameName][dataPoint].affects.includes(frameDataMerged[moveName].moveType)) {
+        frameDataMerged[moveName][dataPoint] = paddingValues[gameName][dataPoint].value
+      }
+    })
+  }) 
+  return frameDataMerged
 }
 
 // this allow me to build the JSON for the setPlayer action creator in selectCharacter, SegmentSwitcher and ____ componenet
-export function helpCreateFrameDataJSON(rawFrameData, moveNameType, inputNotationType, normalNotationType, vtState) {
+export function helpCreateFrameDataJSON(rawFrameData, moveNameType, inputNotationType, normalNotationType, vtState, gameName) {
 
-  const dataToRename = vtState === "normal"
+  const frameDataMerged = vtState === "normal"
     ? {...rawFrameData.normal}
     : vTriggerMerge(rawFrameData, vtState);
     
 
   if (inputNotationType === "ezCmd") {
-    Object.keys(dataToRename).forEach(moveName => {
-      if (!dataToRename[moveName].ezCmd) {
-        delete dataToRename[moveName]
+    Object.keys(frameDataMerged).forEach(moveName => {
+      if (!frameDataMerged[moveName].ezCmd) {
+        delete frameDataMerged[moveName]
     }}) 
   }
 
-  return moveNameType === "official" ? dataToRename : renameData(dataToRename, moveNameType, inputNotationType);
+  const frameDataPadded = padWithDefaultValues(frameDataMerged, gameName)
+
+  return moveNameType === "official" ? frameDataPadded : renameData(frameDataPadded, moveNameType, inputNotationType);
 
 }

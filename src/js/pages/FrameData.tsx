@@ -49,7 +49,6 @@ const FrameData = () => {
 
     const checkForNewAppVersion = async () => {
 			const lsCurrentVersionCode = await (await Preferences.get({key: "lsCurrentVersionCode"})).value
-      console.log(lsCurrentVersionCode)
 
       if (!lsCurrentVersionCode || parseInt(lsCurrentVersionCode as unknown as string) < APP_CURRENT_VERSION_CODE) {
         await Preferences.set({
@@ -174,8 +173,10 @@ const FrameData = () => {
 
 
         <DataTable searchText={searchText} previewTable={false} />
-
-        <AdviceToast />
+        
+        {!modalVisibility &&
+          <AdviceToast />
+        }
       </IonContent>
       <LandscapeOptions />
     </IonPage>

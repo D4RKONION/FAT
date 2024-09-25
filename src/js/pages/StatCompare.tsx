@@ -41,7 +41,7 @@ const StatCompare = () => {
       !statHeadingsTemp.includes(frameDataFile[character].stats[selectedStat]) &&
         statHeadingsTemp.push(frameDataFile[character].stats[selectedStat])
     )
-    console.log(statHeadingsTemp)
+
     isNaN(statHeadingsTemp[0])
       ? statHeadingsTemp.sort()
       : statHeadingsTemp.sort((a, b) => {

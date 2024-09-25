@@ -85,7 +85,7 @@ const AdviceToast = () => {
             side: "end",
             icon: toastData.icon,
             text: '',
-            handler: () => {toastData.handler(history);}
+            handler: () => {dispatch(setAdviceToastDismissed(true)); toastData.handler(history);}
           }
         ] : [
           {

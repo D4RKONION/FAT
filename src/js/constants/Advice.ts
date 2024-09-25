@@ -42,12 +42,6 @@ const ADVICE = {
     }
   ],
 
-  statcompare: [
-    {
-      message: "Your selected characters have a dotted border. Change them using the button in the bottom right"
-    }
-  ],
-
 }
 
 export default ADVICE;

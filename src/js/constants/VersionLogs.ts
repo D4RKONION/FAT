@@ -22,13 +22,15 @@ export const UPDATABLE_GAMES_APP_CODES = {
 export const VERSION_LOGS = {
   "3.12.0": {
     "New Features": [
-      "SF6: Added Terry"
+      "SF6: Added Terry",
+      "SF6: Added more juggle data for all characters"
     ],
     "Bug Fixes": [
       "Fixed a bug where the Stat Comparer was getting confused by certain characters",
       "Fixed a bug where some moves weren't showing up in the Oki Calculator", 
       "Fixed a bug where counter and punish counter weren't working in the link calculator for SF6", 
       "Fixed a bug where the frame trap calculator was crashing when changing modes",
+      "Fixed a bug with the advice toasts not dismissing sometimes",
       "Fixed bugs on What's New and Version Logs",
       "Made it so 'ex' works for searching OD moves in SF6", 
     ]
