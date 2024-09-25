@@ -11,5 +11,15 @@
 			"launchAutoHide": false,
 			"androidScaleType": "CENTER_CROP"
 		}
-	}
+	},
+	"packageClassList": [
+		"PreferencesPlugin",
+		"AppPlugin",
+		"ClipboardPlugin",
+		"HapticsPlugin",
+		"KeyboardPlugin",
+		"SplashScreenPlugin",
+		"StatusBarPlugin",
+		"CDVPlugin"
+	]
 }
