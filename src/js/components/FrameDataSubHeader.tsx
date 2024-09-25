@@ -29,7 +29,9 @@ const FrameDataSubHeader = ({ charName, charStats, activeGame }: FrameDataSubHea
 	const selectedCharacters = useSelector(selectedCharactersSelector);
 	const activePlayer = useSelector(activePlayerSelector);
 	const moveNotation = 
-		dataDisplaySettings.moveNameType === "common"
+		dataDisplaySettings.moveNameType === "official"
+			? "moveName"
+		: dataDisplaySettings.moveNameType === "common"
 			? "cmnName"
 		: dataDisplaySettings.inputNotationType
 
@@ -39,6 +41,16 @@ const FrameDataSubHeader = ({ charName, charStats, activeGame }: FrameDataSubHea
 	useEffect(() => {
 		setStatCategory("The Basics");
 	},[activeGame])
+
+	const handleMoveSelection = (officialMoveName) => {
+		const moveToDispatch =
+			frameData[charName].moves.normal[officialMoveName][moveNotation]
+				? frameData[charName].moves.normal[officialMoveName][moveNotation]
+				: frameData[charName].moves.normal[officialMoveName].moveName
+		dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {selectedMove: moveToDispatch}));
+		history.push(`/framedata/movedetail/${activeGame}/${selectedCharacters[activePlayer].name}/${selectedCharacters[activePlayer].vtState}/${officialMoveName}`)
+
+	}
 
 	return (
 		<IonGrid id="frameDataSubHeader">
@@ -73,23 +85,22 @@ const FrameDataSubHeader = ({ charName, charStats, activeGame }: FrameDataSubHea
 								<IonCol key={`stat-entry-${statKey}`} className="stat-entry" style={statKey === "bestReversal" || statKey === "fastestNormal" ? { cursor: "pointer" } : {}}
 									onClick={() => {
 										if (statKey === "bestReversal") {
-											dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {selectedMove: frameData[charName].moves.normal[charStats[statKey]][moveNotation]}));
-											history.push(`/framedata/movedetail/${activeGame}/${selectedCharacters[activePlayer].name}/${selectedCharacters[activePlayer].vtState}/${charStats[statKey]}`)
+											handleMoveSelection(charStats[statKey])
+
 										} else if (statKey === "fastestNormal") {
 											const fastestNormalName = Object.keys(frameData[charName].moves.normal).find(moveEntry =>
 												frameData[charName].moves.normal[moveEntry].moveType === "normal" &&
 												!frameData[charName].moves.normal[moveEntry].airmove &&
 												frameData[charName].moves.normal[moveEntry].startup === Number(charStats[statKey][0])
 											)
-											dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {selectedMove: frameData[charName].moves.normal[fastestNormalName][moveNotation]}));
-											history.push(`/framedata/movedetail/${activeGame}/${selectedCharacters[activePlayer].name}/${selectedCharacters[activePlayer].vtState}/${fastestNormalName}`)
+											handleMoveSelection(fastestNormalName)
 										}
 									}}
 								>
 								<h2>
 									{
 										statKey === "bestReversal" && frameData[charName] && frameData[charName].moves.normal[charStats[statKey]]
-											? frameData[charName].moves.normal[charStats[statKey]][moveNotation]
+											? frameData[charName].moves.normal[charStats[statKey]][moveNotation] || frameData[charName].moves.normal[charStats[statKey]].moveName
 											: charStats[statKey]
 									}
 								</h2>

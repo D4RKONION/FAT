@@ -23,9 +23,11 @@ export const VERSION_LOGS = {
   "3.12.0": {
     "New Features": [
       "SF6: Added Terry",
-      "SF6: Added more juggle data for all characters"
+      "SF6: Added more juggle data for all characters",
+      "SF6: Added DR > Block distance for all characters"
     ],
     "Bug Fixes": [
+      "Fixed a bug where selecting moves from the character subheader wasn't always working",
       "Fixed a bug where the Stat Comparer was getting confused by certain characters",
       "Fixed a bug where some moves weren't showing up in the Oki Calculator", 
       "Fixed a bug where counter and punish counter weren't working in the link calculator for SF6", 

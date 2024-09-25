@@ -286,6 +286,7 @@
       "Drive System": [
         {
           "dRushDistMin": "Min Drive Rush Dist",
+          "dRushDistBlock": "Drive Rush > Block Dist",
           "dRushDistMax": "Max Drive Rush Dist"
         }
       ],
