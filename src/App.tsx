@@ -243,7 +243,7 @@ useEffect(() => {
         });
         await Preferences.set({
           key: `ls${gameName}${updateType}Code`,
-          value: SERVER_WHATS_BEING_UPDATED_VERSION_DETAILS.VERSION_CODE,
+          value: SERVER_WHATS_BEING_UPDATED_VERSION_DETAILS.VERSION_CODE.toString(),
         });
         await Preferences.set({
           key: `ls${gameName}${updateType}LastUpdated`,
