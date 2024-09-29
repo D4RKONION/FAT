@@ -1,5 +1,5 @@
 # FAT 3
-Welcome to FAT! The most popular SFV app in the world! You can check out live versions of the app here:
+Welcome to FAT! The most popular SF6 and GGST frame data app in the world! You can check out live versions of the app here:
 
 [Webapp](https://fullmeter.com/fatonline)
 
@@ -65,6 +65,7 @@ Deploying to the web is just a matter of setting the homepage with the following
 ```
 ionic build --prod --public-url=/fatonline
 ```
+or running `npm run web:release`
 
 ### iOS App Store
 
