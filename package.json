@@ -1,6 +1,6 @@
 {
   "name": "fat-os",
-  "version": "3.12.1",
+  "version": "3.12.2",
   "private": true,
   "dependencies": {
     "@babel/core": "^7.22.6",
@@ -47,7 +47,8 @@
     "eject": "react-scripts eject",
     "android:test": "ionic cap sync android && ionic cap open android",
     "android:release": "ionic cap sync android && (cd android && bundle exec fastlane release)",
-    "ios:release": "ionic cap sync ios && (cd ios/App && fastlane release)"
+    "ios:release": "ionic cap sync ios && (cd ios/App && fastlane release)",
+    "web:release": "ionic build --prod --public-url=/fatonline"
   },
   "eslintConfig": {
     "extends": "react-app"

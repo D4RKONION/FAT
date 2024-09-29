@@ -1,6 +1,6 @@
-export const APP_CURRENT_VERSION_NAME = "3.12.1";
-export const APP_CURRENT_VERSION_CODE = 31201;
-export const APP_DATE_UPDATED = "Sep 27 2024"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "3.12.2";
+export const APP_CURRENT_VERSION_CODE = 31202;
+export const APP_DATE_UPDATED = "Sep 29 2024"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"]
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"]
@@ -14,20 +14,20 @@ export const UPDATABLE_GAMES_APP_CODES = {
     "GameDetails": 6
   },
   "SF6": {
-    "FrameData": 41,
+    "FrameData": 42,
     "GameDetails": 8
   }
 }
 
 export const VERSION_LOGS = {
-  "3.12.1": {
+  "3.12.2": {
     "New Features": [
       "SF6: Added Terry",
       "SF6: Added more juggle data for all characters",
       "SF6: Added DR > Block distance for all characters"
     ],
     "Bug Fixes": [
-      "3.12.1 Hotfix: Frame Data file updating fixed!",
+      "3.12.2 Hotfix! Fixed a bug where some juggle data was displaying incorrectly",
       "Fixed a bug where selecting moves from the character subheader wasn't always working",
       "Fixed a bug where the Stat Comparer was getting confused by certain characters",
       "Fixed a bug where some moves weren't showing up in the Oki Calculator", 
@@ -36,6 +36,14 @@ export const VERSION_LOGS = {
       "Fixed a bug with the advice toasts not dismissing sometimes",
       "Fixed bugs on What's New and Version Logs",
       "Made it so 'ex' works for searching OD moves in SF6", 
+    ]
+  },
+  "3.12.1": {
+    "New Features": [
+      "None!"
+    ],
+    "Bug Fixes": [
+      "Fixed a bug where the Frame Data file was not remote updating!",
     ]
   },
   "3.12.0": {

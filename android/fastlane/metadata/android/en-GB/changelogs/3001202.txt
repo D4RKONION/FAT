@@ -1,0 +1,5 @@
+SF6
+- Added Terry
+- Added more juggle data for all characters
+- Added DR > Block distance for all characters
+- Many bug fixes, check in app for more info

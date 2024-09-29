@@ -78,7 +78,7 @@ const padWithDefaultValues = (frameDataMerged, gameName) => {
 
   Object.keys(frameDataMerged).forEach(moveName => {
     Object.keys(paddingValues[gameName]).forEach(dataPoint => {
-      if (!frameDataMerged[moveName][dataPoint] && paddingValues[gameName][dataPoint].affects.includes(frameDataMerged[moveName].moveType)) {
+      if (typeof frameDataMerged[moveName][dataPoint] === "undefined" && paddingValues[gameName][dataPoint].affects.includes(frameDataMerged[moveName].moveType)) {
         frameDataMerged[moveName][dataPoint] = paddingValues[gameName][dataPoint].value
       }
     })
