@@ -57,11 +57,11 @@ const Menu = () => {
       modeName: "framedata"
     },
     {
-      title: 'Yaksha Search',
-      url: `/yaksha`,
+      title: 'Quick Search',
+      url: `/quicksearch`,
       iosIcon: searchOutline,
       mdIcon: searchSharp,
-      modeName: "yaksha"
+      modeName: "quicksearch"
     },
     {
       title: 'Moves List',

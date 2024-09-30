@@ -1,7 +1,7 @@
 import { IonContent, IonPage, IonIcon, IonItem, IonInput, IonCardHeader, IonCardContent, IonCard, IonCardTitle, IonButton, IonFab, IonFabButton, IonGrid } from '@ionic/react';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import '../../style/components/Yaksha.scss';
+import '../../style/components/QuickSearch.scss';
 import '../../style/components/FAB.scss'
 import PageHeader from '../components/PageHeader';
 import { setPlayerAttr, setPlayer } from '../actions';
@@ -10,37 +10,216 @@ import { close, searchOutline, trashBinOutline } from 'ionicons/icons';
 import {ratio as fuzzratio, extract as fuzzextract } from 'fuzzball'
 import { activeGameSelector, dataDisplaySettingsSelector, frameDataSelector, gameDetailsSelector, selectedCharactersSelector } from '../selectors';
 
-const YAKSHA_HEADERS = [
-  {
-    "startup": {
-      "dataTableHeader": "S",
-      "detailedHeader": "Startup",
-      "dataFileKey": "startup",
+type HeaderObj = {
+  dataTableHeader: string;
+  detailedHeader: string;
+  dataFileKey: string;
+};
+
+const QUICKSEARCH_HEADERS = {
+  "3S": [
+    {
+      "startup": {
+        "dataTableHeader": "S",
+        "detailedHeader": "Startup",
+        "dataFileKey": "startup",
+      },
+      "active": {
+        "dataTableHeader": "A",
+        "detailedHeader": "Active",
+        "dataFileKey": "active",
+      },
+      "recovery": {
+        "dataTableHeader": "R",
+        "detailedHeader": "Recovery",
+        "dataFileKey": "recovery",
+      }
     },
-    "active": {
-      "dataTableHeader": "A",
-      "detailedHeader": "Active",
-      "dataFileKey": "active",
-    },
-    "recovery": {
-      "dataTableHeader": "R",
-      "detailedHeader": "Recovery",
-      "dataFileKey": "recovery",
+    {
+      "onBlock": {
+        "dataTableHeader": "oB",
+        "detailedHeader": "On Block",
+        "dataFileKey": "onBlock",
+      },
+      "onHit": {
+        "dataTableHeader": "oH",
+        "detailedHeader": "On Hit",
+        "dataFileKey": "onHit",
+      }
     }
-  },
-  {
-    "onBlock": {
-      "dataTableHeader": "oB",
-      "detailedHeader": "On Block",
-      "dataFileKey": "onBlock",
+  ],
+  "USF4": [
+    {
+      "startup": {
+        "dataTableHeader": "S",
+        "detailedHeader": "Startup",
+        "dataFileKey": "startup",
+      },
+      "active": {
+        "dataTableHeader": "A",
+        "detailedHeader": "Active",
+        "dataFileKey": "active",
+      },
+      "recovery": {
+        "dataTableHeader": "R",
+        "detailedHeader": "Recovery",
+        "dataFileKey": "recovery",
+      }
     },
-    "onHit": {
-      "dataTableHeader": "oH",
-      "detailedHeader": "On Hit",
-      "dataFileKey": "onHit",
+    {
+      "onBlock": {
+        "dataTableHeader": "oB",
+        "detailedHeader": "On Block",
+        "dataFileKey": "onBlock",
+      },
+      "onHit": {
+        "dataTableHeader": "oH",
+        "detailedHeader": "On Hit",
+        "dataFileKey": "onHit",
+      }
     }
-  }
-]
+  ],
+  "SFV": [
+    {
+      "startup": {
+        "dataTableHeader": "S",
+        "detailedHeader": "Startup",
+        "dataFileKey": "startup",
+      },
+      "active": {
+        "dataTableHeader": "A",
+        "detailedHeader": "Active",
+        "dataFileKey": "active",
+      },
+      "recovery": {
+        "dataTableHeader": "R",
+        "detailedHeader": "Recovery",
+        "dataFileKey": "recovery",
+      },
+      "total": {
+        "dataTableHeader": "T",
+        "detailedHeader": "Total",
+        "dataFileKey": "total",
+      }
+      
+    },
+    {
+      "onBlock": {
+        "dataTableHeader": "oB",
+        "detailedHeader": "On Block",
+        "dataFileKey": "onBlock",
+      },
+      "onHit": {
+        "dataTableHeader": "oH",
+        "detailedHeader": "On Hit",
+        "dataFileKey": "onHit",
+      }
+    },
+    {
+      "extraInfo": {
+        "dataTableHeader": "Extra Information",
+        "detailedHeader": "Extra Information",
+        "dataFileKey": "extraInfo",
+      }
+    }
+  ],
+  "SF6": [
+    {
+      "startup": {
+        "dataTableHeader": "S",
+        "detailedHeader": "Startup",
+        "dataFileKey": "startup",
+      },
+      "active": {
+        "dataTableHeader": "A",
+        "detailedHeader": "Active",
+        "dataFileKey": "active",
+      },
+      "recovery": {
+        "dataTableHeader": "R",
+        "detailedHeader": "Recovery",
+        "dataFileKey": "recovery",
+      },
+      "total": {
+        "dataTableHeader": "T",
+        "detailedHeader": "Total",
+        "dataFileKey": "total",
+      }
+    },
+    {
+      "onBlock": {
+        "dataTableHeader": "oB",
+        "detailedHeader": "On Block",
+        "dataFileKey": "onBlock",
+      },
+      "onHit": {
+        "dataTableHeader": "oH",
+        "detailedHeader": "On Hit",
+        "dataFileKey": "onHit",
+      },
+      "onPC": {
+        "dataTableHeader": "onPC",
+        "detailedHeader": "On PC",
+        "dataFileKey": "onPC",
+      }
+    },
+    {
+      "extraInfo": {
+        "dataTableHeader": "Extra Information",
+        "detailedHeader": "Extra Information",
+        "dataFileKey": "extraInfo",
+      }
+    }
+  ],
+  "GGST": [
+    {
+      "startup": {
+        "dataTableHeader": "S",
+        "detailedHeader": "Startup",
+        "dataFileKey": "startup",
+      },
+      "active": {
+        "dataTableHeader": "A",
+        "detailedHeader": "Active",
+        "dataFileKey": "active",
+      },
+      "recovery": {
+        "dataTableHeader": "R",
+        "detailedHeader": "Recovery",
+        "dataFileKey": "recovery",
+      },
+      "total": {
+        "dataTableHeader": "T",
+        "detailedHeader": "Total",
+        "dataFileKey": "total",
+      }
+    },
+    {
+      "onBlock": {
+        "dataTableHeader": "oB",
+        "detailedHeader": "On Block",
+        "dataFileKey": "onBlock",
+      },
+      "onHit": {
+        "dataTableHeader": "oH",
+        "detailedHeader": "On Hit",
+        "dataFileKey": "onHit",
+      },
+      "atkLvl": {
+        "dataTableHeader": "atkLvl",
+        "detailedHeader": "Attack Level",
+        "dataFileKey": "atkLvl",
+      }
+    },
+    {
+      "extraInfo": {
+        "dataTableHeader": "Extra Information",
+        "detailedHeader": "Extra Information",
+        "dataFileKey": "extraInfo",
+      }
+    }
+  ]
+}
 
 const CHARACTER_NAME_DICTIONARY = {
   "SF6": {
@@ -51,6 +230,7 @@ const CHARACTER_NAME_DICTIONARY = {
     "sim": "Dhalsim",
     "deejay": "Dee Jay",
     "dj": "Dee Jay",
+    "m": "M.Bison", 
   },
   "SFV": {
     "chun": "Chun-Li",
@@ -67,7 +247,7 @@ const CHARACTER_NAME_DICTIONARY = {
   
 }
 
-const Yaksha = () => {
+const QuickSearch = () => {
 
   const activeGame = useSelector(activeGameSelector);
   const frameDataFile = useSelector(frameDataSelector);
@@ -79,7 +259,7 @@ const Yaksha = () => {
 
   let history = useHistory();
 
-  const [searchbarText, setSearchbarText] = useState("Chunli EY");
+  const [searchbarText, setSearchbarText] = useState("chunli stand lp");
   const [searchResults, setSearchResults] = useState([]);
 
   useEffect( () => {
@@ -140,23 +320,23 @@ const Yaksha = () => {
     <IonPage>
       <PageHeader
         componentsToShow={{menu: true, popover: true}}
-        title={`Yaksha Search`}
+        title={`Quick Search`}
       />
-      <IonContent>
-        <IonGrid fixed>
-        <IonItem>
+      <IonContent id='QuickSearch' className='ion-padding'>
+        <IonItem lines='none'>
           <IonInput clearInput onKeyUp={(event) => event.key === "Enter" && searchHandler()} value={searchbarText} placeholder="charactername move" onIonInput={e => setSearchbarText(e.detail.value)}></IonInput>
           <IonIcon color="primary" slot="end" icon={searchOutline} onClick={() => searchHandler()}
           ></IonIcon>
         </IonItem>
-        <div id="yaksha">
+        
+        <div className="search-results">
         {searchResults.length === 0 &&
           <IonCard key={"blank-card"}>
             <IonCardContent className="fail-warning">
               <h1>Important!</h1>
               <h2>You must use the format</h2>
               <code>charactername move</code>
-              <p><em>PS: Don't put a space in your character's name</em></p>
+              <p><em>NB: Don't put a space in your character's name</em></p>
             </IonCardContent>
           </IonCard>
         }
@@ -203,12 +383,24 @@ const Yaksha = () => {
                 }} />
               </IonCardHeader>
               <IonCardContent>
-                {YAKSHA_HEADERS.map((dataRow, index) =>
+                {QUICKSEARCH_HEADERS[activeGame].map((dataRow, index) =>
                   <div className="row" key={index}>
-                    {Object.entries(dataRow).map(([dataId, headerObj]) => 
-                      <div className="col" key={dataId}>
-                        <h2>{headerObj.detailedHeader}</h2>
-                        <p>{searchedMoveData[dataId] || searchedMoveData[dataId] === 0 ? searchedMoveData[dataId] : "~"}</p>
+                    {Object.entries(dataRow).map(([dataId, headerObj]: [string, HeaderObj]) => 
+                      <div style={{display: headerObj.dataFileKey === "extraInfo" && !searchedMoveData["extraInfo"] ? "none" : ''}} className={`col ${headerObj.dataFileKey === "extraInfo" && "extra-info"}`} key={dataId}>
+                        
+                        {headerObj.dataFileKey !== "extraInfo"
+                          ? <>
+                              <h2>{headerObj.detailedHeader}</h2>
+                              <p>{searchedMoveData[dataId] || searchedMoveData[dataId] === 0 ? searchedMoveData[dataId] : "~"}</p>
+                            </>
+                          :  <ul key={index}>
+                              {searchedMoveData["extraInfo"] && searchedMoveData["extraInfo"].map((info, index) =>
+                            <li key={index}>{info}</li>
+                          )}
+                        </ul>  
+                        
+                        }
+                        
                       </div>
                     )}
                   </div>
@@ -216,7 +408,7 @@ const Yaksha = () => {
                 <IonButton expand="full" fill="clear" onClick={() => {
                   dispatch(setPlayer("playerOne", charName));
                   dispatch(setPlayerAttr("playerOne", charName, {selectedMove: displayedMoveName}));
-                  history.push(`/yaksha/movedetail/${activeGame}/${charName}/normal/${searchedMoveData.moveName}`)}}
+                  history.push(`/quicksearch/movedetail/${activeGame}/${charName}/normal/${searchedMoveData.moveName}`)}}
                 >More info {">"}</IonButton>
               </IonCardContent>
 
@@ -225,7 +417,6 @@ const Yaksha = () => {
             })}
         </div>
 
-        </IonGrid>
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
           <IonFabButton onClick={() => {setSearchResults([])} }>
             <IonIcon icon={trashBinOutline} />
@@ -237,4 +428,4 @@ const Yaksha = () => {
   );
 };
 
-export default Yaksha;
+export default QuickSearch;

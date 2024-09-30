@@ -51,7 +51,7 @@ const MoveDetail = () => {
     <IonPage>
       <PageHeader
         componentsToShow={
-          modeBackTo === "yaksha"
+          modeBackTo === "quicksearch"
             ? {customBackUrl: `/${modeBackTo}`}
             : {customBackUrl: `/${modeBackTo}/${activeGame}/${activeCharName}`}
           

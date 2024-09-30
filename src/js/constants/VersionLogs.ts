@@ -20,6 +20,14 @@ export const UPDATABLE_GAMES_APP_CODES = {
 }
 
 export const VERSION_LOGS = {
+  "3.13.0": {
+    "New Features": [
+      "Improved Quick Search mode"
+    ],
+    "Bug Fixes": [
+      "Under the hood changes made, please let me know if you come across any bugs!"
+    ]
+  },
   "3.12.2": {
     "New Features": [
       "SF6: Added Terry",

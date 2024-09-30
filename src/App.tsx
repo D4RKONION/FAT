@@ -56,7 +56,7 @@ import FrameKillGenerator from './js/pages/Calculators/FrameKillGenerator';
 import MovePunisher from './js/pages/Calculators/MovePunisher';
 import CharacterPunisher from './js/pages/Calculators/CharacterPunisher';
 import MoveLinker from './js/pages/Calculators/MoveLinker';
-import Yaksha from './js/pages/Yaksha';
+import QuickSearch from './js/pages/QuickSearch';
 import StringInterrupter from './js/pages/Calculators/StringInterrupter';
 import StatCompare from './js/pages/StatCompare';
 import MoreResources from './js/pages/MoreResourcesMenu';
@@ -294,8 +294,8 @@ useEffect(() => {
             <Route exact path="/calculators/movelinker" component={MoveLinker} />
             <Route exact path="/calculators/stringinterrupter" component={StringInterrupter} />
 
-            <Route exact path="/yaksha" component={Yaksha} />
-            <Route exact path="/yaksha/movedetail/:gameSlug/:characterSlug/:vtStateSlug/:moveNameSlug" component={MoveDetail} />
+            <Route exact path="/quicksearch" component={QuickSearch} />
+            <Route exact path="/quicksearch/movedetail/:gameSlug/:characterSlug/:vtStateSlug/:moveNameSlug" component={MoveDetail} />
 
             <Route exact path="/moreresources" component={MoreResources} />
             <Route exact path="/moreresources/:resourcePageSlug" component={MoreResourcesSub} />

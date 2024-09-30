@@ -323,7 +323,7 @@ export const RES_APPS_LIST = {
         url: "https://fullmeter.com/fatdraft"
       },
       "Yaksha": {
-        desc: "An excellent SFV frame data Discord bot",
+        desc: "An excellent SFV & SF6 frame data Discord bot",
         url: "https://github.com/ellipses/Yaksha"
       },
       "Lizard Bot": {
