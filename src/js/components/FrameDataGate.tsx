@@ -56,8 +56,14 @@ const FrameDataGate = ({ children }: FrameDataGateProps) => {
 
     if (gameIsSetup) {
       
-      slugs.current.char = gameDetails.characterList.includes(decodeURIComponent(window.location.hash.split("/")[3])) ? decodeURIComponent(window.location.hash.split("/")[3])
-      : gameDetails.characterList.includes(decodeURIComponent(window.location.hash.split("/")[4])) ? decodeURIComponent(window.location.hash.split("/")[4])
+      slugs.current.char = gameDetails.characterList.includes(decodeURIComponent(window.location.hash.split("/")[3])) ? 
+        decodeURIComponent(window.location.hash.split("/")[3])
+      : gameDetails.characterList.includes(decodeURIComponent(window.location.hash.split("/")[4])) ?
+        decodeURIComponent(window.location.hash.split("/")[4])
+      : decodeURIComponent(window.location.hash.split("/")[3]) === "A.K.I" && gameDetails.characterList.includes("A.K.I.") ?
+        // Many chat applications incorrectly parse a pasted URL with A.K.I.'s name as A.K.I so we should catch this.
+        // We only need to worry about the [3] split because move detail is always followed by more text
+        "A.K.I."
       : null;
 
       slugs.current.state =  gameDetails.characterStates.includes(decodeURIComponent(window.location.hash.split("/")[5])) ? decodeURIComponent(window.location.hash.split("/")[5])

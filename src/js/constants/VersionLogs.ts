@@ -25,7 +25,8 @@ export const VERSION_LOGS = {
       "Improved Quick Search mode"
     ],
     "Bug Fixes": [
-      "Under the hood changes made, please let me know if you come across any bugs!"
+      "Under the hood changes made, please let me know if you come across any bugs!",
+      "Fixed a bug where linking to A.K.I. in some chat applications failed because the last . wasn't being parsed"
     ]
   },
   "3.12.2": {
