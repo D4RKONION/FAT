@@ -143,10 +143,9 @@ const StringInterrupter = () => {
       <IonContent className="calculators">
         <IonGrid fixed>
           <IonItem lines="full">
-            <IonLabel>
-              <h2>{selectedCharacters.playerTwo.name}'s 1st Move</h2>
-            </IonLabel>
+
             <IonSelect
+              label={`${selectedCharacters.playerTwo.name}'s 1st Move`}
               interfaceOptions={{ header: "First Move" }}
               value={firstMove}
               okText="Select"

@@ -63,6 +63,9 @@
       }
     }
   }
+  ion-select::part(label) {
+    max-width: none;
+  }
   ion-label {
     p {
       white-space: pre-line;
@@ -71,5 +74,6 @@
       font-size: 16px;
     }
   }
+  
 
 }

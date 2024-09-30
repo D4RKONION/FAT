@@ -14,7 +14,7 @@ import { APP_CURRENT_VERSION_CODE } from '../constants/VersionLogs';
 import { activeGameSelector, activePlayerSelector, autoSetSpecificColsSelector, gameDetailsSelector, landscapeColsSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
 import { FrameDataSlug } from '../types';
 import { handleNewCharacterLandscapeCols } from '../utils/landscapecols';
-import { isPlatform } from '@ionic/core/components';
+import { isPlatform } from '@ionic/react';
 import FrameDataSubHeader from '../components/FrameDataSubHeader';
 import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
 import { Preferences } from '@capacitor/preferences';

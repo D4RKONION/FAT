@@ -1,10 +1,10 @@
-import { isPlatform } from '@ionic/core/components';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router'
 import '../../style/components/DataTable.scss';
 import { setModalVisibility, setPlayerAttr } from '../actions';
 import { activeGameSelector, activePlayerSelector, counterHitSelector, dataDisplaySettingsSelector, landscapeColsSelector, compactViewSelector, onBlockColoursSelector, orientationSelector, rawDriveRushSelector, selectedCharactersSelector, themeBrightnessSelector, vsBurntoutOpponentSelector } from '../selectors';
+import { isPlatform } from '@ionic/react';
 
 const portraitCols: {[key: string]: string} = {startup: "S", active: "A", recovery: "R", onHit: "oH", onBlock: "oB",};
 

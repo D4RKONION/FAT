@@ -9,7 +9,7 @@ import { SFV_COMBOS } from '../constants/Combos';
 import { informationCircleOutline, openOutline } from 'ionicons/icons';
 import AdviceToast from '../components/AdviceToast';
 import { activeGameSelector, activePlayerSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
-import { isPlatform } from '@ionic/core/components';
+import { isPlatform } from '@ionic/react';
 
 
 

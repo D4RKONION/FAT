@@ -1,5 +1,11 @@
 #Settings {
 
+  ion-list-header {
+    min-height: 16px;    
+    margin-top: 22px;
+
+  }
+
   ion-item {
     --transition: none;
     --border-color: var(--fat-settings-item-border);
@@ -18,6 +24,12 @@
     color: #a3a3a3;
     font-size: 12px;
     margin-bottom: 45px;
+  }
+
+  hr {
+    background-color: var(--fat-settings-item-border);
+    height: 1px;
+    margin: 0 0 0 16px;
   }
 
 }

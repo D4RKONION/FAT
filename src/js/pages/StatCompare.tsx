@@ -64,10 +64,8 @@ const StatCompare = () => {
       <IonContent id="statCompare">
         <IonGrid fixed>
           <IonItem lines="full">
-            <IonLabel>
-              <h2>Selected Stat</h2>
-            </IonLabel>
             <IonSelect
+              label={"Selected Stat"}
               interfaceOptions={{ header: "Selected Stat" }}
               value={selectedStat}
               okText="Select"

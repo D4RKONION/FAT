@@ -59,11 +59,8 @@ const MovePunisher = () => {
       <IonContent className="calculators">
         <IonGrid fixed>
           <IonItem lines="full">
-            <IonLabel>
-              <h2>{selectedCharacters["playerOne"].name} blocks {selectedCharacters["playerTwo"].name}'s:</h2>
-              <p>{selectedCharacters["playerOne"].name} can punish -{playerOneFastestStartup} on block moves</p>
-            </IonLabel>
             <IonSelect
+              label={`${selectedCharacters["playerOne"].name} blocks ${selectedCharacters["playerTwo"].name}'s:`}
               interfaceOptions={{ header: "Punishable Moves" }}
               value={blockedMove}
               okText="Select"
@@ -79,7 +76,7 @@ const MovePunisher = () => {
             </IonSelect>
           </IonItem>
 
-          {playerTwoMoves[blockedMove] &&
+          {playerTwoMoves[blockedMove] ?
               <IonItem lines="full" className="selected-move-info">
                 <IonLabel>
                   <h3>Blocked Move</h3>
@@ -87,6 +84,7 @@ const MovePunisher = () => {
                   <p><b>{playerTwoMoves[blockedMove].onBlock}</b> On Block</p>
                 </IonLabel>
               </IonItem>
+            : <p style={{fontStyle: "italic", display: "flex", justifyContent: "center", textAlign: "center", margin: "50px 10px"}}>{selectedCharacters["playerOne"].name} can punish -{playerOneFastestStartup} on block moves</p>
           }
 
           <IonList>

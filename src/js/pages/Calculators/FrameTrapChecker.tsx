@@ -64,10 +64,8 @@ const FrameTrapChecker = () => {
             clickFunc={ (eventValue) => linkOrCancel !== eventValue && setLinkOrCancel(eventValue)}
           />
           <IonItem lines="full">
-            <IonLabel>
-              <h2>First Move</h2>
-            </IonLabel>
             <IonSelect
+              label="First Move"
               interfaceOptions={{ header: "First Move" }}
               value={firstMove}
               okText="Select"
@@ -109,10 +107,8 @@ const FrameTrapChecker = () => {
           </IonItem>
 
           <IonItem lines="full">
-            <IonLabel>
-              <h2>Second Move</h2>
-            </IonLabel>
             <IonSelect
+              label="Second Move"
               interfaceOptions={{ header: "Second Move" }}
               value={secondMove}
               okText="Select"

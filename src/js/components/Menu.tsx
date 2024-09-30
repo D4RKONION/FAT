@@ -226,7 +226,7 @@ const Menu = () => {
 
             <IonRow className="menu-entry">
               <IonCol size={isWideFullMenuOpen ? "2" : "12"}>
-                <IonButton className={isWideFullMenuOpen ? "dimmed-color" : null} fill="clear" disabled={modeName === "movedetail"} key="wide-charSelectItem" onClick={() => dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true })) } >
+                <IonButton size="default" className={isWideFullMenuOpen ? "dimmed-color" : null} fill="clear" disabled={modeName === "movedetail"} key="wide-charSelectItem" onClick={() => dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true })) } >
                   <IonIcon aria-label="Character Select" slot="icon-only" icon={peopleOutline} />
                 </IonButton>
               </IonCol>

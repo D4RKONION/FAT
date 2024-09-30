@@ -1,4 +1,4 @@
-import { IonModal, IonRouterContext } from '@ionic/react';
+import { IonModal, IonRouterContext, isPlatform } from '@ionic/react';
 import { useContext, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -9,7 +9,6 @@ import PageHeader from './PageHeader';
 import CharacterPortrait from './CharacterPortrait'
 import { activeGameSelector, activePlayerSelector, autoSetSpecificColsSelector, frameDataSelector, gameDetailsSelector, landscapeColsSelector, modalVisibilitySelector, modeNameSelector, selectedCharactersSelector } from '../selectors';
 import { handleNewCharacterLandscapeCols } from '../utils/landscapecols';
-import { isPlatform } from '@ionic/core/components';
 import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
 
 const CharacterSelectModal = () => {

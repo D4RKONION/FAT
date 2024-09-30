@@ -38,10 +38,8 @@ const CharacterPunisher = () => {
       <IonContent className="calculators">
         <IonGrid fixed>
           <IonItem lines="full">
-            <IonLabel>
-              <h2>Try to punish <strong>{selectedCharacters["playerTwo"].name}</strong> with <strong>{selectedCharacters["playerOne"].name}'s</strong></h2>
-            </IonLabel>
             <IonSelect
+              label={`Try to punish ${selectedCharacters["playerTwo"].name} with ${selectedCharacters["playerOne"].name}'s`}
               interfaceOptions={{ header: "Punishing Move" }}
               value={punishingMove}
               okText="Select"

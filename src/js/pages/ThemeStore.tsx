@@ -158,11 +158,8 @@ const ThemeStore = () => {
               </IonItem>
             )}
             <IonItem lines="full">
-                <IonLabel>
-                  <h2>Colour Blind Mode</h2>
-                  <p>Use colour blind safe palettes</p>
-                </IonLabel>
                 <IonSelect
+                  label={"Colour Blind Mode"}
                   interfaceOptions={{ header: "Colour Blind Mode" }}
                   value={themeAccessibility}
                   okText="Select"

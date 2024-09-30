@@ -7,7 +7,7 @@ import { setPlayerAttr, setModalVisibility, setActiveFrameDataPlayer } from '../
 import { useHistory } from 'react-router';
 import AdviceToast from '../components/AdviceToast';
 import { activeGameSelector, activePlayerSelector, dataDisplaySettingsSelector, gameDetailsSelector, selectedCharactersSelector } from '../selectors';
-import { isPlatform } from '@ionic/core/components';
+import { isPlatform } from '@ionic/react';
 import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
 
 

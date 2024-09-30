@@ -37,10 +37,8 @@ const VersionLogs = () => {
 			<IonContent>
 				<IonGrid fixed>
 					<IonItem lines="full">
-            <IonLabel>
-              <h2>Version Number:</h2>
-            </IonLabel>
             <IonSelect
+              label="Version Number:"
               interfaceOptions={{ header: "Version Number" }}
               value={selectedVersionName}
               okText="Select"

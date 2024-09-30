@@ -477,10 +477,8 @@ const FrameKillGenerator = () => {
           />
 
           <IonItem lines="full">
-            <IonLabel>
-              <h2>Knock down with</h2>
-            </IonLabel>
             <IonSelect
+              label={"Knock down with"}
               interfaceOptions={{ header: "Knock down with" }}
               value={knockdownMove}
               okText="Select"
@@ -502,10 +500,8 @@ const FrameKillGenerator = () => {
           </IonItem>
 
           <IonItem lines="full">
-            <IonLabel>
-              <h2>Include late meaties</h2>
-            </IonLabel>
             <IonSelect
+              label="Include late meaties"
               interfaceOptions={{ header: "Include late meaties" }}
               value={lateByFrames}
               okText="Select"
@@ -522,10 +518,8 @@ const FrameKillGenerator = () => {
           </IonItem>
 
           <IonItem lines="full">
-            <IonLabel>
-              <h2>Setup contains</h2>
-            </IonLabel>
             <IonSelect
+            label="Setup contains"
               interfaceOptions={{ header: "Setup Contains" }}
               value={specificSetupMove}
               okText="Select"
@@ -552,10 +546,8 @@ const FrameKillGenerator = () => {
           </IonItem>
 
           <IonItem lines="full">
-            <IonLabel>
-              <h2>Target meaty</h2>
-            </IonLabel>
             <IonSelect
+              label='Target meaty'
               interfaceOptions={{ header: "Target Meaty" }}
               value={targetMeaty}
               okText="Select"

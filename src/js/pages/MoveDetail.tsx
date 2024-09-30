@@ -8,7 +8,7 @@ import SubHeader from '../components/SubHeader';
 import SegmentSwitcher from '../components/SegmentSwitcher';
 import { setPlayerAttr } from '../actions';
 import { activeGameSelector, activePlayerSelector, dataDisplaySettingsSelector, gameDetailsSelector, selectedCharactersSelector } from '../selectors';
-import { isPlatform } from '@ionic/core/components';
+import { isPlatform } from '@ionic/react';
 import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
 import { openOutline } from 'ionicons/icons';
 

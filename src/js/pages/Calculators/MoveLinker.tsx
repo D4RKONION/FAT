@@ -63,10 +63,8 @@ const MoveLinker = () => {
       <IonContent className="calculators">
         <IonGrid fixed>
           <IonItem lines="full">
-            <IonLabel>
-              <h2>First Move</h2>
-            </IonLabel>
             <IonSelect
+              label="First Move"
               interfaceOptions={{ header: "First Move" }}
               value={firstMove}
               okText="Select"

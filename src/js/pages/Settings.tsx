@@ -45,12 +45,8 @@ const Settings = () => {
             {/* FRAMEDATA OPTIONS */}
             <IonListHeader>Frame Data</IonListHeader>
             <IonItem lines="none">
-              <IonLabel>
-                <h2>Active Game</h2>
-                <p>Research a different game</p>
-              </IonLabel>
               <IonSelect
-                legacy={true}
+                label={"Active Game"}
                 interfaceOptions={{ header: "Select Game" }}
                 value={activeGame}
                 okText="Select"
@@ -64,12 +60,8 @@ const Settings = () => {
             </IonItem>
 
             <IonItem id="moveNameType" lines="none">
-              <IonLabel>
-                <h2>Move Name Type</h2>
-                <p>Change how moves are named</p>
-              </IonLabel>
               <IonSelect
-                legacy={true}
+                label={"Move Names"}
                 interfaceOptions={{ header: "Select a Naming Type" }}
                 value={dataDisplaySettings.moveNameType}
                 okText="Select"
@@ -86,13 +78,9 @@ const Settings = () => {
               </IonSelect>
             </IonItem>
 
-            <IonItem lines="none">
-              <IonLabel>
-                <h2>Command Notation</h2>
-                <p>Change how inputs are displayed</p>
-              </IonLabel>
+            <IonItem>
               <IonSelect
-                legacy={true}
+                label={"Input Notation"}
                 interfaceOptions={{ header: "Select a Naming Type" }}
                 value={dataDisplaySettings.inputNotationType}
                 okText="Select"
@@ -113,12 +101,8 @@ const Settings = () => {
 
             {/* @Jon Uncomment this! */}
             {/* <IonItem lines="full">
-              <IonLabel>
-                <h2>Normal Notation</h2>
-                <p>Choose long or short normal names</p>
-              </IonLabel>
               <IonSelect
-                legacy={true}
+                label={"Normal Notation"}
                 interfaceOptions={{ header: "Select a Naming Type" }}
                 value={dataDisplaySettings.normalNotationType}
                 okText="Select"
@@ -139,13 +123,9 @@ const Settings = () => {
 
               {/* APP OPTIONS */}
               <IonListHeader>App Settings</IonListHeader>
-              <IonItem lines="full">
-                <IonLabel>
-                  <h2>Advice Popups</h2>
-                  <p>Turn the advice popups on and off</p>
-                </IonLabel>
+              <IonItem lines="none">
                 <IonSelect
-                  legacy={true}
+                  label={"Advice Popups"}
                   interfaceOptions={{ header: "Toggle Advice Popups" }}
                   value={adviceToastShown}
                   okText="Select"
@@ -157,13 +137,9 @@ const Settings = () => {
                 </IonSelect>
               </IonItem>
               
-              <IonItem lines="full">
-                <IonLabel>
-                  <h2>Colour Blind Mode</h2>
-                  <p>Use colour blind safe palettes</p>
-                </IonLabel>
+              <IonItem >
                 <IonSelect
-                  legacy={true}
+                  label={"Colour Blind Mode"}
                   interfaceOptions={{ header: "Colour Blind Mode" }}
                   value={themeAccessibility}
                   okText="Select"
@@ -184,13 +160,14 @@ const Settings = () => {
               </IonLabel>
               <IonIcon icon={mailOutline} slot="start" />
             </IonItem>
-            <IonItem lines="full" href={isPlatform("ios") ? "https://apps.apple.com/us/app/frame-assistant-tool/id886775464" : "https://play.google.com/store/apps/details?id=com.fullmeter.fat"} target="_system" button>
+            <IonItem lines="none" href={isPlatform("ios") ? "https://apps.apple.com/us/app/frame-assistant-tool/id886775464" : "https://play.google.com/store/apps/details?id=com.fullmeter.fat"} target="_system" button>
               <IonLabel>
                 <h2>Leave a review</h2>
                 <p>If you find FAT has helped you, we'd love if you left us a review!</p>
               </IonLabel>
               <IonIcon icon={starOutline} slot="start" />
             </IonItem>
+            <hr></hr>
             {/* META OPTIONS */}
             <IonListHeader>FAT Meta</IonListHeader>
             <IonItem lines="none" onClick={() => history.push(`/settings/shoutouts`)} button>
@@ -225,7 +202,7 @@ const Settings = () => {
               <IonIcon icon={logoGithub} slot="start" />
               <IonIcon icon={openOutline} slot="end" />
             </IonItem>
-            <IonItem detail={false} lines="full" href="https://fullmeter.com/fat/privacy" target="_system" button>
+            <IonItem detail={false} lines="none" href="https://fullmeter.com/fat/privacy" target="_system" button>
               <IonLabel>
                 <h2>Privacy Policy</h2>
               </IonLabel>
@@ -235,7 +212,7 @@ const Settings = () => {
 
 
           </IonList>
-          <p className="final-fat">FAT ${APP_CURRENT_VERSION_NAME}</p>
+          <p className="final-fat">FAT {APP_CURRENT_VERSION_NAME}</p>
 
           <IonToast
             isOpen={copyToastShown}
