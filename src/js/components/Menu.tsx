@@ -75,7 +75,8 @@ const Menu = () => {
       url: `/combos/${activeGame}/${selectedCharacters.playerOne.name}`,
       iosIcon: barbellOutline,
       mdIcon: barbellSharp,
-      modeName: "combos"
+      modeName: "combos",
+      noDisplay: ["3S", "USF4", "GGST", "SF6"]
     },
     {
       title: 'Stat Compare',
@@ -195,6 +196,8 @@ const Menu = () => {
                 return false;
               } else if (isPlatform("capacitor") && appPage.desktopOnly) {
                 return false;
+              } else if (appPage.noDisplay && appPage.noDisplay.includes(activeGame)) {
+                return false;
               } else {
                 return (
                   <IonMenuToggle key={`mobile-${appPage.title}`} autoHide={false}>
@@ -242,7 +245,9 @@ const Menu = () => {
                 return false;
               } else if (isPlatform("capacitor") && appPage.desktopOnly) {
                 return false;
-              } else {
+              } else if (appPage.noDisplay && appPage.noDisplay.includes(activeGame)) {
+                return false;
+              }  else {
                 return (
                   <IonRow onClick={() => appPage.externalUrl ? window.open(appPage.externalUrl, '_blank') : false} key={`wide-${appPage.title}`} className={`${appPage.modeName === "settings" && !isPlatform("capacitor") ? "lines-bottom" : null} menu-entry`}>
                     <IonCol size={isWideFullMenuOpen ? "2" : "12"}>

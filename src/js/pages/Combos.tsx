@@ -36,8 +36,9 @@ const Combos = () => {
           {activeGame !== "SFV" || !SFV_COMBOS[selectedCharacters[activePlayer].name]
             ? 
               <div>
-                <h4>No Combos for {activeGame}<br/>Sorry!</h4>
+                <h4>No Combos for {activeGame}.<br/>Sorry!</h4>
                 {activeGame === "GGST" && <h5>However, you should check out<br/><a target="_system" href={`https://dustloop.com/wiki/index.php?title=GGST/${selectedCharacters[activePlayer].stats.longName ? selectedCharacters[activePlayer].stats.longName : selectedCharacters[activePlayer].name}/Combos`}>Dustloop's extensive combo guide's</a><br/>for {selectedCharacters.playerOne.name}</h5>}
+                {activeGame === "SF6" && <h5>However, you should check out <br/>SuperCombos's <a target="_system" href={`https://wiki.supercombo.gg/w/Street_Fighter_6/${selectedCharacters[activePlayer].name}/Combos`}>extensive combo guide's</a><br/>for {selectedCharacters.playerOne.name}</h5>}
               </div>
             : <>
               <div className={`segments ${!isPlatform("ios") && "md"}`}>
