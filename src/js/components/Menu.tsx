@@ -1,5 +1,5 @@
-import { IonContent, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonAlert, isPlatform, IonButton, IonGrid, IonRow, IonCol } from '@ionic/react';
-import { peopleOutline, settingsOutline, settingsSharp, moon, sunny, gameControllerOutline, gameControllerSharp, libraryOutline, librarySharp, calculatorOutline, calculatorSharp, caretDownOutline, searchOutline, searchSharp, statsChartOutline, statsChartSharp, barbellOutline, barbellSharp, colorPaletteOutline, colorPaletteSharp, menuSharp, logoPaypal, phonePortraitOutline, phonePortraitSharp, cafe } from 'ionicons/icons';
+import { IonContent, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonAlert, isPlatform, IonGrid, useIonRouter, IonRippleEffect } from '@ionic/react';
+import { peopleOutline, settingsOutline, settingsSharp, moon, sunny, gameControllerOutline, libraryOutline, librarySharp, calculatorOutline, calculatorSharp, searchOutline, searchSharp, statsChartOutline, statsChartSharp, barbellOutline, barbellSharp, colorPaletteOutline, colorPaletteSharp, menuSharp, logoPaypal, phonePortraitOutline, phonePortraitSharp, cafe } from 'ionicons/icons';
 
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -12,9 +12,11 @@ import WhatsNewModal from './WhatsNew'
 import HelpModal from './Help';
 import framesIcon from  '../../images/icons/frames.svg';
 import patreonIcon from '../../images/icons/patreon.svg';
+import movesListIcon from '../../images/icons/moveslist.svg';
 import { APP_CURRENT_VERSION_NAME } from '../constants/VersionLogs';
 import { activeGameSelector, modeNameSelector, selectedCharactersSelector, themeBrightnessSelector } from '../selectors';
 import { GAME_NAMES } from '../constants/ImmutableGameDetails';
+import MenuEntry from './MenuEntry';
 
 const Menu = () => {
 
@@ -28,6 +30,7 @@ const Menu = () => {
   const [activeGameAlertOpen, setActiveGameAlertOpen] = useState(false);
   const [isWideFullMenuOpen, setIsWideFullMenuOpen] = useState(false) 
   const location = useLocation();
+  const router = useIonRouter();
   
   useEffect(() => {
     if (location.pathname.includes("calculators") && location.pathname.split("/").length > 2) {
@@ -66,8 +69,8 @@ const Menu = () => {
     {
       title: 'Moves List',
       url: `/moveslist/${activeGame}/${selectedCharacters.playerOne.name}`,
-      iosIcon: gameControllerOutline,
-      mdIcon: gameControllerSharp,
+      iosIcon: movesListIcon,
+      mdIcon: movesListIcon,
       modeName: "moveslist"
     },
     {
@@ -153,6 +156,23 @@ const Menu = () => {
     
   ];
 
+  const MENU_ENTRIES = [
+    "characterselect",
+    "framedata",
+    "quicksearch",
+    "moveslist",
+    "combos",
+    "statcompare",
+    "calculators",
+    "moreresources",
+    "settings",
+    "themestore",
+    "appAd",
+    "kofi",
+    "patreon",
+    "paypal",
+  ]
+
   // populate the menu game switcher array
   const gameOptions = []
   GAME_NAMES.forEach(gameName => {
@@ -164,6 +184,7 @@ const Menu = () => {
       checked: activeGame === gameName
     })
   })
+  
 
   return (
     <IonMenu
@@ -174,23 +195,32 @@ const Menu = () => {
       className={isWideFullMenuOpen ? "wide-full-menu" : "wide-partial-menu"}
     >
       <IonContent>
+
+        {/* MOBILE SIDE MENU */}
         <div id="mobileSideMenu">
           <div id="menuHeader">
             <div id="themeButton" onClick={ () => themeBrightness === "light" ? dispatch(setThemeBrightness("dark")) : dispatch(setThemeBrightness("light")) }>
               <IonIcon icon={themeBrightness === "dark" ? sunny : moon} />
             </div>
             <div id="appDetails">
-              <h2>FAT - <span onClick={() => modeName !== "movedetail" && setActiveGameAlertOpen(true)}>{activeGame} <IonIcon icon={caretDownOutline} /></span></h2>
+              <h2>FAT - <span onClick={() => modeName !== "movedetail" && setActiveGameAlertOpen(true)}>{activeGame}</span></h2>
               <p>Ver {APP_CURRENT_VERSION_NAME}</p>
             </div>
           </div>
           <IonList id="pageList">
             <IonMenuToggle autoHide={false}>
-              <IonItem disabled={modeName === "movedetail"} key="mobile-charSelectItem" onClick={() => dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true })) }  lines="none" detail={false} button>
+              <IonItem disabled={modeName === "movedetail"} key="mobile-gameSelectItem" onClick={() => modeName !== "movedetail" && setActiveGameAlertOpen(true)}  lines="none" detail={false} button>
+                <IonIcon slot="start" icon={gameControllerOutline} />
+                <IonLabel>Game Select</IonLabel>
+              </IonItem>
+            </IonMenuToggle>
+            <IonMenuToggle autoHide={false}>
+              <IonItem disabled={modeName === "movedetail"} key="mobile-charSelectItem" onClick={() => dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true }))}  lines="none" detail={false} button>
                 <IonIcon slot="start" icon={peopleOutline} />
                 <IonLabel>Character Select</IonLabel>
               </IonItem>
             </IonMenuToggle>
+            <hr style={{backgroundColor: "var(--fat-settings-item-border)"}} />
             {appPages.map((appPage) => {
               if (!isPlatform("capacitor") && appPage.appOnly) {
                 return false;
@@ -212,61 +242,33 @@ const Menu = () => {
           </IonList>
         </div>
 
+        {/* WIDE SIDE MENU */}
         <div id="widescreenMenu">
           <IonGrid>
-            <IonRow id="showMenuButtonContainer">
-              <IonCol size={isWideFullMenuOpen ? "2" : "12"}>
-                <IonButton key="wide-full-menu-open-item" onClick={() => setIsWideFullMenuOpen(isWideFullMenuOpen ? false : true)}>
-                  <IonIcon aria-label="menu" slot="icon-only" icon={menuSharp} />
-                </IonButton>
-              </IonCol>
-              {isWideFullMenuOpen &&
-                <IonCol>
-                  <p><span style={{cursor: "pointer"}}onClick={() => modeName !== "movedetail" && setActiveGameAlertOpen(true)}>FAT {APP_CURRENT_VERSION_NAME} - {activeGame} <IonIcon icon={caretDownOutline} /></span> </p>
-                </IonCol>
-              }
-            </IonRow>
 
-            <IonRow className="menu-entry">
-              <IonCol size={isWideFullMenuOpen ? "2" : "12"}>
-                <IonButton size="default" className={isWideFullMenuOpen ? "dimmed-color" : null} fill="clear" disabled={modeName === "movedetail"} key="wide-charSelectItem" onClick={() => dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true })) } >
-                  <IonIcon aria-label="Character Select" slot="icon-only" icon={peopleOutline} />
-                </IonButton>
-              </IonCol>
-              {isWideFullMenuOpen &&
-                <IonCol>
-                  <IonItem disabled={modeName === "movedetail"} onClick={() => dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true })) } lines="none" button detail={false}>Character Select</IonItem>
-                </IonCol>
-              }
-            </IonRow>
+            <div className={`widescreen-menu-button widescreen-menu-entry ${!isWideFullMenuOpen && "menu-collapsed"} ${modeName === "movedetail" && "disabled"}`} onClick={() => setIsWideFullMenuOpen(isWideFullMenuOpen ? false : true)}>
+              <IonIcon aria-label="Game select" icon={menuSharp} />
+              {isWideFullMenuOpen && <span>FAT {APP_CURRENT_VERSION_NAME}</span>}
+            </div>
+
+            <div className={`widescreen-menu-entry ion-activatable ${!isWideFullMenuOpen && "menu-collapsed"} ${modeName === "movedetail" && "disabled"}`} onClick={() => modeName !== "movedetail" && setActiveGameAlertOpen(true)}>
+              <IonIcon aria-label="Game select" icon={gameControllerOutline} className={isWideFullMenuOpen ? "dimmed-color" : null} />
+              {isWideFullMenuOpen && <span>Game Select</span>}
+              <IonRippleEffect/>
+            </div>
+
+
+          {MENU_ENTRIES.map((menuEntryKey) => {
+             
+            return (
+              <MenuEntry
+                key={menuEntryKey}
+                menuEntryKey={menuEntryKey}
+                wideMenuIsOpen={isWideFullMenuOpen}
+              />
+            )
+          })}
             
-            {appPages.map((appPage) => {
-              if (!isPlatform("capacitor") && appPage.appOnly) {
-                return false;
-              } else if (isPlatform("capacitor") && appPage.desktopOnly) {
-                return false;
-              } else if (appPage.noDisplay && appPage.noDisplay.includes(activeGame)) {
-                return false;
-              }  else {
-                return (
-                  <IonRow onClick={() => appPage.externalUrl ? window.open(appPage.externalUrl, '_blank') : false} key={`wide-${appPage.title}`} className={`${appPage.modeName === "settings" && !isPlatform("capacitor") ? "lines-bottom" : null} menu-entry`}>
-                    <IonCol size={isWideFullMenuOpen ? "2" : "12"}>
-                      <IonButton
-                        fill="clear" className={`${modeName === appPage.modeName ? "selected" : null} ${isWideFullMenuOpen ? "dimmed-color" : null}`}
-                        routerLink={appPage.url} routerDirection="root"
-                      >
-                        <IonIcon aria-label={appPage.title} slot="icon-only" icon={appPage.iosIcon} />
-                      </IonButton>
-                    </IonCol>
-                    {isWideFullMenuOpen &&
-                      <IonCol>
-                        <IonItem routerLink={appPage.url} routerDirection="root" lines="none" detail={false}>{appPage.title}</IonItem>
-                      </IonCol>
-                    }
-                  </IonRow>
-                )
-              }
-            })}
           </IonGrid>
         </div>
         
@@ -279,7 +281,7 @@ const Menu = () => {
           onDidDismiss={() => setActiveGameAlertOpen(false)}
           header={'Select Game'}
           inputs={gameOptions}
-         buttons={[
+          buttons={[
             {
               text: 'Cancel',
               role: 'cancel',
