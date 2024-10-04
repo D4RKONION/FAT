@@ -16,7 +16,7 @@ const MoreResources = () => {
   return (
     <IonPage>
       <PageHeader
-        componentsToShow={{menu: true, popover: false}}
+        componentsToShow={{menuButton: true, popover: false}}
         title="More Resources"
       />
 

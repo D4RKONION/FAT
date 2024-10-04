@@ -28,7 +28,7 @@ const Combos = () => {
   return (
     <IonPage>
       <PageHeader
-        componentsToShow={{menu: true, popover: true}}
+        componentsToShow={{menuButton: true, popover: true}}
         title={`Combos | ${selectedCharacters[activePlayer].name}`}
       />
       <IonContent id="combos">

@@ -9,7 +9,7 @@ import BrightnessToggle from './BrightnessToggle';
 // TSHELP I couldn't get {...}[] to work on buttons here
 type PageHeaderProps = {
   componentsToShow?: {
-    menu?: boolean;
+    menuButton?: boolean;
     back?: boolean;
     search?: boolean;
     customBackUrl?: string;
@@ -41,7 +41,7 @@ const PageHeader = ( { componentsToShow, buttonsToShow, title, onSearchHandler, 
       <IonToolbar>
         {componentsToShow &&
           <IonButtons slot="start">
-            {componentsToShow.menu && <IonMenuButton />}
+            {componentsToShow.menuButton && <IonMenuButton />}
             {componentsToShow.back && <IonBackButton />}
 
             {/* ionic only shows the back button when you navigate from somewhere, but sometimes
@@ -74,7 +74,7 @@ const PageHeader = ( { componentsToShow, buttonsToShow, title, onSearchHandler, 
         
         
 
-        {componentsToShow && componentsToShow.menu &&
+        {componentsToShow && componentsToShow.menuButton &&
           <BrightnessToggle />
         }
         

@@ -49,7 +49,7 @@ const MovesList = () => {
   return (
     <IonPage>
       <PageHeader
-        componentsToShow={{ menu: true, popover: true }}
+        componentsToShow={{ menuButton: true, popover: true }}
         title={`Moves List - ${selectedCharacters[activePlayer].name}`}
       />
       <IonContent id="movesList">
