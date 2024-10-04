@@ -1,5 +1,5 @@
 import { IonContent, IonPage, IonIcon, createGesture } from '@ionic/react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import DataTable from '../components/DataTable';
 import SegmentSwitcher from '../components/SegmentSwitcher';
@@ -18,6 +18,7 @@ import { isPlatform } from '@ionic/react';
 import FrameDataSubHeader from '../components/FrameDataSubHeader';
 import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
 import { Preferences } from '@capacitor/preferences';
+import NewDataTable from '../components/NewDataTable';
 
 
 
@@ -42,8 +43,6 @@ const FrameData = () => {
   const history = useHistory();
   const slugs: FrameDataSlug = useParams();
 
-
-
   useEffect(() => {
     dispatch(setLandscapeCols(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters["playerOne"].name, slugs.characterSlug, autoSetSpecificCols, landscapeCols)));
 
@@ -66,52 +65,29 @@ const FrameData = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // use useRef instead
-  let DataTableEl = document.getElementById('dataTable');
-  const gesture = createGesture({
-    el: DataTableEl,
-    threshold: 50,
-    gestureName: 'table-swipe',
-    onMove: detail => onSwipeHandler(detail)
-  });
-
-  const onSwipeHandler = (detail) => {
-    if (detail.startX > window.screen.width /2 && detail.currentX < window.screen.width /2 && activePlayer === "playerOne") {
-      console.log("swiping left")
-      dispatch(setLandscapeCols(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters["playerOne"].name, selectedCharacters["playerTwo"].name, autoSetSpecificCols, landscapeCols)));
-      dispatch(setActiveFrameDataPlayer("playerTwo"));
-      gesture.enable(false)
-    } else if (detail.startX < window.screen.width /2 && detail.currentX > window.screen.width /2 && activePlayer === "playerTwo") {
-      console.log("swiping right")
-      dispatch(setLandscapeCols(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters["playerTwo"].name, selectedCharacters["playerOne"].name, autoSetSpecificCols, landscapeCols)));
-      dispatch(setActiveFrameDataPlayer("playerOne"));
-      gesture.enable(false)
-    }
-  }
-
-  useEffect(() => {
-    if (DataTableEl) {
-      gesture.enable();
-      return () => {gesture.enable(false)}
-    }
-  }, [gesture, DataTableEl])
-
+  
   useEffect(() => {
     setCharacterHasStates(!!gameDetails.specificCharacterStates[selectedCharacters[activePlayer].name])
   }, [selectedCharacters, gameDetails, activePlayer])
 
+  const contentRef = useRef(null);
+  function scrollToBottom() {
+    // Passing a duration to the method makes it so the scroll slowly
+    // goes to the bottom instead of instantly
+    contentRef.current?.scrollToBottom(500);
+  }
   
   
 
   return (
     <IonPage id="frameData">
       <PageHeader
-        componentsToShow={{menu: true, popover: true, search: true}}
+        componentsToShow={{menuButton: true, popover: true, search: true}}
         title={searchPlaceholderText}
         searchText={searchText}
         onSearchHandler={ (text: string) => setSearchText(text)}
       />
-      <IonContent>
+      <IonContent ref={contentRef}>
         <SubHeader
           adaptToShortScreens={true}
           hideOnWideScreens={true}
@@ -171,8 +147,13 @@ const FrameData = () => {
         </div>
         
 
+{/* 
+        <DataTable searchText={searchText} previewTable={false} /> */}
 
-        <DataTable searchText={searchText} previewTable={false} />
+        <NewDataTable
+          frameData={selectedCharacters[activePlayer].frameData}
+          scrollToBottom={scrollToBottom}
+        />
         
         {!modalVisibility &&
           <AdviceToast />

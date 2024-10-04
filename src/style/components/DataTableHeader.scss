@@ -1,0 +1,41 @@
+.DataTableRow.DataTableHeader {
+  top: 0;
+  z-index: 2;
+  position: sticky;
+  cursor: pointer;
+
+  &:last-child {
+    bottom: 0
+  }
+
+
+
+  > th.cell {
+    color: var(--fat-datatable-header-contrast);
+    background-color: var(--fat-datatable-header-bg) !important;
+    border-bottom: none;
+  }
+
+}
+
+.DataTableRow.DataTableHeader.fixed {
+  
+}
+
+
+
+.DataTableRow.DataTableHeader.xScroll {
+
+ 
+
+  
+  th.cell {
+    word-break: keep-all;
+    white-space: nowrap;
+  
+    &.move-name {
+      left: 0;
+      z-index: 3;
+    }
+  }
+}

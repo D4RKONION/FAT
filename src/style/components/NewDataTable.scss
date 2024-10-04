@@ -1,0 +1,28 @@
+.NewDataTable {
+  thead {
+    display: contents;
+  }
+}
+.NewDataTable.fixed {
+  table {
+    width: 100%;
+  }
+}
+
+.NewDataTable.xScroll {
+
+  overflow-x: scroll;
+  display: flex;
+  table {
+    border-collapse: separate;
+    flex: 1 auto;
+
+    tbody>tr.section-header>td {
+      position: sticky;
+      left: 0;
+      font-size: 35px;
+      font-weight: initial;
+      padding: 20px;
+    }
+  }
+}

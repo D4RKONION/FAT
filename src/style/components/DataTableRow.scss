@@ -1,0 +1,76 @@
+.DataTableRow {
+
+  &:nth-child(odd) > .cell, &:nth-child(odd) > .move-name{
+    background-color: var(--fat-surface);
+  }
+
+  &:nth-child(even) > .cell, &:nth-child(even) > .move-name{
+    background-color: var(--fat-surface-tint);
+  }
+
+  &:hover > .cell {
+    border-bottom: solid 3px var(--fat-datatable-hover-border)
+  }
+
+  .cell {
+    text-align: center;
+    overflow: auto;
+    word-break: break-word;
+    font-size: 14px;
+    padding: 5px;
+
+    border-right: 1px solid var(--fat-surface-border);
+    border-bottom: 1px solid var(--fat-surface-border);
+    color: var(--fat-surface-contrast);
+
+    &.compact {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  
+    &:last-child {
+      border-right: none;
+    }
+  
+    &.move-name {
+      border-right: 5px solid var(--fat-surface-border);  
+    }
+  
+    &.triggered-data {
+      font-weight: 900;
+      color: var(--fat-surface-contrast	);
+    }
+  
+    &.untriggered-data {
+      color: var(--fat-surface-faded);
+    }
+  }
+}
+
+.DataTableRow.fixed {
+  display: flex;
+  .cell {
+    flex: 1 0 10px;
+    &.move-name {
+      flex: 4 0 10px;
+      max-width: 200px;
+    }
+  }
+}
+
+.DataTableRow.xScroll {
+    .cell {  
+      
+      min-width: 100px;
+  
+      &.move-name {
+        min-width: 200px;
+        position: sticky;
+        left: 0;
+      }
+      // TODO: EXTRA INFO
+    }
+  }
+  
+  
