@@ -1,3 +1,23 @@
+.noSearchResultsWarning {
+  display: flex;
+  flex-direction: column;
+  background: var(--fat-card-bg);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  max-width: 415px;
+  margin: 20px auto 0;
+  padding: 7px 16px 20px;
+  width: 90%;
+  border-radius: 6px;
+  span {
+    font-size: 18px;
+    text-decoration: underline;
+    color: var(--fat-primary-shade-extreme);
+    cursor: pointer;
+  }
+}
+
 .NewDataTable {
   thead {
     display: contents;
@@ -10,12 +30,13 @@
 }
 
 .NewDataTable.xScroll {
-
   overflow-x: scroll;
   display: flex;
+
   table {
     border-collapse: separate;
     flex: 1 auto;
+    max-height: 300px; // for the specific case where the table is filtered and the cells grow huge. Doesn't actually set the table height at 300px. Don't know!
 
     tbody>tr.section-header>td {
       position: sticky;

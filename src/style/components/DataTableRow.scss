@@ -1,4 +1,5 @@
 .DataTableRow {
+  cursor: pointer;
 
   &:nth-child(odd) > .cell, &:nth-child(odd) > .move-name{
     background-color: var(--fat-surface);
@@ -34,7 +35,14 @@
     }
   
     &.move-name {
-      border-right: 5px solid var(--fat-surface-border);  
+      border-right: 5px solid var(--fat-surface-border);
+      &.extra-info-available {
+        border-right-color: var(--fat-primary);
+        &.triggered-data {
+            border-right-color: var(--fat-vtrigger);
+        }
+      }
+      
     }
   
     &.triggered-data {
@@ -55,19 +63,36 @@
     &.move-name {
       flex: 4 0 10px;
       max-width: 200px;
+      @media (max-width: 768px) {
+        flex-grow: 3;
+      }
     }
   }
 }
 
 .DataTableRow.xScroll {
+
+  max-height: 300px;
     .cell {  
       
-      min-width: 100px;
+      min-width: 120px;
+      @media (max-width: 768px) {
+        min-width: 100px;
+        padding: 7px 8px;
+      }
   
       &.move-name {
         min-width: 200px;
         position: sticky;
         left: 0;
+        @media (max-width: 768px) {
+          min-width: 0;
+          
+        }
+      }
+
+      &.compact {
+        max-width: 120px;
       }
       // TODO: EXTRA INFO
     }

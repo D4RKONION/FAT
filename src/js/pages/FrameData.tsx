@@ -71,13 +71,17 @@ const FrameData = () => {
   }, [selectedCharacters, gameDetails, activePlayer])
 
   const contentRef = useRef(null);
-  function scrollToBottom() {
+
+  let lastScrollTime = useRef(0)
+
+  const scrollToBottom = (scrollEvent) => {
     // Passing a duration to the method makes it so the scroll slowly
     // goes to the bottom instead of instantly
-    contentRef.current?.scrollToBottom(500);
+    if (scrollEvent.target.scrollTop < 10 || (scrollEvent.timeStamp - lastScrollTime.current) > 1000 ) {
+      lastScrollTime.current = scrollEvent.timeStamp
+      contentRef.current?.scrollToBottom(500);
+    }
   }
-  
-  
 
   return (
     <IonPage id="frameData">
@@ -87,7 +91,7 @@ const FrameData = () => {
         searchText={searchText}
         onSearchHandler={ (text: string) => setSearchText(text)}
       />
-      <IonContent ref={contentRef}>
+      <IonContent ref={contentRef} scrollEvents={true}>
         <SubHeader
           adaptToShortScreens={true}
           hideOnWideScreens={true}
@@ -152,7 +156,9 @@ const FrameData = () => {
 
         <NewDataTable
           frameData={selectedCharacters[activePlayer].frameData}
+          searchText={searchText}
           scrollToBottom={scrollToBottom}
+          clearSearchText={() => setSearchText("")}
         />
         
         {!modalVisibility &&

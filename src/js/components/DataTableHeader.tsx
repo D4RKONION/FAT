@@ -18,7 +18,7 @@ const DataTableHeader = ({colsToDisplay, moveType, xScrollEnabled}: Props) => {
       <tr className={`DataTableRow DataTableHeader ${xScrollEnabled ? "xScroll" : "fixed"}`} onClick={() => dispatch(setModalVisibility({ currentModal: "landscapeOptions", visible: true }))} >
         <th style={{textTransform: "capitalize"}} className="cell move-name">{moveType}s</th>
         {Object.keys(colsToDisplay).map(headerName =>
-          <th className="cell data-point-scroll" key={headerName}>
+          <th className="cell" key={headerName}>
             {colsToDisplay[headerName]}
           </th>
         )}
