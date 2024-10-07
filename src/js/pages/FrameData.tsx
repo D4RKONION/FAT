@@ -5,12 +5,12 @@ import SegmentSwitcher from '../components/SegmentSwitcher';
 import SubHeader from '../components/SubHeader';
 import LandscapeOptions from '../components/LandscapeOptions';
 import PageHeader from '../components/PageHeader';
-import { setActiveFrameDataPlayer, setModalVisibility, setPlayerAttr, setLandscapeCols } from '../actions';
+import { setActiveFrameDataPlayer, setModalVisibility, setPlayerAttr, setDataTableColumns } from '../actions';
 import { useHistory, useParams } from 'react-router';
 import { informationCircle } from 'ionicons/icons';
 import AdviceToast from '../components/AdviceToast';
 import { APP_CURRENT_VERSION_CODE } from '../constants/VersionLogs';
-import { activeGameSelector, activePlayerSelector, autoSetSpecificColsSelector, gameDetailsSelector, landscapeColsSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
+import { activeGameSelector, activePlayerSelector, dataTableSettingsSelector, gameDetailsSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
 import { FrameDataSlug } from '../types';
 import { handleNewCharacterLandscapeCols } from '../utils/landscapecols';
 import { isPlatform } from '@ionic/react';
@@ -27,8 +27,8 @@ const FrameData = () => {
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const activePlayer = useSelector(activePlayerSelector);
   const activeGame = useSelector(activeGameSelector);
-  const landscapeCols = useSelector(landscapeColsSelector);
-  const autoSetSpecificCols = useSelector(autoSetSpecificColsSelector);
+  const dataTableColumns = useSelector(dataTableSettingsSelector).tableColumns;
+  const autoSetCharacterSpecificColumnsOn = useSelector(dataTableSettingsSelector).autoSetCharacterSpecificColumnsOn;
   const gameDetails = useSelector(gameDetailsSelector);
 
   const [searchText, setSearchText] = useState('');
@@ -45,7 +45,7 @@ const FrameData = () => {
   const [whatsNewCheckComplete, setWhatsNewCheckComplete]= useState(false)
 
   useEffect(() => {
-    dispatch(setLandscapeCols(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters["playerOne"].name, slugs.characterSlug, autoSetSpecificCols, landscapeCols)));
+    dispatch(setDataTableColumns(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters["playerOne"].name, slugs.characterSlug, autoSetCharacterSpecificColumnsOn, dataTableColumns)));
 
     const checkForNewAppVersion = async () => {
 			const lsCurrentVersionCode = await (await Preferences.get({key: "lsCurrentVersionCode"})).value
@@ -129,7 +129,7 @@ const FrameData = () => {
               if (!modalVisibility.visible && eventValue === activePlayer) {
                 dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true }));
               } else {
-                dispatch(setLandscapeCols(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters[activePlayer].name, selectedCharacters[eventValue].name, autoSetSpecificCols, landscapeCols)));
+                dispatch(setDataTableColumns(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters[activePlayer].name, selectedCharacters[eventValue].name, autoSetCharacterSpecificColumnsOn, dataTableColumns)));
                 dispatch(setActiveFrameDataPlayer(eventValue));
               }
             }}

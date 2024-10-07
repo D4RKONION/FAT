@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { IonButton, IonButtons, IonIcon, IonItem, IonList, IonPopover, IonToggle } from '@ionic/react';
 import { ellipsisHorizontal, ellipsisVertical } from 'ionicons/icons';
 import '../../style/components/PopoverButton.scss';
-import { setModalVisibility, setOnBlockColours, setCounterHit, setRawDriveRush, setVsBurntoutOpponent, setCompactView } from '../actions';
-import { activeGameSelector, advantageModifiersSelector, compactViewSelector, modeNameSelector, onBlockColoursSelector } from '../selectors';
+import { setModalVisibility, setMoveAdvantageColorsOn, setCounterHit, setRawDriveRush, setVsBurntoutOpponent, setCompactView } from '../actions';
+import { activeGameSelector, advantageModifiersSelector, dataTableSettingsSelector, modeNameSelector } from '../selectors';
 
 
 
@@ -12,8 +12,8 @@ import { activeGameSelector, advantageModifiersSelector, compactViewSelector, mo
 const PopoverButton = () => {
 
   const modeName = useSelector(modeNameSelector);
-  const compactView = useSelector(compactViewSelector);
-  const onBlockColours = useSelector(onBlockColoursSelector);
+  const compactViewOn = useSelector(dataTableSettingsSelector).compactViewOn;
+  const moveAdvantageColorsOn = useSelector(dataTableSettingsSelector).moveAdvantageColorsOn;
   const counterHit = useSelector(advantageModifiersSelector).counterHitActive;
   const rawDriveRush = useSelector(advantageModifiersSelector).rawDriveRushActive;
   const vsBurntoutOpponent = useSelector(advantageModifiersSelector).vsBurntoutOpponentActive;
@@ -47,11 +47,11 @@ const PopoverButton = () => {
             </IonItem>
 
             <IonItem lines="none">
-              <IonToggle checked={!!compactView} onIonChange={e => dispatch(setCompactView(e.detail.checked)) } >Compact</IonToggle>
+              <IonToggle checked={!!compactViewOn} onIonChange={e => dispatch(setCompactView(e.detail.checked)) } >Compact</IonToggle>
             </IonItem>
 
             <IonItem lines="none">  
-              <IonToggle checked={!!onBlockColours} onIonChange={e => dispatch(setOnBlockColours(e.detail.checked)) } >oB Colours</IonToggle>
+              <IonToggle checked={!!moveAdvantageColorsOn} onIonChange={e => dispatch(setMoveAdvantageColorsOn(e.detail.checked)) } >oB Colours</IonToggle>
             </IonItem>
             {
               activeGame !== "3S" &&

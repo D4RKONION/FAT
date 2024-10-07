@@ -12,8 +12,6 @@ export const gameDetailsSelector =  (state: RootState) => state.gameDetailsState
 
 export const activePlayerSelector =  (state: RootState) => state.activePlayerState;
 
-export const landscapeColsSelector =  (state: RootState) => state.landscapeColsState;
-
 export const modalVisibilitySelector =  (state: RootState) => state.modalVisibilityState;
 
 export const selectedCharactersSelector =  (state: RootState) => state.selectedCharactersState;
@@ -24,12 +22,8 @@ export const appDisplaySettingsSelector =  (state: RootState) => state.appDispla
 
 export const themesOwnedSelector =  (state: RootState) => state.themesOwnedState;
 
-export const compactViewSelector =  (state: RootState) => state.compactViewState;
-
-export const onBlockColoursSelector =  (state: RootState) => state.onBlockColoursState;
+export const dataTableSettingsSelector =  (state: RootState) => state.dataTableSettingsState;
 
 export const advantageModifiersSelector =  (state: RootState) => state.advantageModifiersState;
-
-export const autoSetSpecificColsSelector =  (state: RootState) => state.autoSetSpecificColsState;
 
 export const adviceToastSelector =  (state: RootState) => state.adviceToastState;

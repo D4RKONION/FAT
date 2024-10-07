@@ -2,12 +2,12 @@ import { IonModal, IonRouterContext, isPlatform } from '@ionic/react';
 import { useContext, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { setModalVisibility, setPlayer, setActiveFrameDataPlayer, setPlayerAttr, setLandscapeCols } from '../actions';
+import { setModalVisibility, setPlayer, setActiveFrameDataPlayer, setPlayerAttr, setDataTableColumns } from '../actions';
 import SegmentSwitcher from './SegmentSwitcher';
 import '../../style/components/CharacterSelect.scss';
 import PageHeader from './PageHeader';
 import CharacterPortrait from './CharacterPortrait'
-import { activeGameSelector, activePlayerSelector, autoSetSpecificColsSelector, frameDataSelector, gameDetailsSelector, landscapeColsSelector, modalVisibilitySelector, modeNameSelector, selectedCharactersSelector } from '../selectors';
+import { activeGameSelector, activePlayerSelector, dataTableSettingsSelector, frameDataSelector, gameDetailsSelector, modalVisibilitySelector, modeNameSelector, selectedCharactersSelector } from '../selectors';
 import { handleNewCharacterLandscapeCols } from '../utils/landscapecols';
 import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
 
@@ -24,8 +24,8 @@ const CharacterSelectModal = () => {
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const activePlayer = useSelector(activePlayerSelector);
   const activeGame = useSelector(activeGameSelector);
-  const landscapeCols = useSelector(landscapeColsSelector);
-  const autoSetSpecificCols = useSelector(autoSetSpecificColsSelector);
+  const dataTableColumns = useSelector(dataTableSettingsSelector).tableColumns;
+  const autoSetCharacterSpecificColumnsOn = useSelector(dataTableSettingsSelector).autoSetCharacterSpecificColumnsOn;
 
   const dispatch = useDispatch();
 
@@ -33,7 +33,7 @@ const CharacterSelectModal = () => {
   const onCharacterSelect = (playerId, charName) => {
     dispatch(setModalVisibility({ currentModal: "characterSelect", visible: false }));
 
-    dispatch(setLandscapeCols(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters[playerId].name, charName, autoSetSpecificCols, landscapeCols)));
+    dispatch(setDataTableColumns(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters[playerId].name, charName, autoSetCharacterSpecificColumnsOn, dataTableColumns)));
 
     dispatch(setPlayer(playerId, charName));
 
@@ -68,7 +68,7 @@ const CharacterSelectModal = () => {
               segmentType={"active-player"}
               valueToTrack={activePlayer}
               labels={ {playerOne: `P1: ${selectedCharacters.playerOne.name}`, playerTwo: `P2: ${selectedCharacters.playerTwo.name}`}}
-              clickFunc={ (eventValue) => { dispatch(setLandscapeCols(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters[activePlayer].name, selectedCharacters[eventValue].name, autoSetSpecificCols, landscapeCols))); dispatch(setActiveFrameDataPlayer(eventValue)) } }
+              clickFunc={ (eventValue) => { dispatch(setDataTableColumns(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters[activePlayer].name, selectedCharacters[eventValue].name, autoSetCharacterSpecificColumnsOn, dataTableColumns))); dispatch(setActiveFrameDataPlayer(eventValue)) } }
             />
           }
           {activeGame === "SFV" ?

@@ -136,7 +136,7 @@ export const setActiveGame = (gameName: GameName, colReset: Boolean): ThunkActio
     
     const { gameDetailsState, dataDisplaySettingsState } = getState();
     if (colReset) {
-      dispatch(setLandscapeCols(gameDetailsState.defaultLandscapeCols))
+      dispatch(setDataTableColumns(gameDetailsState.defaultLandscapeCols))
     }
     if (gameName === "GGST") {
       dispatch(setDataDisplaySettings({inputNotationType: "numCmd"}));
@@ -153,37 +153,36 @@ export const setActiveFrameDataPlayer = (oneOrTwo: PlayerId) => ({
   type: 'SET_ACTIVE_PLAYER',
   oneOrTwo
 })
-export const setLandscapeCols = (listOfCols: {[key: string]: string}) => ({
-  type: 'SET_LANDSCAPE_COLS',
-  listOfCols
+export const setDataTableColumns = (tableColumns: {[key: string]: string}) => ({
+  type: 'SET_DATA_TABLE_COLUMNS',
+  tableColumns
 })
-export const setCompactView = (compactViewOn: Boolean) => ({
+export const setCompactView = (compactViewOn: boolean) => ({
   type: 'SET_COMPACT_VIEW',
   compactViewOn,
 })
-export const setOnBlockColours = (coloursOn: Boolean) => ({
-  type: 'SET_ON_BLOCK_COLOURS',
-  coloursOn,
+export const setMoveAdvantageColorsOn = (moveAdvantageColorsOn: boolean) => ({
+  type: 'SET_MOVE_ADVANTAGE_COLORS',
+  moveAdvantageColorsOn,
 })
-export const setAutoSetSpecificCols = (autoSetColsOn: Boolean) => ({
-  type: 'SET_AUTO_SET_SPECIFIC_COLS',
-  autoSetColsOn,
+export const setAutoSetSpecificCols = (autoSetCharacterSpecificColumnsOn: boolean) => ({
+  type: 'SET_AUTO_SET_CHARACTER_SPECIFIC_COLUMNS',
+  autoSetCharacterSpecificColumnsOn,
 })
 
 // handle advantage modifiers
-export const setCounterHit = (counterHitActive: Boolean) => ({
+export const setCounterHit = (counterHitActive: boolean) => ({
   type: 'SET_COUNTER_HIT',
   counterHitActive,
 })
-export const setRawDriveRush = (rawDriveRushActive: Boolean) => ({
+export const setRawDriveRush = (rawDriveRushActive: boolean) => ({
   type: 'SET_RAW_DRIVE_RUSH',
   rawDriveRushActive,
 })
-export const setVsBurntoutOpponent = (vsBurntoutOpponentActive: Boolean) => ({
+export const setVsBurntoutOpponent = (vsBurntoutOpponentActive: boolean) => ({
   type: 'SET_VS_BURNTOUT_OPPONENT',
   vsBurntoutOpponentActive,
 })
-
 export const resetAdvantageModifiers = () => ({
   type: 'RESET_ADVANTAGE_MODIFIERS',
 })

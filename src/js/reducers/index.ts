@@ -9,24 +9,20 @@ import { activeGameReducer } from './activegame';
 import { frameDataReducer } from './framedata';
 import { gameDetailsReducer } from './gamedetails';
 import { activePlayerReducer } from './activeplayer';
-import { landscapeColsReducer } from './landscapecols';
-import { compactViewReducer } from './compactview';
-import { onBlockColoursReducer } from './onblockcolours';
 import { selectedCharactersReducer } from './selectedcharacters';
 import { modalVisibilityReducer } from './modalvisibility';
 import { dataDisplaySettingsReducer } from './datadisplaysettings';
 import { themesOwnedReducer } from './themesowned'
-import { autoSetSpecificColsReducer } from './autospecificcols';
 import { advantageModifiersReducer } from './advantagemodifiers';
 import { appDisplaySettingsReducer } from './appdisplaysettings';
 import { adviceToastReducer } from './advicetoast';
+import { dataTableSettingsReducer } from './datatablesettings';
 
 const adviceToastPersistConfig = {
   key: 'adviceToast',
   storage: storage,
   blacklist: ['adviceToastShown']
 }
-
 
 const rootReducer = combineReducers({
   orientationState: orientationReducer,
@@ -35,16 +31,13 @@ const rootReducer = combineReducers({
   frameDataState: frameDataReducer,
   gameDetailsState: gameDetailsReducer,
   activePlayerState: activePlayerReducer,
-  landscapeColsState: landscapeColsReducer,
   modalVisibilityState: modalVisibilityReducer,
   selectedCharactersState: selectedCharactersReducer,
   dataDisplaySettingsState: dataDisplaySettingsReducer,
   appDisplaySettingsState: appDisplaySettingsReducer,
   themesOwnedState: themesOwnedReducer,
-  compactViewState: compactViewReducer,
-  onBlockColoursState: onBlockColoursReducer,
+  dataTableSettingsState: dataTableSettingsReducer,
   advantageModifiersState: advantageModifiersReducer,
-  autoSetSpecificColsState: autoSetSpecificColsReducer,
   adviceToastState: persistReducer(adviceToastPersistConfig, adviceToastReducer),
 });
 

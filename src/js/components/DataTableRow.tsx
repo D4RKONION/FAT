@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import '../../style/components/DataTableRow.scss';
-import { activeGameSelector, activePlayerSelector, advantageModifiersSelector, appDisplaySettingsSelector, compactViewSelector, dataDisplaySettingsSelector, landscapeColsSelector, onBlockColoursSelector, orientationSelector, selectedCharactersSelector } from '../selectors';
+import { activeGameSelector, activePlayerSelector, advantageModifiersSelector, appDisplaySettingsSelector, dataDisplaySettingsSelector, dataTableSettingsSelector, orientationSelector, selectedCharactersSelector } from '../selectors';
 import { useState } from 'react';
 import { setPlayerAttr } from '../actions';
 import { useHistory } from 'react-router';
@@ -15,17 +15,14 @@ type Props = {
 
 const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displayOnlyStateMoves }: Props) => {
 
-  const currentOrientation = useSelector(orientationSelector);
   const activeGame = useSelector(activeGameSelector);
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const activePlayer = useSelector(activePlayerSelector);
-  const landscapeCols = useSelector(landscapeColsSelector);
-  const compactView = useSelector(compactViewSelector);
-  const onBlockColours = useSelector(onBlockColoursSelector);
+  const compactViewOn = useSelector(dataTableSettingsSelector).compactViewOn;
+  const moveAdvantageColorsOn = useSelector(dataTableSettingsSelector).moveAdvantageColorsOn;
   const counterHit = useSelector(advantageModifiersSelector).counterHitActive;
   const rawDriveRush = useSelector(advantageModifiersSelector).rawDriveRushActive;
   const vsBurntoutOpponent = useSelector(advantageModifiersSelector).vsBurntoutOpponentActive;
-  const themeBrightness = useSelector(appDisplaySettingsSelector).themeBrightness;
   const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
 
   const [advantageIndicator, setAdvantageIndicator] = useState("color")
@@ -129,33 +126,11 @@ const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displ
       classNamesToAdd.push("extra-info-available")
     }
 
-
-    const style={
-
-      backgroundColor: 
-        activeGame === "SF6" && (vsBurntoutOpponent && (rawDriveRush && moveData.moveType === "normal")) && detailKey === "onBlock" && typeof moveData[detailKey] !== "string" && !isNaN(moveData[detailKey]) ? "var(--fat-datatable-very-plus-background"
-        : activeGame === "SF6" && (vsBurntoutOpponent || (rawDriveRush && moveData.moveType === "normal")) && detailKey === "onBlock" && typeof moveData[detailKey] !== "string" && !isNaN(moveData[detailKey]) ? "var(--fat-datatable-just-plus-background"
-        : activeGame === "SF6" && (rawDriveRush && moveData.moveType === "normal") && detailKey === "onHit" && typeof moveData[detailKey] !== "string" && !isNaN(moveData[detailKey]) ? "var(--fat-datatable-just-plus-background"
-        : activeGame === "SF6" && rawDriveRush && detailKey === "onHit" && (moveData.afterDRoH) ? "var(--fat-datatable-just-plus-background"
-        : activeGame === "GGST" && counterHit && detailKey === "onHit" && moveData.chAdv ? (themeBrightness === "light" ? "var(--fat-datatable-very-unsafe-background" : "var(--fat-datatable-very-unsafe-background")
-        : activeGame === "SFV" && counterHit && detailKey === "onHit" && moveData.ccState ? (themeBrightness === "light" ? "var(--fat-datatable-very-unsafe-background" : "var(--fat-datatable-very-unsafe-background")
-        : activeGame !== "3S"  && activeGame !== "GGST" && counterHit && detailKey === "onHit" && typeof moveData[detailKey] !== "string" && !isNaN(moveData[detailKey]) ? (themeBrightness === "light" ? "var(--fat-datatable-just-unsafe-background" : "var(--fat-datatable-just-unsafe-background")
-        :	onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < -8 ? (themeBrightness === "light" ? "var(--fat-datatable-extremely-unsafe-background" : "var(--fat-datatable-extremely-unsafe-background")
-        : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < -5 ? (themeBrightness === "light" ? "var(--fat-datatable-very-unsafe-background" : "var(--fat-datatable-very-unsafe-background")
-        // SF6 fastest moves are 4f generally, so we need to colour for < -3 instead of < -2
-        : activeGame === "SF6" && onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < -3 ? (themeBrightness === "light" ? "var(--fat-datatable-just-unsafe-background" : "var(--fat-datatable-just-unsafe-background")
-        : activeGame !== "SF6" && onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < -2 ? (themeBrightness === "light" ? "var(--fat-datatable-just-unsafe-background" : "var(--fat-datatable-just-unsafe-background")
-        : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && moveData[detailKey] < 1 ? (themeBrightness === "light" ? "var(--fat-datatable-safe-background" : "var(--fat-datatable-safe-background")
-        : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && (moveData[detailKey] > 2 || moveData[detailKey] === "KD") ? (themeBrightness === "light" ? "var(--fat-datatable-very-plus-background" : "var(--fat-datatable-very-plus-background")
-        : onBlockColours && (detailKey.includes("Block") || detailKey.includes("OB")) && (moveData[detailKey] > 0) ? (themeBrightness === "light" ? "var(--fat-datatable-just-plus-background" : "var(--fat-datatable-just-plus-background")
-        : null
-    }
-    
     // handle adv colors
-    if (onBlockColours && (detailKey.toLowerCase().includes("block") || detailKey.toLowerCase().includes("ob") || detailKey.toLowerCase().includes("hit") || detailKey.toLowerCase().includes("oh") || detailKey === "onPC" || detailKey === "onPP")) {
+    if (moveAdvantageColorsOn && (detailKey.toLowerCase().includes("block") || detailKey.toLowerCase().includes("ob") || detailKey.toLowerCase().includes("hit") || detailKey.toLowerCase().includes("oh") || detailKey === "onPC" || detailKey === "onPP")) {
       
       const amountToCheck = 
-        typeof cellDataToDisplay === "string" && cellDataToDisplay.includes("(") ? cellDataToDisplay.substring(0, cellDataToDisplay.indexOf("(")) //evaluate everything before a bracket
+        typeof cellDataToDisplay === "string" ? cellDataToDisplay.split(/[\(\[\~]/)[0] // Split on any of (, [, or ~ and take the first part
         : cellDataToDisplay
       
       const advantageAmount = 
@@ -163,8 +138,8 @@ const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displ
         : amountToCheck < -5 ? "very-unsafe"
         : (amountToCheck < -3 && activeGame === "SF6") || (amountToCheck < -2 && activeGame !== "SF6") ? "just-unsafe"
         : amountToCheck < 1 ? "safe"
-        : amountToCheck < 4 ? "just-plus"
-        : (amountToCheck >= 4 || (amountToCheck && amountToCheck.toLowerCase().includes("kd"))) ? "very-plus"
+        : amountToCheck < 5 ? "just-plus"
+        : (amountToCheck >= 5 || (amountToCheck && amountToCheck.toLowerCase().includes("kd"))) ? "very-plus"
         : ""
         
         classNamesToAdd.push(`${advantageAmount}-${advantageIndicator}`)
@@ -197,7 +172,7 @@ const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displ
         // we first parse and modify out cell data as advantage can change
         const cellDataToDisplay = addPlusToAdvantageMoves(detailKey, parseCellData(detailKey));
         return (
-          <td className={`cell ${generateClassNames(detailKey, cellDataToDisplay).map(className => className).join(' ')} ${compactView && "compact"}`}
+          <td className={`cell ${generateClassNames(detailKey, cellDataToDisplay).map(className => className).join(' ')} ${compactViewOn && "compact"}`}
             key={`cell-entry-${detailKey}`}
           >
             {cellDataToDisplay}

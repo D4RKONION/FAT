@@ -1,12 +1,12 @@
 import { IonContent, IonModal, IonList, IonItem, IonItemDivider, IonCheckbox, IonIcon, IonButton, IonToggle, } from '@ionic/react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { setModalVisibility, setLandscapeCols, setAutoSetSpecificCols } from '../actions';
+import { setModalVisibility, setDataTableColumns, setAutoSetSpecificCols } from '../actions';
 
 import '../../style/components/LandscapeOptions.scss';
 import PageHeader from './PageHeader';
 import { reloadOutline, closeOutline, trashOutline } from 'ionicons/icons';
-import { activePlayerSelector, autoSetSpecificColsSelector, gameDetailsSelector, landscapeColsSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
+import { activePlayerSelector, dataTableSettingsSelector, gameDetailsSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
 import { createCharacterDataCategoryObj, createOrderedLandscapeColsObj } from '../utils/landscapecols';
 
 const LandscapeOptions = () => {
@@ -15,8 +15,8 @@ const LandscapeOptions = () => {
   const activePlayer = useSelector(activePlayerSelector);
   const modalVisibility = useSelector(modalVisibilitySelector);
   const selectedCharacters = useSelector(selectedCharactersSelector);
-  const landscapeCols = useSelector(landscapeColsSelector);
-  const autoSetSpecificCols = useSelector(autoSetSpecificColsSelector);
+  const dataTableColumns = useSelector(dataTableSettingsSelector).tableColumns;
+  const autoSetCharacterSpecificColumnsOn = useSelector(dataTableSettingsSelector).autoSetCharacterSpecificColumnsOn;
 
   const activePlayerName = selectedCharacters[activePlayer].name;
 
@@ -31,7 +31,7 @@ const LandscapeOptions = () => {
         dataCategoryKeysArr.push(dataEntryKey)  
       )
     )
-    const allOn = dataCategoryKeysArr.every(entry => Object.keys(landscapeCols).includes(entry));
+    const allOn = dataCategoryKeysArr.every(entry => Object.keys(dataTableColumns).includes(entry));
 
     const colsToSet = {}
     Object.keys(dataCategoryObj).forEach(dataRow =>
@@ -40,13 +40,13 @@ const LandscapeOptions = () => {
 
       })
     )
-    dispatch(setLandscapeCols(createOrderedLandscapeColsObj(gameDetails, landscapeCols, colsToSet, allOn ? "off" : "on")))
+    dispatch(setDataTableColumns(createOrderedLandscapeColsObj(gameDetails, dataTableColumns, colsToSet, allOn ? "off" : "on")))
     
   }
 
   const handleModalDismiss = () => {
-    if (Object.keys(landscapeCols).length === 0) {
-      dispatch(setLandscapeCols(gameDetails.defaultLandscapeCols))
+    if (Object.keys(dataTableColumns).length === 0) {
+      dispatch(setDataTableColumns(gameDetails.defaultLandscapeCols))
       modalVisibility.visible && dispatch(setModalVisibility({ currentModal: "landscapeOptions", visible: false }))
     } else {
       modalVisibility.visible && dispatch(setModalVisibility({ currentModal: "landscapeOptions", visible: false }))
@@ -63,8 +63,8 @@ const LandscapeOptions = () => {
       <PageHeader
         buttonsToShow={[{ slot: "end",
           buttons: [
-            { text: <IonIcon icon={trashOutline} />, buttonFunc: () => dispatch(setLandscapeCols({})) },
-            { text: <IonIcon icon={reloadOutline} />, buttonFunc: () => dispatch(setLandscapeCols(gameDetails.defaultLandscapeCols)) },
+            { text: <IonIcon icon={trashOutline} />, buttonFunc: () => dispatch(setDataTableColumns({})) },
+            { text: <IonIcon icon={reloadOutline} />, buttonFunc: () => dispatch(setDataTableColumns(gameDetails.defaultLandscapeCols)) },
             { text: <IonIcon icon={closeOutline} />, buttonFunc: () => handleModalDismiss()}
           ]
         }]}
@@ -77,9 +77,9 @@ const LandscapeOptions = () => {
           <IonItemDivider>Set specific columns on character change</IonItemDivider>
           <IonItem>
             <IonToggle
-              checked={autoSetSpecificCols ? true : false}
+              checked={autoSetCharacterSpecificColumnsOn ? true : false}
               onIonChange={e => { e.detail.checked ? dispatch(setAutoSetSpecificCols(true)) : dispatch(setAutoSetSpecificCols(false))}}
-            >{autoSetSpecificCols ? "Specific cols will auto set" : "Specific cols will NOT auto set"}</IonToggle>
+            >{autoSetCharacterSpecificColumnsOn ? "Specific cols will auto set" : "Specific cols will NOT auto set"}</IonToggle>
           </IonItem>
         </div>
         
@@ -97,7 +97,7 @@ const LandscapeOptions = () => {
                   dataRow[dataEntryKey].usedBy.includes(activePlayerName)
                 ).map(dataEntryKey =>
                   <IonItem key={dataRow[dataEntryKey].dataFileKey}>
-                    <IonCheckbox checked={!!landscapeCols[dataEntryKey]} value={dataRow[dataEntryKey].dataFileKey} onIonChange={() => dispatch(setLandscapeCols(createOrderedLandscapeColsObj(gameDetails, landscapeCols, {[dataEntryKey]: dataRow[dataEntryKey].dataTableHeader}, "none")))}>{dataRow[dataEntryKey].detailedHeader}</IonCheckbox>
+                    <IonCheckbox checked={!!dataTableColumns[dataEntryKey]} value={dataRow[dataEntryKey].dataFileKey} onIonChange={() => dispatch(setDataTableColumns(createOrderedLandscapeColsObj(gameDetails, dataTableColumns, {[dataEntryKey]: dataRow[dataEntryKey].dataTableHeader}, "none")))}>{dataRow[dataEntryKey].detailedHeader}</IonCheckbox>
                   </IonItem>
                 )
               )}
@@ -112,7 +112,7 @@ const LandscapeOptions = () => {
                 {gameDetails.universalDataPoints[dataCategory].map(dataRow =>
                   Object.keys(dataRow).map((dataEntryKey) =>
                     <IonItem key={dataRow[dataEntryKey].dataFileKey}>
-                      <IonCheckbox checked={!!landscapeCols[dataEntryKey]} value={dataRow[dataEntryKey].dataFileKey} onIonChange={() => dispatch(setLandscapeCols(createOrderedLandscapeColsObj(gameDetails, landscapeCols, {[dataEntryKey]: dataRow[dataEntryKey].dataTableHeader}, "none")))}>{dataRow[dataEntryKey].detailedHeader}</IonCheckbox>
+                      <IonCheckbox checked={!!dataTableColumns[dataEntryKey]} value={dataRow[dataEntryKey].dataFileKey} onIonChange={() => dispatch(setDataTableColumns(createOrderedLandscapeColsObj(gameDetails, dataTableColumns, {[dataEntryKey]: dataRow[dataEntryKey].dataTableHeader}, "none")))}>{dataRow[dataEntryKey].detailedHeader}</IonCheckbox>
                     </IonItem>
                   )
                 )}

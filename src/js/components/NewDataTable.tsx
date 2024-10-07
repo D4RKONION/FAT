@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { PlayerData } from "../types"
 import DataTableRow from "./DataTableRow"
-import { activeGameSelector, activePlayerSelector, appDisplaySettingsSelector, landscapeColsSelector, orientationSelector, selectedCharactersSelector } from "../selectors"
+import { activeGameSelector, activePlayerSelector, appDisplaySettingsSelector, dataTableSettingsSelector, orientationSelector, selectedCharactersSelector } from "../selectors"
 import { useSelector } from "react-redux"
 import '../../style/components/NewDataTable.scss';
 import DataTableHeader from "./DataTableHeader"
@@ -17,9 +17,9 @@ const portraitCols: {[key: string]: string} = {startup: "S", active: "A", recove
 
 const NewDataTable = ({frameData, searchText, scrollToBottom, clearSearchText}: Props) => {
   
-  // Orientation stuff - we use local state to track which of the two header objects to use, but landscapeCols is stored in Redux
+  // Orientation stuff - we use local state to track which of the two header objects to use, but dataTableColumns is stored in Redux
   // as it has to be set and changed in a modal elsewhere
-  const landscapeCols = useSelector(landscapeColsSelector);
+  const dataTableColumns = useSelector(dataTableSettingsSelector).tableColumns;
   const currentOrientation = useSelector(orientationSelector);
   const xScrollEnabled = useSelector(appDisplaySettingsSelector).themeBrightness === "dark" ? true : false; // TODO: Change this to be controlled properly
   const [colsToDisplay, setColsToDisplay] = useState(portraitCols);
@@ -31,11 +31,11 @@ const NewDataTable = ({frameData, searchText, scrollToBottom, clearSearchText}: 
   // Decide whether to use the default 5 columns or the user chosen ones
   useEffect(() => {
     if(currentOrientation === "landscape") {
-      setColsToDisplay({...landscapeCols})
+      setColsToDisplay({...dataTableColumns})
     } else {
       setColsToDisplay({...portraitCols})
     }
-  }, [landscapeCols, currentOrientation])
+  }, [dataTableColumns, currentOrientation])
 
 
   // Check if the first move's i===0. If it is, that means

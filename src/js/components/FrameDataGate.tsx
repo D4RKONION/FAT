@@ -1,8 +1,8 @@
 import { ReactNode, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setActiveGame, setLandscapeCols, setPlayer, setPlayerAttr } from '../actions';
+import { setActiveGame, setDataTableColumns, setPlayer, setPlayerAttr } from '../actions';
 import { GAME_NAMES } from '../constants/ImmutableGameDetails';
-import { activeGameSelector, gameDetailsSelector, landscapeColsSelector, selectedCharactersSelector } from '../selectors';
+import { activeGameSelector, dataTableSettingsSelector, gameDetailsSelector, selectedCharactersSelector } from '../selectors';
 import { GameName } from '../types';
 import { removeAllSpecificCancels } from '../utils/landscapecols';
 
@@ -15,7 +15,7 @@ type FrameDataGateProps = {
 const FrameDataGate = ({ children }: FrameDataGateProps) => {
   const dispatch = useDispatch();
   const activeGame = useSelector(activeGameSelector);
-  const landscapeCols = useSelector(landscapeColsSelector);
+  const dataTableColumns = useSelector(dataTableSettingsSelector).tableColumns;
   const gameDetails = useSelector(gameDetailsSelector);
   const selectedCharacters = useSelector(selectedCharactersSelector);
   
@@ -37,7 +37,7 @@ const FrameDataGate = ({ children }: FrameDataGateProps) => {
     // do an initial frame data load
     if (slugs.current.game) {
       if (gameDetails) {
-        dispatch(setLandscapeCols(removeAllSpecificCancels(gameDetails, landscapeCols)))
+        dispatch(setDataTableColumns(removeAllSpecificCancels(gameDetails, dataTableColumns)))
       }
       console.log("URL game mismatch");
       // @ts-ignore
