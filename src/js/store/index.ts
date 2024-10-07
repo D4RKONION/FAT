@@ -25,15 +25,15 @@ const dataDisplaySettingsTransform = createTransform(
 );
 
 
-const persistConfig = {
+const rootPersistConfig = {
   key: "root",
   storage,
-  blacklist: ["modeNameState", "activePlayerState", "frameDataState", "advantageModifiersState", "adviceToastDismissedState"],
+  blacklist: ["modeNameState", "activePlayerState", "frameDataState", "advantageModifiersState", "adviceToastState"], // some persist config takes place in reducers/index.ts
   transforms: [dataDisplaySettingsTransform]
 }
 
 
-const persistedReducer = persistReducer<RootState>(persistConfig, rootReducer)
+const persistedReducer = persistReducer<RootState>(rootPersistConfig, rootReducer)
 
 
 const composeEnhancers = composeWithDevTools({

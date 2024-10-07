@@ -1,11 +1,11 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { IonToast } from "@ionic/react";
 import ADVICE from '../constants/Advice';
-import { setAdviceToastDismissed, setAdviceToastPrevRead } from '../actions'
+import { setAdviceToastShown, setAdviceToastPrevRead } from '../actions'
 import { settingsOutline, star, thumbsUpOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router'; 
-import { adviceToastDismissedSelector, adviceToastPrevReadSelector, adviceToastShownSelector, modeNameSelector } from '../selectors';
+import { adviceToastSelector, modeNameSelector } from '../selectors';
 
 type ToastData = {
   message: string;
@@ -17,28 +17,34 @@ type ToastData = {
 const AdviceToast = () => {
   
   const modeName = useSelector(modeNameSelector);
-  const adviceToastShown = useSelector(adviceToastShownSelector);
-  const adviceToastDismissed = useSelector(adviceToastDismissedSelector);
-  const adviceToastPrevRead = useSelector(adviceToastPrevReadSelector);
+  const adviceToastsOn = useSelector(adviceToastSelector).adviceToastsOn;
+  const adviceToastShown = useSelector(adviceToastSelector).adviceToastShown;
+  const adviceToastPrevRead = useSelector(adviceToastSelector).listOfPrevReadToasts;
 
   const dispatch = useDispatch();
 
   const history = useHistory();
-  const toastRef = useRef<HTMLIonToastElement>();
+  const toastRef = useRef<HTMLIonToastElement>(null);
 
   const icons = { settingsOutline, star, thumbsUpOutline };
   const getIcon = (iconName: ToastData["icon"]) => {
     return icons[iconName];
   }
 
-  if (toastRef.current) {
-    toastRef.current.dismiss();
-    return null;
-  } else if (!ADVICE[modeName] || !adviceToastShown || adviceToastDismissed ) {
+  useEffect(() => {
+    console.log("mode changed")
+    toastRef.current?.dismiss();
+  },[modeName])
+
+  console.log("toast!")
+  console.log(toastRef.current)
+  if (!ADVICE[modeName] || !adviceToastsOn || adviceToastShown ) {
     return null;
   } else if (Math.floor(Math.random() * 10) < 7) {
-    return null;
+    // return null;
   }
+
+  
   
 
   
@@ -61,14 +67,16 @@ const AdviceToast = () => {
       return null;
     }
   }	
+
+  dispatch(setAdviceToastShown(true))
   
   return(
     <IonToast
-    style={{"--max-width": "600px"}}
+      style={{"--max-width": "600px"}}
       ref={toastRef}
       isOpen={true}
+      duration={2500}
       onWillDismiss={() => {
-        dispatch(setAdviceToastDismissed(true));
         if (typeof adviceToastPrevRead[modeName] !== "undefined" ) {
           dispatch(setAdviceToastPrevRead({ ...adviceToastPrevRead, [modeName]: adviceToastPrevRead[modeName] + 1 }))
         } else {
@@ -84,7 +92,7 @@ const AdviceToast = () => {
             side: "end",
             icon: toastData.icon,
             text: '',
-            handler: () => {dispatch(setAdviceToastDismissed(true)); toastData.handler(history);}
+            handler: () => {toastData.handler(history);}
           }
         ] : [
           {

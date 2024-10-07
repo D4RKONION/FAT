@@ -2,12 +2,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setThemeBrightness } from '../actions';
 import styles from '../../style/components/BrightnessToggle.module.scss'
 import { IonToggle } from '@ionic/react';
-import { themeBrightnessSelector } from '../selectors';
+import { appDisplaySettingsSelector } from '../selectors';
 
 const BrightnessToggle = () => {
 	
 	const dispatch = useDispatch();
-	const themeBrightness = useSelector(themeBrightnessSelector);
+	const themeBrightness = useSelector(appDisplaySettingsSelector).themeBrightness;
 
 	return (
 		<IonToggle

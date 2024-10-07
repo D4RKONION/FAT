@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import '../../style/components/DataTableRow.scss';
-import { activeGameSelector, activePlayerSelector, advantageModifiersSelector, compactViewSelector, dataDisplaySettingsSelector, landscapeColsSelector, onBlockColoursSelector, orientationSelector, selectedCharactersSelector, themeBrightnessSelector } from '../selectors';
+import { activeGameSelector, activePlayerSelector, advantageModifiersSelector, appDisplaySettingsSelector, compactViewSelector, dataDisplaySettingsSelector, landscapeColsSelector, onBlockColoursSelector, orientationSelector, selectedCharactersSelector } from '../selectors';
 import { useState } from 'react';
 import { setPlayerAttr } from '../actions';
 import { useHistory } from 'react-router';
@@ -25,7 +25,7 @@ const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displ
   const counterHit = useSelector(advantageModifiersSelector).counterHitActive;
   const rawDriveRush = useSelector(advantageModifiersSelector).rawDriveRushActive;
   const vsBurntoutOpponent = useSelector(advantageModifiersSelector).vsBurntoutOpponentActive;
-  const themeBrightness = useSelector(themeBrightnessSelector);
+  const themeBrightness = useSelector(appDisplaySettingsSelector).themeBrightness;
   const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
 
   const [advantageIndicator, setAdvantageIndicator] = useState("color")

@@ -65,7 +65,7 @@ import ThemeStore from './js/pages/ThemeStore';
 import ThemePreview from './js/pages/ThemePreview';
 import VersionLogs from './js/pages/VersionLogs';
 
-import { activeGameSelector, themeAccessibilitySelector, themeBrightnessSelector, themeColorSelector } from './js/selectors';
+import { activeGameSelector, appDisplaySettingsSelector } from './js/selectors';
 import { setOrientation, setModalVisibility, setThemeOwned, setThemeBrightness, setActiveGame } from './js/actions';
 import { store } from './js/store';
 import { APP_CURRENT_VERSION_CODE, APP_DATE_UPDATED, UPDATABLE_GAMES, TYPES_OF_UPDATES, UPDATABLE_GAMES_APP_CODES } from './js/constants/VersionLogs';
@@ -74,9 +74,9 @@ import { Preferences } from '@capacitor/preferences';
 
 const App = () => {
 
-  const themeBrightness = useSelector(themeBrightnessSelector);
-  const themeAccessibility = useSelector(themeAccessibilitySelector);
-  const themeColor = useSelector(themeColorSelector);
+  const themeBrightness = useSelector(appDisplaySettingsSelector).themeBrightness;
+  const themeAccessibility = useSelector(appDisplaySettingsSelector).themeAccessibility;
+  const themeColor = useSelector(appDisplaySettingsSelector).themeColor;
   const activeGame = useSelector(activeGameSelector);
 
   const dispatch = useDispatch();

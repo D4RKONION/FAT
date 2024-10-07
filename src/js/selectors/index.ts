@@ -32,8 +32,4 @@ export const advantageModifiersSelector =  (state: RootState) => state.advantage
 
 export const autoSetSpecificColsSelector =  (state: RootState) => state.autoSetSpecificColsState;
 
-export const adviceToastShownSelector =  (state: RootState) => state.adviceToastShownState;
-
-export const adviceToastDismissedSelector =  (state: RootState) => state.adviceToastDismissedState;
-
-export const adviceToastPrevReadSelector =  (state: RootState) => state.adviceToastPrevReadState;
+export const adviceToastSelector =  (state: RootState) => state.adviceToastState;

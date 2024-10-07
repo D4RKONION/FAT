@@ -26,7 +26,8 @@ export const VERSION_LOGS = {
     ],
     "Bug Fixes": [
       "Under the hood changes made, please let me know if you come across any bugs!",
-      "Fixed a bug where linking to A.K.I. in some chat applications failed because the last . wasn't being parsed"
+      "Fixed a bug where linking to A.K.I. in some chat applications failed because the last . wasn't being parsed",
+      "Fixed some bugs related to the advice toasts"
     ]
   },
   "3.12.2": {

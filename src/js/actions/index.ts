@@ -171,17 +171,17 @@ export const setAutoSetSpecificCols = (autoSetColsOn: Boolean) => ({
 })
 
 // handle advantage modifiers
-export const setCounterHit = (counterHitOn: Boolean) => ({
+export const setCounterHit = (counterHitActive: Boolean) => ({
   type: 'SET_COUNTER_HIT',
-  counterHitOn,
+  counterHitActive,
 })
-export const setRawDriveRush = (rawDriveRushOn: Boolean) => ({
+export const setRawDriveRush = (rawDriveRushActive: Boolean) => ({
   type: 'SET_RAW_DRIVE_RUSH',
-  rawDriveRushOn,
+  rawDriveRushActive,
 })
-export const setVsBurntoutOpponent = (vsBurntoutOpponentOn: Boolean) => ({
+export const setVsBurntoutOpponent = (vsBurntoutOpponentActive: Boolean) => ({
   type: 'SET_VS_BURNTOUT_OPPONENT',
-  vsBurntoutOpponentOn,
+  vsBurntoutOpponentActive,
 })
 
 export const resetAdvantageModifiers = () => ({
@@ -264,15 +264,15 @@ export const resetThemesOwned = () => ({
 })
 
 //handle turning advice toast on and off
+export const setAdviceToastsOn = (adviceToastsOn: boolean) => ({
+  type: 'SET_ADVICE_TOASTS_ON',
+  adviceToastsOn,
+})
+
+//remember if an advice toast has been shown this session
 export const setAdviceToastShown = (adviceToastShown: Boolean) => ({
   type: 'SET_ADVICE_TOAST_SHOWN',
   adviceToastShown,
-})
-
-//handle remembering that the user has seen a toast this session
-export const setAdviceToastDismissed = (adviceToastDismissed: Boolean) => ({
-  type: 'SET_ADVICE_TOAST_DISMISSED',
-  adviceToastDismissed,
 })
 
 //handle remembering which toasts have been seen in total

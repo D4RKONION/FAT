@@ -2,13 +2,13 @@ import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, Ion
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { setActiveGame, setAdviceToastShown, setDataDisplaySettings, setPlayer, setThemeAccessibility, setThemeColor } from '../actions'
+import { setActiveGame, setAdviceToastsOn, setDataDisplaySettings, setPlayer, setThemeAccessibility, setThemeColor } from '../actions'
 import '../../style/pages/Settings.scss';
 import PageHeader from '../components/PageHeader';
 import { logoTwitter, chevronForward, mailOutline, starOutline, heartOutline, openOutline, globeOutline, logoGithub, bulbOutline, lockClosedOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router';
 import { APP_CURRENT_VERSION_NAME } from '../constants/VersionLogs';
-import { activeGameSelector, adviceToastShownSelector, dataDisplaySettingsSelector, selectedCharactersSelector, appDisplaySettingsSelector } from '../selectors';
+import { activeGameSelector, dataDisplaySettingsSelector, selectedCharactersSelector, appDisplaySettingsSelector, adviceToastSelector } from '../selectors';
 import { GAME_NAMES } from '../constants/ImmutableGameDetails';
 
 const Settings = () => {
@@ -16,7 +16,7 @@ const Settings = () => {
   const activeGame = useSelector(activeGameSelector);
   const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
   const selectedCharacters = useSelector(selectedCharactersSelector);
-  const adviceToastShown = useSelector(adviceToastShownSelector);
+  const adviceToastsOn = useSelector(adviceToastSelector).adviceToastsOn;
   const themeAccessibility = useSelector(appDisplaySettingsSelector).themeAccessibility;
 
   const dispatch = useDispatch();
@@ -127,10 +127,10 @@ const Settings = () => {
                 <IonSelect
                   label={"Advice Popups"}
                   interfaceOptions={{ header: "Toggle Advice Popups" }}
-                  value={adviceToastShown}
+                  value={adviceToastsOn}
                   okText="Select"
                   cancelText="Cancel"
-                  onIonChange={ e => dispatch(setAdviceToastShown(e.detail.value)) }
+                  onIonChange={ e => dispatch(setAdviceToastsOn(e.detail.value)) }
                 >
                   <IonSelectOption value={true}>On</IonSelectOption>
                   <IonSelectOption value={false}>Off</IonSelectOption>

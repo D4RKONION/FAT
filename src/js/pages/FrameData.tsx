@@ -42,6 +42,8 @@ const FrameData = () => {
   const history = useHistory();
   const slugs: FrameDataSlug = useParams();
 
+  const [whatsNewCheckComplete, setWhatsNewCheckComplete]= useState(false)
+
   useEffect(() => {
     dispatch(setLandscapeCols(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters["playerOne"].name, slugs.characterSlug, autoSetSpecificCols, landscapeCols)));
 
@@ -55,6 +57,7 @@ const FrameData = () => {
         });
         dispatch(setModalVisibility({ currentModal: "whatsNew", visible: true }))
       }
+      setWhatsNewCheckComplete(true)
 		}
 		checkForNewAppVersion();
 
@@ -160,7 +163,7 @@ const FrameData = () => {
           clearSearchText={() => setSearchText("")}
         />
         
-        {!modalVisibility &&
+        {whatsNewCheckComplete && !modalVisibility.visible &&
           <AdviceToast />
         }
       </IonContent>

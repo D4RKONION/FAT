@@ -12,7 +12,7 @@ const ADVICE = {
       message: "You can change the columns that appear when in landscape using the menu in the top right",
     },
     {
-      message: "You can change the On Hit (oh) value to Counterhit using the menu in the top right",
+      message: "You can change advantage states like 'Counter Hit' and 'Burned Out Opponent in the menu in the top right",
     },
     {
       message: "You can turn off the On Block (oB) colour values using the menu in the top right",
@@ -27,9 +27,6 @@ const ADVICE = {
   moveslist: [
     {
       message: "You can tap on a move to see its full frame data"
-    },
-    {
-      message: "The V-Trigger switcher will show you if your character has any unique moves in V-Trigger"
     }
   ],
 

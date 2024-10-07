@@ -1,4 +1,7 @@
 import { combineReducers } from 'redux';
+import storage from 'redux-persist/lib/storage'
+import persistReducer from 'redux-persist/es/persistReducer';
+
 
 import { orientationReducer } from './orientation';
 import { modeNameReducer } from './modename';
@@ -13,12 +16,16 @@ import { selectedCharactersReducer } from './selectedcharacters';
 import { modalVisibilityReducer } from './modalvisibility';
 import { dataDisplaySettingsReducer } from './datadisplaysettings';
 import { themesOwnedReducer } from './themesowned'
-import { adviceToastShownReducer } from './adivcetoastshown';
-import { adviceToastDismissedReducer } from './adivcetoastdismissed';
-import { adviceToastPrevReadReducer } from './advicetoastprevread';
 import { autoSetSpecificColsReducer } from './autospecificcols';
 import { advantageModifiersReducer } from './advantagemodifiers';
 import { appDisplaySettingsReducer } from './appdisplaysettings';
+import { adviceToastReducer } from './advicetoast';
+
+const adviceToastPersistConfig = {
+  key: 'adviceToast',
+  storage: storage,
+  blacklist: ['adviceToastShown']
+}
 
 
 const rootReducer = combineReducers({
@@ -38,9 +45,7 @@ const rootReducer = combineReducers({
   onBlockColoursState: onBlockColoursReducer,
   advantageModifiersState: advantageModifiersReducer,
   autoSetSpecificColsState: autoSetSpecificColsReducer,
-  adviceToastShownState: adviceToastShownReducer,
-  adviceToastDismissedState: adviceToastDismissedReducer,
-  adviceToastPrevReadState: adviceToastPrevReadReducer,
+  adviceToastState: persistReducer(adviceToastPersistConfig, adviceToastReducer),
 });
 
 export default rootReducer;
