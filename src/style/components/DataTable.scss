@@ -1,121 +1,49 @@
-@supports not (display: grid) {
- #dataTable {
-   display: none;
- }
- #noSupportWarning {
-   display: block;
-   text-align: center;
-   background: #00000010;
-   width: 90%;
-   max-width: 800px;
-   margin: 30px auto;
-   border-radius: 10px;
-   padding: 10px;
- }
+.noSearchResultsWarning {
+  display: flex;
+  flex-direction: column;
+  background: var(--fat-card-bg);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  max-width: 415px;
+  margin: 20px auto 0;
+  padding: 7px 16px 20px;
+  width: 90%;
+  border-radius: 6px;
+  span {
+    font-size: 18px;
+    text-decoration: underline;
+    color: var(--fat-primary-shade-extreme);
+    cursor: pointer;
+  }
 }
 
-@supports (display: grid) {
-  #dataTable {
-    // grid columns sizes are set dynamically inline
-    display: grid;
-    text-align: center;
-    padding: 0;
-    font-size: 14px;
-    z-index: 1;
-    cursor: pointer;
-
-    
-    // causes the containers to disappear as far as the grid is concerned
-
-    #dataTableHeader, #dataTableFooter, .move-row {
-      display: contents;
-
-      .move-name {
-        max-width: 200px;
-      }
-    }
-
-    //Table Header and Footer stuff
-    #dataTableHeader, #dataTableFooter {
-      .entry {
-        color: var(--fat-datatable-header-contrast);
-        background-color: var(--fat-datatable-header-bg);
-        position: sticky;
-        z-index: 2;
-        padding: 6px 0 5px;
-
-        &.move-name {
-          padding-right: 5px;
-        }
-      }
-    }
-    #dataTableHeader > .entry {
-      // Fixing issue where sometimes the sticky doesn't append to the top properly
-      top: -1px;
-    }
-    #dataTableFooter > .entry {
-      padding-bottom: calc(5px + env(safe-area-inset-bottom));
-      bottom: 0;
-    }
-
-
-    // Table Body Stuff
-    .move-row{
-          
-      &:nth-child(odd) > .cell, &:nth-child(odd) > .move-name{
-        background-color: var(--fat-surface);
-      }
-
-      &:nth-child(even) > .cell, &:nth-child(even) > .move-name{
-        background-color: var(--fat-surface-tint);
-      }
-
-      .cell {
-        font-weight: 400;
-        overflow: auto;
-        padding: 5px;
-        border-right: 1px solid var(--fat-surface-border);
-        border-bottom: 1px solid var(--fat-surface-border);
-        color: var(--fat-surface-contrast);
-
-        &.compact {
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-        }
-
-        &:last-child {
-          border-right: none;
-        }
-
-        &.move-name {
-          border-right: 5px solid var(--fat-surface-border);
-        }
-        
-        &.triggered-data {
-          font-weight: 900;
-          color: var(--fat-surface-contrast	);
-        }
-    
-        &.untriggered-data {
-          color: var(--fat-surface-faded);
-        }
-        
-        li.note {
-          text-align: left;
-          margin-left: 9px;
-          font-size: 13px;
-        }
-      }
-
-      &:hover > .cell {
-        box-sizing: border-box;
-        border-bottom: solid 3px var(--fat-datatable-hover-border)
-      }
-    }
+.DataTable {
+  thead {
+    display: contents;
   }
+}
+.DataTable.fixed {
+  table {
+    width: 100%;
+  }
+}
 
-  #noSupportWarning {
-    display: none;
+.DataTable.xScroll {
+  overflow-x: scroll;
+  display: flex;
+
+  table {
+    border-collapse: separate;
+    flex: 1 auto;
+    max-height: 300px; // for the specific case where the table is filtered and the cells grow huge. Doesn't actually set the table height at 300px. Don't know!
+
+    tbody>tr.section-header>td {
+      position: sticky;
+      left: 0;
+      font-size: 35px;
+      font-weight: initial;
+      padding: 20px;
+    }
   }
 }

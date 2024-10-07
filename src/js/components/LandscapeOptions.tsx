@@ -5,7 +5,7 @@ import { setModalVisibility, setDataTableColumns, setAutoSetSpecificCols } from 
 
 import '../../style/components/LandscapeOptions.scss';
 import PageHeader from './PageHeader';
-import { reloadOutline, closeOutline, trashOutline } from 'ionicons/icons';
+import { reloadOutline, closeOutline, trashOutline, medicalSharp } from 'ionicons/icons';
 import { activePlayerSelector, dataTableSettingsSelector, gameDetailsSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
 import { createCharacterDataCategoryObj, createOrderedLandscapeColsObj } from '../utils/landscapecols';
 
@@ -53,6 +53,29 @@ const LandscapeOptions = () => {
     }
   }
 
+  const allColumns = () => {
+    const columnObj = {}
+    Object.keys(gameDetails.universalDataPoints).forEach(dataCategory => {
+      gameDetails.universalDataPoints[dataCategory].forEach(dataRow =>
+        Object.keys(dataRow).forEach((dataEntryKey) => 
+          columnObj[dataEntryKey] = dataRow[dataEntryKey].dataTableHeader
+        )
+      )
+    })
+
+    gameDetails.specificCancels.map(dataRow =>
+      Object.keys(dataRow).filter(dataEntryKey =>
+        dataRow[dataEntryKey].usedBy.includes(activePlayerName)
+      ).map(dataEntryKey =>
+        columnObj[dataEntryKey] = dataRow[dataEntryKey].dataTableHeader
+      )
+    )
+    
+    return columnObj
+  }
+
+  allColumns()
+
   return(
     <IonModal
       isOpen={modalVisibility.visible && modalVisibility.currentModal === "landscapeOptions"}
@@ -65,6 +88,7 @@ const LandscapeOptions = () => {
           buttons: [
             { text: <IonIcon icon={trashOutline} />, buttonFunc: () => dispatch(setDataTableColumns({})) },
             { text: <IonIcon icon={reloadOutline} />, buttonFunc: () => dispatch(setDataTableColumns(gameDetails.defaultLandscapeCols)) },
+            { text: <IonIcon icon={medicalSharp} />, buttonFunc: () => dispatch(setDataTableColumns(allColumns())) },
             { text: <IonIcon icon={closeOutline} />, buttonFunc: () => handleModalDismiss()}
           ]
         }]}

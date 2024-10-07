@@ -17,6 +17,10 @@ export type VtState = string;
 
 export type Orientation = 'landscape' | 'portrait';
 
+export type TableType = 'fixed' | 'scrolling';
+
+export type MoveAdvantageIndicator = 'background' | 'text';
+
 export type ThemeBrightness = 'light' | 'dark';
 
 export type ThemeAccessibility = 'none' | 'colorBlind';

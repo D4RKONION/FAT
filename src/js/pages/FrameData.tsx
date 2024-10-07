@@ -17,7 +17,7 @@ import { isPlatform } from '@ionic/react';
 import FrameDataSubHeader from '../components/FrameDataSubHeader';
 import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
 import { Preferences } from '@capacitor/preferences';
-import NewDataTable from '../components/NewDataTable';
+import DataTable from '../components/DataTable';
 
 
 
@@ -156,7 +156,7 @@ const FrameData = () => {
 {/* 
         <DataTable searchText={searchText} previewTable={false} /> */}
 
-        <NewDataTable
+        <DataTable
           frameData={selectedCharacters[activePlayer].frameData}
           searchText={searchText}
           scrollToBottom={scrollToBottom}

@@ -1,5 +1,5 @@
 import { helpCreateFrameDataJSON } from '../utils';
-import type { AdviceToastPrevRead, AppModal, NormalNotationType, GameName, InputNotationType, MoveNameType, Orientation, PlayerData, PlayerId, ThemeAlias, ThemeBrightness, ThemeShortId, VtState, ThemeAccessibility } from '../types'
+import type { AdviceToastPrevRead, AppModal, NormalNotationType, GameName, InputNotationType, MoveNameType, Orientation, PlayerData, PlayerId, ThemeAlias, ThemeBrightness, ThemeShortId, VtState, ThemeAccessibility, TableType, MoveAdvantageIndicator } from '../types'
 
 import AppSFVFrameData from '../constants/framedata/SFVFrameData.json';
 import AppUSF4FrameData from '../constants/framedata/USF4FrameData.json';
@@ -161,9 +161,17 @@ export const setCompactView = (compactViewOn: boolean) => ({
   type: 'SET_COMPACT_VIEW',
   compactViewOn,
 })
+export const setTableType = (tableType: TableType) => ({
+  type: 'SET_TABLE_TYPE',
+  tableType,
+})
 export const setMoveAdvantageColorsOn = (moveAdvantageColorsOn: boolean) => ({
   type: 'SET_MOVE_ADVANTAGE_COLORS',
   moveAdvantageColorsOn,
+})
+export const setMoveAdvantageIndicator = (moveAdvantageIndicator: MoveAdvantageIndicator) => ({
+  type: 'SET_MOVE_ADVANTAGE_INDICATOR',
+  moveAdvantageIndicator,
 })
 export const setAutoSetSpecificCols = (autoSetCharacterSpecificColumnsOn: boolean) => ({
   type: 'SET_AUTO_SET_CHARACTER_SPECIFIC_COLUMNS',

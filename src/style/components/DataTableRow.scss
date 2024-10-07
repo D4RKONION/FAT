@@ -73,22 +73,22 @@
       background-color: var(--fat-datatable-extremely-unsafe-background);
     }
     
-    &.very-plus-color {
+    &.very-plus-text {
       color: var(--fat-datatable-very-plus-color);
     }
-    &.just-plus-color {
+    &.just-plus-text {
       color: var(--fat-datatable-just-plus-color);
     }
-    &.safe-color {
+    &.safe-text {
       color: var(--fat-datatable-safe-color);
     }
-    &.just-unsafe-color {
+    &.just-unsafe-text {
       color: var(--fat-datatable-just-unsafe-color);
     }
-    &.very-unsafe-color {
+    &.very-unsafe-text {
       color: var(--fat-datatable-very-unsafe-color);
     }
-    &.extremely-unsafe-color {
+    &.extremely-unsafe-text {
       color: var(--fat-datatable-extremely-unsafe-color);
     } 
   }

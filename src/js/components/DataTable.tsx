@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { PlayerData } from "../types"
 import DataTableRow from "./DataTableRow"
-import { activeGameSelector, activePlayerSelector, appDisplaySettingsSelector, dataTableSettingsSelector, orientationSelector, selectedCharactersSelector } from "../selectors"
+import { activeGameSelector, activePlayerSelector, dataTableSettingsSelector, orientationSelector, selectedCharactersSelector } from "../selectors"
 import { useSelector } from "react-redux"
-import '../../style/components/NewDataTable.scss';
+import '../../style/components/DataTable.scss';
 import DataTableHeader from "./DataTableHeader"
 
 type Props = {
@@ -15,13 +15,13 @@ type Props = {
 
 const portraitCols: {[key: string]: string} = {startup: "S", active: "A", recovery: "R", onHit: "oH", onBlock: "oB",};
 
-const NewDataTable = ({frameData, searchText, scrollToBottom, clearSearchText}: Props) => {
+const DataTable = ({frameData, searchText, scrollToBottom, clearSearchText}: Props) => {
   
   // Orientation stuff - we use local state to track which of the two header objects to use, but dataTableColumns is stored in Redux
   // as it has to be set and changed in a modal elsewhere
-  const dataTableColumns = useSelector(dataTableSettingsSelector).tableColumns;
   const currentOrientation = useSelector(orientationSelector);
-  const xScrollEnabled = useSelector(appDisplaySettingsSelector).themeBrightness === "dark" ? true : false; // TODO: Change this to be controlled properly
+  const dataTableColumns = useSelector(dataTableSettingsSelector).tableColumns;
+  const xScrollEnabled = useSelector(dataTableSettingsSelector).tableType === "scrolling"
   const [colsToDisplay, setColsToDisplay] = useState(portraitCols);
   const activeGame = useSelector(activeGameSelector);
   const selectedCharacters = useSelector(selectedCharactersSelector);
@@ -30,12 +30,12 @@ const NewDataTable = ({frameData, searchText, scrollToBottom, clearSearchText}: 
 
   // Decide whether to use the default 5 columns or the user chosen ones
   useEffect(() => {
-    if(currentOrientation === "landscape") {
+    if(currentOrientation === "landscape" || xScrollEnabled) {
       setColsToDisplay({...dataTableColumns})
     } else {
       setColsToDisplay({...portraitCols})
     }
-  }, [dataTableColumns, currentOrientation])
+  }, [dataTableColumns, currentOrientation, xScrollEnabled])
 
 
   // Check if the first move's i===0. If it is, that means
@@ -134,7 +134,7 @@ const NewDataTable = ({frameData, searchText, scrollToBottom, clearSearchText}: 
   let moveTypeHeaderRequired;
 
   return (
-    <div className={`NewDataTable ${xScrollEnabled ? "xScroll" : "fixed"}`} style={{height: `calc(100vh - 56px)`}} onScroll={(e) => xScrollEnabled ? scrollToBottom(e) : false}>
+    <div className={`DataTable ${xScrollEnabled ? "xScroll" : "fixed"}`} style={{height: `calc(100vh - 56px)`}} onScroll={(e) => xScrollEnabled ? scrollToBottom(e) : false}>
       <table>
         <tbody>
         {filteredFrameData.map(([moveName, moveData]) => {
@@ -188,4 +188,4 @@ const NewDataTable = ({frameData, searchText, scrollToBottom, clearSearchText}: 
   )
 }
 
-export default NewDataTable
+export default DataTable

@@ -20,12 +20,11 @@ const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displ
   const activePlayer = useSelector(activePlayerSelector);
   const compactViewOn = useSelector(dataTableSettingsSelector).compactViewOn;
   const moveAdvantageColorsOn = useSelector(dataTableSettingsSelector).moveAdvantageColorsOn;
+  const moveAdvantageIndicator = useSelector(dataTableSettingsSelector).moveAdvantageIndicator;
   const counterHit = useSelector(advantageModifiersSelector).counterHitActive;
   const rawDriveRush = useSelector(advantageModifiersSelector).rawDriveRushActive;
   const vsBurntoutOpponent = useSelector(advantageModifiersSelector).vsBurntoutOpponentActive;
   const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
-
-  const [advantageIndicator, setAdvantageIndicator] = useState("color")
 
   const dispatch = useDispatch();
   let history = useHistory();
@@ -142,7 +141,7 @@ const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displ
         : (amountToCheck >= 5 || (amountToCheck && amountToCheck.toLowerCase().includes("kd"))) ? "very-plus"
         : ""
         
-        classNamesToAdd.push(`${advantageAmount}-${advantageIndicator}`)
+        classNamesToAdd.push(`${advantageAmount}-${moveAdvantageIndicator}`)
       
     }
     

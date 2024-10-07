@@ -1,14 +1,20 @@
+import { MoveAdvantageIndicator, TableType } from "../types";
+
 type DataTableSettingsReducerAction = {
-  type: 'SET_MOVE_ADVANTAGE_COLORS' | 'SET_COMPACT_VIEW' | 'SET_DATA_TABLE_COLUMNS' | 'SET_AUTO_SET_CHARACTER_SPECIFIC_COLUMNS';
+  type: 'SET_MOVE_ADVANTAGE_COLORS' | 'SET_MOVE_ADVANTAGE_INDICATOR' | 'SET_COMPACT_VIEW' | 'SET_DATA_TABLE_COLUMNS' | 'SET_AUTO_SET_CHARACTER_SPECIFIC_COLUMNS' | 'SET_TABLE_TYPE';
   moveAdvantageColorsOn: boolean;
+  moveAdvantageIndicator: MoveAdvantageIndicator;
   compactViewOn: boolean;
+  tableType: TableType;
   autoSetCharacterSpecificColumnsOn: boolean;
   tableColumns: {[key: string]: string};
 }
 
 const defaultState = {
   moveAdvantageColorsOn: true,
+  moveAdvantageIndicator: 'text',
   compactViewOn: true,
+  tableType: "fixed",
   autoSetCharacterSpecificColumnsOn: true,
   tableColumns: {startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", onPC:"onPC", xx: "xx", dmg: "dmg", atkLvl: "lvl", DRoH: "dr-oH", DRoB: "dr-oB" },
 }
@@ -22,10 +28,22 @@ export const dataTableSettingsReducer = (state = defaultState, action: DataTable
         "moveAdvantageColorsOn": action.moveAdvantageColorsOn
       }
 
+    case 'SET_MOVE_ADVANTAGE_INDICATOR':
+      return {
+        ...state,
+        "moveAdvantageIndicator": action.moveAdvantageIndicator
+      }
+
     case 'SET_COMPACT_VIEW':
       return {
         ...state,
         "compactViewOn": action.compactViewOn
+      }
+
+    case 'SET_TABLE_TYPE':
+      return {
+        ...state,
+        "tableType": action.tableType
       }
 
     case 'SET_AUTO_SET_CHARACTER_SPECIFIC_COLUMNS':

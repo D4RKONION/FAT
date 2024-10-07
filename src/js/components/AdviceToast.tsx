@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { IonToast } from "@ionic/react";
 import ADVICE from '../constants/Advice';
@@ -31,23 +31,12 @@ const AdviceToast = () => {
     return icons[iconName];
   }
 
-  useEffect(() => {
-    console.log("mode changed")
-    toastRef.current?.dismiss();
-  },[modeName])
-
-  console.log("toast!")
-  console.log(toastRef.current)
   if (!ADVICE[modeName] || !adviceToastsOn || adviceToastShown ) {
     return null;
   } else if (Math.floor(Math.random() * 10) < 7) {
     // return null;
   }
 
-  
-  
-
-  
   const toastData = {} as ToastData;
 
   if (ADVICE[modeName]) {
