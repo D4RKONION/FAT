@@ -131,6 +131,7 @@ const getGameDetails = (gameName: GameName) => {
 
 export const setActiveGame = (gameName: GameName, colReset: Boolean): ThunkAction<void, RootState, unknown, AnyAction> => {
   return async (dispatch, getState) => {
+    dispatch(resetAdvantageModifiers())
     await dispatch(getGameDetails(gameName))
     
     const { gameDetailsState, dataDisplaySettingsState } = getState();
@@ -164,6 +165,12 @@ export const setOnBlockColours = (coloursOn: Boolean) => ({
   type: 'SET_ON_BLOCK_COLOURS',
   coloursOn,
 })
+export const setAutoSetSpecificCols = (autoSetColsOn: Boolean) => ({
+  type: 'SET_AUTO_SET_SPECIFIC_COLS',
+  autoSetColsOn,
+})
+
+// handle advantage modifiers
 export const setCounterHit = (counterHitOn: Boolean) => ({
   type: 'SET_COUNTER_HIT',
   counterHitOn,
@@ -176,10 +183,12 @@ export const setVsBurntoutOpponent = (vsBurntoutOpponentOn: Boolean) => ({
   type: 'SET_VS_BURNTOUT_OPPONENT',
   vsBurntoutOpponentOn,
 })
-export const setAutoSetSpecificCols = (autoSetColsOn: Boolean) => ({
-  type: 'SET_AUTO_SET_SPECIFIC_COLS',
-  autoSetColsOn,
+
+export const resetAdvantageModifiers = () => ({
+  type: 'RESET_ADVANTAGE_MODIFIERS',
 })
+
+
 
 // handle player frame data json stuff
 export const  setPlayer = (playerId: PlayerId, charName: PlayerData["name"]) => {

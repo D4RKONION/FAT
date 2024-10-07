@@ -32,11 +32,7 @@ export const compactViewSelector =  (state: RootState) => state.compactViewState
 
 export const onBlockColoursSelector =  (state: RootState) => state.onBlockColoursState;
 
-export const counterHitSelector =  (state: RootState) => state.counterHitState;
-
-export const rawDriveRushSelector =  (state: RootState) => state.rawDriveRushState;
-
-export const vsBurntoutOpponentSelector =  (state: RootState) => state.vsBurntoutOpponentState;
+export const advantageModifiersSelector =  (state: RootState) => state.advantageModifiersState;
 
 export const autoSetSpecificColsSelector =  (state: RootState) => state.autoSetSpecificColsState;
 

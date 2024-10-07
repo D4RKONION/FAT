@@ -3,7 +3,6 @@ import { informationCircle } from 'ionicons/icons';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router';
-import DataTable from '../components/DataTable';
 import PageHeader from '../components/PageHeader';
 import SegmentSwitcher from '../components/SegmentSwitcher';
 import SubHeader from '../components/SubHeader';
@@ -79,8 +78,6 @@ const ThemePreview = () => {
           labels={ {normal: "Buy", vtOne: "This", vtTwo: "Theme :D"} }
           clickFunc={ (eventValue) => setFakeTrigger(eventValue) }
         />
-
-      <DataTable searchText="" previewTable={true} />
 
       
 

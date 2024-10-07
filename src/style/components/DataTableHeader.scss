@@ -14,6 +14,10 @@
     color: var(--fat-datatable-header-contrast);
     background-color: var(--fat-datatable-header-bg) !important;
     border-bottom: none;
+
+    &.move-name {
+      border-right-color: var(--fat-primary);
+    }
   }
 
 }

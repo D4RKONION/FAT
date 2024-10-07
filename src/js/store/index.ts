@@ -28,7 +28,7 @@ const dataDisplaySettingsTransform = createTransform(
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["modeNameState", "activePlayerState", "frameDataState", "counterHitState", "vsBurntoutOpponentState", "rawDriveRush", "adviceToastDismissedState"],
+  blacklist: ["modeNameState", "activePlayerState", "frameDataState", "advantageModifiersState", "adviceToastDismissedState"],
   transforms: [dataDisplaySettingsTransform]
 }
 

@@ -140,12 +140,28 @@ ion-app.universal-light-none, .themePreview.universal-light-none {
   // --fat-datatable-header-bg: var(--fat-primary-shade-extreme);
   // --fat-datatable-header-contrast: #ffffff;
   // --fat-datatable-hover-border: #accde7;
-  --fat-datatable-serverely-pun: #ff6e6e;
-  --fat-datatable-very-pun: #ffa0a0;
-  --fat-datatable-just-pun: #ffe2e2;
-  --fat-datatable-not-pun: #ffffC0;
-  --fat-datatable-just-plus: #d8ffec;
-  --fat-datatable-very-plus: #9affcc;
+
+  // old bg colors
+  // --fat-datatable-extremely-unsafe-background: #ff6e6e;
+  // --fat-datatable-very-unsafe-background: #ffa0a0;
+  // --fat-datatable-just-unsafe-background: #ffe2e2;
+  // --fat-datatable-safe-background: #ffffC0;
+  // --fat-datatable-just-plus-background: #d8ffec;
+  // --fat-datatable-very-plus-background: #9affcc;
+
+  --fat-datatable-extremely-unsafe-background: #f829ff65;
+  --fat-datatable-very-unsafe-background: #ff000065;
+  --fat-datatable-just-unsafe-background: #ff5e0065;
+  --fat-datatable-safe-background: #ffe10065;
+  --fat-datatable-just-plus-background: #12db0065;
+  --fat-datatable-very-plus-background: #00bcb965;
+
+  --fat-datatable-extremely-unsafe-color: #860057;
+  --fat-datatable-very-unsafe-color: #980000;
+  --fat-datatable-just-unsafe-color: #ff1500;
+  --fat-datatable-safe-color: #ee5700;
+  --fat-datatable-just-plus-color: #0da200;
+  --fat-datatable-very-plus-color: #0070ad;
 
   // Character Select & Portrait
   --fat-portrait-opacity: 1;
@@ -310,12 +326,12 @@ ion-app.universal-light-colorBlind, .themePreview.universal-light-colorBlind {
   // --fat-datatable-header-bg: var(--fat-primary-shade-extreme);
   // --fat-datatable-header-contrast: #ffffff;
   // --fat-datatable-hover-border: #accde7;
-  --fat-datatable-serverely-pun: #FFC20A;
-  --fat-datatable-very-pun: #f9d876;
-  --fat-datatable-just-pun: #fff1c6;
-  --fat-datatable-not-pun: #d8eafb;
-  --fat-datatable-just-plus: #a6d2f9;
-  --fat-datatable-very-plus: #50a1e9;
+  --fat-datatable-extremely-unsafe-background: #FFC20A;
+  --fat-datatable-very-unsafe-background: #f9d876;
+  --fat-datatable-just-unsafe-background: #fff1c6;
+  --fat-datatable-safe-background: #d8eafb;
+  --fat-datatable-just-plus-background: #a6d2f9;
+  --fat-datatable-very-plus-background: #50a1e9;
 
   // Character Select & Portrait
   --fat-portrait-opacity: 1;

@@ -123,7 +123,7 @@ const NewDataTable = ({frameData, searchText, scrollToBottom, clearSearchText}: 
   if (filteredFrameData.length === 0) {
     return (
       <div className="noSearchResultsWarning">
-        <h2>0 results for <code>{searchText}</code></h2>
+        <h2>0 results for {searchText}</h2>
         <span onClick={() => clearSearchText()}>Clear search term</span>
       </div>
     )

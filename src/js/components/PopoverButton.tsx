@@ -4,7 +4,7 @@ import { IonButton, IonButtons, IonIcon, IonItem, IonList, IonPopover, IonToggle
 import { ellipsisHorizontal, ellipsisVertical } from 'ionicons/icons';
 import '../../style/components/PopoverButton.scss';
 import { setModalVisibility, setOnBlockColours, setCounterHit, setRawDriveRush, setVsBurntoutOpponent, setCompactView } from '../actions';
-import { activeGameSelector, compactViewSelector, counterHitSelector, modeNameSelector, onBlockColoursSelector, rawDriveRushSelector, vsBurntoutOpponentSelector } from '../selectors';
+import { activeGameSelector, advantageModifiersSelector, compactViewSelector, modeNameSelector, onBlockColoursSelector } from '../selectors';
 
 
 
@@ -14,9 +14,9 @@ const PopoverButton = () => {
   const modeName = useSelector(modeNameSelector);
   const compactView = useSelector(compactViewSelector);
   const onBlockColours = useSelector(onBlockColoursSelector);
-  const counterHit = useSelector(counterHitSelector);
-  const rawDriveRush = useSelector(rawDriveRushSelector);
-  const vsBurntoutOpponent = useSelector(vsBurntoutOpponentSelector);
+  const counterHit = useSelector(advantageModifiersSelector).counterHitActive;
+  const rawDriveRush = useSelector(advantageModifiersSelector).rawDriveRushActive;
+  const vsBurntoutOpponent = useSelector(advantageModifiersSelector).vsBurntoutOpponentActive;
   const activeGame = useSelector(activeGameSelector);
 
   const dispatch = useDispatch();

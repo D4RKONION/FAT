@@ -53,11 +53,50 @@
     &.untriggered-data {
       color: var(--fat-surface-faded);
     }
+
+    &.very-plus-background {
+      background-color: var(--fat-datatable-very-plus-background);
+    }
+    &.just-plus-background {
+      background-color: var(--fat-datatable-just-plus-background);
+    }
+    &.safe-background {
+      background-color: var(--fat-datatable-safe-background);
+    }
+    &.just-unsafe-background {
+      background-color: var(--fat-datatable-just-unsafe-background);
+    }
+    &.very-unsafe-background {
+      background-color: var(--fat-datatable-very-unsafe-background);
+    }
+    &.extremely-unsafe-background {
+      background-color: var(--fat-datatable-extremely-unsafe-background);
+    }
+    
+    &.very-plus-color {
+      color: var(--fat-datatable-very-plus-color);
+    }
+    &.just-plus-color {
+      color: var(--fat-datatable-just-plus-color);
+    }
+    &.safe-color {
+      color: var(--fat-datatable-safe-color);
+    }
+    &.just-unsafe-color {
+      color: var(--fat-datatable-just-unsafe-color);
+    }
+    &.very-unsafe-color {
+      color: var(--fat-datatable-very-unsafe-color);
+    }
+    &.extremely-unsafe-color {
+      color: var(--fat-datatable-extremely-unsafe-color);
+    } 
   }
 }
 
 .DataTableRow.fixed {
   display: flex;
+  flex-wrap: wrap;
   .cell {
     flex: 1 0 10px;
     &.move-name {

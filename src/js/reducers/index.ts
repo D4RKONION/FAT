@@ -9,9 +9,6 @@ import { activePlayerReducer } from './activeplayer';
 import { landscapeColsReducer } from './landscapecols';
 import { compactViewReducer } from './compactview';
 import { onBlockColoursReducer } from './onblockcolours';
-import { counterHitReducer } from './counterhit';
-import { rawDriveRushReducer } from './rawdriverush';
-import { vsBurntoutOpponentReducer } from './vsburntoutopponent';
 import { selectedCharactersReducer } from './selectedcharacters';
 import { modalVisibilityReducer } from './modalvisibility';
 import { dataDisplaySettingsReducer } from './datadisplaysettings';
@@ -23,6 +20,7 @@ import { adviceToastDismissedReducer } from './adivcetoastdismissed';
 import { adviceToastPrevReadReducer } from './advicetoastprevread';
 import { autoSetSpecificColsReducer } from './autospecificcols';
 import { themeAccessibilityReducer } from './themeaccessibility';
+import { advantageModifiersReducer } from './advantagemodifiers';
 
 
 const rootReducer = combineReducers({
@@ -42,9 +40,7 @@ const rootReducer = combineReducers({
   themesOwnedState: themesOwnedReducer,
   compactViewState: compactViewReducer,
   onBlockColoursState: onBlockColoursReducer,
-  counterHitState: counterHitReducer,
-  rawDriveRushState: rawDriveRushReducer,
-  vsBurntoutOpponentState: vsBurntoutOpponentReducer,
+  advantageModifiersState: advantageModifiersReducer,
   autoSetSpecificColsState: autoSetSpecificColsReducer,
   adviceToastShownState: adviceToastShownReducer,
   adviceToastDismissedState: adviceToastDismissedReducer,

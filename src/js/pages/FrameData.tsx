@@ -1,7 +1,6 @@
-import { IonContent, IonPage, IonIcon, createGesture } from '@ionic/react';
+import { IonContent, IonPage, IonIcon } from '@ionic/react';
 import { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import DataTable from '../components/DataTable';
 import SegmentSwitcher from '../components/SegmentSwitcher';
 import SubHeader from '../components/SubHeader';
 import LandscapeOptions from '../components/LandscapeOptions';
