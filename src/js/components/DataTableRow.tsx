@@ -137,8 +137,8 @@ const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displ
         : amountToCheck < -5 ? "very-unsafe"
         : (amountToCheck < -3 && activeGame === "SF6") || (amountToCheck < -2 && activeGame !== "SF6") ? "just-unsafe"
         : amountToCheck < 1 ? "safe"
-        : amountToCheck < 5 ? "just-plus"
-        : (amountToCheck >= 5 || (amountToCheck && amountToCheck.toLowerCase().includes("kd"))) ? "very-plus"
+        : amountToCheck < 4 ? "just-plus"
+        : (amountToCheck >= 4 || (amountToCheck && amountToCheck.toLowerCase().includes("kd"))) ? "very-plus"
         : ""
         
         classNamesToAdd.push(`${advantageAmount}-${moveAdvantageIndicator}`)

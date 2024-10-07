@@ -15,6 +15,9 @@
     background-color: var(--fat-datatable-header-bg) !important;
     border-bottom: none;
 
+    max-height: 40px;
+    overflow: hidden;
+
     &.move-name {
       border-right-color: var(--fat-primary);
     }

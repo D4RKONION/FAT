@@ -5,6 +5,7 @@ import { activeGameSelector, activePlayerSelector, dataTableSettingsSelector, or
 import { useSelector } from "react-redux"
 import '../../style/components/DataTable.scss';
 import DataTableHeader from "./DataTableHeader"
+import { isPlatform } from "@ionic/react"
 
 type Props = {
   frameData: PlayerData["frameData"];
@@ -134,7 +135,7 @@ const DataTable = ({frameData, searchText, scrollToBottom, clearSearchText}: Pro
   let moveTypeHeaderRequired;
 
   return (
-    <div className={`DataTable ${xScrollEnabled ? "xScroll" : "fixed"}`} style={{height: `calc(100vh - 56px)`}} onScroll={(e) => xScrollEnabled ? scrollToBottom(e) : false}>
+    <div className={`DataTable ${xScrollEnabled ? "xScroll" : "fixed"} ${isPlatform("ios") ? "ios" : ""}`} onScroll={(e) => xScrollEnabled ? scrollToBottom(e) : false}>
       <table>
         <tbody>
         {filteredFrameData.map(([moveName, moveData]) => {

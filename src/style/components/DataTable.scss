@@ -19,13 +19,21 @@
 }
 
 .DataTable {
+  height: calc(100vh - 56px);
+  &.ios {
+    height: calc(100vh - 52px - env(safe-area-inset-top));
+  }
   thead {
     display: contents;
   }
 }
 .DataTable.fixed {
   table {
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    tbody {
+      display: contents;
+    }
   }
 }
 

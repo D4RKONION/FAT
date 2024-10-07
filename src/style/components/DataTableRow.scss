@@ -96,11 +96,11 @@
 
 .DataTableRow.fixed {
   display: flex;
-  flex-wrap: wrap;
+
   .cell {
-    flex: 1 0 10px;
+    flex: 1 0 0;
     &.move-name {
-      flex: 4 0 10px;
+      flex: 4 0 0;
       max-width: 200px;
       @media (max-width: 768px) {
         flex-grow: 3;
