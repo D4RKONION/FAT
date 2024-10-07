@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { PlayerData } from "../types"
 import DataTableRow from "./DataTableRow"
-import { activeGameSelector, activePlayerSelector, landscapeColsSelector, orientationSelector, selectedCharactersSelector, themeBrightnessSelector } from "../selectors"
+import { activeGameSelector, activePlayerSelector, appDisplaySettingsSelector, landscapeColsSelector, orientationSelector, selectedCharactersSelector } from "../selectors"
 import { useSelector } from "react-redux"
 import '../../style/components/NewDataTable.scss';
 import DataTableHeader from "./DataTableHeader"
@@ -21,7 +21,7 @@ const NewDataTable = ({frameData, searchText, scrollToBottom, clearSearchText}: 
   // as it has to be set and changed in a modal elsewhere
   const landscapeCols = useSelector(landscapeColsSelector);
   const currentOrientation = useSelector(orientationSelector);
-  const xScrollEnabled = useSelector(themeBrightnessSelector) === "dark" ? true : false; // TODO: Change this to be controlled properly
+  const xScrollEnabled = useSelector(appDisplaySettingsSelector).themeBrightness === "dark" ? true : false; // TODO: Change this to be controlled properly
   const [colsToDisplay, setColsToDisplay] = useState(portraitCols);
   const activeGame = useSelector(activeGameSelector);
   const selectedCharacters = useSelector(selectedCharactersSelector);

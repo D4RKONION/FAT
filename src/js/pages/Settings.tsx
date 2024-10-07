@@ -8,7 +8,7 @@ import PageHeader from '../components/PageHeader';
 import { logoTwitter, chevronForward, mailOutline, starOutline, heartOutline, openOutline, globeOutline, logoGithub, bulbOutline, lockClosedOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router';
 import { APP_CURRENT_VERSION_NAME } from '../constants/VersionLogs';
-import { activeGameSelector, adviceToastShownSelector, dataDisplaySettingsSelector, selectedCharactersSelector, themeAccessibilitySelector } from '../selectors';
+import { activeGameSelector, adviceToastShownSelector, dataDisplaySettingsSelector, selectedCharactersSelector, appDisplaySettingsSelector } from '../selectors';
 import { GAME_NAMES } from '../constants/ImmutableGameDetails';
 
 const Settings = () => {
@@ -17,7 +17,7 @@ const Settings = () => {
   const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const adviceToastShown = useSelector(adviceToastShownSelector);
-  const themeAccessibility = useSelector(themeAccessibilitySelector);
+  const themeAccessibility = useSelector(appDisplaySettingsSelector).themeAccessibility;
 
   const dispatch = useDispatch();
   

@@ -12,15 +12,13 @@ import { onBlockColoursReducer } from './onblockcolours';
 import { selectedCharactersReducer } from './selectedcharacters';
 import { modalVisibilityReducer } from './modalvisibility';
 import { dataDisplaySettingsReducer } from './datadisplaysettings';
-import { themeBrightnessReducer } from './themebrightness';
-import { themeColorReducer } from './themecolor';
 import { themesOwnedReducer } from './themesowned'
 import { adviceToastShownReducer } from './adivcetoastshown';
 import { adviceToastDismissedReducer } from './adivcetoastdismissed';
 import { adviceToastPrevReadReducer } from './advicetoastprevread';
 import { autoSetSpecificColsReducer } from './autospecificcols';
-import { themeAccessibilityReducer } from './themeaccessibility';
 import { advantageModifiersReducer } from './advantagemodifiers';
+import { appDisplaySettingsReducer } from './appdisplaysettings';
 
 
 const rootReducer = combineReducers({
@@ -34,9 +32,7 @@ const rootReducer = combineReducers({
   modalVisibilityState: modalVisibilityReducer,
   selectedCharactersState: selectedCharactersReducer,
   dataDisplaySettingsState: dataDisplaySettingsReducer,
-  themeBrightnessState: themeBrightnessReducer,
-  themeAccessibilityState: themeAccessibilityReducer,
-  themeColorState: themeColorReducer,
+  appDisplaySettingsState: appDisplaySettingsReducer,
   themesOwnedState: themesOwnedReducer,
   compactViewState: compactViewReducer,
   onBlockColoursState: onBlockColoursReducer,

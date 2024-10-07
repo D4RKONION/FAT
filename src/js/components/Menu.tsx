@@ -14,13 +14,13 @@ import framesIcon from  '../../images/icons/frames.svg';
 import patreonIcon from '../../images/icons/patreon.svg';
 import movesListIcon from '../../images/icons/moveslist.svg';
 import { APP_CURRENT_VERSION_NAME } from '../constants/VersionLogs';
-import { activeGameSelector, modeNameSelector, selectedCharactersSelector, themeBrightnessSelector } from '../selectors';
+import { activeGameSelector, modeNameSelector, selectedCharactersSelector, appDisplaySettingsSelector } from '../selectors';
 import { GAME_NAMES } from '../constants/ImmutableGameDetails';
 import MenuEntry from './MenuEntry';
 
 const Menu = () => {
 
-  const themeBrightness = useSelector(themeBrightnessSelector);
+  const themeBrightness = useSelector(appDisplaySettingsSelector).themeBrightness;
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const modeName = useSelector(modeNameSelector);
   const activeGame = useSelector(activeGameSelector);

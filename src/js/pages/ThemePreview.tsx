@@ -8,7 +8,7 @@ import SegmentSwitcher from '../components/SegmentSwitcher';
 import SubHeader from '../components/SubHeader';
 
 import { setThemeBrightness } from '../actions';
-import { activeGameSelector, selectedCharactersSelector, themeBrightnessSelector, themeAccessibilitySelector } from '../selectors';
+import { activeGameSelector, selectedCharactersSelector, appDisplaySettingsSelector } from '../selectors';
 import FrameDataSubHeader from '../components/FrameDataSubHeader';
 
 
@@ -17,8 +17,8 @@ const ThemePreview = () => {
 
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const activeGame = useSelector(activeGameSelector);
-  const themeBrightness = useSelector(themeBrightnessSelector);
-  const themeAccessibility = useSelector(themeAccessibilitySelector);
+  const themeBrightness = useSelector(appDisplaySettingsSelector).themeBrightness;
+  const themeAccessibility = useSelector(appDisplaySettingsSelector).themeAccessibility;
   const dispatch = useDispatch();
 
   const [fakeTrigger, setFakeTrigger] = useState("normal");

@@ -20,11 +20,7 @@ export const selectedCharactersSelector =  (state: RootState) => state.selectedC
 
 export const dataDisplaySettingsSelector =  (state: RootState) => state.dataDisplaySettingsState;
 
-export const themeBrightnessSelector =  (state: RootState) => state.themeBrightnessState;
-
-export const themeAccessibilitySelector =  (state: RootState) => state.themeAccessibilityState;
-
-export const themeColorSelector =  (state: RootState) => state.themeColorState;
+export const appDisplaySettingsSelector =  (state: RootState) => state.appDisplaySettingsState;
 
 export const themesOwnedSelector =  (state: RootState) => state.themesOwnedState;
 

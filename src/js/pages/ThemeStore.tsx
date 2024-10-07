@@ -6,9 +6,9 @@ import PageHeader from '../components/PageHeader';
 import { checkmarkSharp } from 'ionicons/icons';
 import '../../style/pages/ThemeStore.scss'
 import { setThemeAccessibility, setThemeColor } from '../actions';
-import { themeAccessibilitySelector, themeColorSelector, themesOwnedSelector } from '../selectors';
 import THEMES from '../constants/Themes';
 import SubHeader from '../components/SubHeader';
+import { appDisplaySettingsSelector, themesOwnedSelector } from '../selectors';
 
 
 const defaultPrice = isPlatform('android') ? '€1.79' : '$1.99';
@@ -21,8 +21,8 @@ const ThemeStore = () => {
 
   const { store: iapStore } = CdvPurchase;
 
-  const themeColor = useSelector(themeColorSelector);
-  const themeAccessibility = useSelector(themeAccessibilitySelector);
+  const themeColor = useSelector(appDisplaySettingsSelector).themeColor;
+  const themeAccessibility = useSelector(appDisplaySettingsSelector).themeAccessibility;
   const themesOwned = useSelector(themesOwnedSelector);
 
   const dispatch = useDispatch();
