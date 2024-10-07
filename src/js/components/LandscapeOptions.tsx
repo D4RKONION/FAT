@@ -92,7 +92,7 @@ const LandscapeOptions = () => {
             { text: <IonIcon icon={closeOutline} />, buttonFunc: () => handleModalDismiss()}
           ]
         }]}
-        title="Landscape Options"
+        title="Table Column Options"
       />
 
       <IonContent id="LandscapeOptions">

@@ -132,6 +132,9 @@
 
       &.compact {
         max-width: 120px;
+        @media (max-width: 768px) {
+          max-width: 90px;
+        }
       }
       // TODO: EXTRA INFO
     }

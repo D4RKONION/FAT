@@ -45,7 +45,7 @@ const PopoverButton = () => {
           {modeName === "framedata" &&
             <>
             <IonItem lines="none"  onClick={() => { dispatch(setModalVisibility({ currentModal: "landscapeOptions", visible: true })); setPopoverVisible({open: false, event: undefined})}} button>
-              Landscape Columns
+              Data Columns
             </IonItem>
 
             <IonItem lines="none">
