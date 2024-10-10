@@ -151,10 +151,6 @@ const FrameData = () => {
             />
           }
         </div>
-        
-
-{/* 
-        <DataTable searchText={searchText} previewTable={false} /> */}
 
         <DataTable
           frameData={selectedCharacters[activePlayer].frameData}

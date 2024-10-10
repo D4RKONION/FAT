@@ -10,10 +10,11 @@ import CharacterPortrait from './CharacterPortrait'
 import { activeGameSelector, activePlayerSelector, dataTableSettingsSelector, frameDataSelector, gameDetailsSelector, modalVisibilitySelector, modeNameSelector, selectedCharactersSelector } from '../selectors';
 import { handleNewCharacterLandscapeCols } from '../utils/landscapecols';
 import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
+import { useHistory } from 'react-router';
 
 const CharacterSelectModal = () => {
 
-  const routerContext = useContext(IonRouterContext);
+  let history = useHistory();
 
   const [searchText, setSearchText] = useState('');
 
@@ -41,9 +42,7 @@ const CharacterSelectModal = () => {
 
     
     if (playerId === "playerOne" && (modeName === "framedata" || modeName === "moveslist" || modeName === "combos")) {
-      //we have to use IonRouterContext due to this issue
-      //https://github.com/ionic-team/ionic-framework/issues/21832
-      routerContext.push(`/${modeName}/${activeGame}/${charName}`, "none");
+      history.replace(`/${modeName}/${activeGame}/${charName}`)
     }
     
   }

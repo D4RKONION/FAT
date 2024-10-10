@@ -140,8 +140,8 @@ const DataTable = ({frameData, searchText, scrollToBottom, clearSearchText}: Pro
         <tbody>
         {filteredFrameData.map(([moveName, moveData]) => {
 
-            // Group moves into segments, ignoring move types that are unhelpful for users or would otherwise
-            // break the table flow
+            // Group moves into segments, ignoring move types that are  
+            // unhelpful for users or would otherwise break the table flow
             if ((previousMoveType !== moveData.moveType) && moveData.moveType && moveData.moveType !== "movement-special" && moveData.moveType !== "taunt" && moveData.moveType !== "command-grab" ) {
               moveTypeHeaderRequired = true
               previousMoveType = moveData.moveType
