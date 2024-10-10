@@ -107,7 +107,7 @@ const LandscapeOptions = () => {
         </div>
         
         
-          {gameDetails.specificCancels[0] &&
+          {gameDetails.specificCancels[0] && gameDetails.specificCancels.some(dataRow => Object.keys(dataRow).some(dataEntryKey => dataRow[dataEntryKey].usedBy.includes(activePlayerName))) &&
             <div className="list-section" key={`${activePlayerName} cancels`}>
               <IonItemDivider>
                 {activePlayerName} Specific Cancels
