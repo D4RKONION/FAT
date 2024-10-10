@@ -56,6 +56,7 @@ const LandscapeOptions = () => {
   const allColumns = () => {
     const columnObj = {}
     Object.keys(gameDetails.universalDataPoints).forEach(dataCategory => {
+      dataCategory !== "Extra Information" &&
       gameDetails.universalDataPoints[dataCategory].forEach(dataRow =>
         Object.keys(dataRow).forEach((dataEntryKey) => 
           columnObj[dataEntryKey] = dataRow[dataEntryKey].dataTableHeader
@@ -73,8 +74,6 @@ const LandscapeOptions = () => {
     
     return columnObj
   }
-
-  allColumns()
 
   return(
     <IonModal
@@ -128,6 +127,7 @@ const LandscapeOptions = () => {
             </div>
           }
             {Object.keys(gameDetails.universalDataPoints).map(dataCategory =>
+              dataCategory !== "Extra Information" &&
               <div className="list-section" key={dataCategory}>
                 <IonItemDivider>
                   {dataCategory}

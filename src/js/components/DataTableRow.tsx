@@ -156,10 +156,7 @@ const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displ
       return moveName;
     }
   }
-
-
-
-
+  
   return (
     <tr onClick={() => {
       dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, { selectedMove: moveName }));
