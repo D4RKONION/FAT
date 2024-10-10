@@ -1,8 +1,8 @@
-import { IonContent, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonAlert, isPlatform, IonGrid, useIonRouter, IonRippleEffect } from '@ionic/react';
+import { IonContent, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonAlert, isPlatform, IonGrid, IonRippleEffect, IonButton } from '@ionic/react';
 import { peopleOutline, settingsOutline, settingsSharp, moon, sunny, gameControllerOutline, libraryOutline, librarySharp, calculatorOutline, calculatorSharp, searchOutline, searchSharp, statsChartOutline, statsChartSharp, barbellOutline, barbellSharp, colorPaletteOutline, colorPaletteSharp, menuSharp, logoPaypal, phonePortraitOutline, phonePortraitSharp, cafe } from 'ionicons/icons';
 
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import '../../style/components/Menu.scss';
@@ -17,6 +17,7 @@ import { APP_CURRENT_VERSION_NAME } from '../constants/VersionLogs';
 import { activeGameSelector, modeNameSelector, selectedCharactersSelector, appDisplaySettingsSelector } from '../selectors';
 import { GAME_NAMES } from '../constants/ImmutableGameDetails';
 import MenuEntry from './MenuEntry';
+import BrightnessToggle from './BrightnessToggle';
 
 const Menu = () => {
 
@@ -26,11 +27,11 @@ const Menu = () => {
   const activeGame = useSelector(activeGameSelector);
 
   const dispatch = useDispatch();
+  const history = useHistory();
   
   const [activeGameAlertOpen, setActiveGameAlertOpen] = useState(false);
   const [isWideFullMenuOpen, setIsWideFullMenuOpen] = useState(false) 
   const location = useLocation();
-  const router = useIonRouter();
   
   useEffect(() => {
     if (location.pathname.includes("calculators") && location.pathname.split("/").length > 2) {
@@ -246,9 +247,17 @@ const Menu = () => {
         <div id="widescreenMenu">
           <IonGrid>
 
-            <div className={`widescreen-menu-button widescreen-menu-entry ${!isWideFullMenuOpen && "menu-collapsed"} ${modeName === "movedetail" && "disabled"}`} onClick={() => setIsWideFullMenuOpen(isWideFullMenuOpen ? false : true)}>
-              <IonIcon aria-label="Game select" icon={menuSharp} />
-              {isWideFullMenuOpen && <span>FAT {APP_CURRENT_VERSION_NAME}</span>}
+            <div className={`widescreen-menu-header widescreen-menu-entry ${!isWideFullMenuOpen && "menu-collapsed"} ${modeName === "movedetail" && "disabled"}`}>
+              <IonButton onClick={() => setIsWideFullMenuOpen(!isWideFullMenuOpen)}>
+                <IonIcon icon={menuSharp} slot='icon-only' />
+              </IonButton>
+              {isWideFullMenuOpen &&
+                <>
+                  <span>FAT {APP_CURRENT_VERSION_NAME} </span>
+                  <BrightnessToggle></BrightnessToggle>
+                </>
+                }
+              
             </div>
 
             <div className={`widescreen-menu-entry ion-activatable ${!isWideFullMenuOpen && "menu-collapsed"} ${modeName === "movedetail" && "disabled"}`} onClick={() => modeName !== "movedetail" && setActiveGameAlertOpen(true)}>
@@ -291,6 +300,9 @@ const Menu = () => {
               text: 'Select',
               handler: selectedGame => {
                 dispatch(setActiveGame(selectedGame, true));
+                if (modeName === "framedata" || modeName === "moveslist" || modeName === "combos") {
+                  history.replace(`/${modeName}/${selectedGame}/${selectedCharacters["playerOne"].name}`) //TODO: check if character exists in the new game and if not, select character[0] from the array
+                }
               }
             }
           ]}

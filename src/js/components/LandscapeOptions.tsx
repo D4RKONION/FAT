@@ -5,8 +5,8 @@ import { setModalVisibility, setDataTableColumns, setAutoSetSpecificCols } from 
 
 import '../../style/components/LandscapeOptions.scss';
 import PageHeader from './PageHeader';
-import { reloadOutline, closeOutline, trashOutline, medicalSharp } from 'ionicons/icons';
-import { activePlayerSelector, dataTableSettingsSelector, gameDetailsSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
+import { closeSharp } from 'ionicons/icons';
+import { activePlayerSelector, dataTableSettingsSelector, gameDetailsSelector, modalVisibilitySelector, orientationSelector, selectedCharactersSelector } from '../selectors';
 import { createCharacterDataCategoryObj, createOrderedLandscapeColsObj } from '../utils/landscapecols';
 
 const LandscapeOptions = () => {
@@ -15,7 +15,9 @@ const LandscapeOptions = () => {
   const activePlayer = useSelector(activePlayerSelector);
   const modalVisibility = useSelector(modalVisibilitySelector);
   const selectedCharacters = useSelector(selectedCharactersSelector);
+  const currentOrientation = useSelector(orientationSelector);
   const dataTableColumns = useSelector(dataTableSettingsSelector).tableColumns;
+  const dataTableType = useSelector(dataTableSettingsSelector).tableType;
   const autoSetCharacterSpecificColumnsOn = useSelector(dataTableSettingsSelector).autoSetCharacterSpecificColumnsOn;
 
   const activePlayerName = selectedCharacters[activePlayer].name;
@@ -44,14 +46,10 @@ const LandscapeOptions = () => {
     
   }
 
-  const handleModalDismiss = () => {
-    if (Object.keys(dataTableColumns).length === 0) {
-      dispatch(setDataTableColumns(gameDetails.defaultLandscapeCols))
-      modalVisibility.visible && dispatch(setModalVisibility({ currentModal: "landscapeOptions", visible: false }))
-    } else {
-      modalVisibility.visible && dispatch(setModalVisibility({ currentModal: "landscapeOptions", visible: false }))
-    }
+  const handleModalDismiss = () => {  
+    modalVisibility.visible && dispatch(setModalVisibility({ currentModal: "landscapeOptions", visible: false }))
   }
+  
 
   const allColumns = () => {
     const columnObj = {}
@@ -81,20 +79,31 @@ const LandscapeOptions = () => {
       onDidDismiss={ () => {
         handleModalDismiss();
       } }
+      id="LandscapeOptions"
     >
       <PageHeader
         buttonsToShow={[{ slot: "end",
           buttons: [
-            { text: <IonIcon icon={trashOutline} />, buttonFunc: () => dispatch(setDataTableColumns({})) },
-            { text: <IonIcon icon={reloadOutline} />, buttonFunc: () => dispatch(setDataTableColumns(gameDetails.defaultLandscapeCols)) },
-            { text: <IonIcon icon={medicalSharp} />, buttonFunc: () => dispatch(setDataTableColumns(allColumns())) },
-            { text: <IonIcon icon={closeOutline} />, buttonFunc: () => handleModalDismiss()}
+            { text: <IonIcon icon={closeSharp} style={{fontSize: "24px"}} />, buttonFunc: () => handleModalDismiss()}
           ]
         }]}
-        title="Table Column Options"
+        title="Columns"
       />
-
-      <IonContent id="LandscapeOptions">
+      
+      <IonContent>
+        {(currentOrientation === "portrait" && dataTableType !== "scrolling") &&
+          <>
+            <p>Note: You must set the table to scrolling OR view the app in landscape to see these columns</p>
+          </>
+        }
+        
+        <div className='quickset-buttons'>
+          <IonButton shape="round" onClick={() => dispatch(setDataTableColumns({}))}>None</IonButton>
+          <IonButton shape="round" onClick={() => dispatch(setDataTableColumns(gameDetails.defaultLandscapeCols))}>Default</IonButton>
+          <IonButton shape="round" onClick={() => dispatch(setDataTableColumns(allColumns()))}>All</IonButton>
+          <IonButton shape="round" onClick={() => dispatch(setDataTableColumns({startup: "S", active: "A", recovery: "R", onHit: "oH", onBlock: "oB"}))}>Simple Data</IonButton>
+          <IonButton shape="round" onClick={() => dispatch(setDataTableColumns({ moveType: 'mT', xx: 'xx', dmg: 'dmg', atkLvl: 'atkLvl'}))}>Simple Properties</IonButton>
+        </div>
         <IonList>
         <div className="list-section" >
           <IonItemDivider>Set specific columns on character change</IonItemDivider>

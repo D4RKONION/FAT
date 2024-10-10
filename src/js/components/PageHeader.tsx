@@ -1,12 +1,9 @@
-import { IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, IonMenuButton, IonBackButton, IonIcon, IonRouterContext, IonSearchbar } from '@ionic/react';
+import { IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, IonMenuButton, IonBackButton, IonIcon, IonSearchbar } from '@ionic/react';
 import { arrowBack } from 'ionicons/icons';
-import { useContext } from 'react';
 import PopoverButton from './PopoverButton';
 import '../../style/components/PageHeader.scss'
-import BrightnessToggle from './BrightnessToggle';
+import { useHistory } from 'react-router';
 
-
-// TSHELP I couldn't get {...}[] to work on buttons here
 type PageHeaderProps = {
   componentsToShow?: {
     menuButton?: boolean;
@@ -33,9 +30,8 @@ type PageHeaderProps = {
 
 const PageHeader = ( { componentsToShow, buttonsToShow, title, onSearchHandler, searchText }: PageHeaderProps ) => {
 
+  let history = useHistory()
   
-  const routerContext = useContext(IonRouterContext);
-
   return(
     <IonHeader>
       <IonToolbar>
@@ -49,7 +45,7 @@ const PageHeader = ( { componentsToShow, buttonsToShow, title, onSearchHandler, 
             */}
             {componentsToShow.customBackUrl &&
               <IonButton size="small" onClick={() => 
-                routerContext.push(componentsToShow.customBackUrl, "back")
+                history.replace(componentsToShow.customBackUrl)
               }><IonIcon slot="icon-only" icon={arrowBack} /></IonButton>
             }
             
@@ -70,17 +66,12 @@ const PageHeader = ( { componentsToShow, buttonsToShow, title, onSearchHandler, 
           : <IonTitle>{title}</IonTitle>
         }
        
-
         
-        
-
-        {componentsToShow && componentsToShow.menuButton &&
-          <BrightnessToggle />
-        }
-        
-        {componentsToShow && componentsToShow.popover &&
-          <PopoverButton />
-        }
+        <IonButtons slot="end">
+          {componentsToShow && componentsToShow.popover &&
+            <PopoverButton />
+          }
+        </IonButtons>
 
         
       </IonToolbar>

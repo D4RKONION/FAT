@@ -1,13 +1,12 @@
-import { IonContent, IonPage, IonIcon } from '@ionic/react';
+import { IonContent, IonPage, IonIcon, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonSearchbar, IonButton, IonTitle } from '@ionic/react';
 import { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import SegmentSwitcher from '../components/SegmentSwitcher';
 import SubHeader from '../components/SubHeader';
 import LandscapeOptions from '../components/LandscapeOptions';
-import PageHeader from '../components/PageHeader';
 import { setActiveFrameDataPlayer, setModalVisibility, setPlayerAttr, setDataTableColumns } from '../actions';
 import { useHistory, useParams } from 'react-router';
-import { informationCircle } from 'ionicons/icons';
+import { backspaceOutline, closeOutline, informationCircle, searchSharp } from 'ionicons/icons';
 import AdviceToast from '../components/AdviceToast';
 import { APP_CURRENT_VERSION_CODE } from '../constants/VersionLogs';
 import { activeGameSelector, activePlayerSelector, dataTableSettingsSelector, gameDetailsSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
@@ -18,6 +17,8 @@ import FrameDataSubHeader from '../components/FrameDataSubHeader';
 import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
 import { Preferences } from '@capacitor/preferences';
 import DataTable from '../components/DataTable';
+import PopoverButton from '../components/PopoverButton';
+import '../../style/pages/FrameData.scss'
 
 
 
@@ -31,10 +32,11 @@ const FrameData = () => {
   const autoSetCharacterSpecificColumnsOn = useSelector(dataTableSettingsSelector).autoSetCharacterSpecificColumnsOn;
   const gameDetails = useSelector(gameDetailsSelector);
 
+  const [searchShown, setSearchShown] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [characterHasStates, setCharacterHasStates] = useState(false);
 
-  const searchBoxMessages = [`Search ${selectedCharacters[activePlayer].name}`, 'Type a move name', 'Try searching s=4', 'Try searching a>3', 'Try searching r<10', 'Try searching oH>=3', 'Try searching xx=sp', 'Try searching info=fully inv', 'Try searching oB<=-4', 'FAT supports: =, >, <, >=, <=']
+  const searchBoxMessages = [`Search ${selectedCharacters[activePlayer].name}`, 'Type a move name', 'Try s = 4', 'Try a > 3', 'Try r < 10', 'Try oH >= 3', 'Try xx = sp', 'Try info = fully inv', 'Try oB <= -4', 'Try =, >, <, >=, <=']
   const [searchPlaceholderText, setSearchPlaceholderText] = useState(searchBoxMessages[0]);
 
   const dispatch = useDispatch();
@@ -77,22 +79,70 @@ const FrameData = () => {
   let lastScrollTime = useRef(0)
 
   const scrollToBottom = (scrollEvent) => {
-    // Passing a duration to the method makes it so the scroll slowly
-    // goes to the bottom instead of instantly
     if (scrollEvent.target.scrollTop < 10 || (scrollEvent.timeStamp - lastScrollTime.current) > 1000 ) {
       lastScrollTime.current = scrollEvent.timeStamp
-      contentRef.current?.scrollToBottom(500);
+      contentRef.current?.scrollToBottom(500); // over 500ms
     }
   }
 
   return (
-    <IonPage id="frameData">
-      <PageHeader
-        componentsToShow={{menuButton: true, popover: true, search: true}}
+    <IonPage id="FrameData">
+      {/* <PageHeader
+        componentsToShow={{menuButton: true, popover: true, search: true, settingsCog: true}}
         title={searchPlaceholderText}
         searchText={searchText}
-        onSearchHandler={ (text: string) => setSearchText(text)}
-      />
+        onSearchHandler={ (text: string) => setSearchText(text)} 
+      />*/}
+      <IonHeader>
+      <IonToolbar>
+        <IonButtons slot="start">
+          <IonMenuButton />
+        </IonButtons>
+
+        <IonSearchbar
+          className='hideOnSmallScreen'
+          value={searchText}
+          onIonInput={e => setSearchText(e.detail.value!)}
+          placeholder={searchPlaceholderText}
+        />
+        
+        {searchShown 
+          ? <>
+            <IonSearchbar
+              className='hideOnWideScreen slideOnChange'
+              showCancelButton="always"
+              cancelButtonIcon={closeOutline}
+              clearIcon={backspaceOutline}
+              value={searchText}
+              onIonInput={e => setSearchText(e.detail.value!)}
+              onIonCancel={() => {setSearchText(""); setSearchShown(false)}}
+              placeholder={searchPlaceholderText}
+              />
+            <IonButtons slot='end'>
+              <PopoverButton />
+            </IonButtons>
+          </>
+
+          : <>
+          <IonTitle className='hideOnWideScreen'>Frame Data</IonTitle>
+            <IonButtons slot='end'>
+              <IonButton onClick={() => setSearchShown(!searchShown)} className='hideOnWideScreen'>
+                <IonIcon icon={searchSharp} slot='icon-only' />
+              </IonButton>
+              <PopoverButton />
+            </IonButtons>
+          </>
+
+
+        }
+
+        
+
+        
+      </IonToolbar>
+    </IonHeader>
+
+
       <IonContent ref={contentRef} scrollEvents={true}>
         <SubHeader
           adaptToShortScreens={true}

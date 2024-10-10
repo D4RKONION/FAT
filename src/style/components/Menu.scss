@@ -98,15 +98,28 @@
             color: #ffffff3b !important;
           }
         }
-        &.widescreen-menu-button {
+        &.widescreen-menu-header {
           background-color: var(--ion-toolbar-background);
           margin: 0;
+          padding-left: 17px;
           border-radius: 0;
           height: 56px;
           position: sticky;
           top: 0;
           z-index: 10;
-          padding: 0 0 0 25px;
+
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+
+          ion-button {
+            padding: 0;
+            margin: 0;
+            --box-shadow: none;
+            --background: none;
+            
+          }
           
         }
 
@@ -119,12 +132,10 @@
             color: #ffffff81;
           }
         }
-        span {
+        > span {
           color: white;
           flex-shrink: 0;
           animation: slideIn 0.25s ease-in-out;
-          overflow: hidden;
-          text-overflow:clip
         }
         
         ion-ripple-effect {

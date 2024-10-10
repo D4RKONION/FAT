@@ -1,4 +1,6 @@
 .brightnessToggle {
+  padding-right: 16px;
+
 	&[checked=false]::part(handle) {
 		border-radius: 0;
 		box-shadow: none;
@@ -12,6 +14,4 @@
 		background: url(../../images/icons/dark.png);
 		background-size: cover;
 	}
-
-	align-self: auto;
 }

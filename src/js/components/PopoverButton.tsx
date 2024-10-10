@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { IonButton, IonButtons, IonIcon, IonItem, IonList, IonPopover, IonToggle } from '@ionic/react';
+import { IonButton, IonIcon, IonItem, IonList, IonPopover, IonToggle } from '@ionic/react';
 import { ellipsisHorizontal, ellipsisVertical } from 'ionicons/icons';
 import '../../style/components/PopoverButton.scss';
 import { setModalVisibility, setMoveAdvantageColorsOn, setCounterHit, setRawDriveRush, setVsBurntoutOpponent, setCompactView, setTableType, setMoveAdvantageIndicator } from '../actions';
@@ -26,11 +26,9 @@ const PopoverButton = () => {
   const [showPopover, setPopoverVisible] = useState({open: false, event: undefined});
   return(
     <>
-      <IonButtons slot="end">
-        <IonButton onClick={(e) => {setPopoverVisible({open: true, event: e.nativeEvent})}}>
-          <IonIcon slot="icon-only" ios={ellipsisHorizontal} md={ellipsisVertical}></IonIcon>
-        </IonButton>
-      </IonButtons>
+      <IonButton onClick={(e) => {setPopoverVisible({open: true, event: e.nativeEvent})}}>
+        <IonIcon slot="icon-only" ios={ellipsisHorizontal} md={ellipsisVertical}></IonIcon>
+      </IonButton>
 
       <IonPopover id="threeDotPopover"
         isOpen={showPopover.open}
@@ -44,6 +42,7 @@ const PopoverButton = () => {
           </IonItem>
           {modeName === "framedata" &&
             <>
+            
             <IonItem lines="none"  onClick={() => { dispatch(setModalVisibility({ currentModal: "landscapeOptions", visible: true })); setPopoverVisible({open: false, event: undefined})}} button>
               Data Columns
             </IonItem>

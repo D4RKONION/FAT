@@ -1,4 +1,29 @@
 #LandscapeOptions {
+  --backdrop-opacity: 0.5;
+
+  p {
+    font-style: italic;
+    text-align: center;
+    margin: 18px 20px 10px;
+    border-bottom: 1px solid var(--fat-ionlist-border);
+    padding-bottom: 10px;
+  }
+
+  .quickset-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1px 2px;
+    margin: 10px auto;
+    max-width: 400px;
+    ion-button {
+      --background: var(--fat-datatable-header-bg);
+      color: #ffffff;
+      text-transform: none;
+    }
+  }
+  
   .list-section {
     ion-item-divider.md.item {
       font-size: 15px;
@@ -31,6 +56,10 @@
         }
       }
     }
+  }
+  @media only screen and (min-width: 600px) and (min-height: 768px) {
+    --width: 535px;
+    --height: 90%;
   }
 
 }

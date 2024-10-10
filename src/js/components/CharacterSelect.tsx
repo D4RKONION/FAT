@@ -1,5 +1,5 @@
-import { IonModal, IonRouterContext, isPlatform } from '@ionic/react';
-import { useContext, useState } from 'react';
+import { IonModal, isPlatform } from '@ionic/react';
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { setModalVisibility, setPlayer, setActiveFrameDataPlayer, setPlayerAttr, setDataTableColumns } from '../actions';
