@@ -87,7 +87,7 @@ const LandscapeOptions = () => {
             { text: <IonIcon icon={closeSharp} style={{fontSize: "24px"}} />, buttonFunc: () => handleModalDismiss()}
           ]
         }]}
-        title="Columns"
+        title="Data Columns"
       />
       
       <IonContent>

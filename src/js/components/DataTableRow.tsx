@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import '../../style/components/DataTableRow.scss';
-import { activeGameSelector, activePlayerSelector, advantageModifiersSelector, appDisplaySettingsSelector, dataDisplaySettingsSelector, dataTableSettingsSelector, orientationSelector, selectedCharactersSelector } from '../selectors';
-import { useState } from 'react';
+import { activeGameSelector, activePlayerSelector, advantageModifiersSelector, dataDisplaySettingsSelector, dataTableSettingsSelector, selectedCharactersSelector } from '../selectors';
 import { setPlayerAttr } from '../actions';
 import { useHistory } from 'react-router';
 
@@ -10,10 +9,11 @@ type Props = {
   moveData: Record<string, any>;
   colsToDisplay: Record<string, any>;
   xScrollEnabled: boolean;
-  displayOnlyStateMoves: boolean
+  displayOnlyStateMoves: boolean;
+  sample?: boolean;
 }
 
-const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displayOnlyStateMoves }: Props) => {
+const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displayOnlyStateMoves, sample }: Props) => {
 
   const activeGame = useSelector(activeGameSelector);
   const selectedCharacters = useSelector(selectedCharactersSelector);
@@ -28,9 +28,6 @@ const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displ
 
   const dispatch = useDispatch();
   let history = useHistory();
-
-
-
 
   const parseCellData = (detailKey: string) => {
 
@@ -129,7 +126,7 @@ const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displ
     if (moveAdvantageColorsOn && (detailKey.toLowerCase().includes("block") || detailKey.toLowerCase().includes("ob") || detailKey.toLowerCase().includes("hit") || detailKey.toLowerCase().includes("oh") || detailKey === "onPC" || detailKey === "onPP")) {
       
       const amountToCheck = 
-        typeof cellDataToDisplay === "string" ? cellDataToDisplay.split(/[\(\[\~]/)[0] // Split on any of (, [, or ~ and take the first part
+        typeof cellDataToDisplay === "string" ? cellDataToDisplay.split(/[([~]/)[0] // Split on any of (, [, or ~ and take the first part
         : cellDataToDisplay
       
       const advantageAmount = 
@@ -159,6 +156,7 @@ const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displ
   
   return (
     <tr onClick={() => {
+      if (sample) return false;
       dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, { selectedMove: moveName }));
       history.push(`/framedata/movedetail/${activeGame}/${selectedCharacters[activePlayer].name}/${selectedCharacters[activePlayer].vtState}/${selectedCharacters[activePlayer].frameData[moveName]["moveName"]}`)
     }} className={`DataTableRow ${xScrollEnabled ? "xScroll" : "fixed"}`}>

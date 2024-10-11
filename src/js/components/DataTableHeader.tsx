@@ -9,9 +9,10 @@ type Props = {
   colsToDisplay: Record<string, any>;
   moveType: string;
   xScrollEnabled: boolean;
+  sample?: boolean;
 }
 
-const DataTableHeader = ({colsToDisplay, moveType, xScrollEnabled}: Props) => {
+const DataTableHeader = ({colsToDisplay, moveType, xScrollEnabled, sample}: Props) => {
 
   const rawDriveRush = useSelector(advantageModifiersSelector).rawDriveRushActive;
   const counterHit = useSelector(advantageModifiersSelector).counterHitActive;
@@ -28,9 +29,8 @@ const DataTableHeader = ({colsToDisplay, moveType, xScrollEnabled}: Props) => {
     
   }
 
-
   return (
-      <tr className={`DataTableRow DataTableHeader ${xScrollEnabled ? "xScroll" : "fixed"}`} onClick={() => dispatch(setModalVisibility({ currentModal: "landscapeOptions", visible: true }))} >
+      <tr className={`DataTableRow DataTableHeader ${xScrollEnabled ? "xScroll" : "fixed"}`} onClick={() => sample !== true && dispatch(setModalVisibility({ currentModal: "landscapeOptions", visible: true }))} >
         <th style={{textTransform: "capitalize"}} className="cell move-name">{moveType}s</th>
         {Object.keys(colsToDisplay).map(headerName =>
           <th className="cell" key={headerName}>

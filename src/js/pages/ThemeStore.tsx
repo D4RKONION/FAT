@@ -19,28 +19,28 @@ const PRODUCTS = THEMES.map(themeObj => (
 
 const ThemeStore = () => {
 
-  const { store: iapStore } = CdvPurchase;
+  // const { store: iapStore } = CdvPurchase;
 
-  const themeColor = useSelector(appDisplaySettingsSelector).themeColor;
-  const themeAccessibility = useSelector(appDisplaySettingsSelector).themeAccessibility;
-  const themesOwned = useSelector(themesOwnedSelector);
+  // const themeColor = useSelector(appDisplaySettingsSelector).themeColor;
+  // const themeAccessibility = useSelector(appDisplaySettingsSelector).themeAccessibility;
+  // const themesOwned = useSelector(themesOwnedSelector);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const listOfProducts = useMemo(() => (
-    PRODUCTS.map(product => {
-      const iapProduct = iapStore?.products?.find(p => p.id === product.id);
-      return {
-        ...product,
-        price: iapProduct?.pricing.price ?? product.price,
-      };
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  ), [iapStore?.products]);
+  // const listOfProducts = useMemo(() => (
+  //   PRODUCTS.map(product => {
+  //     const iapProduct = iapStore?.products?.find(p => p.id === product.id);
+  //     return {
+  //       ...product,
+  //       price: iapProduct?.pricing.price ?? product.price,
+  //     };
+  //   })
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // ), [iapStore?.products]);
 
   return (
     <IonPage>
-      <PageHeader
+      {/* <PageHeader
         componentsToShow={{menuButton: true, popover: true}}
         title="Theme Store"
       />
@@ -175,7 +175,7 @@ const ThemeStore = () => {
               </IonItem>
           </IonList>
         </IonGrid>
-      </IonContent>
+      </IonContent> */}
     </IonPage>
   );
 }

@@ -82,4 +82,5 @@ ion-popover::part(arrow) {
 
 ion-item {
   --transition: none;
+  --border-color: var(--fat-ionlist-border);
 }

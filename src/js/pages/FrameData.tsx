@@ -19,6 +19,7 @@ import { Preferences } from '@capacitor/preferences';
 import DataTable from '../components/DataTable';
 import PopoverButton from '../components/PopoverButton';
 import '../../style/pages/FrameData.scss'
+import TableSettings from '../components/TableSettings';
 
 
 
@@ -214,6 +215,7 @@ const FrameData = () => {
         }
       </IonContent>
       <LandscapeOptions />
+      <TableSettings />
     </IonPage>
   );
 };

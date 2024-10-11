@@ -1,0 +1,112 @@
+#TableSettings {
+  --backdrop-opacity: 0.5;
+  ion-content {
+    --padding-bottom: 140px;
+  }
+  table {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: block;
+    overflow: scroll;
+    z-index: 10000;
+    background-color: var(--fat-background);
+    box-shadow: 0px -1px 10px #00000069;
+  }
+
+  h5 {
+    color: var(--fat-frame-data-sub-header-stats-contrast);
+    font-weight: 900;
+    padding: 0 14px;
+    margin: 30px 0 0;
+    &:first-of-type {
+      margin-top: 14px;
+    }
+  }
+
+  .custom-setting-item {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    border-bottom: 1px solid var(--fat-settings-item-border);
+    cursor: pointer;
+    &:hover{
+      background-color: var(--fat-settings-item-hover);
+    }
+
+    &.no-lines {
+      border: none;
+    }
+    &.theme {
+      justify-content: left;
+      gap: 20px;
+      padding: 8px 10px 10px; 
+    }
+
+    
+
+    .explainer {
+      width: 85%;
+      max-width: 400px;
+      h2 {
+        font-size: 16px;
+      }
+      p {
+        color: var(--fat-ionlabel-p);
+        font-size: 13px;
+      }
+      ul {
+        padding: 0 0 0 17px;
+        font-size: 13px;
+      }
+    }
+
+    .color-option {
+      width: 35px;
+      height: 35px;
+      border-radius: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 7px 7px;
+      
+      &.selected {
+        border: solid 8px var(--fat-background);
+        border-style: double;
+        width: 43px;
+        height: 43px;
+      }
+
+      ion-icon {
+        flex: 1 1 0px;
+        color: #fff;
+      }
+      
+    }
+
+    &.dropdown {
+      .explainer {
+        width: 72%;
+      }
+      ion-select {
+        width: auto;
+        &.select-disabled {
+          opacity: 1;
+        }
+      }
+    }
+    
+    
+    
+  }
+  
+  @media only screen and (min-width: 600px) and (min-height: 768px) {
+    --width: 535px;
+    --height: 90%;
+  }
+
+}

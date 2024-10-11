@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { IonButton, IonIcon, IonItem, IonList, IonPopover, IonToggle } from '@ionic/react';
 import { ellipsisHorizontal, ellipsisVertical } from 'ionicons/icons';
 import '../../style/components/PopoverButton.scss';
-import { setModalVisibility, setMoveAdvantageColorsOn, setCounterHit, setRawDriveRush, setVsBurntoutOpponent, setCompactView, setTableType, setMoveAdvantageIndicator } from '../actions';
-import { activeGameSelector, advantageModifiersSelector, dataTableSettingsSelector, modeNameSelector } from '../selectors';
+import { setModalVisibility, setCounterHit, setRawDriveRush, setVsBurntoutOpponent } from '../actions';
+import { activeGameSelector, advantageModifiersSelector, modeNameSelector } from '../selectors';
 
 
 
@@ -12,10 +12,6 @@ import { activeGameSelector, advantageModifiersSelector, dataTableSettingsSelect
 const PopoverButton = () => {
 
   const modeName = useSelector(modeNameSelector);
-  const compactViewOn = useSelector(dataTableSettingsSelector).compactViewOn;
-  const xScrollEnabled = useSelector(dataTableSettingsSelector).tableType === "scrolling";
-  const moveAdvantageColorsOn = useSelector(dataTableSettingsSelector).moveAdvantageColorsOn;
-  const moveAdvantageIndicator = useSelector(dataTableSettingsSelector).moveAdvantageIndicator;
   const counterHit = useSelector(advantageModifiersSelector).counterHitActive;
   const rawDriveRush = useSelector(advantageModifiersSelector).rawDriveRushActive;
   const vsBurntoutOpponent = useSelector(advantageModifiersSelector).vsBurntoutOpponentActive;
@@ -47,21 +43,10 @@ const PopoverButton = () => {
               Data Columns
             </IonItem>
 
-            <IonItem lines="none">
-              <IonToggle checked={!!compactViewOn} onIonChange={e => dispatch(setCompactView(e.detail.checked)) } >Compact</IonToggle>
+            <IonItem lines="none"  onClick={() => { dispatch(setModalVisibility({ currentModal: "tableSettings", visible: true })); setPopoverVisible({open: false, event: undefined})}} button>
+              Table Settings
             </IonItem>
 
-            <IonItem lines="none">
-              <IonToggle checked={!!xScrollEnabled} onIonChange={e => dispatch(setTableType(e.detail.checked ? "scrolling" : "fixed")) } >Table Scrolling</IonToggle>
-            </IonItem>
-
-            <IonItem lines="none">  
-              <IonToggle checked={!!moveAdvantageColorsOn} onIonChange={e => dispatch(setMoveAdvantageColorsOn(e.detail.checked)) } >Adv. Colors</IonToggle>
-            </IonItem>
-
-            <IonItem lines="none">  
-              <IonToggle checked={moveAdvantageIndicator === "background"} onIonChange={e => dispatch(setMoveAdvantageIndicator(moveAdvantageIndicator === "text" ? "background" : "text")) } >Adv. Indicator</IonToggle>
-            </IonItem>
             {
               activeGame !== "3S" &&
               <IonItem lines="none">

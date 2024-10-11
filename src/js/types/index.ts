@@ -3,7 +3,7 @@ import THEMES from "../constants/Themes";
 
 export type PlayerId = 'playerOne' | 'playerTwo';
 
-export type AppModal = 'characterSelect' | 'help' | 'landscapeOptions' | 'whatsNew';
+export type AppModal = 'characterSelect' | 'help' | 'landscapeOptions' | 'whatsNew' | 'tableSettings';
 
 export type MoveNameType = 'official' | 'common' | 'inputs';
 
@@ -25,7 +25,7 @@ export type ThemeBrightness = 'light' | 'dark';
 
 export type ThemeAccessibility = 'none' | 'colorBlind';
 
-export type ThemeShortId = 'classic' | typeof THEMES[number]["shortId"];
+export type ThemeColor = 'classic' | 'purple' | 'pink' | 'red' | 'green'
 
 export type ThemeAlias = typeof THEMES[number]["alias"];
 

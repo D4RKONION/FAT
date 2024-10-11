@@ -31,14 +31,14 @@ import './style/theme/universal/dark.scss'
 /* Theme variables */
 import './style/theme/classic/light.scss'
 import './style/theme/classic/dark.scss'
-import './style/theme/reddragon/light.scss'
-import './style/theme/reddragon/dark.scss'
-import './style/theme/secondincommand/light.scss'
-import './style/theme/secondincommand/dark.scss'
-import './style/theme/deltagreen/light.scss'
-import './style/theme/deltagreen/dark.scss'
-import './style/theme/poisonouspink/light.scss'
-import './style/theme/poisonouspink/dark.scss'
+import './style/theme/red/light.scss'
+import './style/theme/red/dark.scss'
+import './style/theme/purple/light.scss'
+import './style/theme/purple/dark.scss'
+import './style/theme/green/light.scss'
+import './style/theme/green/dark.scss'
+import './style/theme/pink/light.scss'
+import './style/theme/pink/dark.scss'
 
 import HomePageRedirect from './js/pages/HomePageRedirect';
 import Menu from './js/components/Menu';
@@ -66,7 +66,7 @@ import ThemePreview from './js/pages/ThemePreview';
 import VersionLogs from './js/pages/VersionLogs';
 
 import { activeGameSelector, appDisplaySettingsSelector } from './js/selectors';
-import { setOrientation, setModalVisibility, setThemeOwned, setThemeBrightness, setActiveGame } from './js/actions';
+import { setOrientation, setModalVisibility, setThemeOwned, setThemeBrightness, setActiveGame, setThemeColor } from './js/actions';
 import { store } from './js/store';
 import { APP_CURRENT_VERSION_CODE, APP_DATE_UPDATED, UPDATABLE_GAMES, TYPES_OF_UPDATES, UPDATABLE_GAMES_APP_CODES } from './js/constants/VersionLogs';
 import { SplashScreen } from '@capacitor/splash-screen';
@@ -149,6 +149,13 @@ const App = () => {
       iapStore.restorePurchases();
 
     }
+
+    // Reset theme name if using old theme name
+    if (["secondincommand", "deltagreen", "reddragon", "poisonouspink"].includes(themeColor)) {
+      dispatch(setThemeColor("classic"))
+    }
+
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

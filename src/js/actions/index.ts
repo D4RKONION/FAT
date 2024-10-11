@@ -1,5 +1,5 @@
 import { helpCreateFrameDataJSON } from '../utils';
-import type { AdviceToastPrevRead, AppModal, NormalNotationType, GameName, InputNotationType, MoveNameType, Orientation, PlayerData, PlayerId, ThemeAlias, ThemeBrightness, ThemeShortId, VtState, ThemeAccessibility, TableType, MoveAdvantageIndicator } from '../types'
+import type { AdviceToastPrevRead, AppModal, NormalNotationType, GameName, InputNotationType, MoveNameType, Orientation, PlayerData, PlayerId, ThemeAlias, ThemeBrightness, ThemeColor, VtState, ThemeAccessibility, TableType, MoveAdvantageIndicator } from '../types'
 
 import AppSFVFrameData from '../constants/framedata/SFVFrameData.json';
 import AppUSF4FrameData from '../constants/framedata/USF4FrameData.json';
@@ -256,7 +256,7 @@ export const setThemeAccessibility = (themeAccessibility: ThemeAccessibility) =>
   themeAccessibility,
 })
 
-export const setThemeColor = (themeColor: ThemeShortId) => ({
+export const setThemeColor = (themeColor: ThemeColor) => ({
   type: 'SET_THEME_COLOR',
   themeColor,
 })

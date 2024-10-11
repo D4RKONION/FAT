@@ -1,15 +1,15 @@
-import { ThemeAccessibility, ThemeBrightness, ThemeShortId } from "../types";
+import { ThemeAccessibility, ThemeBrightness, ThemeColor } from "../types";
 
 type AppDisplaySettingsReducerAction = {
   type: 'SET_THEME_BRIGHTNESS' | 'SET_THEME_COLOR' | 'SET_THEME_ACCESSIBILITY';
   themeBrightness: ThemeBrightness;
-  themeColor: ThemeShortId;
+  themeColor: ThemeColor;
   themeAccessibility: ThemeAccessibility;
 }
 
 const defaultState = {
   themeBrightness: "light" as ThemeBrightness,
-  themeColor: "classic" as ThemeShortId,
+  themeColor: "classic" as ThemeColor,
   themeAccessibility: "none" as ThemeAccessibility
 }
 

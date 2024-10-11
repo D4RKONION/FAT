@@ -125,8 +125,7 @@
         position: sticky;
         left: 0;
         @media (max-width: 768px) {
-          min-width: 0;
-          
+          min-width: 100px;
         }
       }
 
