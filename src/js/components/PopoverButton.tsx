@@ -38,13 +38,13 @@ const PopoverButton = () => {
           </IonItem>
           {modeName === "framedata" &&
             <>
-            
-            <IonItem lines="none"  onClick={() => { dispatch(setModalVisibility({ currentModal: "landscapeOptions", visible: true })); setPopoverVisible({open: false, event: undefined})}} button>
-              Data Columns
-            </IonItem>
 
             <IonItem lines="none"  onClick={() => { dispatch(setModalVisibility({ currentModal: "tableSettings", visible: true })); setPopoverVisible({open: false, event: undefined})}} button>
               Table Settings
+            </IonItem>
+            
+            <IonItem lines="none"  onClick={() => { dispatch(setModalVisibility({ currentModal: "landscapeOptions", visible: true })); setPopoverVisible({open: false, event: undefined})}} button>
+              Data Columns
             </IonItem>
 
             {

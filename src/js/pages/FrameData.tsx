@@ -167,10 +167,12 @@ const FrameData = () => {
         />
         <FrameDataSubHeader
           charName={selectedCharacters[activePlayer].name}
+          characterHasStates={characterHasStates}
+          opponentName={selectedCharacters[activePlayer === "playerOne" ? "playerTwo" : "playerOne"].name}
           charStats={selectedCharacters[activePlayer].stats}
-          activeGame={activeGame}        
+          activeGame={activeGame}
         />
-        <div className={`segments ${!isPlatform("ios") && "md"}`}>
+        <div className={`hideOnWideScreen segments ${!isPlatform("ios") && "md"}`} style={{flexDirection: "column"}}>
           <SegmentSwitcher
             key={"FD ActivePlayer"}
             segmentType={"active-player"}

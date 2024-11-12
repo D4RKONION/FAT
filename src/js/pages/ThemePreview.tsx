@@ -58,11 +58,11 @@ const ThemePreview = () => {
           ]}
         />
 
-      <FrameDataSubHeader
+      {/* <FrameDataSubHeader
         charName={selectedCharacters["playerOne"].name}
         charStats={selectedCharacters["playerOne"].stats}
         activeGame={activeGame}    
-      ></FrameDataSubHeader>
+      ></FrameDataSubHeader> */}
 
         <SegmentSwitcher
           key={"Brightness setting"}

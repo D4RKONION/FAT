@@ -24,15 +24,46 @@
 	}
 
 	.character-bio {
-		margin-left: 7px;
-		h1 {
-			margin: 10px 0 0;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		font-size: 26px;
+		margin: 10px 0 0 16px;
+		padding: 0;
+		span {
+			margin-left: 4px;
+			opacity: 0.45;
 		}
-		h2 {
-			margin: 5px 0 0;
-			opacity: 0.5;
-			font-size: 21px;
+		.bio-options {
+			display: flex;
+			flex-direction: row;
+
+			.bio-switcher {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				cursor: pointer;
+				ion-icon {
+					transform: scaleX(1.5);
+					margin: 0 16px 0 0;
+					color: var(--fat-primary-shade-extreme);
+				}
+				.character-portrait-container {
+					width: 55px !important;
+					.character-block img:not(.silouette){
+						filter: grayscale(0.7);
+					}
+				}
+			}
+
+			.state-changer > ion-segment {
+				border-left: 1px solid var(--fat-frame-data-sub-header-stats-border);
+				margin-left: 30px;
+				padding-left: 8px;
+				width: 100%;
+			}
 		}
+		
 	}
 
 	.stat-row {

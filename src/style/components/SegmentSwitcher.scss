@@ -93,7 +93,7 @@
       }
 
       &.collapsed {
-        transition: opacity 270ms ease-in-out;
+        transition: none;
         opacity: 0;
       }
     

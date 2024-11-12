@@ -1,21 +1,26 @@
 import SegmentSwitcher from "./SegmentSwitcher";
 import '../../style/components/FrameDataSubHeader.scss'
-import { IonCol, IonGrid, IonRow } from "@ionic/react";
+import { IonCol, IonGrid, IonIcon, IonRow } from "@ionic/react";
 import CharacterPortrait from "./CharacterPortrait";
 import { useEffect, useState } from "react";
 import { GameName, PlayerData } from "../types";
 import { useDispatch, useSelector } from "react-redux";
-import { setModalVisibility, setPlayerAttr } from "../actions";
-import { activePlayerSelector, dataDisplaySettingsSelector, frameDataSelector, gameDetailsSelector, selectedCharactersSelector } from "../selectors";
+import { setActiveFrameDataPlayer, setDataTableColumns, setModalVisibility, setPlayerAttr } from "../actions";
+import { activePlayerSelector, dataDisplaySettingsSelector, dataTableSettingsSelector, frameDataSelector, gameDetailsSelector, selectedCharactersSelector } from "../selectors";
 import { useHistory } from "react-router";
+import { swapHorizontal } from "ionicons/icons";
+import { handleNewCharacterLandscapeCols } from "../utils/landscapecols";
+import { createSegmentSwitcherObject } from "../utils/segmentSwitcherObject";
 
 type FrameDataSubHeaderProps = {
   charName: PlayerData["name"],
+	characterHasStates: boolean,
+  opponentName: PlayerData["name"],
   charStats: PlayerData["stats"],
   activeGame: GameName
 }
 
-const FrameDataSubHeader = ({ charName, charStats, activeGame }: FrameDataSubHeaderProps) => {
+const FrameDataSubHeader = ({ charName, characterHasStates, opponentName, charStats, activeGame }: FrameDataSubHeaderProps) => {
 	
 	const [statCategory, setStatCategory] = useState("The Basics");
 
@@ -28,6 +33,8 @@ const FrameDataSubHeader = ({ charName, charStats, activeGame }: FrameDataSubHea
 	const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
 	const selectedCharacters = useSelector(selectedCharactersSelector);
 	const activePlayer = useSelector(activePlayerSelector);
+	const dataTableColumns = useSelector(dataTableSettingsSelector).tableColumns;
+  const autoSetCharacterSpecificColumnsOn = useSelector(dataTableSettingsSelector).autoSetCharacterSpecificColumnsOn;
 	const moveNotation = 
 		dataDisplaySettings.moveNameType === "official"
 			? "moveName"
@@ -55,14 +62,44 @@ const FrameDataSubHeader = ({ charName, charStats, activeGame }: FrameDataSubHea
 	return (
 		<IonGrid id="frameDataSubHeader">
 			<IonRow>
-				<IonCol className ="character-portrait-container" size="1.6">
+				<IonCol className="character-portrait-container" size="1.6">
 					<CharacterPortrait charName={charName} game={activeGame} charColor={charStats.color as string} remoteImage={charStats.remoteImage as unknown as Boolean} showName={false}
 						onClick={() => dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true })) }
 					/>
 				</IonCol>
 				<IonCol className="character-bio">
-					<h1>{charStats.longName ? charStats.longName : charName}</h1>
-					<h2>{charStats.phrase}</h2>
+					<div>{charStats.longName ? charStats.longName : charName} <span>{charStats.phrase}</span></div>
+					<div className="bio-options">
+						<div className="bio-switcher" onClick={() => {
+							dispatch(setDataTableColumns(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters[activePlayer].name, opponentName, autoSetCharacterSpecificColumnsOn, dataTableColumns)));
+							dispatch(setActiveFrameDataPlayer(activePlayer === "playerOne" ? "playerTwo" : "playerOne"));
+						}}>
+							<IonIcon icon={swapHorizontal}></IonIcon>
+							<div className="character-portrait-container">
+								<CharacterPortrait charName={opponentName} game={activeGame} charColor={charStats.color as string} remoteImage={charStats.remoteImage as unknown as Boolean} showName={false} />
+							</div>
+						</div>
+						<div className="state-changer">
+						{activeGame === "SFV" ?
+            <SegmentSwitcher
+              segmentType={"vtrigger"}
+              valueToTrack={selectedCharacters[activePlayer].vtState}
+              labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
+              clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
+            />
+          : (activeGame === "GGST" || activeGame === "SF6") &&
+            <SegmentSwitcher
+              passedClassNames={!characterHasStates ? "collapsed" : "expanded"}
+              segmentType={"vtrigger"}
+              valueToTrack={selectedCharacters[activePlayer].vtState}
+              labels={createSegmentSwitcherObject(gameDetails.specificCharacterStates[selectedCharacters[activePlayer].name])}
+              clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
+            />
+          }
+						</div>
+					</div>
+					
+					
 				</IonCol>
 			</IonRow>
 			<SegmentSwitcher
