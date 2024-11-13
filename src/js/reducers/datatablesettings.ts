@@ -1,11 +1,13 @@
 import { MoveAdvantageIndicator, TableType } from "../types";
 
 type DataTableSettingsReducerAction = {
-  type: 'SET_MOVE_ADVANTAGE_COLORS' | 'SET_MOVE_ADVANTAGE_INDICATOR' | 'SET_COMPACT_VIEW' | 'SET_DATA_TABLE_COLUMNS' | 'SET_AUTO_SET_CHARACTER_SPECIFIC_COLUMNS' | 'SET_TABLE_TYPE';
+  type: 'SET_MOVE_ADVANTAGE_COLORS' | 'SET_MOVE_ADVANTAGE_INDICATOR' | 'SET_COMPACT_VIEW' | 'SET_DATA_TABLE_COLUMNS' | 'SET_AUTO_SET_CHARACTER_SPECIFIC_COLUMNS' | 'SET_TABLE_TYPE' | 'SET_AUTO_SCROLL_ENABLED' | 'SET_MOVE_TYPE_HEADERS_ON';
   moveAdvantageColorsOn: boolean;
   moveAdvantageIndicator: MoveAdvantageIndicator;
   compactViewOn: boolean;
   tableType: TableType;
+  autoScrollEnabled: boolean;
+  moveTypeHeadersOn: boolean;
   autoSetCharacterSpecificColumnsOn: boolean;
   tableColumns: {[key: string]: string};
 }
@@ -15,6 +17,8 @@ const defaultState = {
   moveAdvantageIndicator: 'text',
   compactViewOn: true,
   tableType: "fixed",
+  autoScrollEnabled: true,
+  moveTypeHeadersOn: true,
   autoSetCharacterSpecificColumnsOn: true,
   tableColumns: {startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", onPC:"onPC", xx: "xx", dmg: "dmg", atkLvl: "lvl", DRoH: "dr-oH", DRoB: "dr-oB" },
 }
@@ -39,13 +43,26 @@ export const dataTableSettingsReducer = (state = defaultState, action: DataTable
         ...state,
         "compactViewOn": action.compactViewOn
       }
-
+    
     case 'SET_TABLE_TYPE':
       return {
         ...state,
         "tableType": action.tableType
       }
+    
+    case 'SET_AUTO_SCROLL_ENABLED':
+      return {
+        ...state,
+        "autoScrollEnabled": action.autoScrollEnabled
+      }
 
+    case 'SET_MOVE_TYPE_HEADERS_ON':
+      return {
+        ...state,
+        "moveTypeHeadersOn": action.moveTypeHeadersOn
+      }
+
+        
     case 'SET_AUTO_SET_CHARACTER_SPECIFIC_COLUMNS':
       return {
         ...state,

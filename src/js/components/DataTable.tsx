@@ -23,6 +23,8 @@ const DataTable = ({frameData, searchText, scrollToBottom, clearSearchText}: Pro
   const currentOrientation = useSelector(orientationSelector);
   const dataTableColumns = useSelector(dataTableSettingsSelector).tableColumns;
   const xScrollEnabled = useSelector(dataTableSettingsSelector).tableType === "scrolling"
+  const autoScrollEnabled = useSelector(dataTableSettingsSelector).autoScrollEnabled
+  const moveTypeHeadersOn = useSelector(dataTableSettingsSelector).moveTypeHeadersOn
   const [colsToDisplay, setColsToDisplay] = useState(portraitCols);
   const activeGame = useSelector(activeGameSelector);
   const selectedCharacters = useSelector(selectedCharactersSelector);
@@ -135,14 +137,22 @@ const DataTable = ({frameData, searchText, scrollToBottom, clearSearchText}: Pro
   let moveTypeHeaderRequired;
 
   return (
-    <div className={`DataTable ${xScrollEnabled ? "xScroll" : "fixed"} ${isPlatform("ios") ? "ios" : ""}`} onScroll={(e) => xScrollEnabled ? scrollToBottom(e) : false}>
+    <div className={`DataTable ${xScrollEnabled ? "xScroll" : "fixed"} ${isPlatform("ios") ? "ios" : ""}`} onScroll={(e) => xScrollEnabled && autoScrollEnabled ? scrollToBottom(e) : false}>
       <table>
         <tbody>
+        {!moveTypeHeadersOn &&
+          <DataTableHeader
+            colsToDisplay={colsToDisplay}
+            moveType={"Move Name"}
+            xScrollEnabled={xScrollEnabled}
+          />
+        }
+        
         {filteredFrameData.map(([moveName, moveData]) => {
 
             // Group moves into segments, ignoring move types that are  
             // unhelpful for users or would otherwise break the table flow
-            if ((previousMoveType !== moveData.moveType) && moveData.moveType && moveData.moveType !== "movement-special" && moveData.moveType !== "taunt" && moveData.moveType !== "command-grab" ) {
+            if (moveTypeHeadersOn && (previousMoveType !== moveData.moveType) && moveData.moveType && moveData.moveType !== "movement-special" && moveData.moveType !== "taunt" && moveData.moveType !== "command-grab" ) {
               moveTypeHeaderRequired = true
               previousMoveType = moveData.moveType
             } else { 

@@ -165,6 +165,14 @@ export const setTableType = (tableType: TableType) => ({
   type: 'SET_TABLE_TYPE',
   tableType,
 })
+export const setAutoScrollEnabled = (autoScrollEnabled: boolean) => ({
+  type: 'SET_AUTO_SCROLL_ENABLED',
+  autoScrollEnabled,
+})
+export const setMoveTypeHeadersOn = (moveTypeHeadersOn: boolean) => ({
+  type: 'SET_MOVE_TYPE_HEADERS_ON',
+  moveTypeHeadersOn,
+})
 export const setMoveAdvantageColorsOn = (moveAdvantageColorsOn: boolean) => ({
   type: 'SET_MOVE_ADVANTAGE_COLORS',
   moveAdvantageColorsOn,

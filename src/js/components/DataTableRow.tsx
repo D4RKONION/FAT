@@ -13,6 +13,18 @@ type Props = {
   sample?: boolean;
 }
 
+const moveAdvantageColorsExcludeList = [
+  "ddob",
+  "ddoh",
+  "selfsoh",
+  "selfsob",
+  "oppsoh",
+  "oppsob",
+  "hitstun",
+  "hitstop",
+  "blockstun"
+]
+
 const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displayOnlyStateMoves, sample }: Props) => {
 
   const activeGame = useSelector(activeGameSelector);
@@ -122,11 +134,17 @@ const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displ
       classNamesToAdd.push("extra-info-available")
     }
 
+    const detailKeyLowerCase = detailKey.toLowerCase();
+
     // handle adv colors
-    if (moveAdvantageColorsOn && (detailKey.toLowerCase().includes("block") || detailKey.toLowerCase().includes("ob") || detailKey.toLowerCase().includes("hit") || detailKey.toLowerCase().includes("oh") || detailKey === "onPC" || detailKey === "onPP")) {
+    if (
+      moveAdvantageColorsOn
+      && !moveAdvantageColorsExcludeList.includes(detailKeyLowerCase)
+      && (detailKeyLowerCase.includes("block") || detailKeyLowerCase.includes("ob") || detailKeyLowerCase.includes("hit") || detailKeyLowerCase.includes("oh") || detailKey === "onPC" || detailKey === "onPP" || detailKey === "toxicblossom")
+    ) {
       
       const amountToCheck = 
-        typeof cellDataToDisplay === "string" ? cellDataToDisplay.split(/[([~]/)[0] // Split on any of (, [, or ~ and take the first part
+        typeof cellDataToDisplay === "string" ? cellDataToDisplay.split(/[([/~]/)[0] // Split on any of (, [, /, or ~ and take the first part
         : cellDataToDisplay
       
       const advantageAmount = 

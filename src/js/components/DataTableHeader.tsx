@@ -31,7 +31,7 @@ const DataTableHeader = ({colsToDisplay, moveType, xScrollEnabled, sample}: Prop
 
   return (
       <tr className={`DataTableRow DataTableHeader ${xScrollEnabled ? "xScroll" : "fixed"}`} onClick={() => sample !== true && dispatch(setModalVisibility({ currentModal: "landscapeOptions", visible: true }))} >
-        <th style={{textTransform: "capitalize"}} className="cell move-name">{moveType}s</th>
+        <th style={{textTransform: "capitalize"}} className="cell move-name">{moveType}{moveType !== "Move Name" && "s"}</th>
         {Object.keys(colsToDisplay).map(headerName =>
           <th className="cell" key={headerName}>
             {colsToDisplay[headerName]} {((headerName === "onHit" && (rawDriveRush || counterHit)) || (headerName === "onBlock" && (rawDriveRush || vsBurntoutOpponent))) && advantageIncreaseAmount(headerName)}

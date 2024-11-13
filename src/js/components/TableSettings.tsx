@@ -1,7 +1,7 @@
 import { IonContent, IonModal, IonList, IonItem, IonIcon, IonToggle, IonLabel, IonSelect, IonSelectOption, IonPopover, isPlatform, IonRippleEffect, } from '@ionic/react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { setModalVisibility, setCompactView, setMoveAdvantageColorsOn, setMoveAdvantageIndicator, setTableType, setDataDisplaySettings, setPlayer, setThemeColor, setThemeBrightness } from '../actions';
+import { setModalVisibility, setCompactView, setMoveAdvantageColorsOn, setMoveAdvantageIndicator, setTableType, setDataDisplaySettings, setPlayer, setThemeColor, setThemeBrightness, setAutoScrollEnabled, setMoveTypeHeadersOn } from '../actions';
 
 import '../../style/components/TableSettings.scss';
 import PageHeader from './PageHeader';
@@ -17,6 +17,8 @@ const TableSettings = () => {
   const modalVisibility = useSelector(modalVisibilitySelector);
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const dataTableType = useSelector(dataTableSettingsSelector).tableType;
+  const autoScrollEnabled = useSelector(dataTableSettingsSelector).autoScrollEnabled;
+  const moveTypeHeadersOn = useSelector(dataTableSettingsSelector).moveTypeHeadersOn;
   const compactViewOn = useSelector(dataTableSettingsSelector).compactViewOn;
   const xScrollEnabled = useSelector(dataTableSettingsSelector).tableType === "scrolling";
   const moveAdvantageColorsOn = useSelector(dataTableSettingsSelector).moveAdvantageColorsOn;
@@ -193,17 +195,34 @@ const TableSettings = () => {
         <div className='custom-setting-item' onClick={e => dispatch(setCompactView(!compactViewOn)) }>
           <div className='explainer'>
             <h2>Compact cells</h2>
-            <p>Allow the contents of cells to be cut off so that rows all have the same height.</p>
+            <p>Allow the contents of cells to be cut off so that rows all have the same height. Turn this off to see more data in the table view</p>
           </div>
           <IonToggle checked={!!compactViewOn} onClick={() => dispatch(setCompactView(!compactViewOn))} onIonChange={(e) => e.preventDefault()} ></IonToggle>
         </div>
 
         <div className='custom-setting-item' onClick={e => dispatch(setTableType(dataTableType === "fixed" ? "scrolling" : "fixed")) }>
           <div className='explainer'>
-            <h2>Table Scrolling</h2>
-            <p>Rather than shrinking rows to fit everything on one screen, the table will overflow and become scrollable. Note: The table will auto scroll down to fill the screen.</p>
+            <h2>X Axis Scrolling</h2>
+            <p>Rather than shrinking rows to fit them on one screen, the table will overflow horizontally and become scrollable.</p>
           </div>
           <IonToggle checked={!!xScrollEnabled} onClick={() => dispatch(setTableType(dataTableType === "fixed" ? "scrolling" : "fixed"))} onIonChange={(e) => e.preventDefault()}></IonToggle>
+        </div>
+
+        <div className='custom-setting-item' onClick={e => dispatch(setAutoScrollEnabled(!autoScrollEnabled)) }>
+          <div className='explainer'>
+            <h2>Table auto-scrolls into view</h2>
+            <p>Note: Only applies when "X Axis Scrolling" is on</p>
+            <p>Due to technical limitations with CSS, the table needs to scroll into view to fill the screen. If you find this annoying, you can turn it off here but the table may behave stubbornly on scroll!.</p>
+          </div>
+          <IonToggle checked={!!autoScrollEnabled} onClick={() => dispatch(setAutoScrollEnabled(!autoScrollEnabled))} onIonChange={(e) => e.preventDefault()}></IonToggle>
+        </div>
+
+        <div className='custom-setting-item' onClick={e => dispatch(setMoveTypeHeadersOn(!moveTypeHeadersOn)) }>
+          <div className='explainer'>
+            <h2>Move Type Headers</h2>
+            <p>Generate headers throughout the table to separate it by move-type.</p>
+          </div>
+          <IonToggle checked={!!moveTypeHeadersOn} onClick={() => dispatch(setMoveTypeHeadersOn(!moveTypeHeadersOn))} onIonChange={(e) => e.preventDefault()} ></IonToggle>
         </div>
 
 
@@ -218,7 +237,7 @@ const TableSettings = () => {
 
         <IonItem lines="full">
           <IonSelect interface="popover" label="Advantage Indicator" placeholder="Advantage Indicator" value={moveAdvantageIndicator} onIonChange={(e) => {dispatch(setMoveAdvantageIndicator(e.detail.value)); !moveAdvantageColorsOn && dispatch(setMoveAdvantageColorsOn(true))}}>
-            <IonSelectOption value="text">Text</IonSelectOption>
+            <IonSelectOption value="text">Text Colour</IonSelectOption>
             <IonSelectOption value="background">Background</IonSelectOption>
           </IonSelect>
         </IonItem>
