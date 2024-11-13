@@ -25,6 +25,12 @@ const moveAdvantageColorsExcludeList = [
   "blockstun"
 ]
 
+const plusExlcudeList = [
+  "hitstun",
+  "hitstop",
+  "blockstun"
+]
+
 const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displayOnlyStateMoves, sample }: Props) => {
 
   const activeGame = useSelector(activeGameSelector);
@@ -105,7 +111,7 @@ const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displ
   }
 
   const addPlusToAdvantageMoves = (detailKey, cellValue) => {
-    if ((detailKey.toLowerCase().includes("block") || detailKey.toLowerCase().includes("ob") || detailKey.toLowerCase().includes("hit") || detailKey.toLowerCase().includes("oh") || detailKey === "onPC" || detailKey === "onPP") && !isNaN(cellValue) && cellValue > 0) {
+    if (!plusExlcudeList.includes(detailKey) && (detailKey.toLowerCase().includes("block") || detailKey.toLowerCase().includes("ob") || detailKey.toLowerCase().includes("hit") || detailKey.toLowerCase().includes("oh") || detailKey === "onPC" || detailKey === "onPP") && !isNaN(cellValue) && cellValue > 0) {
       return `+${cellValue}`
     } else {
       return cellValue
