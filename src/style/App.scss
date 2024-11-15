@@ -84,3 +84,20 @@ ion-item {
   --transition: none;
   --border-color: var(--fat-ionlist-border);
 }
+
+ion-modal.premium-offer-modal {
+  --border-radius: 20px 20px 0 0;
+  --height: auto;
+  .premium-offer-modal-content {
+    padding: 20px 15px 10px;
+
+    ion-button {
+      font-weight: bold;
+    }
+    ion-checkbox {
+      font-size: 17px;
+      --size: 20px;
+      --border-color: var(--fat-surface-contrast);
+    }
+  }
+}

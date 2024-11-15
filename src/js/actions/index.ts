@@ -269,13 +269,11 @@ export const setThemeColor = (themeColor: ThemeColor) => ({
   themeColor,
 })
 
-export const setThemeOwned = (themeToAdd: ThemeAlias) => ({
-  type: 'SET_THEME_OWNED',
-  themeToAdd,
+export const purchaseLifetimePremium = () => ({
+  type: 'SET_LIFETIME_PREMIUM_PURCHASED',
 })
-
-export const resetThemesOwned = () => ({
-  type: 'RESET_THEMES_OWNED',
+export const resetPremium = () => ({
+  type: 'RESET_PREMIUM',
 })
 
 //handle turning advice toast on and off

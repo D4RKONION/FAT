@@ -12,11 +12,11 @@ import { activePlayerReducer } from './activeplayer';
 import { selectedCharactersReducer } from './selectedcharacters';
 import { modalVisibilityReducer } from './modalvisibility';
 import { dataDisplaySettingsReducer } from './datadisplaysettings';
-import { themesOwnedReducer } from './themesowned'
 import { advantageModifiersReducer } from './advantagemodifiers';
 import { appDisplaySettingsReducer } from './appdisplaysettings';
 import { adviceToastReducer } from './advicetoast';
 import { dataTableSettingsReducer } from './datatablesettings';
+import { premiumReducer } from './premium';
 
 const adviceToastPersistConfig = {
   key: 'adviceToast',
@@ -35,7 +35,7 @@ const rootReducer = combineReducers({
   selectedCharactersState: selectedCharactersReducer,
   dataDisplaySettingsState: dataDisplaySettingsReducer,
   appDisplaySettingsState: appDisplaySettingsReducer,
-  themesOwnedState: themesOwnedReducer,
+  premiumState: premiumReducer,
   dataTableSettingsState: dataTableSettingsReducer,
   advantageModifiersState: advantageModifiersReducer,
   adviceToastState: persistReducer(adviceToastPersistConfig, adviceToastReducer),

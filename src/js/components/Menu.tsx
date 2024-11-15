@@ -1,5 +1,5 @@
 import { IonContent, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonAlert, isPlatform, IonGrid, IonRippleEffect, IonButton } from '@ionic/react';
-import { peopleOutline, settingsOutline, settingsSharp, moon, sunny, gameControllerOutline, libraryOutline, librarySharp, calculatorOutline, calculatorSharp, searchOutline, searchSharp, statsChartOutline, statsChartSharp, barbellOutline, barbellSharp, colorPaletteOutline, colorPaletteSharp, menuSharp, logoPaypal, phonePortraitOutline, phonePortraitSharp, cafe } from 'ionicons/icons';
+import { peopleOutline, settingsOutline, settingsSharp, moon, sunny, gameControllerOutline, libraryOutline, librarySharp, calculatorOutline, calculatorSharp, searchOutline, searchSharp, statsChartOutline, statsChartSharp, barbellOutline, barbellSharp, colorPaletteOutline, colorPaletteSharp, menuSharp, logoPaypal, phonePortraitOutline, phonePortraitSharp, cafe, diamondOutline, diamondSharp } from 'ionicons/icons';
 
 import { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -111,11 +111,11 @@ const Menu = () => {
       modeName: "settings"
     },
     {
-      title: 'Theme Store',
-      url: '/themestore',
-      iosIcon: colorPaletteOutline,
-      mdIcon: colorPaletteSharp,
-      modeName: "themestore",
+      title: 'Premium',
+      url: '/premium',
+      iosIcon: diamondOutline,
+      mdIcon: diamondSharp,
+      modeName: "premium",
       appOnly: true,
     },
     {
@@ -167,7 +167,7 @@ const Menu = () => {
     "calculators",
     "moreresources",
     "settings",
-    "themestore",
+    "premium",
     "appAd",
     "kofi",
     "patreon",

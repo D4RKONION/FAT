@@ -1,0 +1,46 @@
+
+#ThemeSwitcher {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  padding: 8px 13px 10px; 
+  border-bottom: 1px solid var(--fat-settings-item-border);
+  cursor: pointer;
+  gap: 20px;
+
+  &.no-lines {
+    border: none;
+  }
+
+  .color-option {
+    width: 35px;
+    height: 35px;
+    border-radius: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 7px 7px;
+    
+    &.selected {
+      border: solid 8px var(--fat-background);
+      border-style: double;
+      width: 43px;
+      height: 43px;
+      margin: 0 -4px;
+    }
+
+    ion-icon {
+      flex: 1 1 0px;
+      color: #fff;
+    }
+  }
+
+  
+
+  
+  
+  
+  
+}

@@ -1,8 +1,8 @@
-import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, IonList, IonListHeader, IonIcon, useIonViewDidEnter, isPlatform, IonButton, IonToast, IonGrid  } from '@ionic/react';
+import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, IonList, IonListHeader, IonIcon, useIonViewDidEnter, isPlatform, IonButton, IonToast, IonGrid, IonToggle  } from '@ionic/react';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { setActiveGame, setAdviceToastsOn, setDataDisplaySettings, setPlayer, setThemeAccessibility, setThemeColor } from '../actions'
+import { setActiveGame, setAdviceToastsOn, setDataDisplaySettings, setPlayer, setThemeAccessibility, setThemeBrightness, setThemeColor } from '../actions'
 import '../../style/pages/Settings.scss';
 import PageHeader from '../components/PageHeader';
 import { logoTwitter, chevronForward, mailOutline, starOutline, heartOutline, openOutline, globeOutline, logoGithub, bulbOutline, lockClosedOutline } from 'ionicons/icons';
@@ -10,6 +10,7 @@ import { useHistory } from 'react-router';
 import { APP_CURRENT_VERSION_NAME } from '../constants/VersionLogs';
 import { activeGameSelector, dataDisplaySettingsSelector, selectedCharactersSelector, appDisplaySettingsSelector, adviceToastSelector } from '../selectors';
 import { GAME_NAMES } from '../constants/ImmutableGameDetails';
+import ThemeSwitcher from '../components/ThemeSwitcher';
 
 const Settings = () => {
   
@@ -18,6 +19,7 @@ const Settings = () => {
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const adviceToastsOn = useSelector(adviceToastSelector).adviceToastsOn;
   const themeAccessibility = useSelector(appDisplaySettingsSelector).themeAccessibility;
+  const themeBrightness = useSelector(appDisplaySettingsSelector).themeBrightness;
 
   const dispatch = useDispatch();
   
@@ -137,7 +139,7 @@ const Settings = () => {
                 </IonSelect>
               </IonItem>
               
-              <IonItem >
+              <IonItem lines="none">
                 <IonSelect
                   label={"Colour Blind Mode"}
                   interfaceOptions={{ header: "Colour Blind Mode" }}
@@ -150,6 +152,14 @@ const Settings = () => {
                   <IonSelectOption value={"none"}>Off</IonSelectOption>
                 </IonSelect>
               </IonItem>
+
+              <IonItem lines="none">
+                <IonToggle
+                  checked={themeBrightness === "light" ? false : true}
+                  onIonChange={e => { dispatch(setThemeBrightness(e.detail.checked ? "dark" : "light"))}}>Dark Mode</IonToggle>
+              </IonItem>
+
+              <ThemeSwitcher />
 
             {/* FEEDBACK OPTIONS */}
             <IonListHeader>Feedback</IonListHeader>

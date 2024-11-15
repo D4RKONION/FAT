@@ -20,7 +20,7 @@ export const dataDisplaySettingsSelector =  (state: RootState) => state.dataDisp
 
 export const appDisplaySettingsSelector =  (state: RootState) => state.appDisplaySettingsState;
 
-export const themesOwnedSelector =  (state: RootState) => state.themesOwnedState;
+export const premiumSelector =  (state: RootState) => state.premiumState;
 
 export const dataTableSettingsSelector =  (state: RootState) => state.dataTableSettingsState;
 

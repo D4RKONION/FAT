@@ -2,7 +2,7 @@ import { IonIcon, IonRippleEffect, isPlatform, useIonRouter } from "@ionic/react
 import { useDispatch, useSelector } from "react-redux";
 import { activeGameSelector, modeNameSelector, selectedCharactersSelector } from "../selectors";
 
-import { peopleOutline, settingsOutline, settingsSharp, libraryOutline, librarySharp, calculatorOutline, calculatorSharp, searchOutline, searchSharp, statsChartOutline, statsChartSharp, barbellOutline, barbellSharp, colorPaletteOutline, colorPaletteSharp, logoPaypal, phonePortraitOutline, phonePortraitSharp, cafe } from 'ionicons/icons';
+import { peopleOutline, settingsOutline, settingsSharp, libraryOutline, librarySharp, calculatorOutline, calculatorSharp, searchOutline, searchSharp, statsChartOutline, statsChartSharp, barbellOutline, barbellSharp, colorPaletteOutline, colorPaletteSharp, logoPaypal, phonePortraitOutline, phonePortraitSharp, cafe, diamondOutline, diamondSharp } from 'ionicons/icons';
 import framesIcon from  '../../images/icons/frames.svg';
 import patreonIcon from '../../images/icons/patreon.svg';
 import movesListIcon from '../../images/icons/moveslist.svg';
@@ -106,13 +106,13 @@ const menuEntryDetails = {
     mdIcon: settingsSharp,
     modeName: "settings"
   },
-  themestore: {
-    title: 'Theme Store',
+  premium: {
+    title: 'Premium',
     type: "internalURL",
-    url: '/themestore',
-    iosIcon: colorPaletteOutline,
-    mdIcon: colorPaletteSharp,
-    modeName: "themestore",
+    url: '/premium',
+    iosIcon: diamondOutline,
+    mdIcon: diamondSharp,
+    modeName: "premium",
     appOnly: true,
   },
   appAd: {
@@ -199,7 +199,7 @@ const onClickHandler = (menuEntryType) => {
         {wideMenuIsOpen && <span>{menuEntryDetails[menuEntryKey].title}</span>}
         <IonRippleEffect/>
       </div>
-      {(menuEntryDetails[menuEntryKey].modeName === "settings" || menuEntryDetails[menuEntryKey].modeName === "characterselect") && <hr />}
+      {(menuEntryDetails[menuEntryKey].modeName === "premium" || menuEntryDetails[menuEntryKey].modeName === "characterselect") && <hr />}
     </div>
     )
   }

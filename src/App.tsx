@@ -61,12 +61,11 @@ import StringInterrupter from './js/pages/Calculators/StringInterrupter';
 import StatCompare from './js/pages/StatCompare';
 import MoreResources from './js/pages/MoreResourcesMenu';
 import MoreResourcesSub from './js/pages/MoreResourcesSub';
-import ThemeStore from './js/pages/ThemeStore';
-import ThemePreview from './js/pages/ThemePreview';
 import VersionLogs from './js/pages/VersionLogs';
+import Premium from './js/pages/Premium';
 
 import { activeGameSelector, appDisplaySettingsSelector } from './js/selectors';
-import { setOrientation, setModalVisibility, setThemeOwned, setThemeBrightness, setActiveGame, setThemeColor } from './js/actions';
+import { setOrientation, setModalVisibility, setThemeBrightness, setActiveGame, setThemeColor, purchaseLifetimePremium } from './js/actions';
 import { store } from './js/store';
 import { APP_CURRENT_VERSION_CODE, APP_DATE_UPDATED, UPDATABLE_GAMES, TYPES_OF_UPDATES, UPDATABLE_GAMES_APP_CODES } from './js/constants/VersionLogs';
 import { SplashScreen } from '@capacitor/splash-screen';
@@ -115,21 +114,26 @@ const App = () => {
 
       // Awesome Cordova Plugins has not updated it's iap wrapper, so we have to import the entire store
       // https://github.com/danielsogl/awesome-cordova-plugins/issues/4457
+      
+      // also you can change these to CONSUMABLE, then run the app once and clear the cache to retest purchases.
+
+      // ****************** SET IT BACK TO NON_CONSUMABLE WHEN DONE ****************** //
       const { store: iapStore, Platform, ProductType } = CdvPurchase;
       const currentPlatform = isPlatform('android') ? Platform.GOOGLE_PLAY : Platform.APPLE_APPSTORE;
       const productList = [
+        { id: "vanilla_donation", type: ProductType.NON_CONSUMABLE, platform: currentPlatform },
+        { id: "super_donation", type: ProductType.NON_CONSUMABLE, platform: currentPlatform },
+        { id: "ae2012_donation", type: ProductType.NON_CONSUMABLE, platform: currentPlatform },
+        { id: "ultra_donation", type: ProductType.NON_CONSUMABLE, platform: currentPlatform },
+
         { id: "com.fullmeter.fat.theme.reddragon", type: ProductType.NON_CONSUMABLE, platform: currentPlatform },
         { id: "com.fullmeter.fat.theme.secondincommand", type: ProductType.NON_CONSUMABLE, platform: currentPlatform },
         { id: "com.fullmeter.fat.theme.deltagreen", type: ProductType.NON_CONSUMABLE, platform: currentPlatform },
         { id: "com.fullmeter.fat.theme.poisonouspink", type: ProductType.NON_CONSUMABLE, platform: currentPlatform },
-      ]
 
-      const productAliasDict = {
-        "com.fullmeter.fat.theme.reddragon" : "Red Dragon",
-        "com.fullmeter.fat.theme.secondincommand" : "Second in Command",
-        "com.fullmeter.fat.theme.deltagreen" : "Delta Green",
-        "com.fullmeter.fat.theme.poisonouspink" : "Poisonous Pink",
-      }
+        { id: "com.fullmeter.fat.premium_lifetime", type: ProductType.NON_CONSUMABLE, platform: currentPlatform },
+        { id: "com.fullmeter.fat.premium_lifetime_tip", type: ProductType.NON_CONSUMABLE, platform: currentPlatform },
+      ]
 
       iapStore.verbosity = CdvPurchase.LogLevel.QUIET;
 
@@ -140,7 +144,7 @@ const App = () => {
         transaction.finish()
         transaction.products.forEach(purchase => {
           if (iapStore.owned(purchase)) {
-            dispatch(setThemeOwned(productAliasDict[purchase.id]))
+            dispatch(purchaseLifetimePremium())
           }
         });
       })
@@ -311,8 +315,8 @@ useEffect(() => {
             <Route exact path="/settings/shoutouts" component={Shoutouts} />
             <Route exact path="/settings/versionlogs" component={VersionLogs} />
 
-            <Route exact path="/themestore" component={ThemeStore} />
-            <Route exact path="/themestore/:themeNameSlug" component={ThemePreview} />
+            <Route exact path="/premium" component={Premium} />
+            <Route exact path="/settings/premium" component={Premium} />
 
             <Route path="/" component={HomePageRedirect} exact />
           </IonRouterOutlet>
