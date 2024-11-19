@@ -1,14 +1,14 @@
-import { IonContent, IonPage, IonIcon, IonItem, IonInput, IonCardHeader, IonCardContent, IonCard, IonCardTitle, IonButton, IonFab, IonFabButton, IonGrid } from '@ionic/react';
+import { IonContent, IonPage, IonIcon, IonItem, IonInput, IonCardHeader, IonCardContent, IonCard, IonCardTitle, IonButton, IonFab, IonFabButton, IonGrid, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle } from '@ionic/react';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import '../../style/components/QuickSearch.scss';
 import '../../style/components/FAB.scss'
-import PageHeader from '../components/PageHeader';
 import { setPlayerAttr, setPlayer } from '../actions';
 import { useHistory } from 'react-router';
 import { close, searchOutline, trashBinOutline } from 'ionicons/icons';
 import {ratio as fuzzratio, extract as fuzzextract } from 'fuzzball'
 import { activeGameSelector, dataDisplaySettingsSelector, frameDataSelector, gameDetailsSelector, selectedCharactersSelector } from '../selectors';
+import PopoverButton from '../components/PopoverButton';
 
 type HeaderObj = {
   dataTableHeader: string;
@@ -318,10 +318,18 @@ const QuickSearch = () => {
 
   return (
     <IonPage>
-      <PageHeader
-        componentsToShow={{menuButton: true, popover: true}}
-        title={`Quick Search`}
-      />
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonMenuButton />
+          </IonButtons>
+          <IonTitle>Quick Search</IonTitle>
+          <IonButtons slot="end">
+            <PopoverButton />
+          </IonButtons>
+        </IonToolbar>
+      </IonHeader>
+
       <IonContent id='QuickSearch' className='ion-padding'>
         <IonItem lines='none'>
           <IonInput clearInput onKeyUp={(event) => event.key === "Enter" && searchHandler()} value={searchbarText} placeholder="charactername move" onIonInput={e => setSearchbarText(e.detail.value)}></IonInput>

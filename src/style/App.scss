@@ -37,7 +37,7 @@ ion-content {
     color: var(--fat-a);
   }
   ion-toolbar {
-    --background: transparent;
+    // --background: transparent;
   }
   ion-list-header {
     color: var(--fat-ionlist-header);
@@ -100,4 +100,59 @@ ion-modal.premium-offer-modal {
       --border-color: var(--fat-surface-contrast);
     }
   }
+}
+
+
+// PAGE HEADER AND TOOLBAR
+ion-toolbar {
+	&.ios.toolbar-searchbar {
+		// padding-top: 3px;
+		// height: calc(52px + env(safe-area-inset-top));
+		ion-buttons {
+			padding-top: 4px;
+		}
+	}
+	&.sc-ion-searchbar-md-h, .sc-ion-searchbar-md-h {
+		max-width: 400px;
+		--background: var(--fat-surface);
+		--color: var(--fat-surface-contrast);
+	}
+
+	&.sc-ion-searchbar-ios-h, .sc-ion-searchbar-ios-h {
+		max-width: 400px;
+		--background: var(--fat-surface);
+		--color: var(--fat-surface-contrast);
+		padding-top: 0;
+		padding-bottom: 0;
+		max-height: 32px;
+		min-height: 0;
+	}
+
+	.searchbar-input-container.sc-ion-searchbar-ios {
+		height: 32px;
+	}
+	.searchbar-cancel-button.sc-ion-searchbar-ios {
+		color: white;
+	}
+}
+
+
+@media (min-width: 992px) {
+	ion-header {
+		ion-toolbar {
+			ion-title.md {
+				padding: 0;
+				position: fixed;
+				top: 14px;
+				left: 50%;
+				transform: translate(-53%, 0);
+			}
+
+			&.ios:not(.toolbar-searchbar) {
+				padding-top: 3px;
+				height: calc(52px + env(safe-area-inset-top));
+			}
+
+		}
+	}
 }

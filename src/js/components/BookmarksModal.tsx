@@ -1,12 +1,11 @@
-import { IonButton, IonContent, IonIcon, IonItem, IonList, IonModal } from "@ionic/react";
+import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonList, IonModal, IonTitle, IonToolbar } from "@ionic/react";
 import { useDispatch, useSelector } from "react-redux";
 import { bookmarksSelector, modalVisibilitySelector } from "../selectors";
 import { setModalVisibility } from "../actions";
 import CharacterPortrait from "./CharacterPortrait";
 import "../../style/components/BookmarksModal.scss"
-import { closeOutline, closeSharp, remove } from "ionicons/icons";
+import { closeOutline, closeSharp } from "ionicons/icons";
 import { useHistory } from "react-router";
-import PageHeader from "./PageHeader";
 
 const BookmarksModal = () => {
 
@@ -28,14 +27,16 @@ const BookmarksModal = () => {
         handleModalDismiss();
       } }
     >
-      <PageHeader
-        buttonsToShow={[{ slot: "end",
-          buttons: [
-            { text: <IonIcon icon={closeSharp} style={{fontSize: "24px"}} />, buttonFunc: () => handleModalDismiss()}
-          ]
-        }]}
-        title="Bookmarks"
-      />
+
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="end">
+            <IonButton onClick={() => handleModalDismiss()}>Close</IonButton>
+          </IonButtons>
+          <IonTitle>Bookmarks</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+
       <IonContent>
         <IonList>
           {bookmarks.map((bookmark, index) => {

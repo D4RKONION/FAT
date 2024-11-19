@@ -103,34 +103,34 @@ const FrameData = () => {
     <IonPage id="FrameData">
 
       <IonHeader>
-      <IonToolbar>
-        <IonButtons slot="start">
-          <IonMenuButton />
-        </IonButtons>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonMenuButton />
+          </IonButtons>
 
-        <IonSearchbar
-          className='hideOnSmallScreen'
-          value={searchText}
-          onIonInput={e => setSearchText(e.detail.value!)}
-          placeholder={searchPlaceholderText}
-        />
+          <IonSearchbar
+            className='hideOnSmallScreen'
+            value={searchText}
+            onIonInput={e => setSearchText(e.detail.value!)}
+            placeholder={searchPlaceholderText}
+          />
         
-        {searchShown 
-          ? <>
-            <IonSearchbar
-              className='hideOnWideScreen slideOnChange'
-              showCancelButton="always"
-              cancelButtonIcon={closeOutline}
-              clearIcon={backspaceOutline}
-              value={searchText}
-              onIonInput={e => setSearchText(e.detail.value!)}
-              onIonCancel={() => {setSearchText(""); setSearchShown(false)}}
-              placeholder={searchPlaceholderText}
-              />
-            <IonButtons slot='end'>
-              <PopoverButton />
-            </IonButtons>
-          </>
+          {searchShown 
+            ? <>
+              <IonSearchbar
+                className='hideOnWideScreen slideOnChange'
+                showCancelButton="always"
+                cancelButtonIcon={closeOutline}
+                clearIcon={backspaceOutline}
+                value={searchText}
+                onIonInput={e => setSearchText(e.detail.value!)}
+                onIonCancel={() => {setSearchText(""); setSearchShown(false)}}
+                placeholder={searchPlaceholderText}
+                />
+              <IonButtons slot='end'>
+                <PopoverButton />
+              </IonButtons>
+            </>
 
           : <>
           <IonTitle className='hideOnWideScreen'>{activeGame} - {selectedCharacters[activePlayer].name}</IonTitle>

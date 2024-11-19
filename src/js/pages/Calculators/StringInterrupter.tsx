@@ -1,12 +1,12 @@
-import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, IonIcon, IonFab, IonFabButton, IonItemGroup, IonItemDivider, IonGrid } from '@ionic/react';
+import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, IonIcon, IonFab, IonFabButton, IonItemGroup, IonItemDivider, IonGrid, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle } from '@ionic/react';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import PageHeader from '../../components/PageHeader';
 import '../../../style/pages/Calculators.scss';
 import '../../../style/components/FAB.scss'
 import { setModalVisibility } from '../../actions';
 import { person, checkmark, warning } from 'ionicons/icons';
 import { activeGameSelector, selectedCharactersSelector } from '../../selectors';
+import PopoverButton from '../../components/PopoverButton';
 
 
 const StringInterrupter = () => {
@@ -134,10 +134,18 @@ const StringInterrupter = () => {
 
   return (
     <IonPage>
-      <PageHeader
-        componentsToShow={{back: true, popover: true}}
-        title={`Str-Int - ${selectedCharacters.playerOne.name} vs  ${selectedCharacters.playerTwo.name}`}
-      />
+
+        <IonHeader>
+          <IonToolbar>
+            <IonButtons slot="start">
+              <IonBackButton defaultHref='/calculators' />
+            </IonButtons>
+            <IonTitle>{`Str-Int - ${selectedCharacters.playerOne.name} vs  ${selectedCharacters.playerTwo.name}`}</IonTitle>
+            <IonButtons slot="end">
+              <PopoverButton />
+            </IonButtons>
+          </IonToolbar>
+        </IonHeader>
 
 
       <IonContent className="calculators">

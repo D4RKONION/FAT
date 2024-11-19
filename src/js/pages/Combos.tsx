@@ -1,15 +1,15 @@
-import { IonContent, IonPage, IonList, IonItemDivider, IonLabel, IonItem, IonIcon, IonGrid } from '@ionic/react';
+import { IonContent, IonPage, IonList, IonItemDivider, IonLabel, IonItem, IonIcon, IonGrid, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle } from '@ionic/react';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import '../../style/pages/Combos.scss';
 import SegmentSwitcher from '../components/SegmentSwitcher';
-import PageHeader from '../components/PageHeader';
 import { setActiveFrameDataPlayer, setModalVisibility } from '../actions';
 import { SFV_COMBOS } from '../constants/Combos';
 import { informationCircleOutline, openOutline } from 'ionicons/icons';
 import AdviceToast from '../components/AdviceToast';
 import { activeGameSelector, activePlayerSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
 import { isPlatform } from '@ionic/react';
+import PopoverButton from '../components/PopoverButton';
 
 
 
@@ -27,10 +27,19 @@ const Combos = () => {
   const [selectedCombo, setSelectedCombo] = useState(null);
   return (
     <IonPage>
-      <PageHeader
-        componentsToShow={{menuButton: true, popover: true}}
-        title={`Combos | ${selectedCharacters[activePlayer].name}`}
-      />
+
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonMenuButton />
+          </IonButtons>
+          <IonTitle>{`Combos | ${selectedCharacters[activePlayer].name}`}</IonTitle>
+          <IonButtons slot="end">
+            <PopoverButton />
+          </IonButtons>
+        </IonToolbar>
+      </IonHeader>
+
       <IonContent id="combos">
         <IonGrid fixed>
           {activeGame !== "SFV" || !SFV_COMBOS[selectedCharacters[activePlayer].name]

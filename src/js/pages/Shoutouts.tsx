@@ -1,17 +1,21 @@
-import { IonContent, IonGrid, IonPage } from '@ionic/react';
+import { IonBackButton, IonButtons, IonContent, IonGrid, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import HtmlReactParser from 'html-react-parser';
 import '../../style/pages/Shoutouts.scss';
-import PageHeader from '../components/PageHeader';
 import { DEVS, DONATORS, DATA_TEAM, AWESOME_PEOPLE, FRIENDS } from '../constants/Shoutouts';
 
 const Shoutouts = () => {
 
   return (
     <IonPage>
-      <PageHeader
-        componentsToShow={{back: true}}
-        title="Shoutouts"
-      />
+
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonBackButton defaultHref='/settings' />
+          </IonButtons>
+          <IonTitle>Shoutouts</IonTitle>
+        </IonToolbar>
+      </IonHeader>
 
       <IonContent id="Shoutouts">
         <IonGrid fixed>

@@ -1,8 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import '../../style/pages/Premium.scss';
 import "cordova-plugin-purchase";
-import { IonButton, IonCheckbox, IonContent, IonFab, IonFabButton, IonIcon, IonItem, IonLabel, IonModal, IonPage, isPlatform } from "@ionic/react";
-import PageHeader from '../components/PageHeader';
+import { IonBackButton, IonButton, IonButtons, IonCheckbox, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonItem, IonLabel, IonMenuButton, IonModal, IonPage, IonTitle, IonToolbar, isPlatform } from "@ionic/react";
 import { premiumSelector } from "../selectors";
 import { diamondSharp } from "ionicons/icons";
 import { useLocation } from "react-router";
@@ -27,10 +26,18 @@ const Premium = () => {
 
   return(
     <IonPage id="Premium">
-      <PageHeader
-        componentsToShow={location.pathname === "/premium" ? {menuButton: true} : {back: true}}
-        title="Premium"
-      />
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            {location.pathname === "/premium"
+              ? <IonMenuButton />
+              : <IonBackButton defaultHref="/settings"></IonBackButton>
+            }
+          </IonButtons>
+          <IonTitle>Premium</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      
 
       <IonContent className="ion-padding">
         {premiumIsPurchased ?

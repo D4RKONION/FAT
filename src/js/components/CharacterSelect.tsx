@@ -1,11 +1,10 @@
-import { IonModal, isPlatform } from '@ionic/react';
+import { IonButton, IonButtons, IonHeader, IonModal, IonSearchbar, IonTitle, IonToolbar, isPlatform } from '@ionic/react';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { setModalVisibility, setPlayer, setActiveFrameDataPlayer, setPlayerAttr, setDataTableColumns } from '../actions';
 import SegmentSwitcher from './SegmentSwitcher';
 import '../../style/components/CharacterSelect.scss';
-import PageHeader from './PageHeader';
 import CharacterPortrait from './CharacterPortrait'
 import { activeGameSelector, activePlayerSelector, dataTableSettingsSelector, frameDataSelector, gameDetailsSelector, modalVisibilitySelector, modeNameSelector, selectedCharactersSelector } from '../selectors';
 import { handleNewCharacterLandscapeCols } from '../utils/landscapecols';
@@ -53,13 +52,16 @@ const CharacterSelectModal = () => {
       isOpen={modalVisibility.visible && modalVisibility.currentModal === "characterSelect"}
       onDidDismiss={ () => modalVisibility.visible && dispatch(setModalVisibility({ currentModal: "characterSelect", visible: false })) }
     >
-      <PageHeader
-        componentsToShow={{search: true}}
-        buttonsToShow={[{ slot: "end", buttons: [{ text: "Close", buttonFunc: () => dispatch(setModalVisibility({ currentModal: "characterSelect", visible: false }))}] }]}
-        title={"Filter Characters"}
-        searchText={searchText}
-        onSearchHandler={ (text: string) => setSearchText(text)}
-      />
+
+      <IonHeader>
+        <IonToolbar>
+          <IonSearchbar value={searchText} onIonInput={e => setSearchText(e.detail.value)} placeholder={"Filter Characters"}></IonSearchbar>
+          <IonButtons slot={"end"}>
+            <IonButton onClick={() => dispatch(setModalVisibility({ currentModal: "characterSelect", visible: false }))}>Close</IonButton>
+          </IonButtons>
+        </IonToolbar>
+      </IonHeader>
+      
         <div className={`segments ${!isPlatform("ios") && "md"}`}>
           {modeName !== "calc-frametrapchecker" && modeName !== "calc-frametraplister" && modeName !== "calc-framekillgenerator" &&
             <SegmentSwitcher

@@ -1,13 +1,13 @@
-import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, IonIcon, IonFab, IonFabButton, IonItemDivider, IonGrid } from '@ionic/react';
+import { IonContent, IonPage, IonItem, IonSelect, IonSelectOption, IonIcon, IonFab, IonFabButton, IonItemDivider, IonGrid, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle } from '@ionic/react';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import PageHeader from '../components/PageHeader';
 import '../../style/pages/StatCompare.scss';
 import '../../style/components/FAB.scss'
 import { setModalVisibility } from '../actions';
 import { person } from 'ionicons/icons';
 import CharacterPortrait from '../components/CharacterPortrait';
 import { activeGameSelector, frameDataSelector, gameDetailsSelector, selectedCharactersSelector } from '../selectors';
+import PopoverButton from '../components/PopoverButton';
 
 
 const StatCompare = () => {
@@ -55,10 +55,18 @@ const StatCompare = () => {
 
   return (
     <IonPage>
-      <PageHeader
-        componentsToShow={{ menuButton: true, popover: true}}
-        title={`Stats - ${selectedStatProperName}`}
-      />
+
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonMenuButton />
+          </IonButtons>
+          <IonTitle>{`Stats - ${selectedStatProperName}`}</IonTitle>
+          <IonButtons slot="end">
+            <PopoverButton />
+          </IonButtons>
+        </IonToolbar>
+      </IonHeader>
 
 
       <IonContent id="statCompare">

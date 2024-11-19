@@ -1,6 +1,5 @@
-import { IonContent, IonGrid, IonModal } from '@ionic/react';
+import { IonButton, IonButtons, IonContent, IonGrid, IonHeader, IonModal, IonTitle, IonToolbar } from '@ionic/react';
 import { useSelector, useDispatch } from 'react-redux';
-import PageHeader from './PageHeader';
 import '../../style/components/WhatsNew.scss'
 import {APP_CURRENT_VERSION_NAME, APP_DATE_UPDATED, VERSION_LOGS} from '../constants/VersionLogs';
 import { setModalVisibility } from '../actions';
@@ -17,22 +16,16 @@ const WhatsNewModal = () => {
       isOpen={modalVisibility.visible && modalVisibility.currentModal === "whatsNew"}
       onDidDismiss={ () => modalVisibility.visible && dispatch(setModalVisibility({ currentModal: "whatsNew", visible: false })) }
     >
-      <PageHeader
-        buttonsToShow={[
-          { slot: "end",
-            buttons: [
-              {
-                text: "Close",
-                buttonFunc: () => {
-                  dispatch(setModalVisibility({ currentModal: "whatsNew", visible: false }));
-                } 
-                  
-              }
-            ]
-          }
-        ]}
-        title="What's New"
-      />
+
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="end">
+            <IonButton onClick={() => dispatch(setModalVisibility({ currentModal: "whatsNew", visible: false }))}>Close</IonButton>
+          </IonButtons>
+          <IonTitle>What's New</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+
       <IonContent id="whatsNew">
         <IonGrid fixed>
           <h3>

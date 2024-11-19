@@ -1,5 +1,4 @@
-import { IonContent, IonPage, IonList, IonItem, IonLabel, IonIcon, isPlatform, IonGrid } from '@ionic/react';
-import PageHeader from '../components/PageHeader';
+import { IonContent, IonPage, IonList, IonItem, IonLabel, IonIcon, isPlatform, IonGrid, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle } from '@ionic/react';
 import { chevronForward, desktopOutline, documentTextOutline, logoDiscord, logoTwitter, chatbubblesOutline, heartOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router';
 import { RES_MENU_LIST } from '../constants/MenuLists';
@@ -15,10 +14,14 @@ const MoreResources = () => {
 
   return (
     <IonPage>
-      <PageHeader
-        componentsToShow={{menuButton: true, popover: false}}
-        title="More Resources"
-      />
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonMenuButton />
+          </IonButtons>
+          <IonTitle>More Resources</IonTitle>
+        </IonToolbar>
+      </IonHeader>
 
       <IonContent className="calculators">
         <IonGrid fixed>

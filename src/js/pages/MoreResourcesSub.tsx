@@ -1,6 +1,5 @@
-import { IonContent, IonPage, IonList, IonItem, IonLabel, IonIcon, IonItemGroup, IonListHeader, IonGrid } from '@ionic/react';
+import { IonContent, IonPage, IonList, IonItem, IonLabel, IonIcon, IonItemGroup, IonListHeader, IonGrid, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle } from '@ionic/react';
 import '../../style/pages/Calculators.scss';
-import PageHeader from '../components/PageHeader';
 import { openOutline } from 'ionicons/icons';
 import { RES_DISCORDS_LIST, RES_APPS_LIST, RES_DOCS_LIST, RES_SOC_LIST, RES_FAT_LIST } from '../constants/MenuLists';
 import { useParams } from 'react-router';
@@ -38,10 +37,14 @@ const MoreResourcesSub = () => {
 
   return (
     <IonPage>
-      <PageHeader
-        componentsToShow={{back: true, popover: false}}
-        title={resourcePageData.title}
-      />
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonBackButton defaultHref={`/moreresources`} />
+          </IonButtons>
+          <IonTitle>{resourcePageData.title}</IonTitle>
+        </IonToolbar>
+      </IonHeader>
 
       <IonContent className="calculators">
         <IonGrid fixed>

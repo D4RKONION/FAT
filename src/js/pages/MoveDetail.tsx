@@ -1,9 +1,7 @@
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonIcon, IonPage } from '@ionic/react';
+import { IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation } from 'react-router';
 import '../../style/components/DetailCards.scss';
-import PageHeader from '../components/PageHeader';
 import SubHeader from '../components/SubHeader';
 import SegmentSwitcher from '../components/SegmentSwitcher';
 import { setPlayerAttr } from '../actions';
@@ -22,8 +20,6 @@ const MoveDetail = () => {
   const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
 
   const dispatch = useDispatch();
-
-  const modeBackTo = useLocation().pathname.split("/")[1];
 
   const [characterHasStates, setCharacterHasStates] = useState(false);
 
@@ -49,16 +45,16 @@ const MoveDetail = () => {
 
   return (
     <IonPage>
-      <PageHeader
-        componentsToShow={
-          modeBackTo === "quicksearch"
-            ? {customBackUrl: `/${modeBackTo}`}
-            : {customBackUrl: `/${modeBackTo}/${activeGame}/${activeCharName}`}
-          
-          
-        }
-        title={`${selectedMoveName} | ${activeCharName}`}
-      />
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonBackButton defaultHref={`/framedata/${activeGame}/${activeCharName}`} />
+          </IonButtons>
+          <IonTitle>{`${selectedMoveName} - ${activeCharName}`}</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+
+      
 
       <IonContent id="moveDetail">
 

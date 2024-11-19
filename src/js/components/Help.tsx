@@ -1,10 +1,9 @@
-import { IonContent, IonModal } from '@ionic/react';
+import { IonButton, IonButtons, IonContent, IonHeader, IonModal, IonTitle, IonToolbar } from '@ionic/react';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { setModalVisibility } from '../actions';
 import '../../style/components/Markdown.scss';
-import PageHeader from './PageHeader';
 import ReactMarkdown from 'react-markdown';
 import { modalVisibilitySelector, modeNameSelector } from '../selectors';
 
@@ -36,10 +35,14 @@ const HelpModal = () => {
       isOpen={modalVisibility.visible && modalVisibility.currentModal === "help"}
       onDidDismiss={ () => modalVisibility.visible && dispatch(setModalVisibility({ currentModal: "help", visible: false })) }
     >
-      <PageHeader
-        buttonsToShow={[{ slot: "end", buttons: [{ text: "Close", buttonFunc: () => dispatch(setModalVisibility({ currentModal: "help", visible: false })) }] }]}
-        title="Help"
-      />
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="end">
+            <IonButton onClick={() => dispatch(setModalVisibility({ currentModal: "help", visible: false }))}>Close</IonButton>
+          </IonButtons>
+          <IonTitle>Help</IonTitle>
+        </IonToolbar>
+      </IonHeader>
       <IonContent id="Help">
         <div id="MarkdownContainer">
           <ReactMarkdown children={markdown} />

@@ -1,7 +1,6 @@
-import { IonContent, IonPage, IonItem, IonLabel, IonIcon, IonFab, IonFabButton, IonList, IonSelect, IonSelectOption, IonListHeader, IonItemDivider, IonItemGroup, IonGrid } from '@ionic/react';
+import { IonContent, IonPage, IonItem, IonLabel, IonIcon, IonFab, IonFabButton, IonList, IonSelect, IonSelectOption, IonListHeader, IonItemDivider, IonItemGroup, IonGrid, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle } from '@ionic/react';
 import { useState, useMemo, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import PageHeader from '../../components/PageHeader';
 import '../../../style/pages/Calculators.scss';
 import '../../../style/pages/FrameKillGenerator.scss';
 import '../../../style/components/FAB.scss'
@@ -9,6 +8,7 @@ import { setActiveFrameDataPlayer, setModalVisibility } from '../../actions';
 import { person } from 'ionicons/icons';
 import SegmentSwitcher from '../../components/SegmentSwitcher';
 import { activeGameSelector, selectedCharactersSelector } from '../../selectors';
+import PopoverButton from '../../components/PopoverButton';
 
 // We used to keep multiActive arrays in the sheets, but for consistency and ease
 // it's now generated on the fly. This adds a little more computational overhead
@@ -440,10 +440,17 @@ const FrameKillGenerator = () => {
   if (Object.keys(GAME_KNOCKDOWN_LABELS[activeGame])[0] === "disabled") {
     return(
       <IonPage>
-        <PageHeader
-          componentsToShow={{back: true, popover: true}}
-          title={`Oki - ${selectedCharacters.playerOne.name}`}
-        />
+        <IonHeader>
+          <IonToolbar>
+            <IonButtons slot="start">
+              <IonBackButton defaultHref='/calculators' />
+            </IonButtons>
+            <IonTitle>{`Oki - ${selectedCharacters.playerOne.name}`}</IonTitle>
+            <IonButtons slot="end">
+              <PopoverButton />
+            </IonButtons>
+          </IonToolbar>
+        </IonHeader>
         
 
         <IonContent id="FrameKillGenerator" className="calculators">
@@ -459,10 +466,18 @@ const FrameKillGenerator = () => {
   }
   return (
     <IonPage>
-      <PageHeader
-        componentsToShow={{back: true, popover: true}}
-        title={`Oki - ${selectedCharacters.playerOne.name}`}
-      />
+
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonBackButton defaultHref='/calculators' />
+          </IonButtons>
+          <IonTitle>{`Oki - ${selectedCharacters.playerOne.name}`}</IonTitle>
+          <IonButtons slot="end">
+            <PopoverButton />
+          </IonButtons>
+        </IonToolbar>
+      </IonHeader>
 
 
       <IonContent id="FrameKillGenerator" className="calculators">

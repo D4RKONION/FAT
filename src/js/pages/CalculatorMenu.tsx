@@ -1,11 +1,11 @@
-import { IonContent, IonPage, IonList, IonListHeader, IonItem, IonLabel, IonIcon, isPlatform, IonItemGroup, IonGrid } from '@ionic/react';
+import { IonContent, IonPage, IonList, IonListHeader, IonItem, IonLabel, IonIcon, isPlatform, IonItemGroup, IonGrid, IonHeader, IonToolbar, IonButtons, IonTitle, IonMenuButton } from '@ionic/react';
 import '../../style/pages/Calculators.scss';
-import PageHeader from '../components/PageHeader';
 import { bulbOutline, chevronForward, skullOutline, linkOutline, handLeftOutline, receiptOutline, peopleOutline, personRemoveOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router';
 import { CALC_MENU_LIST } from '../constants/MenuLists'
 import { useSelector } from 'react-redux';
 import { activeGameSelector } from '../selectors';
+import PopoverButton from '../components/PopoverButton';
 
 const Calculators = () => {
   let history = useHistory();
@@ -18,10 +18,17 @@ const Calculators = () => {
 
   return (
     <IonPage>
-      <PageHeader
-        componentsToShow={{menuButton: true, popover: true}}
-        title="Calculator Menu"
-      />
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonMenuButton />
+          </IonButtons>
+          <IonTitle>Calculator Menu</IonTitle>
+          <IonButtons slot="end">
+            <PopoverButton />
+          </IonButtons>
+        </IonToolbar>
+      </IonHeader>
 
       <IonContent className="calculators">
         <IonGrid fixed>

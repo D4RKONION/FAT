@@ -1,9 +1,8 @@
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonIcon, IonPage } from '@ionic/react';
+import { IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import { useSelector } from 'react-redux';
 import '../../style/components/DetailCards.scss';
-import PageHeader from '../components/PageHeader';
 import SubHeader from '../components/SubHeader';
-import { activePlayerSelector, dataDisplaySettingsSelector, frameDataSelector, gameDetailsSelector, selectedCharactersSelector } from '../selectors';
+import { activeGameSelector, activePlayerSelector, dataDisplaySettingsSelector, frameDataSelector, gameDetailsSelector, selectedCharactersSelector } from '../selectors';
 import { openOutline } from 'ionicons/icons';
 
 
@@ -11,6 +10,7 @@ const CharacterStats = () => {
 
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const activePlayer = useSelector(activePlayerSelector);
+  const activeGame = useSelector(activeGameSelector);
 
   const activeCharName = selectedCharacters[activePlayer].name;
   const charStatsData = selectedCharacters[activePlayer].stats;
@@ -28,10 +28,15 @@ const CharacterStats = () => {
 
   return (
     <IonPage>
-      <PageHeader
-        componentsToShow={{back: true}}
-        title={`Stats | ${activeCharName}`}
-      />
+
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonBackButton defaultHref={`/framedata/${activeGame}/${activeCharName}`} />
+          </IonButtons>
+          <IonTitle>{`Stats | ${activeCharName}`}</IonTitle>
+        </IonToolbar>
+      </IonHeader>
 
       <IonContent id="characterStats">
 

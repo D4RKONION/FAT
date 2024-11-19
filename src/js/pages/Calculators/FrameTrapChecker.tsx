@@ -1,13 +1,13 @@
-import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, IonIcon, IonFab, IonFabButton, IonGrid } from '@ionic/react';
+import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, IonIcon, IonFab, IonFabButton, IonGrid, IonBackButton, IonButtons, IonHeader, IonTitle, IonToolbar } from '@ionic/react';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import PageHeader from '../../components/PageHeader';
 import '../../../style/pages/Calculators.scss';
 import '../../../style/components/FAB.scss'
 import SegmentSwitcher from '../../components/SegmentSwitcher';
 import { setActiveFrameDataPlayer, setModalVisibility } from '../../actions';
 import { person } from 'ionicons/icons';
 import { selectedCharactersSelector } from '../../selectors';
+import PopoverButton from '../../components/PopoverButton';
 
 
 const FrameTrapChecker = () => {
@@ -48,10 +48,18 @@ const FrameTrapChecker = () => {
 
   return (
     <IonPage>
-      <PageHeader
-        componentsToShow={{back: true, popover: true}}
-        title={`FTC - ${selectedCharacters.playerOne.name}`}
-      />
+
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonBackButton defaultHref='/calculators' />
+          </IonButtons>
+          <IonTitle>{`FTC - ${selectedCharacters.playerOne.name}`}</IonTitle>
+          <IonButtons slot="end">
+            <PopoverButton />
+          </IonButtons>
+        </IonToolbar>
+      </IonHeader>
 
 
       <IonContent className="calculators">

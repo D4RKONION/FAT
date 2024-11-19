@@ -1,11 +1,9 @@
-import { IonContent, IonModal, IonList, IonItem, IonItemDivider, IonCheckbox, IonIcon, IonButton, IonToggle, } from '@ionic/react';
+import { IonContent, IonModal, IonList, IonItem, IonItemDivider, IonCheckbox, IonButton, IonToggle, IonHeader, IonToolbar, IonButtons, IonTitle, } from '@ionic/react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { setModalVisibility, setDataTableColumns, setAutoSetSpecificCols } from '../actions';
 
 import '../../style/components/LandscapeOptions.scss';
-import PageHeader from './PageHeader';
-import { closeSharp } from 'ionicons/icons';
 import { activePlayerSelector, dataTableSettingsSelector, gameDetailsSelector, modalVisibilitySelector, orientationSelector, selectedCharactersSelector } from '../selectors';
 import { createCharacterDataCategoryObj, createOrderedLandscapeColsObj } from '../utils/landscapecols';
 
@@ -81,14 +79,16 @@ const LandscapeOptions = () => {
       } }
       id="LandscapeOptions"
     >
-      <PageHeader
-        buttonsToShow={[{ slot: "end",
-          buttons: [
-            { text: <IonIcon icon={closeSharp} style={{fontSize: "24px"}} />, buttonFunc: () => handleModalDismiss()}
-          ]
-        }]}
-        title="Data Columns"
-      />
+
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle>Data Columns</IonTitle>
+          <IonButtons slot={"end"}>
+            <IonButton onClick={() => handleModalDismiss()}>Close</IonButton>
+          </IonButtons>
+        </IonToolbar>
+      </IonHeader>
+      
       
       <IonContent>
         {(currentOrientation === "portrait" && dataTableType !== "scrolling") &&

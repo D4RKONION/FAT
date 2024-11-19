@@ -1,6 +1,5 @@
-import { IonContent, IonGrid, IonItem, IonItemDivider, IonLabel, IonList, IonPage, IonSelect, IonSelectOption } from "@ionic/react";
+import { IonBackButton, IonButtons, IonContent, IonGrid, IonHeader, IonItem, IonItemDivider, IonLabel, IonList, IonPage, IonSelect, IonSelectOption, IonTitle, IonToolbar } from "@ionic/react";
 import { useEffect, useState } from "react";
-import PageHeader from "../components/PageHeader";
 import styles from '../../style/components/VersionLogs.module.scss'
 import { VERSION_LOGS, APP_CURRENT_VERSION_NAME, UPDATABLE_GAMES, UPDATABLE_GAMES_APP_CODES } from "../constants/VersionLogs";
 import { Preferences } from "@capacitor/preferences";
@@ -30,10 +29,16 @@ const VersionLogs = () => {
 	
 	return (
 		<IonPage id={styles.versionLogs}>
-			<PageHeader
-				componentsToShow={{ back: true }}
-				title="Version Logs"
-			/>
+
+			<IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonBackButton defaultHref='/settings' />
+          </IonButtons>
+          <IonTitle>Version Logs</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+
 			<IonContent>
 				<IonGrid fixed>
 					<IonItem lines="full">

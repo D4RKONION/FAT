@@ -1,6 +1,5 @@
-import { IonContent, IonPage, IonList, IonItem, IonLabel, IonItemDivider, IonGrid } from '@ionic/react';
+import { IonContent, IonPage, IonList, IonItem, IonLabel, IonItemDivider, IonGrid, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle } from '@ionic/react';
 import { useSelector, useDispatch } from 'react-redux';
-import PageHeader from '../components/PageHeader';
 import SegmentSwitcher from '../components/SegmentSwitcher';
 import '../../style/pages/MovesList.scss';
 import { setPlayerAttr, setModalVisibility, setActiveFrameDataPlayer } from '../actions';
@@ -9,6 +8,7 @@ import AdviceToast from '../components/AdviceToast';
 import { activeGameSelector, activePlayerSelector, dataDisplaySettingsSelector, gameDetailsSelector, selectedCharactersSelector } from '../selectors';
 import { isPlatform } from '@ionic/react';
 import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
+import PopoverButton from '../components/PopoverButton';
 
 
 const MovesList = () => {
@@ -48,10 +48,19 @@ const MovesList = () => {
 
   return (
     <IonPage>
-      <PageHeader
-        componentsToShow={{ menuButton: true, popover: true }}
-        title={`Moves List - ${selectedCharacters[activePlayer].name}`}
-      />
+
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonMenuButton />
+          </IonButtons>
+          <IonTitle>{`Moves List - ${selectedCharacters[activePlayer].name}`}</IonTitle>
+          <IonButtons slot="end">
+            <PopoverButton />
+          </IonButtons>
+        </IonToolbar>
+      </IonHeader>
+
       <IonContent id="movesList">
         <IonGrid fixed>
           <div className={`segments ${!isPlatform("ios") && "md"}`}>

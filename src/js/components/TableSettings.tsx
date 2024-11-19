@@ -1,11 +1,9 @@
-import { IonContent, IonModal, IonList, IonItem, IonIcon, IonToggle, IonLabel, IonSelect, IonSelectOption, IonPopover, isPlatform, IonRippleEffect, } from '@ionic/react';
+import { IonContent, IonModal, IonList, IonItem, IonToggle, IonLabel, IonSelect, IonSelectOption, IonPopover, isPlatform, IonRippleEffect, IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, } from '@ionic/react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { setModalVisibility, setCompactView, setMoveAdvantageColorsOn, setMoveAdvantageIndicator, setTableType, setDataDisplaySettings, setPlayer, setThemeBrightness, setAutoScrollEnabled, setMoveTypeHeadersOn } from '../actions';
 
 import '../../style/components/TableSettings.scss';
-import PageHeader from './PageHeader';
-import { closeSharp } from 'ionicons/icons';
 import { activeGameSelector, appDisplaySettingsSelector, dataDisplaySettingsSelector, dataTableSettingsSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
 import DataTableRow from './DataTableRow';
 import DataTableHeader from './DataTableHeader';
@@ -83,14 +81,14 @@ const TableSettings = () => {
       } }
       id="TableSettings"
     >
-      <PageHeader
-        buttonsToShow={[{ slot: "end",
-          buttons: [
-            { text: <IonIcon icon={closeSharp} style={{fontSize: "24px"}} />, buttonFunc: () => handleModalDismiss()}
-          ]
-        }]}
-        title="Table Settings"
-      />
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="end">
+            <IonButton onClick={() => handleModalDismiss()}>Close</IonButton>
+          </IonButtons>
+          <IonTitle>Table Settings</IonTitle>
+        </IonToolbar>
+      </IonHeader>
       
       <IonContent>
       

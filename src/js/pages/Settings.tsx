@@ -1,16 +1,16 @@
-import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, IonList, IonListHeader, IonIcon, useIonViewDidEnter, isPlatform, IonButton, IonToast, IonGrid, IonToggle  } from '@ionic/react';
+import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, IonList, IonListHeader, IonIcon, useIonViewDidEnter, isPlatform, IonButton, IonToast, IonGrid, IonToggle, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle  } from '@ionic/react';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { setActiveGame, setAdviceToastsOn, setDataDisplaySettings, setPlayer, setThemeAccessibility, setThemeBrightness, setThemeColor } from '../actions'
 import '../../style/pages/Settings.scss';
-import PageHeader from '../components/PageHeader';
 import { logoTwitter, chevronForward, mailOutline, starOutline, heartOutline, openOutline, globeOutline, logoGithub, bulbOutline, lockClosedOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router';
 import { APP_CURRENT_VERSION_NAME } from '../constants/VersionLogs';
 import { activeGameSelector, dataDisplaySettingsSelector, selectedCharactersSelector, appDisplaySettingsSelector, adviceToastSelector } from '../selectors';
 import { GAME_NAMES } from '../constants/ImmutableGameDetails';
 import ThemeSwitcher from '../components/ThemeSwitcher';
+import PopoverButton from '../components/PopoverButton';
 
 const Settings = () => {
   
@@ -37,10 +37,19 @@ const Settings = () => {
 
   return (
     <IonPage>
-      <PageHeader
-        componentsToShow={{ menuButton: true, popover: true }}
-        title="Settings"
-      />
+
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonMenuButton />
+          </IonButtons>
+          <IonTitle>Settings</IonTitle>
+          <IonButtons slot="end">
+            <PopoverButton />
+          </IonButtons>
+        </IonToolbar>
+      </IonHeader>
+
       <IonContent id="Settings" scrollEvents={true} >
         <IonGrid fixed>
           <IonList>
