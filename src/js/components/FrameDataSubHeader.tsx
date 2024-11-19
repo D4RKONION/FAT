@@ -55,7 +55,7 @@ const FrameDataSubHeader = ({ charName, characterHasStates, opponentName, charSt
 				? frameData[charName].moves.normal[officialMoveName][moveNotation]
 				: frameData[charName].moves.normal[officialMoveName].moveName
 		dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {selectedMove: moveToDispatch}));
-		history.push(`/framedata/movedetail/${activeGame}/${selectedCharacters[activePlayer].name}/${selectedCharacters[activePlayer].vtState}/${officialMoveName}`)
+		history.push(`/movedetail/${activeGame}/${selectedCharacters[activePlayer].name}/${selectedCharacters[activePlayer].vtState}/${officialMoveName}`)
 
 	}
 

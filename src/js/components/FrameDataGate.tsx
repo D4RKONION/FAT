@@ -21,7 +21,6 @@ const FrameDataGate = ({ children }: FrameDataGateProps) => {
   
   const slugs = useRef({
     game: GAME_NAMES.includes(decodeURIComponent(window.location.hash.split("/")[2]) as GameName) ? decodeURIComponent(window.location.hash.split("/")[2])
-    : GAME_NAMES.includes(decodeURIComponent(window.location.hash.split("/")[3]) as GameName) ? decodeURIComponent(window.location.hash.split("/")[3])
     : null,
     char: null,
     state: null,
@@ -43,8 +42,8 @@ const FrameDataGate = ({ children }: FrameDataGateProps) => {
       // @ts-ignore
       dispatch(setActiveGame(slugs.current.game, slugs.current.game === activeGame ? false : true)).then(() => setGameIsSetup(true));
     } else {
-    // @ts-ignore
-    dispatch(setActiveGame(activeGame, false)).then(() => setGameIsSetup(true));
+      // @ts-ignore
+      dispatch(setActiveGame(activeGame, false)).then(() => setGameIsSetup(true));
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -53,23 +52,25 @@ const FrameDataGate = ({ children }: FrameDataGateProps) => {
   // After the frame data load, check for a character mismatch or state mismatch supplied by the URL
   // State first as changing the state has the side effect of changing the character
   useEffect(() => {
-
     if (gameIsSetup) {
       
-      slugs.current.char = gameDetails.characterList.includes(decodeURIComponent(window.location.hash.split("/")[3])) ? 
-        decodeURIComponent(window.location.hash.split("/")[3])
-      : gameDetails.characterList.includes(decodeURIComponent(window.location.hash.split("/")[4])) ?
-        decodeURIComponent(window.location.hash.split("/")[4])
-      : decodeURIComponent(window.location.hash.split("/")[3]) === "A.K.I" && gameDetails.characterList.includes("A.K.I.") ?
-        // Many chat applications incorrectly parse a pasted URL with A.K.I.'s name as A.K.I so we should catch this.
-        // We only need to worry about the [3] split because move detail is always followed by more text
-        "A.K.I."
-      : null;
+      slugs.current.char =
+        gameDetails.characterList.includes(decodeURIComponent(window.location.hash.split("/")[3])) ? 
+          decodeURIComponent(window.location.hash.split("/")[3])
+        : decodeURIComponent(window.location.hash.split("/")[3]) === "A.K.I" && gameDetails.characterList.includes("A.K.I.") ?
+          // Many chat applications incorrectly parse a pasted URL with A.K.I.'s name as A.K.I so we should catch this.
+          // We only need to worry about the [3] split because move detail is always followed by more text
+          "A.K.I."
+        : null;
 
-      slugs.current.state =  gameDetails.characterStates.includes(decodeURIComponent(window.location.hash.split("/")[5])) ? decodeURIComponent(window.location.hash.split("/")[5])
-      : gameDetails.specificCharacterStates?.[decodeURIComponent(window.location.hash.split("/")[3])]?.includes(decodeURIComponent(window.location.hash.split("/")[5])) ? decodeURIComponent(window.location.hash.split("/")[5])
-      : gameDetails.specificCharacterStates?.[decodeURIComponent(window.location.hash.split("/")[4])]?.includes(decodeURIComponent(window.location.hash.split("/")[5])) ? decodeURIComponent(window.location.hash.split("/")[5])
-      : null;
+      slugs.current.state =
+        gameDetails.characterStates.includes(decodeURIComponent(window.location.hash.split("/")[4])) ?
+          decodeURIComponent(window.location.hash.split("/")[4])
+        : gameDetails.specificCharacterStates?.[decodeURIComponent(window.location.hash.split("/")[3])]?.includes(decodeURIComponent(window.location.hash.split("/")[4]))
+          ? decodeURIComponent(window.location.hash.split("/")[4])
+        : gameDetails.specificCharacterStates?.[decodeURIComponent(window.location.hash.split("/")[3])]?.includes(decodeURIComponent(window.location.hash.split("/")[4]))
+          ? decodeURIComponent(window.location.hash.split("/")[4])
+        : null;
 
       if (slugs.current.state && selectedCharacters["playerOne"].vtState !== slugs.current.state) {
         console.log("URL state mismatch");
@@ -93,7 +94,7 @@ const FrameDataGate = ({ children }: FrameDataGateProps) => {
     if (characterIsSetup) {
 
       slugs.current.move = Object.keys(selectedCharacters["playerOne"].frameData).filter(moveName => 
-        selectedCharacters["playerOne"].frameData[moveName].moveName === decodeURIComponent(window.location.hash.split("/")[6])
+        selectedCharacters["playerOne"].frameData[moveName].moveName === decodeURIComponent(window.location.hash.split("/")[5])
       )[0]
 
       if (slugs.current.move && selectedCharacters["playerOne"].selectedMove !== slugs.current.move) {

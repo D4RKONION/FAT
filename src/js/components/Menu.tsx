@@ -1,12 +1,12 @@
 import { IonContent, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonAlert, isPlatform, IonGrid, IonRippleEffect, IonButton } from '@ionic/react';
-import { peopleOutline, settingsOutline, settingsSharp, moon, sunny, gameControllerOutline, libraryOutline, librarySharp, calculatorOutline, calculatorSharp, searchOutline, searchSharp, statsChartOutline, statsChartSharp, barbellOutline, barbellSharp, colorPaletteOutline, colorPaletteSharp, menuSharp, logoPaypal, phonePortraitOutline, phonePortraitSharp, cafe, diamondOutline, diamondSharp } from 'ionicons/icons';
+import { peopleOutline, settingsOutline, settingsSharp, moon, sunny, gameControllerOutline, libraryOutline, librarySharp, calculatorOutline, calculatorSharp, searchOutline, searchSharp, statsChartOutline, statsChartSharp, barbellOutline, barbellSharp, colorPaletteOutline, colorPaletteSharp, menuSharp, logoPaypal, phonePortraitOutline, phonePortraitSharp, cafe, diamondOutline, diamondSharp, bookmarksOutline } from 'ionicons/icons';
 
 import { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import '../../style/components/Menu.scss';
-import { setModalVisibility, setModeName, setActiveGame, setThemeBrightness } from '../actions'
+import { setModalVisibility, setModeName, setActiveGame, setThemeBrightness, setPlayer } from '../actions'
 import CharacterSelectModal from './CharacterSelect';
 import WhatsNewModal from './WhatsNew'
 import HelpModal from './Help';
@@ -14,41 +14,72 @@ import framesIcon from  '../../images/icons/frames.svg';
 import patreonIcon from '../../images/icons/patreon.svg';
 import movesListIcon from '../../images/icons/moveslist.svg';
 import { APP_CURRENT_VERSION_NAME } from '../constants/VersionLogs';
-import { activeGameSelector, modeNameSelector, selectedCharactersSelector, appDisplaySettingsSelector } from '../selectors';
+import { activeGameSelector, modeNameSelector, selectedCharactersSelector, appDisplaySettingsSelector, activePlayerSelector, gameDetailsSelector } from '../selectors';
 import { GAME_NAMES } from '../constants/ImmutableGameDetails';
 import MenuEntry from './MenuEntry';
 import BrightnessToggle from './BrightnessToggle';
+import BookmarksModal from './BookmarksModal';
+import { GameName } from '../types';
+import allCharacterLists from '../constants/gamedetails/characterLists';
 
 const Menu = () => {
 
   const themeBrightness = useSelector(appDisplaySettingsSelector).themeBrightness;
   const selectedCharacters = useSelector(selectedCharactersSelector);
+  const activePlayer = useSelector(activePlayerSelector);
   const modeName = useSelector(modeNameSelector);
   const activeGame = useSelector(activeGameSelector);
+  const gameDetails = useSelector(gameDetailsSelector);
 
   const dispatch = useDispatch();
   const history = useHistory();
   
   const [activeGameAlertOpen, setActiveGameAlertOpen] = useState(false);
-  const [isWideFullMenuOpen, setIsWideFullMenuOpen] = useState(false) 
+  const [isWideFullMenuOpen, setIsWideFullMenuOpen] = useState(false);
+  
   const location = useLocation();
   
   useEffect(() => {
+
+    const bookmarkableModes = ["framedata", "movedetail"]
+
+    const modeNameSlug = location.pathname.split("/")[1]
+
+    const activeGameSlug = GAME_NAMES.includes(location.pathname.split("/")[2] as GameName) ? location.pathname.split("/")[2] as GameName : "SF6";
+    let characterSlug = location.pathname.split("/")[3]
+    let vtStateSlug;
+    let moveNameSlug;
+
+    if (modeNameSlug === "movedetail") {
+      vtStateSlug = location.pathname.split("/")[4]
+      moveNameSlug = location.pathname.split("/")[5]
+    }
+
+
     if (location.pathname.includes("calculators") && location.pathname.split("/").length > 2) {
       dispatch(setModeName(`calc-${location.pathname.split("/")[2]}`));
-    } else if (location.pathname.includes("movedetail")) {
-      dispatch(setModeName("movedetail"));
     } else if (
       location.pathname.includes("stats")
       || (location.pathname.includes("settings") && location.pathname.split("/").length > 2)
       || (location.pathname.includes("moreresources") && location.pathname.split("/").length > 2)
-      || (location.pathname.includes("themestore") && location.pathname.split("/").length > 2)
     ) {
       dispatch(setModeName("subpage"));
     } else {
-      dispatch(setModeName(location.pathname.split("/")[1]));
+      dispatch(setModeName(modeNameSlug));
     }
+
+
+
+
+    // Handles the URL changing via bookmarks etc.
+    if (activeGameSlug !== activeGame && bookmarkableModes.includes(modeNameSlug)) {
+      dispatch(setActiveGame(activeGameSlug, true, selectedCharacters[activePlayer].name !== characterSlug && bookmarkableModes.includes(modeNameSlug) ? characterSlug : "unset"))
+    } else if (selectedCharacters[activePlayer].name !== characterSlug && bookmarkableModes.includes(modeNameSlug)) {
+      dispatch(setPlayer(activePlayer, characterSlug));
+    }    
+    
   },[location.pathname, dispatch]);
+  
 
   //account for the fact this will be imported some day
   //perhaps do a check in the div creation and concat the selected character in
@@ -221,6 +252,12 @@ const Menu = () => {
                 <IonLabel>Character Select</IonLabel>
               </IonItem>
             </IonMenuToggle>
+            <IonMenuToggle autoHide={false}>
+              <IonItem key="mobile-charSelectItem" onClick={() => dispatch(setModalVisibility({ currentModal: "bookmarks", visible: true }))}  lines="none" detail={false} button>
+                <IonIcon slot="start" icon={bookmarksOutline} />
+                <IonLabel>Bookmarks</IonLabel>
+              </IonItem>
+            </IonMenuToggle>
             <hr style={{backgroundColor: "var(--fat-settings-item-border)"}} />
             {appPages.map((appPage) => {
               if (!isPlatform("capacitor") && appPage.appOnly) {
@@ -285,6 +322,8 @@ const Menu = () => {
         <CharacterSelectModal />
         <HelpModal />
         <WhatsNewModal />
+        <BookmarksModal />
+        
         <IonAlert
           isOpen={activeGameAlertOpen}
           onDidDismiss={() => setActiveGameAlertOpen(false)}
@@ -301,7 +340,7 @@ const Menu = () => {
               handler: selectedGame => {
                 dispatch(setActiveGame(selectedGame, true));
                 if (modeName === "framedata" || modeName === "moveslist" || modeName === "combos") {
-                  history.replace(`/${modeName}/${selectedGame}/${selectedCharacters["playerOne"].name}`) //TODO: check if character exists in the new game and if not, select character[0] from the array
+                  history.replace(`/${modeName}/${selectedGame}/${allCharacterLists[selectedGame].includes(selectedCharacters["playerOne"].name) ? selectedCharacters["playerOne"].name : allCharacterLists[selectedGame][0]}`)
                 }
               }
             }

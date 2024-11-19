@@ -285,13 +285,13 @@ useEffect(() => {
         <IonSplitPane contentId="main">
           <Menu />
           <IonRouterOutlet id="main">
-            <Route exact path="/stats/:characterSlug" component={CharacterStats} />
+            <Route exact path="/stats/:gameSlug/:characterSlug" component={CharacterStats} />
+
+            <Route exact path="/movedetail/:gameSlug/:characterSlug/:vtStateSlug/:moveNameSlug" component={MoveDetail} />
 
             <Route exact path="/framedata/:gameSlug/:characterSlug" component={FrameData} />
-            <Route exact path="/framedata/movedetail/:gameSlug/:characterSlug/:vtStateSlug/:moveNameSlug" component={MoveDetail} />
 
             <Route exact path="/moveslist/:gameSlug/:characterSlug" component={MovesList} />
-            <Route exact path="/moveslist/movedetail/:gameSlug/:characterSlug/:vtStateSlug/:moveNameSlug" component={MoveDetail} />
 
             <Route exact path="/combos/:gameSlug/:characterSlug" component={Combos} />
             <Route exact path="/statcompare" component={StatCompare} />
@@ -306,7 +306,6 @@ useEffect(() => {
             <Route exact path="/calculators/stringinterrupter" component={StringInterrupter} />
 
             <Route exact path="/quicksearch" component={QuickSearch} />
-            <Route exact path="/quicksearch/movedetail/:gameSlug/:characterSlug/:vtStateSlug/:moveNameSlug" component={MoveDetail} />
 
             <Route exact path="/moreresources" component={MoreResources} />
             <Route exact path="/moreresources/:resourcePageSlug" component={MoreResourcesSub} />

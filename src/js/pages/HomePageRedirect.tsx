@@ -6,7 +6,7 @@ const HomePageRedirect = () => {
 
   const activeGame = useSelector(activeGameSelector);
   const selectedCharacters = useSelector(selectedCharactersSelector);
-
+  
   return <Redirect to={`/framedata/${activeGame}/${selectedCharacters["playerOne"].name}`} />
 };
 

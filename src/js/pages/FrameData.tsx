@@ -181,7 +181,7 @@ const FrameData = () => {
                     
                   }</div>
                 ),
-                index === 0 && <div key={"tap-stats"} onClick={() => {history.push(`/stats/${selectedCharacters[activePlayer].name}`)}}><b>More Stats</b><br /><IonIcon icon={informationCircle} /></div>
+                index === 0 && <div key={"tap-stats"} onClick={() => {history.push(`/stats/${activeGame}/${selectedCharacters[activePlayer].name}`)}}><b>More Stats</b><br /><IonIcon icon={informationCircle} /></div>
               ]
             )
           }    

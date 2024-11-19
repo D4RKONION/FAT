@@ -416,7 +416,7 @@ const QuickSearch = () => {
                 <IonButton expand="full" fill="clear" onClick={() => {
                   dispatch(setPlayer("playerOne", charName));
                   dispatch(setPlayerAttr("playerOne", charName, {selectedMove: displayedMoveName}));
-                  history.push(`/quicksearch/movedetail/${activeGame}/${charName}/normal/${searchedMoveData.moveName}`)}}
+                  history.push(`/movedetail/${activeGame}/${charName}/normal/${searchedMoveData.moveName}`)}}
                 >More info {">"}</IonButton>
               </IonCardContent>
 

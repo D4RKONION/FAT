@@ -129,7 +129,7 @@ const getGameDetails = (gameName: GameName) => {
   
 }
 
-export const setActiveGame = (gameName: GameName, colReset: Boolean): ThunkAction<void, RootState, unknown, AnyAction> => {
+export const setActiveGame = (gameName: GameName, colReset: Boolean, characterToSet?: PlayerData["name"]): ThunkAction<void, RootState, unknown, AnyAction> => {
   return async (dispatch, getState) => {
     dispatch(resetAdvantageModifiers())
     await dispatch(getGameDetails(gameName))
@@ -145,6 +145,10 @@ export const setActiveGame = (gameName: GameName, colReset: Boolean): ThunkActio
     }
     dispatch(setGameName(gameName));
     await dispatch(getFrameData(gameName));
+
+    if (characterToSet && characterToSet !== "unset") {
+      dispatch(setPlayer("playerOne", characterToSet))
+    }
   }
 }
 
