@@ -11,7 +11,7 @@
     gap: 4px;
     padding-bottom: env(safe-area-inset-bottom);
 
-    .character-block, .hidden-flex-item {
+    .character-portrait, .hidden-flex-item {
       flex-grow: 1;
       width: 24%;
       min-width: 119px;
@@ -36,7 +36,7 @@
       margin: 0 9px 9px;
       gap: 9px;
 
-      .character-block {
+      .character-portrait {
         cursor: pointer;
         h2 {
           font-size: 15px;

@@ -10,7 +10,6 @@ import { activeGameSelector, appDisplaySettingsSelector, dataDisplaySettingsSele
 import DataTableRow from './DataTableRow';
 import DataTableHeader from './DataTableHeader';
 import { useState } from 'react';
-import { ThemeColor } from '../types';
 import ThemeSwitcher from './ThemeSwitcher';
 
 const TableSettings = () => {

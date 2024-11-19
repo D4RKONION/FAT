@@ -4,12 +4,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import SegmentSwitcher from '../components/SegmentSwitcher';
 import SubHeader from '../components/SubHeader';
 import LandscapeOptions from '../components/LandscapeOptions';
-import { setActiveFrameDataPlayer, setModalVisibility, setPlayerAttr, setDataTableColumns } from '../actions';
+import { setActiveFrameDataPlayer, setModalVisibility, setPlayerAttr, setDataTableColumns, addBookmark, removeBookmark } from '../actions';
 import { useHistory, useParams } from 'react-router';
-import { backspaceOutline, closeOutline, informationCircle, searchSharp } from 'ionicons/icons';
+import { backspaceOutline, bookmark, bookmarkOutline, bookmarkSharp, closeOutline, informationCircle, searchSharp } from 'ionicons/icons';
 import AdviceToast from '../components/AdviceToast';
 import { APP_CURRENT_VERSION_CODE } from '../constants/VersionLogs';
-import { activeGameSelector, activePlayerSelector, dataTableSettingsSelector, gameDetailsSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
+import { activeGameSelector, activePlayerSelector, bookmarksSelector, dataTableSettingsSelector, gameDetailsSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
 import { FrameDataSlug } from '../types';
 import { handleNewCharacterLandscapeCols } from '../utils/landscapecols';
 import { isPlatform } from '@ionic/react';
@@ -32,6 +32,7 @@ const FrameData = () => {
   const dataTableColumns = useSelector(dataTableSettingsSelector).tableColumns;
   const autoSetCharacterSpecificColumnsOn = useSelector(dataTableSettingsSelector).autoSetCharacterSpecificColumnsOn;
   const gameDetails = useSelector(gameDetailsSelector);
+  const bookmarks = useSelector(bookmarksSelector);
 
   const [searchShown, setSearchShown] = useState(false);
   const [searchText, setSearchText] = useState('');
@@ -71,12 +72,24 @@ const FrameData = () => {
   }, [])
 
   
+  // Show or hide the state changer when the character or game changes
   useEffect(() => {
     setCharacterHasStates(!!gameDetails.specificCharacterStates[selectedCharacters[activePlayer].name])
   }, [selectedCharacters, gameDetails, activePlayer])
 
-  const contentRef = useRef(null);
+  // Check if the current state is bookmarked
+  const [currentBookmarkIndex, setCurrentBookmarkIndex]= useState(-1)
+  useEffect(() => {
+    setCurrentBookmarkIndex(bookmarks.findIndex((bookmark) => 
+      bookmark.gameName === activeGame && bookmark.characterName === selectedCharacters[activePlayer].name
+    ))
+  }, [selectedCharacters, activeGame, activePlayer, bookmarks])
 
+
+
+
+
+  const contentRef = useRef(null);
   let lastScrollTime = useRef(0)
 
   const scrollToBottom = (scrollEvent) => {
@@ -88,12 +101,7 @@ const FrameData = () => {
 
   return (
     <IonPage id="FrameData">
-      {/* <PageHeader
-        componentsToShow={{menuButton: true, popover: true, search: true, settingsCog: true}}
-        title={searchPlaceholderText}
-        searchText={searchText}
-        onSearchHandler={ (text: string) => setSearchText(text)} 
-      />*/}
+
       <IonHeader>
       <IonToolbar>
         <IonButtons slot="start">
@@ -125,10 +133,23 @@ const FrameData = () => {
           </>
 
           : <>
-          <IonTitle className='hideOnWideScreen'>Frame Data</IonTitle>
+          <IonTitle className='hideOnWideScreen'>{activeGame} - {selectedCharacters[activePlayer].name}</IonTitle>
             <IonButtons slot='end'>
               <IonButton onClick={() => setSearchShown(!searchShown)} className='hideOnWideScreen'>
                 <IonIcon icon={searchSharp} slot='icon-only' />
+              </IonButton>
+              <IonButton onClick={() => {
+                if (currentBookmarkIndex !== -1) {
+                  dispatch(removeBookmark(currentBookmarkIndex))
+                } else {
+                  dispatch(addBookmark({
+                    gameName: activeGame,
+                    modeName: "framedata",
+                    characterName: selectedCharacters[activePlayer].name
+                  }))
+                }
+              }}>
+                <IonIcon icon={currentBookmarkIndex !== -1 ? bookmarkSharp : bookmarkOutline} slot='icon-only' />
               </IonButton>
               <PopoverButton />
             </IonButtons>

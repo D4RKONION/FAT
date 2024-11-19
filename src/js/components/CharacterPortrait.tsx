@@ -17,7 +17,7 @@ const CharacterPortrait = ( {charName, charThreeLetterCode, game, selected, char
 
   return(
     <div
-      className="character-block"
+      className="character-portrait"
       // style={{ background: `${charColor}45`}}
       onClick={onClick}
     >

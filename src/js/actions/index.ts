@@ -1,5 +1,5 @@
 import { helpCreateFrameDataJSON } from '../utils';
-import type { AdviceToastPrevRead, AppModal, NormalNotationType, GameName, InputNotationType, MoveNameType, Orientation, PlayerData, PlayerId, ThemeAlias, ThemeBrightness, ThemeColor, VtState, ThemeAccessibility, TableType, MoveAdvantageIndicator } from '../types'
+import type { AdviceToastPrevRead, AppModal, NormalNotationType, GameName, InputNotationType, MoveNameType, Orientation, PlayerData, PlayerId, ThemeAlias, ThemeBrightness, ThemeColor, VtState, ThemeAccessibility, TableType, MoveAdvantageIndicator, Bookmark } from '../types'
 
 import AppSFVFrameData from '../constants/framedata/SFVFrameData.json';
 import AppUSF4FrameData from '../constants/framedata/USF4FrameData.json';
@@ -292,4 +292,19 @@ export const setAdviceToastShown = (adviceToastShown: Boolean) => ({
 export const setAdviceToastPrevRead = (listOfPrevReadToasts: AdviceToastPrevRead) => ({
   type: 'SET_ADVICE_TOAST_PREV_READ',
   listOfPrevReadToasts
+})
+
+
+export const addBookmark = (bookmarkToAdd: Bookmark) => ({
+  type: 'ADD_BOOKMARK',
+  bookmarkToAdd
+})
+
+export const removeBookmark = (bookmarkToRemove: number) => ({
+  type: 'REMOVE_BOOKMARK',
+  bookmarkToRemove
+})
+
+export const clearAllBookmarks = () => ({
+  type: 'CLEAR_ALL_BOOKMARKS'
 })

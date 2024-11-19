@@ -27,3 +27,5 @@ export const dataTableSettingsSelector =  (state: RootState) => state.dataTableS
 export const advantageModifiersSelector =  (state: RootState) => state.advantageModifiersState;
 
 export const adviceToastSelector =  (state: RootState) => state.adviceToastState;
+
+export const bookmarksSelector =  (state: RootState) => state.bookmarksState;

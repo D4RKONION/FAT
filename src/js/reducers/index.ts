@@ -17,6 +17,7 @@ import { appDisplaySettingsReducer } from './appdisplaysettings';
 import { adviceToastReducer } from './advicetoast';
 import { dataTableSettingsReducer } from './datatablesettings';
 import { premiumReducer } from './premium';
+import { bookmarksReducer } from './bookmarks';
 
 const adviceToastPersistConfig = {
   key: 'adviceToast',
@@ -39,6 +40,7 @@ const rootReducer = combineReducers({
   dataTableSettingsState: dataTableSettingsReducer,
   advantageModifiersState: advantageModifiersReducer,
   adviceToastState: persistReducer(adviceToastPersistConfig, adviceToastReducer),
+  bookmarksState: bookmarksReducer,
 });
 
 export default rootReducer;

@@ -12,7 +12,7 @@
 		max-width: 110px !important;
 		cursor: pointer;
 		
-		.character-block {
+		.character-portrait {
 			margin: 0;
 			border: solid var(--fat-surface) 1px;
 			border-radius: 7px;
@@ -50,7 +50,7 @@
 				}
 				.character-portrait-container {
 					width: 55px !important;
-					.character-block img:not(.silouette){
+					.character-portrait img:not(.silouette){
 						filter: grayscale(0.7);
 					}
 				}

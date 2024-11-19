@@ -1,0 +1,25 @@
+#BookmarksModal {
+
+  ion-item {
+    .bookmark-entry {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 20px;
+      .character-portrait {
+        width: 70px;
+        min-width: 70px;
+        height: 70px;
+        border: solid var(--fat-primary-tint) 3px;
+        border-radius: 100px;
+      }
+      .details {
+        h1 {
+          margin: 0;
+        }
+      }
+    }
+    
+  }
+
+}

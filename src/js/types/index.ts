@@ -3,7 +3,7 @@ import THEMES from "../constants/Themes";
 
 export type PlayerId = 'playerOne' | 'playerTwo';
 
-export type AppModal = 'characterSelect' | 'help' | 'landscapeOptions' | 'whatsNew' | 'tableSettings';
+export type AppModal = 'characterSelect' | 'help' | 'landscapeOptions' | 'whatsNew' | 'tableSettings' | 'bookmarks';
 
 export type MoveNameType = 'official' | 'common' | 'inputs';
 
@@ -28,6 +28,14 @@ export type ThemeAccessibility = 'none' | 'colorBlind';
 export type ThemeColor = 'classic' | 'purple' | 'pink' | 'red' | 'green'
 
 export type ThemeAlias = typeof THEMES[number]["alias"];
+
+export type Bookmark = {
+  modeName: 'framedata' | 'moveslist' | 'combos',
+  gameName: GameName,
+  characterName: PlayerData["name"],
+  vtState?: VtState,
+  moveName?: string,
+}
 
 export type FrameDataSlug = {
   gameSlug?: GameName,
