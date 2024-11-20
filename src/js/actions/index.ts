@@ -309,7 +309,7 @@ export const removeBookmark = (bookmarkToRemove: number) => ({
   bookmarkToRemove
 })
 
-export const reorderBookmarks = (reorderedBookmarkArray: string[]) => ({
+export const reorderBookmarks = (reorderedBookmarkArray: Bookmark[]) => ({
   type: 'REORDER_BOOKMARKS',
   reorderedBookmarkArray
 })

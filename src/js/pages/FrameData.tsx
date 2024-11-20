@@ -6,7 +6,7 @@ import SubHeader from '../components/SubHeader';
 import LandscapeOptions from '../components/LandscapeOptions';
 import { setActiveFrameDataPlayer, setModalVisibility, setPlayerAttr, setDataTableColumns, addBookmark, removeBookmark } from '../actions';
 import { useHistory, useParams } from 'react-router';
-import { backspaceOutline, bookmark, bookmarkOutline, bookmarkSharp, closeOutline, informationCircle, searchSharp } from 'ionicons/icons';
+import { backspaceOutline, bookmarkOutline, bookmarkSharp, closeOutline, informationCircle, searchSharp } from 'ionicons/icons';
 import AdviceToast from '../components/AdviceToast';
 import { APP_CURRENT_VERSION_CODE } from '../constants/VersionLogs';
 import { activeGameSelector, activePlayerSelector, bookmarksSelector, dataTableSettingsSelector, gameDetailsSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
@@ -81,7 +81,7 @@ const FrameData = () => {
   const [currentBookmarkIndex, setCurrentBookmarkIndex]= useState(-1)
   useEffect(() => {
     setCurrentBookmarkIndex(bookmarks.findIndex((bookmark) => 
-      bookmark.gameName === activeGame && bookmark.characterName === selectedCharacters[activePlayer].name
+      bookmark.modeName === "framedata" && bookmark.gameName === activeGame && bookmark.characterName === selectedCharacters[activePlayer].name
     ))
   }, [selectedCharacters, activeGame, activePlayer, bookmarks])
 

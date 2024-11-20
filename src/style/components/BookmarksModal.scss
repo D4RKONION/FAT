@@ -24,7 +24,7 @@
         }
       }
       .bio {
-        flex: 1 1 30%;
+        flex: 1 1 85%;
         p {
           font-size: 20px;
           opacity: 0.5;
@@ -33,6 +33,13 @@
         h1 {
           margin: 0;
           // font-size: 18px;
+        }
+
+        @media (min-width: 375px) {
+          flex: 1 1 60%;
+        }
+        @media (min-width: 440px) {
+          flex: 1 1 40%;
         }
       }
       .details {

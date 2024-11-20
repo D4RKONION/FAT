@@ -30,7 +30,7 @@ export type ThemeColor = 'classic' | 'purple' | 'pink' | 'red' | 'green'
 export type ThemeAlias = typeof THEMES[number]["alias"];
 
 export type Bookmark = {
-  modeName: 'framedata' | 'moveslist' | 'combos',
+  modeName: 'framedata' | 'moveslist' | 'combos' | 'movedetail',
   gameName: GameName,
   characterName: PlayerData["name"],
   vtState?: VtState,

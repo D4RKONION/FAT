@@ -4,7 +4,7 @@ type BookmarksReducerAction = {
   type: 'ADD_BOOKMARK' | 'REMOVE_BOOKMARK' | 'CLEAR_ALL_BOOKMARKS' | 'REORDER_BOOKMARKS';
   bookmarkToAdd: Bookmark;
   bookmarkToRemove: number;
-  reorderedBookmarkArray: string[];
+  reorderedBookmarkArray: Bookmark[];
 }
 
 const defaultState: Bookmark[] = []

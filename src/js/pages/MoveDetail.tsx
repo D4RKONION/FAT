@@ -4,11 +4,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import '../../style/components/DetailCards.scss';
 import SubHeader from '../components/SubHeader';
 import SegmentSwitcher from '../components/SegmentSwitcher';
-import { setPlayerAttr } from '../actions';
-import { activeGameSelector, activePlayerSelector, dataDisplaySettingsSelector, gameDetailsSelector, selectedCharactersSelector } from '../selectors';
+import { addBookmark, removeBookmark, setPlayerAttr } from '../actions';
+import { activeGameSelector, activePlayerSelector, bookmarksSelector, dataDisplaySettingsSelector, gameDetailsSelector, selectedCharactersSelector } from '../selectors';
 import { isPlatform } from '@ionic/react';
 import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
-import { openOutline } from 'ionicons/icons';
+import { bookmarkOutline, bookmarkSharp, openOutline } from 'ionicons/icons';
 
 
 const MoveDetail = () => {
@@ -18,6 +18,8 @@ const MoveDetail = () => {
   const activeGame = useSelector(activeGameSelector);
   const gameDetails = useSelector(gameDetailsSelector);
   const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
+
+  const bookmarks = useSelector(bookmarksSelector);
 
   const dispatch = useDispatch();
 
@@ -32,6 +34,19 @@ const MoveDetail = () => {
   const charFrameData = selectedCharacters[activePlayer].frameData;
   const selectedMoveName = selectedCharacters[activePlayer].selectedMove;
   const selectedMoveData = charFrameData[selectedMoveName];
+
+  // Check if the current state is bookmarked
+  const [currentBookmarkIndex, setCurrentBookmarkIndex]= useState(-1)
+  useEffect(() => {
+    setCurrentBookmarkIndex(bookmarks.findIndex((bookmark) => 
+      bookmark.modeName === "movedetail" &&
+      bookmark.gameName === activeGame &&
+      bookmark.characterName === selectedCharacters[activePlayer].name &&
+      bookmark.vtState === selectedCharacters[activePlayer].vtState &&
+      selectedMoveData &&
+      bookmark.moveName === selectedMoveData["moveName"]
+    ))
+  }, [selectedCharacters, activeGame, activePlayer, bookmarks])
 
   if (!selectedMoveData) {
     return null;
@@ -51,6 +66,23 @@ const MoveDetail = () => {
             <IonBackButton defaultHref={`/framedata/${activeGame}/${activeCharName}`} />
           </IonButtons>
           <IonTitle>{`${selectedMoveName} - ${activeCharName}`}</IonTitle>
+          <IonButtons slot='end'>
+            <IonButton onClick={() => {
+              if (currentBookmarkIndex !== -1) {
+                dispatch(removeBookmark(currentBookmarkIndex))
+              } else {
+                dispatch(addBookmark({
+                  gameName: activeGame,
+                  modeName: "movedetail",
+                  characterName: selectedCharacters[activePlayer].name,
+                  vtState: selectedCharacters[activePlayer].vtState,
+                  moveName: selectedMoveData["moveName"]
+                }))
+              }
+            }}>
+              <IonIcon icon={currentBookmarkIndex !== -1 ? bookmarkSharp : bookmarkOutline} slot='icon-only' />
+            </IonButton>
+          </IonButtons>
         </IonToolbar>
       </IonHeader>
 
