@@ -1,7 +1,7 @@
 import { IonContent, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonAlert, isPlatform, IonGrid, IonRippleEffect, IonButton } from '@ionic/react';
 import { peopleOutline, settingsOutline, settingsSharp, moon, sunny, gameControllerOutline, libraryOutline, librarySharp, calculatorOutline, calculatorSharp, searchOutline, searchSharp, statsChartOutline, statsChartSharp, barbellOutline, barbellSharp, colorPaletteOutline, colorPaletteSharp, menuSharp, logoPaypal, phonePortraitOutline, phonePortraitSharp, cafe, diamondOutline, diamondSharp, bookmarksOutline } from 'ionicons/icons';
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -20,7 +20,7 @@ import MenuEntry from './MenuEntry';
 import BrightnessToggle from './BrightnessToggle';
 import BookmarksModal from './BookmarksModal';
 import { GameName } from '../types';
-import allCharacterLists from '../constants/gamedetails/characterLists';
+import { allCharacterLists } from '../constants/gamedetails/characterLists';
 
 const Menu = () => {
 
@@ -190,6 +190,7 @@ const Menu = () => {
 
   const MENU_ENTRIES = [
     "characterselect",
+    "bookmarks",
     "framedata",
     "quicksearch",
     "moveslist",
@@ -268,12 +269,15 @@ const Menu = () => {
                 return false;
               } else {
                 return (
-                  <IonMenuToggle key={`mobile-${appPage.title}`} autoHide={false}>
-                    <IonItem className={modeName === appPage.modeName ? "selected" : null} routerLink={appPage.url} routerDirection="root" lines="none" detail={false} button>
-                      <IonIcon slot="start" icon={appPage.iosIcon} />
-                      <IonLabel>{appPage.title}</IonLabel>
-                    </IonItem>
-                  </IonMenuToggle>
+                  <React.Fragment key={`mobile-${appPage.title}`}>
+                    <IonMenuToggle autoHide={false}>
+                      <IonItem className={modeName === appPage.modeName ? "selected" : null} routerLink={appPage.url} routerDirection="root" lines="none" detail={false} button>
+                        <IonIcon slot="start" icon={appPage.iosIcon} />
+                        <IonLabel>{appPage.title}</IonLabel>
+                      </IonItem>
+                    </IonMenuToggle>
+                    {!isPlatform("capacitor") && appPage.modeName === "settings" && <hr />}
+                  </React.Fragment>
                 )
               }
             })}

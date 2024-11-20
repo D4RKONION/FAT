@@ -172,5 +172,10 @@
       }
     ]
   },
+  "bookmarkStats": {
+    "health": "Health",
+    "stun": "Stun",
+    "fDash": "F.Dash"
+  },
   "defaultLandscapeCols": {"startup": "S", "active": "A", "recovery": "R", "onBlock": "oB", "onHit": "oH", "dmg":"dmg", "stun":"stun", "xx": "xx", "parry": "parry"}
 }

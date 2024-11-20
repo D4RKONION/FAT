@@ -209,5 +209,10 @@
       }
     ]
   },
+  "bookmarkStats": {
+    "guts": "Guts",
+    "defense": "Defense",
+    "effectiveHealth": "Health"
+  },
   "defaultLandscapeCols": {"startup": "S", "active": "A", "recovery": "R", "onBlock": "oB", "onHit": "oH", "dmg":"dmg", "atkLvl": "lvl", "riscGain": "riscGain", "prorate": "prorate", "guardLevel": "guard"}
 }

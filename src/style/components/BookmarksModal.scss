@@ -1,22 +1,83 @@
 #BookmarksModal {
 
+  ion-list {
+    padding: 2px 0;
+  }
+
   ion-item {
     .bookmark-entry {
       display: flex;
       flex-direction: row;
       align-items: center;
-      gap: 20px;
+      gap: 13px;
+      padding: 8px 0;
+      width: 100%;
       .character-portrait {
-        width: 70px;
-        min-width: 70px;
-        height: 70px;
-        border: solid var(--fat-primary-tint) 3px;
-        border-radius: 100px;
+        width: 63px;
+        min-width: 63px;
+        height: 63px;
+        border: solid var(--fat-primary-shade-extreme) 2px;
+        border-radius: 11px;
+        img.silouette {
+          right: 4px;
+          bottom: 4px;
+        }
       }
-      .details {
-        h1 {
+      .bio {
+        flex: 1 1 30%;
+        p {
+          font-size: 20px;
+          opacity: 0.5;
           margin: 0;
         }
+        h1 {
+          margin: 0;
+          // font-size: 18px;
+        }
+      }
+      .details {
+        flex: 0 1 50%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-evenly;
+        gap: 20px;
+        text-align: center;
+        max-width: 235px;
+
+        @media (max-width: 440px) {
+          justify-content: end;
+        }
+
+        @media (min-width: 520px) {
+          gap: 25px;
+        }
+
+        span {
+          display: flex;
+          flex-direction: column;
+          gap: 3px;
+          flex: 0 1 60px;
+          h1 {
+            font-size: 15px;
+            margin: 0;
+          }
+          p {
+            margin: 0;
+            opacity: 0.5;
+          }
+          @media (max-width: 375px) {
+            &.medium, &.large {
+              display: none;
+            }
+          }
+          @media (max-width: 440px) {
+            &.large {
+              display: none;
+            }
+          }
+        }
+        
       }
     }
     

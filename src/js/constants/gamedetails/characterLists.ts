@@ -4,7 +4,7 @@ import SFVDetails from './SFVGameDetails.json';
 import SF6Details from './SF6GameDetails.json';
 import GGSTDetails from './GGSTGameDetails.json';
 
-const allCharacterLists = {
+export const allCharacterLists = {
   "3S": ThirdStrikeDetails.characterList,
   "USF4": USF4Details.characterList,
   "SFV": SFVDetails.characterList,
@@ -12,4 +12,10 @@ const allCharacterLists = {
   "GGST": GGSTDetails.characterList,
 }
 
-export default allCharacterLists;
+export const allBookmarkStats = {
+  "3S": ThirdStrikeDetails.bookmarkStats,
+  "USF4": USF4Details.bookmarkStats,
+  "SFV": SFVDetails.bookmarkStats,
+  "SF6": SF6Details.bookmarkStats,
+  "GGST": GGSTDetails.bookmarkStats,
+}

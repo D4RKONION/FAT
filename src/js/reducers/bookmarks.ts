@@ -1,9 +1,10 @@
 import { Bookmark } from "../types";
 
 type BookmarksReducerAction = {
-  type: 'ADD_BOOKMARK' | 'REMOVE_BOOKMARK' | 'CLEAR_ALL_BOOKMARKS';
+  type: 'ADD_BOOKMARK' | 'REMOVE_BOOKMARK' | 'CLEAR_ALL_BOOKMARKS' | 'REORDER_BOOKMARKS';
   bookmarkToAdd: Bookmark;
   bookmarkToRemove: number;
+  reorderedBookmarkArray: string[];
 }
 
 const defaultState: Bookmark[] = []
@@ -21,6 +22,10 @@ export const bookmarksReducer = (state = defaultState, action: BookmarksReducerA
       return [
         ...state.filter((_, i) => i !== action.bookmarkToRemove )
       ]
+
+    case 'REORDER_BOOKMARKS':
+      console.log(action.reorderedBookmarkArray)
+      return action.reorderedBookmarkArray;
 
     case 'CLEAR_ALL_BOOKMARKS':
       return defaultState;

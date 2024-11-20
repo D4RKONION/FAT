@@ -2,11 +2,12 @@ import { IonIcon, IonRippleEffect, isPlatform, useIonRouter } from "@ionic/react
 import { useDispatch, useSelector } from "react-redux";
 import { activeGameSelector, modeNameSelector, selectedCharactersSelector } from "../selectors";
 
-import { peopleOutline, settingsOutline, settingsSharp, libraryOutline, librarySharp, calculatorOutline, calculatorSharp, searchOutline, searchSharp, statsChartOutline, statsChartSharp, barbellOutline, barbellSharp, colorPaletteOutline, colorPaletteSharp, logoPaypal, phonePortraitOutline, phonePortraitSharp, cafe, diamondOutline, diamondSharp } from 'ionicons/icons';
+import { peopleOutline, settingsOutline, settingsSharp, libraryOutline, librarySharp, calculatorOutline, calculatorSharp, searchOutline, searchSharp, statsChartOutline, statsChartSharp, barbellOutline, barbellSharp, colorPaletteOutline, colorPaletteSharp, logoPaypal, phonePortraitOutline, phonePortraitSharp, cafe, diamondOutline, diamondSharp, bookmarksOutline } from 'ionicons/icons';
 import framesIcon from  '../../images/icons/frames.svg';
 import patreonIcon from '../../images/icons/patreon.svg';
 import movesListIcon from '../../images/icons/moveslist.svg';
 import { setModalVisibility } from "../actions";
+import { AppModal } from "../types";
 
 type Props = {
   menuEntryKey: string;
@@ -40,6 +41,14 @@ const menuEntryDetails = {
     iosIcon: peopleOutline,
     mdIcon: peopleOutline,
     modeName: "characterselect",
+  },
+  bookmarks: {
+    title: 'Bookmarks',
+    type: "modalOpener",
+    url: `/framedata/${activeGame}/${selectedCharacters.playerOne.name}`,
+    iosIcon: bookmarksOutline,
+    mdIcon: bookmarksOutline,
+    modeName: "bookmarks",
   },
   framedata: {
     title: 'Frame Data',
@@ -166,8 +175,8 @@ const onClickHandler = (menuEntryType) => {
     window.open(menuEntryDetails[menuEntryKey].externalUrl, '_blank')
 
   } else if (menuEntryType === "modalOpener") {
-    if (menuEntryKey === "characterselect" && currentMode !== "movedetail") {
-      dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true }))
+    if ((menuEntryKey === "characterselect" || menuEntryKey === "bookmarks") && currentMode !== "movedetail") {
+      dispatch(setModalVisibility({ currentModal: menuEntryKey as AppModal, visible: true }))
     }
 
   } else {
@@ -199,7 +208,7 @@ const onClickHandler = (menuEntryType) => {
         {wideMenuIsOpen && <span>{menuEntryDetails[menuEntryKey].title}</span>}
         <IonRippleEffect/>
       </div>
-      {(menuEntryDetails[menuEntryKey].modeName === "premium" || menuEntryDetails[menuEntryKey].modeName === "characterselect") && <hr />}
+      {((!isPlatform("capacitor") && menuEntryDetails[menuEntryKey].modeName === "settings") || menuEntryDetails[menuEntryKey].modeName === "bookmarks") && <hr />}
     </div>
     )
   }
