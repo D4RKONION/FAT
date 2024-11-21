@@ -79,7 +79,7 @@ const CharacterSelectModal = () => {
                 labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
                 clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
               />
-            : (activeGame === "GGST") &&
+            : (activeGame === "GGST" || activeGame === "SF6") &&
               <SegmentSwitcher
                 segmentType={"vtrigger"}
                 valueToTrack={selectedCharacters[activePlayer].vtState}

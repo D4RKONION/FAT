@@ -1,7 +1,7 @@
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonList, IonModal, IonReorder, IonReorderGroup, IonTitle, IonToolbar } from "@ionic/react";
 import { useDispatch, useSelector } from "react-redux";
-import { bookmarksSelector, dataDisplaySettingsSelector, modalVisibilitySelector } from "../selectors";
-import { removeBookmark, reorderBookmarks, setModalVisibility, setPlayerAttr } from "../actions";
+import { activeGameSelector, activePlayerSelector, bookmarksSelector, dataDisplaySettingsSelector, modalVisibilitySelector, selectedCharactersSelector } from "../selectors";
+import { removeBookmark, reorderBookmarks, setActiveFrameDataPlayer, setActiveGame, setModalVisibility, setPlayer, setPlayerAttr } from "../actions";
 import CharacterPortrait from "./CharacterPortrait";
 import "../../style/components/BookmarksModal.scss"
 import { checkmarkSharp, closeSharp, reorderTwoSharp, trashSharp } from "ionicons/icons";
@@ -34,8 +34,11 @@ const MOVE_STATS= {
 const BookmarksModal = () => {
 
   const modalVisibility = useSelector(modalVisibilitySelector);
-  const bookmarks = useSelector(bookmarksSelector)
-  const dataDisplaySettings = useSelector(dataDisplaySettingsSelector)
+  const bookmarks = useSelector(bookmarksSelector);
+  const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
+  const activePlayer = useSelector(activePlayerSelector);
+  const activeGame = useSelector(activeGameSelector);
+  const selectedCharacters = useSelector(selectedCharactersSelector);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -83,17 +86,27 @@ const BookmarksModal = () => {
         <IonList>
           <IonReorderGroup disabled={!reorderingActive} onIonItemReorder={event => dispatch(reorderBookmarks(event.detail.complete(bookmarks)))}>
           {bookmarks.map((bookmark, index) => {
-            // MOVE BOOKMARK
+            // MOVE-DETAIL BOOKMARK
             if (bookmark.modeName === "movedetail") {
               const renamedMoveObject = renameData({[bookmark.moveName]: FRAMEDATA_MAP[bookmark.gameName][bookmark.characterName].moves[bookmark.vtState][bookmark.moveName]}, dataDisplaySettings.moveNameType, dataDisplaySettings.inputNotationType)
               const userChosenName = Object.keys(renamedMoveObject)[0]
               return (
-                <IonItem onClick={() => {
+                <IonItem button onClick={() => {
                   if (reorderingActive || removeActive) return false;
+
+                  // we replace the current URL with the frame-data page for the new character, 
+                  // so that when the user goes "back" they go back to that page
                   
-                  dispatch(setPlayerAttr("playerOne", bookmark.characterName, { selectedMove: userChosenName }));
-                  const bookmarkURL = `/${bookmark.modeName}/${bookmark.gameName}/${bookmark.characterName}/${bookmark.vtState}/${bookmark.moveName}`
-                  history.push(bookmarkURL);
+
+                  // We need to set the active player to player one so that the page is correctly displayed
+                  dispatch(setActiveFrameDataPlayer("playerOne"))
+                  if (bookmark.gameName !== activeGame) {
+                    dispatch(setActiveGame(bookmark.gameName, true, bookmark.characterName, bookmark.vtState, userChosenName))
+                  } else {
+                    dispatch(setPlayerAttr("playerOne", bookmark.characterName, { selectedMove: userChosenName, vtState: bookmark.vtState }));
+                  }
+
+                  history.push(`/${bookmark.modeName}/${bookmark.gameName}/${bookmark.characterName}/${bookmark.vtState}/${bookmark.moveName}`);
                  
                   handleModalDismiss();
                 }} routerDirection="root">
@@ -134,8 +147,15 @@ const BookmarksModal = () => {
             } else {
               return (
                 // CHARACTER BOOKMARK
-                <IonItem onClick={() => {
+                <IonItem button onClick={() => {
                   if (reorderingActive || removeActive) return false;
+                  dispatch(setActiveFrameDataPlayer("playerOne"))
+
+                  if (bookmark.gameName !== activeGame) {
+                    dispatch(setActiveGame(bookmark.gameName, true, bookmark.characterName))
+                  } else if (selectedCharacters["playerOne"].name !== bookmark.characterName) {
+                    dispatch(setPlayer("playerOne", bookmark.characterName));
+                  }
 
                   const bookmarkURL = `/${bookmark.modeName}/${bookmark.gameName}/${bookmark.characterName}`
                   history.replace(bookmarkURL);

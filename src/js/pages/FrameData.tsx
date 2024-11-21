@@ -1,4 +1,4 @@
-import { IonContent, IonPage, IonIcon, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonSearchbar, IonButton, IonTitle } from '@ionic/react';
+import { IonContent, IonPage, IonIcon, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonSearchbar, IonButton, IonTitle, IonFab, IonFabButton, ScrollDetail } from '@ionic/react';
 import { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import SegmentSwitcher from '../components/SegmentSwitcher';
@@ -6,7 +6,7 @@ import SubHeader from '../components/SubHeader';
 import LandscapeOptions from '../components/LandscapeOptions';
 import { setActiveFrameDataPlayer, setModalVisibility, setPlayerAttr, setDataTableColumns, addBookmark, removeBookmark } from '../actions';
 import { useHistory, useParams } from 'react-router';
-import { backspaceOutline, bookmarkOutline, bookmarkSharp, closeOutline, informationCircle, searchSharp } from 'ionicons/icons';
+import { backspaceOutline, bookmarkOutline, bookmarkSharp, bookmarksSharp, closeOutline, informationCircle, searchSharp } from 'ionicons/icons';
 import AdviceToast from '../components/AdviceToast';
 import { APP_CURRENT_VERSION_CODE } from '../constants/VersionLogs';
 import { activeGameSelector, activePlayerSelector, bookmarksSelector, dataTableSettingsSelector, gameDetailsSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
@@ -47,6 +47,8 @@ const FrameData = () => {
   const slugs: FrameDataSlug = useParams();
 
   const [whatsNewCheckComplete, setWhatsNewCheckComplete]= useState(false)
+
+  const [scrollingUp, setScrollingUp]= useState(true)
 
   useEffect(() => {
     dispatch(setDataTableColumns(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters["playerOne"].name, slugs.characterSlug, autoSetCharacterSpecificColumnsOn, dataTableColumns)));
@@ -97,6 +99,16 @@ const FrameData = () => {
       lastScrollTime.current = scrollEvent.timeStamp
       contentRef.current?.scrollToBottom(500); // over 500ms
     }
+  }
+
+  function handleScroll(ev: CustomEvent<ScrollDetail>) {
+    console.log('scroll start');
+    if (ev.detail.deltaY < 0) {
+      setScrollingUp(true)
+    } else {
+      setScrollingUp(false)
+    }
+    
   }
 
   return (
@@ -165,7 +177,7 @@ const FrameData = () => {
     </IonHeader>
 
 
-      <IonContent ref={contentRef} scrollEvents={true}>
+      <IonContent ref={contentRef} scrollEvents={true} onIonScroll={handleScroll}>
         <SubHeader
           adaptToShortScreens={true}
           hideOnWideScreens={true}
@@ -236,6 +248,11 @@ const FrameData = () => {
         {whatsNewCheckComplete && !modalVisibility.visible &&
           <AdviceToast />
         }
+        <IonFab className={`${scrollingUp ? "visible" : "hidden"}`} slot="fixed" vertical="bottom" horizontal="end">
+          <IonFabButton onClick={() => dispatch(setModalVisibility({ currentModal: "bookmarks", visible: true }))} >
+            <IonIcon icon={bookmarksSharp}></IonIcon>
+          </IonFabButton>
+        </IonFab>
       </IonContent>
       <LandscapeOptions />
       <TableSettings />

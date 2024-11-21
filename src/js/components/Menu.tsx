@@ -6,7 +6,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import '../../style/components/Menu.scss';
-import { setModalVisibility, setModeName, setActiveGame, setThemeBrightness, setPlayer } from '../actions'
+import { setModalVisibility, setModeName, setActiveGame, setThemeBrightness, setPlayer, setPlayerAttr } from '../actions'
 import CharacterSelectModal from './CharacterSelect';
 import WhatsNewModal from './WhatsNew'
 import HelpModal from './Help';
@@ -41,19 +41,19 @@ const Menu = () => {
   
   useEffect(() => {
 
-    const bookmarkableModes = ["framedata", "movedetail"]
+    // const bookmarkableModes = ["framedata", "movedetail"]
 
     const modeNameSlug = location.pathname.split("/")[1]
 
-    const activeGameSlug = GAME_NAMES.includes(location.pathname.split("/")[2] as GameName) ? location.pathname.split("/")[2] as GameName : "SF6";
-    let characterSlug = location.pathname.split("/")[3]
-    let vtStateSlug;
-    let moveNameSlug;
+    // const activeGameSlug = GAME_NAMES.includes(location.pathname.split("/")[2] as GameName) ? location.pathname.split("/")[2] as GameName : "SF6";
+    // let characterSlug = location.pathname.split("/")[3]
+    // let vtStateSlug;
+    // let moveNameSlug;
 
-    if (modeNameSlug === "movedetail") {
-      vtStateSlug = location.pathname.split("/")[4]
-      moveNameSlug = location.pathname.split("/")[5]
-    }
+    // if (modeNameSlug === "movedetail") {
+    //   vtStateSlug = location.pathname.split("/")[4]
+    //   moveNameSlug = location.pathname.split("/")[5]
+    // }
 
 
     if (location.pathname.includes("calculators") && location.pathname.split("/").length > 2) {
@@ -71,15 +71,14 @@ const Menu = () => {
 
 
 
-    // Handles the URL changing via bookmarks etc.
-    if (activeGameSlug !== activeGame && bookmarkableModes.includes(modeNameSlug)) {
-      dispatch(setActiveGame(activeGameSlug, true, selectedCharacters[activePlayer].name !== characterSlug && bookmarkableModes.includes(modeNameSlug) ? characterSlug : "unset"))
-    } else if (selectedCharacters[activePlayer].name !== characterSlug && bookmarkableModes.includes(modeNameSlug)) {
-      dispatch(setPlayer(activePlayer, characterSlug));
-    }    
+    // // Handles the URL changing via bookmarks etc.
+    // if (activeGameSlug !== activeGame && bookmarkableModes.includes(modeNameSlug)) {
+    //   dispatch(setActiveGame(activeGameSlug, true, selectedCharacters[activePlayer].name !== characterSlug && bookmarkableModes.includes(modeNameSlug) ? characterSlug : "unset"))
+    // } else if (selectedCharacters[activePlayer].name !== characterSlug && bookmarkableModes.includes(modeNameSlug)) {
+    //   dispatch(setPlayer(activePlayer, characterSlug));
+    // }
     
   },[location.pathname, dispatch]);
-  
 
   //account for the fact this will be imported some day
   //perhaps do a check in the div creation and concat the selected character in
@@ -254,7 +253,7 @@ const Menu = () => {
               </IonItem>
             </IonMenuToggle>
             <IonMenuToggle autoHide={false}>
-              <IonItem key="mobile-charSelectItem" onClick={() => dispatch(setModalVisibility({ currentModal: "bookmarks", visible: true }))}  lines="none" detail={false} button>
+              <IonItem disabled={modeName === "movedetail"} key="mobile-charSelectItem" onClick={() => dispatch(setModalVisibility({ currentModal: "bookmarks", visible: true }))}  lines="none" detail={false} button>
                 <IonIcon slot="start" icon={bookmarksOutline} />
                 <IonLabel>Bookmarks</IonLabel>
               </IonItem>

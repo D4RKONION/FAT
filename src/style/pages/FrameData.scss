@@ -16,6 +16,24 @@
   .slideOnChange {
     animation: slideIn 0.25s ease-in-out;
   }
+
+  
+
+  ion-fab {
+    bottom: 18px;
+    right: 18px;
+    ion-fab-button {
+      --background: var(--fat-vtrigger-shade);
+    }
+    &.hidden {
+      transform: translateY(90px);
+      transition: transform 0.25s ease-in-out;
+    }
+    &.visible {
+      transform: translateY(0);
+      transition: transform 0.25s ease-in-out;
+    }
+  }
   
   @keyframes slideIn {
     0% {

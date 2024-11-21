@@ -2,6 +2,8 @@
 
   ion-list {
     padding: 2px 0;
+    max-width: 600px;
+    margin: 0 auto;
   }
 
   ion-item {
@@ -26,13 +28,13 @@
       .bio {
         flex: 1 1 85%;
         p {
-          font-size: 20px;
+          font-size: 16px;
           opacity: 0.5;
           margin: 0;
         }
         h1 {
           margin: 0;
-          // font-size: 18px;
+          font-size: 20px;
         }
 
         @media (min-width: 375px) {

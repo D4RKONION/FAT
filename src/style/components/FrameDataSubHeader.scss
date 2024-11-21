@@ -53,6 +53,9 @@
 					.character-portrait img:not(.silouette){
 						filter: grayscale(0.7);
 					}
+					.character-portrait .silouette {
+						right: 7px;
+					}
 				}
 			}
 

@@ -75,7 +75,7 @@ const FrameDataGate = ({ children }: FrameDataGateProps) => {
       if (slugs.current.state && selectedCharacters["playerOne"].vtState !== slugs.current.state) {
         console.log("URL state mismatch");
         // @ts-ignore
-        dispatch(setPlayerAttr("playerOne", slugs.current.char, {vtState: slugs.current.state})).then(() => setCharacterIsSetup(true));;
+        dispatch(setPlayerAttr("playerOne", slugs.current.char, {vtState: slugs.current.state})).then(() => setCharacterIsSetup(true));
       } else if (slugs.current.char && selectedCharacters["playerOne"].name !== slugs.current.char) {
           console.log("URL character mismatch");
           // @ts-ignore
