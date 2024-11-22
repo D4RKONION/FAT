@@ -5,6 +5,7 @@
 	min-width: 870px;
 
 	.character-portrait-container {
+		position: relative;
 		border: solid var(--fat-primary-shade-extreme) 3px;
     border-radius: 9px;
 		padding: 0;
@@ -19,6 +20,30 @@
 
 			img {
 				border-radius: 7px;
+			}
+		}
+		.player-tag {
+			position: absolute;
+			bottom: -13px;
+			z-index: 6;
+			transform: translateX(-50%);
+			left: 50%;
+			overflow: visible;
+			background: var(--fat-frame-data-sub-header-stats-bg);
+			color: var(--fat-frame-data-sub-header-stats-contrast);
+			opacity: 1;
+			margin: 0;
+			&.active-player-tag {
+				padding: 1px 8px;
+				font-size: 12px;
+				border: #316990 2px solid;
+				border-radius: 4px;
+			}
+			&.inactive-player-tag {
+				padding: 1px 7px;
+				font-size: 10px;
+				border: #316990 1px solid;
+				border-radius: 4px;
 			}
 		}
 	}

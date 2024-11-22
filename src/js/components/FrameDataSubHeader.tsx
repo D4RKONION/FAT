@@ -66,6 +66,7 @@ const FrameDataSubHeader = ({ charName, characterHasStates, opponentName, charSt
 					<CharacterPortrait charName={charName} game={activeGame} charColor={charStats.color as string} remoteImage={charStats.remoteImage as unknown as Boolean} showName={false}
 						onClick={() => dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true })) }
 					/>
+					<span className='player-tag active-player-tag'>{activePlayer === "playerTwo" ? "P2": "P1"}</span>
 				</IonCol>
 				<IonCol className="character-bio">
 					<div>{charStats.longName ? charStats.longName : charName} <span>{charStats.phrase}</span></div>
@@ -77,6 +78,7 @@ const FrameDataSubHeader = ({ charName, characterHasStates, opponentName, charSt
 							<IonIcon icon={swapHorizontal}></IonIcon>
 							<div className="character-portrait-container">
 								<CharacterPortrait charName={opponentName} game={activeGame} charColor={charStats.color as string} remoteImage={charStats.remoteImage as unknown as Boolean} showName={false} />
+								<span className='player-tag inactive-player-tag'>{activePlayer === "playerTwo" ? "P1": "P2"}</span>
 							</div>
 						</div>
 						<div className="state-changer">
