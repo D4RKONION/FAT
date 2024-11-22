@@ -2,7 +2,7 @@ import { IonIcon, IonRippleEffect, isPlatform, useIonRouter } from "@ionic/react
 import { useDispatch, useSelector } from "react-redux";
 import { activeGameSelector, modeNameSelector, selectedCharactersSelector } from "../selectors";
 
-import { peopleOutline, settingsOutline, settingsSharp, libraryOutline, librarySharp, calculatorOutline, calculatorSharp, searchOutline, searchSharp, statsChartOutline, statsChartSharp, barbellOutline, barbellSharp, colorPaletteOutline, colorPaletteSharp, logoPaypal, phonePortraitOutline, phonePortraitSharp, cafe, diamondOutline, diamondSharp, bookmarksOutline } from 'ionicons/icons';
+import { peopleOutline, settingsOutline, settingsSharp, libraryOutline, librarySharp, calculatorOutline, calculatorSharp, searchOutline, searchSharp, statsChartOutline, statsChartSharp, barbellOutline, barbellSharp, logoPaypal, phonePortraitOutline, phonePortraitSharp, cafe, diamondOutline, diamondSharp, bookmarksOutline } from 'ionicons/icons';
 import framesIcon from  '../../images/icons/frames.svg';
 import patreonIcon from '../../images/icons/patreon.svg';
 import movesListIcon from '../../images/icons/moveslist.svg';

@@ -1,4 +1,4 @@
-import { IonButton, IonButtons, IonHeader, IonModal, IonSearchbar, IonTitle, IonToolbar, isPlatform } from '@ionic/react';
+import { IonButton, IonButtons, IonHeader, IonModal, IonSearchbar, IonToolbar, isPlatform } from '@ionic/react';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 

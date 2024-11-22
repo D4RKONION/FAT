@@ -1,5 +1,5 @@
 import { helpCreateFrameDataJSON } from '../utils';
-import type { AdviceToastPrevRead, AppModal, NormalNotationType, GameName, InputNotationType, MoveNameType, Orientation, PlayerData, PlayerId, ThemeAlias, ThemeBrightness, ThemeColor, VtState, ThemeAccessibility, TableType, MoveAdvantageIndicator, Bookmark } from '../types'
+import type { AdviceToastPrevRead, AppModal, NormalNotationType, GameName, InputNotationType, MoveNameType, Orientation, PlayerData, PlayerId, ThemeBrightness, ThemeColor, VtState, ThemeAccessibility, TableType, MoveAdvantageIndicator, Bookmark } from '../types'
 
 import AppSFVFrameData from '../constants/framedata/SFVFrameData.json';
 import AppUSF4FrameData from '../constants/framedata/USF4FrameData.json';

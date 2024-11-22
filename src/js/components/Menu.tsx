@@ -1,12 +1,12 @@
 import { IonContent, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonAlert, isPlatform, IonGrid, IonRippleEffect, IonButton } from '@ionic/react';
-import { peopleOutline, settingsOutline, settingsSharp, moon, sunny, gameControllerOutline, libraryOutline, librarySharp, calculatorOutline, calculatorSharp, searchOutline, searchSharp, statsChartOutline, statsChartSharp, barbellOutline, barbellSharp, colorPaletteOutline, colorPaletteSharp, menuSharp, logoPaypal, phonePortraitOutline, phonePortraitSharp, cafe, diamondOutline, diamondSharp, bookmarksOutline } from 'ionicons/icons';
+import { peopleOutline, settingsOutline, settingsSharp, moon, sunny, gameControllerOutline, libraryOutline, librarySharp, calculatorOutline, calculatorSharp, searchOutline, searchSharp, statsChartOutline, statsChartSharp, barbellOutline, barbellSharp, menuSharp, logoPaypal, phonePortraitOutline, phonePortraitSharp, cafe, diamondOutline, diamondSharp, bookmarksOutline } from 'ionicons/icons';
 
 import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import '../../style/components/Menu.scss';
-import { setModalVisibility, setModeName, setActiveGame, setThemeBrightness, setPlayer, setPlayerAttr } from '../actions'
+import { setModalVisibility, setModeName, setActiveGame, setThemeBrightness } from '../actions'
 import CharacterSelectModal from './CharacterSelect';
 import WhatsNewModal from './WhatsNew'
 import HelpModal from './Help';
@@ -14,22 +14,19 @@ import framesIcon from  '../../images/icons/frames.svg';
 import patreonIcon from '../../images/icons/patreon.svg';
 import movesListIcon from '../../images/icons/moveslist.svg';
 import { APP_CURRENT_VERSION_NAME } from '../constants/VersionLogs';
-import { activeGameSelector, modeNameSelector, selectedCharactersSelector, appDisplaySettingsSelector, activePlayerSelector, gameDetailsSelector } from '../selectors';
+import { activeGameSelector, modeNameSelector, selectedCharactersSelector, appDisplaySettingsSelector } from '../selectors';
 import { GAME_NAMES } from '../constants/ImmutableGameDetails';
 import MenuEntry from './MenuEntry';
 import BrightnessToggle from './BrightnessToggle';
 import BookmarksModal from './BookmarksModal';
-import { GameName } from '../types';
 import { allCharacterLists } from '../constants/gamedetails/characterLists';
 
 const Menu = () => {
 
   const themeBrightness = useSelector(appDisplaySettingsSelector).themeBrightness;
   const selectedCharacters = useSelector(selectedCharactersSelector);
-  const activePlayer = useSelector(activePlayerSelector);
   const modeName = useSelector(modeNameSelector);
   const activeGame = useSelector(activeGameSelector);
-  const gameDetails = useSelector(gameDetailsSelector);
 
   const dispatch = useDispatch();
   const history = useHistory();
