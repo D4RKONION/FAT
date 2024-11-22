@@ -90,7 +90,7 @@ const MoveDetail = () => {
                   vtState: selectedMoveData.uniqueInVt ? selectedCharacters[activePlayer].vtState : "normal",
                   moveName: selectedMoveData["moveName"]
                 }))
-                setBookmarkToastMessage(`Bookmark Added: ${activeGame} ${selectedCharacters[activePlayer].name}`);
+                setBookmarkToastMessage(`Bookmark Added: ${activeGame} ${selectedCharacters[activePlayer].name} - ${selectedMoveName}`);
                 setBookmarkToastVisible(true);
               }
             }}>
