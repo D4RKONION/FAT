@@ -13,6 +13,7 @@
     color: var(--ion-color-step-850);
     max-width: 475px;
     margin: 0 auto;
+    font-size: 15px;
   }
 
   article {
@@ -34,7 +35,10 @@
     }
 
     p {
-      margin: 8px 0;
+      margin: 8px 0 16px;
+      &:last-of-type {
+        margin-bottom: 8px;
+      }
     }
     
 
@@ -46,7 +50,7 @@
       align-items: center;
 
       &:last-child {
-        margin-bottom: 50px;
+        margin-bottom: 75px;
       }
     } 
   }

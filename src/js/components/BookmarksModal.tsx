@@ -1,6 +1,6 @@
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonList, IonModal, IonReorder, IonReorderGroup, IonTitle, IonToolbar } from "@ionic/react";
 import { useDispatch, useSelector } from "react-redux";
-import { activeGameSelector, activePlayerSelector, bookmarksSelector, dataDisplaySettingsSelector, modalVisibilitySelector, selectedCharactersSelector } from "../selectors";
+import { activeGameSelector, bookmarksSelector, dataDisplaySettingsSelector, modalVisibilitySelector, selectedCharactersSelector } from "../selectors";
 import { removeBookmark, reorderBookmarks, setActiveFrameDataPlayer, setActiveGame, setModalVisibility, setPlayer, setPlayerAttr } from "../actions";
 import CharacterPortrait from "./CharacterPortrait";
 import "../../style/components/BookmarksModal.scss"
@@ -36,7 +36,6 @@ const BookmarksModal = () => {
   const modalVisibility = useSelector(modalVisibilitySelector);
   const bookmarks = useSelector(bookmarksSelector);
   const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
-  const activePlayer = useSelector(activePlayerSelector);
   const activeGame = useSelector(activeGameSelector);
   const selectedCharacters = useSelector(selectedCharactersSelector);
 
@@ -91,7 +90,7 @@ const BookmarksModal = () => {
               const renamedMoveObject = renameData({[bookmark.moveName]: FRAMEDATA_MAP[bookmark.gameName][bookmark.characterName].moves[bookmark.vtState][bookmark.moveName]}, dataDisplaySettings.moveNameType, dataDisplaySettings.inputNotationType)
               const userChosenName = Object.keys(renamedMoveObject)[0]
               return (
-                <IonItem button onClick={() => {
+                <IonItem key={`stat-${bookmark.characterName}-${bookmark.moveName}-${index}`}  button onClick={() => {
                   if (reorderingActive || removeActive) return false;
 
                   // we replace the current URL with the frame-data page for the new character, 
@@ -127,7 +126,7 @@ const BookmarksModal = () => {
                       <div className="details">
                         {Object.keys(MOVE_STATS).map((statKey, index) => {
                           return(
-                            <span className={index === 0 ? "small" : index === 1 ? "medium" : "large"}>
+                            <span key={`stat-${statKey}`} className={index === 0 ? "small" : index === 1 ? "medium" : "large"}>
                               <h1>{renamedMoveObject[userChosenName][MOVE_STATS[statKey]] ? renamedMoveObject[userChosenName][MOVE_STATS[statKey]] : "~"}</h1>
                               <p>{statKey}</p>
                             </span>)
@@ -147,7 +146,7 @@ const BookmarksModal = () => {
             } else {
               return (
                 // CHARACTER BOOKMARK
-                <IonItem button onClick={() => {
+                <IonItem key={`stat-${bookmark.characterName}-${index}`} button onClick={() => {
                   if (reorderingActive || removeActive) return false;
                   dispatch(setActiveFrameDataPlayer("playerOne"))
 
@@ -179,7 +178,7 @@ const BookmarksModal = () => {
                       <div className="details">
                         {Object.keys(allBookmarkStats[bookmark.gameName]).map((statKey, index) => {
                           return(
-                            <span className={index === 0 ? "small" : index === 1 ? "medium" : "large"}>
+                            <span key={`stat-${statKey}`}  className={index === 0 ? "small" : index === 1 ? "medium" : "large"}>
                               <h1>{FRAMEDATA_MAP[bookmark.gameName][bookmark.characterName].stats[statKey]}</h1>
                               <p>{allBookmarkStats[bookmark.gameName][statKey]}</p>
                             </span>)

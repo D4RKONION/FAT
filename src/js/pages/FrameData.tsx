@@ -9,7 +9,7 @@ import { useHistory, useParams } from 'react-router';
 import { backspaceOutline, bookmarkOutline, bookmarkSharp, bookmarksSharp, closeOutline, informationCircle, searchSharp } from 'ionicons/icons';
 import AdviceToast from '../components/AdviceToast';
 import { APP_CURRENT_VERSION_CODE } from '../constants/VersionLogs';
-import { activeGameSelector, activePlayerSelector, bookmarksSelector, dataTableSettingsSelector, gameDetailsSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
+import { activeGameSelector, activePlayerSelector, bookmarksSelector, dataTableSettingsSelector, gameDetailsSelector, modalVisibilitySelector, premiumSelector, selectedCharactersSelector } from '../selectors';
 import { FrameDataSlug } from '../types';
 import { handleNewCharacterLandscapeCols } from '../utils/landscapecols';
 import { isPlatform } from '@ionic/react';
@@ -20,6 +20,7 @@ import DataTable from '../components/DataTable';
 import PopoverButton from '../components/PopoverButton';
 import '../../style/pages/FrameData.scss'
 import TableSettings from '../components/TableSettings';
+import BookmarkToast from '../components/BookmarkToast';
 
 
 
@@ -32,7 +33,9 @@ const FrameData = () => {
   const dataTableColumns = useSelector(dataTableSettingsSelector).tableColumns;
   const autoSetCharacterSpecificColumnsOn = useSelector(dataTableSettingsSelector).autoSetCharacterSpecificColumnsOn;
   const gameDetails = useSelector(gameDetailsSelector);
+
   const bookmarks = useSelector(bookmarksSelector);
+  const premiumIsPurchased = useSelector(premiumSelector).lifetimePremiumPurchased;
 
   const [searchShown, setSearchShown] = useState(false);
   const [searchText, setSearchText] = useState('');
@@ -49,6 +52,9 @@ const FrameData = () => {
   const [whatsNewCheckComplete, setWhatsNewCheckComplete]= useState(false)
 
   const [scrollingUp, setScrollingUp]= useState(true)
+
+  const [bookmarkToastVisible, setBookmarkToastVisible] = useState(false);
+  const [bookmarkToastMessage, setBookmarkToastMessage] = useState("");
 
   useEffect(() => {
     dispatch(setDataTableColumns(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters["playerOne"].name, slugs.characterSlug, autoSetCharacterSpecificColumnsOn, dataTableColumns)));
@@ -102,7 +108,6 @@ const FrameData = () => {
   }
 
   function handleScroll(ev: CustomEvent<ScrollDetail>) {
-    console.log('scroll start');
     if (ev.detail.deltaY < 0) {
       setScrollingUp(true)
     } else {
@@ -153,13 +158,20 @@ const FrameData = () => {
               <IonButton onClick={() => {
                 if (currentBookmarkIndex !== -1) {
                   dispatch(removeBookmark(currentBookmarkIndex))
+                  setBookmarkToastMessage(`Bookmark Removed: ${activeGame} ${selectedCharacters[activePlayer].name}`);
+                  setBookmarkToastVisible(true);
+                } else if (bookmarks.length >= 3 && !premiumIsPurchased && !isPlatform("desktop")) {
+                  history.push("/settings/premium")
                 } else {
                   dispatch(addBookmark({
                     gameName: activeGame,
                     modeName: "framedata",
                     characterName: selectedCharacters[activePlayer].name
                   }))
+                  setBookmarkToastMessage(`Bookmark Added: ${activeGame} ${selectedCharacters[activePlayer].name}`);
+                  setBookmarkToastVisible(true);
                 }
+                
               }}>
                 <IonIcon icon={currentBookmarkIndex !== -1 ? bookmarkSharp : bookmarkOutline} slot='icon-only' />
               </IonButton>
@@ -248,11 +260,19 @@ const FrameData = () => {
         {whatsNewCheckComplete && !modalVisibility.visible &&
           <AdviceToast />
         }
+
+        <BookmarkToast
+          toastVisible={bookmarkToastVisible}
+          dismissToast={() => setBookmarkToastVisible(false)}
+          message={bookmarkToastMessage}
+        ></BookmarkToast>
+
         <IonFab className={`${scrollingUp ? "visible" : "hidden"}`} slot="fixed" vertical="bottom" horizontal="end">
           <IonFabButton onClick={() => dispatch(setModalVisibility({ currentModal: "bookmarks", visible: true }))} >
             <IonIcon icon={bookmarksSharp}></IonIcon>
           </IonFabButton>
         </IonFab>
+        
       </IonContent>
       <LandscapeOptions />
       <TableSettings />

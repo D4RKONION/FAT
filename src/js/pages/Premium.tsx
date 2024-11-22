@@ -8,6 +8,7 @@ import { useLocation } from "react-router";
 import ThemeSwitcher from "../components/ThemeSwitcher";
 import { purchaseLifetimePremium, resetPremium } from "../actions";
 import { useState } from "react";
+import bookmarkImage from "../../images/premium-examples/bookmarks.png"
 
 const Premium = () => {
 
@@ -21,8 +22,6 @@ const Premium = () => {
 
   const defaultPrice = "€3.49";
   const defaultTip = "€1.50";
-
-  console.log(iapStore)
 
   return(
     <IonPage id="Premium">
@@ -49,10 +48,24 @@ const Premium = () => {
               </IonLabel>
             </IonItem>
           :
-            <p>Premium is a <strong>one-time purchase</strong> which give you access to a bunch of extra helpful features and also helps keep FAT ad-free.</p>
+          <>
+            <article>
+              <p>Hi I'm Paul! I've been developing and releasing FAT ad-free for over 10 years now. All core features and data (and pretty much everything else!) will always be free forever!</p>
+              <p>However, if you'd like to support me, Premium is a <strong>one-time purchase</strong> which gives you access to a few helpful extra features as a thank you.</p>
+            </article>
+          </>
+          
+            
           }
 
           <article>
+
+          <section>
+            <h1>Unlimited Bookmarks</h1>
+            <hr></hr>
+            <p>Become a true power user with unlimited bookmarks! That means quickly checking characters and moves, even across different games.</p>
+            <img style={{borderRadius: "12px"}} src={bookmarkImage} alt="Bookmark example"></img>
+          </section>
             
 
             <section>
@@ -63,6 +76,12 @@ const Premium = () => {
                 premiumPreview={true}
 
               ></ThemeSwitcher>
+            </section>
+
+            <section>
+              <h1>Priority Support</h1>
+              <hr></hr>
+              <p>I do my best to reply to all emails as soon as I can but life can be hectic! Emails from users who have premium get replies first as priority. Simply tap the email button in settings.</p>
             </section>
 
           </article>

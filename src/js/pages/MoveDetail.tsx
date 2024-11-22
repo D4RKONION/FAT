@@ -5,10 +5,12 @@ import '../../style/components/DetailCards.scss';
 import SubHeader from '../components/SubHeader';
 import SegmentSwitcher from '../components/SegmentSwitcher';
 import { addBookmark, removeBookmark, setPlayerAttr } from '../actions';
-import { activeGameSelector, activePlayerSelector, bookmarksSelector, dataDisplaySettingsSelector, gameDetailsSelector, selectedCharactersSelector } from '../selectors';
+import { activeGameSelector, activePlayerSelector, bookmarksSelector, dataDisplaySettingsSelector, gameDetailsSelector, premiumSelector, selectedCharactersSelector } from '../selectors';
 import { isPlatform } from '@ionic/react';
 import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
 import { bookmarkOutline, bookmarkSharp, openOutline } from 'ionicons/icons';
+import BookmarkToast from '../components/BookmarkToast';
+import { useHistory } from 'react-router';
 
 
 const MoveDetail = () => {
@@ -20,8 +22,14 @@ const MoveDetail = () => {
   const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
 
   const bookmarks = useSelector(bookmarksSelector);
+  const [bookmarkToastVisible, setBookmarkToastVisible] = useState(false);
+  const [bookmarkToastMessage, setBookmarkToastMessage] = useState("");
+  const premiumIsPurchased = useSelector(premiumSelector).lifetimePremiumPurchased;
+
 
   const dispatch = useDispatch();
+
+  const history = useHistory();
 
   const [characterHasStates, setCharacterHasStates] = useState(false);
 
@@ -42,11 +50,11 @@ const MoveDetail = () => {
       bookmark.modeName === "movedetail" &&
       bookmark.gameName === activeGame &&
       bookmark.characterName === selectedCharacters[activePlayer].name &&
-      bookmark.vtState === selectedCharacters[activePlayer].vtState &&
+      (bookmark.vtState === selectedCharacters[activePlayer].vtState || (!selectedMoveData.uniqueInVt && bookmark.vtState === "normal")) &&
       selectedMoveData &&
       bookmark.moveName === selectedMoveData["moveName"]
     ))
-  }, [selectedCharacters, activeGame, activePlayer, bookmarks])
+  }, [selectedCharacters, activeGame, activePlayer, bookmarks, selectedMoveData])
 
   if (!selectedMoveData) {
     return null;
@@ -70,14 +78,20 @@ const MoveDetail = () => {
             <IonButton onClick={() => {
               if (currentBookmarkIndex !== -1) {
                 dispatch(removeBookmark(currentBookmarkIndex))
+                setBookmarkToastMessage(`Bookmark Removed: ${activeGame} ${selectedCharacters[activePlayer].name}`);
+                setBookmarkToastVisible(true);
+              } else if (bookmarks.length >= 3 && !premiumIsPurchased && !isPlatform("desktop")) {
+                history.push("/settings/premium")
               } else {
                 dispatch(addBookmark({
                   gameName: activeGame,
                   modeName: "movedetail",
                   characterName: selectedCharacters[activePlayer].name,
-                  vtState: selectedCharacters[activePlayer].vtState,
+                  vtState: selectedMoveData.uniqueInVt ? selectedCharacters[activePlayer].vtState : "normal",
                   moveName: selectedMoveData["moveName"]
                 }))
+                setBookmarkToastMessage(`Bookmark Added: ${activeGame} ${selectedCharacters[activePlayer].name}`);
+                setBookmarkToastVisible(true);
               }
             }}>
               <IonIcon icon={currentBookmarkIndex !== -1 ? bookmarkSharp : bookmarkOutline} slot='icon-only' />
@@ -239,15 +253,17 @@ const MoveDetail = () => {
                     </IonButton>
                   </div>
                 </div>
-                
-            
               </IonCardContent>
             </IonCard>
           }
 
-          
-
         </div>
+
+        <BookmarkToast
+          toastVisible={bookmarkToastVisible}
+          dismissToast={() => setBookmarkToastVisible(false)}
+          message={bookmarkToastMessage}
+        ></BookmarkToast>
 
       </IonContent>
     </IonPage>
