@@ -26,7 +26,7 @@ const WhatsNewModal = () => {
         </IonToolbar>
       </IonHeader>
 
-      <IonContent id="whatsNew">
+      <IonContent id="whatsNew" className='ion-padding'>
         <IonGrid fixed>
           <h3>
             FAT {APP_CURRENT_VERSION_NAME}
@@ -34,7 +34,7 @@ const WhatsNewModal = () => {
           <h6>{APP_DATE_UPDATED}</h6>
           {Object.keys(VERSION_LOGS[APP_CURRENT_VERSION_NAME]).map(heading =>
             <div key={heading}>
-              <h5 className={heading === "New Features" ? "feature" : "bug"}>{heading}</h5>
+              <h5 className={heading === "Bug Fixes" ? "bug" : "feature"}>{heading}</h5>
               <ul>
                 {VERSION_LOGS[APP_CURRENT_VERSION_NAME][heading].map((newThing, index) =>
                   <li key={heading+index}>

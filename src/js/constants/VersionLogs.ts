@@ -1,6 +1,6 @@
-export const APP_CURRENT_VERSION_NAME = "3.12.2";
-export const APP_CURRENT_VERSION_CODE = 31202;
-export const APP_DATE_UPDATED = "Sep 29 2024"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "4.0.0";
+export const APP_CURRENT_VERSION_CODE = 40000;
+export const APP_DATE_UPDATED = "Nov 22 2024"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"]
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"]
@@ -20,14 +20,35 @@ export const UPDATABLE_GAMES_APP_CODES = {
 }
 
 export const VERSION_LOGS = {
-  "3.13.0": {
-    "New Features": [
-      "Improved Quick Search mode"
+  "4.0.0": {
+    "X-Axis Scrolling & more!": [
+      "Frame Data screen completely rewritten from scratch",
+      "Added X-Axis Scrolling! This allows you to see any amount of columns on small screens",
+      "New and improved 'Table Settings' menu. Find by tapping the 3 dot menu, top right",
+      "Added mid table headers to divide up the table more clearly",
+      "Advantage Colors can be either background or font colour",
+      "Counterhit, DR and Burnout modifiers stack, affect advantage colours, and clearly state the change in the headers",
+      "Data column settings screen now has predefined groups of columns for quick setting",
+      "Improved the widescreen frame data character bio, with a better character switcher & state changer",
+    ],
+    "General UI fixes": [
+      "Overhauled Quick Search mode",
+      "Improvements made to the widescreen menu",
+      "Tons of small tweaks here and there"
+    ],
+    "Added Bookmarks": [
+      "You can now bookmark characters and their moves. This allows you to jump straight to them from the new bookmark menu",
+    ],
+    "Changes to in-app purchases": [
+      "Removed individual theme purchases and replaced it with a single lifetime premium purchase",
+      "If you've ever purchased anything in FAT, Premium will be automatically unlocked. Thank you for your support <3",
     ],
     "Bug Fixes": [
-      "Under the hood changes made, please let me know if you come across any bugs!",
+      "Tons of under the hood changes made, please let me know if you come across any bugs!",
       "Fixed a bug where linking to A.K.I. in some chat applications failed because the last . wasn't being parsed",
-      "Fixed some bugs related to the advice toasts"
+      "Fixed some bugs related to the advice toasts",
+      "Fixed several performance affecting bugs",
+      "Fixed a bug where sometimes the in app 'back button' wasn't appearing",
     ]
   },
   "3.12.2": {
