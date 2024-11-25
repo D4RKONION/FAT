@@ -1,0 +1,41 @@
+.chunky-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  position: relative;
+  max-width: 650px;
+  margin: 0 auto;
+  overflow: hidden;
+
+  box-shadow: var(--fat-surface-shadow) 0px 5px 10px;
+  border-radius: 100px;
+
+  color: var(--fat-primary-contrast);
+  background: var(--fat-primary);
+  font-weight: bold;
+
+  &.one-line {
+    padding: 15px;
+  }
+  &.two-line {
+    padding: 11px 22px;
+  }
+
+  &:hover {
+    background-color: var(--fat-primary-tint);
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  h5 {
+    margin: 2px 0 0;
+    font-size: 12px;
+  }
+  
+}

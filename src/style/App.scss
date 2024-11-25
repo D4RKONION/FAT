@@ -136,6 +136,11 @@ ion-toolbar {
 	}
 }
 
+@media (min-width: 768px) {
+  ion-modal {
+    --border-radius: 7px;
+  }
+}
 
 @media (min-width: 992px) {
 	ion-header {
@@ -155,7 +160,5 @@ ion-toolbar {
 
 		}
 	}
-  ion-modal {
-    --border-radius: 7px;
-  }
+  
 }

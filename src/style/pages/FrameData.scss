@@ -17,6 +17,10 @@
     animation: slideIn 0.25s ease-in-out;
   }
 
+  ion-searchbar {
+    --cancel-button-color: var(--fat-primary-contrast);
+  }
+
   
 
   ion-fab {

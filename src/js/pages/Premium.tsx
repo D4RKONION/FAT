@@ -9,6 +9,8 @@ import ThemeSwitcher from "../components/ThemeSwitcher";
 import { purchaseLifetimePremium, resetPremium } from "../actions";
 import { useState } from "react";
 import bookmarkImage from "../../images/premium-examples/bookmarks.png"
+import ChunkyButton from "../components/ChunkyButton";
+import { APP_CURRENT_VERSION_CODE } from "../constants/VersionLogs";
 
 const Premium = () => {
 
@@ -81,7 +83,7 @@ const Premium = () => {
             <section>
               <h1>Priority Support</h1>
               <hr></hr>
-              <p>I do my best to reply to all emails as soon as I can but life can be hectic! Emails from users who have premium get replies first as priority. Simply tap the email button in settings.</p>
+              <p>I do my best to reply to all emails as soon as I can but life can be hectic! Emails from users who have premium get replies first as priority. Simply tap the email button in settings{premiumIsPurchased && " "}{premiumIsPurchased && <a href={`mailto:apps@fullmeter.com?subject=FAT-${"P~"}${APP_CURRENT_VERSION_CODE} | SUBJECT_HERE`}>or click here</a>}.</p>
             </section>
 
           </article>
@@ -93,12 +95,13 @@ const Premium = () => {
             </IonFabButton>
           </IonFab>
         }
-  
-        {!premiumIsPurchased && 
-          <IonButton mode="ios" shape="round" onClick={() => {
-            setPremiumModalIsOpen(true)
-          }}>Upgrade to Premium!</IonButton>
+  {
+          !premiumIsPurchased &&
+            <ChunkyButton
+              onClick={() => setPremiumModalIsOpen(true)}
+            >Upgrade to Premium!</ChunkyButton>
         }
+        
 
         {/* styled globally as modals are presented at root  */}
         <IonModal className="premium-offer-modal" showBackdrop={true} isOpen={premiumModalIsOpen} initialBreakpoint={1} breakpoints={[0, 1]} onDidDismiss={() => setPremiumModalIsOpen(false)}>
@@ -111,6 +114,7 @@ const Premium = () => {
                 )?.getOffer()?.order()
               }}>Lifetime Premium {iapStore?.get("com.fullmeter.fat.premium_lifetime")?.pricing.price || defaultPrice}</IonButton>
             }
+            
             <IonItem>
               <IonCheckbox checked={tipAdded} onIonChange={() => setTipAdded(!tipAdded)}>Add a tip for Paul (+{defaultTip}) </IonCheckbox>
             </IonItem>

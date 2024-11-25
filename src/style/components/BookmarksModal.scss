@@ -92,4 +92,23 @@
     
   }
 
+  .bookmark-message-container {
+    text-align: center;
+    margin: 50px 15px 0;
+    opacity: 0.8;
+    > h1 {
+      margin-bottom: 15px;
+    }
+    p {
+      margin: 1px;
+      span {
+        text-decoration: underline;
+        cursor: pointer;
+        opacity: 1;
+        color: var(--fat-a);
+      }
+    }
+     
+  }
+
 }
