@@ -1,46 +1,99 @@
 #statCompare {
-  ion-item-divider {
-    background: none;
-    position: relative;
-    border-bottom: 1px solid #dedede;
-    padding: 0 0 0 11px;
-    margin: 5px 0 10px 22px;
-
-    p {
-      font-size: 28px;
-      color: var(--fat-statcompare-big-header);
-    }
-  }
-
-  .stat-images-container {
+  .side-and-main-container {
     display: flex;
-    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 30px;
     
-    margin-bottom: 20px;
-    padding: 0px 23px;
-    padding-bottom: env(safe-area-inset-bottom);
-    
-    .character-portrait {
-      max-width: 100px;
-      min-width: 59px;
-      width: 19%;
-      transform: skew(-8deg, 0);
-      margin: 2px;
-      border-radius: 0;
+    @media (min-width: 992px) {
+      margin: 15px auto;
+    }
 
 
-      h2 {
-        font-size: 16px;
+    .side-bar {
+      list-style: none;
+      flex: 1 0 auto;
+      margin: 0 0 0 20px;
+      padding: 0;
+      
+      @media (max-width: 991px) {
+        display: none;
+      }
+
+      li {
+        padding: 12px 0 12px 15px;
+        border-bottom: 1px solid var(--fat-settings-item-border);
+        cursor: pointer;
         &.selected {
-          background: var(--fat-primary);
-          font-weight: bold; 
+          background-color: var(--fat-menu-selected-item-bg);
         }
       }
     }
-    img {
-      transform: scale(1.15) skew(8deg);
+
+    
+    .main-content {
+      max-width: 800px;
+      display: flex;
+      flex-direction: column;
+      flex: 4 1 auto;
+      margin: 0 20px 0 0;
+      
+
+      @media (max-width: 991px) {
+        margin: 0 auto;
+      }
+      
+      
+      ion-item {
+        margin-bottom: 15px;
+        @media (min-width: 992px) {
+          display: none;
+        }
+      }
+  
+      .stats-container {
+        display: grid;
+        grid-template-columns: minmax(70px, 1fr) 7fr;
+        padding-bottom: env(safe-area-inset-bottom);
+        background-color: var(--fat-stat-compare-container-bg);
+        overflow: hidden;
+
+        @media (min-width: 800px) {
+          border-radius: 15px;
+        }
+    
+        .stat-section-header {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #000000;
+          border-bottom: 3px solid var(--fat-background);
+          padding: 0 6px;
+          text-align: center;
+          margin-right: 4px;
+        }
+    
+        .stat-images-container {
+          display: flex;
+          flex-wrap: wrap;
+          border-bottom: 3px solid var(--fat-background);
+          gap: 4px;
+          
+          .character-portrait {
+            max-width: 80px;
+            min-width: 59px;
+            width: 19%;
+            border-radius: 8px;
+          }
+        }
+      }
     }
   }
+  
+
+  
+
+  
 
 }
 

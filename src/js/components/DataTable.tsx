@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import { Fragment, useEffect, useState } from "react"
 import { PlayerData } from "../types"
 import DataTableRow from "./DataTableRow"
 import { activeGameSelector, activePlayerSelector, dataTableSettingsSelector, orientationSelector, selectedCharactersSelector } from "../selectors"
@@ -168,7 +168,7 @@ const DataTable = ({frameData, searchText, scrollToBottom, clearSearchText}: Pro
             }
 
             return (
-              <React.Fragment key={`table-row-${moveName}`}>
+              <Fragment key={`table-row-${moveName}`}>
                 {moveTypeHeaderRequired &&
                   <DataTableHeader
                     colsToDisplay={colsToDisplay}
@@ -184,7 +184,7 @@ const DataTable = ({frameData, searchText, scrollToBottom, clearSearchText}: Pro
                   xScrollEnabled={xScrollEnabled}
                   displayOnlyStateMoves={displayOnlyStateMoves}
                 />
-              </React.Fragment>
+              </Fragment>
             )
           })}
           <DataTableHeader

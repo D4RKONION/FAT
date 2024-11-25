@@ -1,5 +1,5 @@
 import { IonContent, IonPage, IonItem, IonSelect, IonSelectOption, IonIcon, IonFab, IonFabButton, IonItemDivider, IonGrid, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle } from '@ionic/react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import '../../style/pages/StatCompare.scss';
 import '../../style/components/FAB.scss'
@@ -31,9 +31,32 @@ const StatCompare = () => {
       )
     )
   )
+
+  const generateColors = (numColors) => {
+    let colors = [];
+    if (numColors === 2) {
+      colors = ["hsl(0, 100%, 75%)", "hsl(25, 100%, 75%)"];
+    } else if (numColors === 3) {
+      colors = ["hsl(0, 100%, 75%)", "hsl(25, 100%, 75%)",  "hsl(60, 100%, 75%)"];
+    } else if (numColors === 4) {
+      colors = ["hsl(0, 100%, 75%)", "hsl(28, 100%, 75%)",  "hsl(60, 100%, 75%)", "hsl(100, 100%, 75%)"];
+    } else if (numColors === 5) {
+      colors = ["hsl(0, 100%, 75%)", "hsl(28, 100%, 75%)",  "hsl(60, 100%, 75%)", "hsl(100, 100%, 75%)", "hsl(185, 100%, 75%)"];
+    } else {
+      for (let i = 0; i < numColors; i++) {
+        const hue = Math.round((360 / numColors) * i); // Evenly spaced hues
+        colors.push(`hsl(${hue}, 100%, 75%)`);
+      }
+    }
+    
+    return colors;
+  }
+
   const defaultKey = Object.keys(allStats)[0];
   const [selectedStat, setSelectedStat] = useState(defaultKey);
   const [selectedStatProperName, setSelectedStatProperName] = useState<string>(allStats[defaultKey]);
+  const [colorSpectrumArray, setColorSpectrumArray] = useState([])
+  
 
   useEffect(() => {
     const statHeadingsTemp = [];
@@ -50,6 +73,9 @@ const StatCompare = () => {
         return y - z
       }).reverse()
     setStatHeadings(statHeadingsTemp);
+
+    setColorSpectrumArray(generateColors(statHeadingsTemp.length))
+
 
   },[selectedStat, frameDataFile]);
 
@@ -70,55 +96,58 @@ const StatCompare = () => {
 
 
       <IonContent id="statCompare">
-        <IonGrid fixed>
-          <IonItem lines="full">
-            <IonSelect
-              label={"Selected Stat"}
-              interfaceOptions={{ header: "Selected Stat" }}
-              value={selectedStat}
-              okText="Select"
-              cancelText="Cancel"
-              onIonChange={e => {setSelectedStat(e.detail.value); setSelectedStatProperName(allStats[e.detail.value])}}
-            >
-              {Object.keys(allStats).map(statKey =>
-                <IonSelectOption key={`stat-${statKey}`} value={statKey}>{allStats[statKey]}</IonSelectOption>
+        <div className='side-and-main-container'>
+          <ul className='side-bar'>
+            {Object.keys(allStats).map(statKey => 
+              statKey !== "bestReversal" && <li key={`stat-${statKey}`} className={statKey === selectedStat ? "selected" : null} onClick={() => {setSelectedStat(statKey); setSelectedStatProperName(allStats[statKey])}}>{allStats[statKey]}</li>             
+            )}
+          </ul>
+          <div className='main-content'>
+            <IonItem lines="full">
+              <IonSelect
+                label={"Selected Stat"}
+                interfaceOptions={{ header: "Selected Stat" }}
+                interface='modal'
+                value={selectedStat}
+                okText="Select"
+                cancelText="Cancel"
+                onIonChange={e => {setSelectedStat(e.detail.value); setSelectedStatProperName(allStats[e.detail.value])}}
+              >
+                {Object.keys(allStats).map(statKey => 
+                  statKey !== "bestReversal" && <IonSelectOption key={`stat-${statKey}`} value={statKey}>{allStats[statKey]}</IonSelectOption>             
+                )}
+              </IonSelect>
+            </IonItem>
+            <div className='stats-container'>
+              {statHeadings.map((statSectionHeader, index) =>
+                !statSectionHeader || statSectionHeader === "?"|| statSectionHeader === "~"
+                  ? null
+                  : <Fragment key={statSectionHeader}>
+                      <div style={{backgroundColor: colorSpectrumArray[index]}} className='stat-section-header' key={`section-${statSectionHeader}`}>
+                        {statSectionHeader}
+                      </div>
+                      <div>
+                        <span className="stat-images-container">
+                          {Object.keys(frameDataFile).map(charName =>
+                            frameDataFile[charName].stats[selectedStat] === statSectionHeader && !frameDataFile[charName].stats.hideCharacter &&
+                              <CharacterPortrait
+                                key={`${activeGame}-${charName}-stat-image`}
+                                charName={charName}
+                                game={activeGame}
+                                selected={ (charName === selectedCharacters.playerOne.name || charName === selectedCharacters.playerTwo.name) && true}
+                                charColor={frameDataFile[charName].stats.color}
+                                remoteImage={frameDataFile[charName].stats.remoteImage}
+                                showName={false}
+                              />
+                          )}
+                        </span>
+                      </div>
+                    </Fragment>
               )}
-            </IonSelect>
-          </IonItem>
-
-          {statHeadings.map(listHeader =>
-            listHeader === "?"
-              ? null
-              : <div key={`section-${listHeader}`}>
-                  <IonItemDivider>
-                    <p>{listHeader}</p>
-                  </IonItemDivider>
-                  <div className="stat-images-container">
-                    {Object.keys(frameDataFile).map(charName =>
-                      frameDataFile[charName].stats[selectedStat] === listHeader && !frameDataFile[charName].stats.hideCharacter &&
-                        <CharacterPortrait
-                          key={`${activeGame}-${charName}-stat-image`}
-                          charName={charName}
-                          game={activeGame}
-                          selected={ (charName === selectedCharacters.playerOne.name || charName === selectedCharacters.playerTwo.name) && true}
-                          charColor={frameDataFile[charName].stats.color}
-                          remoteImage={frameDataFile[charName].stats.remoteImage}
-                          showName={false}
-                        />
-                    )}
-                  </div>
-                </div>
-          )}
+            </div>
+          </div>
+        </div>
           
-
-          
-
-        </IonGrid>
-        <IonFab vertical="bottom" horizontal="end" slot="fixed">
-            <IonFabButton onClick={ () => { dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true})) } }>
-              <IonIcon icon={person} />
-            </IonFabButton>
-          </IonFab>
       </IonContent>
     </IonPage>
   );

@@ -1,7 +1,7 @@
 import { IonContent, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonAlert, isPlatform, IonGrid, IonRippleEffect, IonButton } from '@ionic/react';
 import { peopleOutline, settingsOutline, settingsSharp, moon, sunny, gameControllerOutline, libraryOutline, librarySharp, calculatorOutline, calculatorSharp, searchOutline, searchSharp, statsChartOutline, statsChartSharp, barbellOutline, barbellSharp, menuSharp, logoPaypal, phonePortraitOutline, phonePortraitSharp, cafe, diamondOutline, diamondSharp, bookmarksOutline } from 'ionicons/icons';
 
-import React, { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -265,7 +265,7 @@ const Menu = () => {
                 return false;
               } else {
                 return (
-                  <React.Fragment key={`mobile-${appPage.title}`}>
+                  <Fragment key={`mobile-${appPage.title}`}>
                     <IonMenuToggle autoHide={false}>
                       <IonItem className={modeName === appPage.modeName ? "selected" : null} routerLink={appPage.url} routerDirection="root" lines="none" detail={false} button>
                         <IonIcon slot="start" icon={appPage.iosIcon} />
@@ -273,7 +273,7 @@ const Menu = () => {
                       </IonItem>
                     </IonMenuToggle>
                     {!isPlatform("capacitor") && appPage.modeName === "settings" && <hr />}
-                  </React.Fragment>
+                  </Fragment>
                 )
               }
             })}

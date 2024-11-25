@@ -33,6 +33,7 @@ export const VERSION_LOGS = {
     ],
     "General UI fixes": [
       "Overhauled Quick Search mode",
+      "Completely rewrote Stat Compare page",
       "Improvements made to the widescreen menu",
       "Tons of small tweaks here and there"
     ],
