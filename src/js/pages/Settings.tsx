@@ -6,8 +6,8 @@ import { setActiveGame, setAdviceToastsOn, setDataDisplaySettings, setPlayer, se
 import '../../style/pages/Settings.scss';
 import { logoTwitter, chevronForward, mailOutline, starOutline, heartOutline, openOutline, globeOutline, logoGithub, bulbOutline, lockClosedOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router';
-import { APP_CURRENT_VERSION_NAME } from '../constants/VersionLogs';
-import { activeGameSelector, dataDisplaySettingsSelector, selectedCharactersSelector, appDisplaySettingsSelector, adviceToastSelector } from '../selectors';
+import { APP_CURRENT_VERSION_CODE, APP_CURRENT_VERSION_NAME } from '../constants/VersionLogs';
+import { activeGameSelector, dataDisplaySettingsSelector, selectedCharactersSelector, appDisplaySettingsSelector, adviceToastSelector, premiumSelector } from '../selectors';
 import { GAME_NAMES } from '../constants/ImmutableGameDetails';
 import ThemeSwitcher from '../components/ThemeSwitcher';
 import PopoverButton from '../components/PopoverButton';
@@ -20,6 +20,7 @@ const Settings = () => {
   const adviceToastsOn = useSelector(adviceToastSelector).adviceToastsOn;
   const themeAccessibility = useSelector(appDisplaySettingsSelector).themeAccessibility;
   const themeBrightness = useSelector(appDisplaySettingsSelector).themeBrightness;
+  const premiumIsPurchased = useSelector(premiumSelector).lifetimePremiumPurchased;
 
   const dispatch = useDispatch();
   
@@ -172,7 +173,7 @@ const Settings = () => {
 
             {/* FEEDBACK OPTIONS */}
             <IonListHeader>Feedback</IonListHeader>
-            <IonItem lines="none" href="mailto:apps@fullmeter.com" target="_system" button>
+            <IonItem lines="none" href={`mailto:apps@fullmeter.com?subject=FAT-${premiumIsPurchased ? "P~" : "V~"}${APP_CURRENT_VERSION_CODE} | SUBJECT_HERE`} target="_system" button>
               <IonLabel>
                 <h2>apps@fullmeter.com</h2>
                 <p>Got any suggestions or feedback for FAT? Email me!</p>

@@ -34,13 +34,13 @@ const menuEntryDetails = {
   //   mdIcon: gameControllerOutline,
   //   modeName: "gameselect",
   // },
-  characterselect: {
+  characterSelect: {
     title: 'Character Select',
     type: "modalOpener",
     url: `/framedata/${activeGame}/${selectedCharacters.playerOne.name}`,
     iosIcon: peopleOutline,
     mdIcon: peopleOutline,
-    modeName: "characterselect",
+    modeName: "characterSelect",
   },
   bookmarks: {
     title: 'Bookmarks',
@@ -175,7 +175,7 @@ const onClickHandler = (menuEntryType) => {
     window.open(menuEntryDetails[menuEntryKey].externalUrl, '_blank')
 
   } else if (menuEntryType === "modalOpener") {
-    if ((menuEntryKey === "characterselect" || menuEntryKey === "bookmarks") && currentMode !== "movedetail") {
+    if ((menuEntryKey === "characterSelect" || menuEntryKey === "bookmarks") && currentMode !== "movedetail") {
       dispatch(setModalVisibility({ currentModal: menuEntryKey as AppModal, visible: true }))
     }
 
@@ -197,7 +197,7 @@ const onClickHandler = (menuEntryType) => {
         className={`
           widescreen-menu-entry
           ion-activatable
-          ${(currentMode === "movedetail" && (menuEntryKey === "characterselect" || menuEntryKey === "gameselect")) ? "disabled" : ""}
+          ${(currentMode === "movedetail" && (menuEntryKey === "characterSelect" || menuEntryKey === "gameselect")) ? "disabled" : ""}
           ${menuEntryDetails[menuEntryKey].modeName === currentMode || (currentMode === "movedetail" && menuEntryDetails[menuEntryKey].modeName === window.location.hash.split("/")[1]) ? "active-mode" : ""}
           ${!wideMenuIsOpen && "menu-collapsed"}
         `}

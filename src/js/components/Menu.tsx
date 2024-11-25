@@ -185,7 +185,7 @@ const Menu = () => {
   ];
 
   const MENU_ENTRIES = [
-    "characterselect",
+    "characterSelect",
     "bookmarks",
     "framedata",
     "quicksearch",
