@@ -65,11 +65,11 @@ const DataTable = ({frameData, searchText, scrollToBottom, clearSearchText}: Pro
     let tempSearchTerm = searchText;
   
     // Convert "EX" to "OD" if the game is SF6
-    if (activeGame === "SF6" && tempSearchTerm.toLowerCase().includes("ex")) {
+    if (activeGame === "SF6" && tempSearchTerm.toLowerCase().includes("ex") && tempSearchTerm.substring(0,3) === "info") {
       tempSearchTerm = tempSearchTerm.toLowerCase().replaceAll("ex", "od");
     }
   
-    const operators = ["=", ">=", "<=", ">", "<"];
+    const operators = ["=", ">=", "<=", ">", "<", ":"];
     const operatorPattern = new RegExp(`(${operators.map(op => op.replace(/([=<>])/g, "\\$1")).join("|")})`);
     const match = tempSearchTerm.match(operatorPattern);
   
@@ -97,7 +97,7 @@ const DataTable = ({frameData, searchText, scrollToBottom, clearSearchText}: Pro
         const dataValue = moveData[dataKey];
   
         switch (operator) {
-          case "=": return dataValue.toString() === value.trim();
+          case "=": case ":": return dataValue.toString() === value.trim();
           case ">=": return parseInt(dataValue) >= parseInt(value);
           case "<=": return parseInt(dataValue) <= parseInt(value);
           case ">": return parseInt(dataValue) > parseInt(value);

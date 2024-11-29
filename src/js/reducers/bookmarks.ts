@@ -24,7 +24,6 @@ export const bookmarksReducer = (state = defaultState, action: BookmarksReducerA
       ]
 
     case 'REORDER_BOOKMARKS':
-      console.log(action.reorderedBookmarkArray)
       return action.reorderedBookmarkArray;
 
     case 'CLEAR_ALL_BOOKMARKS':

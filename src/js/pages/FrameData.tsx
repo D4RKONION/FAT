@@ -41,7 +41,7 @@ const FrameData = () => {
   const [searchText, setSearchText] = useState('');
   const [characterHasStates, setCharacterHasStates] = useState(false);
 
-  const searchBoxMessages = [`Search ${selectedCharacters[activePlayer].name}`, 'Type a move name', 'Try s = 4', 'Try a > 3', 'Try r < 10', 'Try oH >= 3', 'Try xx = sp', 'Try info = fully inv', 'Try oB <= -4', 'Try =, >, <, >=, <=']
+  const searchBoxMessages = [`Search ${selectedCharacters[activePlayer].name}`, 'Type a move name', 'Try s: 4', 'Try a > 3', 'Try r < 10', 'Try oH >= 3', 'Try xx: sp', 'Try info: fully inv', 'Try oB <= -4', 'Try =, >, <, >=, <=']
   const [searchPlaceholderText, setSearchPlaceholderText] = useState(searchBoxMessages[0]);
 
   const dispatch = useDispatch();
@@ -94,8 +94,12 @@ const FrameData = () => {
   }, [selectedCharacters, activeGame, activePlayer, bookmarks])
 
 
-
-
+  const searchRef = useRef(null)
+  useEffect(() => {
+    if (searchShown) {
+      searchRef?.current.setFocus()
+    }
+  }, [searchShown])
 
   const contentRef = useRef(null);
   let lastScrollTime = useRef(0)
@@ -113,7 +117,6 @@ const FrameData = () => {
     } else {
       setScrollingUp(false)
     }
-    
   }
 
   return (
@@ -143,6 +146,7 @@ const FrameData = () => {
                 onIonInput={e => setSearchText(e.detail.value!)}
                 onIonCancel={() => {setSearchText(""); setSearchShown(false)}}
                 placeholder={searchPlaceholderText}
+                ref={searchRef}
                 />
               <IonButtons slot='end'>
                 <PopoverButton />
