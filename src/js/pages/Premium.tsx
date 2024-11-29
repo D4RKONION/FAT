@@ -54,6 +54,9 @@ const Premium = () => {
             <article>
               <p>Hi I'm Paul! I've been developing and releasing FAT ad-free for over 10 years now. All core features and data (and pretty much everything else!) will always be free forever!</p>
               <p>However, if you'd like to support me, Premium is a <strong>one-time purchase</strong> which gives you access to a few helpful extra features as a thank you.</p>
+              {isPlatform("ios") && 
+                <IonButton expand="full" shape="round" mode="ios" onClick={() => iapStore.restorePurchases()}>Restore Premium Purchase</IonButton>
+              }
             </article>
           </>
           
@@ -88,13 +91,13 @@ const Premium = () => {
 
           </article>
         {/* DEBUG BUTTON */}
-        {!isPlatform("capacitor") && 
+        {/* {!isPlatform("capacitor") && 
           <IonFab slot="fixed" vertical="bottom" horizontal="end">
             <IonFabButton onClick={() => premiumIsPurchased ? dispatch(resetPremium()) : dispatch(purchaseLifetimePremium())}>
               <IonIcon icon={diamondSharp}></IonIcon>
             </IonFabButton>
           </IonFab>
-        }
+        } */}
         {
           !premiumIsPurchased &&
             <ChunkyButton
