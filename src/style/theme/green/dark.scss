@@ -12,10 +12,47 @@ ion-app.green-dark-theme, .themePreview.green-dark-theme {
 
 
   --fat-primary: #429242;
-  --fat-primary-shade: #2ec12e;
-  --fat-primary-shade-extreme: #319036;
-  --fat-primary-tint: #1d2f1c;
-  --fat-primary-tint-extreme: #141814;
+
+  --fat-primary-shade-step-50: #408c40;
+	--fat-primary-shade-step-100: #3d853d;
+	--fat-primary-shade-step-150: #3b7f3b;
+	--fat-primary-shade-step-200: #387838;
+	--fat-primary-shade-step-250: #367236;
+	--fat-primary-shade-step-300: #346c34;
+	--fat-primary-shade-step-350: #316531;
+	--fat-primary-shade-step-400: #2f5f2f;
+	--fat-primary-shade-step-450: #2c582c;
+	--fat-primary-shade-step-500: #2a522a;
+	--fat-primary-shade-step-550: #284c28;
+	--fat-primary-shade-step-600: #254525;
+	--fat-primary-shade-step-650: #233f23;
+	--fat-primary-shade-step-700: #203820;
+	--fat-primary-shade-step-750: #1e321e;
+	--fat-primary-shade-step-800: #1c2c1c;
+	--fat-primary-shade-step-850: #192519;
+	--fat-primary-shade-step-900: #171f17;
+	--fat-primary-shade-step-950: #141814;
+
+  --fat-primary-tint-step-50: #81f88b;
+	--fat-primary-tint-step-100: #7bdf83;
+	--fat-primary-tint-step-150: #75d47d;
+	--fat-primary-tint-step-200: #70c877;
+	--fat-primary-tint-step-250: #6abd71;
+	--fat-primary-tint-step-300: #64b26a;
+	--fat-primary-tint-step-350: #5ea664;
+	--fat-primary-tint-step-400: #589b5e;
+	--fat-primary-tint-step-450: #528f57;
+	--fat-primary-tint-step-500: #4d8451;
+	--fat-primary-tint-step-550: #47794b;
+	--fat-primary-tint-step-600: #416d44;
+	--fat-primary-tint-step-650: #3b623e;
+	--fat-primary-tint-step-700: #355638;
+	--fat-primary-tint-step-750: #2f4b32;
+	--fat-primary-tint-step-800: #29402b;
+	--fat-primary-tint-step-850: #243425;
+	--fat-primary-tint-step-900: #1e291f;
+	--fat-primary-tint-step-950: #181d18;
+
   --fat-primary-contrast: #ffffff;
 
   --fat-vtrigger: #dd3c3c;
