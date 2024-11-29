@@ -11,6 +11,48 @@ ion-app.red-dark-theme, .themePreview.red-dark-theme {
   /**-----------**/
 
   --fat-primary: #893f3f;
+
+  --fat-primary-shade-step-50: #833d3d;
+	--fat-primary-shade-step-100: #7d3b3b;
+	--fat-primary-shade-step-150: #773838;
+	--fat-primary-shade-step-200: #713636;
+	--fat-primary-shade-step-250: #6b3434;
+	--fat-primary-shade-step-300: #653131;
+	--fat-primary-shade-step-350: #5f2f2f;
+	--fat-primary-shade-step-400: #592d2d;
+	--fat-primary-shade-step-450: #532b2b;
+	--fat-primary-shade-step-500: #4e2929;
+	--fat-primary-shade-step-550: #482626;
+	--fat-primary-shade-step-600: #422424;
+	--fat-primary-shade-step-650: #3c2222;
+	--fat-primary-shade-step-700: #362020;
+	--fat-primary-shade-step-750: #301d1d;
+	--fat-primary-shade-step-800: #2a1b1b;
+	--fat-primary-shade-step-850: #241919;
+	--fat-primary-shade-step-900: #1e1717;
+	--fat-primary-shade-step-950: #181414;
+
+  --fat-primary-tint-step-50: #f36262;
+	--fat-primary-tint-step-100: #e75e5e;
+	--fat-primary-tint-step-150: #db5959;
+	--fat-primary-tint-step-200: #d05555;
+	--fat-primary-tint-step-250: #c45151;
+	--fat-primary-tint-step-300: #b84d4d;
+	--fat-primary-tint-step-350: #ac4949;
+	--fat-primary-tint-step-400: #a04444;
+	--fat-primary-tint-step-450: #944040;
+	--fat-primary-tint-step-500: #893c3c;
+	--fat-primary-tint-step-550: #7d3838;
+	--fat-primary-tint-step-600: #713434;
+	--fat-primary-tint-step-650: #652f2f;
+	--fat-primary-tint-step-700: #592b2b;
+	--fat-primary-tint-step-750: #4d2727;
+	--fat-primary-tint-step-800: #412323;
+	--fat-primary-tint-step-850: #361f1f;
+	--fat-primary-tint-step-900: #2a1a1a;
+	--fat-primary-tint-step-950: #1e1616;
+
+
   --fat-primary-shade: #c12e2e;
   --fat-primary-shade-extreme: #903131;
   --fat-primary-tint: #2f1c1c;
@@ -86,10 +128,10 @@ ion-app.red-dark-theme, .themePreview.red-dark-theme {
   --fat-markdown-hr: #be8b8b;
   
   // Menu
-  --fat-menu-top: #750f0f;
+  --fat-menu-top: #461717;
   --fat-menu-top-h2: var(--fat-primary-contrast);
   --fat-menu-top-p: #ffa7a7;
-  --fat-menu-top-lightswitch: var(--fat-primary-shade-extreme);
+  --fat-menu-top-lightswitch: var(--fat-primary-shade-step-300);
   --fat-menu-background: #1e1e1e;
   --fat-menu-background-contrast: #ffffff;
   --fat-menu-icon: #acacac;
@@ -97,7 +139,7 @@ ion-app.red-dark-theme, .themePreview.red-dark-theme {
   --fat-menu-selected-item-contrast: #ffc6c6;
    
   // Wide Menu
-  --fat-wide-menu-background: #5a0a0c;
+  --fat-wide-menu-background: #461717;
 
   // Frame Data
   --fat-datatable-header-bg: #5a1414;

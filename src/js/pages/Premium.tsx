@@ -76,7 +76,7 @@ const Premium = () => {
               <p>Want to stand out from the crowd? Sick of the colour blue? Then app themes are for you! Choose from 4 new themes which work in both light and dark mode!</p>
               <ThemeSwitcher
                 premiumPreview={true}
-
+                lines={false}
               ></ThemeSwitcher>
             </section>
 
@@ -95,9 +95,10 @@ const Premium = () => {
             </IonFabButton>
           </IonFab>
         }
-  {
+        {
           !premiumIsPurchased &&
             <ChunkyButton
+              extraText="See Options"
               onClick={() => setPremiumModalIsOpen(true)}
             >Upgrade to Premium!</ChunkyButton>
         }

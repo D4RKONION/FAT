@@ -13,8 +13,8 @@
   box-shadow: var(--fat-surface-shadow) 0px 5px 10px;
   border-radius: 100px;
 
-  color: var(--fat-primary-contrast);
-  background: var(--fat-primary);
+  color: var(--fat-chunky-button-contrast);
+  background: var(--fat-chunky-button-bg);
   font-weight: bold;
 
   &.one-line {
@@ -25,7 +25,7 @@
   }
 
   &:hover {
-    background-color: var(--fat-primary-tint);
+    background-color: var(--fat-primary-tint-step-100);
   }
 
   h1 {

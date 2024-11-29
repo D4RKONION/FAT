@@ -10,15 +10,52 @@ ion-app.green-light-theme, .themePreview.green-light-theme {
   /** Variables **/
   /**-----------**/
 
-  --fat-primary: #12801D;
-  --fat-primary-shade: #217e2b;
-  --fat-primary-shade-extreme: #127212;
-  --fat-primary-tint: #379140;
-  --fat-primary-tint-extreme: #c8eccd;
+  --fat-primary: #27ae60;
+  
+  --fat-primary-tint-step-50: #32b268;
+	--fat-primary-tint-step-100: #3db670;
+	--fat-primary-tint-step-150: #47ba78;
+	--fat-primary-tint-step-200: #52be80;
+	--fat-primary-tint-step-250: #5dc288;
+	--fat-primary-tint-step-300: #68c690;
+	--fat-primary-tint-step-350: #73ca98;
+	--fat-primary-tint-step-400: #7dcea0;
+	--fat-primary-tint-step-450: #88d2a8;
+	--fat-primary-tint-step-500: #93d7b0;
+	--fat-primary-tint-step-550: #9edbb7;
+	--fat-primary-tint-step-600: #a9dfbf;
+	--fat-primary-tint-step-650: #b3e3c7;
+	--fat-primary-tint-step-700: #bee7cf;
+	--fat-primary-tint-step-750: #c9ebd7;
+	--fat-primary-tint-step-800: #d4efdf;
+	--fat-primary-tint-step-850: #dff3e7;
+	--fat-primary-tint-step-900: #e9f7ef;
+	--fat-primary-tint-step-950: #f4fbf7;
+
+  --fat-primary-shade-step-50: #25a55b;
+	--fat-primary-shade-step-100: #239d56;
+	--fat-primary-shade-step-150: #219452;
+	--fat-primary-shade-step-200: #1f8b4d;
+	--fat-primary-shade-step-250: #1d8348;
+	--fat-primary-shade-step-300: #1b7a43;
+	--fat-primary-shade-step-350: #19713e;
+	--fat-primary-shade-step-400: #17683a;
+	--fat-primary-shade-step-450: #156035;
+	--fat-primary-shade-step-500: #145730;
+	--fat-primary-shade-step-550: #124e2b;
+	--fat-primary-shade-step-600: #104626;
+	--fat-primary-shade-step-650: #0e3d22;
+	--fat-primary-shade-step-700: #0c341d;
+	--fat-primary-shade-step-750: #0a2c18;
+	--fat-primary-shade-step-800: #082313;
+	--fat-primary-shade-step-850: #061a0e;
+	--fat-primary-shade-step-900: #04110a;
+	--fat-primary-shade-step-950: #020905;
+
   --fat-primary-contrast: #ffffff;
 
-  --fat-vtrigger: #d61c1c;
-  --fat-vtrigger-shade: #ac3b3b;
+  --fat-vtrigger: #F45E37;
+  --fat-vtrigger-shade: #cf502f;
   --fat-vtrigger-tint: #f1d5d5;
   --fat-vtrigger-contrast: #ffffff;
 
@@ -45,14 +82,14 @@ ion-app.green-light-theme, .themePreview.green-light-theme {
   --fat-toggle-background-checked: rgba(61, 189, 50, 0.5);
 
   // IonList
-  --fat-ionlist-header: var(--fat-primary-shade-extreme);
+  --fat-ionlist-header: var(--fat-primary-shade-step-300);
   --fat-ionlist-thick-header: #e2f1e4;
-  --fat-ionlist-thick-header-contrast: var(--fat-primary-shade-extreme);
+  --fat-ionlist-thick-header-contrast: var(--fat-primary-shade-step-300);
   --fat-ionlist-border: #dedede;
   --fat-ionlist-label-p: #666666;
   --fat-ionlist-icon: #757575;
   --fat-ionlist-highlighted-background: #f1faf1;
-  --fat-ionlist-highlighted-contrast: var(--fat-primary-shade-extreme);
+  --fat-ionlist-highlighted-contrast: var(--fat-primary-shade-step-300);
   --fat-ionlist-sublist-header-background: var(--fat-background);
   --fat-checkbox-checked: var(--fat-primary);
   --fat-meter-full: #29b130;
@@ -67,18 +104,18 @@ ion-app.green-light-theme, .themePreview.green-light-theme {
   --fat-menu-top: var(--fat-primary);
   --fat-menu-top-h2: var(--fat-primary-contrast);
   --fat-menu-top-p: #d0ffd4;
-  --fat-menu-top-lightswitch: var(--fat-primary-shade-extreme);
+  --fat-menu-top-lightswitch: var(--fat-primary-shade-step-300);
   --fat-menu-background: var(--fat-background);
   --fat-menu-background-contrast: var(--fat-background-contrast);
   --fat-menu-icon: #617e62;
-  --fat-menu-selected-item-bg: var(--fat-primary-tint-extreme);
+  --fat-menu-selected-item-bg: var(--fat-primary-tint-step-300);
   --fat-menu-selected-item-contrast: #0f640f;
 
   // Wide Menu
-  --fat-wide-menu-background: #0b4d11;
+  --fat-wide-menu-background: #17683a;
 
   // Frame Data
-  --fat-datatable-header-bg: var(--fat-primary-shade-extreme);
+  --fat-datatable-header-bg: var(--fat-primary-shade-step-200);
   --fat-datatable-header-contrast: #ffffff;
   --fat-datatable-hover-border: #ace7af;
 
@@ -87,5 +124,5 @@ ion-app.green-light-theme, .themePreview.green-light-theme {
   --fat-portrait-bg: #a7cbab;
 
   // Stat Compare
-  --fat-stat-compare-container-bg: #e5efe4;
+  --fat-stat-compare-container-bg: #efefef;
  }

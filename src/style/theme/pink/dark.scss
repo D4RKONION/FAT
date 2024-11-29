@@ -12,14 +12,53 @@ ion-app.pink-dark-theme, .themePreview.pink-dark-theme {
 
 
   --fat-primary: #92428e;
-  --fat-primary-shade: #c12ea9;
-  --fat-primary-shade-extreme: #903183;
-  --fat-primary-tint: #2f1c2c;
-  --fat-primary-tint-extreme: #181417;
+
+  --fat-primary-tint-step-50: #ea80e5;
+	--fat-primary-tint-step-100: #dd7ad9;
+	--fat-primary-tint-step-150: #d173cd;
+	--fat-primary-tint-step-200: #c56cc1;
+	--fat-primary-tint-step-250: #b965b5;
+	--fat-primary-tint-step-300: #ac5fa9;
+	--fat-primary-tint-step-350: #a0589d;
+	--fat-primary-tint-step-400: #945191;
+	--fat-primary-tint-step-450: #874a85;
+	--fat-primary-tint-step-500: #7b4479;
+	--fat-primary-tint-step-550: #6f3d6c;
+	--fat-primary-tint-step-600: #623660;
+	--fat-primary-tint-step-650: #562f54;
+	--fat-primary-tint-step-700: #4a2948;
+	--fat-primary-tint-step-750: #3e223c;
+	--fat-primary-tint-step-800: #311b30;
+	--fat-primary-tint-step-850: #251424;
+	--fat-primary-tint-step-900: #190d18;
+	--fat-primary-tint-step-950: #0c070c;
+
+
+
+  --fat-primary-shade-step-50: #8b3f87;
+	--fat-primary-shade-step-100: #833b80;
+	--fat-primary-shade-step-150: #7c3879;
+	--fat-primary-shade-step-200: #753572;
+	--fat-primary-shade-step-250: #6e326b;
+	--fat-primary-shade-step-300: #662e63;
+	--fat-primary-shade-step-350: #5f2b5c;
+	--fat-primary-shade-step-400: #582855;
+	--fat-primary-shade-step-450: #50244e;
+	--fat-primary-shade-step-500: #492147;
+	--fat-primary-shade-step-550: #421e40;
+	--fat-primary-shade-step-600: #3a1a39;
+	--fat-primary-shade-step-650: #331732;
+	--fat-primary-shade-step-700: #2c142b;
+	--fat-primary-shade-step-750: #251124;
+	--fat-primary-shade-step-800: #1d0d1c;
+	--fat-primary-shade-step-850: #160a15;
+	--fat-primary-shade-step-900: #0f070e;
+	--fat-primary-shade-step-950: #070307;
+
   --fat-primary-contrast: #ffffff;
 
-  --fat-vtrigger: #7a3cdd;
-  --fat-vtrigger-shade: #9326db;
+  --fat-vtrigger: #663bac;
+  --fat-vtrigger-shade: #4c248c;
   --fat-vtrigger-tint: #191123;
   --fat-vtrigger-contrast: #ffffff;
 
@@ -88,18 +127,18 @@ ion-app.pink-dark-theme, .themePreview.pink-dark-theme {
 
 
   // Menu
-  --fat-menu-top: #5c1f4f;
+  --fat-menu-top: #42203f;
   --fat-menu-top-h2: var(--fat-primary-contrast);
   --fat-menu-top-p: #ebaae2;
-  --fat-menu-top-lightswitch: var(--fat-primary-shade-extreme);
+  --fat-menu-top-lightswitch: var(--fat-primary-shade-step-300);
   --fat-menu-background: #1e1e1e;
   --fat-menu-background-contrast: #ffffff;
   --fat-menu-icon: #acacac;
-  --fat-menu-selected-item-bg: #371e35;
+  --fat-menu-selected-item-bg: #42203f;
   --fat-menu-selected-item-contrast: #fcd5f7;
   
   // Wide Menu
-  --fat-wide-menu-background: #2e102a;
+  --fat-wide-menu-background: #371e35;
 
   // Frame Data
   --fat-datatable-header-bg: #4e1c47;

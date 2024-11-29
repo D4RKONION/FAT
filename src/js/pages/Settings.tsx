@@ -2,21 +2,18 @@ import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, Ion
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { setActiveGame, setAdviceToastsOn, setDataDisplaySettings, setPlayer, setThemeAccessibility, setThemeBrightness, setThemeColor } from '../actions'
+import { setActiveGame, setAdviceToastsOn, setModalVisibility, setThemeAccessibility, setThemeBrightness, setThemeColor } from '../actions'
 import '../../style/pages/Settings.scss';
 import { logoTwitter, chevronForward, mailOutline, starOutline, heartOutline, openOutline, globeOutline, logoGithub, bulbOutline, lockClosedOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router';
 import { APP_CURRENT_VERSION_CODE, APP_CURRENT_VERSION_NAME } from '../constants/VersionLogs';
-import { activeGameSelector, dataDisplaySettingsSelector, selectedCharactersSelector, appDisplaySettingsSelector, adviceToastSelector, premiumSelector } from '../selectors';
+import { activeGameSelector, appDisplaySettingsSelector, adviceToastSelector, premiumSelector } from '../selectors';
 import { GAME_NAMES } from '../constants/ImmutableGameDetails';
 import ThemeSwitcher from '../components/ThemeSwitcher';
-import PopoverButton from '../components/PopoverButton';
 
 const Settings = () => {
   
   const activeGame = useSelector(activeGameSelector);
-  const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
-  const selectedCharacters = useSelector(selectedCharactersSelector);
   const adviceToastsOn = useSelector(adviceToastSelector).adviceToastsOn;
   const themeAccessibility = useSelector(appDisplaySettingsSelector).themeAccessibility;
   const themeBrightness = useSelector(appDisplaySettingsSelector).themeBrightness;
@@ -45,9 +42,6 @@ const Settings = () => {
             <IonMenuButton />
           </IonButtons>
           <IonTitle>Settings</IonTitle>
-          <IonButtons slot="end">
-            <PopoverButton />
-          </IonButtons>
         </IonToolbar>
       </IonHeader>
 
@@ -71,97 +65,20 @@ const Settings = () => {
               </IonSelect>
             </IonItem>
 
-            <IonItem id="moveNameType" lines="none">
-              <IonSelect
-                label={"Move Names"}
-                interfaceOptions={{ header: "Select a Naming Type" }}
-                value={dataDisplaySettings.moveNameType}
-                okText="Select"
-                cancelText="Cancel"
-                onIonChange={e => {
-                  dispatch(setDataDisplaySettings({moveNameType: e.detail.value}));
-                  dispatch(setPlayer("playerOne", selectedCharacters.playerOne.name));
-                  dispatch(setPlayer("playerTwo", selectedCharacters.playerTwo.name));
-                }}
-              >
-                <IonSelectOption value="official">Official</IonSelectOption>
-                <IonSelectOption value="common">Common</IonSelectOption>
-                <IonSelectOption value="inputs">Inputs</IonSelectOption>
-              </IonSelect>
+            <IonItem lines="none" onClick={() => dispatch(setModalVisibility({ currentModal: "tableSettings", visible: true }))} button>
+              <IonLabel>
+                <h2>Frame Data Settings</h2>
+              </IonLabel>
+              {!isPlatform("ios") &&
+                <IonIcon icon={chevronForward} slot="end" />
+              }
             </IonItem>
-
-            <IonItem>
-              <IonSelect
-                label={"Input Notation"}
-                interfaceOptions={{ header: "Select a Naming Type" }}
-                value={dataDisplaySettings.inputNotationType}
-                okText="Select"
-                cancelText="Cancel"
-                onIonChange={e => {
-                  dispatch(setDataDisplaySettings({inputNotationType: e.detail.value}));
-                  if (dataDisplaySettings.moveNameType === "inputs" || dataDisplaySettings.inputNotationType === "ezCmd" || e.detail.value === "ezCmd") {
-                    dispatch(setPlayer("playerOne", selectedCharacters.playerOne.name));
-                    dispatch(setPlayer("playerTwo", selectedCharacters.playerTwo.name));
-                  }
-                }}
-              >
-                <IonSelectOption value="plnCmd">Motion</IonSelectOption>
-                <IonSelectOption value="numCmd">NumPad</IonSelectOption>
-                {activeGame === "SF6" && <IonSelectOption value="ezCmd">Modern</IonSelectOption>}
-              </IonSelect>
-            </IonItem>
-
-            {/* @Jon Uncomment this! */}
-            {/* <IonItem lines="full">
-              <IonSelect
-                label={"Normal Notation"}
-                interfaceOptions={{ header: "Select a Naming Type" }}
-                value={dataDisplaySettings.normalNotationType}
-                okText="Select"
-                cancelText="Cancel"
-                onIonChange={e => {
-                  dispatch(setDataDisplaySettings({normalNotationType: e.detail.value}));
-                  if (dataDisplaySettings.moveNameType === "official" || dataDisplaySettings.moveNameType === "common") {
-                    dispatch(setPlayer("playerOne", selectedCharacters.playerOne.name));
-                    dispatch(setPlayer("playerTwo", selectedCharacters.playerTwo.name));
-                  }
-                }}
-              >
-                <IonSelectOption value="fullWord">Full Word</IonSelectOption>
-                <IonSelectOption value="shorthand">Shorthand</IonSelectOption>
-              </IonSelect>
-            </IonItem> */}
 
 
               {/* APP OPTIONS */}
-              <IonListHeader>App Settings</IonListHeader>
-              <IonItem lines="none">
-                <IonSelect
-                  label={"Advice Popups"}
-                  interfaceOptions={{ header: "Toggle Advice Popups" }}
-                  value={adviceToastsOn}
-                  okText="Select"
-                  cancelText="Cancel"
-                  onIonChange={ e => dispatch(setAdviceToastsOn(e.detail.value)) }
-                >
-                  <IonSelectOption value={true}>On</IonSelectOption>
-                  <IonSelectOption value={false}>Off</IonSelectOption>
-                </IonSelect>
-              </IonItem>
+              <IonListHeader>General</IonListHeader>
               
-              <IonItem lines="none">
-                <IonSelect
-                  label={"Colour Blind Mode"}
-                  interfaceOptions={{ header: "Colour Blind Mode" }}
-                  value={themeAccessibility}
-                  okText="Select"
-                  cancelText="Cancel"
-                  onIonChange={ e => {dispatch(setThemeAccessibility(e.detail.value)); dispatch(setThemeColor("classic"))} }
-                >
-                  <IonSelectOption value={"colorBlind"}>On</IonSelectOption>
-                  <IonSelectOption value={"none"}>Off</IonSelectOption>
-                </IonSelect>
-              </IonItem>
+              <ThemeSwitcher lines={false} />
 
               <IonItem lines="none">
                 <IonToggle
@@ -169,7 +86,17 @@ const Settings = () => {
                   onIonChange={e => { dispatch(setThemeBrightness(e.detail.checked ? "dark" : "light"))}}>Dark Mode</IonToggle>
               </IonItem>
 
-              <ThemeSwitcher />
+              <IonItem lines="none">
+                <IonToggle
+                  checked={themeAccessibility === "none" ? false : true}
+                  onIonChange={ e => {dispatch(setThemeAccessibility(e.detail.checked ? "colorBlind" : "none")); dispatch(setThemeColor("classic"))} }>Colour Blind Mode</IonToggle>
+              </IonItem>
+
+              <IonItem lines="none">
+                <IonToggle
+                  checked={adviceToastsOn ? true : false}
+                  onIonChange={ e => {dispatch(setAdviceToastsOn(e.detail.checked ? true : false)); dispatch(setThemeColor("classic"))} }>Advice Popups</IonToggle>
+              </IonItem>           
 
             {/* FEEDBACK OPTIONS */}
             <IonListHeader>Feedback</IonListHeader>

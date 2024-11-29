@@ -20,18 +20,6 @@ ion-app.universal-light-none, .themePreview.universal-light-none {
   --fat-surface-faded: #858585;
   --fat-surface-shadow: #000000a0;
 
-  //--fat-primary: #3498db;
-  //--fat-primary-shade: #2e86c1;
-  //--fat-primary-shade-extreme: #337ab7;
-  //--fat-primary-tint: #48a2df;
-  //--fat-primary-tint-extreme: #e6f5ff;
-  //--fat-primary-contrast: #ffffff;
-
-  //--fat-vtrigger: #ff0000;
-  //--fat-vtrigger-shade: #e00000;
-  //--fat-vtrigger-tint: #ffeded;
-  //--fat-vtrigger-contrast: #ffffff;
-
   --fat-success: #56a543;
 
   --fat-grey: #858585;
@@ -55,10 +43,10 @@ ion-app.universal-light-none, .themePreview.universal-light-none {
   --fat-ionalert-background: var(--fat-background);
   --fat-ionalert-label: #262626;
   --fat-ionalert-active-button: var(--fat-primary);
-  --fat-ionalert-confirm-buttons: var(--fat-primary-tint);
+  --fat-ionalert-confirm-buttons: var(--fat-primary-tint-step-100);
   
   --fat-solidbutton-inner: #ffffff;
-  --fat-solidbutton-bg-hover: var(--fat-primary-tint);
+  --fat-solidbutton-bg-hover: var(--fat-primary-tint-step-100);
 
   /**--------------------------**/
   /** Detailed Component stuff **/
@@ -92,14 +80,14 @@ ion-app.universal-light-none, .themePreview.universal-light-none {
   --fat-toggle-handle-background-checked: var(--fat-primary);
 
   // IonList
-  // --fat-ionlist-header: var(--fat-primary-shade-extreme);
+  // --fat-ionlist-header: var(--fat-primary-shade-step-300);
   // --fat-ionlist-thick-header: #eeefff;
-  // --fat-ionlist-thick-header-contrast: var(--fat-primary-shade-extreme);
+  // --fat-ionlist-thick-header-contrast: var(--fat-primary-shade-step-300);
   // --fat-ionlist-border: #dedede;
   // --fat-ionlist-label-p: #666666;
   // --fat-ionlist-icon: #757575;
-  // --fat-ionlist-highlighted-background: var(--fat-primary-tint-extreme);
-  // --fat-ionlist-highlighted-contrast: var(--fat-primary-shade-extreme);
+  // --fat-ionlist-highlighted-background: var(--fat-primary-tint-step-300);
+  // --fat-ionlist-highlighted-contrast: var(--fat-primary-shade-step-300);
   // --fat-ionlist-sublist-header-background: var(--fat-background);
   // --fat-checkbox-checked: var(--fat-primary);
   // --fat-meter-full: #5aabe1;
@@ -107,14 +95,14 @@ ion-app.universal-light-none, .themePreview.universal-light-none {
 
   // Markdown
   --fat-markdown-h125: var(--fat-primary);
-  --fat-markdown-h3: var(--fat-primary-shade-extreme);
+  --fat-markdown-h3: var(--fat-primary-shade-step-300);
   --fat-markdown-h4: var(--fat-primary);
   --fat-markdown-h6: var(--fat-vtrigger);
   --fat-markdown-b: var(--fat-primary);
-  --fat-markdown-hr: var(--fat-primary-tint);
+  --fat-markdown-hr: var(--fat-primary-tint-step-100);
 
   // Page Header
-  --fat-page-subheader-background: var(--fat-primary-tint);
+  --fat-page-subheader-background: var(--fat-primary-tint-step-100);
   --fat-page-subheader-highlight: #ffffff40;
   --fat-page-subheader-contrast: #ffffff;
   
@@ -127,18 +115,18 @@ ion-app.universal-light-none, .themePreview.universal-light-none {
   // --fat-menu-top: var(--fat-primary);
   // --fat-menu-top-h2: var(--fat-primary-contrast);
   // --fat-menu-top-p: #d0ecff;
-  // --fat-menu-top-lightswitch: var(--fat-primary-shade-extreme);
+  // --fat-menu-top-lightswitch: var(--fat-primary-shade-step-300);
   // --fat-menu-background: var(--fat-background);
   // --fat-menu-background-contrast: var(--fat-background-contrast);
   // --fat-menu-icon: #616e7e;
-  // --fat-menu-selected-item-bg: var(--fat-primary-tint-extreme);
+  // --fat-menu-selected-item-bg: var(--fat-primary-tint-step-300);
   // --fat-menu-selected-item-contrast: #008cea;
 
   // Wide Menu
   // --fat-wide-menu-background: #16527b;
 
   // Frame Data
-  // --fat-datatable-header-bg: var(--fat-primary-shade-extreme);
+  // --fat-datatable-header-bg: var(--fat-primary-shade-step-300);
   // --fat-datatable-header-contrast: #ffffff;
   // --fat-datatable-hover-border: #accde7;
 
@@ -179,9 +167,13 @@ ion-app.universal-light-none, .themePreview.universal-light-none {
   --fat-settings-item-hover: #f4f4f4;
 
   // What's New
-  --fat-whatsnew-header: var(--fat-primary-shade-extreme);
+  --fat-whatsnew-header: var(--fat-primary-shade-step-300);
   --fat-whatsnew-feature: #008000;
   --fat-whatsnew-bug: #ff0000;
+
+  // Chunky Button
+  --fat-chunky-button-bg: var(--fat-primary);
+  --fat-chunky-button-contrast: #ffffff;
 }
 
 ion-app.universal-light-colorBlind, .themePreview.universal-light-colorBlind {
@@ -240,10 +232,10 @@ ion-app.universal-light-colorBlind, .themePreview.universal-light-colorBlind {
   --fat-ionalert-background: var(--fat-background);
   --fat-ionalert-label: #262626;
   --fat-ionalert-active-button: var(--fat-primary);
-  --fat-ionalert-confirm-buttons: var(--fat-primary-tint);
+  --fat-ionalert-confirm-buttons: var(--fat-primary-tint-step-100);
   
   --fat-solidbutton-inner: #ffffff;
-  --fat-solidbutton-bg-hover: var(--fat-primary-tint);
+  --fat-solidbutton-bg-hover: var(--fat-primary-tint-step-100);
 
   /**--------------------------**/
   /** Detailed Component stuff **/
@@ -277,14 +269,14 @@ ion-app.universal-light-colorBlind, .themePreview.universal-light-colorBlind {
   --fat-toggle-handle-background-checked: var(--fat-primary);
 
   // IonList
-  // --fat-ionlist-header: var(--fat-primary-shade-extreme);
+  // --fat-ionlist-header: var(--fat-primary-shade-step-300);
   // --fat-ionlist-thick-header: #eeefff;
-  // --fat-ionlist-thick-header-contrast: var(--fat-primary-shade-extreme);
+  // --fat-ionlist-thick-header-contrast: var(--fat-primary-shade-step-300);
   // --fat-ionlist-border: #dedede;
   // --fat-ionlist-label-p: #666666;
   // --fat-ionlist-icon: #757575;
-  // --fat-ionlist-highlighted-background: var(--fat-primary-tint-extreme);
-  // --fat-ionlist-highlighted-contrast: var(--fat-primary-shade-extreme);
+  // --fat-ionlist-highlighted-background: var(--fat-primary-tint-step-300);
+  // --fat-ionlist-highlighted-contrast: var(--fat-primary-shade-step-300);
   // --fat-ionlist-sublist-header-background: var(--fat-background);
   // --fat-checkbox-checked: var(--fat-primary);
   // --fat-meter-full: #5aabe1;
@@ -292,14 +284,14 @@ ion-app.universal-light-colorBlind, .themePreview.universal-light-colorBlind {
 
   // Markdown
   --fat-markdown-h125: var(--fat-primary);
-  --fat-markdown-h3: var(--fat-primary-shade-extreme);
+  --fat-markdown-h3: var(--fat-primary-shade-step-300);
   --fat-markdown-h4: var(--fat-primary);
   --fat-markdown-h6: var(--fat-vtrigger);
   --fat-markdown-b: var(--fat-primary);
-  --fat-markdown-hr: var(--fat-primary-tint);
+  --fat-markdown-hr: var(--fat-primary-tint-step-100);
 
   // Page Header
-  --fat-page-subheader-background: var(--fat-primary-tint);
+  --fat-page-subheader-background: var(--fat-primary-tint-step-100);
   --fat-page-subheader-contrast: #ffffff;
   
   // Frame Data Sub Header
@@ -311,18 +303,18 @@ ion-app.universal-light-colorBlind, .themePreview.universal-light-colorBlind {
   // --fat-menu-top: var(--fat-primary);
   // --fat-menu-top-h2: var(--fat-primary-contrast);
   // --fat-menu-top-p: #d0ecff;
-  // --fat-menu-top-lightswitch: var(--fat-primary-shade-extreme);
+  // --fat-menu-top-lightswitch: var(--fat-primary-shade-step-300);
   // --fat-menu-background: var(--fat-background);
   // --fat-menu-background-contrast: var(--fat-background-contrast);
   // --fat-menu-icon: #616e7e;
-  // --fat-menu-selected-item-bg: var(--fat-primary-tint-extreme);
+  // --fat-menu-selected-item-bg: var(--fat-primary-tint-step-300);
   // --fat-menu-selected-item-contrast: #008cea;
 
   // Wide Menu
   // --fat-wide-menu-background: #16527b;
 
   // Frame Data
-  // --fat-datatable-header-bg: var(--fat-primary-shade-extreme);
+  // --fat-datatable-header-bg: var(--fat-primary-shade-step-300);
   // --fat-datatable-header-contrast: #ffffff;
   // --fat-datatable-hover-border: #accde7;
   --fat-datatable-extremely-unsafe-background: #FFC20A;
@@ -346,7 +338,11 @@ ion-app.universal-light-colorBlind, .themePreview.universal-light-colorBlind {
   --fat-settings-icon: #757575;
 
   // What's New
-  --fat-whatsnew-header: var(--fat-primary-shade-extreme);
+  --fat-whatsnew-header: var(--fat-primary-shade-step-300);
   --fat-whatsnew-feature: #008000;
   --fat-whatsnew-bug: #ff0000;
+
+  // Chunky Button
+  --fat-chunky-button-bg: var(--fat-primary);
+  --fat-chunky-button-contrast: #ffffff;
  }

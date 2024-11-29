@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setModalVisibility, setCompactView, setMoveAdvantageColorsOn, setMoveAdvantageIndicator, setTableType, setDataDisplaySettings, setPlayer, setThemeBrightness, setAutoScrollEnabled, setMoveTypeHeadersOn } from '../actions';
 
 import '../../style/components/TableSettings.scss';
-import { activeGameSelector, appDisplaySettingsSelector, dataDisplaySettingsSelector, dataTableSettingsSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
+import { activeGameSelector, appDisplaySettingsSelector, dataDisplaySettingsSelector, dataTableSettingsSelector, modalVisibilitySelector, modeNameSelector, selectedCharactersSelector } from '../selectors';
 import DataTableRow from './DataTableRow';
 import DataTableHeader from './DataTableHeader';
 import { useState } from 'react';
@@ -23,6 +23,7 @@ const TableSettings = () => {
   const moveAdvantageIndicator = useSelector(dataTableSettingsSelector).moveAdvantageIndicator;
   const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
   const themeBrightness = useSelector(appDisplaySettingsSelector).themeBrightness;
+  const modeName = useSelector(modeNameSelector)
 
   const dispatch = useDispatch();
 
@@ -86,29 +87,33 @@ const TableSettings = () => {
           <IonButtons slot="end">
             <IonButton onClick={() => handleModalDismiss()}>Close</IonButton>
           </IonButtons>
-          <IonTitle>Table Settings</IonTitle>
+          <IonTitle>{modeName === "settings" ? "Frame Data Settings" : "Table Settings"}</IonTitle>
         </IonToolbar>
       </IonHeader>
       
       <IonContent>
-      
-        <h5>App Theme</h5>
-        <ThemeSwitcher />
-      
-        <IonItem lines="full">
-          <IonToggle
-            checked={themeBrightness === "light" ? false : true}
-            onIonChange={e => { dispatch(setThemeBrightness(e.detail.checked ? "dark" : "light"))}}>Dark Mode</IonToggle>
-        </IonItem>
+        {modeName !== "settings" &&
+          <>
+            <h5>App Theme</h5>
+            <ThemeSwitcher lines />
+          
+            <IonItem lines="full">
+              <IonToggle
+                checked={themeBrightness === "light" ? false : true}
+                onIonChange={e => { dispatch(setThemeBrightness(e.detail.checked ? "dark" : "light"))}}>Dark Mode</IonToggle>
+            </IonItem>
+          </>
+        }
+        
 
 
         <h5>Data Display</h5>
         <div className='custom-setting-item dropdown ion-activatable' onClick={() => setShowMoveNamePopover(true)}>
           <div className='explainer'>
             <h2>Move Names</h2>
-              {dataDisplaySettings.moveNameType === "official" && <p>Official names are exactly the same as they are in-game</p>}
-              {dataDisplaySettings.moveNameType === "common" && <p>Common names are chosen by us to try and help you guess moves</p>}
-              {dataDisplaySettings.moveNameType === "inputs" && <p>Input names use the below input notation as a move name</p>}
+              {dataDisplaySettings.moveNameType === "official" && <p>Exactly the same as they are in-game</p>}
+              {dataDisplaySettings.moveNameType === "common" && <p>Chosen by us to try and help you guess moves</p>}
+              {dataDisplaySettings.moveNameType === "inputs" && <p>Uses the below input notation as a move name</p>}
           </div>
           <IonSelect
               id="move-name-select"
@@ -124,6 +129,7 @@ const TableSettings = () => {
             </IonSelect>
             <IonRippleEffect></IonRippleEffect>
         </div>
+        
 
         <IonPopover
           isOpen={showMoveNamePopover}
@@ -134,38 +140,39 @@ const TableSettings = () => {
         >
           <IonContent>
             <IonList>
-              <IonItem style={{"--background": dataDisplaySettings.moveNameType === "official" && "var(--fat-primary-tint-extreme)"}} lines='none' onClick={() => {handleMoveNameSelect("official"); setShowMoveNamePopover(false)}}>
+              <IonItem style={{"--background": dataDisplaySettings.moveNameType === "official" && "var(--fat-primary-tint-step-850)"}} lines='none' onClick={() => {handleMoveNameSelect("official"); setShowMoveNamePopover(false)}}>
                 <IonLabel>Official</IonLabel>
               </IonItem>
-              <IonItem style={{"--background": dataDisplaySettings.moveNameType === "common" && "var(--fat-primary-tint-extreme)"}} lines='none' onClick={() => {handleMoveNameSelect("common"); setShowMoveNamePopover(false)}}>
+              <IonItem style={{"--background": dataDisplaySettings.moveNameType === "common" && "var(--fat-primary-tint-step-850)"}} lines='none' onClick={() => {handleMoveNameSelect("common"); setShowMoveNamePopover(false)}}>
                 <IonLabel>Common</IonLabel>
               </IonItem>
-              <IonItem style={{"--background": dataDisplaySettings.moveNameType === "inputs" && "var(--fat-primary-tint-extreme)"}} lines='none' onClick={() => {handleMoveNameSelect("inputs"); setShowMoveNamePopover(false)}}>
+              <IonItem style={{"--background": dataDisplaySettings.moveNameType === "inputs" && "var(--fat-primary-tint-step-850)"}} lines='none' onClick={() => {handleMoveNameSelect("inputs"); setShowMoveNamePopover(false)}}>
                 <IonLabel>Inputs</IonLabel>
               </IonItem>
             </IonList>
           </IonContent>
         </IonPopover>
-          <IonItem lines="full">
-            <IonSelect
-              label={"Input Notation"}
-              interface="popover"
-              value={dataDisplaySettings.inputNotationType}
-              okText="Select"
-              cancelText="Cancel"
-              onIonChange={e => {
-                dispatch(setDataDisplaySettings({inputNotationType: e.detail.value}));
-                if (dataDisplaySettings.moveNameType === "inputs" || dataDisplaySettings.inputNotationType === "ezCmd" || e.detail.value === "ezCmd") {
-                  dispatch(setPlayer("playerOne", selectedCharacters.playerOne.name));
-                  dispatch(setPlayer("playerTwo", selectedCharacters.playerTwo.name));
-                }
-              }}
-            >
-              <IonSelectOption value="plnCmd">Motion</IonSelectOption>
-              <IonSelectOption value="numCmd">NumPad</IonSelectOption>
-              {activeGame === "SF6" && <IonSelectOption value="ezCmd">Modern</IonSelectOption>}
-            </IonSelect>
-          </IonItem>
+      
+        <IonItem lines="full">
+          <IonSelect
+            label={"Input Notation"}
+            interface="popover"
+            value={dataDisplaySettings.inputNotationType}
+            okText="Select"
+            cancelText="Cancel"
+            onIonChange={e => {
+              dispatch(setDataDisplaySettings({inputNotationType: e.detail.value}));
+              if (dataDisplaySettings.moveNameType === "inputs" || dataDisplaySettings.inputNotationType === "ezCmd" || e.detail.value === "ezCmd") {
+                dispatch(setPlayer("playerOne", selectedCharacters.playerOne.name));
+                dispatch(setPlayer("playerTwo", selectedCharacters.playerTwo.name));
+              }
+            }}
+          >
+            <IonSelectOption value="plnCmd">Motion</IonSelectOption>
+            <IonSelectOption value="numCmd">NumPad</IonSelectOption>
+            {activeGame === "SF6" && <IonSelectOption value="ezCmd">Modern</IonSelectOption>}
+          </IonSelect>
+        </IonItem>
           
 
           <h5>Table Layout</h5>

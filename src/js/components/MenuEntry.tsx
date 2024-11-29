@@ -197,7 +197,7 @@ const onClickHandler = (menuEntryType) => {
         className={`
           widescreen-menu-entry
           ion-activatable
-          ${(currentMode === "movedetail" && (menuEntryKey === "characterSelect" || menuEntryKey === "gameselect")) ? "disabled" : ""}
+          ${(currentMode === "movedetail" && (menuEntryKey === "characterSelect" || menuEntryKey === "gameselect" || menuEntryKey === "bookmarks")) ? "disabled" : ""}
           ${menuEntryDetails[menuEntryKey].modeName === currentMode || (currentMode === "movedetail" && menuEntryDetails[menuEntryKey].modeName === window.location.hash.split("/")[1]) ? "active-mode" : ""}
           ${!wideMenuIsOpen && "menu-collapsed"}
         `}

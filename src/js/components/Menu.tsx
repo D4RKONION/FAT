@@ -20,6 +20,7 @@ import MenuEntry from './MenuEntry';
 import BrightnessToggle from './BrightnessToggle';
 import BookmarksModal from './BookmarksModal';
 import { allCharacterLists } from '../constants/gamedetails/characterLists';
+import TableSettings from './TableSettings';
 
 const Menu = () => {
 
@@ -323,6 +324,7 @@ const Menu = () => {
         <HelpModal />
         <WhatsNewModal />
         <BookmarksModal />
+        <TableSettings />
         
         <IonAlert
           isOpen={activeGameAlertOpen}

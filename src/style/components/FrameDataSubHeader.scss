@@ -6,7 +6,7 @@
 
 	.character-portrait-container {
 		position: relative;
-		border: solid var(--fat-primary-shade-extreme) 3px;
+		border: solid var(--fat-primary-shade-step-300) 3px;
     border-radius: 9px;
 		padding: 0;
 		width: 110px !important;
@@ -36,13 +36,13 @@
 			&.active-player-tag {
 				padding: 1px 10px;
 				font-size: 13px;
-				border: #316990 2px solid;
+				border: var(--fat-primary-shade-step-300) 2px solid;
 				border-radius: 4px;
 			}
 			&.inactive-player-tag {
 				padding: 1px 7px;
 				font-size: 10px;
-				border: #316990 1px solid;
+				border: var(--fat-primary-shade-step-300) 1px solid;
 				border-radius: 4px;
 			}
 		}
@@ -71,7 +71,7 @@
 				ion-icon {
 					transform: scaleX(1.5);
 					margin: 0 16px 0 0;
-					color: var(--fat-primary-shade-extreme);
+					color: var(--fat-primary-shade-step-300);
 				}
 				.character-portrait-container {
 					width: 55px !important;

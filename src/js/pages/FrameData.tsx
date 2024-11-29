@@ -150,7 +150,7 @@ const FrameData = () => {
             </>
 
           : <>
-          <IonTitle className='hideOnWideScreen'>{activeGame} - {selectedCharacters[activePlayer].name}</IonTitle>
+          <IonTitle className='hideOnWideScreen'>{activeGame} {!isPlatform("ios") && `- ${selectedCharacters[activePlayer].name}`}</IonTitle>
             <IonButtons slot='end'>
               <IonButton onClick={() => setSearchShown(!searchShown)} className='hideOnWideScreen'>
                 <IonIcon icon={searchSharp} slot='icon-only' />
@@ -275,7 +275,6 @@ const FrameData = () => {
         
       </IonContent>
       <LandscapeOptions />
-      <TableSettings />
     </IonPage>
   );
 };

@@ -9,7 +9,7 @@ type DataDisplaySettingsReducerAction = {
   };
 }
 
-const defaultState: DataDisplaySettingsReducerState = {moveNameType: "common", inputNotationType: "plnCmd", normalNotationType: "fullWord"};
+const defaultState: DataDisplaySettingsReducerState = {moveNameType: "official", inputNotationType: "plnCmd", normalNotationType: "fullWord"};
 
 export const dataDisplaySettingsReducer = (state = defaultState, action: DataDisplaySettingsReducerAction) => {
   switch(action.type) {
