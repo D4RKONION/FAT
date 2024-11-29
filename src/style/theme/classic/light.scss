@@ -54,6 +54,9 @@ ion-app.classic-light-theme, .themePreview.classic-light-theme {
  
   --fat-primary-contrast: #ffffff;
 
+  --fat-vtrigger: #ff0000;
+  --fat-vtrigger-shade: #e00000;
+  --fat-vtrigger-tint: #ffeded;
   --fat-vtrigger-contrast: #ffffff;
 
   /**------------------**/
@@ -105,7 +108,7 @@ ion-app.classic-light-theme, .themePreview.classic-light-theme {
   --fat-menu-background: var(--fat-background);
   --fat-menu-background-contrast: var(--fat-background-contrast);
   --fat-menu-icon: #616e7e;
-  --fat-menu-selected-item-bg: var(--fat-primary-tint-step-300);
+  --fat-menu-selected-item-bg: #dbf1ff;
   --fat-menu-selected-item-contrast: #008cea;
 
   // Wide Menu

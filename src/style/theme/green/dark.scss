@@ -15,7 +15,7 @@ ion-app.green-dark-theme, .themePreview.green-dark-theme {
 
   --fat-primary-shade-step-50: #408c40;
 	--fat-primary-shade-step-100: #3d853d;
-	--fat-primary-shade-step-150: #3b7f3b;
+	--fat-primary-shade-step-150: #3#b7f3b;
 	--fat-primary-shade-step-200: #387838;
 	--fat-primary-shade-step-250: #367236;
 	--fat-primary-shade-step-300: #346c34;
@@ -55,8 +55,8 @@ ion-app.green-dark-theme, .themePreview.green-dark-theme {
 
   --fat-primary-contrast: #ffffff;
 
-  --fat-vtrigger: #dd3c3c;
-  --fat-vtrigger-shade: #db2626;
+  --fat-vtrigger: #84248c;
+  --fat-vtrigger-shade: #84248c;
   --fat-vtrigger-tint: #152311;
   --fat-vtrigger-contrast: #ffffff;
 
@@ -88,13 +88,13 @@ ion-app.green-dark-theme, .themePreview.green-dark-theme {
   // Switcher
   --fat-switcher-background: #1f1f1f;
   --fat-switcher-unchecked-contrast: #ffffff90;
-  --fat-switcher-primary-checked-contrast: #58d35e;;
-  --fat-switcher-vtrigger-checked-contrast: #e6745b;
+  --fat-switcher-primary-checked-contrast: #58d35e;
+  --fat-switcher-vtrigger-checked-contrast: #cc75d4;
   --fat-switcher-android-background: #121212;
   --fat-switcher-primary-ios-background: #122713;
   --fat-switcher-primary-ios-checked: #22642d;
-  --fat-switcher-vtrigger-ios-background: #351b17;
-  --fat-switcher-vtrigger-ios-checked: #642222;
+  --fat-switcher-vtrigger-ios-background: #351735;
+  --fat-switcher-vtrigger-ios-checked: #5e2264;
 
   // Toggle
   --fat-toggle-handle-background: #7f7f7f;
@@ -102,7 +102,7 @@ ion-app.green-dark-theme, .themePreview.green-dark-theme {
   --fat-toggle-handle-background-checked: #97f194;
 
   // IonList
-  --fat-ionlist-header: #87f69a;
+  --fat-ionlist-header: #99ffaa;
   --fat-ionlist-thick-header: #373737;
   --fat-ionlist-thick-header-contrast: #82d882;
   --fat-ionlist-border: #3e3e3e;
@@ -124,7 +124,7 @@ ion-app.green-dark-theme, .themePreview.green-dark-theme {
   --fat-markdown-hr: #8bbe8e;
 
   // Menu
-  --fat-menu-top: #184020;
+  --fat-menu-top: #21552b;
   --fat-menu-top-h2: var(--fat-primary-contrast);
   --fat-menu-top-p: #aaebaa;
   --fat-menu-top-lightswitch: var(--fat-primary-shade-step-300);

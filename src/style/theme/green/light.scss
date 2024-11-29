@@ -54,8 +54,8 @@ ion-app.green-light-theme, .themePreview.green-light-theme {
 
   --fat-primary-contrast: #ffffff;
 
-  --fat-vtrigger: #F45E37;
-  --fat-vtrigger-shade: #cf502f;
+  --fat-vtrigger: #D32F6E;
+  --fat-vtrigger-shade: #c42a65;
   --fat-vtrigger-tint: #f1d5d5;
   --fat-vtrigger-contrast: #ffffff;
 
@@ -76,7 +76,7 @@ ion-app.green-light-theme, .themePreview.green-light-theme {
 
   // Switcher
   --fat-switcher-primary-ios-background: #dbf3db;
-  --fat-switcher-vtrigger-ios-background: #ffebeb;
+  --fat-switcher-vtrigger-ios-background: #ffe0fb;
 
   // Toggle
   --fat-toggle-background-checked: rgba(61, 189, 50, 0.5);
@@ -108,7 +108,7 @@ ion-app.green-light-theme, .themePreview.green-light-theme {
   --fat-menu-background: var(--fat-background);
   --fat-menu-background-contrast: var(--fat-background-contrast);
   --fat-menu-icon: #617e62;
-  --fat-menu-selected-item-bg: var(--fat-primary-tint-step-300);
+  --fat-menu-selected-item-bg: #def6de;
   --fat-menu-selected-item-contrast: #0f640f;
 
   // Wide Menu

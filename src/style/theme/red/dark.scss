@@ -54,8 +54,8 @@ ion-app.red-dark-theme, .themePreview.red-dark-theme {
 
   --fat-primary-contrast: #ffffff;
 
-  --fat-vtrigger: #ab3a3a;
-  --fat-vtrigger-shade: #e00000;
+  --fat-vtrigger: #39719a;
+  --fat-vtrigger-shade: #39719a;
   --fat-vtrigger-tint: #231111;
   --fat-vtrigger-contrast: #ffffff;
 
@@ -88,12 +88,12 @@ ion-app.red-dark-theme, .themePreview.red-dark-theme {
   --fat-switcher-background: #1f1f1f;
   --fat-switcher-unchecked-contrast: #ffffff90;
   --fat-switcher-primary-checked-contrast: #ff9f9f;;
-  --fat-switcher-vtrigger-checked-contrast: #ffde49;
+  --fat-switcher-vtrigger-checked-contrast: #56bdbd;
   --fat-switcher-android-background: #121212;
-  --fat-switcher-primary-ios-background: #182731;
-  --fat-switcher-primary-ios-checked: #224964;
-  --fat-switcher-vtrigger-ios-background: #351717;
-  --fat-switcher-vtrigger-ios-checked: #642222;
+  --fat-switcher-primary-ios-background: #351717;
+  --fat-switcher-primary-ios-checked: #642222;
+  --fat-switcher-vtrigger-ios-background: #182731;
+  --fat-switcher-vtrigger-ios-checked: #224964;
 
   // Toggle
   --fat-toggle-handle-background: #7f7f7f;
@@ -101,7 +101,7 @@ ion-app.red-dark-theme, .themePreview.red-dark-theme {
   --fat-toggle-handle-background-checked: #e24242;
 
   // IonList
-  --fat-ionlist-header: #f68787;
+  --fat-ionlist-header: #ff9e9e;
   --fat-ionlist-thick-header: #373737;
   --fat-ionlist-thick-header-contrast: #f68787;
   --fat-ionlist-border: #3e3e3e;
@@ -123,7 +123,7 @@ ion-app.red-dark-theme, .themePreview.red-dark-theme {
   --fat-markdown-hr: #be8b8b;
   
   // Menu
-  --fat-menu-top: #461717;
+  --fat-menu-top: #5e1515;
   --fat-menu-top-h2: var(--fat-primary-contrast);
   --fat-menu-top-p: #ffa7a7;
   --fat-menu-top-lightswitch: var(--fat-primary-shade-step-300);
@@ -131,7 +131,7 @@ ion-app.red-dark-theme, .themePreview.red-dark-theme {
   --fat-menu-background-contrast: #ffffff;
   --fat-menu-icon: #acacac;
   --fat-menu-selected-item-bg: #461717;
-  --fat-menu-selected-item-contrast: #ffc6c6;
+  --fat-menu-selected-item-contrast: #fcd5d5;
    
   // Wide Menu
   --fat-wide-menu-background: #461717;

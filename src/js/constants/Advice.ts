@@ -1,9 +1,7 @@
 const ADVICE = {
   framedata: [
     {
-      message: "You can change from Official Move Names to Common Move Names in the settings",
-      handler: (history) => {history.push('/settings#moveNameType')},
-      icon: "settingsOutline"
+      message: "You can change all sorts of settings (like Move Names) in Table Settings",
     },
     {
       message: "You can quickly change characters by tapping the current active character's name in the switcher",
