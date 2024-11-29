@@ -20,4 +20,23 @@ platform :android do
       skip_upload_images: true,
     )
   end
+  
+  lane :beta do
+    gradle(
+      task: "clean bundleRelease",
+      properties: {
+        "android.injected.signing.store.file" => ENV['STORE_FILE_PATH'],
+        "android.injected.signing.store.password" => ENV['STORE_PASSWORD'],
+        "android.injected.signing.key.alias" => ENV['KEY_ALIAS'],
+        "android.injected.signing.key.password" => ENV['KEY_PASSWORD'],
+      }
+    )
+    upload_to_play_store(
+      track: "beta",
+      skip_upload_metadata: true,
+      skip_upload_screenshots: true,
+      skip_upload_images: true,
+    )
+  end
+
 end

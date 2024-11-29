@@ -1,6 +1,6 @@
 export const APP_CURRENT_VERSION_NAME = "4.0.0-RC1";
 export const APP_CURRENT_VERSION_CODE = 39990;
-export const APP_DATE_UPDATED = "Nov 22 2024"; // new Date().toDateString().substring(4)
+export const APP_DATE_UPDATED = "Nov 29 2024"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"]
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"]
@@ -33,7 +33,7 @@ export const VERSION_LOGS = {
     ],
     "General UI fixes": [
       "Overhauled Quick Search mode",
-      "Completely rewrote Stat Compare page",
+      "Overhauled Stat Compare page",
       "Improvements made to the widescreen menu",
       "Updated the theme colours",
       "Tons of small tweaks here and there"
@@ -44,6 +44,9 @@ export const VERSION_LOGS = {
     "Changes to in-app purchases": [
       "Removed individual theme purchases and replaced it with a single lifetime premium purchase",
       "If you've ever purchased anything in FAT, Premium will be automatically unlocked. Thank you for your support <3",
+    ],
+    "GGST": [
+      "Added Queen Dizzy"
     ],
     "Bug Fixes": [
       "Tons of under the hood changes made, please let me know if you come across any bugs!",

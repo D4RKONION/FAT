@@ -46,6 +46,7 @@
     "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!(@ionic/react|@ionic/react-router|@ionic/core|@stencil/core|ionicons)/)'",
     "eject": "react-scripts eject",
     "android:test": "ionic cap sync android && ionic cap open android",
+    "android:beta": "ionic cap sync android && (cd android && bundle exec fastlane beta)",
     "android:release": "ionic cap sync android && (cd android && bundle exec fastlane release)",
     "ios:release": "ionic cap sync ios && (cd ios/App && fastlane release)",
     "web:release": "ionic build --prod --public-url=/fatonline"
