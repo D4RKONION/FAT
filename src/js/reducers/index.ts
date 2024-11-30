@@ -1,29 +1,28 @@
-import { combineReducers } from 'redux';
-import storage from 'redux-persist/lib/storage'
-import persistReducer from 'redux-persist/es/persistReducer';
+import { combineReducers } from "redux";
+import persistReducer from "redux-persist/es/persistReducer";
+import storage from "redux-persist/lib/storage";
 
-
-import { orientationReducer } from './orientation';
-import { modeNameReducer } from './modename';
-import { activeGameReducer } from './activegame';
-import { frameDataReducer } from './framedata';
-import { gameDetailsReducer } from './gamedetails';
-import { activePlayerReducer } from './activeplayer';
-import { selectedCharactersReducer } from './selectedcharacters';
-import { modalVisibilityReducer } from './modalvisibility';
-import { dataDisplaySettingsReducer } from './datadisplaysettings';
-import { advantageModifiersReducer } from './advantagemodifiers';
-import { appDisplaySettingsReducer } from './appdisplaysettings';
-import { adviceToastReducer } from './advicetoast';
-import { dataTableSettingsReducer } from './datatablesettings';
-import { premiumReducer } from './premium';
-import { bookmarksReducer } from './bookmarks';
+import { activeGameReducer } from "./activegame";
+import { activePlayerReducer } from "./activeplayer";
+import { advantageModifiersReducer } from "./advantagemodifiers";
+import { adviceToastReducer } from "./advicetoast";
+import { appDisplaySettingsReducer } from "./appdisplaysettings";
+import { bookmarksReducer } from "./bookmarks";
+import { dataDisplaySettingsReducer } from "./datadisplaysettings";
+import { dataTableSettingsReducer } from "./datatablesettings";
+import { frameDataReducer } from "./framedata";
+import { gameDetailsReducer } from "./gamedetails";
+import { modalVisibilityReducer } from "./modalvisibility";
+import { modeNameReducer } from "./modename";
+import { orientationReducer } from "./orientation";
+import { premiumReducer } from "./premium";
+import { selectedCharactersReducer } from "./selectedcharacters";
 
 const adviceToastPersistConfig = {
-  key: 'adviceToast',
+  key: "adviceToast",
   storage: storage,
-  blacklist: ['adviceToastShown']
-}
+  blacklist: ["adviceToastShown"],
+};
 
 const rootReducer = combineReducers({
   orientationState: orientationReducer,

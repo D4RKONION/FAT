@@ -1,11 +1,11 @@
-import { IonRippleEffect } from '@ionic/react';
-import '../../style/components/ChunkyButton.scss'
+import { IonRippleEffect } from "@ionic/react";
+import "../../style/components/ChunkyButton.scss";
 
 type Props = {
   extraText?: string,
   onClick: () => void,
   children: string | string[],
-}
+};
 
 const ChunkyButton = ({extraText, onClick, children}: Props) => {
   return (
@@ -14,7 +14,7 @@ const ChunkyButton = ({extraText, onClick, children}: Props) => {
       {extraText && <h5>{extraText}</h5>}
       <IonRippleEffect></IonRippleEffect>
     </div>
-  )
-}
+  );
+};
 
 export default ChunkyButton;

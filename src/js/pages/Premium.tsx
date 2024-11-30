@@ -1,26 +1,27 @@
-import { useDispatch, useSelector } from "react-redux";
-import '../../style/pages/Premium.scss';
 import "cordova-plugin-purchase";
+import "../../style/pages/Premium.scss";
+
 import { IonBackButton, IonButton, IonButtons, IonCheckbox, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonItem, IonLabel, IonMenuButton, IonModal, IonPage, IonTitle, IonToolbar, isPlatform } from "@ionic/react";
-import { premiumSelector } from "../selectors";
 import { diamondSharp } from "ionicons/icons";
-import { useLocation } from "react-router";
-import ThemeSwitcher from "../components/ThemeSwitcher";
-import { purchaseLifetimePremium, resetPremium } from "../actions";
 import { useMemo, useState } from "react";
-import bookmarkImage from "../../images/premium-examples/bookmarks.png"
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router";
+
+import bookmarkImage from "../../images/premium-examples/bookmarks.png";
+import { purchaseLifetimePremium, resetPremium } from "../actions";
 import ChunkyButton from "../components/ChunkyButton";
+import ThemeSwitcher from "../components/ThemeSwitcher";
 import { APP_CURRENT_VERSION_CODE } from "../constants/VersionLogs";
+import { premiumSelector } from "../selectors";
 
 const Premium = () => {
-
   const { store: iapStore } = CdvPurchase;
   const location = useLocation();
   const dispatch = useDispatch();
   const premiumIsPurchased = useSelector(premiumSelector).lifetimePremiumPurchased;
 
-  const [premiumModalIsOpen, setPremiumModalIsOpen]  = useState(false)
-  const [tipAdded, setTipAdded]  = useState(false)
+  const [premiumModalIsOpen, setPremiumModalIsOpen] = useState(false);
+  const [tipAdded, setTipAdded] = useState(false);
 
   const prices = useMemo(() => {
     const basePricing = iapStore?.get("com.fullmeter.fat.premium_lifetime")?.pricing;
@@ -30,10 +31,10 @@ const Premium = () => {
 
     const priceDiff = (withTipPrice.priceMicros - basePricing.priceMicros) / 1000000;
     const formatter = new Intl.NumberFormat(undefined, {
-      style: 'currency',
+      style: "currency",
       currency: basePricing.currency,
       minimumFractionDigits: 2,
-      currencyDisplay: 'narrowSymbol',
+      currencyDisplay: "narrowSymbol",
     });
 
     return {
@@ -46,11 +47,11 @@ const Premium = () => {
   const buyPremium = () => {
     iapStore.get(
       !tipAdded ? "com.fullmeter.fat.premium_lifetime" : "com.fullmeter.fat.premium_lifetime_tip",
-      isPlatform('android') ? CdvPurchase.Platform.GOOGLE_PLAY : CdvPurchase.Platform.APPLE_APPSTORE
-    )?.getOffer()?.order()
+      isPlatform("android") ? CdvPurchase.Platform.GOOGLE_PLAY : CdvPurchase.Platform.APPLE_APPSTORE
+    )?.getOffer()?.order();
   };
 
-  return(
+  return (
     <IonPage id="Premium">
       <IonHeader>
         <IonToolbar>
@@ -64,16 +65,15 @@ const Premium = () => {
         </IonToolbar>
       </IonHeader>
 
-
       <IonContent className="ion-padding">
         {premiumIsPurchased ?
-            <IonItem style={{"--border-radius": "10px"}} >
-              <IonIcon aria-hidden="true" icon={diamondSharp} slot="start" size="large" color={"primary"}></IonIcon>
-              <IonLabel>
-                <h1>Premium Purchased</h1>
-                <p>Thank you for supporting FAT! Here's what you're getting.</p>
-              </IonLabel>
-            </IonItem>
+          <IonItem style={{"--border-radius": "10px"}} >
+            <IonIcon aria-hidden="true" icon={diamondSharp} slot="start" size="large" color={"primary"}></IonIcon>
+            <IonLabel>
+              <h1>Premium Purchased</h1>
+              <p>Thank you for supporting FAT! Here's what you're getting.</p>
+            </IonLabel>
+          </IonItem>
           :
           <>
             <article>
@@ -85,10 +85,9 @@ const Premium = () => {
             </article>
           </>
 
+        }
 
-          }
-
-          <article>
+        <article>
 
           <section>
             <h1>Unlimited Bookmarks</h1>
@@ -97,24 +96,23 @@ const Premium = () => {
             <img style={{borderRadius: "12px"}} src={bookmarkImage} alt="Bookmark example"></img>
           </section>
 
+          <section>
+            <h1>App Themes</h1>
+            <hr></hr>
+            <p>Want to stand out from the crowd? Sick of the colour blue? Then app themes are for you! Choose from 4 new themes which work in both light and dark mode!</p>
+            <ThemeSwitcher
+              premiumPreview={true}
+              lines={false}
+            ></ThemeSwitcher>
+          </section>
 
-            <section>
-              <h1>App Themes</h1>
-              <hr></hr>
-              <p>Want to stand out from the crowd? Sick of the colour blue? Then app themes are for you! Choose from 4 new themes which work in both light and dark mode!</p>
-              <ThemeSwitcher
-                premiumPreview={true}
-                lines={false}
-              ></ThemeSwitcher>
-            </section>
+          <section>
+            <h1>Priority Support</h1>
+            <hr></hr>
+            <p>I do my best to reply to all emails as soon as I can but life can be hectic! Emails from users who have premium get replies first as priority. Simply tap the email button in settings{premiumIsPurchased && " "}{premiumIsPurchased && <a href={`mailto:apps@fullmeter.com?subject=FAT-${"P~"}${APP_CURRENT_VERSION_CODE} | SUBJECT_HERE`}>or click here</a>}.</p>
+          </section>
 
-            <section>
-              <h1>Priority Support</h1>
-              <hr></hr>
-              <p>I do my best to reply to all emails as soon as I can but life can be hectic! Emails from users who have premium get replies first as priority. Simply tap the email button in settings{premiumIsPurchased && " "}{premiumIsPurchased && <a href={`mailto:apps@fullmeter.com?subject=FAT-${"P~"}${APP_CURRENT_VERSION_CODE} | SUBJECT_HERE`}>or click here</a>}.</p>
-            </section>
-
-          </article>
+        </article>
         {/* DEBUG BUTTON */}
         {/* {!isPlatform("capacitor") &&
           <IonFab slot="fixed" vertical="bottom" horizontal="end">
@@ -131,18 +129,17 @@ const Premium = () => {
             >Upgrade to Premium!</ChunkyButton>
         }
 
-
         {/* styled globally as modals are presented at root  */}
         <IonModal className="premium-offer-modal" showBackdrop={true} isOpen={premiumModalIsOpen} initialBreakpoint={1} breakpoints={[0, 1]} onDidDismiss={() => setPremiumModalIsOpen(false)}>
           <div className="premium-offer-modal-content">
             {!premiumIsPurchased ? (
               <>
                 <IonButton expand="full" shape="round" mode="ios" onClick={buyPremium}>
-                  {`Lifetime Premium ${tipAdded ? '+ Tip' : ''} ${prices ? `(${tipAdded ? prices.withTip : prices.base})` : ''}`}
+                  {`Lifetime Premium ${tipAdded ? "+ Tip" : ""} ${prices ? `(${tipAdded ? prices.withTip : prices.base})` : ""}`}
                 </IonButton>
                 <IonItem>
                   <IonCheckbox checked={tipAdded} onIonChange={() => setTipAdded(!tipAdded)}>
-                    {`Add a tip for Paul ${prices ? `(+${prices.tipAmount})` : ''}`}
+                    {`Add a tip for Paul ${prices ? `(+${prices.tipAmount})` : ""}`}
                   </IonCheckbox>
                 </IonItem>
                 <p><em>Adding a tip to your purchase is completely optional, and provides no extra features. It's simply a way to give a little extra support to FAT. Either way, thank you for considering purchasing premium!</em></p>
@@ -155,7 +152,7 @@ const Premium = () => {
 
       </IonContent>
     </IonPage>
-  )
-}
+  );
+};
 
 export default Premium;

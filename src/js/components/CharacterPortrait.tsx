@@ -1,6 +1,6 @@
-import '../../style/components/CharacterPortrait.scss';
-import { GameName } from '../types';
-import fallbackFist from '../../images/icons/fallbackfist.png';
+import "../../style/components/CharacterPortrait.scss";
+import fallbackFist from "../../images/icons/fallbackfist.png";
+import { GameName } from "../types";
 
 type CharacterPortraitProps = {
   charName: string;
@@ -11,24 +11,23 @@ type CharacterPortraitProps = {
   remoteImage: Boolean;
   showName: Boolean;
   onClick?: () => void;
-}
+};
 
 const CharacterPortrait = ( {charName, charThreeLetterCode, game, selected, charColor, remoteImage, showName, onClick }: CharacterPortraitProps ) => {
-
-  return(
+  return (
     <div
       className="character-portrait"
       // style={{ background: `${charColor}45`}}
       onClick={onClick}
     >
       <img
-        className='silouette'
+        className="silouette"
         alt={`${charName}-silouette`}
         src={
           remoteImage ?
             //fetch the image from the server
             `https://fullmeter.com/fatfiles/release/${game}/images/characters/${charName}.png`
-          : //local app image
+            : //local app image
             `${process.env.PUBLIC_URL}/assets/images/characters/${game.toLowerCase()}/${charName}.png`
         }
       />
@@ -44,7 +43,7 @@ const CharacterPortrait = ( {charName, charThreeLetterCode, game, selected, char
           remoteImage ?
             //fetch the image from the server
             `https://fullmeter.com/fatfiles/release/${game}/images/characters/${charName}.png`
-          : //local app image
+            : //local app image
             `${process.env.PUBLIC_URL}/assets/images/characters/${game.toLowerCase()}/${charName}.png`
         }
       />
@@ -52,8 +51,7 @@ const CharacterPortrait = ( {charName, charThreeLetterCode, game, selected, char
         <h2 className={selected ? "selected" : "not-selected"}>{charThreeLetterCode ? charThreeLetterCode : charName}</h2>
       }
     </div>
-  )
-}
-
+  );
+};
 
 export default CharacterPortrait;

@@ -1,28 +1,24 @@
-import { IonContent, IonPage, IonList, IonItemDivider, IonLabel, IonItem, IonIcon, IonGrid, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle } from '@ionic/react';
-import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import '../../style/pages/Combos.scss';
-import SegmentSwitcher from '../components/SegmentSwitcher';
-import { setActiveFrameDataPlayer, setModalVisibility } from '../actions';
-import { SFV_COMBOS } from '../constants/Combos';
-import { informationCircleOutline, openOutline } from 'ionicons/icons';
-import AdviceToast from '../components/AdviceToast';
-import { activeGameSelector, activePlayerSelector, modalVisibilitySelector, selectedCharactersSelector } from '../selectors';
-import { isPlatform } from '@ionic/react';
-import PopoverButton from '../components/PopoverButton';
+import "../../style/pages/Combos.scss";
+import { IonContent, IonPage, IonList, IonItemDivider, IonLabel, IonItem, IonIcon, IonGrid, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle } from "@ionic/react";
+import { isPlatform } from "@ionic/react";
+import { informationCircleOutline, openOutline } from "ionicons/icons";
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
-
+import { setActiveFrameDataPlayer, setModalVisibility } from "../actions";
+import AdviceToast from "../components/AdviceToast";
+import PopoverButton from "../components/PopoverButton";
+import SegmentSwitcher from "../components/SegmentSwitcher";
+import { SFV_COMBOS } from "../constants/Combos";
+import { activeGameSelector, activePlayerSelector, modalVisibilitySelector, selectedCharactersSelector } from "../selectors";
 
 const Combos = () => {
-  
   const modalVisibility = useSelector(modalVisibilitySelector);
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const activePlayer = useSelector(activePlayerSelector);
   const activeGame = useSelector(activeGameSelector);
 
   const dispatch = useDispatch();
-
-
 
   const [selectedCombo, setSelectedCombo] = useState(null);
   return (
@@ -43,12 +39,12 @@ const Combos = () => {
       <IonContent id="combos">
         <IonGrid fixed>
           {activeGame !== "SFV" || !SFV_COMBOS[selectedCharacters[activePlayer].name]
-            ? 
-              <div>
-                <h4>No Combos for {activeGame}.<br/>Sorry!</h4>
-                {activeGame === "GGST" && <h5>However, you should check out<br/><a target="_system" href={`https://dustloop.com/wiki/index.php?title=GGST/${selectedCharacters[activePlayer].stats.longName ? selectedCharacters[activePlayer].stats.longName : selectedCharacters[activePlayer].name}/Combos`}>Dustloop's extensive combo guide's</a><br/>for {selectedCharacters.playerOne.name}</h5>}
-                {activeGame === "SF6" && <h5>However, you should check out <br/>SuperCombos's <a target="_system" href={`https://wiki.supercombo.gg/w/Street_Fighter_6/${selectedCharacters[activePlayer].name}/Combos`}>extensive combo guide's</a><br/>for {selectedCharacters.playerOne.name}</h5>}
-              </div>
+            ?
+            <div>
+              <h4>No Combos for {activeGame}.<br/>Sorry!</h4>
+              {activeGame === "GGST" && <h5>However, you should check out<br/><a target="_system" href={`https://dustloop.com/wiki/index.php?title=GGST/${selectedCharacters[activePlayer].stats.longName ? selectedCharacters[activePlayer].stats.longName : selectedCharacters[activePlayer].name}/Combos`}>Dustloop's extensive combo guide's</a><br/>for {selectedCharacters.playerOne.name}</h5>}
+              {activeGame === "SF6" && <h5>However, you should check out <br/>SuperCombos's <a target="_system" href={`https://wiki.supercombo.gg/w/Street_Fighter_6/${selectedCharacters[activePlayer].name}/Combos`}>extensive combo guide's</a><br/>for {selectedCharacters.playerOne.name}</h5>}
+            </div>
             : <>
               <div className={`segments ${!isPlatform("ios") && "md"}`}>
                 <SegmentSwitcher
@@ -66,9 +62,9 @@ const Combos = () => {
                       {comboHeader}
                     </IonItemDivider>
                     {SFV_COMBOS[selectedCharacters[activePlayer].name][comboHeader].map((comboEntry, index) =>
-                    <div key={comboEntry.input + index}>
-                      {comboEntry.input !== ""
-                        ? <IonItem button className={selectedCombo === comboEntry.input && "selected-combo"} onClick={() => {setSelectedCombo(comboEntry.input)}}>
+                      <div key={comboEntry.input + index}>
+                        {comboEntry.input !== ""
+                          ? <IonItem button className={selectedCombo === comboEntry.input && "selected-combo"} onClick={() => {setSelectedCombo(comboEntry.input);}}>
                             {comboEntry.comments !== "" && <IonIcon className={selectedCombo === comboEntry.input && "selected-combo"} icon={informationCircleOutline} slot="end" />}
                             <IonLabel>
                               <h2>
@@ -86,7 +82,7 @@ const Combos = () => {
                                   <span className={`meter-bar ${comboEntry.meter > 2 ? "full" : "empty"}`}></span>
                                 </div>
                               }
-                              
+
                               {selectedCombo === comboEntry.input &&
                                 <>
                                   <h2 className="combo-comments">
@@ -97,17 +93,16 @@ const Combos = () => {
                               }
                             </IonLabel>
                           </IonItem>
-                        : <IonItem button className="selected-combo">
+                          : <IonItem button className="selected-combo">
                             <IonLabel>
-                                <h2 className="combo-comments">
-                                  {comboEntry.comments}
-                                </h2>
+                              <h2 className="combo-comments">
+                                {comboEntry.comments}
+                              </h2>
                             </IonLabel>
                           </IonItem>
 
-
-                      }
-                    </div>
+                        }
+                      </div>
                     )}
 
                   </div>

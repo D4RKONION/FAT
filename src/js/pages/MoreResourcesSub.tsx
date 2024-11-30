@@ -1,20 +1,19 @@
-import { IonContent, IonPage, IonList, IonItem, IonLabel, IonIcon, IonItemGroup, IonListHeader, IonGrid, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle } from '@ionic/react';
-import '../../style/pages/Calculators.scss';
-import { openOutline } from 'ionicons/icons';
-import { RES_DISCORDS_LIST, RES_APPS_LIST, RES_DOCS_LIST, RES_SOC_LIST, RES_FAT_LIST } from '../constants/MenuLists';
-import { useParams } from 'react-router';
-import { useSelector } from 'react-redux';
-import { activeGameSelector } from '../selectors';
+import { IonContent, IonPage, IonList, IonItem, IonLabel, IonIcon, IonItemGroup, IonListHeader, IonGrid, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle } from "@ionic/react";
+import "../../style/pages/Calculators.scss";
+import { openOutline } from "ionicons/icons";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router";
 
+import { RES_DISCORDS_LIST, RES_APPS_LIST, RES_DOCS_LIST, RES_SOC_LIST, RES_FAT_LIST } from "../constants/MenuLists";
+import { activeGameSelector } from "../selectors";
 
 const MoreResourcesSub = () => {
-
   const activeGame = useSelector(activeGameSelector);
   
   const { resourcePageSlug }: { resourcePageSlug: string } = useParams();
   const resourcePageData = {
     title: "",
-    obj: {}
+    obj: {},
   };
 
   if (resourcePageSlug === "discords") {
@@ -33,14 +32,13 @@ const MoreResourcesSub = () => {
     resourcePageData.title = "FAT Team";
     resourcePageData.obj = RES_FAT_LIST;
   }
-   
 
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref={`/moreresources`} />
+            <IonBackButton defaultHref={"/moreresources"} />
           </IonButtons>
           <IonTitle>{resourcePageData.title}</IonTitle>
         </IonToolbar>
@@ -49,34 +47,34 @@ const MoreResourcesSub = () => {
       <IonContent className="calculators">
         <IonGrid fixed>
           <IonList>
-              {
-                Object.keys(resourcePageData.obj).filter(
-                  resourceObj => resourcePageData.obj[resourceObj].game === "any" || resourcePageData.obj[resourceObj].game === activeGame  
-                ).map(listHeader =>
-                  <IonItemGroup key={`${listHeader}-options`}>
-                    <IonListHeader>{listHeader}</IonListHeader>
-                      {Object.keys(resourcePageData.obj[listHeader].data).map(menuEntry => 
-                        <IonItem detail={false} lines="full" key={`${menuEntry}-menuEntry`} href={resourcePageData.obj[listHeader].data[menuEntry].url} button>
-                        <IonLabel>
-                          <h2>{menuEntry}</h2>
-                          {resourcePageData.obj[listHeader].data[menuEntry].desc && 
+            {
+              Object.keys(resourcePageData.obj).filter(
+                resourceObj => resourcePageData.obj[resourceObj].game === "any" || resourcePageData.obj[resourceObj].game === activeGame  
+              ).map(listHeader =>
+                <IonItemGroup key={`${listHeader}-options`}>
+                  <IonListHeader>{listHeader}</IonListHeader>
+                  {Object.keys(resourcePageData.obj[listHeader].data).map(menuEntry => 
+                    <IonItem detail={false} lines="full" key={`${menuEntry}-menuEntry`} href={resourcePageData.obj[listHeader].data[menuEntry].url} button>
+                      <IonLabel>
+                        <h2>{menuEntry}</h2>
+                        {resourcePageData.obj[listHeader].data[menuEntry].desc && 
                             <p>{resourcePageData.obj[listHeader].data[menuEntry].desc}</p>
 
-                          }
-                        </IonLabel>
-                        {
-                          <IonIcon className="small-end-icon" icon={openOutline} slot="end" />
                         }
-                      </IonItem>
-                    )}
-                  </IonItemGroup>
-                )
-              }
-            </IonList>
-          </IonGrid>
+                      </IonLabel>
+                      {
+                        <IonIcon className="small-end-icon" icon={openOutline} slot="end" />
+                      }
+                    </IonItem>
+                  )}
+                </IonItemGroup>
+              )
+            }
+          </IonList>
+        </IonGrid>
       </IonContent>
     </IonPage>
   );
-}
+};
 
 export default MoreResourcesSub;

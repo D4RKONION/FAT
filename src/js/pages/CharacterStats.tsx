@@ -1,13 +1,13 @@
-import { IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import { useSelector } from 'react-redux';
-import '../../style/components/DetailCards.scss';
-import SubHeader from '../components/SubHeader';
-import { activeGameSelector, activePlayerSelector, dataDisplaySettingsSelector, frameDataSelector, gameDetailsSelector, selectedCharactersSelector } from '../selectors';
-import { openOutline } from 'ionicons/icons';
+import "../../style/components/DetailCards.scss";
 
+import { IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from "@ionic/react";
+import { openOutline } from "ionicons/icons";
+import { useSelector } from "react-redux";
+
+import SubHeader from "../components/SubHeader";
+import { activeGameSelector, activePlayerSelector, dataDisplaySettingsSelector, frameDataSelector, gameDetailsSelector, selectedCharactersSelector } from "../selectors";
 
 const CharacterStats = () => {
-
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const activePlayer = useSelector(activePlayerSelector);
   const activeGame = useSelector(activeGameSelector);
@@ -17,12 +17,11 @@ const CharacterStats = () => {
 
   const frameData = useSelector(frameDataSelector);
   const gameDetails = useSelector(gameDetailsSelector);
-	const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
-	const moveNotation = 
+  const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
+  const moveNotation =
 		dataDisplaySettings.moveNameType === "common"
-			? "cmnName"
-		: dataDisplaySettings.inputNotationType
-
+		  ? "cmnName"
+		  : dataDisplaySettings.inputNotationType;
 
   const statsPoints = gameDetails.statsPoints;
 
@@ -46,7 +45,7 @@ const CharacterStats = () => {
           rowsToDisplay={[
             [
               <h4>{charStatsData["phrase"]}</h4>,
-            ]
+            ],
           ]}
         />
         <div id="flexCardContainer">
@@ -66,7 +65,7 @@ const CharacterStats = () => {
                         <h2>
                           {
                             dataId === "bestReversal" && frameData[activeCharName] && frameData[activeCharName].moves.normal[charStatsData[dataId]]
-                              ? frameData[activeCharName].moves.normal[charStatsData[dataId]][moveNotation]								
+                              ? frameData[activeCharName].moves.normal[charStatsData[dataId]][moveNotation]
                               : charStatsData[dataId]
                           }
                         </h2>
@@ -76,10 +75,10 @@ const CharacterStats = () => {
                 )}
               </IonCardContent>
             </IonCard>
-            )
+          )
           )}
-          
-          {selectedCharacters[activePlayer].stats.hashtag && 
+
+          {selectedCharacters[activePlayer].stats.hashtag &&
             <IonCard className="final-card">
               <IonCardHeader>
                 <IonCardTitle>Check out the Twitter tech</IonCardTitle>
@@ -87,14 +86,13 @@ const CharacterStats = () => {
               <IonCardContent>
                 <div className="row">
                   <div className="col">
-                    <IonButton expand="full" fill="clear" onClick={() => window.open(`https://twitter.com/search?q=%23${(selectedCharacters[activePlayer].stats.hashtag as string).substring(1)}`, '_blank')}>
+                    <IonButton expand="full" fill="clear" onClick={() => window.open(`https://twitter.com/search?q=%23${(selectedCharacters[activePlayer].stats.hashtag as string).substring(1)}`, "_blank")}>
                       <IonIcon slot="end" icon={openOutline} />
                       {selectedCharacters[activePlayer].stats.hashtag}
                     </IonButton>
                   </div>
                 </div>
-                
-            
+
               </IonCardContent>
             </IonCard>
           }

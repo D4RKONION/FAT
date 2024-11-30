@@ -17,26 +17,26 @@ const ADVICE = {
     },
     {
       message: "We'd be super happy if you could leave us a nice review :)",
-      handler: () => {window.open("https://play.google.com/store/apps/details?id=com.fullmeter.fat", '_blank');},
-      icon: "star"
+      handler: () => {window.open("https://play.google.com/store/apps/details?id=com.fullmeter.fat", "_blank");},
+      icon: "star",
     },
   ],
 
   moveslist: [
     {
-      message: "You can tap on a move to see its full frame data"
-    }
+      message: "You can tap on a move to see its full frame data",
+    },
   ],
 
   combos: [
     {
-      message: "You can tap on a combo entry to see it's extra information"
+      message: "You can tap on a combo entry to see it's extra information",
     },
     {
-      message: "Those 3 rectangular bars tell you how much meter this combo spends"
-    }
+      message: "Those 3 rectangular bars tell you how much meter this combo spends",
+    },
   ],
 
-}
+};
 
 export default ADVICE;

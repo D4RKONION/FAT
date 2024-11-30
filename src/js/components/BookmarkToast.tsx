@@ -7,8 +7,7 @@ type Props = {
 };
 
 const BookmarkToast = ({toastVisible, dismissToast, message}: Props) => {
-
-  return(
+  return (
     <IonToast
       isOpen={toastVisible}
       onDidDismiss={() => dismissToast()}
@@ -16,7 +15,7 @@ const BookmarkToast = ({toastVisible, dismissToast, message}: Props) => {
       position="bottom"
       duration={1300}
     />
-  )
-}
+  );
+};
 
 export default BookmarkToast;

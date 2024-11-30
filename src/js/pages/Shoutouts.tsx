@@ -1,17 +1,17 @@
-import { IonBackButton, IonButtons, IonContent, IonGrid, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import HtmlReactParser from 'html-react-parser';
-import '../../style/pages/Shoutouts.scss';
-import { DEVS, DONATORS, DATA_TEAM, AWESOME_PEOPLE, FRIENDS } from '../constants/Shoutouts';
+import { IonBackButton, IonButtons, IonContent, IonGrid, IonHeader, IonPage, IonTitle, IonToolbar } from "@ionic/react";
+import HtmlReactParser from "html-react-parser";
+
+import "../../style/pages/Shoutouts.scss";
+import { DEVS, DONATORS, DATA_TEAM, AWESOME_PEOPLE, FRIENDS } from "../constants/Shoutouts";
 
 const Shoutouts = () => {
-
   return (
     <IonPage>
 
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref='/settings' />
+            <IonBackButton defaultHref="/settings" />
           </IonButtons>
           <IonTitle>Shoutouts</IonTitle>
         </IonToolbar>
@@ -59,15 +59,15 @@ const Shoutouts = () => {
             <div key={donationType + "section"}>
               <h2>{donationType}</h2>
               {donationType !== "Super"
-              ? Object.keys(DONATORS[donationType]).map(donator =>
-                <div key={donator + "info"}>
-                <h3>{donator}</h3>
-                <p>{HtmlReactParser(DONATORS[donationType][donator])}</p>
-                </div>
-              )
-              : DONATORS[donationType].map(donator =>
-                <h3 key={donator + "info"}>{donator}</h3>
-              )}
+                ? Object.keys(DONATORS[donationType]).map(donator =>
+                  <div key={donator + "info"}>
+                    <h3>{donator}</h3>
+                    <p>{HtmlReactParser(DONATORS[donationType][donator])}</p>
+                  </div>
+                )
+                : DONATORS[donationType].map(donator =>
+                  <h3 key={donator + "info"}>{donator}</h3>
+                )}
               {donationType !== "Super" &&
                 <hr/>
               }
@@ -78,6 +78,5 @@ const Shoutouts = () => {
     </IonPage>
   );
 };
-
 
 export default Shoutouts;

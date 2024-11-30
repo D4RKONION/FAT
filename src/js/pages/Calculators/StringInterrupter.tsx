@@ -1,27 +1,27 @@
-import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, IonIcon, IonFab, IonFabButton, IonItemGroup, IonItemDivider, IonGrid, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle } from '@ionic/react';
-import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import '../../../style/pages/Calculators.scss';
-import '../../../style/components/FAB.scss'
-import { setModalVisibility } from '../../actions';
-import { person, checkmark, warning } from 'ionicons/icons';
-import { activeGameSelector, selectedCharactersSelector } from '../../selectors';
-import PopoverButton from '../../components/PopoverButton';
+import "../../../style/pages/Calculators.scss";
+import "../../../style/components/FAB.scss";
 
+import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, IonIcon, IonFab, IonFabButton, IonItemGroup, IonItemDivider, IonGrid, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle } from "@ionic/react";
+import { person, checkmark, warning } from "ionicons/icons";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+import { setModalVisibility } from "../../actions";
+import PopoverButton from "../../components/PopoverButton";
+import { activeGameSelector, selectedCharactersSelector } from "../../selectors";
 
 const StringInterrupter = () => {
-
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const activeGame = useSelector(activeGameSelector);
-  
+
   const dispatch = useDispatch();
 
   const [firstMove, setFirstMove] = useState(null);
   const [secondMove, setSecondMove] = useState(null);
 
-  type WinsAndTrades = {"trades": {[key: number]: string[]}, "wins": {[key: number]: string[]}}
-  const initialState: WinsAndTrades = {"trades": {}, "wins": {}};
-  const [processedResults, setProcessedResults] = useState(initialState)
+  type WinsAndTrades = {trades: {[key: number]: string[]}, wins: {[key: number]: string[]}};
+  const initialState: WinsAndTrades = {trades: {}, wins: {}};
+  const [processedResults, setProcessedResults] = useState(initialState);
 
   const playerOneMoves = selectedCharacters["playerOne"].frameData;
   const playerTwoMoves = selectedCharacters["playerTwo"].frameData;
@@ -38,21 +38,21 @@ const StringInterrupter = () => {
     }
 
     if (playerTwoMoves[firstMove] && playerTwoMoves[secondMove]) {
-      let tempResults:WinsAndTrades = {"trades": {}, "wins": {}}
+      const tempResults:WinsAndTrades = {trades: {}, wins: {}};
       let defenderPriority;
       let attackerPriority;
 
-      let frameGap = playerTwoMoves[secondMove]["startup"] - playerTwoMoves[firstMove]["onBlock"];
+      const frameGap = playerTwoMoves[secondMove]["startup"] - playerTwoMoves[firstMove]["onBlock"];
 
       if (playerTwoMoves[secondMove]["moveType"] === "normal" && activeGame === "SFV") {
-        switch(playerTwoMoves[secondMove].moveButton[0]) {
-          case("L"):
+        switch (playerTwoMoves[secondMove].moveButton[0]) {
+          case ("L"):
             attackerPriority = 1;
             break;
-          case("M"):
+          case ("M"):
             attackerPriority = 2;
             break;
-          case("H"):
+          case ("H"):
             attackerPriority = 3;
             break;
           default:
@@ -62,21 +62,21 @@ const StringInterrupter = () => {
         attackerPriority = "nonNormal";
       }
 
-      for (let currentMoveName in playerOneMoves) {
-        let currentMoveData = playerOneMoves[currentMoveName];
+      for (const currentMoveName in playerOneMoves) {
+        const currentMoveData = playerOneMoves[currentMoveName];
         if (currentMoveData.moveType === "normal" && currentMoveData.moveButton) {
-          switch(currentMoveData.moveButton[0]) {
-            case("L"):
+          switch (currentMoveData.moveButton[0]) {
+            case ("L"):
               defenderPriority = 1;
               break;
-            case("M"):
+            case ("M"):
               defenderPriority = 2;
               break;
-            case("H"):
+            case ("H"):
               defenderPriority = 3;
               break;
             default:
-            console.log("A normal move without an L, M or H as the first character has been selected")
+              console.log("A normal move without an L, M or H as the first character has been selected");
           }
         } else if (currentMoveData.moveType === "throw" || currentMoveData.moveType === "command-grab") {
           defenderPriority = 10;
@@ -88,7 +88,6 @@ const StringInterrupter = () => {
           attackerPriority = 10;
           defenderPriority = 10;
         }
-
 
         if (!isNaN(currentMoveData["startup"])
           && currentMoveData.moveType !== "movement-special"
@@ -103,7 +102,7 @@ const StringInterrupter = () => {
             tempResults["wins"][currentMoveName] = (frameGap - currentMoveData["startup"] + 1);
           } else if (currentMoveData["startup"] < frameGap && attackerPriority > defenderPriority) {
             tempResults["wins"][currentMoveName] = (frameGap - currentMoveData["startup"]);
-          }  else if (currentMoveData["startup"] < frameGap) {
+          } else if (currentMoveData["startup"] < frameGap) {
             tempResults["wins"][currentMoveName] = (frameGap - currentMoveData["startup"] + 1);
           } else if (currentMoveData["startup"] === frameGap && attackerPriority === defenderPriority) {
             tempResults["trades"][currentMoveName] = (frameGap - currentMoveData["startup"] + 1);
@@ -112,41 +111,35 @@ const StringInterrupter = () => {
           }
         }
       }
-      
-      
+
       const winsObj = {};
 
       Object.keys(tempResults.wins).forEach(moveName => {
-          if ( !Object.keys(winsObj).includes(tempResults.wins[moveName].toString()) ) {
-            winsObj[tempResults.wins[moveName]] = [];
-          }
-          winsObj[tempResults.wins[moveName]].push(moveName);
-      })
+        if ( !Object.keys(winsObj).includes(tempResults.wins[moveName].toString()) ) {
+          winsObj[tempResults.wins[moveName]] = [];
+        }
+        winsObj[tempResults.wins[moveName]].push(moveName);
+      });
       tempResults.wins = winsObj;
-      
+
       setProcessedResults(tempResults);
-
-
     }
-
-
   },[playerOneMoves, playerTwoMoves, firstMove, secondMove, selectedCharacters, activeGame]);
 
   return (
     <IonPage>
 
-        <IonHeader>
-          <IonToolbar>
-            <IonButtons slot="start">
-              <IonBackButton defaultHref='/calculators' />
-            </IonButtons>
-            <IonTitle>{`Str-Int - ${selectedCharacters.playerOne.name} vs  ${selectedCharacters.playerTwo.name}`}</IonTitle>
-            <IonButtons slot="end">
-              <PopoverButton />
-            </IonButtons>
-          </IonToolbar>
-        </IonHeader>
-
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonBackButton defaultHref="/calculators" />
+          </IonButtons>
+          <IonTitle>{`Str-Int - ${selectedCharacters.playerOne.name} vs  ${selectedCharacters.playerTwo.name}`}</IonTitle>
+          <IonButtons slot="end">
+            <PopoverButton />
+          </IonButtons>
+        </IonToolbar>
+      </IonHeader>
 
       <IonContent className="calculators">
         <IonGrid fixed>
@@ -161,17 +154,17 @@ const StringInterrupter = () => {
               onIonChange={e => setFirstMove(e.detail.value)}
             >
               <IonSelectOption key="firstMove-select" value={null}>Select a move</IonSelectOption>
-                {Object.keys(playerTwoMoves).filter(move =>
-                  playerTwoMoves[move].moveType !== "movement-special" &&
+              {Object.keys(playerTwoMoves).filter(move =>
+                playerTwoMoves[move].moveType !== "movement-special" &&
                   playerTwoMoves[move].moveType !== "throw" &&
                   playerTwoMoves[move].moveType !== "command-grab" &&
                   !playerTwoMoves[move].airMove &&
                   !playerTwoMoves[move].nonHittingMove &&
                   !playerTwoMoves[move].antiAirMove &&
                   !isNaN(playerTwoMoves[move].onBlock)
-                ).map(move =>
-                  <IonSelectOption key={`firstMove-${move}`} value={move}>{move}</IonSelectOption>
-                )}
+              ).map(move =>
+                <IonSelectOption key={`firstMove-${move}`} value={move}>{move}</IonSelectOption>
+              )}
             </IonSelect>
           </IonItem>
 
@@ -187,7 +180,7 @@ const StringInterrupter = () => {
               onIonChange={e => setSecondMove(e.detail.value)}
             >
 
-            <IonSelectOption key="secondMove-select" value={null}>Select a move</IonSelectOption>
+              <IonSelectOption key="secondMove-select" value={null}>Select a move</IonSelectOption>
               {Object.keys(playerTwoMoves).filter(move =>
                 playerTwoMoves[move].moveType !== "throw" &&
                 playerTwoMoves[move].moveType !== "combo-grab" &&
@@ -199,8 +192,8 @@ const StringInterrupter = () => {
               ).map(move =>
                 <IonSelectOption key={`secondMove-${move}`} value={move}>{move}</IonSelectOption>
               )
-            }
-          </IonSelect>
+              }
+            </IonSelect>
           </IonItem>
           {playerTwoMoves[firstMove] && playerTwoMoves[secondMove] &&
             <>
@@ -239,11 +232,11 @@ const StringInterrupter = () => {
                           <p><strong>{framesToInterrupt} frame{parseInt(framesToInterrupt) > 1 && "s"}</strong> to interrupt</p>
                         </IonLabel>
                       </IonItemDivider>
-                    {Object.keys(processedResults.wins[framesToInterrupt]).map(winMove =>
-                      <IonItem key={`win-${processedResults.wins[framesToInterrupt][winMove]}`} lines="full">
-                        <IonLabel><b>{processedResults.wins[framesToInterrupt][winMove]}</b> <i>({playerOneMoves[processedResults.wins[framesToInterrupt][winMove]] && playerOneMoves[processedResults.wins[framesToInterrupt][winMove]].startup}f startup)</i></IonLabel>
-                      </IonItem>
-                    )}
+                      {Object.keys(processedResults.wins[framesToInterrupt]).map(winMove =>
+                        <IonItem key={`win-${processedResults.wins[framesToInterrupt][winMove]}`} lines="full">
+                          <IonLabel><b>{processedResults.wins[framesToInterrupt][winMove]}</b> <i>({playerOneMoves[processedResults.wins[framesToInterrupt][winMove]] && playerOneMoves[processedResults.wins[framesToInterrupt][winMove]].startup}f startup)</i></IonLabel>
+                        </IonItem>
+                      )}
                     </IonItemGroup>
                   )}
                 </IonItemGroup>
@@ -272,11 +265,11 @@ const StringInterrupter = () => {
         </IonGrid>
 
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton onClick={() => { dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true})) } }>
+          <IonFabButton onClick={() => { dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true})); } }>
             <IonIcon icon={person} />
           </IonFabButton>
         </IonFab>
-        
+
       </IonContent>
     </IonPage>
   );

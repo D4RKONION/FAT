@@ -1,36 +1,34 @@
 import { Bookmark } from "../types";
 
 type BookmarksReducerAction = {
-  type: 'ADD_BOOKMARK' | 'REMOVE_BOOKMARK' | 'CLEAR_ALL_BOOKMARKS' | 'REORDER_BOOKMARKS';
+  type: "ADD_BOOKMARK" | "REMOVE_BOOKMARK" | "CLEAR_ALL_BOOKMARKS" | "REORDER_BOOKMARKS";
   bookmarkToAdd: Bookmark;
   bookmarkToRemove: number;
   reorderedBookmarkArray: Bookmark[];
-}
+};
 
-const defaultState: Bookmark[] = []
+const defaultState: Bookmark[] = [];
 
 export const bookmarksReducer = (state = defaultState, action: BookmarksReducerAction) => {
-  switch(action.type) {
-
-    case 'ADD_BOOKMARK':
+  switch (action.type) {
+    case "ADD_BOOKMARK":
       return [
         ...state,
-        action.bookmarkToAdd
-      ]
+        action.bookmarkToAdd,
+      ];
 
-    case 'REMOVE_BOOKMARK':
+    case "REMOVE_BOOKMARK":
       return [
-        ...state.filter((_, i) => i !== action.bookmarkToRemove )
-      ]
+        ...state.filter((_, i) => i !== action.bookmarkToRemove ),
+      ];
 
-    case 'REORDER_BOOKMARKS':
+    case "REORDER_BOOKMARKS":
       return action.reorderedBookmarkArray;
 
-    case 'CLEAR_ALL_BOOKMARKS':
+    case "CLEAR_ALL_BOOKMARKS":
       return defaultState;
-
 
     default:
       return state;
   }
-}
+};

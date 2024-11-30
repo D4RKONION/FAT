@@ -1,21 +1,21 @@
-import { useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { IonToast } from "@ionic/react";
-import ADVICE from '../constants/Advice';
-import { setAdviceToastShown, setAdviceToastPrevRead } from '../actions'
-import { settingsOutline, star, thumbsUpOutline } from 'ionicons/icons';
-import { useHistory } from 'react-router'; 
-import { adviceToastSelector, modeNameSelector } from '../selectors';
+import { settingsOutline, star, thumbsUpOutline } from "ionicons/icons";
+import { useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router";
+
+import { setAdviceToastShown, setAdviceToastPrevRead } from "../actions";
+import ADVICE from "../constants/Advice";
+import { adviceToastSelector, modeNameSelector } from "../selectors";
 
 type ToastData = {
   message: string;
   /** The imported icon from Ionicons */
   icon?: any;
   handler?: (arg?) => void;
-} 
+}; 
 
 const AdviceToast = () => {
-  
   const modeName = useSelector(modeNameSelector);
   const adviceToastsOn = useSelector(adviceToastSelector).adviceToastsOn;
   const adviceToastShown = useSelector(adviceToastSelector).adviceToastShown;
@@ -29,7 +29,7 @@ const AdviceToast = () => {
   const icons = { settingsOutline, star, thumbsUpOutline };
   const getIcon = (iconName: ToastData["icon"]) => {
     return icons[iconName];
-  }
+  };
 
   if (!ADVICE[modeName] || !adviceToastsOn || adviceToastShown ) {
     return null;
@@ -40,7 +40,6 @@ const AdviceToast = () => {
   const toastData = {} as ToastData;
 
   if (ADVICE[modeName]) {
-
     if (typeof adviceToastPrevRead[modeName] === "undefined") {
       // it's the first time advice has been shown for this mode
       toastData.message = ADVICE[modeName][0].message;
@@ -57,9 +56,9 @@ const AdviceToast = () => {
     }
   }	
 
-  dispatch(setAdviceToastShown(true))
+  dispatch(setAdviceToastShown(true));
   
-  return(
+  return (
     <IonToast
       style={{"--max-width": "600px"}}
       ref={toastRef}
@@ -67,9 +66,9 @@ const AdviceToast = () => {
       duration={2500}
       onWillDismiss={() => {
         if (typeof adviceToastPrevRead[modeName] !== "undefined" ) {
-          dispatch(setAdviceToastPrevRead({ ...adviceToastPrevRead, [modeName]: adviceToastPrevRead[modeName] + 1 }))
+          dispatch(setAdviceToastPrevRead({ ...adviceToastPrevRead, [modeName]: adviceToastPrevRead[modeName] + 1 }));
         } else {
-          dispatch(setAdviceToastPrevRead({ ...adviceToastPrevRead, [modeName]: 0 }))
+          dispatch(setAdviceToastPrevRead({ ...adviceToastPrevRead, [modeName]: 0 }));
         }
       }}
       header="Did you know?"
@@ -80,20 +79,20 @@ const AdviceToast = () => {
           {
             side: "end",
             icon: toastData.icon,
-            text: '',
-            handler: () => {toastData.handler(history);}
-          }
+            text: "",
+            handler: () => {toastData.handler(history);},
+          },
         ] : [
           {
-            side:"end",
+            side: "end",
             icon: thumbsUpOutline,
-            text: '',
-            role: 'cancel',
-          }
+            text: "",
+            role: "cancel",
+          },
         ]
       }
     />
-  )
-}
+  );
+};
 
 export default AdviceToast;

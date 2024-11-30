@@ -1,29 +1,27 @@
-import { IonContent, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonAlert, isPlatform, IonGrid, IonRippleEffect, IonButton } from '@ionic/react';
-import { peopleOutline, settingsOutline, settingsSharp, moon, sunny, gameControllerOutline, libraryOutline, librarySharp, calculatorOutline, calculatorSharp, searchOutline, searchSharp, statsChartOutline, statsChartSharp, barbellOutline, barbellSharp, menuSharp, logoPaypal, phonePortraitOutline, phonePortraitSharp, cafe, diamondOutline, diamondSharp, bookmarksOutline } from 'ionicons/icons';
+import { IonContent, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonAlert, isPlatform, IonGrid, IonRippleEffect, IonButton } from "@ionic/react";
+import { peopleOutline, settingsOutline, settingsSharp, moon, sunny, gameControllerOutline, libraryOutline, librarySharp, calculatorOutline, calculatorSharp, searchOutline, searchSharp, statsChartOutline, statsChartSharp, barbellOutline, barbellSharp, menuSharp, logoPaypal, phonePortraitOutline, phonePortraitSharp, cafe, diamondOutline, diamondSharp, bookmarksOutline } from "ionicons/icons";
+import { Fragment, useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory, useLocation } from "react-router-dom";
 
-import { Fragment, useEffect, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-
-import '../../style/components/Menu.scss';
-import { setModalVisibility, setModeName, setActiveGame, setThemeBrightness } from '../actions'
-import CharacterSelectModal from './CharacterSelect';
-import WhatsNewModal from './WhatsNew'
-import HelpModal from './Help';
-import framesIcon from  '../../images/icons/frames.svg';
-import patreonIcon from '../../images/icons/patreon.svg';
-import movesListIcon from '../../images/icons/moveslist.svg';
-import { APP_CURRENT_VERSION_NAME } from '../constants/VersionLogs';
-import { activeGameSelector, modeNameSelector, selectedCharactersSelector, appDisplaySettingsSelector } from '../selectors';
-import { GAME_NAMES } from '../constants/ImmutableGameDetails';
-import MenuEntry from './MenuEntry';
-import BrightnessToggle from './BrightnessToggle';
-import BookmarksModal from './BookmarksModal';
-import { allCharacterLists } from '../constants/gamedetails/characterLists';
-import TableSettings from './TableSettings';
+import "../../style/components/Menu.scss";
+import { setModalVisibility, setModeName, setActiveGame, setThemeBrightness } from "../actions";
+import BookmarksModal from "./BookmarksModal";
+import BrightnessToggle from "./BrightnessToggle";
+import CharacterSelectModal from "./CharacterSelect";
+import HelpModal from "./Help";
+import MenuEntry from "./MenuEntry";
+import TableSettings from "./TableSettings";
+import WhatsNewModal from "./WhatsNew";
+import framesIcon from "../../images/icons/frames.svg";
+import movesListIcon from "../../images/icons/moveslist.svg";
+import patreonIcon from "../../images/icons/patreon.svg";
+import { allCharacterLists } from "../constants/gamedetails/characterLists";
+import { GAME_NAMES } from "../constants/ImmutableGameDetails";
+import { APP_CURRENT_VERSION_NAME } from "../constants/VersionLogs";
+import { activeGameSelector, modeNameSelector, selectedCharactersSelector, appDisplaySettingsSelector } from "../selectors";
 
 const Menu = () => {
-
   const themeBrightness = useSelector(appDisplaySettingsSelector).themeBrightness;
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const modeName = useSelector(modeNameSelector);
@@ -38,10 +36,9 @@ const Menu = () => {
   const location = useLocation();
   
   useEffect(() => {
-
     // const bookmarkableModes = ["framedata", "movedetail"]
 
-    const modeNameSlug = location.pathname.split("/")[1]
+    const modeNameSlug = location.pathname.split("/")[1];
 
     // const activeGameSlug = GAME_NAMES.includes(location.pathname.split("/")[2] as GameName) ? location.pathname.split("/")[2] as GameName : "SF6";
     // let characterSlug = location.pathname.split("/")[3]
@@ -52,7 +49,6 @@ const Menu = () => {
     //   vtStateSlug = location.pathname.split("/")[4]
     //   moveNameSlug = location.pathname.split("/")[5]
     // }
-
 
     if (location.pathname.includes("calculators") && location.pathname.split("/").length > 2) {
       dispatch(setModeName(`calc-${location.pathname.split("/")[2]}`));
@@ -66,89 +62,85 @@ const Menu = () => {
       dispatch(setModeName(modeNameSlug));
     }
 
-
-
-
     // // Handles the URL changing via bookmarks etc.
     // if (activeGameSlug !== activeGame && bookmarkableModes.includes(modeNameSlug)) {
     //   dispatch(setActiveGame(activeGameSlug, true, selectedCharacters[activePlayer].name !== characterSlug && bookmarkableModes.includes(modeNameSlug) ? characterSlug : "unset"))
     // } else if (selectedCharacters[activePlayer].name !== characterSlug && bookmarkableModes.includes(modeNameSlug)) {
     //   dispatch(setPlayer(activePlayer, characterSlug));
     // }
-    
   },[location.pathname, dispatch]);
 
   //account for the fact this will be imported some day
   //perhaps do a check in the div creation and concat the selected character in
   const appPages = [
     {
-      title: 'Frame Data',
+      title: "Frame Data",
       url: `/framedata/${activeGame}/${selectedCharacters.playerOne.name}`,
       iosIcon: framesIcon,
       mdIcon: framesIcon,
-      modeName: "framedata"
+      modeName: "framedata",
     },
     {
-      title: 'Quick Search',
-      url: `/quicksearch`,
+      title: "Quick Search",
+      url: "/quicksearch",
       iosIcon: searchOutline,
       mdIcon: searchSharp,
-      modeName: "quicksearch"
+      modeName: "quicksearch",
     },
     {
-      title: 'Moves List',
+      title: "Moves List",
       url: `/moveslist/${activeGame}/${selectedCharacters.playerOne.name}`,
       iosIcon: movesListIcon,
       mdIcon: movesListIcon,
-      modeName: "moveslist"
+      modeName: "moveslist",
     },
     {
-      title: 'Combos & Tech',
+      title: "Combos & Tech",
       url: `/combos/${activeGame}/${selectedCharacters.playerOne.name}`,
       iosIcon: barbellOutline,
       mdIcon: barbellSharp,
       modeName: "combos",
-      noDisplay: ["3S", "USF4", "GGST", "SF6"]
+      noDisplay: ["3S", "USF4", "GGST", "SF6"],
     },
     {
-      title: 'Stat Compare',
-      url: `/statcompare`,
+      title: "Stat Compare",
+      url: "/statcompare",
       iosIcon: statsChartOutline,
       mdIcon: statsChartSharp,
-      modeName: "statcompare"
+      modeName: "statcompare",
     },
     {
-      title: 'Calculators',
-      url: `/calculators`,
+      title: "Calculators",
+      url: "/calculators",
       iosIcon: calculatorOutline,
       mdIcon: calculatorSharp,
-      modeName: "calculators"
+      modeName: "calculators",
     },
     {
-      title: 'More Resources',
-      url: `/moreresources`,
+      title: "More Resources",
+      url: "/moreresources",
       iosIcon: libraryOutline,
       mdIcon: librarySharp,
-      modeName: "moreresources"
+      modeName: "moreresources",
     },
     {
-      title: 'Settings',
-      url: '/settings',
+      title: "Settings",
+      url: "/settings",
       iosIcon: settingsOutline,
       mdIcon: settingsSharp,
-      modeName: "settings"
+      modeName: "settings",
     },
     {
-      title: 'Premium',
-      url: '/premium',
+      title: "Premium",
+      url: "/premium",
       iosIcon: diamondOutline,
       mdIcon: diamondSharp,
       modeName: "premium",
       appOnly: true,
     },
     {
-      title: 'Get the app!',
-      url: '#',
+      title: "Get the app!",
+      url: "#",
       externalUrl: "https://fullmeter.com/fat",
       iosIcon: phonePortraitOutline,
       mdIcon: phonePortraitSharp,
@@ -156,8 +148,8 @@ const Menu = () => {
       desktopOnly: true,
     },
     {
-      title: 'Support on Ko-Fi',
-      url: '#',
+      title: "Support on Ko-Fi",
+      url: "#",
       externalUrl: "https://ko-fi.com/fullmeter",
       iosIcon: cafe,
       mdIcon: cafe,
@@ -165,17 +157,17 @@ const Menu = () => {
       desktopOnly: true,
     },
     {
-      title: 'Support on Patreon',
+      title: "Support on Patreon",
       externalUrl: "https://www.patreon.com/d4rk_onion",
-      url: '#',
+      url: "#",
       iosIcon: patreonIcon,
       mdIcon: patreonIcon,
       modeName: null,
       desktopOnly: true,
     },
     {
-      title: 'Support on Paypal',
-      url: '#',
+      title: "Support on Paypal",
+      url: "#",
       externalUrl: "https://paypal.me/fullmeter",
       iosIcon: logoPaypal,
       mdIcon: logoPaypal,
@@ -201,20 +193,19 @@ const Menu = () => {
     "kofi",
     "patreon",
     "paypal",
-  ]
+  ];
 
   // populate the menu game switcher array
-  const gameOptions = []
+  const gameOptions = [];
   GAME_NAMES.forEach(gameName => {
     gameOptions.push({
       name: gameName,
-      type: 'radio',
+      type: "radio",
       label: gameName,
       value: gameName,
-      checked: activeGame === gameName
-    })
-  })
-  
+      checked: activeGame === gameName,
+    });
+  });
 
   return (
     <IonMenu
@@ -239,19 +230,19 @@ const Menu = () => {
           </div>
           <IonList id="pageList">
             <IonMenuToggle autoHide={false}>
-              <IonItem disabled={modeName === "movedetail"} key="mobile-gameSelectItem" onClick={() => modeName !== "movedetail" && setActiveGameAlertOpen(true)}  lines="none" detail={false} button>
+              <IonItem disabled={modeName === "movedetail"} key="mobile-gameSelectItem" onClick={() => modeName !== "movedetail" && setActiveGameAlertOpen(true)} lines="none" detail={false} button>
                 <IonIcon slot="start" icon={gameControllerOutline} />
                 <IonLabel>Game Select</IonLabel>
               </IonItem>
             </IonMenuToggle>
             <IonMenuToggle autoHide={false}>
-              <IonItem disabled={modeName === "movedetail"} key="mobile-charSelectItem" onClick={() => dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true }))}  lines="none" detail={false} button>
+              <IonItem disabled={modeName === "movedetail"} key="mobile-charSelectItem" onClick={() => dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true }))} lines="none" detail={false} button>
                 <IonIcon slot="start" icon={peopleOutline} />
                 <IonLabel>Character Select</IonLabel>
               </IonItem>
             </IonMenuToggle>
             <IonMenuToggle autoHide={false}>
-              <IonItem disabled={modeName === "movedetail"} key="mobile-charSelectItem" onClick={() => dispatch(setModalVisibility({ currentModal: "bookmarks", visible: true }))}  lines="none" detail={false} button>
+              <IonItem disabled={modeName === "movedetail"} key="mobile-charSelectItem" onClick={() => dispatch(setModalVisibility({ currentModal: "bookmarks", visible: true }))} lines="none" detail={false} button>
                 <IonIcon slot="start" icon={bookmarksOutline} />
                 <IonLabel>Bookmarks</IonLabel>
               </IonItem>
@@ -275,7 +266,7 @@ const Menu = () => {
                     </IonMenuToggle>
                     {!isPlatform("capacitor") && appPage.modeName === "settings" && <hr />}
                   </Fragment>
-                )
+                );
               }
             })}
           </IonList>
@@ -287,14 +278,14 @@ const Menu = () => {
 
             <div className={`widescreen-menu-header widescreen-menu-entry ${!isWideFullMenuOpen && "menu-collapsed"} ${modeName === "movedetail" && "disabled"}`}>
               <IonButton onClick={() => setIsWideFullMenuOpen(!isWideFullMenuOpen)}>
-                <IonIcon icon={menuSharp} slot='icon-only' />
+                <IonIcon icon={menuSharp} slot="icon-only" />
               </IonButton>
               {isWideFullMenuOpen &&
                 <>
                   <span>FAT {APP_CURRENT_VERSION_NAME} </span>
                   <BrightnessToggle></BrightnessToggle>
                 </>
-                }
+              }
               
             </div>
 
@@ -304,21 +295,18 @@ const Menu = () => {
               <IonRippleEffect/>
             </div>
 
-
-          {MENU_ENTRIES.map((menuEntryKey) => {
-             
-            return (
-              <MenuEntry
-                key={menuEntryKey}
-                menuEntryKey={menuEntryKey}
-                wideMenuIsOpen={isWideFullMenuOpen}
-              />
-            )
-          })}
+            {MENU_ENTRIES.map((menuEntryKey) => {
+              return (
+                <MenuEntry
+                  key={menuEntryKey}
+                  menuEntryKey={menuEntryKey}
+                  wideMenuIsOpen={isWideFullMenuOpen}
+                />
+              );
+            })}
             
           </IonGrid>
         </div>
-        
 
         <CharacterSelectModal />
         <HelpModal />
@@ -329,23 +317,23 @@ const Menu = () => {
         <IonAlert
           isOpen={activeGameAlertOpen}
           onDidDismiss={() => setActiveGameAlertOpen(false)}
-          header={'Select Game'}
+          header={"Select Game"}
           inputs={gameOptions}
           buttons={[
             {
-              text: 'Cancel',
-              role: 'cancel',
-              cssClass: 'secondary'
+              text: "Cancel",
+              role: "cancel",
+              cssClass: "secondary",
             },
             {
-              text: 'Select',
+              text: "Select",
               handler: selectedGame => {
                 dispatch(setActiveGame(selectedGame, true));
                 if (modeName === "framedata" || modeName === "moveslist" || modeName === "combos") {
-                  history.replace(`/${modeName}/${selectedGame}/${allCharacterLists[selectedGame].includes(selectedCharacters["playerOne"].name) ? selectedCharacters["playerOne"].name : allCharacterLists[selectedGame][0]}`)
+                  history.replace(`/${modeName}/${selectedGame}/${allCharacterLists[selectedGame].includes(selectedCharacters["playerOne"].name) ? selectedCharacters["playerOne"].name : allCharacterLists[selectedGame][0]}`);
                 }
-              }
-            }
+              },
+            },
           ]}
         />
       </IonContent>

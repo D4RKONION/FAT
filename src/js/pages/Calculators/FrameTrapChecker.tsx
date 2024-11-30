@@ -1,17 +1,17 @@
-import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, IonIcon, IonFab, IonFabButton, IonGrid, IonBackButton, IonButtons, IonHeader, IonTitle, IonToolbar } from '@ionic/react';
-import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import '../../../style/pages/Calculators.scss';
-import '../../../style/components/FAB.scss'
-import SegmentSwitcher from '../../components/SegmentSwitcher';
-import { setActiveFrameDataPlayer, setModalVisibility } from '../../actions';
-import { person } from 'ionicons/icons';
-import { selectedCharactersSelector } from '../../selectors';
-import PopoverButton from '../../components/PopoverButton';
+import "../../../style/pages/Calculators.scss";
+import "../../../style/components/FAB.scss";
 
+import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, IonIcon, IonFab, IonFabButton, IonGrid, IonBackButton, IonButtons, IonHeader, IonTitle, IonToolbar } from "@ionic/react";
+import { person } from "ionicons/icons";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+import { setActiveFrameDataPlayer, setModalVisibility } from "../../actions";
+import PopoverButton from "../../components/PopoverButton";
+import SegmentSwitcher from "../../components/SegmentSwitcher";
+import { selectedCharactersSelector } from "../../selectors";
 
 const FrameTrapChecker = () => {
-  
   const selectedCharacters = useSelector(selectedCharactersSelector);
 
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const FrameTrapChecker = () => {
   const [secondMove, setSecondMove] = useState(null);
 
   const playerOneMoves = selectedCharacters["playerOne"].frameData;
-  const firstMoveBlockStun = playerOneMoves[firstMove] && parseInt(playerOneMoves[firstMove].active) + playerOneMoves[firstMove].recovery + playerOneMoves[firstMove].onBlock
+  const firstMoveBlockStun = playerOneMoves[firstMove] && parseInt(playerOneMoves[firstMove].active) + playerOneMoves[firstMove].recovery + playerOneMoves[firstMove].onBlock;
 
   // When we change characters, we want to reset the dropdowns to null if the new character doesn't have
   // one of the selected moves. This leaves most generic normals in tact in the dropdown.
@@ -52,7 +52,7 @@ const FrameTrapChecker = () => {
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref='/calculators' />
+            <IonBackButton defaultHref="/calculators" />
           </IonButtons>
           <IonTitle>{`FTC - ${selectedCharacters.playerOne.name}`}</IonTitle>
           <IonButtons slot="end">
@@ -60,7 +60,6 @@ const FrameTrapChecker = () => {
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-
 
       <IonContent className="calculators">
         <IonGrid fixed>
@@ -84,15 +83,15 @@ const FrameTrapChecker = () => {
 
               {linkOrCancel === "link"
                 ? Object.keys(playerOneMoves).filter(move =>
-                    playerOneMoves[move].moveType !== "throw" &&
+                  playerOneMoves[move].moveType !== "throw" &&
                     playerOneMoves[move].moveType !== "command-grab" &&
                     !playerOneMoves[move].antiAirMove &&
                     !playerOneMoves[move].nonHittingMove &&
                     !playerOneMoves[move].airMove &&
                     !isNaN(playerOneMoves[move].onBlock)
-                  ).map(move =>
-                    <IonSelectOption key={`firstMove-${move}`} value={move}>{move}</IonSelectOption>
-                  )
+                ).map(move =>
+                  <IonSelectOption key={`firstMove-${move}`} value={move}>{move}</IonSelectOption>
+                )
                 : Object.keys(playerOneMoves).filter(move =>
                   playerOneMoves[move].xx &&
                   playerOneMoves[move].moveType !== "movement-special" &&
@@ -110,7 +109,7 @@ const FrameTrapChecker = () => {
                 ).map(move =>
                   <IonSelectOption key={`firstMove-${move}`} value={move}>{move}</IonSelectOption>
                 )
-            }
+              }
             </IonSelect>
           </IonItem>
 
@@ -127,29 +126,29 @@ const FrameTrapChecker = () => {
               <IonSelectOption key="secondMove-select" value={null}>Select a move</IonSelectOption>
               {linkOrCancel === "cancel" && firstMove && playerOneMoves[firstMove].xx
                 ? Object.keys(playerOneMoves).filter(move =>
-                    !playerOneMoves[move].airmove &&
+                  !playerOneMoves[move].airmove &&
                     !playerOneMoves[move].followUp &&
                     !isNaN(playerOneMoves[move].startup) &&
                     (
-                        (playerOneMoves[move].moveType === "super" && playerOneMoves[firstMove].xx.includes("su")) ||
+                      (playerOneMoves[move].moveType === "super" && playerOneMoves[firstMove].xx.includes("su")) ||
                         (playerOneMoves[move].moveType === "vskill" && (playerOneMoves[firstMove].xx.includes("vs1") || playerOneMoves[firstMove].xx.includes("vs2"))) ||
                         (playerOneMoves[move].moveType === "vtrigger" && (playerOneMoves[firstMove].xx.includes("vt1") || playerOneMoves[firstMove].xx.includes("vt2"))) ||
                         ((playerOneMoves[move].moveType === "special" || playerOneMoves[move].moveType === "movement-special" ) && playerOneMoves[firstMove].xx.includes("sp"))
                     )
-                  ).map(move =>
-                    <IonSelectOption key={`secondMove-${move}`} value={move}>{move}</IonSelectOption>
-                  )
+                ).map(move =>
+                  <IonSelectOption key={`secondMove-${move}`} value={move}>{move}</IonSelectOption>
+                )
                 : Object.keys(playerOneMoves).filter(move =>
-                    playerOneMoves[move].moveType !== "throw" &&
+                  playerOneMoves[move].moveType !== "throw" &&
                     playerOneMoves[move].moveType !== "command-grab" &&
                     !playerOneMoves[move].antiAirMove &&
                     !playerOneMoves[move].nonHittingMove &&
                     !playerOneMoves[move].airMove &&
                     !playerOneMoves[move].followUp &&
                     !isNaN(playerOneMoves[move].startup)
-                  ).map(move =>
-                    <IonSelectOption key={`secondMove-${move}`} value={move}>{move}</IonSelectOption>
-                  )
+                ).map(move =>
+                  <IonSelectOption key={`secondMove-${move}`} value={move}>{move}</IonSelectOption>
+                )
 
               }
             </IonSelect>
@@ -184,11 +183,11 @@ const FrameTrapChecker = () => {
                   {
                     (-1 * (firstMoveBlockStun + (1 - 3) - playerOneMoves[secondMove].startup) > 0) && playerOneMoves[secondMove].startup
                       ? <p>There is a <b>gap of {-1 * (firstMoveBlockStun + (1 - 3) - playerOneMoves[secondMove].startup)} frames </b> in the string {firstMove} xx {secondMove} when {firstMove} connects on active frame 1 and is cancelled immediately.</p>
-                    : (-1 * (firstMoveBlockStun + (1 - 3) - playerOneMoves[secondMove].recovery) > 0) && !playerOneMoves[secondMove].startup && playerOneMoves[secondMove].recovery
-                      ? <p>There is a <b>gap of {-1 * (firstMoveBlockStun + (1 - 3) - playerOneMoves[secondMove].recovery)} frames </b> in the string {firstMove} xx {secondMove} when {firstMove} connects on active frame 1 and is cancelled immediately.</p>
-                    : (-1 * (firstMoveBlockStun + (1 - 3) - playerOneMoves[secondMove].startup) <= 0)
-                      ? <p>There is <b>no gap</b> between {firstMove} xx {secondMove}. It is a true blockstring.</p>
-                    : <p>You broke the calculator, congratulations! Please email me with the inputted data so I can fix this :)</p>
+                      : (-1 * (firstMoveBlockStun + (1 - 3) - playerOneMoves[secondMove].recovery) > 0) && !playerOneMoves[secondMove].startup && playerOneMoves[secondMove].recovery
+                        ? <p>There is a <b>gap of {-1 * (firstMoveBlockStun + (1 - 3) - playerOneMoves[secondMove].recovery)} frames </b> in the string {firstMove} xx {secondMove} when {firstMove} connects on active frame 1 and is cancelled immediately.</p>
+                        : (-1 * (firstMoveBlockStun + (1 - 3) - playerOneMoves[secondMove].startup) <= 0)
+                          ? <p>There is <b>no gap</b> between {firstMove} xx {secondMove}. It is a true blockstring.</p>
+                          : <p>You broke the calculator, congratulations! Please email me with the inputted data so I can fix this :)</p>
                   }
                 </IonItem>
               }
@@ -199,7 +198,7 @@ const FrameTrapChecker = () => {
         </IonGrid>
 
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton onClick={() => { dispatch(setActiveFrameDataPlayer("playerOne")); dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true})) } }>
+          <IonFabButton onClick={() => { dispatch(setActiveFrameDataPlayer("playerOne")); dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true})); } }>
             <IonIcon icon={person} />
           </IonFabButton>
         </IonFab>

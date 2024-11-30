@@ -1,31 +1,30 @@
-import { IonContent, IonPage, IonIcon, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonSearchbar, IonButton, IonTitle, IonFab, IonFabButton, ScrollDetail } from '@ionic/react';
-import { useEffect, useRef, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import SegmentSwitcher from '../components/SegmentSwitcher';
-import SubHeader from '../components/SubHeader';
-import LandscapeOptions from '../components/LandscapeOptions';
-import { setActiveFrameDataPlayer, setModalVisibility, setPlayerAttr, setDataTableColumns, addBookmark, removeBookmark } from '../actions';
-import { useHistory, useParams } from 'react-router';
-import { backspaceOutline, bookmarkOutline, bookmarkSharp, bookmarksSharp, closeOutline, informationCircle, searchSharp } from 'ionicons/icons';
-import AdviceToast from '../components/AdviceToast';
-import { APP_CURRENT_VERSION_CODE } from '../constants/VersionLogs';
-import { activeGameSelector, activePlayerSelector, bookmarksSelector, dataTableSettingsSelector, gameDetailsSelector, modalVisibilitySelector, premiumSelector, selectedCharactersSelector } from '../selectors';
-import { FrameDataSlug } from '../types';
-import { handleNewCharacterLandscapeCols } from '../utils/landscapecols';
-import { isPlatform } from '@ionic/react';
-import FrameDataSubHeader from '../components/FrameDataSubHeader';
-import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
-import { Preferences } from '@capacitor/preferences';
-import DataTable from '../components/DataTable';
-import PopoverButton from '../components/PopoverButton';
-import '../../style/pages/FrameData.scss'
-import TableSettings from '../components/TableSettings';
-import BookmarkToast from '../components/BookmarkToast';
+import "../../style/pages/FrameData.scss";
 
+import { Preferences } from "@capacitor/preferences";
+import { IonContent, IonPage, IonIcon, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonSearchbar, IonButton, IonTitle, IonFab, IonFabButton, ScrollDetail } from "@ionic/react";
+import { isPlatform } from "@ionic/react";
+import { backspaceOutline, bookmarkOutline, bookmarkSharp, bookmarksSharp, closeOutline, informationCircle, searchSharp } from "ionicons/icons";
+import { useEffect, useRef, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory, useParams } from "react-router";
 
+import { setActiveFrameDataPlayer, setModalVisibility, setPlayerAttr, setDataTableColumns, addBookmark, removeBookmark } from "../actions";
+import AdviceToast from "../components/AdviceToast";
+import BookmarkToast from "../components/BookmarkToast";
+import DataTable from "../components/DataTable";
+import FrameDataSubHeader from "../components/FrameDataSubHeader";
+import LandscapeOptions from "../components/LandscapeOptions";
+import PopoverButton from "../components/PopoverButton";
+import SegmentSwitcher from "../components/SegmentSwitcher";
+import SubHeader from "../components/SubHeader";
+import TableSettings from "../components/TableSettings";
+import { APP_CURRENT_VERSION_CODE } from "../constants/VersionLogs";
+import { activeGameSelector, activePlayerSelector, bookmarksSelector, dataTableSettingsSelector, gameDetailsSelector, modalVisibilitySelector, premiumSelector, selectedCharactersSelector } from "../selectors";
+import { FrameDataSlug } from "../types";
+import { handleNewCharacterLandscapeCols } from "../utils/landscapecols";
+import { createSegmentSwitcherObject } from "../utils/segmentSwitcherObject";
 
 const FrameData = () => {
-  
   const modalVisibility = useSelector(modalVisibilitySelector);
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const activePlayer = useSelector(activePlayerSelector);
@@ -38,20 +37,20 @@ const FrameData = () => {
   const premiumIsPurchased = useSelector(premiumSelector).lifetimePremiumPurchased;
 
   const [searchShown, setSearchShown] = useState(false);
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState("");
   const [characterHasStates, setCharacterHasStates] = useState(false);
 
-  const searchBoxMessages = [`Search ${selectedCharacters[activePlayer].name}`, 'Type a move name', 'Try s: 4', 'Try a > 3', 'Try r < 10', 'Try oH >= 3', 'Try xx: sp', 'Try info: fully inv', 'Try oB <= -4', 'Try =, >, <, >=, <=']
+  const searchBoxMessages = [`Search ${selectedCharacters[activePlayer].name}`, "Type a move name", "Try s: 4", "Try a > 3", "Try r < 10", "Try oH >= 3", "Try xx: sp", "Try info: fully inv", "Try oB <= -4", "Try =, >, <, >=, <="];
   const [searchPlaceholderText, setSearchPlaceholderText] = useState(searchBoxMessages[0]);
 
   const dispatch = useDispatch();
-  
+
   const history = useHistory();
   const slugs: FrameDataSlug = useParams();
 
-  const [whatsNewCheckComplete, setWhatsNewCheckComplete]= useState(false)
+  const [whatsNewCheckComplete, setWhatsNewCheckComplete]= useState(false);
 
-  const [scrollingUp, setScrollingUp]= useState(true)
+  const [scrollingUp, setScrollingUp]= useState(true);
 
   const [bookmarkToastVisible, setBookmarkToastVisible] = useState(false);
   const [bookmarkToastMessage, setBookmarkToastMessage] = useState("");
@@ -60,62 +59,59 @@ const FrameData = () => {
     dispatch(setDataTableColumns(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters["playerOne"].name, slugs.characterSlug, autoSetCharacterSpecificColumnsOn, dataTableColumns)));
 
     const checkForNewAppVersion = async () => {
-			const lsCurrentVersionCode = await (await Preferences.get({key: "lsCurrentVersionCode"})).value
+      const lsCurrentVersionCode = await (await Preferences.get({key: "lsCurrentVersionCode"})).value;
 
       if (!lsCurrentVersionCode || parseInt(lsCurrentVersionCode as unknown as string) < APP_CURRENT_VERSION_CODE) {
         await Preferences.set({
-          key: `lsCurrentVersionCode`,
+          key: "lsCurrentVersionCode",
           value: APP_CURRENT_VERSION_CODE.toString(),
         });
-        dispatch(setModalVisibility({ currentModal: "whatsNew", visible: true }))
+        dispatch(setModalVisibility({ currentModal: "whatsNew", visible: true }));
       }
-      setWhatsNewCheckComplete(true)
-		}
-		checkForNewAppVersion();
+      setWhatsNewCheckComplete(true);
+    };
+    checkForNewAppVersion();
 
-    setSearchPlaceholderText(searchBoxMessages[Math.floor(Math.random() * searchBoxMessages.length)])
-
+    setSearchPlaceholderText(searchBoxMessages[Math.floor(Math.random() * searchBoxMessages.length)]);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
-  
   // Show or hide the state changer when the character or game changes
   useEffect(() => {
-    setCharacterHasStates(!!gameDetails.specificCharacterStates[selectedCharacters[activePlayer].name])
-  }, [selectedCharacters, gameDetails, activePlayer])
+    setCharacterHasStates(!!gameDetails.specificCharacterStates[selectedCharacters[activePlayer].name]);
+  }, [selectedCharacters, gameDetails, activePlayer]);
 
   // Check if the current state is bookmarked
-  const [currentBookmarkIndex, setCurrentBookmarkIndex]= useState(-1)
+  const [currentBookmarkIndex, setCurrentBookmarkIndex]= useState(-1);
   useEffect(() => {
-    setCurrentBookmarkIndex(bookmarks.findIndex((bookmark) => 
+    setCurrentBookmarkIndex(bookmarks.findIndex((bookmark) =>
       bookmark.modeName === "framedata" && bookmark.gameName === activeGame && bookmark.characterName === selectedCharacters[activePlayer].name
-    ))
-  }, [selectedCharacters, activeGame, activePlayer, bookmarks])
+    ));
+  }, [selectedCharacters, activeGame, activePlayer, bookmarks]);
 
-
-  const searchRef = useRef(null)
+  const searchRef = useRef(null);
   useEffect(() => {
     if (searchShown) {
-      searchRef?.current.setFocus()
+      searchRef?.current.setFocus();
     }
-  }, [searchShown])
+  }, [searchShown]);
 
   const contentRef = useRef(null);
-  let lastScrollTime = useRef(0)
+  const lastScrollTime = useRef(0);
 
   const scrollToBottom = (scrollEvent) => {
     if (scrollEvent.target.scrollTop < 10 || (scrollEvent.timeStamp - lastScrollTime.current) > 1000 ) {
-      lastScrollTime.current = scrollEvent.timeStamp
+      lastScrollTime.current = scrollEvent.timeStamp;
       contentRef.current?.scrollToBottom(500); // over 500ms
     }
-  }
+  };
 
   function handleScroll(ev: CustomEvent<ScrollDetail>) {
     if (ev.detail.deltaY < 0) {
-      setScrollingUp(true)
+      setScrollingUp(true);
     } else {
-      setScrollingUp(false)
+      setScrollingUp(false);
     }
   }
 
@@ -129,90 +125,84 @@ const FrameData = () => {
           </IonButtons>
 
           <IonSearchbar
-            className='hideOnSmallScreen'
+            className="hideOnSmallScreen"
             value={searchText}
             onIonInput={e => setSearchText(e.detail.value!)}
             placeholder={searchPlaceholderText}
           />
-        
-          {searchShown 
+
+          {searchShown
             ? <>
               <IonSearchbar
-                className='hideOnWideScreen slideOnChange'
+                className="hideOnWideScreen slideOnChange"
                 showCancelButton="always"
                 cancelButtonIcon={closeOutline}
                 clearIcon={backspaceOutline}
                 value={searchText}
                 onIonInput={e => setSearchText(e.detail.value!)}
-                onIonCancel={() => {setSearchText(""); setSearchShown(false)}}
+                onIonCancel={() => {setSearchText(""); setSearchShown(false);}}
                 placeholder={searchPlaceholderText}
                 ref={searchRef}
-                />
-              <IonButtons slot='end'>
+              />
+              <IonButtons slot="end">
                 <PopoverButton />
               </IonButtons>
             </>
 
-          : <>
-          <IonTitle className='hideOnWideScreen'>{activeGame} {!isPlatform("ios") && `- ${selectedCharacters[activePlayer].name}`}</IonTitle>
-            <IonButtons slot='end'>
-              <IonButton onClick={() => setSearchShown(!searchShown)} className='hideOnWideScreen'>
-                <IonIcon icon={searchSharp} slot='icon-only' />
-              </IonButton>
-              <IonButton onClick={() => {
-                if (currentBookmarkIndex !== -1) {
-                  dispatch(removeBookmark(currentBookmarkIndex))
-                  setBookmarkToastMessage(`Bookmark Removed: ${activeGame} ${selectedCharacters[activePlayer].name}`);
-                  setBookmarkToastVisible(true);
-                } else if (bookmarks.length >= 3 && !premiumIsPurchased && !isPlatform("desktop")) {
-                  history.push("/settings/premium")
-                } else {
-                  dispatch(addBookmark({
-                    gameName: activeGame,
-                    modeName: "framedata",
-                    characterName: selectedCharacters[activePlayer].name
-                  }))
-                  setBookmarkToastMessage(`Bookmark Added: ${activeGame} ${selectedCharacters[activePlayer].name}`);
-                  setBookmarkToastVisible(true);
-                }
-                
-              }}>
-                <IonIcon icon={currentBookmarkIndex !== -1 ? bookmarkSharp : bookmarkOutline} slot='icon-only' />
-              </IonButton>
-              <PopoverButton />
-            </IonButtons>
-          </>
+            : <>
+              <IonTitle className="hideOnWideScreen">{activeGame} {!isPlatform("ios") && `- ${selectedCharacters[activePlayer].name}`}</IonTitle>
+              <IonButtons slot="end">
+                <IonButton onClick={() => setSearchShown(!searchShown)} className="hideOnWideScreen">
+                  <IonIcon icon={searchSharp} slot="icon-only" />
+                </IonButton>
+                <IonButton onClick={() => {
+                  if (currentBookmarkIndex !== -1) {
+                    dispatch(removeBookmark(currentBookmarkIndex));
+                    setBookmarkToastMessage(`Bookmark Removed: ${activeGame} ${selectedCharacters[activePlayer].name}`);
+                    setBookmarkToastVisible(true);
+                  } else if (bookmarks.length >= 3 && !premiumIsPurchased && !isPlatform("desktop")) {
+                    history.push("/settings/premium");
+                  } else {
+                    dispatch(addBookmark({
+                      gameName: activeGame,
+                      modeName: "framedata",
+                      characterName: selectedCharacters[activePlayer].name,
+                    }));
+                    setBookmarkToastMessage(`Bookmark Added: ${activeGame} ${selectedCharacters[activePlayer].name}`);
+                    setBookmarkToastVisible(true);
+                  }
+                }}>
+                  <IonIcon icon={currentBookmarkIndex !== -1 ? bookmarkSharp : bookmarkOutline} slot="icon-only" />
+                </IonButton>
+                <PopoverButton />
+              </IonButtons>
+            </>
 
+          }
 
-        }
-
-        
-
-        
-      </IonToolbar>
-    </IonHeader>
-
+        </IonToolbar>
+      </IonHeader>
 
       <IonContent ref={contentRef} scrollEvents={true} onIonScroll={handleScroll}>
         <SubHeader
           adaptToShortScreens={true}
           hideOnWideScreens={true}
           rowsToDisplay={
-            gameDetails.statsPoints["The Basics"].map((dataRow, index) => 
+            gameDetails.statsPoints["The Basics"].map((dataRow, index) =>
               [
                 ...Object.keys(dataRow).map(statKey =>
                   <div key={`stat-point-${dataRow}-${statKey}`}><b>{dataRow[statKey]}</b><br />{
-                      statKey === "bestReversal" ? Object.keys(selectedCharacters[activePlayer].frameData).find(moveEntry => 
-                        selectedCharacters[activePlayer].frameData[moveEntry].moveName === selectedCharacters[activePlayer].stats[statKey]
-                      ) || selectedCharacters[activePlayer].stats[statKey]
+                    statKey === "bestReversal" ? Object.keys(selectedCharacters[activePlayer].frameData).find(moveEntry =>
+                      selectedCharacters[activePlayer].frameData[moveEntry].moveName === selectedCharacters[activePlayer].stats[statKey]
+                    ) || selectedCharacters[activePlayer].stats[statKey]
                       : selectedCharacters[activePlayer].stats[statKey]
-                    
+
                   }</div>
                 ),
-                index === 0 && <div key={"tap-stats"} onClick={() => {history.push(`/stats/${activeGame}/${selectedCharacters[activePlayer].name}`)}}><b>More Stats</b><br /><IonIcon icon={informationCircle} /></div>
+                index === 0 && <div key={"tap-stats"} onClick={() => {history.push(`/stats/${activeGame}/${selectedCharacters[activePlayer].name}`);}}><b>More Stats</b><br /><IonIcon icon={informationCircle} /></div>,
               ]
             )
-          }    
+          }
         />
         <FrameDataSubHeader
           charName={selectedCharacters[activePlayer].name}
@@ -243,7 +233,7 @@ const FrameData = () => {
               labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
               clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
             />
-          : (activeGame === "GGST" || activeGame === "SF6") &&
+            : (activeGame === "GGST" || activeGame === "SF6") &&
             <SegmentSwitcher
               passedClassNames={!characterHasStates ? "collapsed" : "expanded"}
               segmentType={"vtrigger"}
@@ -260,7 +250,7 @@ const FrameData = () => {
           scrollToBottom={scrollToBottom}
           clearSearchText={() => setSearchText("")}
         />
-        
+
         {whatsNewCheckComplete && !modalVisibility.visible &&
           <AdviceToast />
         }
@@ -276,7 +266,7 @@ const FrameData = () => {
             <IonIcon icon={bookmarksSharp}></IonIcon>
           </IonFabButton>
         </IonFab>
-        
+
       </IonContent>
       <LandscapeOptions />
     </IonPage>

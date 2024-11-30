@@ -1,19 +1,19 @@
-import { IonContent, IonPage, IonItem, IonLabel, IonIcon, IonFab, IonFabButton, IonList, IonSelect, IonSelectOption, IonToggle, IonGrid, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle } from '@ionic/react';
-import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import '../../../style/pages/Calculators.scss';
-import '../../../style/components/FAB.scss'
-import { setActiveFrameDataPlayer, setModalVisibility } from '../../actions';
-import { person } from 'ionicons/icons';
-import { activeGameSelector, selectedCharactersSelector } from '../../selectors';
-import PopoverButton from '../../components/PopoverButton';
+import "../../../style/pages/Calculators.scss";
+import "../../../style/components/FAB.scss";
 
+import { IonContent, IonPage, IonItem, IonLabel, IonIcon, IonFab, IonFabButton, IonList, IonSelect, IonSelectOption, IonToggle, IonGrid, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle } from "@ionic/react";
+import { person } from "ionicons/icons";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+import { setActiveFrameDataPlayer, setModalVisibility } from "../../actions";
+import PopoverButton from "../../components/PopoverButton";
+import { activeGameSelector, selectedCharactersSelector } from "../../selectors";
 
 const MoveLinker = () => {
-
   const activeGame = useSelector(activeGameSelector);
   const selectedCharacters = useSelector(selectedCharactersSelector);
-  
+
   const dispatch = useDispatch();
 
   const [firstMove, setFirstMove] = useState(null);
@@ -25,32 +25,29 @@ const MoveLinker = () => {
 
   useEffect(() => {
     if (playerOneMoves[firstMove]) {
-        if ((counterHitState || punishCounterState) && playerOneMoves[firstMove]) {
-          if (activeGame === "SF6" && punishCounterState && playerOneMoves[firstMove].onPC) {
-            setCounterHitBonus(playerOneMoves[firstMove].onPC - playerOneMoves[firstMove].onHit)
-          } else if (activeGame === "SF6" && (!!parseInt(playerOneMoves[firstMove].onHit) || playerOneMoves[firstMove].onHit === 0)) {
-            setCounterHitBonus(2)
-          } else if (activeGame === "SFV" && playerOneMoves[firstMove].ccAdv) {
-            setCounterHitBonus(playerOneMoves[firstMove].ccAdv - playerOneMoves[firstMove].onHit)
-          } else if (activeGame === "SFV" && (!!parseInt(playerOneMoves[firstMove].onHit) || playerOneMoves[firstMove].onHit === 0)) {
-            setCounterHitBonus(2)
-          } else if (activeGame === "USF4" && (!!parseInt(playerOneMoves[firstMove].onHit) || playerOneMoves[firstMove].onHit === 0) && playerOneMoves[firstMove].moveType === "normal" && playerOneMoves[firstMove].moveButton.includes("L")) {
-            setCounterHitBonus(1)
-          } else if (activeGame === "USF4" && (!!parseInt(playerOneMoves[firstMove].onHit) || playerOneMoves[firstMove].onHit === 0)) {
-            setCounterHitBonus(3)
-          } else {
-             setCounterHitBonus(0)
-          }
-        } else (
-          setCounterHitBonus(0)
-        )
+      if ((counterHitState || punishCounterState) && playerOneMoves[firstMove]) {
+        if (activeGame === "SF6" && punishCounterState && playerOneMoves[firstMove].onPC) {
+          setCounterHitBonus(playerOneMoves[firstMove].onPC - playerOneMoves[firstMove].onHit);
+        } else if (activeGame === "SF6" && (!!parseInt(playerOneMoves[firstMove].onHit) || playerOneMoves[firstMove].onHit === 0)) {
+          setCounterHitBonus(2);
+        } else if (activeGame === "SFV" && playerOneMoves[firstMove].ccAdv) {
+          setCounterHitBonus(playerOneMoves[firstMove].ccAdv - playerOneMoves[firstMove].onHit);
+        } else if (activeGame === "SFV" && (!!parseInt(playerOneMoves[firstMove].onHit) || playerOneMoves[firstMove].onHit === 0)) {
+          setCounterHitBonus(2);
+        } else if (activeGame === "USF4" && (!!parseInt(playerOneMoves[firstMove].onHit) || playerOneMoves[firstMove].onHit === 0) && playerOneMoves[firstMove].moveType === "normal" && playerOneMoves[firstMove].moveButton.includes("L")) {
+          setCounterHitBonus(1);
+        } else if (activeGame === "USF4" && (!!parseInt(playerOneMoves[firstMove].onHit) || playerOneMoves[firstMove].onHit === 0)) {
+          setCounterHitBonus(3);
+        } else {
+          setCounterHitBonus(0);
+        }
+      } else (
+        setCounterHitBonus(0)
+      );
     } else {
       setFirstMove(null);
     }
   },[playerOneMoves, firstMove, selectedCharacters, counterHitState, punishCounterState, activeGame]);
-
-
-
 
   return (
     <IonPage>
@@ -58,7 +55,7 @@ const MoveLinker = () => {
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref='/calculators' />
+            <IonBackButton defaultHref="/calculators" />
           </IonButtons>
           <IonTitle>{`MLinker - ${selectedCharacters.playerOne.name}`}</IonTitle>
           <IonButtons slot="end">
@@ -66,7 +63,6 @@ const MoveLinker = () => {
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-
 
       <IonContent className="calculators">
         <IonGrid fixed>
@@ -83,7 +79,7 @@ const MoveLinker = () => {
 
               {Object.keys(playerOneMoves).filter(move =>
 
-              playerOneMoves[move].moveType !== "movement-special" &&
+                playerOneMoves[move].moveType !== "movement-special" &&
               playerOneMoves[move].moveType !== "throw" &&
               playerOneMoves[move].moveType !== "command-grab" &&
               !playerOneMoves[move].airmove &&
@@ -108,9 +104,7 @@ const MoveLinker = () => {
             </IonItem>
           }
 
-
-
-            {playerOneMoves[firstMove] &&
+          {playerOneMoves[firstMove] &&
               <>
                 <IonItem lines="full" className="selected-move-info">
                   <IonLabel>
@@ -120,9 +114,9 @@ const MoveLinker = () => {
                   </IonLabel>
                 </IonItem>
                 <IonList>
-                {
-                  Object.keys(playerOneMoves).filter(secondMove =>
-                    !isNaN(playerOneMoves[firstMove].onHit) &&
+                  {
+                    Object.keys(playerOneMoves).filter(secondMove =>
+                      !isNaN(playerOneMoves[firstMove].onHit) &&
                     playerOneMoves[secondMove].startup <= (playerOneMoves[firstMove].onHit + counterHitBonus) &&
                     playerOneMoves[secondMove].moveType !== "movement-special" &&
                     playerOneMoves[secondMove].moveType !== "throw" &&
@@ -133,23 +127,23 @@ const MoveLinker = () => {
                     !playerOneMoves[secondMove].nonHittingMove &&
                     !playerOneMoves[secondMove].antiAirMove &&
                     !playerOneMoves[secondMove].throwMove
-                  ).map(secondMove =>
-                    <IonItem key={`${firstMove}, ${secondMove}`}>
+                    ).map(secondMove =>
+                      <IonItem key={`${firstMove}, ${secondMove}`}>
                         <p>{firstMove}, {secondMove} (s: {playerOneMoves[secondMove].startup}) is a {playerOneMoves[firstMove].onHit - playerOneMoves[secondMove].startup + counterHitBonus + 1} frame link</p>
-                    </IonItem>
-                  )
-                }
+                      </IonItem>
+                    )
+                  }
 
                 </IonList>
               </>
-            }
+          }
         </IonGrid>
 
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton onClick={() => { dispatch(setActiveFrameDataPlayer("playerOne")); dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true})) } }>
-              <IonIcon icon={person} />
-            </IonFabButton>
-          </IonFab>
+          <IonFabButton onClick={() => { dispatch(setActiveFrameDataPlayer("playerOne")); dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true})); } }>
+            <IonIcon icon={person} />
+          </IonFabButton>
+        </IonFab>
       </IonContent>
     </IonPage>
   );

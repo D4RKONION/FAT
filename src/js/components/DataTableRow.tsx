@@ -1,8 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux';
-import '../../style/components/DataTableRow.scss';
-import { activeGameSelector, activePlayerSelector, advantageModifiersSelector, dataDisplaySettingsSelector, dataTableSettingsSelector, selectedCharactersSelector } from '../selectors';
-import { setPlayerAttr } from '../actions';
-import { useHistory } from 'react-router';
+import "../../style/components/DataTableRow.scss";
+
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
+
+import { setPlayerAttr } from "../actions";
+import { activeGameSelector, activePlayerSelector, advantageModifiersSelector, dataDisplaySettingsSelector, dataTableSettingsSelector, selectedCharactersSelector } from "../selectors";
 
 type Props = {
   moveName: string;
@@ -11,7 +13,7 @@ type Props = {
   xScrollEnabled: boolean;
   displayOnlyStateMoves: boolean;
   sample?: boolean;
-}
+};
 
 const moveAdvantageColorsExcludeList = [
   "ddob",
@@ -22,17 +24,16 @@ const moveAdvantageColorsExcludeList = [
   "oppsob",
   "hitstun",
   "hitstop",
-  "blockstun"
-]
+  "blockstun",
+];
 
 const plusExlcudeList = [
   "hitstun",
   "hitstop",
-  "blockstun"
-]
+  "blockstun",
+];
 
 const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displayOnlyStateMoves, sample }: Props) => {
-
   const activeGame = useSelector(activeGameSelector);
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const activePlayer = useSelector(activePlayerSelector);
@@ -45,25 +46,21 @@ const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displ
   const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
 
   const dispatch = useDispatch();
-  let history = useHistory();
+  const history = useHistory();
 
   const parseCellData = (detailKey: string) => {
-
-    // Game Specific rules 
+    // Game Specific rules
     if (activeGame === "SF6") {
       if (detailKey === "onBlock" && (vsBurntoutOpponent || rawDriveRush) && !isNaN(moveData[detailKey])) {
         // generic +4 on hit raw drive rush
         return moveData[detailKey] + (vsBurntoutOpponent ? 4 : 0) + (rawDriveRush && moveData.moveType === "normal" ? 4 : 0);
-
       } else if (detailKey === "onHit") {
         if (moveData.afterDRoH && rawDriveRush) {
           // specified on hit raw drive rush
           return moveData.afterDRoH;
-
         } else if (!isNaN(moveData[detailKey]) && rawDriveRush) {
           // generic +4 on hit raw drive rush
           return moveData[detailKey] + (rawDriveRush && moveData.moveType === "normal" ? 4 : 0) + (counterHit ? 2 : 0);
-
         } else if (!isNaN(moveData[detailKey]) && counterHit) {
           //generic +2 on counter hit
           return moveData[detailKey] + 2;
@@ -79,7 +76,6 @@ const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displ
           return moveData[detailKey] + 2;
         }
       }
-
     } else if (activeGame === "USF4" && counterHit && detailKey === "onHit" && !isNaN(moveData[detailKey])) {
       if (moveData.moveType === "normal" && moveData.moveButton.includes("L")) {
         // USF4 lights give +1 on ch
@@ -96,7 +92,7 @@ const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displ
     if (typeof moveData[detailKey] === "undefined") {
       // Fallback for blanks
       // TODO: Make this a choice between "-" and "" and "~"
-      return "-"
+      return "-";
     } else if (detailKey === "xx" && typeof moveData[detailKey] === "object") {
       // Parse cancel object with ,s
       return moveData[detailKey].map((cancelType, index) => `${cancelType}${moveData[detailKey].length - 1 !== index ? "," : ""} `);
@@ -105,21 +101,20 @@ const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displ
       return moveData[detailKey].map((gatlingOption, index) => `${gatlingOption}${moveData[detailKey].length - 1 !== index ? "," : ""} `);
     } else {
       // Return the sheet data as is
-      return moveData[detailKey]
+      return moveData[detailKey];
     }
-
-  }
+  };
 
   const addPlusToAdvantageMoves = (detailKey, cellValue) => {
     if (!plusExlcudeList.includes(detailKey) && (detailKey.toLowerCase().includes("block") || detailKey.toLowerCase().includes("ob") || detailKey.toLowerCase().includes("hit") || detailKey.toLowerCase().includes("oh") || detailKey === "onPC" || detailKey === "onPP") && !isNaN(cellValue) && cellValue > 0) {
-      return `+${cellValue}`
+      return `+${cellValue}`;
     } else {
-      return cellValue
+      return cellValue;
     }
-  }
-  
+  };
+
   const generateClassNames = (detailKey: string, cellDataToDisplay) => {
-    const classNamesToAdd = []
+    const classNamesToAdd = [];
 
     // Handle State shifts
     if (selectedCharacters[activePlayer].vtState !== "normal") {
@@ -137,7 +132,7 @@ const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displ
 
     // handle extra info borders
     if (detailKey === "moveName" && moveData.extraInfo) {
-      classNamesToAdd.push("extra-info-available")
+      classNamesToAdd.push("extra-info-available");
     }
 
     const detailKeyLowerCase = detailKey.toLowerCase();
@@ -148,26 +143,24 @@ const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displ
       && !moveAdvantageColorsExcludeList.includes(detailKeyLowerCase)
       && (detailKeyLowerCase.includes("block") || detailKeyLowerCase.includes("ob") || detailKeyLowerCase.includes("hit") || detailKeyLowerCase.includes("oh") || detailKey === "onPC" || detailKey === "onPP" || detailKey === "toxicblossom")
     ) {
-      
-      const amountToCheck = 
+      const amountToCheck =
         typeof cellDataToDisplay === "string" ? cellDataToDisplay.split(/[([/~]/)[0] // Split on any of (, [, /, or ~ and take the first part
-        : cellDataToDisplay
-      
-      const advantageAmount = 
+          : cellDataToDisplay;
+
+      const advantageAmount =
         amountToCheck < -8 ? "extremely-unsafe"
-        : amountToCheck < -5 ? "very-unsafe"
-        : (amountToCheck < -3 && activeGame === "SF6") || (amountToCheck < -2 && activeGame !== "SF6") ? "just-unsafe"
-        : amountToCheck < 1 ? "safe"
-        : amountToCheck < 4 ? "just-plus"
-        : (amountToCheck >= 4 || (amountToCheck && amountToCheck.toLowerCase().includes("kd"))) ? "very-plus"
-        : ""
-        
-        classNamesToAdd.push(`${advantageAmount}-${moveAdvantageIndicator}`)
-      
+          : amountToCheck < -5 ? "very-unsafe"
+            : (amountToCheck < -3 && activeGame === "SF6") || (amountToCheck < -2 && activeGame !== "SF6") ? "just-unsafe"
+              : amountToCheck < 1 ? "safe"
+                : amountToCheck < 4 ? "just-plus"
+                  : (amountToCheck >= 4 || (amountToCheck && amountToCheck.toLowerCase().includes("kd"))) ? "very-plus"
+                    : "";
+
+      classNamesToAdd.push(`${advantageAmount}-${moveAdvantageIndicator}`);
     }
-    
+
     return classNamesToAdd;
-  }
+  };
 
   // If it's state moves only, we need to show the move name and not the input names
   const getMoveName = (moveName) => {
@@ -176,31 +169,30 @@ const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displ
     } else {
       return moveName;
     }
-  }
-  
+  };
+
   return (
     <tr onClick={() => {
       if (sample) return false;
       dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, { selectedMove: moveName }));
-      history.push(`/movedetail/${activeGame}/${selectedCharacters[activePlayer].name}/${selectedCharacters[activePlayer].vtState}/${selectedCharacters[activePlayer].frameData[moveName]["moveName"]}`)
+      history.push(`/movedetail/${activeGame}/${selectedCharacters[activePlayer].name}/${selectedCharacters[activePlayer].vtState}/${selectedCharacters[activePlayer].frameData[moveName]["moveName"]}`);
     }} className={`DataTableRow ${xScrollEnabled ? "xScroll" : "fixed"}`}>
-      <td className={`cell move-name ${generateClassNames("moveName", getMoveName(moveName)).map(className => `${className}`).join(' ')}`}>{getMoveName(moveName)}</td>
+      <td className={`cell move-name ${generateClassNames("moveName", getMoveName(moveName)).map(className => `${className}`).join(" ")}`}>{getMoveName(moveName)}</td>
       {Object.keys(colsToDisplay).map(detailKey => {
-        
         // we first parse and modify out cell data as advantage can change
         const cellDataToDisplay = addPlusToAdvantageMoves(detailKey, parseCellData(detailKey));
         return (
-          <td className={`cell ${generateClassNames(detailKey, cellDataToDisplay).map(className => className).join(' ')} ${compactViewOn && "compact"}`}
+          <td className={`cell ${generateClassNames(detailKey, cellDataToDisplay).map(className => className).join(" ")} ${compactViewOn && "compact"}`}
             key={`cell-entry-${detailKey}`}
           >
             {cellDataToDisplay}
           </td>
-        )
+        );
       }
-        
+
       )}
     </tr>
-  )
-}
+  );
+};
 
 export default DataTableRow;

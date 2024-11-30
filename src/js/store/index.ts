@@ -1,14 +1,12 @@
-import { createStore, applyMiddleware } from 'redux';
-import { persistStore, persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
-
-import thunk from 'redux-thunk';
-
-import rootReducer, { RootState } from '../reducers';
-
+import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
+import { persistStore, persistReducer } from "redux-persist";
+import createTransform from "redux-persist/es/createTransform";
+import storage from "redux-persist/lib/storage";
+import thunk from "redux-thunk";
+
 import * as actionCreators from "../actions";
-import createTransform from 'redux-persist/es/createTransform';
+import rootReducer, { RootState } from "../reducers";
 
 // automerge2-ing state causes too many unwanted sideeffects,
 // so we'll make sure that dataDisplaySettings has everything here
@@ -24,23 +22,20 @@ const dataDisplaySettingsTransform = createTransform(
   {whitelist: ["dataDisplaySettingsState"]}
 );
 
-
 const rootPersistConfig = {
   key: "root",
   storage,
   blacklist: ["modeNameState", "activePlayerState", "frameDataState", "advantageModifiersState", "adviceToastState"], // some persist config takes place in reducers/index.ts
-  transforms: [dataDisplaySettingsTransform]
-}
+  transforms: [dataDisplaySettingsTransform],
+};
 
-
-const persistedReducer = persistReducer<RootState>(rootPersistConfig, rootReducer)
-
+const persistedReducer = persistReducer<RootState>(rootPersistConfig, rootReducer);
 
 const composeEnhancers = composeWithDevTools({
-    actionCreators,
-    trace: true,
-    traceLimit: 25,
-  })
+  actionCreators,
+  trace: true,
+  traceLimit: 25,
+});
 
 const store = createStore(persistedReducer, composeEnhancers(applyMiddleware(thunk)));
 

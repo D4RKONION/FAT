@@ -1,16 +1,16 @@
-import { IonContent, IonPage, IonItem, IonLabel, IonIcon, IonFab, IonFabButton, IonList, IonSelect, IonSelectOption, IonItemDivider, IonGrid, IonBackButton, IonButtons, IonHeader, IonTitle, IonToolbar } from '@ionic/react';
-import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import '../../../style/pages/Calculators.scss';
-import '../../../style/components/FAB.scss'
-import { setModalVisibility } from '../../actions';
-import { person } from 'ionicons/icons';
-import { selectedCharactersSelector } from '../../selectors';
-import PopoverButton from '../../components/PopoverButton';
+import "../../../style/pages/Calculators.scss";
+import "../../../style/components/FAB.scss";
 
+import { IonContent, IonPage, IonItem, IonLabel, IonIcon, IonFab, IonFabButton, IonList, IonSelect, IonSelectOption, IonItemDivider, IonGrid, IonBackButton, IonButtons, IonHeader, IonTitle, IonToolbar } from "@ionic/react";
+import { person } from "ionicons/icons";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+import { setModalVisibility } from "../../actions";
+import PopoverButton from "../../components/PopoverButton";
+import { selectedCharactersSelector } from "../../selectors";
 
 const CharacterPunisher = () => {
-  
   const selectedCharacters = useSelector(selectedCharactersSelector);
 
   const dispatch = useDispatch();
@@ -26,14 +26,13 @@ const CharacterPunisher = () => {
     }
   },[playerOneMoves, punishingMove, selectedCharacters]);
 
-
   return (
     <IonPage>
 
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref='/calculators' />
+            <IonBackButton defaultHref="/calculators" />
           </IonButtons>
           <IonTitle>{`C-Punish - ${selectedCharacters.playerOne.name}`}</IonTitle>
           <IonButtons slot="end">
@@ -41,7 +40,6 @@ const CharacterPunisher = () => {
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-
 
       <IonContent className="calculators">
         <IonGrid fixed>
@@ -69,9 +67,7 @@ const CharacterPunisher = () => {
             </IonSelect>
           </IonItem>
 
-
-
-            {playerOneMoves[punishingMove] &&
+          {playerOneMoves[punishingMove] &&
               <>
                 <IonItem lines="full" className="selected-move-info">
                   <IonLabel>
@@ -82,24 +78,24 @@ const CharacterPunisher = () => {
                 </IonItem>
                 <IonItemDivider><p>{selectedCharacters["playerOne"].name}'s <strong>{punishingMove}</strong> can punish {selectedCharacters["playerTwo"].name}'s</p></IonItemDivider>
                 <IonList>
-                {
-                  Object.keys(playerTwoMoves).filter(blockedMove =>
-                    playerTwoMoves[blockedMove].onBlock * -1 >= playerOneMoves[punishingMove].startup
-                  ).map(blockedMove =>
-                    <IonItem key={`${selectedCharacters["playerTwo"].name}, ${blockedMove}`}>
+                  {
+                    Object.keys(playerTwoMoves).filter(blockedMove =>
+                      playerTwoMoves[blockedMove].onBlock * -1 >= playerOneMoves[punishingMove].startup
+                    ).map(blockedMove =>
+                      <IonItem key={`${selectedCharacters["playerTwo"].name}, ${blockedMove}`}>
                         <p><em>{blockedMove}</em>: <strong>{(playerTwoMoves[blockedMove].onBlock * -1) - playerOneMoves[punishingMove].startup + 1}</strong> frame punish</p>
-                    </IonItem>
-                  )
-                }
+                      </IonItem>
+                    )
+                  }
 
                 </IonList>
               </>
-            }
+          }
 
         </IonGrid>
-        
+
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton onClick={() => { dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true })) }  }>
+          <IonFabButton onClick={() => { dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true })); } }>
             <IonIcon icon={person} />
           </IonFabButton>
         </IonFab>

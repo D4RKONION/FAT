@@ -1,16 +1,14 @@
-import { IonButton, IonButtons, IonContent, IonHeader, IonModal, IonTitle, IonToolbar } from '@ionic/react';
-import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import "../../style/components/Markdown.scss";
 
-import { setModalVisibility } from '../actions';
-import '../../style/components/Markdown.scss';
-import ReactMarkdown from 'react-markdown';
-import { modalVisibilitySelector, modeNameSelector } from '../selectors';
+import { IonButton, IonButtons, IonContent, IonHeader, IonModal, IonTitle, IonToolbar } from "@ionic/react";
+import { useEffect, useState } from "react";
+import ReactMarkdown from "react-markdown";
+import { useSelector, useDispatch } from "react-redux";
 
+import { setModalVisibility } from "../actions";
+import { modalVisibilitySelector, modeNameSelector } from "../selectors";
 
 const HelpModal = () => {
-  
-
   const modalVisibility = useSelector(modalVisibilitySelector);
   const modeName = useSelector(modeNameSelector);
 
@@ -24,13 +22,12 @@ const HelpModal = () => {
         const file = await import(`../constants/helpfiles/${modeName}.md`);
         const response = await fetch(file.default);
         const text = await response.text();
-        setMarkdown(text)
-      })()
+        setMarkdown(text);
+      })();
     }
-
   }, [modeName]);
 
-  return(
+  return (
     <IonModal
       isOpen={modalVisibility.visible && modalVisibility.currentModal === "help"}
       onDidDismiss={ () => modalVisibility.visible && dispatch(setModalVisibility({ currentModal: "help", visible: false })) }
@@ -49,7 +46,7 @@ const HelpModal = () => {
         </div>
       </IonContent>
     </IonModal>
-  )
-}
+  );
+};
 
 export default HelpModal;

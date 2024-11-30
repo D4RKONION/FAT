@@ -1,18 +1,18 @@
-import { IonContent, IonPage, IonItem, IonLabel, IonIcon, IonFab, IonFabButton, IonList, IonSelect, IonSelectOption, IonGrid, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle } from '@ionic/react';
-import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import '../../../style/pages/Calculators.scss';
-import '../../../style/components/FAB.scss'
-import { setModalVisibility } from '../../actions';
-import { person } from 'ionicons/icons';
-import { selectedCharactersSelector } from '../../selectors';
-import PopoverButton from '../../components/PopoverButton';
+import "../../../style/pages/Calculators.scss";
+import "../../../style/components/FAB.scss";
 
+import { IonContent, IonPage, IonItem, IonLabel, IonIcon, IonFab, IonFabButton, IonList, IonSelect, IonSelectOption, IonGrid, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle } from "@ionic/react";
+import { person } from "ionicons/icons";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+import { setModalVisibility } from "../../actions";
+import PopoverButton from "../../components/PopoverButton";
+import { selectedCharactersSelector } from "../../selectors";
 
 const MovePunisher = () => {
-
   const selectedCharacters = useSelector(selectedCharactersSelector);
-  
+
   const dispatch = useDispatch();
 
   const [blockedMove, setBlockedMove] = useState(null);
@@ -31,12 +31,12 @@ const MovePunisher = () => {
     ) {
       playerOneFastestStartup = playerOneMoves[move].startup;
     }
-  })
+  });
   const playerTwoMoves = selectedCharacters["playerTwo"].frameData;
 
   useEffect(() => {
     // If player two changes and either the selected move doesn't exist OR the selected move is no longer a punishable move, set to null
-    if (!playerTwoMoves[blockedMove] || !(playerOneFastestStartup <=  playerTwoMoves[blockedMove]["onBlock"] * -1)) {
+    if (!playerTwoMoves[blockedMove] || !(playerOneFastestStartup <= playerTwoMoves[blockedMove]["onBlock"] * -1)) {
       setBlockedMove(null);
     }
   },[blockedMove, playerOneFastestStartup, playerTwoMoves, selectedCharacters]);
@@ -46,15 +46,13 @@ const MovePunisher = () => {
     setBlockedMove(null);
   },[playerOneFastestStartup]);
 
-
-
   return (
     <IonPage>
 
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref='/calculators' />
+            <IonBackButton defaultHref="/calculators" />
           </IonButtons>
           <IonTitle>{`MP - ${selectedCharacters.playerOne.name} vs ${selectedCharacters.playerTwo.name}`}</IonTitle>
           <IonButtons slot="end">
@@ -62,7 +60,6 @@ const MovePunisher = () => {
           </IonButtons>
         </IonToolbar>
       </IonHeader>
-
 
       <IonContent className="calculators">
         <IonGrid fixed>
@@ -85,19 +82,19 @@ const MovePunisher = () => {
           </IonItem>
 
           {playerTwoMoves[blockedMove] ?
-              <IonItem lines="full" className="selected-move-info">
-                <IonLabel>
-                  <h3>Blocked Move</h3>
-                  <h2>{blockedMove}</h2>
-                  <p><b>{playerTwoMoves[blockedMove].onBlock}</b> On Block</p>
-                </IonLabel>
-              </IonItem>
+            <IonItem lines="full" className="selected-move-info">
+              <IonLabel>
+                <h3>Blocked Move</h3>
+                <h2>{blockedMove}</h2>
+                <p><b>{playerTwoMoves[blockedMove].onBlock}</b> On Block</p>
+              </IonLabel>
+            </IonItem>
             : <p style={{fontStyle: "italic", display: "flex", justifyContent: "center", textAlign: "center", margin: "50px 10px"}}>{selectedCharacters["playerOne"].name} can punish -{playerOneFastestStartup} on block moves</p>
           }
 
           <IonList>
             {playerTwoMoves[blockedMove] && Object.keys(playerOneMoves).filter(move =>
-              playerOneMoves[move].startup <=  playerTwoMoves[blockedMove]["onBlock"] * -1 &&
+              playerOneMoves[move].startup <= playerTwoMoves[blockedMove]["onBlock"] * -1 &&
               !playerOneMoves[move].followUp &&
               !playerOneMoves[move].airmove &&
               !playerOneMoves[move].nonHittingMove &&
@@ -114,11 +111,11 @@ const MovePunisher = () => {
         </IonGrid>
 
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton onClick={() => { dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true})) } }>
+          <IonFabButton onClick={() => { dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true})); } }>
             <IonIcon icon={person} />
           </IonFabButton>
         </IonFab>
-        
+
       </IonContent>
     </IonPage>
   );

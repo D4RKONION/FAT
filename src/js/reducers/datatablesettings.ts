@@ -1,7 +1,7 @@
 import { MoveAdvantageIndicator, TableType } from "../types";
 
 type DataTableSettingsReducerAction = {
-  type: 'SET_MOVE_ADVANTAGE_COLORS' | 'SET_MOVE_ADVANTAGE_INDICATOR' | 'SET_COMPACT_VIEW' | 'SET_DATA_TABLE_COLUMNS' | 'SET_AUTO_SET_CHARACTER_SPECIFIC_COLUMNS' | 'SET_TABLE_TYPE' | 'SET_AUTO_SCROLL_ENABLED' | 'SET_MOVE_TYPE_HEADERS_ON';
+  type: "SET_MOVE_ADVANTAGE_COLORS" | "SET_MOVE_ADVANTAGE_INDICATOR" | "SET_COMPACT_VIEW" | "SET_DATA_TABLE_COLUMNS" | "SET_AUTO_SET_CHARACTER_SPECIFIC_COLUMNS" | "SET_TABLE_TYPE" | "SET_AUTO_SCROLL_ENABLED" | "SET_MOVE_TYPE_HEADERS_ON";
   moveAdvantageColorsOn: boolean;
   moveAdvantageIndicator: MoveAdvantageIndicator;
   compactViewOn: boolean;
@@ -10,72 +10,70 @@ type DataTableSettingsReducerAction = {
   moveTypeHeadersOn: boolean;
   autoSetCharacterSpecificColumnsOn: boolean;
   tableColumns: {[key: string]: string};
-}
+};
 
 const defaultState = {
   moveAdvantageColorsOn: true,
-  moveAdvantageIndicator: 'text',
+  moveAdvantageIndicator: "text",
   compactViewOn: true,
   tableType: "fixed",
   autoScrollEnabled: true,
   moveTypeHeadersOn: true,
   autoSetCharacterSpecificColumnsOn: true,
-  tableColumns: {startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", onPC:"onPC", xx: "xx", dmg: "dmg", atkLvl: "lvl", DRoH: "dr-oH", DRoB: "dr-oB" },
-}
+  tableColumns: {startup: "S", active: "A", recovery: "R", onBlock: "oB", onHit: "oH", onPC: "onPC", xx: "xx", dmg: "dmg", atkLvl: "lvl", DRoH: "dr-oH", DRoB: "dr-oB" },
+};
 
 export const dataTableSettingsReducer = (state = defaultState, action: DataTableSettingsReducerAction) => {
-  switch(action.type) {
-
-    case 'SET_MOVE_ADVANTAGE_COLORS':
+  switch (action.type) {
+    case "SET_MOVE_ADVANTAGE_COLORS":
       return {
         ...state,
-        "moveAdvantageColorsOn": action.moveAdvantageColorsOn
-      }
+        moveAdvantageColorsOn: action.moveAdvantageColorsOn,
+      };
 
-    case 'SET_MOVE_ADVANTAGE_INDICATOR':
+    case "SET_MOVE_ADVANTAGE_INDICATOR":
       return {
         ...state,
-        "moveAdvantageIndicator": action.moveAdvantageIndicator
-      }
+        moveAdvantageIndicator: action.moveAdvantageIndicator,
+      };
 
-    case 'SET_COMPACT_VIEW':
+    case "SET_COMPACT_VIEW":
       return {
         ...state,
-        "compactViewOn": action.compactViewOn
-      }
+        compactViewOn: action.compactViewOn,
+      };
     
-    case 'SET_TABLE_TYPE':
+    case "SET_TABLE_TYPE":
       return {
         ...state,
-        "tableType": action.tableType
-      }
+        tableType: action.tableType,
+      };
     
-    case 'SET_AUTO_SCROLL_ENABLED':
+    case "SET_AUTO_SCROLL_ENABLED":
       return {
         ...state,
-        "autoScrollEnabled": action.autoScrollEnabled
-      }
+        autoScrollEnabled: action.autoScrollEnabled,
+      };
 
-    case 'SET_MOVE_TYPE_HEADERS_ON':
+    case "SET_MOVE_TYPE_HEADERS_ON":
       return {
         ...state,
-        "moveTypeHeadersOn": action.moveTypeHeadersOn
-      }
-
+        moveTypeHeadersOn: action.moveTypeHeadersOn,
+      };
         
-    case 'SET_AUTO_SET_CHARACTER_SPECIFIC_COLUMNS':
+    case "SET_AUTO_SET_CHARACTER_SPECIFIC_COLUMNS":
       return {
         ...state,
-        "autoSetCharacterSpecificColumnsOn": action.autoSetCharacterSpecificColumnsOn
-      }
+        autoSetCharacterSpecificColumnsOn: action.autoSetCharacterSpecificColumnsOn,
+      };
 
-    case 'SET_DATA_TABLE_COLUMNS':
+    case "SET_DATA_TABLE_COLUMNS":
       return {
         ...state,
-        "tableColumns": action.tableColumns
-      }
+        tableColumns: action.tableColumns,
+      };
 
     default:
       return state;
   }
-}
+};

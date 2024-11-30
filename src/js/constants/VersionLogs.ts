@@ -2,22 +2,22 @@ export const APP_CURRENT_VERSION_NAME = "4.0.0-RC1";
 export const APP_CURRENT_VERSION_CODE = 39990;
 export const APP_DATE_UPDATED = "Nov 29 2024"; // new Date().toDateString().substring(4)
 
-export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"]
-export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"]
+export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"];
+export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"];
 export const UPDATABLE_GAMES_APP_CODES = {
-  "SFV": {
-    "FrameData": 94,
-    "GameDetails": 2
+  SFV: {
+    FrameData: 94,
+    GameDetails: 2,
   },
-  "GGST": {
-    "FrameData": 118,
-    "GameDetails": 7
+  GGST: {
+    FrameData: 118,
+    GameDetails: 7,
   },
-  "SF6": {
-    "FrameData": 43,
-    "GameDetails": 8
-  }
-}
+  SF6: {
+    FrameData: 43,
+    GameDetails: 8,
+  },
+};
 
 export const VERSION_LOGS = {
   "4.0.0-RC1": {
@@ -36,7 +36,7 @@ export const VERSION_LOGS = {
       "Overhauled Stat Compare page",
       "Improvements made to the widescreen menu",
       "Updated the theme colours",
-      "Tons of small tweaks here and there"
+      "Tons of small tweaks here and there",
     ],
     "Added Bookmarks": [
       "You can now bookmark characters and their moves. This allows you to jump straight to them from the new bookmark menu",
@@ -45,8 +45,8 @@ export const VERSION_LOGS = {
       "Removed individual theme purchases and replaced it with a single lifetime premium purchase",
       "If you've ever purchased anything in FAT, Premium will be automatically unlocked. Thank you for your support <3",
     ],
-    "GGST": [
-      "Added Queen Dizzy"
+    GGST: [
+      "Added Queen Dizzy",
     ],
     "Bug Fixes": [
       "Tons of under the hood changes made, please let me know if you come across any bugs!",
@@ -54,13 +54,13 @@ export const VERSION_LOGS = {
       "Fixed some bugs related to the advice toasts",
       "Fixed several performance affecting bugs",
       "Fixed a bug where sometimes the in app 'back button' wasn't appearing",
-    ]
+    ],
   },
   "3.12.2": {
     "New Features": [
       "SF6: Added Terry",
       "SF6: Added more juggle data for all characters",
-      "SF6: Added DR > Block distance for all characters"
+      "SF6: Added DR > Block distance for all characters",
     ],
     "Bug Fixes": [
       "3.12.2 Hotfix! Fixed a bug where some juggle data was displaying incorrectly",
@@ -72,21 +72,21 @@ export const VERSION_LOGS = {
       "Fixed a bug with the advice toasts not dismissing sometimes",
       "Fixed bugs on What's New and Version Logs",
       "Made it so 'ex' works for searching OD moves in SF6", 
-    ]
+    ],
   },
   "3.12.1": {
     "New Features": [
-      "None!"
+      "None!",
     ],
     "Bug Fixes": [
       "Fixed a bug where the Frame Data file was not remote updating!",
-    ]
+    ],
   },
   "3.12.0": {
     "New Features": [
       "SF6: Added Terry",
       "SF6: Added more juggle data for all characters",
-      "SF6: Added DR > Block distance for all characters"
+      "SF6: Added DR > Block distance for all characters",
     ],
     "Bug Fixes": [
       "Fixed a bug where selecting moves from the character subheader wasn't always working",
@@ -97,15 +97,15 @@ export const VERSION_LOGS = {
       "Fixed a bug with the advice toasts not dismissing sometimes",
       "Fixed bugs on What's New and Version Logs",
       "Made it so 'ex' works for searching OD moves in SF6", 
-    ]
+    ],
   },
   "3.11.0": {
     "New Features": [
-      "SF6: Added M.Bison"
+      "SF6: Added M.Bison",
     ],
     "Bug Fixes": [
-      "None!"
-    ]
+      "None!",
+    ],
   },
   "3.10.0": {
     "New Features": [
@@ -114,8 +114,8 @@ export const VERSION_LOGS = {
       "SF6: Prepped for Akuma",
     ],
     "Bug Fixes": [
-      "None!"
-    ]
+      "None!",
+    ],
   },
   "3.9.0": {
     "New Features": [
@@ -125,51 +125,51 @@ export const VERSION_LOGS = {
       "SF6: Added Surprise Hop as a specific cancel for Blanka",
       "SF6: Added hitsun, blockstun, hitstop & hit confirm window information", 
       "SF6: Prepping app for Juggle Data, arriving with a frame data update shortly",
-      "GGST: NumPad will be set as the default input type when switching to this game"
+      "GGST: NumPad will be set as the default input type when switching to this game",
     ],
     "Bug Fixes": [
-      "None!"
-    ]
+      "None!",
+    ],
   },
   "3.8.0": {
     "New Features": [
-      "GGST: Added Elphelt"
+      "GGST: Added Elphelt",
     ],
     "Bug Fixes": [
-      "All good!"
-    ]
+      "All good!",
+    ],
   },
   "3.7.0": {
     "New Features": [
       "SF6: Added A.K.I.",
-      "Added Sobat & Slasher Cancels to Dee Jay"
+      "Added Sobat & Slasher Cancels to Dee Jay",
     ],
     "Bug Fixes": [
       "Fixed a typo in Dee Jay's name (from DeeJay)",
       "Fixed a bug where long active frames got a bit out of hand in detail view",
-      "Fixed a bug where the GGST spreadsheet link wasn't working properly"
-    ]
+      "Fixed a bug where the GGST spreadsheet link wasn't working properly",
+    ],
   },
   "3.6.0": {
     "New Features": [
       "GGST: Added Johnny",
-      "Tweaks to several UI elements such as Character Portraits, Mobile Stats & State Switchers"
+      "Tweaks to several UI elements such as Character Portraits, Mobile Stats & State Switchers",
     ],
     "Bug Fixes": [
       "Due to some major 'under the hood' upgrades, there may be new bugs! Please let me know if you find any",
       "Fixed a few unrelated calculator bugs",
-    ]
+    ],
   },
   "3.5.6": {
     "New Features": [
       "SF6: Added Rashid",
       "Added Compact View, so large cells are cut short. This can be switched off using the menu in the top right",
       "Oki Calculator now works with SF6",
-      "Added more resources for different games to the 'More Resources' page."
+      "Added more resources for different games to the 'More Resources' page.",
     ],
     "Bug Fixes": [
-      "Fixed a bug where chosen landscape columns would often reset"
-    ]
+      "Fixed a bug where chosen landscape columns would often reset",
+    ],
   },
   "3.5.5": {
     "New Features": [
@@ -178,11 +178,11 @@ export const VERSION_LOGS = {
       "SF6: Added a toggle for Raw DR that changes oH and oB, rather than being their own columns",
       "SF6: -3 moves are now yellow rather than red in the table",
       "Added Chip values (still working on the whole cast)",
-      "Changed Drive Rush Distance stat to min and max versions"
+      "Changed Drive Rush Distance stat to min and max versions",
     ],
     "Bug Fixes": [
-      "Some stat points weren't displaying correctly on mobile"
-    ]
+      "Some stat points weren't displaying correctly on mobile",
+    ],
   },
   "3.5.4": {
     "New Features": [
@@ -194,19 +194,19 @@ export const VERSION_LOGS = {
       "Desktop/Tablet: Clicking 'Best Reversal' or 'Fastest Normal' now takes you to the frame data page for those moves",
     ],
     "Bug Fixes": [
-      "None!"
-    ]
+      "None!",
+    ],
   },
   "3.5.3": {
     "New Features": [
       "GGST: Added Bedman? (Yes, added Bedman)",
       "All: Updated local Frame Data files",
       "SF6: Made it so searching EX works for OD moves",
-      "Overhauled the character images and the character select menu."
+      "Overhauled the character images and the character select menu.",
     ],
     "Bug Fixes": [
-      "Fixed a bug where you could only search for official move names if you had official move names set."
-    ]
+      "Fixed a bug where you could only search for official move names if you had official move names set.",
+    ],
   },
   "3.5.2": {
     "New Features": [
@@ -214,8 +214,8 @@ export const VERSION_LOGS = {
     ],
     "Bug Fixes": [
       "Fixed a bug where sometimes all landscape columns would disappear",
-      "Fixed a bug where all themes were available to use without purchase. Let's call it a promotion..."
-    ]
+      "Fixed a bug where all themes were available to use without purchase. Let's call it a promotion...",
+    ],
   },
   "3.5.1": {
     "New Features": [
@@ -226,11 +226,11 @@ export const VERSION_LOGS = {
       "The above two features required extensive rewrites of core code. Please report any new bugs to apps@fullmeter.com",
       "Added a VS Burnout checkbox to the framedata page for SF6",
       "Removed the frame data version numbers from the menu. You can still find these in the settings menu",
-      "Added a link to the SuperCombo.gg entry for SFV moves so you can see move images"
+      "Added a link to the SuperCombo.gg entry for SFV moves so you can see move images",
     ],
     "Bug Fixes": [
       "Fixed a bug where landscape columns weren't setting proprely",
-    ]
+    ],
   },
   "3.5.0": {
     "New Features": [
@@ -240,72 +240,72 @@ export const VERSION_LOGS = {
       "The above two features required extensive rewrites of core code. Please report any new bugs to apps@fullmeter.com",
       "Added a VS Burnout checkbox to the framedata page for SF6",
       "Removed the frame data version numbers from the menu. You can still find these in the settings menu",
-      "Added a link to the SuperCombo.gg entry for SFV moves so you can see move images"
+      "Added a link to the SuperCombo.gg entry for SFV moves so you can see move images",
     ],
     "Bug Fixes": [
       "Fixed a bug where landscape columns weren't setting proprely",
-    ]
+    ],
   },
   "3.4.5": {
     "New Features": [
       "GGST: Added Bridget",
       "Added a color blind mode for FAT Classic (see settings)",
       "Changed dark colours for oB values",
-      "Added frame data last updated information to the settings > version logs screen"
+      "Added frame data last updated information to the settings > version logs screen",
     ],
     "Bug Fixes": [
-      "No bugs!"
-    ]
+      "No bugs!",
+    ],
   },
   "3.4.4": {
     "New Features": [
-      "Updated SFV character specific columns"
+      "Updated SFV character specific columns",
     ],
     "Bug Fixes": [
-      "Fixed a bug where remote framedata updating was failing due to file sizes"
-    ]
+      "Fixed a bug where remote framedata updating was failing due to file sizes",
+    ],
   },
   "3.4.3": {
     "New Features": [
       "Added Testament",
-      "Lots of SFV updates but we're still adding more (with remote updating)"
+      "Lots of SFV updates but we're still adding more (with remote updating)",
     ],
     "Bug Fixes": [
-      "No bugs!"
-    ]
+      "No bugs!",
+    ],
   },
   "3.4.2": {
     "New Features": [
       "Added Luke",
       "Added Happy Chaos and prepped for Baiken",
       "Added more stats to GGST characters, removed blank stats from characters",
-      "Best Reversal now adapts to the user's chosen move notation"
+      "Best Reversal now adapts to the user's chosen move notation",
     ],
     "Bug Fixes": [
       "Fixed an issue where followup moves were being considered for Fastest Move",
       "Web: Fixed a crash when changing games while a game unique stat was selected",
-    ]
+    ],
   },
   "3.4.1": {
     "New Features": [
       "Added Akira and Oro",
       "Prepped the app for Luke and Jack-O",
       "Added Goldlewis states",
-      "Added more stats to GGST characters"
+      "Added more stats to GGST characters",
     ],
     "Bug Fixes": [
-      "No bugs!"
-    ]
+      "No bugs!",
+    ],
   },
   "3.4.0": {
     "New Features": [
       "New Game: GGST data is now in FAT!",
       "You can check out the hitbox data (where available) on dustloop using the direct link in the move detail page",
-      "Added some GGST resources to the More Resources Page"
+      "Added some GGST resources to the More Resources Page",
     ],
     "Bug Fixes": [
-      "Fixed a bug where the app would sometimes crash when changing games on the combos page"
-    ]
+      "Fixed a bug where the app would sometimes crash when changing games on the combos page",
+    ],
   },
   "3.3.1": {
     "New Features": [
@@ -321,8 +321,8 @@ export const VERSION_LOGS = {
       "Moved R.Mika to the top of the characters beginning with R",
       "App: Fixed an issue where the stats quote was left aligned",
       "Web: Fixed a bug where entering from a URL would sometimes set the wrong landscape cols",
-      "Fixed a bug where Guile & Balrog's throws were not being set up properly in Frame Kill Generator"
-    ]
+      "Fixed a bug where Guile & Balrog's throws were not being set up properly in Frame Kill Generator",
+    ],
   },
   "3.3.0": {
     "New Features": [
@@ -336,13 +336,13 @@ export const VERSION_LOGS = {
       "Added V-Shift Distance to Stat Compare mode",
       "All Combos for SFV are now completely up to date, thank you Sestze",
       "FAT now checks your system theme setting on fresh install and sets dark or light mode",
-      "Added a past Version Logs page under settings"
+      "Added a past Version Logs page under settings",
     ],
     "Bug Fixes": [
       "Fixed a bug where VS1 data was hidden on Seth's table",
       "Fixed a bug where some stats wouldn't appear in stat compare",
-      "iOS: Fixed a bug where activated and hovered buttons would be the wrong colour"
-    ]
+      "iOS: Fixed a bug where activated and hovered buttons would be the wrong colour",
+    ],
   },
   "3.2.0": {
     "New Features": [
@@ -368,7 +368,7 @@ export const VERSION_LOGS = {
       "Fixed a bug where sometimes some of the subheader data wasn't showing",
       "Fixed the link to the FAT repo",
       "Desktop: Fixed a bug where various elements didn't cause a mouse pointer effect",
-    ]
+    ],
   },
   "3.1.0": {
     "New Features": [
@@ -377,8 +377,8 @@ export const VERSION_LOGS = {
     ],
     "Bug Fixes": [
       "iOS: Fixed a bug where the app would sometimes get stuck in landscape mode",
-      "iOS: Fixed a bug where swiping from the left went back a screen instead of opening the menu"
-    ]
+      "iOS: Fixed a bug where swiping from the left went back a screen instead of opening the menu",
+    ],
   },
   "3.0.5": {
     "New Features": [
@@ -403,7 +403,7 @@ export const VERSION_LOGS = {
       "Change characters by tapping on the currently active character in the switcher",
       "Moved the calculators to their own submenu",
       "Added Advice Popups to help you get to grips with the new app (can be turned off in settings)",
-      "Rewrote the help pages"
+      "Rewrote the help pages",
     ],
     "Bug Fixes": [
       "Fixed a bug where Dan broke the app when looking for his combos (they're not there yet!)",
@@ -416,7 +416,7 @@ export const VERSION_LOGS = {
       "Fixed a bug where the positions of onBlock and onHit were swapped",
       "Fixed a bug where MonkUnit wasn't in the Shoutouts page",
       "Fixed a typo on the landscape options popup",
-    ]
+    ],
   },
   "2.6.3": {"Bug Fixes": ["Some extremely tiny frame data fixes."]},
   "2.6.2": {"Bug Fixes": ["Fixed a bug where landscape was mixing up the headers of columns.", "Extended the size of when landscape activates by about 100 pixels to accomodate for wider phones. It's a messy hack but it'll do for now."]},
@@ -433,7 +433,7 @@ export const VERSION_LOGS = {
   "2.4.3": {"New Features": ["(Hatson) Added Zeku! I (Paul) am on holidays atm, so Zeku as two characters is a temporary measure! Look out for another update next week"]},
   "2.4.2": {"New Features": ["(Hatson) Added Menat"], "Bug Fixes": ["Fixed a bug where Player 1's name was showing up in Player 2's more detailed frame data view", "Fixed a bug where frame data entries that were a 0 were showing up as ~ on Frame data screen"]},
   "2.4.1": {"Bug Fixes": ["Fixed a bug where frame data view was totally blank and crashing the app on old versions of Android","Because I can't have a nice clean version code for longer than 4 hours ;_;"]},
-  "2.4.0": {"New Features": ["Big under the hood changes, so please report any bugs you might find!", "Added Abigail", "Added the following under more detailed framedata view: LM-A OH (Laura Only), LM-A OB (Laura Only), VSkill Cancel OH (Ken/Balrog Only), VSkill Cancel OB (Ken/Balrog Only), VTrigger Cancel OH, VTrigger Cancel OB, VTrigger Cancel OH F (Urien only), VTrigger Cancel OB F (Urien only), VTrigger Cancel OH B (Urien only), VTrigger Cancel OB B (Urien only), VTrigger Cancel OH D (Urien only), VTrigger Cancel OB D (Urien only), Stance Switch On Block (Vega only), Stance Switch On Hit (Vega only), lk Dash cancel OH (Karin/Ibuki Only), lk Dash cancel OB (Karin/Ibuki Only), mk Dash cancel OH (Ibuki Only), mk Dash cancel OB (Ibuki Only), ex Dash cancel OH (Karin Only), ex Dash cancel OB (Karin Only), VSkill > P Gap On Hit (Balrog only), VSkill > P Gap On Block (Balrog only), VSkill > K Gap On Hit (Balrog only), VSkill > K Gap On Block (Balrog only)",  "Added landscape mode and the ability to set any number of data points as columns in framedata mode. Tap the three dots in the top right of that screen to try it out", "Changed the welcome screen to more easily swap between games", "Updated the combos stuff with the help of community members. If there's S1  content or no content at all, you can help by contacting me for database access!", "Changed the splash screen and icon logo", "Probably other stuff, I'm good at this..."]},
+  "2.4.0": {"New Features": ["Big under the hood changes, so please report any bugs you might find!", "Added Abigail", "Added the following under more detailed framedata view: LM-A OH (Laura Only), LM-A OB (Laura Only), VSkill Cancel OH (Ken/Balrog Only), VSkill Cancel OB (Ken/Balrog Only), VTrigger Cancel OH, VTrigger Cancel OB, VTrigger Cancel OH F (Urien only), VTrigger Cancel OB F (Urien only), VTrigger Cancel OH B (Urien only), VTrigger Cancel OB B (Urien only), VTrigger Cancel OH D (Urien only), VTrigger Cancel OB D (Urien only), Stance Switch On Block (Vega only), Stance Switch On Hit (Vega only), lk Dash cancel OH (Karin/Ibuki Only), lk Dash cancel OB (Karin/Ibuki Only), mk Dash cancel OH (Ibuki Only), mk Dash cancel OB (Ibuki Only), ex Dash cancel OH (Karin Only), ex Dash cancel OB (Karin Only), VSkill > P Gap On Hit (Balrog only), VSkill > P Gap On Block (Balrog only), VSkill > K Gap On Hit (Balrog only), VSkill > K Gap On Block (Balrog only)", "Added landscape mode and the ability to set any number of data points as columns in framedata mode. Tap the three dots in the top right of that screen to try it out", "Changed the welcome screen to more easily swap between games", "Updated the combos stuff with the help of community members. If there's S1  content or no content at all, you can help by contacting me for database access!", "Changed the splash screen and icon logo", "Probably other stuff, I'm good at this..."]},
   "2.3.7": {"New Features": ["Added Season 2.1 changes"], "Bug Fixes": ["Fixed a bug where some of the calculators weren't working properly"]},
   "2.3.6": {"New Features": ["Added Ed", "Lots of data improvements courtesy of the spreadsheet team"]},
   "2.3.5": {"New Features": ["Some minor frame data improvements"]},
@@ -446,7 +446,7 @@ export const VERSION_LOGS = {
   "2.2.9": {"New Features": ["NEW MODE: Oki Calculator! Supply FAT with a knockdown and a target meaty, FAT will tell you how to land that meaty perfectly everytime!"], "Bug Fixes": ["Hopefully fixed a bug where scrolling would become disabled sometimes", "Fixed a bug where you couldn't view Juri's Target Combo in a more detailed fashion"]},
   "2.2.8": {"Bug Fixes": ["Fixed that some stats were showing up even when they didn't exist", "Fixed that stat headers were red", "Fixed that Ken had a Vtrigger dash", "Fixed Juri's jump stat", "Slight visual tweaks"]},
   "2.2.7": {"New Features": ["NEW MODE: Stat Compare! Under the References heading. Choose a stat and it will show you an ordered list of every character in the game. It also highlights who's Player 1/2", "New Setting: Favourite mode! Go to settings and set up your favourite mode. A handy quick link will appear for it both in the side menu and on the welcome screen. Dat QoL", "Added dash distance; throw range to character stats", "Overhauled the design of the help screens and notes! Pretty!", "Added help screens for pages that were missing them and cleaned up the ones that already existed", "Added more Juri Frame Data and added her extra info", "Added knockdown advantage frames for all SFV characters, under the more detailed frame data view"], "Bug Fixes": ["Fixed a bug where What's New would always show after updating via the Fullmeter server (note: you'll have to update via your app store to get this fix)", "Fixed a bug where the app would sometimes not see that there's a new server update"]},
-  "2.2.6": {"New Features": ["Added Juri Frame Data (early days, may be wrong)", "Added Balrog and Ibuki combos and tech",  "Made it so your moves on block are highlighted red relative to the chosen opponent", "Overhauled the look of the app to give it a bit more personality. More to come"], "Bug Fixes": ["Fixed some other errors in character frame data (thanks emailers!)"]},
+  "2.2.6": {"New Features": ["Added Juri Frame Data (early days, may be wrong)", "Added Balrog and Ibuki combos and tech", "Made it so your moves on block are highlighted red relative to the chosen opponent", "Overhauled the look of the app to give it a bit more personality. More to come"], "Bug Fixes": ["Fixed some other errors in character frame data (thanks emailers!)"]},
   "2.2.5": {"New Features": ["Added Balrog and Ibuki frame data"], "Bug Fixes": ["Fixed some other errors in character frame data (thanks /u/ItsTimeToAttack)"]},
   "2.2.4": {"New Features": ["Placed another \"Update Available\" message here on the welcome screen.", "Added another batch or /u/Joe_Munday's awesome tutorials.", "Added Guile's combos to the app. Thanks as always to Bafael!"], "Bug Fixes": ["Fixed Vega MK Roll frame data and changed some of Guile's"]},
   "2.2.3": {"Bug Fixes": ["Fixed a bug where frame trap lister was totally broken"]},
@@ -465,5 +465,5 @@ export const VERSION_LOGS = {
   "2.1.0": {"New Features": ["Huge frame data overhaul, thank you to community members Gilley3D and Dantarion for their hard work!", "New Mode! New to fighting games? Check out the all new \"Tutorials & Lessons\" mode under References.", "New Setting! New to fighting games? Or not fluent in Japanese?! Turn on \"Common Move Names\" in Settings!", "Added Back & Forward Walk Speeds and Back & Forward Jump Distances to character stats page", "Added the \"Attack Level\" value under more detailed Frame Data", "Changed the look of toggles throughout the app to show both options up front", "Improved the layout of general frame data view", "Improved how the text input area in notes modes is rendered"], "Bug Fixes": ["Fixed a bug where external links weren't opening", "Fixed a bug where anti-air moves were showing as grounded punishes", "Fixed a bug where users weren't alerted after donating"]},
   "2.0.3": {"New Features": ["Added the Frame Data, Move List and ability to take notes for F.A.N.G.", "Note: until certain data becomes available, some of the calculators will not work for F.A.N.G! Sorry!", "Tapping a move in moves list now brings you to the more detail screen for that move.", "Added the welcome screen for fresh app entry!", "You can now donate again! Of course, you don't have to :)", "Frame-Data legend will now stick to the top of the screen when scrolling", "Returning from the more detailed frame data screen no longer scrolls you back to the top of the list.", "Scrolling in general should feel a lot less janky"], "Bug Fixes": ["Fixed a bug where the splashscreen would not show for long enough", "Fixed a bug where Move Linking card header was not wrapping it's text"]},
   "2.0.2": {"Bug Fixes": ["Fixed a bug where the app was requesting WiFi info"]},
-  "2.0.0": {"New Features": ["Street Fighter V characters included, along with full frame data, calculation and notes support!", "Complete visual and framework overhaul of the app!", "New and improved notes, with complete markdown support!", "Tons of other new stuff!"]}
-}
+  "2.0.0": {"New Features": ["Street Fighter V characters included, along with full frame data, calculation and notes support!", "Complete visual and framework overhaul of the app!", "New and improved notes, with complete markdown support!", "Tons of other new stuff!"]},
+};

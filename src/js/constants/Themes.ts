@@ -22,7 +22,7 @@ const THEMES = [
     shortId: "poisonouspink",
     alias: "Poisonous Pink",
     description: "A dangerously pink theme, look but don't touch!",
-  }
+  },
 ] as const;
 
 export default THEMES;

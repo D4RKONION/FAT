@@ -1,18 +1,18 @@
-import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, IonList, IonListHeader, IonIcon, useIonViewDidEnter, isPlatform, IonToast, IonGrid, IonToggle, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle  } from '@ionic/react';
-import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import "../../style/pages/Settings.scss";
 
-import { setActiveGame, setAdviceToastsOn, setModalVisibility, setThemeAccessibility, setThemeBrightness, setThemeColor } from '../actions'
-import '../../style/pages/Settings.scss';
-import { logoTwitter, chevronForward, mailOutline, starOutline, heartOutline, openOutline, globeOutline, logoGithub, bulbOutline, lockClosedOutline } from 'ionicons/icons';
-import { useHistory } from 'react-router';
-import { APP_CURRENT_VERSION_CODE, APP_CURRENT_VERSION_NAME } from '../constants/VersionLogs';
-import { activeGameSelector, appDisplaySettingsSelector, adviceToastSelector, premiumSelector } from '../selectors';
-import { GAME_NAMES } from '../constants/ImmutableGameDetails';
-import ThemeSwitcher from '../components/ThemeSwitcher';
+import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, IonList, IonListHeader, IonIcon, useIonViewDidEnter, isPlatform, IonToast, IonGrid, IonToggle, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle } from "@ionic/react";
+import { logoTwitter, chevronForward, mailOutline, starOutline, heartOutline, openOutline, globeOutline, logoGithub, bulbOutline, lockClosedOutline } from "ionicons/icons";
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router";
+
+import { setActiveGame, setAdviceToastsOn, setModalVisibility, setThemeAccessibility, setThemeBrightness, setThemeColor } from "../actions";
+import ThemeSwitcher from "../components/ThemeSwitcher";
+import { GAME_NAMES } from "../constants/ImmutableGameDetails";
+import { APP_CURRENT_VERSION_CODE, APP_CURRENT_VERSION_NAME } from "../constants/VersionLogs";
+import { activeGameSelector, appDisplaySettingsSelector, adviceToastSelector, premiumSelector } from "../selectors";
 
 const Settings = () => {
-  
   const activeGame = useSelector(activeGameSelector);
   const adviceToastsOn = useSelector(adviceToastSelector).adviceToastsOn;
   const themeAccessibility = useSelector(appDisplaySettingsSelector).themeAccessibility;
@@ -20,18 +20,16 @@ const Settings = () => {
   const premiumIsPurchased = useSelector(premiumSelector).lifetimePremiumPurchased;
 
   const dispatch = useDispatch();
-  
-  let history = useHistory();
-  let urlHash = history.location.hash.substring(1);
+
+  const history = useHistory();
+  const urlHash = history.location.hash.substring(1);
 
   const [copyToastShown, setCopyToastShown] = useState(false);
 
   useIonViewDidEnter(() => {
-     urlHash &&
+    urlHash &&
        document.getElementById(urlHash).scrollIntoView({behavior: "smooth"});
   });
-
-
 
   return (
     <IonPage>
@@ -59,7 +57,7 @@ const Settings = () => {
                 cancelText="Cancel"
                 onIonChange={ e => dispatch(setActiveGame(e.detail.value, true)) }
               >
-                {GAME_NAMES.map(gameName => 
+                {GAME_NAMES.map(gameName =>
                   <IonSelectOption key={`active-game-${gameName}-selection`} value={gameName}>{gameName}</IonSelectOption>
                 )}
               </IonSelect>
@@ -74,29 +72,28 @@ const Settings = () => {
               }
             </IonItem>
 
+            {/* APP OPTIONS */}
+            <IonListHeader>General</IonListHeader>
 
-              {/* APP OPTIONS */}
-              <IonListHeader>General</IonListHeader>
-              
-              <ThemeSwitcher lines={false} />
+            <ThemeSwitcher lines={false} />
 
-              <IonItem lines="none">
-                <IonToggle
-                  checked={themeBrightness === "light" ? false : true}
-                  onIonChange={e => { dispatch(setThemeBrightness(e.detail.checked ? "dark" : "light"))}}>Dark Mode</IonToggle>
-              </IonItem>
+            <IonItem lines="none">
+              <IonToggle
+                checked={themeBrightness === "light" ? false : true}
+                onIonChange={e => { dispatch(setThemeBrightness(e.detail.checked ? "dark" : "light"));}}>Dark Mode</IonToggle>
+            </IonItem>
 
-              <IonItem lines="none">
-                <IonToggle
-                  checked={themeAccessibility === "none" ? false : true}
-                  onIonChange={ e => {dispatch(setThemeAccessibility(e.detail.checked ? "colorBlind" : "none")); dispatch(setThemeColor("classic"))} }>Colour Blind Mode</IonToggle>
-              </IonItem>
+            <IonItem lines="none">
+              <IonToggle
+                checked={themeAccessibility === "none" ? false : true}
+                onIonChange={ e => {dispatch(setThemeAccessibility(e.detail.checked ? "colorBlind" : "none")); dispatch(setThemeColor("classic"));} }>Colour Blind Mode</IonToggle>
+            </IonItem>
 
-              <IonItem lines="none">
-                <IonToggle
-                  checked={adviceToastsOn ? true : false}
-                  onIonChange={ e => {dispatch(setAdviceToastsOn(e.detail.checked ? true : false)); dispatch(setThemeColor("classic"))} }>Advice Popups</IonToggle>
-              </IonItem>           
+            <IonItem lines="none">
+              <IonToggle
+                checked={adviceToastsOn ? true : false}
+                onIonChange={ e => {dispatch(setAdviceToastsOn(e.detail.checked ? true : false)); dispatch(setThemeColor("classic"));} }>Advice Popups</IonToggle>
+            </IonItem>
 
             {/* FEEDBACK OPTIONS */}
             <IonListHeader>Feedback</IonListHeader>
@@ -117,7 +114,7 @@ const Settings = () => {
             <hr></hr>
             {/* META OPTIONS */}
             <IonListHeader>FAT Meta</IonListHeader>
-            <IonItem lines="none" onClick={() => history.push(`/settings/shoutouts`)} button>
+            <IonItem lines="none" onClick={() => history.push("/settings/shoutouts")} button>
               <IonLabel>
                 <h2>Shoutouts</h2>
               </IonLabel>
@@ -126,7 +123,7 @@ const Settings = () => {
                 <IonIcon icon={chevronForward} slot="end" />
               }
             </IonItem>
-            <IonItem lines="none" onClick={() => history.push(`/settings/versionlogs/`)} button>
+            <IonItem lines="none" onClick={() => history.push("/settings/versionlogs/")} button>
               <IonLabel>
                 <h2>Version Logs</h2>
               </IonLabel>
@@ -157,7 +154,6 @@ const Settings = () => {
               <IonIcon icon={openOutline} slot="end" />
             </IonItem>
 
-
           </IonList>
           <p className="final-fat">FAT {APP_CURRENT_VERSION_NAME}</p>
 
@@ -168,12 +164,12 @@ const Settings = () => {
             message="It's JSON, so try pasting it somewhere like onlinejsontools.com"
             buttons={[
               {
-                side: 'end',
+                side: "end",
                 icon: globeOutline,
                 handler: () => {
-                  window.open("https://onlinejsontools.com/convert-json-to-text")
-                }
-              }
+                  window.open("https://onlinejsontools.com/convert-json-to-text");
+                },
+              },
             ]}
             position="bottom"
             duration={3000}

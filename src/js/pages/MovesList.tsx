@@ -1,18 +1,17 @@
-import { IonContent, IonPage, IonList, IonItem, IonLabel, IonItemDivider, IonGrid, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle } from '@ionic/react';
-import { useSelector, useDispatch } from 'react-redux';
-import SegmentSwitcher from '../components/SegmentSwitcher';
-import '../../style/pages/MovesList.scss';
-import { setPlayerAttr, setModalVisibility, setActiveFrameDataPlayer } from '../actions';
-import { useHistory } from 'react-router';
-import AdviceToast from '../components/AdviceToast';
-import { activeGameSelector, activePlayerSelector, dataDisplaySettingsSelector, gameDetailsSelector, selectedCharactersSelector } from '../selectors';
-import { isPlatform } from '@ionic/react';
-import { createSegmentSwitcherObject } from '../utils/segmentSwitcherObject';
-import PopoverButton from '../components/PopoverButton';
+import "../../style/pages/MovesList.scss";
+import { IonContent, IonPage, IonList, IonItem, IonLabel, IonItemDivider, IonGrid, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle } from "@ionic/react";
+import { isPlatform } from "@ionic/react";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router";
 
+import { setPlayerAttr, setModalVisibility, setActiveFrameDataPlayer } from "../actions";
+import AdviceToast from "../components/AdviceToast";
+import PopoverButton from "../components/PopoverButton";
+import SegmentSwitcher from "../components/SegmentSwitcher";
+import { activeGameSelector, activePlayerSelector, dataDisplaySettingsSelector, gameDetailsSelector, selectedCharactersSelector } from "../selectors";
+import { createSegmentSwitcherObject } from "../utils/segmentSwitcherObject";
 
 const MovesList = () => {
-  
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const activePlayer = useSelector(activePlayerSelector);
   const activeGame = useSelector(activeGameSelector);
@@ -20,31 +19,29 @@ const MovesList = () => {
   const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
 
   const dispatch = useDispatch();
-  
+
   const history = useHistory();
   const moveData = selectedCharacters[activePlayer].frameData;
 
-  
   const moveListEntryKeys = Object.keys(moveData).filter(moveKey => {
     if (selectedCharacters[activePlayer].vtState !== "normal") {
       if (moveData[moveKey].uniqueInVt) {
-        return moveData[moveKey].movesList
+        return moveData[moveKey].movesList;
       } else {
         return null;
       }
     } else {
-      return moveData[moveKey].movesList
+      return moveData[moveKey].movesList;
     }
-  })
+  });
 
-  
-  let moveListHeaders = [];
+  const moveListHeaders = [];
   moveListEntryKeys.forEach(moveKey => {
-      if (!moveListHeaders.includes(moveData[moveKey].movesList)) {
-          moveListHeaders.push(moveData[moveKey].movesList)
-      }
+    if (!moveListHeaders.includes(moveData[moveKey].movesList)) {
+      moveListHeaders.push(moveData[moveKey].movesList);
     }
-  )
+  }
+  );
 
   return (
     <IonPage>
@@ -78,7 +75,7 @@ const MovesList = () => {
                 labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
                 clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
               />
-            : (activeGame === "GGST") &&
+              : (activeGame === "GGST") &&
               <SegmentSwitcher
                 segmentType={"vtrigger"}
                 valueToTrack={selectedCharacters[activePlayer].vtState}
@@ -87,7 +84,7 @@ const MovesList = () => {
               />
             }
           </div>
-          
+
           <IonList>
             {!moveListHeaders.length && <h4>No New Unique Moves</h4>}
             {moveListHeaders.map(listHeader =>
@@ -107,7 +104,7 @@ const MovesList = () => {
                     const displayedName = !moveData[moveKey][namingType] ? moveData[moveKey]["moveName"] : moveData[moveKey][namingType];
 
                     return (
-                      <IonItem button key={moveKey} onClick={() => { dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {selectedMove: moveKey})); history.push(`/movedetail/${activeGame}/${selectedCharacters[activePlayer].name}/${selectedCharacters[activePlayer].vtState}/${selectedCharacters[activePlayer].frameData[moveKey]["moveName"]}`)}}>
+                      <IonItem button key={moveKey} onClick={() => { dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {selectedMove: moveKey})); history.push(`/movedetail/${activeGame}/${selectedCharacters[activePlayer].name}/${selectedCharacters[activePlayer].vtState}/${selectedCharacters[activePlayer].frameData[moveKey]["moveName"]}`);}}>
                         <IonLabel>
                           <h2>
                             {((displayedName.startsWith("LP ") || displayedName.startsWith("LK ")) && (moveData[moveKey].moveType === "special" || moveData[moveKey].moveType === "command-grab"))
@@ -121,7 +118,7 @@ const MovesList = () => {
                           </p>
                         </IonLabel>
                       </IonItem>
-                    )
+                    );
                   })
                 }
 

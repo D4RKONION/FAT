@@ -1,17 +1,17 @@
-import { IonButton, IonButtons, IonContent, IonGrid, IonHeader, IonModal, IonTitle, IonToolbar } from '@ionic/react';
-import { useSelector, useDispatch } from 'react-redux';
-import '../../style/components/WhatsNew.scss'
-import {APP_CURRENT_VERSION_NAME, APP_DATE_UPDATED, VERSION_LOGS} from '../constants/VersionLogs';
-import { setModalVisibility } from '../actions';
-import { modalVisibilitySelector } from '../selectors';
+import { IonButton, IonButtons, IonContent, IonGrid, IonHeader, IonModal, IonTitle, IonToolbar } from "@ionic/react";
+import { useSelector, useDispatch } from "react-redux";
+
+import "../../style/components/WhatsNew.scss";
+import { setModalVisibility } from "../actions";
+import {APP_CURRENT_VERSION_NAME, APP_DATE_UPDATED, VERSION_LOGS} from "../constants/VersionLogs";
+import { modalVisibilitySelector } from "../selectors";
 
 const WhatsNewModal = () => {
-
   const modalVisibility = useSelector(modalVisibilitySelector);
   
   const dispatch = useDispatch();
   
-  return(
+  return (
     <IonModal
       isOpen={modalVisibility.visible && modalVisibility.currentModal === "whatsNew"}
       onDidDismiss={ () => modalVisibility.visible && dispatch(setModalVisibility({ currentModal: "whatsNew", visible: false })) }
@@ -26,7 +26,7 @@ const WhatsNewModal = () => {
         </IonToolbar>
       </IonHeader>
 
-      <IonContent id="whatsNew" className='ion-padding'>
+      <IonContent id="whatsNew" className="ion-padding">
         <IonGrid fixed>
           <h3>
             FAT {APP_CURRENT_VERSION_NAME}
@@ -47,7 +47,7 @@ const WhatsNewModal = () => {
         </IonGrid>
       </IonContent>
     </IonModal>
-  )
-}
+  );
+};
 
 export default WhatsNewModal;
