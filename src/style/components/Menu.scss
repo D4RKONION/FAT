@@ -85,7 +85,7 @@
           border-radius 0.25s;
 
         cursor: pointer;
-        
+
         &.active-mode {
           background-color: #ffffff20;
         }
@@ -103,7 +103,8 @@
           margin: 0;
           padding-left: 17px;
           border-radius: 0;
-          height: 56px;
+          height: calc(56px + env(safe-area-inset-top));
+          padding-top: env(safe-area-inset-top);
           position: sticky;
           top: 0;
           z-index: 10;
@@ -118,9 +119,9 @@
             margin: 0;
             --box-shadow: none;
             --background: none;
-            
+
           }
-          
+
         }
 
         ion-icon {
@@ -137,7 +138,7 @@
           flex-shrink: 0;
           animation: slideIn 0.25s ease-in-out;
         }
-        
+
         ion-ripple-effect {
           color: #ffffffa8;
         }

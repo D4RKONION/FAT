@@ -1,11 +1,11 @@
 #TableSettings {
   --backdrop-opacity: 0.5;
   ion-content {
-    --padding-bottom: 140px;
+    --padding-bottom: calc(140px + env(safe-area-inset-bottom));
   }
   table {
     position: fixed;
-    bottom: 0;
+    bottom: env(safe-area-inset-bottom);
     left: 0;
     right: 0;
     display: block;
@@ -69,11 +69,11 @@
         }
       }
     }
-    
-    
-    
+
+
+
   }
-  
+
   @media only screen and (min-width: 600px) and (min-height: 768px) {
     --width: 535px;
     --height: 90%;
