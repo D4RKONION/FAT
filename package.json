@@ -41,18 +41,16 @@
     "typescript": "^4.9.5"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "DISABLE_ESLINT_PLUGIN=true react-scripts start",
+    "build": "DISABLE_ESLINT_PLUGIN=true react-scripts build",
     "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!(@ionic/react|@ionic/react-router|@ionic/core|@stencil/core|ionicons)/)'",
     "eject": "react-scripts eject",
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
     "android:test": "ionic cap sync android && ionic cap open android",
     "android:beta": "ionic cap sync android && (cd android && bundle exec fastlane beta)",
     "android:release": "ionic cap sync android && (cd android && bundle exec fastlane release)",
     "ios:release": "ionic cap sync ios && (cd ios/App && fastlane release)",
     "web:release": "ionic build --prod --public-url=/fatonline"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "browserslist": {
     "production": [
@@ -78,6 +76,12 @@
     "@capacitor/keyboard": "^6.0.0",
     "@capacitor/splash-screen": "^6.0.0",
     "@capacitor/status-bar": "^6.0.0",
+    "@stylistic/eslint-plugin": "^2.11.0",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "eslint": "^8.57.1",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
     "redux-devtools-extension": "^2.13.9"
   },
   "description": "An Ionic project"
