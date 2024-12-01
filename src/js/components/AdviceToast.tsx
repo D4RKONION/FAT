@@ -80,7 +80,7 @@ const AdviceToast = () => {
             side: "end",
             icon: toastData.icon,
             text: "",
-            handler: () => {toastData.handler(history);},
+            handler: () => toastData.handler(history),
           },
         ] : [
           {

@@ -17,7 +17,6 @@ import LandscapeOptions from "../components/LandscapeOptions";
 import PopoverButton from "../components/PopoverButton";
 import SegmentSwitcher from "../components/SegmentSwitcher";
 import SubHeader from "../components/SubHeader";
-import TableSettings from "../components/TableSettings";
 import { APP_CURRENT_VERSION_CODE } from "../constants/VersionLogs";
 import { activeGameSelector, activePlayerSelector, bookmarksSelector, dataTableSettingsSelector, gameDetailsSelector, modalVisibilitySelector, premiumSelector, selectedCharactersSelector } from "../selectors";
 import { FrameDataSlug } from "../types";

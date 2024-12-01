@@ -169,7 +169,7 @@ const TableSettings = () => {
         </IonItem>
 
         <h5>Table Layout</h5>
-        <div className="custom-setting-item" onClick={e => dispatch(setCompactView(!compactViewOn)) }>
+        <div className="custom-setting-item" onClick={() => dispatch(setCompactView(!compactViewOn)) }>
           <div className="explainer">
             <h2>Compact cells</h2>
             <p>Allow the contents of cells to be cut off so that rows all have the same height. Turn this off to see more data in the table view</p>
@@ -177,7 +177,7 @@ const TableSettings = () => {
           <IonToggle checked={!!compactViewOn} onClick={() => dispatch(setCompactView(!compactViewOn))} onIonChange={(e) => e.preventDefault()} ></IonToggle>
         </div>
 
-        <div className={"custom-setting-item"} onClick={e => dispatch(setTableType(dataTableType === "fixed" ? "scrolling" : "fixed")) }>
+        <div className={"custom-setting-item"} onClick={() => dispatch(setTableType(dataTableType === "fixed" ? "scrolling" : "fixed")) }>
           <div className="explainer">
             <h2>X Axis Scrolling</h2>
             <p>Rather than shrinking rows to fit them on one screen, the table will overflow horizontally and become scrollable.</p>
@@ -186,7 +186,7 @@ const TableSettings = () => {
         </div>
         
         {xScrollEnabled &&
-          <div className="custom-setting-item sub-item" onClick={e => dispatch(setAutoScrollEnabled(!autoScrollEnabled)) }>
+          <div className="custom-setting-item sub-item" onClick={() => dispatch(setAutoScrollEnabled(!autoScrollEnabled)) }>
             <div className="explainer">
               <h2>Table auto-scrolls into view</h2>
               <p>Due to technical limitations with CSS, the table needs to scroll into view to fill the screen. If you find this annoying, you can turn it off here but the table may behave stubbornly on scroll!.</p>
@@ -195,7 +195,7 @@ const TableSettings = () => {
           </div>
         }
 
-        <div className="custom-setting-item" onClick={e => dispatch(setMoveTypeHeadersOn(!moveTypeHeadersOn)) }>
+        <div className="custom-setting-item" onClick={() => dispatch(setMoveTypeHeadersOn(!moveTypeHeadersOn)) }>
           <div className="explainer">
             <h2>Move Type Headers</h2>
             <p>Generate headers throughout the table to separate it by move-type.</p>
@@ -204,7 +204,7 @@ const TableSettings = () => {
         </div>
 
         <h5>Advantage Highlighting</h5>
-        <div className="custom-setting-item" onClick={e => dispatch(setMoveAdvantageColorsOn(!moveAdvantageColorsOn)) }>
+        <div className="custom-setting-item" onClick={() => dispatch(setMoveAdvantageColorsOn(!moveAdvantageColorsOn)) }>
           <div className="explainer">
             <h2>Advantage Colours</h2>
             <p>Toggle the coloring of cells which denote advantage such as "On Hit" and "On Punish Counter"</p>

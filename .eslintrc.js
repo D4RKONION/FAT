@@ -40,6 +40,7 @@ module.exports = {
     "@stylistic/quote-props": ["error", "as-needed"],
     "@stylistic/quotes": ["error", "double", { avoidEscape: true }],
     "@stylistic/semi": ["error", "always"],
+    "@typescript-eslint/no-unused-vars": "error",
   },
   ignorePatterns: [
     "node_modules",

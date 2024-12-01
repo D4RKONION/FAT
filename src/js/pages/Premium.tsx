@@ -1,14 +1,13 @@
 import "cordova-plugin-purchase";
 import "../../style/pages/Premium.scss";
 
-import { IonBackButton, IonButton, IonButtons, IonCheckbox, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonItem, IonLabel, IonMenuButton, IonModal, IonPage, IonSpinner, IonTitle, IonToolbar, isPlatform } from "@ionic/react";
+import { IonBackButton, IonButton, IonButtons, IonCheckbox, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonMenuButton, IonModal, IonPage, IonSpinner, IonTitle, IonToolbar, isPlatform } from "@ionic/react";
 import { diamondSharp } from "ionicons/icons";
 import { useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
 
 import bookmarkImage from "../../images/premium-examples/bookmarks.png";
-import { purchaseLifetimePremium, resetPremium } from "../actions";
 import ChunkyButton from "../components/ChunkyButton";
 import ThemeSwitcher from "../components/ThemeSwitcher";
 import { APP_CURRENT_VERSION_CODE } from "../constants/VersionLogs";
@@ -17,7 +16,6 @@ import { premiumSelector } from "../selectors";
 const Premium = () => {
   const { store: iapStore } = CdvPurchase;
   const location = useLocation();
-  const dispatch = useDispatch();
   const premiumIsPurchased = useSelector(premiumSelector).lifetimePremiumPurchased;
 
   const [premiumModalIsOpen, setPremiumModalIsOpen] = useState(false);

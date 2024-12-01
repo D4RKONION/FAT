@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 
 import { addBookmark, removeBookmark, reorderBookmarks, setActiveFrameDataPlayer, setActiveGame, setModalVisibility, setPlayer, setPlayerAttr } from "../actions";
-import { activeGameSelector, activePlayerSelector, bookmarksSelector, dataDisplaySettingsSelector, modalVisibilitySelector, modeNameSelector, premiumSelector, selectedCharactersSelector } from "../selectors";
+import { activeGameSelector, activePlayerSelector, bookmarksSelector, dataDisplaySettingsSelector, modalVisibilitySelector, premiumSelector, selectedCharactersSelector } from "../selectors";
 import CharacterPortrait from "./CharacterPortrait";
 import ChunkyButton from "./ChunkyButton";
 import AppSF3FrameData from "../constants/framedata/3SFrameData.json";
@@ -40,7 +40,6 @@ const BookmarksModal = () => {
   const activePlayer = useSelector(activePlayerSelector);
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const premiumIsPurchased = useSelector(premiumSelector).lifetimePremiumPurchased;
-  const modeName = useSelector(modeNameSelector);
 
   const dispatch = useDispatch();
   const history = useHistory();

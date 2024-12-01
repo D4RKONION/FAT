@@ -3,7 +3,7 @@ import "../../style/components/FAB.scss";
 
 import { IonContent, IonPage, IonItem, IonSelect, IonSelectOption, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle } from "@ionic/react";
 import { useState, useEffect, Fragment } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import CharacterPortrait from "../components/CharacterPortrait";
 import PopoverButton from "../components/PopoverButton";
@@ -14,8 +14,6 @@ const StatCompare = () => {
   const activeGame = useSelector(activeGameSelector);
   const frameDataFile = useSelector(frameDataSelector);
   const gameDetails = useSelector(gameDetailsSelector);
-
-  const dispatch = useDispatch();
 
   const [statHeadings, setStatHeadings] = useState([]);
   const gameStatsObj = gameDetails.statsPoints;
@@ -122,15 +120,15 @@ const StatCompare = () => {
                       <span className="stat-images-container">
                         {Object.keys(frameDataFile).map(charName =>
                           frameDataFile[charName].stats[selectedStat] === statSectionHeader && !frameDataFile[charName].stats.hideCharacter &&
-                              <CharacterPortrait
-                                key={`${activeGame}-${charName}-stat-image`}
-                                charName={charName}
-                                game={activeGame}
-                                selected={ (charName === selectedCharacters.playerOne.name || charName === selectedCharacters.playerTwo.name) && true}
-                                charColor={frameDataFile[charName].stats.color}
-                                remoteImage={frameDataFile[charName].stats.remoteImage}
-                                showName={false}
-                              />
+                            <CharacterPortrait
+                              key={`${activeGame}-${charName}-stat-image`}
+                              charName={charName}
+                              game={activeGame}
+                              selected={ (charName === selectedCharacters.playerOne.name || charName === selectedCharacters.playerTwo.name) && true}
+                              charColor={frameDataFile[charName].stats.color}
+                              remoteImage={frameDataFile[charName].stats.remoteImage}
+                              showName={false}
+                            />
                         )}
                       </span>
                     </div>

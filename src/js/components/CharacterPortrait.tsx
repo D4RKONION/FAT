@@ -13,7 +13,7 @@ type CharacterPortraitProps = {
   onClick?: () => void;
 };
 
-const CharacterPortrait = ( {charName, charThreeLetterCode, game, selected, charColor, remoteImage, showName, onClick }: CharacterPortraitProps ) => {
+const CharacterPortrait = ( {charName, charThreeLetterCode, game, selected, remoteImage, showName, onClick }: CharacterPortraitProps ) => {
   return (
     <div
       className="character-portrait"
