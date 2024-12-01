@@ -1,7 +1,7 @@
 import "cordova-plugin-purchase";
 import "../../style/pages/Premium.scss";
 
-import { IonBackButton, IonButton, IonButtons, IonCheckbox, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonItem, IonLabel, IonMenuButton, IonModal, IonPage, IonTitle, IonToolbar, isPlatform } from "@ionic/react";
+import { IonBackButton, IonButton, IonButtons, IonCheckbox, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonItem, IonLabel, IonMenuButton, IonModal, IonPage, IonSpinner, IonTitle, IonToolbar, isPlatform } from "@ionic/react";
 import { diamondSharp } from "ionicons/icons";
 import { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,6 +22,7 @@ const Premium = () => {
 
   const [premiumModalIsOpen, setPremiumModalIsOpen] = useState(false);
   const [tipAdded, setTipAdded] = useState(false);
+  const [spinnerVisible, setSpinnerVisible] = useState(false);
 
   const prices = useMemo(() => {
     const basePricing = iapStore?.get("com.fullmeter.fat.premium_lifetime")?.pricing;
@@ -45,10 +46,16 @@ const Premium = () => {
   }, [iapStore]);
 
   const buyPremium = () => {
+    setSpinnerVisible(true);
     iapStore.get(
       !tipAdded ? "com.fullmeter.fat.premium_lifetime" : "com.fullmeter.fat.premium_lifetime_tip",
       isPlatform("android") ? CdvPurchase.Platform.GOOGLE_PLAY : CdvPurchase.Platform.APPLE_APPSTORE
-    )?.getOffer()?.order();
+    )?.getOffer()?.order().then(() => {
+      setSpinnerVisible(false);
+    }).catch((err) => {
+      console.log("Purchase error:", err);
+      setSpinnerVisible(false);
+    });
   };
 
   return (
@@ -129,13 +136,17 @@ const Premium = () => {
             >Upgrade to Premium!</ChunkyButton>
         }
 
-        {/* styled globally as modals are presented at root  */}
-        <IonModal className="premium-offer-modal" showBackdrop={true} isOpen={premiumModalIsOpen} initialBreakpoint={1} breakpoints={[0, 1]} onDidDismiss={() => setPremiumModalIsOpen(false)}>
+        {/* styled globally as modals are presented at root */}
+        <IonModal className="premium-offer-modal" showBackdrop={true} isOpen={premiumModalIsOpen} initialBreakpoint={1} breakpoints={[0, 1]} onDidDismiss={() => {setPremiumModalIsOpen(false); setSpinnerVisible(false);}}>
           <div className="premium-offer-modal-content">
             {!premiumIsPurchased ? (
               <>
                 <IonButton expand="full" shape="round" mode="ios" onClick={buyPremium}>
-                  {`Lifetime Premium ${tipAdded ? "+ Tip" : ""} ${prices ? `(${tipAdded ? prices.withTip : prices.base})` : ""}`}
+                  {spinnerVisible ? (
+                    <IonSpinner></IonSpinner>
+                  ) : (
+                    `Lifetime Premium ${tipAdded ? "+ Tip" : ""} ${prices ? `(${tipAdded ? prices.withTip : prices.base})` : ""}`
+                  )}
                 </IonButton>
                 <IonItem>
                   <IonCheckbox checked={tipAdded} onIonChange={() => setTipAdded(!tipAdded)}>
