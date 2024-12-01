@@ -84,12 +84,15 @@
 				}
 			}
 
-			.state-changer > ion-segment {
+			.state-changer {
 				border-left: 1px solid var(--fat-frame-data-sub-header-stats-border);
 				margin-left: 30px;
-				padding-left: 8px;
+				padding-left: 23px;
+			} ion-segment {
 				width: 100%;
 			}
+
+			
 		}
 		
 	}

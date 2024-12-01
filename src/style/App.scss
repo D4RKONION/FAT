@@ -130,6 +130,7 @@ ion-toolbar {
 
 	.searchbar-input-container.sc-ion-searchbar-ios {
 		height: 32px;
+    min-height: 32px;
 	}
 	.searchbar-cancel-button.sc-ion-searchbar-ios {
 		color: white;

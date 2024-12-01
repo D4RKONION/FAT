@@ -63,7 +63,7 @@ const Settings = () => {
               </IonSelect>
             </IonItem>
 
-            <IonItem lines="none" onClick={() => dispatch(setModalVisibility({ currentModal: "tableSettings", visible: true }))} button>
+            <IonItem onClick={() => dispatch(setModalVisibility({ currentModal: "tableSettings", visible: true }))} button>
               <IonLabel>
                 <h2>Frame Data Settings</h2>
               </IonLabel>
@@ -89,7 +89,7 @@ const Settings = () => {
                 onIonChange={ e => {dispatch(setThemeAccessibility(e.detail.checked ? "colorBlind" : "none")); dispatch(setThemeColor("classic"));} }>Colour Blind Mode</IonToggle>
             </IonItem>
 
-            <IonItem lines="none">
+            <IonItem>
               <IonToggle
                 checked={adviceToastsOn ? true : false}
                 onIonChange={ e => {dispatch(setAdviceToastsOn(e.detail.checked ? true : false)); dispatch(setThemeColor("classic"));} }>Advice Popups</IonToggle>
