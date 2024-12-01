@@ -42,6 +42,14 @@
       border: none;
     }
 
+    &.sub-item {
+      border-left: 10px solid var(--fat-settings-item-border);
+      animation: slide-in 0.4s ease;
+      .explainer {
+        max-width: 385px;
+      }
+    }
+
     .explainer {
       width: 85%;
       max-width: 400px;
