@@ -1,6 +1,6 @@
-export const APP_CURRENT_VERSION_NAME = "4.0.0-RC1";
-export const APP_CURRENT_VERSION_CODE = 39990;
-export const APP_DATE_UPDATED = "Nov 29 2024"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "4.0.0-RC2";
+export const APP_CURRENT_VERSION_CODE = 39991;
+export const APP_DATE_UPDATED = "Dec 01 2024"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"];
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"];
@@ -20,7 +20,10 @@ export const UPDATABLE_GAMES_APP_CODES = {
 };
 
 export const VERSION_LOGS = {
-  "4.0.0-RC1": {
+  "4.0.0-RC2": {
+    "RC2 Changes": [
+      "UI tweaks and bug fixes",
+    ],
     "X-Axis Scrolling & more!": [
       "Frame Data screen completely rewritten from scratch",
       "Added X-Axis Scrolling! This allows you to see any amount of columns on small screens",
