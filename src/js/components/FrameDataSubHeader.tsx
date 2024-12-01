@@ -80,24 +80,27 @@ const FrameDataSubHeader = ({ charName, characterHasStates, opponentName, charSt
                 <span className="player-tag inactive-player-tag">{activePlayer === "playerTwo" ? "P1": "P2"}</span>
               </div>
             </div>
-            <div className="state-changer">
-              {activeGame === "SFV" ?
-                <SegmentSwitcher
-                  segmentType={"vtrigger"}
-                  valueToTrack={selectedCharacters[activePlayer].vtState}
-                  labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
-                  clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
-                />
-                : (activeGame === "GGST" || activeGame === "SF6") &&
-            <SegmentSwitcher
-              passedClassNames={!characterHasStates ? "collapsed" : "expanded"}
-              segmentType={"vtrigger"}
-              valueToTrack={selectedCharacters[activePlayer].vtState}
-              labels={createSegmentSwitcherObject(gameDetails.specificCharacterStates[selectedCharacters[activePlayer].name])}
-              clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
-            />
-              }
-            </div>
+            {characterHasStates &&
+              <div className="state-changer">
+                {activeGame === "SFV" ?
+                  <SegmentSwitcher
+                    segmentType={"vtrigger"}
+                    valueToTrack={selectedCharacters[activePlayer].vtState}
+                    labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
+                    clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
+                  />
+                  : (activeGame === "GGST" || activeGame === "SF6") &&
+                    <SegmentSwitcher
+                      passedClassNames={!characterHasStates ? "collapsed" : "expanded"}
+                      segmentType={"vtrigger"}
+                      valueToTrack={selectedCharacters[activePlayer].vtState}
+                      labels={createSegmentSwitcherObject(gameDetails.specificCharacterStates[selectedCharacters[activePlayer].name])}
+                      clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
+                    />
+                }
+              </div>
+            }
+            
           </div>
 
         </IonCol>

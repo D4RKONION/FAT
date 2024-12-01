@@ -3,7 +3,7 @@ import "../../style/components/FAB.scss";
 
 import { IonContent, IonPage, IonIcon, IonItem, IonInput, IonCardHeader, IonCardContent, IonCard, IonCardTitle, IonButton, IonFab, IonFabButton, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle } from "@ionic/react";
 import {ratio as fuzzratio, extract as fuzzextract } from "fuzzball";
-import { close, searchOutline, trashBinOutline } from "ionicons/icons";
+import { close, searchOutline, trashBinOutline, trashSharp } from "ionicons/icons";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
@@ -423,7 +423,7 @@ const QuickSearch = () => {
 
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
           <IonFabButton onClick={() => {setSearchResults([]);} }>
-            <IonIcon icon={trashBinOutline} />
+            <IonIcon icon={trashSharp} />
           </IonFabButton>
         </IonFab>
 

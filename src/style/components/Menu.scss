@@ -205,9 +205,9 @@ ion-menu {
       }
 
       &.selected {
-        --color: var(--fat-menu-selected-item-contrast);
+        --color: var(--fat-menu-selected-item-ios);
         ion-icon {
-          color: var(--fat-menu-selected-item-contrast);
+          color: var(--fat-menu-selected-item-ios);
         }
       }
     }

@@ -102,6 +102,10 @@ ion-modal.premium-offer-modal {
   }
 }
 
+ion-fab-button.ios {
+  --background-activated: var(--fat-primary-shade-step-250);
+}
+
 
 // PAGE HEADER AND TOOLBAR
 ion-toolbar {
