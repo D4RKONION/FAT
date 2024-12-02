@@ -1,0 +1,10 @@
+Ver 4.0.0
+- Added X-Axis Scrolling
+- New and improved 'Table Settings' menu
+- Overhauled Quick Search mode
+- Overhauled Stat Compare page
+- You can now bookmark characters and their moves. This allows you to jump straight to them from the new bookmark menu
+- Removed individual theme purchases and replaced it with a single lifetime premium purchase (previous purchases unlock this)
+- GGST: Added Queen Dizzy
+
+And more! Check out the "What's New" or "Version Logs" Screen to see all the changes
