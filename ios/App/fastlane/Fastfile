@@ -38,7 +38,7 @@ platform :ios do
       submission_information: {
         add_id_info_uses_idfa: false,
       },
-      phased_release: false,
+      phased_release: true,
       skip_screenshots: true,
     )
   end
