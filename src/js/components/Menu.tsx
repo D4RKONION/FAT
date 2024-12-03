@@ -276,7 +276,7 @@ const Menu = () => {
         <div id="widescreenMenu">
           <IonGrid>
 
-            <div className={`widescreen-menu-header widescreen-menu-entry ${!isWideFullMenuOpen && "menu-collapsed"} ${modeName === "movedetail" && "disabled"}`}>
+            <div className={`widescreen-menu-header widescreen-menu-entry ${!isWideFullMenuOpen && "menu-collapsed"} ${modeName === "movedetail" && "disabled"} ${isPlatform("ios") ? "ios" : "md"}`}>
               <IonButton onClick={() => setIsWideFullMenuOpen(!isWideFullMenuOpen)}>
                 <IonIcon icon={menuSharp} slot="icon-only" />
               </IonButton>

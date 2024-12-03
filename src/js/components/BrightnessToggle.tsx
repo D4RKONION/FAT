@@ -11,6 +11,7 @@ const BrightnessToggle = () => {
 
   return (
     <IonToggle
+      mode="md"
       className={`${styles.brightnessToggle} widescreenMode`}
       checked={themeBrightness === "light" ? false : true}
       onIonChange={e => {dispatch(setThemeBrightness(e.detail.checked ? "dark" : "light"));}}
