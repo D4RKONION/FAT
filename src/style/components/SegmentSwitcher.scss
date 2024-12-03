@@ -72,9 +72,6 @@
     &.md {
       max-width: 500px;
       margin: 0 auto;
-      &:last-of-type {
-        margin-bottom: 4px;
-      }
     }
   }
 
@@ -121,7 +118,7 @@
       max-height: 0px;
       transition: all 270ms ease-in-out;
       opacity: 0;
-      margin: 0;
+      margin: 0 auto;
     }
   
     &.expanded {
