@@ -7,28 +7,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 
 import { addBookmark, reorderBookmarks, setActiveFrameDataPlayer, setActiveGame, setModalVisibility, setPlayer, setPlayerAttr } from "../actions";
-import { activeGameSelector, activePlayerSelector, bookmarksSelector, dataDisplaySettingsSelector, modalVisibilitySelector, premiumSelector, selectedCharactersSelector } from "../selectors";
-import ChunkyButton from "./ChunkyButton";
-import AppSF3FrameData from "../constants/framedata/3SFrameData.json";
-import AppGGSTFrameData from "../constants/framedata/GGSTFrameData.json";
-import AppSF6FrameData from "../constants/framedata/SF6FrameData.json";
-import AppSFVFrameData from "../constants/framedata/SFVFrameData.json";
-import AppUSF4FrameData from "../constants/framedata/USF4FrameData.json";
-import { renameData } from "../utils";
+import { activeGameSelector, activePlayerSelector, bookmarksSelector, modalVisibilitySelector, premiumSelector, selectedCharactersSelector } from "../selectors";
 import CharacterEntryDetailed from "./CharacterEntryDetailed";
-
-const FRAMEDATA_MAP = {
-  "3S": AppSF3FrameData,
-  USF4: AppUSF4FrameData,
-  SFV: AppSFVFrameData,
-  SF6: AppSF6FrameData,
-  GGST: AppGGSTFrameData,
-};
+import ChunkyButton from "./ChunkyButton";
 
 const BookmarksModal = () => {
   const modalVisibility = useSelector(modalVisibilitySelector);
   const bookmarks = useSelector(bookmarksSelector);
-  const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
   const activeGame = useSelector(activeGameSelector);
   const activePlayer = useSelector(activePlayerSelector);
   const selectedCharacters = useSelector(selectedCharactersSelector);
@@ -91,17 +76,13 @@ const BookmarksModal = () => {
             {bookmarks.map((bookmark, index) => {
             // MOVE-DETAIL BOOKMARK
               if (bookmark.modeName === "movedetail") {
-                const renamedMoveObject = renameData({[bookmark.moveName]: FRAMEDATA_MAP[bookmark.gameName][bookmark.characterName].moves[bookmark.vtState][bookmark.moveName]}, dataDisplaySettings.moveNameType, dataDisplaySettings.inputNotationType);
-                const userChosenName = Object.keys(renamedMoveObject)[0];
                 return (
                   <IonReorder key={`stat-${bookmark.gameName}-${bookmark.characterName}-${bookmark.moveName}`}>
                     <CharacterEntryDetailed
                       bookmark={bookmark}
                       bookmarkIndex={index}
-                      renamedMoveObject={renamedMoveObject}
-                      userChosenName={userChosenName}
                       disableOnClick={reorderingActive || removalActive}
-                      onClickHandler={() => {
+                      onClickHandler={(userChosenName) => {
                         dispatch(setActiveFrameDataPlayer("playerOne"));
                         if (bookmark.gameName !== activeGame) {
                           dispatch(setActiveGame(bookmark.gameName, true, bookmark.characterName, bookmark.vtState, userChosenName));

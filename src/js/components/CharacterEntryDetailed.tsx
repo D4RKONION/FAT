@@ -1,6 +1,6 @@
 import { IonButton, IonIcon, IonItem, IonReorder } from "@ionic/react";
 import { trashSharp } from "ionicons/icons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { removeBookmark } from "../actions";
 import AppSF3FrameData from "../constants/framedata/3SFrameData.json";
@@ -11,6 +11,8 @@ import AppUSF4FrameData from "../constants/framedata/USF4FrameData.json";
 import { allBookmarkStats } from "../constants/gamedetails/characterLists";
 import { Bookmark } from "../types";
 import CharacterPortrait from "./CharacterPortrait";
+import { dataDisplaySettingsSelector } from "../selectors";
+import { renameData } from "../utils";
 
 const FRAMEDATA_MAP = {
   "3S": AppSF3FrameData,
@@ -29,20 +31,23 @@ const MOVE_STATS= {
 type Props = {
   bookmark: Bookmark,
   bookmarkIndex: number,
-  renamedMoveObject?: any,
-  userChosenName?: string,
   disableOnClick: boolean,
-  onClickHandler: () => void,
+  onClickHandler: (userChosenName?: string) => void,
   removalActive: boolean,
 };
 
-const CharacterEntryDetailed = ({bookmark, bookmarkIndex, renamedMoveObject, userChosenName, disableOnClick, onClickHandler, removalActive }: Props) => {
+const CharacterEntryDetailed = ({bookmark, bookmarkIndex, disableOnClick, onClickHandler, removalActive }: Props) => {
   const dispatch = useDispatch();
-  
+
+  const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
+
+  const renamedMoveObject = bookmark.modeName ==="movedetail" ? renameData({[bookmark.moveName]: FRAMEDATA_MAP[bookmark.gameName][bookmark.characterName].moves[bookmark.vtState][bookmark.moveName]}, dataDisplaySettings.moveNameType, dataDisplaySettings.inputNotationType) : [""];
+  const userChosenName = Object.keys(renamedMoveObject)[0];
+
   return (
     <IonItem button onClick={() => {
       if (disableOnClick) return false;
-      onClickHandler();
+      onClickHandler(bookmark.modeName ==="movedetail" ? userChosenName : null);
     }} routerDirection="root">
       <div className="bookmark-entry">
         <CharacterPortrait
