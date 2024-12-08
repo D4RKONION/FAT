@@ -63,8 +63,8 @@ const DataTable = ({frameData, searchText, scrollToBottom, clearSearchText}: Pro
     let tempSearchTerm = searchText;
 
     // Convert "EX" to "OD" if the game is SF6
-    if (activeGame === "SF6" && tempSearchTerm.toLowerCase().includes("ex") && tempSearchTerm.substring(0,3) === "info") {
-      tempSearchTerm = tempSearchTerm.toLowerCase().replaceAll("ex", "od");
+    if (activeGame === "SF6" && (tempSearchTerm.toLowerCase().substring(0,3) === "ex " || tempSearchTerm.toLowerCase() === "ex")) {
+      tempSearchTerm = tempSearchTerm.toLowerCase().replace("ex", "od");
     }
 
     const operators = ["=", ">=", "<=", ">", "<", ":"];
