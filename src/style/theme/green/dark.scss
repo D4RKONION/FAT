@@ -115,6 +115,9 @@ ion-app.green-dark-theme, .themePreview.green-dark-theme {
   --fat-meter-full: #4a914e;
   --fat-meter-empty: #878787;
 
+  // FAT UI
+  --fat-header: var(--fat-primary-tint-step-50);
+
   // Markdown
   --fat-markdown-h125: #9ffca7;
   --fat-markdown-h3: #a4f7a8;

@@ -95,6 +95,9 @@ ion-app.pink-light-theme, .themePreview.pink-light-theme {
   --fat-meter-full: var(--fat-primary-tint-step-250);
   --fat-meter-empty: #cfcfcf;
 
+  // FAT UI
+  --fat-header: var(--fat-primary-shade-step-450);
+
   // Frame Data Sub Header
   --fat-frame-data-sub-header-stats-bg: var(--fat-primary-tint-step-900);
   --fat-frame-data-sub-header-stats-contrast: var(--fat-primary-shade-step-450);
