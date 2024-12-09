@@ -89,6 +89,9 @@
     .ion-page > .segments.md {
       box-shadow: none;
     }
+    .segment-switcher.md {
+      display: flex;
+    }
 
     #characterSelectGrid {
       display: grid;

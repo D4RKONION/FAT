@@ -65,7 +65,7 @@
     }
   }
 
-  @media screen and (min-width: 576px) {
+  @media (min-width: 576px) {
     &.ios {
       max-width: 493px;
     }
@@ -75,7 +75,7 @@
     }
   }
 
-  @media screen and (min-width: 992px) {
+  @media (min-width: 992px) {
     &.md {
       display: inline-block;
       width: 85%;
