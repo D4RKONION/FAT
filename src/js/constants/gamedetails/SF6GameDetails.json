@@ -328,7 +328,7 @@
   "bookmarkStats": {
     "health": "Health",
     "fDash": "F.Dash",
-    "fastestNormal": "Mash"
+    "bDash": "B.Dash"
   },
   "defaultLandscapeCols": {"startup": "S", "active": "A", "recovery": "R", "onBlock": "oB", "onHit": "oH", "onPC":"onPC", "xx": "xx", "dmg": "dmg", "atkLvl": "lvl", "DRoH": "DRC-oH", "DRoB": "DRC-oB" }
 }
