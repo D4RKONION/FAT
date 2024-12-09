@@ -1,11 +1,13 @@
 import "../../style/pages/Settings.scss";
 
 import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, IonList, IonListHeader, IonIcon, useIonViewDidEnter, isPlatform, IonToast, IonGrid, IonToggle, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle } from "@ionic/react";
-import { logoTwitter, chevronForward, mailOutline, starOutline, heartOutline, openOutline, globeOutline, logoGithub, bulbOutline, lockClosedOutline } from "ionicons/icons";
+import { chevronForward, mailOutline, starOutline, heartOutline, openOutline, globeOutline, logoGithub, bulbOutline, lockClosedOutline } from "ionicons/icons";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 
+// TODO: Replace with ion-icon once they add it
+import logoBluesky from "../../images/icons/bluesky.svg";
 import { setActiveGame, setAdviceToastsOn, setModalVisibility, setThemeAccessibility, setThemeBrightness, setThemeColor } from "../actions";
 import ThemeSwitcher from "../components/ThemeSwitcher";
 import { GAME_NAMES } from "../constants/ImmutableGameDetails";
@@ -132,11 +134,11 @@ const Settings = () => {
                 <IonIcon icon={chevronForward} slot="end" />
               }
             </IonItem>
-            <IonItem detail={false} lines="none" href="https://twitter.com/D4RK_ONION" target="_system" button>
+            <IonItem detail={false} lines="none" href="https://bsky.app/profile/d4rkonion.bsky.social" target="_system" button>
               <IonLabel>
-                <h2>Twitter</h2>
+                <h2>Bluesky</h2>
               </IonLabel>
-              <IonIcon icon={logoTwitter} slot="start" />
+              <IonIcon icon={logoBluesky} slot="start" />
               <IonIcon icon={openOutline} slot="end" />
             </IonItem>
             <IonItem detail={false} lines="none" href="https://github.com/D4RKONION/FAT" target="_system" button>

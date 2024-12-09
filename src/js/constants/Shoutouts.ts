@@ -1,5 +1,5 @@
 export const DEVS = {
-  "D4RK ONION": "This app is coded, designed and maintained by Paul O'Shea (<a href=\"https://twitter.com/D4RK_ONION\" target=\"_system\">@D4RK_ONION)</a>. Thank you for using it! I've been developing FAT continuously since 2014, and I'm so happy that I've been able to give back to this community which has given me so much.",
+  "D4RK ONION": "This app is coded, designed and maintained by Paul O'Shea (<a href=\"https://bsky.app/profile/d4rkonion.bsky.social\" target=\"_system\">@D4RKONION)</a>. Thank you for using it! I've been developing FAT continuously since 2014, and I'm so happy that I've been able to give back to this community which has given me so much.",
   "Gearóid Moroney": "While I coded the app on my own, there's no way it would be here without the constant support, advice and mentoring of Gearóid Moroney. He also publishes the iOS version! Check out some of his fantastic products that he releases as <a href=\"https://jupli.com/\" target=\"_system\">Jupli</a> such as <a href=\"https://play.google.com/store/apps/details?id=com.syncostyle.onethingchristmas\" target=\"_system\">Christmas Countdown</a>, and <a href=\"https://play.google.com/store/apps/details?id=com.jupli.meditate\" target=\"_system\">Just Meditate</a>",
 };
 
@@ -9,11 +9,11 @@ export const FRIENDS = {
 };
 
 export const DATA_TEAM = {
-  Arlieth: "<a href=\"https://twitter.com/arlieth\" target=\"_system\">Arlieth</a> was the first person to help me with the frame data spreadsheet and continues to help out today!",
-  Hatson: "<a href=\"https://twitter.com/hatsonFGC\" target=\"_system\">Hatson</a> single handedly carried the app on his back for years by updating and adding new characters",
-  adam: "He's a Urien player, but don't let that put you off, <a href=\"https://twitter.com/adam_rsfv\" target=\"_system\">adam</a> did a ton of work on the SFV: CE update and beyond (and no, I haven't typo'd his name)",
-  MonkUnit: "Our newest SFV frame data member, <a href=\"https://twitter.com/MonkUnit\" target=\"_system\">MonkUnit</a> did a mammoth amount of work adding Hit Confirm Windows to the app!",
-  JoJo: "You might know <a href=\"https://twitter.com/nchJoJo\" target=\"_system\">JoJo</a> for his extensive beginner spreadsheets for <a href=\"http://bit.ly/NCH_SFV\" target=\"_system\">SFV</a> and <a href=\"http://bit.ly/NCH_GGST\" target=\"_system\">GGST</a>. He's put in a huge amount of work testing, homogenising and fleshing out the GGST data",
+  Arlieth: "<a href=\"https://bsky.app/profile/arlieth.com\" target=\"_system\">Arlieth</a> was the first person to help me with the frame data spreadsheet and continues to help out today!",
+  Hatson: "<a href=\"https://bsky.app/profile/hatson.bsky.social\" target=\"_system\">Hatson</a> single handedly carried the app on his back for years by updating and adding new characters",
+  adam: "He's a Urien player, but don't let that put you off, <a href=\"https://bsky.app/profile/adam5522.bsky.social\" target=\"_system\">adam</a> did a ton of work on the SFV: CE update and beyond (and no, I haven't typo'd his name)",
+  MonkUnit: "Our newest SFV frame data member, <a href=\"https://bsky.app/profile/monkunit.bsky.social\" target=\"_system\">MonkUnit</a> did a mammoth amount of work adding Hit Confirm Windows to the app!",
+  JoJo: "You might know <a href=\"https://bsky.app/profile/nchjojo.bsky.social\" target=\"_system\">JoJo</a> for his extensive beginner spreadsheets for <a href=\"http://bit.ly/NCH_SFV\" target=\"_system\">SFV</a> and <a href=\"http://bit.ly/NCH_GGST\" target=\"_system\">GGST</a>. He's put in a huge amount of work testing, homogenising and fleshing out the GGST data",
 };
 
 export const AWESOME_PEOPLE = [

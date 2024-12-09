@@ -1,5 +1,5 @@
 import { IonContent, IonPage, IonList, IonItem, IonLabel, IonIcon, isPlatform, IonGrid, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle } from "@ionic/react";
-import { chevronForward, desktopOutline, documentTextOutline, logoDiscord, logoTwitter, chatbubblesOutline, heartOutline } from "ionicons/icons";
+import { chevronForward, desktopOutline, documentTextOutline, logoDiscord, chatbubblesOutline, heartOutline } from "ionicons/icons";
 import { useHistory } from "react-router";
 
 import { RES_MENU_LIST } from "../constants/MenuLists";
@@ -7,7 +7,7 @@ import { RES_MENU_LIST } from "../constants/MenuLists";
 const MoreResources = () => {
   const history = useHistory();
   
-  const icons = { desktopOutline, documentTextOutline, logoDiscord, logoTwitter, chatbubblesOutline, heartOutline };
+  const icons = { desktopOutline, documentTextOutline, logoDiscord, chatbubblesOutline, heartOutline };
   const getIcon = (iconAsString) => {
     return icons[iconAsString];
   };

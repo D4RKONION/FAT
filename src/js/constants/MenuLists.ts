@@ -61,7 +61,7 @@ export const RES_MENU_LIST = {
   },
   "Social Media": {
     url: "social",
-    desc: "Some of the best resources are on Youtube and Twitter, check em out!",
+    desc: "Some of the best resources are on Youtube and Bluesky, check em out!",
     icon: "chatbubblesOutline",
   },
   "FAT Team": {
@@ -453,20 +453,20 @@ export const RES_DOCS_LIST = {
 };
 
 export const RES_SOC_LIST = {
-  Twitter: {
+  Bluesky: {
     game: "any",
     data: {
       "FAT Updates": {
         desc: "Keep up to date with what I'm working on, or pester me to add a feature",
-        url: "https://twitter.com/D4RK_ONION",
+        url: "https://bsky.app/profile/d4rkonion.bsky.social",
       },
       HiFight: {
         desc: "Lots of interesting tech and clips from recent CPT events",
-        url: "https://twitter.com/hifightth",
+        url: "https://bsky.app/profile/hifight.bsky.social",
       },
-      Jav1ts: {
-        desc: "Jav1ts posts lots of cool little tech videos, well worth a follow",
-        url: "https://twitter.com/jav1ts",
+      Hatson: {
+        desc: "Hatson posts lots of cool tech, and he works on the data for FAT!",
+        url: "https://bsky.app/profile/hatson.bsky.social",
       },
     },
   },
@@ -507,11 +507,11 @@ export const RES_FAT_LIST = {
     data: {
       "D4RK ONION": {
         desc: "That's me! I do 100% of the coding on FAT so when it breaks that means it's my fault. Yay!",
-        url: "https://twitter.com/D4RK_ONION",
+        url: "https://bsky.app/profile/d4rkonion.bsky.social",
       },
       Jupli: {
         desc: "My friend Gearóid who does the iOS release and answers my many questions. Thank god it's free, I couldn't afford him.",
-        url: "https://jupli.com",
+        url: "https://bsky.app/profile/jupli.com",
       },
     },
   },
@@ -520,23 +520,23 @@ export const RES_FAT_LIST = {
     data: {
       Hatson: {
         desc: "Hatson single handedly carried the app on his back for years by updating and adding new characters",
-        url: "https://twitter.com/hatsonFGC",
+        url: "https://bsky.app/profile/hatson.bsky.social",
       },
       adam: {
         desc: "He's a Urien player, but don't let that put you off, adam did a ton of work on the SFV: CE update and beyond (and no, I haven't typo'd his name)",
-        url: "https://twitter.com/adam_rsfv",
+        url: "https://bsky.app/profile/adam5522.bsky.social",
       },
       MonkUnit: {
         desc: "Our newest SFV frame data member, MonkUnit did a mammoth amount of work adding Hit Confirm Windows to the app!",
-        url: "https://twitter.com/MonkUnit",
+        url: "https://bsky.app/profile/monkunit.bsky.social",
       },
       Arlieth: {
         desc: "Arlieth was the first person to help me with the frame data spreadsheet and continues to help out today!",
-        url: "https://twitter.com/arlieth",
+        url: "https://bsky.app/profile/arlieth.com",
       },
       Jojo: {
         desc: "You might know JoJo for his extensive beginner spreadsheets for SFV and GGST. He's put in a huge amount of work testing, homogenising and fleshing out the GGST data",
-        url: "https://twitter.com/nchJoJo",
+        url: "https://bsky.app/profile/nchjojo.bsky.social",
       },
     },    
   },
