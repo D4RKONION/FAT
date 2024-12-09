@@ -1,4 +1,7 @@
 #whatsNew {
+  ion-grid {
+    padding: 0 0 60px;
+  }
   h3 {
     text-align: center;
     color: var(--fat-whatsnew-header);
@@ -41,5 +44,6 @@
     bottom: 30px;
     left: 10px;
     right: 10px;
+    width: 80%;
   }
 }
