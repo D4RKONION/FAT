@@ -8,7 +8,8 @@ import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
 
 import bookmarkImage from "../../images/premium-examples/bookmarks.png";
-import characterSelectImage from "../../images/premium-examples/character-select.png";
+import characterSelectImage1 from "../../images/premium-examples/character-select-1.png";
+import characterSelectImage2 from "../../images/premium-examples/character-select-2.png";
 import ChunkyButton from "../components/ChunkyButton";
 import ThemeSwitcher from "../components/ThemeSwitcher";
 import { APP_CURRENT_VERSION_CODE } from "../constants/VersionLogs";
@@ -105,8 +106,11 @@ const Premium = () => {
           <section>
             <h1>Character Select Layouts</h1>
             <hr></hr>
-            <p>Get access to an additional Character Select Layout, which gives you the same helpful quick-stats as your bookmarks for the whole game's cast!</p>
-            <img style={{borderRadius: "12px"}} src={characterSelectImage} alt="Bookmark example"></img>
+            <p>Get access to two additional Character Select Layouts, including a detailed list which gives you the same helpful quick-stats as your bookmarks for the whole game's cast.</p>
+            <div className="image-scroller">
+              <img style={{borderRadius: "12px"}} src={characterSelectImage1} alt="Bookmark example"></img>
+              <img style={{borderRadius: "12px"}} src={characterSelectImage2} alt="Bookmark example"></img>
+            </div>
           </section>
 
           <section>

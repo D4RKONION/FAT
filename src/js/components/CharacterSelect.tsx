@@ -28,6 +28,7 @@ const CHARACTER_SELECT_LAYOUTS: {
   {
     name: "Small Portraits",
     key: "smallPortraits",
+    premiumLayout: true,
   },
   {
     name: "Simple List",
@@ -286,7 +287,18 @@ const CharacterSelectModal = () => {
         <IonModal className="character-select-settings-modal" initialBreakpoint={1} breakpoints={[0, 1]} isOpen={layoutModalVisible} onDidDismiss={() => setLayoutModalVisible(false)}>
           <h2>Character Select Layout</h2>
           <IonList>
-            {CHARACTER_SELECT_LAYOUTS.map((optionEntry, index) =>
+            {CHARACTER_SELECT_LAYOUTS.filter(optionEntry => {
+              if (isPlatform("desktop") && optionEntry.premiumLayout) {
+                return false;
+              } else {
+                return true;
+              }
+            }).sort((a, b) => {
+              if (premiumIsPurchased) return 0;
+              if (a.premiumLayout && !b.premiumLayout) return 1; // Move a to the bottom
+              if (!a.premiumLayout && b.premiumLayout) return -1; // Move b to the bottom
+              return 0; // Maintain original order for other cases          
+            }).map((optionEntry, index) =>
               <IonItem lines={CHARACTER_SELECT_LAYOUTS.length -1 === index ? "none" : "full"} button key={optionEntry.key} onClick={() => {
                 setLayoutModalVisible(false);
                 if (!premiumIsPurchased && optionEntry.premiumLayout) {

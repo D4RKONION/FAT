@@ -39,6 +39,11 @@
         margin-bottom: 8px;
       }
     }
+    .image-scroller {
+      display: flex;
+      gap: 14px;
+      overflow: scroll;
+    }
     
 
     section {
