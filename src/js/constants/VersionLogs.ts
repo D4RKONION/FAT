@@ -1,6 +1,6 @@
-export const APP_CURRENT_VERSION_NAME = "4.0.0";
-export const APP_CURRENT_VERSION_CODE = 40000;
-export const APP_DATE_UPDATED = "Dec 02 2024"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "4.1.0";
+export const APP_CURRENT_VERSION_CODE = 40100;
+export const APP_DATE_UPDATED = "Dec 09 2024"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"];
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"];
@@ -20,6 +20,26 @@ export const UPDATABLE_GAMES_APP_CODES = {
 };
 
 export const VERSION_LOGS = {
+  "4.1.0": {
+    "New Character Select Layouts!": [
+      "Added several new Character Select layouts and polished the default layout",
+      "You can check them out by selecting the eye at the top of Character Select",
+    ],
+    SF6: [
+      "Added the most recent patch changes. Thanks to Spab for their help!",
+      "If you find an error, we'd love it you could report it",
+    ],
+    "Bug Fixes": [
+      "Fixed a bug where searching for OD moves in SF6 with 'EX' wasn't working",
+      "Fixed a bug where tapping your active character switcher wasn't opening character select",
+      "Fixed and tweaked several small UI elements",
+      "If you find a bug, please let me know!",
+    ],
+    Bluesky: [
+      "As much as is sensibly possible for now, I've changed Twitter links to Bluesky links",
+    ],
+    
+  },
   "4.0.0": {
     "X-Axis Scrolling & more!": [
       "Frame Data screen completely rewritten from scratch",

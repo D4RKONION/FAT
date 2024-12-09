@@ -1,0 +1,7 @@
+Ver 4.1.0
+- SF6: Updated for recent patch
+- Added several new Character Select layouts and polished the default layout. Find them by selecting the eye at the top of character select
+- Fixed a bug where searching for OD moves in SF6 with 'EX' wasn't working
+- Fixed a bug where tapping your active character switcher wasn't opening character select
+- Fixed and tweaked several small UI elements
+- If you find a bug, please let me know!
