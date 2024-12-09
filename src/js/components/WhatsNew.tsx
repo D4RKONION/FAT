@@ -5,6 +5,7 @@ import "../../style/components/WhatsNew.scss";
 import { setModalVisibility } from "../actions";
 import {APP_CURRENT_VERSION_NAME, APP_DATE_UPDATED, VERSION_LOGS} from "../constants/VersionLogs";
 import { modalVisibilitySelector } from "../selectors";
+import ChunkyButton from "./ChunkyButton";
 
 const WhatsNewModal = () => {
   const modalVisibility = useSelector(modalVisibilitySelector);
@@ -34,7 +35,7 @@ const WhatsNewModal = () => {
           <h6>{APP_DATE_UPDATED}</h6>
           {Object.keys(VERSION_LOGS[APP_CURRENT_VERSION_NAME]).map(heading =>
             <div key={heading}>
-              <h5 className={heading === "Bug Fixes" ? "bug" : "feature"}>{heading}</h5>
+              <h5 className={heading === "Bug Fixes" ? "bug" : heading === "Bluesky" ? "bluesky" : "feature"}>{heading}</h5>
               <ul>
                 {VERSION_LOGS[APP_CURRENT_VERSION_NAME][heading].map((newThing, index) =>
                   <li key={heading+index}>
@@ -44,6 +45,8 @@ const WhatsNewModal = () => {
               </ul>
             </div>
           )}
+          <ChunkyButton
+            onClick={() => window.open("https://bsky.app/profile/d4rkonion.bsky.social", "_blank")}>Follow me on Bluesky!</ChunkyButton>
         </IonGrid>
       </IonContent>
     </IonModal>
