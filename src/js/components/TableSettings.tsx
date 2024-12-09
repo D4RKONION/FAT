@@ -134,13 +134,13 @@ const TableSettings = () => {
         >
           <IonContent>
             <IonList>
-              <IonItem style={{"--background": dataDisplaySettings.moveNameType === "official" && "var(--fat-primary-tint-step-850)"}} lines="none" onClick={() => {handleMoveNameSelect("official"); setShowMoveNamePopover(false);}}>
+              <IonItem style={{"--background": dataDisplaySettings.moveNameType === "official" && "var(--fat-primary-tint-step-800)"}} lines="none" onClick={() => {handleMoveNameSelect("official"); setShowMoveNamePopover(false);}}>
                 <IonLabel>Official</IonLabel>
               </IonItem>
-              <IonItem style={{"--background": dataDisplaySettings.moveNameType === "common" && "var(--fat-primary-tint-step-850)"}} lines="none" onClick={() => {handleMoveNameSelect("common"); setShowMoveNamePopover(false);}}>
+              <IonItem style={{"--background": dataDisplaySettings.moveNameType === "common" && "var(--fat-primary-tint-step-800)"}} lines="none" onClick={() => {handleMoveNameSelect("common"); setShowMoveNamePopover(false);}}>
                 <IonLabel>Common</IonLabel>
               </IonItem>
-              <IonItem style={{"--background": dataDisplaySettings.moveNameType === "inputs" && "var(--fat-primary-tint-step-850)"}} lines="none" onClick={() => {handleMoveNameSelect("inputs"); setShowMoveNamePopover(false);}}>
+              <IonItem style={{"--background": dataDisplaySettings.moveNameType === "inputs" && "var(--fat-primary-tint-step-800)"}} lines="none" onClick={() => {handleMoveNameSelect("inputs"); setShowMoveNamePopover(false);}}>
                 <IonLabel>Inputs</IonLabel>
               </IonItem>
             </IonList>

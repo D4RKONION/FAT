@@ -52,9 +52,9 @@ const Settings = () => {
             <IonListHeader>Frame Data</IonListHeader>
             <IonItem lines="none">
               <IonSelect
-                label={"Active Game"}
-                interfaceOptions={{ header: "Select Game" }}
+                label={"Selected Game"}
                 value={activeGame}
+                interface="popover"
                 okText="Select"
                 cancelText="Cancel"
                 onIonChange={ e => dispatch(setActiveGame(e.detail.value, true)) }

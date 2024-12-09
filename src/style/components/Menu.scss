@@ -11,42 +11,54 @@
   transition: width 0.25s cubic-bezier(0.3, 0, 0, 0.8);
 
   #menuHeader {
-    background-color: var(--fat-menu-top);
-    min-height: 140px;
     display: grid;
-    grid-template-columns: 75% 25%;
-    grid-template-rows: 60% 40%;
-    padding-top: env(safe-area-inset-top, 0);
-    padding-left: calc(13px + env(safe-area-inset-left, 0));
-    padding-bottom: 13px;
     grid-template-areas:
-        ". theme"
-        "logo .";
+      ".        theme   " 
+      "logo     .       " 
+      "quickset quickset";
+    grid-template-columns: 75% 25%;
+    grid-template-rows: auto auto 1fr;
+    padding-top: calc(12px + env(safe-area-inset-top, 0));
+    padding-left: calc(17px + env(safe-area-inset-left, 0));
+    padding-right: 11px;
+    padding-bottom: 12px;
+    background-color: var(--fat-menu-top);
 
-    #themeButton {
-      background: var(--fat-menu-top-lightswitch);
-      width: 35px;
-      height: 35px;
-      color: var(--fat-primary-contrast);
-      border-radius: 100%;
+    .button-container {
       grid-area: theme;
-      place-self: center;
-
-      ion-icon {
-        width: 100%;
-        height: 60%;
-        margin: 21% auto;
-      }
+      align-self: start;
+      justify-self: end;
+      display: flex;
+      gap: 8px;
     }
 
-    #appDetails {
+    .header-fab {
+      position: relative;
+      overflow: hidden;
+      grid-area: theme;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      font-size: 20px;
+      background-color: var(--fat-menu-top-lightswitch);
+      color: var(--fat-primary-contrast);
+      border-radius: 100%;
+      cursor: pointer;
+    }
+
+    .app-details {
       grid-area: logo;
-      align-self: center;
+      align-self: end;
+      justify-self: start;
       h2 {
+        font-size: 24px;
         color: var(--fat-menu-top-h2);
         margin: 0;
       }
       p {
+        font-size: 18px;
         color: var(--fat-menu-top-p);
         margin: 0;
       }
@@ -55,7 +67,34 @@
       }
     }
 
+    .quick-set-bar {
+      grid-area: quickset;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 13px auto 0;
+      border-radius: 17px;
+  
+      .quick-set-section {
+        flex: 1 1 0;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        background-color: var(--fat-menu-quick-set-background);
+        color: var(--fat-menu-quick-set-contrast);
+        padding: 7px 0;
+        font-size: 15px;
+        cursor: pointer;
 
+        &:not(:last-of-type) {
+          border-right: 1px solid var(--fat-menu-quick-set-border);
+        }
+      }
+    }
   }
 
   #widescreenMenu {
@@ -160,7 +199,7 @@ ion-menu {
 
   &.md {
     ion-list {
-      padding: 5px 0px 20px;
+      padding: 10px 0px 20px;
     }
 
     ion-list-header {

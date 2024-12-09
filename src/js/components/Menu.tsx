@@ -1,6 +1,6 @@
-import { IonContent, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonAlert, isPlatform, IonGrid, IonRippleEffect, IonButton } from "@ionic/react";
-import { peopleOutline, settingsOutline, settingsSharp, moon, sunny, gameControllerOutline, libraryOutline, librarySharp, calculatorOutline, calculatorSharp, searchOutline, searchSharp, statsChartOutline, statsChartSharp, barbellOutline, barbellSharp, menuSharp, logoPaypal, phonePortraitOutline, phonePortraitSharp, cafe, diamondOutline, diamondSharp, bookmarksOutline } from "ionicons/icons";
-import { Fragment, useEffect, useState } from "react";
+import { IonContent, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonAlert, isPlatform, IonGrid, IonRippleEffect, IonButton, IonPopover } from "@ionic/react";
+import { peopleOutline, settingsOutline, settingsSharp, moon, sunny, gameControllerOutline, libraryOutline, librarySharp, calculatorOutline, calculatorSharp, searchOutline, searchSharp, statsChartOutline, statsChartSharp, barbellOutline, barbellSharp, menuSharp, logoPaypal, phonePortraitOutline, phonePortraitSharp, cafe, diamondOutline, diamondSharp, bookmarksSharp } from "ionicons/icons";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 
@@ -19,16 +19,20 @@ import patreonIcon from "../../images/icons/patreon.svg";
 import { allCharacterLists } from "../constants/gamedetails/characterLists";
 import { GAME_NAMES } from "../constants/ImmutableGameDetails";
 import { APP_CURRENT_VERSION_NAME } from "../constants/VersionLogs";
-import { activeGameSelector, modeNameSelector, selectedCharactersSelector, appDisplaySettingsSelector } from "../selectors";
+import { activeGameSelector, modeNameSelector, selectedCharactersSelector, appDisplaySettingsSelector, activePlayerSelector, premiumSelector } from "../selectors";
 
 const Menu = () => {
   const themeBrightness = useSelector(appDisplaySettingsSelector).themeBrightness;
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const modeName = useSelector(modeNameSelector);
   const activeGame = useSelector(activeGameSelector);
+  const activePlayer = useSelector(activePlayerSelector);
+  const premiumIsPurchased = useSelector(premiumSelector).lifetimePremiumPurchased;
 
   const dispatch = useDispatch();
   const history = useHistory();
+  const menuRef = useRef<HTMLIonMenuElement>(null);
+  const [showGameNamePopover, setShowGameNamePopover] = useState(false);
   
   const [activeGameAlertOpen, setActiveGameAlertOpen] = useState(false);
   const [isWideFullMenuOpen, setIsWideFullMenuOpen] = useState(false);
@@ -209,6 +213,7 @@ const Menu = () => {
 
   return (
     <IonMenu
+      ref={menuRef}
       id="sideMenu"
       menuId="sideMenu"
       contentId="main"
@@ -220,34 +225,59 @@ const Menu = () => {
         {/* MOBILE SIDE MENU */}
         <div id="mobileSideMenu">
           <div id="menuHeader">
-            <div id="themeButton" onClick={ () => themeBrightness === "light" ? dispatch(setThemeBrightness("dark")) : dispatch(setThemeBrightness("light")) }>
-              <IonIcon icon={themeBrightness === "dark" ? sunny : moon} />
+            <div className="button-container">
+              <div className="header-fab ion-activatable" onClick={ () => themeBrightness === "light" ? dispatch(setThemeBrightness("dark")) : dispatch(setThemeBrightness("light")) }>
+                <IonIcon icon={themeBrightness === "dark" ? sunny : moon} />
+                <IonRippleEffect></IonRippleEffect>
+              </div>
+              <div className="header-fab ion-activatable" onClick={() => {dispatch(setModalVisibility({ currentModal: "bookmarks", visible: true })); menuRef.current.close();}} >
+                <IonIcon icon={bookmarksSharp} />
+                <IonRippleEffect></IonRippleEffect>
+              </div>
             </div>
-            <div id="appDetails">
-              <h2>FAT - <span onClick={() => modeName !== "movedetail" && setActiveGameAlertOpen(true)}>{activeGame}</span></h2>
-              <p>Ver {APP_CURRENT_VERSION_NAME}</p>
+            <div className="app-details">
+              <h2>FAT {premiumIsPurchased && <span>Premium</span>}</h2>
+              <p onClick={() => {history.push("/settings/versionlogs"); menuRef.current.close(); }}>Ver {APP_CURRENT_VERSION_NAME}</p>
+            </div>
+            <div className="quick-set-bar">
+              <div id="quick-set-game" className="quick-set-section ion-activatable" onClick={() => setShowGameNamePopover(true)}>
+                <IonIcon icon={gameControllerOutline} /> {activeGame}
+                <IonPopover
+                  className="quick-set-game"
+                  isOpen={showGameNamePopover}
+                  dismissOnSelect={true}
+                  onDidDismiss={() => setShowGameNamePopover(false)} // Close popover when dismissed
+                  trigger="quick-set-game"
+                  showBackdrop={true}
+                  alignment="center"
+                >
+                  <IonContent>
+                    <IonList>
+                      {GAME_NAMES.map(gameName => 
+                        <IonItem
+                          style={{"--background": activeGame === gameName && "var(--fat-primary-tint-step-800)"}}
+                          lines="none"
+                          onClick={() => {
+                            dispatch(setActiveGame(gameName, true));
+                            if (modeName === "framedata" || modeName === "moveslist" || modeName === "combos") {
+                              history.replace(`/${modeName}/${gameName}/${allCharacterLists[gameName].includes(selectedCharacters["playerOne"].name)? selectedCharacters["playerOne"].name : allCharacterLists[gameName][0]}`);
+                            }}
+                          }>
+                          <IonLabel>{gameName}</IonLabel>
+                        </IonItem>
+                      )}
+                    </IonList>
+                  </IonContent>
+                </IonPopover>
+                <IonRippleEffect></IonRippleEffect>
+              </div>
+              <div className="quick-set-section ion-activatable" onClick={() => {modeName !== "movedetail" && dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true })); menuRef.current.close();}}>
+                <IonIcon icon={peopleOutline} />{selectedCharacters[activePlayer].name}
+                <IonRippleEffect></IonRippleEffect>
+              </div>
             </div>
           </div>
           <IonList id="pageList">
-            <IonMenuToggle autoHide={false}>
-              <IonItem disabled={modeName === "movedetail"} key="mobile-gameSelectItem" onClick={() => modeName !== "movedetail" && setActiveGameAlertOpen(true)} lines="none" detail={false} button>
-                <IonIcon slot="start" icon={gameControllerOutline} />
-                <IonLabel>Game Select</IonLabel>
-              </IonItem>
-            </IonMenuToggle>
-            <IonMenuToggle autoHide={false}>
-              <IonItem disabled={modeName === "movedetail"} key="mobile-charSelectItem" onClick={() => dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true }))} lines="none" detail={false} button>
-                <IonIcon slot="start" icon={peopleOutline} />
-                <IonLabel>Character Select</IonLabel>
-              </IonItem>
-            </IonMenuToggle>
-            <IonMenuToggle autoHide={false}>
-              <IonItem disabled={modeName === "movedetail"} key="mobile-charSelectItem" onClick={() => dispatch(setModalVisibility({ currentModal: "bookmarks", visible: true }))} lines="none" detail={false} button>
-                <IonIcon slot="start" icon={bookmarksOutline} />
-                <IonLabel>Bookmarks</IonLabel>
-              </IonItem>
-            </IonMenuToggle>
-            <hr style={{backgroundColor: "var(--fat-settings-item-border)"}} />
             {appPages.map((appPage) => {
               if (!isPlatform("capacitor") && appPage.appOnly) {
                 return false;
@@ -264,7 +294,7 @@ const Menu = () => {
                         <IonLabel>{appPage.title}</IonLabel>
                       </IonItem>
                     </IonMenuToggle>
-                    {!isPlatform("capacitor") && appPage.modeName === "settings" && <hr />}
+                    {!isPlatform("capacitor") && appPage.modeName === "settings" && <hr style={{backgroundColor: "var(--fat-settings-item-border)"}} />}
                   </Fragment>
                 );
               }

@@ -76,8 +76,20 @@ ion-alert {
   }
 }
 
-ion-popover::part(arrow) {
-  --background: var(--fat-popover-bg);
+ion-popover {
+  &::part(arrow) {
+    --background: var(--fat-popover-bg);
+  }
+  &.quick-set-game {
+    --width: 110px;
+    ion-list {
+      padding: 0;
+      ion-item {
+        text-align: center;
+      }
+    }
+    
+  }
 }
 
 ion-item {
