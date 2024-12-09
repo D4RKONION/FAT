@@ -21,6 +21,9 @@
     &.bug {
       color: var(--fat-whatsnew-bug);
     }
+    &.bluesky {
+      color: var(--fat-whatsnew-header);
+    }
   }
 
   ul {
@@ -31,5 +34,12 @@
     line-height: 21px;
     font-size: 15px;
     margin: 0 15px 3px 0;
+  }
+
+  .chunky-button {
+    position: fixed;
+    bottom: 30px;
+    left: 10px;
+    right: 10px;
   }
 }
