@@ -141,7 +141,7 @@ const Menu = () => {
     {
       title: "Get the app!",
       url: "#",
-      externalUrl: "https://fullmeter.com/fat",
+      externalUrl: "https://fullmeter.com",
       iosIcon: phonePortraitOutline,
       mdIcon: phonePortraitSharp,
       modeName: "app",

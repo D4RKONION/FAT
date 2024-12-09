@@ -124,7 +124,7 @@ const MenuEntry = ({menuEntryKey, wideMenuIsOpen}: Props) => {
       title: "Get the app!",
       type: "externalURL",
       url: "#",
-      externalUrl: "https://fullmeter.com/fat",
+      externalUrl: "https://fullmeter.com",
       iosIcon: phonePortraitOutline,
       mdIcon: phonePortraitSharp,
       modeName: "app",
