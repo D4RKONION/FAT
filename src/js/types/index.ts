@@ -29,6 +29,8 @@ export type ThemeColor = "classic" | "purple" | "pink" | "red" | "green";
 
 export type ThemeAlias = typeof THEMES[number]["alias"];
 
+export type CharacterSelectLayout = "largePortraits" | "smallPortraits" | "simpleList" | "detailedList";
+
 export type Bookmark = {
   modeName: "framedata" | "moveslist" | "combos" | "movedetail",
   gameName: GameName,

@@ -1,5 +1,49 @@
 #characterSelect > .ion-page {
   justify-content: start;
+
+  .segments {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    width: 100%;
+    background-color: var(--fat-switcher-background);
+    &.md {
+      background-color: var(--fat-switcher-android-background);
+      box-shadow: var(--fat-surface-shadow) 0 1px 10px;
+    }
+  }
+
+  .hideOnWideScreen {
+    display: none;
+    @media (max-width: 992px) {
+      display: flex
+    }
+  }
+  .hideOnSmallScreen {
+    display: none;
+    @media (min-width: 992px) {
+      display: flex
+    }
+  }
+
+  .slideOnChange {
+    animation: slideIn 0.25s ease-in-out;
+  }
+
+  ion-searchbar {
+    --cancel-button-color: var(--fat-primary-contrast);
+  }
+
+  @keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+  }
 }
 
 @media (max-width: 992px) {
@@ -7,14 +51,18 @@
     display: flex;
     flex-wrap: wrap;
     overflow: auto;
-    margin: 4px;
+    margin: 0 4px 10px;
     gap: 4px;
     padding-bottom: env(safe-area-inset-bottom);
 
     .character-portrait, .hidden-flex-item {
-      flex-grow: 1;
+      flex: 1 1 auto;
       width: 24%;
       min-width: 119px;
+      &.smallPortraits {
+        width: 13%;
+        min-width: 88px;
+      }
       cursor: pointer;
     }
     .hidden-flex-item {
@@ -27,19 +75,32 @@
 @media (min-width: 992px) {
   #characterSelect {
     --width: 90%;
-    --min-width: 975px;
     --max-width: 1200px;
-    --height: fit-content;
+
+    &.portraits {
+      --min-width: 975px;
+      --height: fit-content;
+    }
+    &.list {
+      --height: 80%;
+      --width: 600px;
+    }
+
+    .ion-page > .segments.md {
+      box-shadow: none;
+    }
 
     #characterSelectGrid {
       display: grid;
-      margin: 0 9px 9px;
+      margin: 2px 9px 9px;
       gap: 9px;
 
       .character-portrait {
         cursor: pointer;
         h2 {
-          font-size: 15px;
+          bottom: 3px;
+          min-width: 25px;
+          padding: 5px 5px 5px 11px;
         }
       }
 

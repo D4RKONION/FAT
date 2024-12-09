@@ -84,6 +84,21 @@ ion-item {
   --transition: none;
   --border-color: var(--fat-ionlist-border);
 }
+ion-modal.character-select-settings-modal {
+  --border-radius: 20px 20px 0 0;
+  --max-width: 535px;
+  --height: fit-content;
+  --backdrop-opacity: 0.7;
+
+  h2 {
+    color: var(--fat-header);
+    text-align: center;
+    padding: 8px 0 0;
+  }
+  ion-icon {
+    color: var(--fat-primary-tint-step-50);
+  }
+}
 
 ion-modal.premium-offer-modal {
   --border-radius: 20px 20px 0 0;
@@ -132,12 +147,24 @@ ion-toolbar {
 		min-height: 0;
 	}
 
+  &.ios {
+    ion-title.ios-left-align {
+      padding-inline-start: 15px;
+      text-align: left;
+    }
+  }
+
 	.searchbar-input-container.sc-ion-searchbar-ios {
 		height: 32px;
     min-height: 32px;
+
+    .searchbar-input.sc-ion-searchbar-ios {
+      padding-top: 8px;
+    }
 	}
 	.searchbar-cancel-button.sc-ion-searchbar-ios {
 		color: white;
+    padding-top: 2px;
 	}
 }
 

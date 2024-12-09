@@ -10,7 +10,6 @@
   }
   p {
     line-height: 1.6;
-    color: var(--ion-color-step-850);
     max-width: 475px;
     margin: 0 auto;
     font-size: 15px;
@@ -25,7 +24,7 @@
       text-align: center;
       font-weight: bold;
       margin-bottom: 0;
-      color: var(--ion-color-step-750);
+      color: var(--fat-header);
     }
     hr {
       background-color: #ccc;

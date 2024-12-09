@@ -3,6 +3,7 @@ import fallbackFist from "../../images/icons/fallbackfist.png";
 import { GameName } from "../types";
 
 type CharacterPortraitProps = {
+  className?: string;
   charName: string;
   charThreeLetterCode?: string;
   game: GameName;
@@ -13,10 +14,10 @@ type CharacterPortraitProps = {
   onClick?: () => void;
 };
 
-const CharacterPortrait = ( {charName, charThreeLetterCode, game, selected, remoteImage, showName, onClick }: CharacterPortraitProps ) => {
+const CharacterPortrait = ( {className, charName, charThreeLetterCode, game, selected, remoteImage, showName, onClick }: CharacterPortraitProps ) => {
   return (
     <div
-      className="character-portrait"
+      className={`character-portrait ${className}`}
       // style={{ background: `${charColor}45`}}
       onClick={onClick}
     >
@@ -48,7 +49,7 @@ const CharacterPortrait = ( {charName, charThreeLetterCode, game, selected, remo
         }
       />
       {showName &&
-        <h2 className={selected ? "selected" : "not-selected"}>{charThreeLetterCode ? charThreeLetterCode : charName}</h2>
+        <h2 className={`${className} ${selected ? "selected" : "not-selected"}`}>{charThreeLetterCode ? charThreeLetterCode : charName}</h2>
       }
     </div>
   );

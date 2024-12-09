@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
 
 import bookmarkImage from "../../images/premium-examples/bookmarks.png";
+import characterSelectImage from "../../images/premium-examples/character-select.png";
 import ChunkyButton from "../components/ChunkyButton";
 import ThemeSwitcher from "../components/ThemeSwitcher";
 import { APP_CURRENT_VERSION_CODE } from "../constants/VersionLogs";
@@ -55,7 +56,7 @@ const Premium = () => {
       setSpinnerVisible(false);
     });
   };
-
+  
   return (
     <IonPage id="Premium">
       <IonHeader>
@@ -99,6 +100,13 @@ const Premium = () => {
             <hr></hr>
             <p>Become a true power user with unlimited bookmarks! That means quickly checking characters and moves, even across different games.</p>
             <img style={{borderRadius: "12px"}} src={bookmarkImage} alt="Bookmark example"></img>
+          </section>
+
+          <section>
+            <h1>Character Select Layouts</h1>
+            <hr></hr>
+            <p>Get access to an additional Character Select Layout, which gives you the same helpful quick-stats as your bookmarks for the whole game's cast!</p>
+            <img style={{borderRadius: "12px"}} src={characterSelectImage} alt="Bookmark example"></img>
           </section>
 
           <section>

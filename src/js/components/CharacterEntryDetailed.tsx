@@ -1,3 +1,4 @@
+import "../../style/components/CharacterEntryDetailed.scss";
 import { IonButton, IonIcon, IonItem, IonReorder } from "@ionic/react";
 import { trashSharp } from "ionicons/icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -49,7 +50,7 @@ const CharacterEntryDetailed = ({bookmark, bookmarkIndex, disableOnClick, onClic
       if (disableOnClick) return false;
       onClickHandler(bookmark.modeName ==="movedetail" ? userChosenName : null);
     }} routerDirection="root">
-      <div className="bookmark-entry">
+      <div className="character-entry-detailed">
         <CharacterPortrait
           charName={bookmark.characterName}
           game={bookmark.gameName}

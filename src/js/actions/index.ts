@@ -14,7 +14,7 @@ import AppSFVGameDetails from "../constants/gamedetails/SFVGameDetails.json";
 import USF4GameDetails from "../constants/gamedetails/USF4GameDetails.json";
 import { UPDATABLE_GAMES, UPDATABLE_GAMES_APP_CODES } from "../constants/VersionLogs";
 import { RootState } from "../reducers";
-import type { AdviceToastPrevRead, AppModal, NormalNotationType, GameName, InputNotationType, MoveNameType, Orientation, PlayerData, PlayerId, ThemeBrightness, ThemeColor, VtState, ThemeAccessibility, TableType, MoveAdvantageIndicator, Bookmark } from "../types";
+import type { AdviceToastPrevRead, AppModal, NormalNotationType, GameName, InputNotationType, MoveNameType, Orientation, PlayerData, PlayerId, ThemeBrightness, ThemeColor, VtState, ThemeAccessibility, TableType, MoveAdvantageIndicator, Bookmark, CharacterSelectLayout } from "../types";
 import { helpCreateFrameDataJSON } from "../utils";
 
 // ACTION CREATORS
@@ -264,6 +264,11 @@ export const setThemeAccessibility = (themeAccessibility: ThemeAccessibility) =>
 export const setThemeColor = (themeColor: ThemeColor) => ({
   type: "SET_THEME_COLOR",
   themeColor,
+});
+
+export const setCharacterSelectLayout = (characterSelectLayout: CharacterSelectLayout) => ({
+  type: "SET_CHARACTER_SELECT_LAYOUT",
+  characterSelectLayout,
 });
 
 export const purchaseLifetimePremium = () => ({
