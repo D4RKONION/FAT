@@ -20,8 +20,8 @@
     grid-template-rows: auto auto 1fr;
     padding-top: calc(12px + env(safe-area-inset-top, 0));
     padding-left: calc(17px + env(safe-area-inset-left, 0));
-    padding-right: 11px;
-    padding-bottom: 12px;
+    padding-right: 17px;
+    padding-bottom: 16px;
     background-color: var(--fat-menu-top);
 
     .button-container {
@@ -52,6 +52,7 @@
       grid-area: logo;
       align-self: end;
       justify-self: start;
+      padding: 4px 0;
       h2 {
         font-size: 24px;
         color: var(--fat-menu-top-h2);
@@ -74,7 +75,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 13px auto 0;
+      margin: 8px auto 0;
       border-radius: 17px;
   
       .quick-set-section {
