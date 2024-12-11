@@ -78,7 +78,7 @@ const MoveDetail = () => {
                 dispatch(removeBookmark(currentBookmarkIndex));
                 setBookmarkToastMessage(`Bookmark Removed: ${activeGame} ${selectedCharacters[activePlayer].name}`);
                 setBookmarkToastVisible(true);
-              } else if (bookmarks.length >= 3 && !premiumIsPurchased && !isPlatform("desktop")) {
+              } else if (bookmarks.length >= 3 && !premiumIsPurchased && isPlatform("capacitor")) {
                 history.push("/settings/premium");
               } else {
                 dispatch(addBookmark({

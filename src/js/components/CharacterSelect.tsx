@@ -288,7 +288,7 @@ const CharacterSelectModal = () => {
           <h2>Character Select Layout</h2>
           <IonList>
             {CHARACTER_SELECT_LAYOUTS.filter(optionEntry => {
-              if (isPlatform("desktop") && optionEntry.premiumLayout) {
+              if (!isPlatform("capacitor") && optionEntry.premiumLayout) {
                 return false;
               } else {
                 return true;

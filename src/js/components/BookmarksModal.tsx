@@ -129,9 +129,9 @@ const BookmarksModal = () => {
         {bookmarks.length === 0 ?
           <div className="bookmark-message-container">
             <h1>No bookmarks!</h1>
-            <p>{isPlatform("desktop") ? "Click" : "Tap"} a bookmark <IonIcon icon={bookmarkOutline}/> to see it here</p>
+            <p>{isPlatform("capacitor") ? "Tap" : "Click"} a bookmark <IonIcon icon={bookmarkOutline}/> to see it here</p>
             <p>or <span onClick={() => {
-              if (bookmarks.length >= 3 && !premiumIsPurchased && !isPlatform("desktop")) {
+              if (bookmarks.length >= 3 && !premiumIsPurchased && isPlatform("capacitor")) {
                 history.push("/settings/premium");
               } else {
                 dispatch(addBookmark({
@@ -143,14 +143,14 @@ const BookmarksModal = () => {
             }}>add the current character</span></p>
           </div>
           : (
-            (bookmarks.length < 3 && !premiumIsPurchased) || premiumIsPurchased || isPlatform("desktop"))
+            (bookmarks.length < 3 && !premiumIsPurchased) || premiumIsPurchased || !isPlatform("capacitor"))
           && !(removalActive || reorderingActive)
           && bookmarks.findIndex((bookmark) =>
             bookmark.modeName === "framedata" && bookmark.gameName === activeGame && bookmark.characterName === selectedCharacters[activePlayer].name
           ) === -1 ?
             <div className="bookmark-message-container">
-              <ChunkyButton extraText={!premiumIsPurchased && !isPlatform("desktop") && `${3 - bookmarks.length} free bookmark${bookmarks.length !== 2 ? "s" : ""} left`} onClick={() => {
-                if (bookmarks.length >= 3 && !premiumIsPurchased && !isPlatform("desktop")) {
+              <ChunkyButton extraText={!premiumIsPurchased && isPlatform("capacitor") && `${3 - bookmarks.length} free bookmark${bookmarks.length !== 2 ? "s" : ""} left`} onClick={() => {
+                if (bookmarks.length >= 3 && !premiumIsPurchased && isPlatform("capacitor")) {
                   history.push("/settings/premium");
                 } else {
                   dispatch(addBookmark({
@@ -163,7 +163,7 @@ const BookmarksModal = () => {
             </div>
             : ""
         }
-        {bookmarks.length >=3 && (!premiumIsPurchased && !isPlatform("desktop")) &&
+        {bookmarks.length >=3 && (!premiumIsPurchased && isPlatform("capacitor")) &&
           <div className="bookmark-message-container">
             <ChunkyButton extraText={"Get unlimited bookmarks"} onClick={() => {
               handleModalDismiss();

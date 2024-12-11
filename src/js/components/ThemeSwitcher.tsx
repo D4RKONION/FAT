@@ -31,7 +31,7 @@ const ThemeSwitcher = ({premiumPreview, lines}: Props) => {
     pink: "#D83F87",
   };
 
-  if (premiumPreview || isPlatform("capacitor") || true) {
+  if (premiumPreview || isPlatform("capacitor")) {
     return (
       <div id="ThemeSwitcher" className={!lines ? "no-lines" : null}>
         {Object.keys(THEMES).map(themeName =>
