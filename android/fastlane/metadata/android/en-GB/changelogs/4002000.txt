@@ -1,0 +1,3 @@
+Ver 4.2.0
+- Changed the mobile side menu to condense the game, character and bookmark options in to the top portion for quick and easy access
+- Use it to easily switch game and characters, and access your bookmarks!

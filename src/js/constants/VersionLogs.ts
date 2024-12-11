@@ -1,6 +1,6 @@
-export const APP_CURRENT_VERSION_NAME = "4.1.1";
-export const APP_CURRENT_VERSION_CODE = 40101;
-export const APP_DATE_UPDATED = "Dec 09 2024"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "4.2.0";
+export const APP_CURRENT_VERSION_CODE = 40200;
+export const APP_DATE_UPDATED = "Dec 11 2024"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"];
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"];
@@ -20,6 +20,16 @@ export const UPDATABLE_GAMES_APP_CODES = {
 };
 
 export const VERSION_LOGS = {
+  "4.2.0": {
+    "Game and Character Quick-set": [
+      "Changed the mobile side menu to condense the game, character and bookmark options in to the top portion for quick and easy access",
+      "Use it to easily switch game and characters, and access your bookmarks!",
+    ],
+    "Bug Fixes - Windows Browsers": [
+      "Fixed a bug on the web version for Windows where the browser was reporting itself as a phone to FAT",
+      "This was causing issues with bookmarking and other features",
+    ],
+  },
   "4.1.1": {
     "New Character Select Layouts!": [
       "Added several new Character Select layouts and polished the default layout",
