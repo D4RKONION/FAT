@@ -24,13 +24,13 @@
   
 
   ion-fab {
-    bottom: 18px;
+    bottom: calc(18px + var(--safe-area-inset-bottom));
     right: 18px;
     ion-fab-button {
       --background: var(--fat-vtrigger-shade);
     }
     &.hidden {
-      transform: translateY(90px);
+      transform: translateY(calc(90px + var(--safe-area-inset-bottom)));
       transition: transform 0.25s ease-in-out;
     }
     &.visible {

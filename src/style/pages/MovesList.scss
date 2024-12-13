@@ -6,7 +6,7 @@
   }
   ion-list {
     padding-top: 0;
-    padding-bottom: env(safe-area-inset-bottom);
+    padding-bottom: var(--safe-area-inset-bottom);
 
     .list-section {
       ion-item-divider {

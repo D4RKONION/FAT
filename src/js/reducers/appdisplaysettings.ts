@@ -9,7 +9,7 @@ type AppDisplaySettingsReducerAction = {
 };
 
 const defaultState = {
-  themeBrightness: "light" as ThemeBrightness,
+  themeBrightness: "unset" as ThemeBrightness,
   themeColor: "classic" as ThemeColor,
   themeAccessibility: "none" as ThemeAccessibility,
   characterSelectLayout: "largePortraits" as CharacterSelectLayout,

@@ -71,7 +71,11 @@ const BookmarksModal = () => {
       </IonHeader>
 
       <IonContent>
-        <IonList>
+        <IonList style={{paddingBottom: (((bookmarks.length < 3 && !premiumIsPurchased) || premiumIsPurchased || !isPlatform("capacitor"))
+          && !(removalActive || reorderingActive)
+          && bookmarks.findIndex( (bookmark) =>
+            bookmark.modeName === "framedata" && bookmark.gameName === activeGame && bookmark.characterName === selectedCharacters[activePlayer].name
+          ) === -1 ) || bookmarks.length >=3 && (!premiumIsPurchased && isPlatform("capacitor")) ? "calc(var(--safe-area-inset-bottom) + 70px)" : "var(--safe-area-inset-bottom)"}}>
           <IonReorderGroup disabled={!reorderingActive} onIonItemReorder={event => dispatch(reorderBookmarks(event.detail.complete(bookmarks)))}>
             {bookmarks.map((bookmark, index) => {
             // MOVE-DETAIL BOOKMARK
@@ -142,10 +146,9 @@ const BookmarksModal = () => {
               }
             }}>add the current character</span></p>
           </div>
-          : (
-            (bookmarks.length < 3 && !premiumIsPurchased) || premiumIsPurchased || !isPlatform("capacitor"))
+          : ((bookmarks.length < 3 && !premiumIsPurchased) || premiumIsPurchased || !isPlatform("capacitor"))
           && !(removalActive || reorderingActive)
-          && bookmarks.findIndex((bookmark) =>
+          && bookmarks.findIndex( (bookmark) =>
             bookmark.modeName === "framedata" && bookmark.gameName === activeGame && bookmark.characterName === selectedCharacters[activePlayer].name
           ) === -1 ?
             <div className="bookmark-message-container">

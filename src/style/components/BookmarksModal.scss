@@ -8,8 +8,7 @@
 
   .bookmark-message-container {
     text-align: center;
-    margin: 50px 15px 0;
-    opacity: 0.8;
+    opacity: 1;
     > h1 {
       margin-bottom: 15px;
     }
@@ -24,6 +23,11 @@
     }
     >.chunky-button {
       background-color: var(--fat-primary-tint-step-50);
+      position: fixed;
+      bottom: calc(max(var(--safe-area-inset-bottom), 10px) + 5px);
+      left: 5%;
+      right: 5%;
+      max-width: 450px;
     }
      
   }

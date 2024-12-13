@@ -2,11 +2,11 @@
   .side-and-main-container {
     display: flex;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 0 auto var(--safe-area-inset-bottom);
     gap: 30px;
 
     @media (min-width: 992px) {
-      margin: 15px auto;
+      margin: 15px auto max(var(--safe-area-inset-bottom), 15px);
     }
 
 
@@ -53,7 +53,7 @@
 
       .stats-container {
         display: grid;
-        grid-template-columns: minmax(70px, 1fr) 7fr;
+        grid-template-columns: minmax(75px, 1fr) 7fr;
         background-color: var(--fat-stat-compare-container-bg);
         overflow: hidden;
 
@@ -70,7 +70,7 @@
           padding: 0 6px;
           text-align: center;
           margin-right: 4px;
-          min-height: 82px;
+          word-break: break-word;
         }
 
         .stat-images-container {

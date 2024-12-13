@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/core": "^7.22.6",
+    "@capacitor-community/safe-area": "^6.0.0-alpha.8",
     "@capacitor/preferences": "^6.0.0",
     "@ionic-native/core": "^5.36.0",
     "@ionic/cli": "^7.1.1",
@@ -75,7 +76,6 @@
     "@capacitor/ios": "^6.0.0",
     "@capacitor/keyboard": "^6.0.0",
     "@capacitor/splash-screen": "^6.0.0",
-    "@capacitor/status-bar": "^6.0.0",
     "@stylistic/eslint-plugin": "^2.11.0",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",

@@ -21,7 +21,7 @@ export type TableType = "fixed" | "scrolling";
 
 export type MoveAdvantageIndicator = "background" | "text";
 
-export type ThemeBrightness = "light" | "dark";
+export type ThemeBrightness = "light" | "dark" | "unset";
 
 export type ThemeAccessibility = "none" | "colorBlind";
 

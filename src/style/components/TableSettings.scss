@@ -1,11 +1,11 @@
 #TableSettings {
   --backdrop-opacity: 0.5;
   ion-content {
-    --padding-bottom: calc(140px + env(safe-area-inset-bottom));
+    --padding-bottom: calc(100px + var(--safe-area-inset-bottom));
   }
   table {
     position: fixed;
-    bottom: env(safe-area-inset-bottom);
+    bottom: 0;
     left: 0;
     right: 0;
     display: block;
@@ -13,6 +13,7 @@
     z-index: 10000;
     background-color: var(--fat-background);
     box-shadow: 0px -1px 10px #00000069;
+    border-bottom: var(--safe-area-inset-bottom) solid var(--fat-background);
   }
 
   h5 {

@@ -33,8 +33,10 @@ import "./style/theme/pink/light.scss";
 import "./style/theme/pink/dark.scss";
 
 import { App as CapAppPlugin } from "@capacitor/app";
+import { Capacitor } from "@capacitor/core";
 import { Preferences } from "@capacitor/preferences";
 import { SplashScreen } from "@capacitor/splash-screen";
+import { SafeArea } from "@capacitor-community/safe-area";
 import { menuController } from "@ionic/core/components";
 import { IonApp, IonRouterOutlet, IonSplitPane, IonAlert, isPlatform } from "@ionic/react";
 import { IonReactHashRouter } from "@ionic/react-router";
@@ -81,7 +83,19 @@ const App = () => {
   const [exitAlert, setExitAlert] = useState(false);
 
   useEffect(() => {
-    SplashScreen.hide();
+    if (Capacitor.isNativePlatform()) {
+      SplashScreen.hide().then(() => {
+        SafeArea.enable({
+          config: {
+            customColorsForSystemBars: true,
+            statusBarColor: "#00000000", // transparent
+            statusBarContent: "light",
+            navigationBarColor: "#00000000", // transparent
+            navigationBarContent: "light",
+          },
+        });
+      });
+    }
   }, []);
 
   useEffect(() => {
@@ -105,6 +119,26 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    // Use matchMedia to check the user preference
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+
+    if ((prefersDark.matches && themeBrightness === "unset") || (themeBrightness === "dark")) {
+      dispatch(setThemeBrightness("dark"));
+      document.body.classList.toggle("dark", true);
+    } else {
+      dispatch(setThemeBrightness("light"));
+      document.body.classList.toggle("dark", false);
+    }
+
+    // Listen for changes to the prefers-color-scheme media query
+    prefersDark.addEventListener("change", (mediaQuery) => {
+      dispatch(setThemeBrightness(mediaQuery.matches ? "dark" : "light"));
+      document.body.classList.toggle("dark", mediaQuery.matches);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  
   useEffect(() => {
     if (isPlatform("capacitor") && CdvPurchase.store.when().productUpdated) {
       // Awesome Cordova Plugins has not updated it's iap wrapper, so we have to import the entire store
@@ -191,13 +225,6 @@ const App = () => {
         });
 
         LS_WHATS_BEING_UPDATED_CODE = parseInt((await Preferences.get({ key: `ls${gameName}${updateType}Code`})).value);
-
-        // also because this is a fresh install, we're going to do a cheeky check for if
-        // the user likes dark mode right here. We only do this once, the first time through
-        // with SFV and FrameDatas
-        if (window.matchMedia("(prefers-color-scheme: dark)").matches && updateType === "FrameData") {
-          dispatch(setThemeBrightness("dark"));
-        }
       } else if (LS_WHATS_BEING_UPDATED_CODE <= APP_WHATS_BEING_UPDATED_CODE) {
         // the app has been updated via the store, delete the LS updatetype.json and update the LS updatetype code
         console.log(`the app has been updated via the store, delete the LS ${gameName} ${updateType}.json and update the LS code`);

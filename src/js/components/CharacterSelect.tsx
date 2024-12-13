@@ -267,7 +267,7 @@ const CharacterSelectModal = () => {
             </IonList>
           </div>
         ) : (
-          <IonList style={{paddingTop: 0, paddingBottom: 0}}>
+          <IonList className="characterSelectList">
             {(gameDetails.characterList as unknown as string[]).filter(charName => charName.toLowerCase().includes(searchText.toLowerCase())).map(charName => {
               const charData = frameDataFile[charName];
               if (!charData || charData.stats.hideCharacter) {return null;}

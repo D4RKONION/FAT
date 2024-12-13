@@ -141,6 +141,8 @@ ion-app.universal-light-none, .themePreview.universal-light-none {
   // --fat-datatable-just-plus-background: #d8ffec;
   // --fat-datatable-very-plus-background: #9affcc;
 
+  --fat-datatable-bottom-sticky-header-border: var(--fat-primary-shade-step-550);
+
   --fat-datatable-extremely-unsafe-background: #f829ff65;
   --fat-datatable-very-unsafe-background: #ff000065;
   --fat-datatable-just-unsafe-background: #ff5e0065;
@@ -324,6 +326,7 @@ ion-app.universal-light-colorBlind, .themePreview.universal-light-colorBlind {
   // --fat-datatable-header-bg: var(--fat-primary-shade-step-300);
   // --fat-datatable-header-contrast: #ffffff;
   // --fat-datatable-hover-border: #accde7;
+  --fat-datatable-bottom-sticky-header-border: var(--fat-primary-shade-step-550);
   --fat-datatable-extremely-unsafe-background: #FFC20A;
   --fat-datatable-very-unsafe-background: #f9d876;
   --fat-datatable-just-unsafe-background: #fff1c6;

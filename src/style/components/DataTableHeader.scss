@@ -5,7 +5,8 @@
   cursor: pointer;
 
   &:last-child {
-    bottom: 0
+    bottom: 0;
+    border-bottom: var(--safe-area-inset-bottom) solid var(--fat-datatable-bottom-sticky-header-border);
   }
 
 
@@ -25,17 +26,7 @@
 
 }
 
-.DataTableRow.DataTableHeader.fixed {
-  
-}
-
-
-
-.DataTableRow.DataTableHeader.xScroll {
-
- 
-
-  
+.DataTableRow.DataTableHeader.xScroll {  
   th.cell {
     word-break: keep-all;
     white-space: nowrap;

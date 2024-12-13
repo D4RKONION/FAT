@@ -6,7 +6,7 @@
     justify-content: space-evenly;
     flex-direction: row;
     max-width: 710px;
-    margin: 0 auto;
+    margin: 0 auto var(--safe-area-inset-bottom);
 
     ion-card {
       flex: 1 1 auto;
@@ -144,7 +144,7 @@
     flex-direction: column;
     width: 85%;
     max-width: 840px;
-    margin: 0px auto 15px;
+    margin: 0px auto max(var(--safe-area-inset-bottom), 15px);
 
     ion-card {
       margin: 10px;

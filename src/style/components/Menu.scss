@@ -18,8 +18,8 @@
       "quickset quickset";
     grid-template-columns: 75% 25%;
     grid-template-rows: auto auto 1fr;
-    padding-top: calc(12px + env(safe-area-inset-top, 0));
-    padding-left: calc(17px + env(safe-area-inset-left, 0));
+    padding-top: calc(12px + var(--safe-area-inset-top, 0));
+    padding-left: calc(17px + var(--safe-area-inset-left, 0));
     padding-right: 17px;
     padding-bottom: 16px;
     background-color: var(--fat-menu-top);
@@ -105,8 +105,8 @@
 
       // ios height fix
       &.ios .widescreen-menu-entry.widescreen-menu-button {
-        padding-top: env(safe-area-inset-top);
-        height: calc(52px + env(safe-area-inset-top));
+        padding-top: var(--safe-area-inset-top);
+        height: calc(52px + var(--safe-area-inset-top));
       }
 
       .widescreen-menu-entry {
@@ -143,8 +143,8 @@
           margin: 0;
           padding-left: 17px;
           border-radius: 0;
-          height: calc(56px + env(safe-area-inset-top));
-          padding-top: calc(13px + env(safe-area-inset-top));
+          height: calc(56px + var(--safe-area-inset-top));
+          padding-top: calc(13px + var(--safe-area-inset-top));
           position: sticky;
           top: 0;
           z-index: 10;
@@ -155,7 +155,7 @@
           justify-content: space-between;
 
           &.ios {
-            height: calc(43px + env(safe-area-inset-top));
+            height: calc(43px + var(--safe-area-inset-top));
           }
 
           ion-button {

@@ -13,13 +13,13 @@
 		}
 	},
 	"packageClassList": [
+		"SafeAreaPlugin",
 		"PreferencesPlugin",
 		"AppPlugin",
 		"ClipboardPlugin",
 		"HapticsPlugin",
 		"KeyboardPlugin",
 		"SplashScreenPlugin",
-		"StatusBarPlugin",
 		"CDVPlugin"
 	]
 }
