@@ -1,3 +1,5 @@
+
+import "../../style/components/AdviceToast.scss";
 import { IonToast } from "@ionic/react";
 import { settingsOutline, star, thumbsUpOutline } from "ionicons/icons";
 import { useRef } from "react";
@@ -60,10 +62,10 @@ const AdviceToast = () => {
   
   return (
     <IonToast
-      style={{"--max-width": "600px"}}
+      className="adviceToast"
       ref={toastRef}
       isOpen={true}
-      duration={2500}
+      duration={250000}
       onWillDismiss={() => {
         if (typeof adviceToastPrevRead[modeName] !== "undefined" ) {
           dispatch(setAdviceToastPrevRead({ ...adviceToastPrevRead, [modeName]: adviceToastPrevRead[modeName] + 1 }));

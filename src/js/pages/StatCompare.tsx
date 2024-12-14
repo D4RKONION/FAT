@@ -96,6 +96,7 @@ const StatCompare = () => {
             <IonItem lines="full">
               <IonSelect
                 label={"Selected Stat"}
+                className="select-modal"
                 interfaceOptions={{ header: "Selected Stat" }}
                 interface="modal"
                 value={selectedStat}

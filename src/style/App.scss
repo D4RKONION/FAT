@@ -103,6 +103,12 @@ ion-item {
   --transition: none;
   --border-color: var(--fat-ionlist-border);
 }
+ion-modal {
+  ion-content > :last-child {
+    padding-bottom: max(var(--safe-area-inset-bottom), 5px);
+  }
+}
+
 ion-modal.character-select-settings-modal {
   --border-radius: 20px 20px 0 0;
   --max-width: 535px;
@@ -141,6 +147,10 @@ ion-modal.premium-offer-modal {
       --border-color: var(--fat-surface-contrast);
     }
   }
+}
+
+ion-modal.select-modal > ion-select-modal > ion-content > ion-list ion-item.item-radio-checked {
+  background-color: var(--fat-menu-selected-item-bg);
 }
 
 ion-fab {
