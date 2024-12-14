@@ -31,6 +31,7 @@ const FrameData = () => {
   const dataTableColumns = useSelector(dataTableSettingsSelector).tableColumns;
   const autoSetCharacterSpecificColumnsOn = useSelector(dataTableSettingsSelector).autoSetCharacterSpecificColumnsOn;
   const gameDetails = useSelector(gameDetailsSelector);
+  const xScrollEnabled = useSelector(dataTableSettingsSelector).tableType === "scrolling";
 
   const bookmarks = useSelector(bookmarksSelector);
   const premiumIsPurchased = useSelector(premiumSelector).lifetimePremiumPurchased;
@@ -182,7 +183,7 @@ const FrameData = () => {
         </IonToolbar>
       </IonHeader>
 
-      <IonContent ref={contentRef} scrollEvents={true} onIonScroll={handleScroll}>
+      <IonContent className={xScrollEnabled ? "xScroll" : "fixed"} ref={contentRef} scrollEvents={true} onIonScroll={handleScroll}>
         <SubHeader
           adaptToShortScreens={true}
           hideOnWideScreens={true}

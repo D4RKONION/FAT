@@ -1,5 +1,8 @@
 #FrameData {
-
+  ion-content.xScroll  {
+    --padding-bottom: var(--safe-area-inset-bottom);
+    --background: linear-gradient(180deg, var(--fat-background) 92%, var(--fat-datatable-bottom-sticky-header-border) 92%, var(--fat-datatable-bottom-sticky-header-border) 100%);
+  }
   .hideOnWideScreen {
     display: none;
     @media (max-width: 992px) {
