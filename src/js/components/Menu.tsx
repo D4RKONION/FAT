@@ -256,6 +256,7 @@ const Menu = () => {
                       {GAME_NAMES.map(gameName => 
                         <IonItem
                           style={{"--background": activeGame === gameName && "var(--fat-primary-tint-step-800)"}}
+                          key={`switcher-${gameName}-option`}
                           lines="none"
                           onClick={() => {
                             dispatch(setActiveGame(gameName, true));
