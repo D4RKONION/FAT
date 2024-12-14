@@ -9,6 +9,7 @@ import { useHistory } from "react-router";
 
 import { addBookmark, removeBookmark, setPlayerAttr } from "../actions";
 import BookmarkToast from "../components/BookmarkToast";
+import FrameMeter from "../components/FrameMeter";
 import SegmentSwitcher from "../components/SegmentSwitcher";
 import SubHeader from "../components/SubHeader";
 import { activeGameSelector, activePlayerSelector, bookmarksSelector, dataDisplaySettingsSelector, gameDetailsSelector, premiumSelector, selectedCharactersSelector } from "../selectors";
@@ -118,6 +119,8 @@ const MoveDetail = () => {
             ],
           ]}
         />
+
+        <FrameMeter></FrameMeter>
 
         <div className={`segments ${!isPlatform("ios") && "md"}`}>
           {activeGame === "SFV" && !selectedMoveData["uniqueInVt"] ?

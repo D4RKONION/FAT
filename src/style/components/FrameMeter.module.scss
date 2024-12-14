@@ -1,0 +1,25 @@
+.FrameMeter {
+  display: flex;
+  width: fit-content;
+  gap: 2px;
+  border: black 3px solid;
+  background-color: #272727;
+
+  .FrameBlock {
+    min-width: 17px;
+    min-height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &.startup {
+      background-color: #15c78e;
+    }
+    &.active {
+      background-color: #ba1663;
+    }
+    &.recovery {
+      background-color: #0a77b1
+    }
+  }
+  
+}
