@@ -23,16 +23,16 @@
     }
 
     &.startup {
-      background-color: #15c78e;
+      background-color: var(--fat-frame-meter-startup);
     }
     &.active {
-      background-color: #ba1663;
+      background-color: var(--fat-frame-meter-active);
     }
     &.recovery {
-      background-color: #0a77b1
+      background-color: var(--fat-frame-meter-recovery)
     }
     &.unknown {
-      background-color: #272727
+      background-color: var(--fat-frame-meter-unknown)
     }
   }
   
