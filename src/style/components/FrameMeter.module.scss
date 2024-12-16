@@ -1,16 +1,27 @@
 .FrameMeter {
   display: flex;
   width: fit-content;
-  gap: 2px;
-  border: black 3px solid;
-  background-color: #272727;
 
   .FrameBlock {
-    min-width: 17px;
-    min-height: 25px;
+    min-width: 12px;
+    min-height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: white;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    font-size: 17px;
+    line-height: 1;
+    border: black solid;
+    margin: 1px 0;
+    border-width: 2px 1px 2px 1px;
+    &:first-of-type {
+      border-left-width: 2px;
+    }
+    &:last-of-type {
+      border-right-width: 2px;
+    }
+
     &.startup {
       background-color: #15c78e;
     }
@@ -19,6 +30,9 @@
     }
     &.recovery {
       background-color: #0a77b1
+    }
+    &.unknown {
+      background-color: #272727
     }
   }
   

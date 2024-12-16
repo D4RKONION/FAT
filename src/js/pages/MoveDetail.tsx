@@ -2,11 +2,13 @@ import "../../style/components/DetailCards.scss";
 
 import { IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 import { isPlatform } from "@ionic/react";
-import { bookmarkOutline, bookmarkSharp, openOutline } from "ionicons/icons";
+import { arrowForwardSharp, bookmarkOutline, bookmarkSharp, openOutline, returnDownBack } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 
+import nowrap from "../../images/icons/nowrap.svg";
+import wrap from "../../images/icons/wrap.svg";
 import { addBookmark, removeBookmark, setPlayerAttr } from "../actions";
 import BookmarkToast from "../components/BookmarkToast";
 import FrameMeter from "../components/FrameMeter";
@@ -26,6 +28,8 @@ const MoveDetail = () => {
   const [bookmarkToastVisible, setBookmarkToastVisible] = useState(false);
   const [bookmarkToastMessage, setBookmarkToastMessage] = useState("");
   const premiumIsPurchased = useSelector(premiumSelector).lifetimePremiumPurchased;
+
+  const [frameMeterWrap, setFrameMeterWrap] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -120,8 +124,6 @@ const MoveDetail = () => {
           ]}
         />
 
-        <FrameMeter></FrameMeter>
-
         <div className={`segments ${!isPlatform("ios") && "md"}`}>
           {activeGame === "SFV" && !selectedMoveData["uniqueInVt"] ?
             <SegmentSwitcher
@@ -143,6 +145,31 @@ const MoveDetail = () => {
         </div>
 
         <div id="flexCardContainer">
+
+          {/* Frame Meter */}
+          <IonCard className={`frame-meter ${frameMeterWrap ? "wrap" : "scroll"}`}>
+            <div className={`buttoned-card-header ${isPlatform("ios") ? "ios": "md"}`}>
+              <span>Frame Meter</span>
+              <span className="button-container">
+                <IonIcon style={{transform: frameMeterWrap ? "rotate(180deg)" : ""}} onClick={() => setFrameMeterWrap(!frameMeterWrap)} icon={frameMeterWrap ? wrap : nowrap} slot="icon-only" />
+              </span>
+ 
+            </div>
+            <IonCardContent>
+              <FrameMeter
+                moveData={
+                  {
+                    startup: selectedMoveData["startup"],
+                    active: selectedMoveData["active"],
+                    recovery: selectedMoveData["recovery"],
+                  }
+                }
+                wrap={frameMeterWrap}
+              />
+              {/* add padding to the end of the meter */}
+              {!frameMeterWrap && <span style={{width: "12px"}}></span>}
+            </IonCardContent>
+          </IonCard>
 
           {/* Generic Entries */}
 
