@@ -73,7 +73,7 @@ const FrameMeter = ({ moveData, wrap }: Props) => {
       return cleanedValue
         .split("*")
         .map(Number)
-        .reduce((a, b) => a * b, 1);
+        .reduce((a, b) => a + b, 0);
     }
 
     // Convert to number if no further processing is needed

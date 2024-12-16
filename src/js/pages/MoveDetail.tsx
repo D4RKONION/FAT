@@ -2,7 +2,7 @@ import "../../style/components/DetailCards.scss";
 
 import { IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 import { isPlatform } from "@ionic/react";
-import { arrowForwardSharp, bookmarkOutline, bookmarkSharp, openOutline, returnDownBack } from "ionicons/icons";
+import { bookmarkOutline, bookmarkSharp, openOutline } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
@@ -29,7 +29,7 @@ const MoveDetail = () => {
   const [bookmarkToastMessage, setBookmarkToastMessage] = useState("");
   const premiumIsPurchased = useSelector(premiumSelector).lifetimePremiumPurchased;
   
-  const frameMeterWrap = useSelector(appDisplaySettingsSelector).frameMeterLayout === "wrap" ? true : false;
+  const frameMeterWrap = useSelector(appDisplaySettingsSelector).frameMeterLayout === "nowrap" ? false : true;
 
   const dispatch = useDispatch();
 
