@@ -187,6 +187,7 @@ const FrameData = () => {
         <SubHeader
           adaptToShortScreens={true}
           hideOnWideScreens={true}
+          clickHandler={() => history.push(`/stats/${activeGame}/${selectedCharacters[activePlayer].name}`)}
           rowsToDisplay={
             gameDetails.statsPoints["The Basics"].map((dataRow, index) =>
               [
@@ -199,7 +200,7 @@ const FrameData = () => {
 
                   }</div>
                 ),
-                index === 0 && <div key={"tap-stats"} onClick={() => {history.push(`/stats/${activeGame}/${selectedCharacters[activePlayer].name}`);}}><b>More Stats</b><br /><IonIcon icon={informationCircle} /></div>,
+                index === 0 && <div key={"tap-stats"}><b>More Stats</b><br /><IonIcon icon={informationCircle} /></div>,
               ]
             )
           }
