@@ -1,11 +1,12 @@
-import { CharacterSelectLayout, ThemeAccessibility, ThemeBrightness, ThemeColor } from "../types";
+import { CharacterSelectLayout, FrameMeterLayout, ThemeAccessibility, ThemeBrightness, ThemeColor } from "../types";
 
 type AppDisplaySettingsReducerAction = {
-  type: "SET_THEME_BRIGHTNESS" | "SET_THEME_COLOR" | "SET_THEME_ACCESSIBILITY" | "SET_CHARACTER_SELECT_LAYOUT";
+  type: "SET_THEME_BRIGHTNESS" | "SET_THEME_COLOR" | "SET_THEME_ACCESSIBILITY" | "SET_CHARACTER_SELECT_LAYOUT" | "SET_FRAME_METER_LAYOUT";
   themeBrightness: ThemeBrightness;
   themeColor: ThemeColor;
   themeAccessibility: ThemeAccessibility;
   characterSelectLayout: CharacterSelectLayout,
+  frameMeterLayout: FrameMeterLayout,
 };
 
 const defaultState = {
@@ -13,6 +14,7 @@ const defaultState = {
   themeColor: "classic" as ThemeColor,
   themeAccessibility: "none" as ThemeAccessibility,
   characterSelectLayout: "largePortraits" as CharacterSelectLayout,
+  frameMeterLayout: "wrap" as FrameMeterLayout,
 };
 
 export const appDisplaySettingsReducer = (state = defaultState, action: AppDisplaySettingsReducerAction) => {
@@ -39,6 +41,12 @@ export const appDisplaySettingsReducer = (state = defaultState, action: AppDispl
       return {
         ...state,
         characterSelectLayout: action.characterSelectLayout,
+      };
+    
+    case "SET_FRAME_METER_LAYOUT":
+      return {
+        ...state,
+        frameMeterLayout: action.frameMeterLayout,
       };
 
     default:

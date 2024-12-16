@@ -31,6 +31,8 @@ export type ThemeAlias = typeof THEMES[number]["alias"];
 
 export type CharacterSelectLayout = "largePortraits" | "smallPortraits" | "simpleList" | "detailedList";
 
+export type FrameMeterLayout = "wrap" | "nowrap";
+
 export type Bookmark = {
   modeName: "framedata" | "moveslist" | "combos" | "movedetail",
   gameName: GameName,

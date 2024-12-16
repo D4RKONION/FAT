@@ -9,12 +9,12 @@ import { useHistory } from "react-router";
 
 import nowrap from "../../images/icons/nowrap.svg";
 import wrap from "../../images/icons/wrap.svg";
-import { addBookmark, removeBookmark, setPlayerAttr } from "../actions";
+import { addBookmark, removeBookmark, setFrameMeterLayout, setPlayerAttr } from "../actions";
 import BookmarkToast from "../components/BookmarkToast";
 import FrameMeter from "../components/FrameMeter";
 import SegmentSwitcher from "../components/SegmentSwitcher";
 import SubHeader from "../components/SubHeader";
-import { activeGameSelector, activePlayerSelector, bookmarksSelector, dataDisplaySettingsSelector, gameDetailsSelector, premiumSelector, selectedCharactersSelector } from "../selectors";
+import { activeGameSelector, activePlayerSelector, appDisplaySettingsSelector, bookmarksSelector, dataDisplaySettingsSelector, gameDetailsSelector, premiumSelector, selectedCharactersSelector } from "../selectors";
 import { createSegmentSwitcherObject } from "../utils/segmentSwitcherObject";
 
 const MoveDetail = () => {
@@ -28,8 +28,8 @@ const MoveDetail = () => {
   const [bookmarkToastVisible, setBookmarkToastVisible] = useState(false);
   const [bookmarkToastMessage, setBookmarkToastMessage] = useState("");
   const premiumIsPurchased = useSelector(premiumSelector).lifetimePremiumPurchased;
-
-  const [frameMeterWrap, setFrameMeterWrap] = useState(true);
+  
+  const frameMeterWrap = useSelector(appDisplaySettingsSelector).frameMeterLayout === "wrap" ? true : false;
 
   const dispatch = useDispatch();
 
@@ -151,7 +151,7 @@ const MoveDetail = () => {
             <div className={`buttoned-card-header ${isPlatform("ios") ? "ios": "md"}`}>
               <span>Frame Meter</span>
               <span className="button-container">
-                <IonIcon style={{transform: frameMeterWrap ? "rotate(180deg)" : ""}} onClick={() => setFrameMeterWrap(!frameMeterWrap)} icon={frameMeterWrap ? wrap : nowrap} slot="icon-only" />
+                <IonIcon style={{transform: frameMeterWrap ? "rotate(180deg)" : ""}} onClick={() => dispatch(setFrameMeterLayout(frameMeterWrap ? "nowrap" : "wrap"))} icon={frameMeterWrap ? wrap : nowrap} slot="icon-only" />
               </span>
  
             </div>
