@@ -221,31 +221,33 @@
     "Walking": [
       {
         "bWalk": "Back Walk Speed",
-        "fWalk": "Forward Walk Speed"
+        "fWalk": "Fwd Walk Speed"
       }
     ],
-    "Dashing": [
+    "Back Dash": [
       {
         "bDash": "Back Dash Frames",
-        "fDash": "Forward Dash Frames"
+        "bDashDist": "Back Dash Dist."
       },
       {
         "bDashCHFrames": "Back Dash CH Frames"
-      },
+      }
+    ],
+    "Fwd Dash": [
       {
-        "bDashDist": "Back Dash Dist.",
-        "fDashDist": "Forward Dash Dist."
+        "fDash": "Fwd Dash Frames",
+        "fDashDist": "Fwd Dash Dist."
       }
     ],
     "Jumping": [
       {
         "bJump": "Back Jump",
         "nJump": "Neutral Jump",
-        "fJump": "Forward Jump"
+        "fJump": "Fwd Jump"
       },
       {
-        "bJumpDist": "Back Jump Distance",
-        "fJumpDist": "Forward Jump Distance"
+        "bJumpDist": "Back Jump Dist.",
+        "fJumpDist": "Fwd Jump Dist."
       }
     ],
     "Throwing": [

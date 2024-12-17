@@ -1,4 +1,83 @@
 #FrameData {
+  ion-header {
+    transition: box-shadow 0.3s;
+  }
+  .swiper {
+    background-color: var(--ion-toolbar-background);
+    --swiper-theme-color: var(--fat-bullet-color);
+    --swiper-pagination-bullet-inactive-color: var(--fat-bullet-inactive-color);
+    .swiper-pagination {
+      position: initial;
+    }
+    padding: 0 0 7px;
+    .swiper-wrapper {
+      .swiper-slide {
+        padding: 1px 0 6px;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .slide-card {
+          // border: 1px solid var(--fat-surface-border);
+          border-radius: 7px;
+          width: 90%;
+          min-width: 340px;
+          max-width: 500px;
+          margin: 0 auto;
+          text-align: center;
+          background: var(--fat-frame-data-sub-header-stats-bg);
+          box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 1px -2px, rgba(0, 0, 0, 0.1) 0px 2px 2px 0px, rgba(0, 0, 0, 0.09) 0px 1px 5px 0px;
+
+          &.see-all-card {
+            width: 200px;
+            min-width: 200px;
+            max-width: 200px;
+            cursor: pointer;
+          }
+
+          .row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+            &:not(:last-of-type) {
+              border-bottom: 1px solid var(--fat-surface-border);
+            }
+            .col {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              padding: 10px 6px;
+              flex: 1 1 auto;
+              &:not(:last-of-type) {
+                border-right: 1px solid var(--fat-surface-border);
+              }
+              h4, h5 {
+                margin: 1px 0;
+                font-size: 14px;
+                color: var(--fat-frame-data-sub-header-stats-contrast);
+                font-weight: bold;
+              }
+              p {
+                margin: 1px 0;
+                font-size: 14px;
+              }
+              h4 {
+                font-size: 16px;
+              }
+              ion-icon {
+                font-size: 20px;
+                color: var(--fat-frame-data-sub-header-stats-contrast);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
   ion-content.xScroll  {
     --padding-bottom: var(--safe-area-inset-bottom);
     --background: linear-gradient(180deg, var(--fat-background) 92%, var(--fat-datatable-bottom-sticky-header-border) 92%, var(--fat-datatable-bottom-sticky-header-border) 100%);

@@ -1,12 +1,18 @@
 import "../../style/pages/FrameData.scss";
+import "../../style/components/DetailCards.scss";
 
 import { Preferences } from "@capacitor/preferences";
-import { IonContent, IonPage, IonIcon, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonSearchbar, IonButton, IonTitle, IonFab, IonFabButton, ScrollDetail } from "@ionic/react";
+import { IonContent, IonPage, IonIcon, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonSearchbar, IonButton, IonTitle, IonFab, IonFabButton, ScrollDetail, IonCard, IonCardHeader, IonCardTitle, IonCardContent } from "@ionic/react";
 import { isPlatform } from "@ionic/react";
-import { backspaceOutline, bookmarkOutline, bookmarkSharp, bookmarksSharp, closeOutline, informationCircle, searchSharp } from "ionicons/icons";
+import { backspaceOutline, bookmarkOutline, bookmarkSharp, bookmarksSharp, closeOutline, informationCircleOutline, searchSharp } from "ionicons/icons";
 import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router";
+import { Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 import { setActiveFrameDataPlayer, setModalVisibility, setPlayerAttr, setDataTableColumns, addBookmark, removeBookmark } from "../actions";
 import AdviceToast from "../components/AdviceToast";
@@ -16,9 +22,8 @@ import FrameDataSubHeader from "../components/FrameDataSubHeader";
 import LandscapeOptions from "../components/LandscapeOptions";
 import PopoverButton from "../components/PopoverButton";
 import SegmentSwitcher from "../components/SegmentSwitcher";
-import SubHeader from "../components/SubHeader";
 import { APP_CURRENT_VERSION_CODE } from "../constants/VersionLogs";
-import { activeGameSelector, activePlayerSelector, bookmarksSelector, dataTableSettingsSelector, gameDetailsSelector, modalVisibilitySelector, premiumSelector, selectedCharactersSelector } from "../selectors";
+import { activeGameSelector, activePlayerSelector, bookmarksSelector, dataDisplaySettingsSelector, dataTableSettingsSelector, frameDataSelector, gameDetailsSelector, modalVisibilitySelector, premiumSelector, selectedCharactersSelector } from "../selectors";
 import { FrameDataSlug } from "../types";
 import { handleNewCharacterLandscapeCols } from "../utils/landscapecols";
 import { createSegmentSwitcherObject } from "../utils/segmentSwitcherObject";
@@ -31,7 +36,9 @@ const FrameData = () => {
   const dataTableColumns = useSelector(dataTableSettingsSelector).tableColumns;
   const autoSetCharacterSpecificColumnsOn = useSelector(dataTableSettingsSelector).autoSetCharacterSpecificColumnsOn;
   const gameDetails = useSelector(gameDetailsSelector);
+  const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
   const xScrollEnabled = useSelector(dataTableSettingsSelector).tableType === "scrolling";
+  const frameData = useSelector(frameDataSelector);
 
   const bookmarks = useSelector(bookmarksSelector);
   const premiumIsPurchased = useSelector(premiumSelector).lifetimePremiumPurchased;
@@ -51,6 +58,7 @@ const FrameData = () => {
   const [whatsNewCheckComplete, setWhatsNewCheckComplete]= useState(false);
 
   const [scrollingUp, setScrollingUp]= useState(true);
+  const [scrolledToTop, setScrolledToTop]= useState(true);
 
   const [bookmarkToastVisible, setBookmarkToastVisible] = useState(false);
   const [bookmarkToastMessage, setBookmarkToastMessage] = useState("");
@@ -89,7 +97,8 @@ const FrameData = () => {
       bookmark.modeName === "framedata" && bookmark.gameName === activeGame && bookmark.characterName === selectedCharacters[activePlayer].name
     ));
   }, [selectedCharacters, activeGame, activePlayer, bookmarks]);
-
+  
+  // Pops up the keyboard on native platforms when searchbar is tapped
   const searchRef = useRef(null);
   useEffect(() => {
     if (searchShown) {
@@ -97,6 +106,7 @@ const FrameData = () => {
     }
   }, [searchShown]);
 
+  // Scrolling logic for xAxis scrolling
   const contentRef = useRef(null);
   const lastScrollTime = useRef(0);
 
@@ -107,7 +117,13 @@ const FrameData = () => {
     }
   };
 
+  //Handles scrolling up to display the bookmarks fab
   function handleScroll(ev: CustomEvent<ScrollDetail>) {
+    if (ev.detail.scrollTop === 0) {
+      setScrolledToTop(true);
+    } else {
+      setScrolledToTop(false);
+    }
     if (ev.detail.deltaY < 0) {
       setScrollingUp(true);
     } else {
@@ -118,7 +134,7 @@ const FrameData = () => {
   return (
     <IonPage id="FrameData">
 
-      <IonHeader>
+      <IonHeader style={scrolledToTop ? {boxShadow: "none"} : {}}>
         <IonToolbar>
           <IonButtons slot="start">
             <IonMenuButton />
@@ -184,34 +200,50 @@ const FrameData = () => {
       </IonHeader>
 
       <IonContent className={xScrollEnabled ? "xScroll" : "fixed"} ref={contentRef} scrollEvents={true} onIonScroll={handleScroll}>
-        <SubHeader
-          adaptToShortScreens={true}
-          hideOnWideScreens={true}
-          clickHandler={() => history.push(`/stats/${activeGame}/${selectedCharacters[activePlayer].name}`)}
-          rowsToDisplay={
-            gameDetails.statsPoints["The Basics"].map((dataRow, index) =>
-              [
-                ...Object.keys(dataRow).map(statKey =>
-                  <div key={`stat-point-${dataRow}-${statKey}`}><b>{dataRow[statKey]}</b><br />{
-                    statKey === "bestReversal" ? Object.keys(selectedCharacters[activePlayer].frameData).find(moveEntry =>
-                      selectedCharacters[activePlayer].frameData[moveEntry].moveName === selectedCharacters[activePlayer].stats[statKey]
-                    ) || selectedCharacters[activePlayer].stats[statKey]
-                      : selectedCharacters[activePlayer].stats[statKey]
 
-                  }</div>
-                ),
-                index === 0 && <div key={"tap-stats"}><b>More Stats</b><br /><IonIcon icon={informationCircle} /></div>,
-              ]
+        <Swiper pagination={true} modules={[Pagination]} loop={true}>
+          {Object.keys(gameDetails.statsPoints).filter(dataSection =>
+            gameDetails.statsPoints[dataSection].some(dataRow =>
+              Object.keys(dataRow).some(dataKey => selectedCharacters[activePlayer].stats[dataKey] !== undefined)
             )
-          }
-        />
-        <FrameDataSubHeader
-          charName={selectedCharacters[activePlayer].name}
-          characterHasStates={characterHasStates}
-          opponentName={selectedCharacters[activePlayer === "playerOne" ? "playerTwo" : "playerOne"].name}
-          charStats={selectedCharacters[activePlayer].stats}
-          activeGame={activeGame}
-        />
+          ).map(dataSection => {
+            return (
+              <SwiperSlide key={dataSection}>
+                <div className="slide-card">
+                  {gameDetails.statsPoints[dataSection].map((dataRow, index) =>
+                    <div key={index} className="row">
+                      {Object.entries(dataRow).map(([dataId, headerObj]) =>
+                        <div key={dataId} className="col">
+                          <h5>{headerObj}</h5>
+                          <p>
+                            {
+                              dataId === "bestReversal"
+                                ? frameData[selectedCharacters[activePlayer].name] && frameData[selectedCharacters[activePlayer].name].moves.normal[selectedCharacters[activePlayer].stats[dataId]] && frameData[selectedCharacters[activePlayer].name].moves.normal[selectedCharacters[activePlayer].stats[dataId]][dataDisplaySettings.moveNameType === "common"
+                                  ? "cmnName"
+                                  : dataDisplaySettings.inputNotationType]
+                                : selectedCharacters[activePlayer].stats[dataId]
+                            }
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </SwiperSlide>
+            );
+          })}
+          <SwiperSlide>
+            <div className="slide-card see-all-card" onClick={() => history.push(`/stats/${activeGame}/${selectedCharacters[activePlayer].name}`)}>
+              <div className="row">
+                <div className="col">
+                  <h4>See all stats</h4>
+                  <IonIcon icon={informationCircleOutline} />
+                </div>
+              </div>
+
+            </div>
+          </SwiperSlide>
+        </Swiper>
         <div className={`hideOnWideScreen segments ${!isPlatform("ios") && "md"}`} style={{flexDirection: "column"}}>
           <SegmentSwitcher
             key={"FD ActivePlayer"}
@@ -244,6 +276,14 @@ const FrameData = () => {
             />
           }
         </div>
+
+        <FrameDataSubHeader
+          charName={selectedCharacters[activePlayer].name}
+          characterHasStates={characterHasStates}
+          opponentName={selectedCharacters[activePlayer === "playerOne" ? "playerTwo" : "playerOne"].name}
+          charStats={selectedCharacters[activePlayer].stats}
+          activeGame={activeGame}
+        />
 
         <DataTable
           frameData={selectedCharacters[activePlayer].frameData}

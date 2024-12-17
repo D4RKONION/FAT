@@ -177,10 +177,8 @@
         "fastestNormal": "Fastest Normal"
       }
     ],
-    "Dashing": [
-      {
-        "fwdDash": "Fwd Dash Speed"
-      },
+    "Universal Movement": [
+
       {
         "backdashSpeed": "Back Dash Speed",
         "backdashInvul": "Back Dash Invul"
@@ -188,7 +186,14 @@
       {
         "airFwdDash": "Air Fwd Dash Speed" ,
         "airBckDash": "Air Back Dash Speed"
-      },
+      }
+    ],
+    "Forward Dash": [
+      {
+        "fwdDash": "Fwd Dash Speed"
+      }
+    ],
+    "Backturn": [
       {
         "btFwdDash": "BT Fwd Dash",
         "btBckDash": "BT Back Dash"
@@ -197,16 +202,21 @@
     "Jumping": [
       {
         "prejump": "Prejump Frames",
-        "jumpTotal": "Total Jump Frames",
+        "jumpTotal": "Total Jump Frames"
+      },{
         "highJumpTotal": "Total High Jump Frames"
       }
     ],
     "Defense": [
       {
-        "effectiveHealth": "Effective Health",
-        "defense": "Defense",
+
+        "guts": "Guts",
+        "defense": "Defense"
+      },
+      {
         "riscMod": "RISC Modifier",
-        "guts": "Guts"
+        "effectiveHealth": "Effective Health"
+        
       }
     ]
   },

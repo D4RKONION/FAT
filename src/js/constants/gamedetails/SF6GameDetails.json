@@ -285,36 +285,38 @@
       ],
       "Drive System": [
         {
-          "dRushDistMin": "Min Drive Rush Dist",
-          "dRushDistBlock": "Drive Rush > Block Dist",
-          "dRushDistMax": "Max Drive Rush Dist"
+          "dRushDistBlock": "DR > Block Dist"
+        },
+        {
+          "dRushDistMin": "Min DR Dist",
+          "dRushDistMax": "Max DR Dist"
         }
       ],
       "Walking": [
         {
           "bWalk": "Back Walk Speed",
-          "fWalk": "Forward Walk Speed"
+          "fWalk": "Fwd Walk Speed"
         }
       ],
       "Dashing": [
         {
           "bDash": "Back Dash Frames",
-          "fDash": "Forward Dash Frames"
+          "fDash": "Fwd Dash Frames"
         },
         {
           "bDashDist": "Back Dash Dist",
-          "fDashDist": "Forward Dash Dist"
+          "fDashDist": "Fwd Dash Dist"
         }
       ],
       "Jumping": [
         {
           "bJump": "Back Jump",
-          "nJump": "Neutral Jump",
-          "fJump": "Forward Jump"
+          "nJump": "N. Jump",
+          "fJump": "Fwd Jump"
         },
         {
-          "bJumpDist": "Back Jump Distance",
-          "fJumpDist": "Forward Jump Distance"
+          "bJumpDist": "Back Jump Dist",
+          "fJumpDist": "Fwd Jump Dist"
         }
       ],
       "Throwing": [

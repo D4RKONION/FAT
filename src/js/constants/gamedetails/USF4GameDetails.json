@@ -123,7 +123,9 @@
       {
         "bDash": "Back Dash Frames",
         "fDash": "Forward Dash Frames"
-      },
+      }
+    ],
+    "Focus Attack": [
       {
         "lvlOneB": "Level 1 Focus Back",
         "lvlOneF": "Level 1 Focus Forward"

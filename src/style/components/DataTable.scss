@@ -35,7 +35,8 @@
 }
 
 .DataTable.xScroll {
-  height: calc(100vh - var(--header-height) - var(--safe-area-inset-top) - var(--safe-area-inset-bottom));
+  //1px added here due to drop-shadow silliness
+  height: calc(100vh - var(--header-height) + 1px - var(--safe-area-inset-top) - var(--safe-area-inset-bottom));
 
   overflow-x: scroll;
   display: flex;
