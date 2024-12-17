@@ -65,7 +65,7 @@ const AdviceToast = () => {
       className="adviceToast"
       ref={toastRef}
       isOpen={true}
-      duration={250000}
+      duration={2000}
       onWillDismiss={() => {
         if (typeof adviceToastPrevRead[modeName] !== "undefined" ) {
           dispatch(setAdviceToastPrevRead({ ...adviceToastPrevRead, [modeName]: adviceToastPrevRead[modeName] + 1 }));
