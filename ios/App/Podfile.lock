@@ -5,6 +5,8 @@ PODS:
     - Capacitor
   - CapacitorClipboard (6.0.1):
     - Capacitor
+  - CapacitorCommunitySafeArea (6.0.0-alpha.8):
+    - Capacitor
   - CapacitorCordova (6.1.2)
   - CapacitorHaptics (6.0.1):
     - Capacitor
@@ -14,8 +16,6 @@ PODS:
     - Capacitor
   - CapacitorSplashScreen (6.0.2):
     - Capacitor
-  - CapacitorStatusBar (6.0.1):
-    - Capacitor
   - CordovaPlugins (6.1.2):
     - CapacitorCordova
 
@@ -23,12 +23,12 @@ DEPENDENCIES:
   - "Capacitor (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorApp (from `../../node_modules/@capacitor/app`)"
   - "CapacitorClipboard (from `../../node_modules/@capacitor/clipboard`)"
+  - "CapacitorCommunitySafeArea (from `../../node_modules/@capacitor-community/safe-area`)"
   - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
   - "CapacitorHaptics (from `../../node_modules/@capacitor/haptics`)"
   - "CapacitorKeyboard (from `../../node_modules/@capacitor/keyboard`)"
   - "CapacitorPreferences (from `../../node_modules/@capacitor/preferences`)"
   - "CapacitorSplashScreen (from `../../node_modules/@capacitor/splash-screen`)"
-  - "CapacitorStatusBar (from `../../node_modules/@capacitor/status-bar`)"
   - CordovaPlugins (from `../capacitor-cordova-ios-plugins`)
 
 EXTERNAL SOURCES:
@@ -38,6 +38,8 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/app"
   CapacitorClipboard:
     :path: "../../node_modules/@capacitor/clipboard"
+  CapacitorCommunitySafeArea:
+    :path: "../../node_modules/@capacitor-community/safe-area"
   CapacitorCordova:
     :path: "../../node_modules/@capacitor/ios"
   CapacitorHaptics:
@@ -48,8 +50,6 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/preferences"
   CapacitorSplashScreen:
     :path: "../../node_modules/@capacitor/splash-screen"
-  CapacitorStatusBar:
-    :path: "../../node_modules/@capacitor/status-bar"
   CordovaPlugins:
     :path: "../capacitor-cordova-ios-plugins"
 
@@ -57,14 +57,14 @@ SPEC CHECKSUMS:
   Capacitor: 679f9673fdf30597493a6362a5d5bf233d46abc2
   CapacitorApp: 0bc633b4eae40a1f32cd2834788fad3bc42da6a1
   CapacitorClipboard: 756cd7e83e8d5d19b0c74f40b57517c287bd5fe2
+  CapacitorCommunitySafeArea: bf6bf8f4652ef69a80a53a1b7aaedd3da991ab9d
   CapacitorCordova: f48c89f96c319101cd2f0ce8a2b7449b5fb8b3dd
   CapacitorHaptics: fe689ade56ef20ec9b041a753c6da70c5d8ec9a9
   CapacitorKeyboard: 2700f9b18687be021e28b5a09b59eb151a46d5e0
   CapacitorPreferences: e8284bf740cf8c6d3f25409af3c01df87dfeb5a1
   CapacitorSplashScreen: 250df9ef8014fac5c7c1fd231f0f8b1d8f0b5624
-  CapacitorStatusBar: b81d4fb5d4e0064c712018071b3ab4b810b39a63
   CordovaPlugins: 584b5df0e1bde7be088e132f0efb476ab8f8bcfa
 
-PODFILE CHECKSUM: d70c1a9634cd82e3f9f1fec03b6cfb1ec1037b5a
+PODFILE CHECKSUM: 3ee5a1f19fe3201098d0ec32929988c248735f33
 
 COCOAPODS: 1.15.2
