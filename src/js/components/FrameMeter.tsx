@@ -25,7 +25,7 @@ const FrameMeter = ({ moveData, wrap }: Props) => {
         segments.push({ length: parseInt(match[1], 10), type: "active" });
       } else if (match[2]) {
         // Special blocks inside parentheses (e.g., "(23)")
-        segments.push({ length: parseInt(match[2], 10), type: "startup" });
+        segments.push({ length: parseInt(match[2], 10), type: "recovery" });
       }
     }
 
