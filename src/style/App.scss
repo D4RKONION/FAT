@@ -95,7 +95,7 @@ ion-popover {
         text-align: center;
       }
     }
-    
+
   }
 }
 
@@ -112,7 +112,7 @@ ion-modal {
 ion-modal.character-select-settings-modal {
   --border-radius: 20px 20px 0 0;
   --max-width: 535px;
-  --height: fit-content;
+  --height: auto;
   --backdrop-opacity: 0.7;
 
   h2 {
@@ -129,7 +129,7 @@ ion-modal.character-select-settings-modal {
       color: var(--fat-primary-tint-step-50);
     }
   }
-  
+
 }
 
 ion-modal.premium-offer-modal {
@@ -167,7 +167,7 @@ ion-header {
       height: calc(--header-height + var(--safe-area-inset-top));
       padding-top: var(--safe-area-inset-top);
     }
-    
+
     &.ios.toolbar-searchbar {
       ion-buttons {
         padding-top: 4px;
@@ -246,5 +246,5 @@ ion-header {
 
 		}
 	}
-  
+
 }
