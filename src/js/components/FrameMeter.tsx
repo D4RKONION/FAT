@@ -73,7 +73,7 @@ const FrameMeter = ({ moveData, wrap }: Props) => {
       return cleanedValue
         .split("*")
         .map(Number)
-        .reduce((a, b) => a + b, 0);
+        .reduce((a, b) => a * b, 1);
     }
 
     // Convert to number if no further processing is needed
@@ -119,7 +119,8 @@ const FrameMeter = ({ moveData, wrap }: Props) => {
         const frameSegments =
           moveStage === "active" && typeof moveStageValue === "string" && /[(*,]/.test(moveStageValue)
             ? parseActiveFrames(moveStageValue)
-            : [{ length: evaluateFrameValue(moveStageValue), type: moveStage }];
+            // -1 when type is startup, as the last frame of startup and first frame of active are the same frame
+            : [{ length: moveStage === "startup" ? evaluateFrameValue(moveStageValue) - 1 : evaluateFrameValue(moveStageValue), type: moveStage }];
 
         // Render the frame segments
         return frameSegments.map(segment => {
