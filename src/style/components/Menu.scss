@@ -116,6 +116,11 @@
         flex-direction: row;
         align-items: center;
         gap: 21px;
+        font-size: 16px;
+        background-color: var(--fat-wide-menu-background);
+        width: -webkit-fill-available;
+        width: -moz-available;
+
 
         padding: 12px 0 12px 25px;
         margin: 5px 20px 0 0;
@@ -125,6 +130,11 @@
           border-radius 0.25s;
 
         cursor: pointer;
+
+        &:focus-visible {
+          background-color: #ffffff20;
+          outline: 2px solid #ffffff;
+        }
 
         &.active-mode {
           background-color: #ffffff20;
@@ -148,6 +158,7 @@
           position: sticky;
           top: 0;
           z-index: 10;
+          cursor: auto;
 
           display: flex;
           flex-direction: row;

@@ -308,7 +308,7 @@ const Menu = () => {
           <IonGrid>
 
             <div className={`widescreen-menu-header widescreen-menu-entry ${!isWideFullMenuOpen && "menu-collapsed"} ${modeName === "movedetail" && "disabled"} ${isPlatform("ios") ? "ios" : "md"}`}>
-              <IonButton onClick={() => setIsWideFullMenuOpen(!isWideFullMenuOpen)}>
+              <IonButton aria-label="Open Side Menu" onClick={() => setIsWideFullMenuOpen(!isWideFullMenuOpen)}>
                 <IonIcon icon={menuSharp} slot="icon-only" />
               </IonButton>
               {isWideFullMenuOpen &&
@@ -320,11 +320,11 @@ const Menu = () => {
               
             </div>
 
-            <div className={`widescreen-menu-entry ion-activatable ${!isWideFullMenuOpen && "menu-collapsed"} ${modeName === "movedetail" && "disabled"}`} onClick={() => modeName !== "movedetail" && setActiveGameAlertOpen(true)}>
-              <IonIcon aria-label="Game select" icon={gameControllerOutline} className={isWideFullMenuOpen ? "dimmed-color" : null} />
+            <button aria-label="Game Select" className={`widescreen-menu-entry ion-activatable ${!isWideFullMenuOpen && "menu-collapsed"} ${modeName === "movedetail" && "disabled"}`} onClick={() => modeName !== "movedetail" && setActiveGameAlertOpen(true)} tabIndex={0}>
+              <IonIcon icon={gameControllerOutline} className={isWideFullMenuOpen ? "dimmed-color" : null} />
               {isWideFullMenuOpen && <span>Game Select</span>}
               <IonRippleEffect/>
-            </div>
+            </button>
 
             {MENU_ENTRIES.map((menuEntryKey) => {
               return (

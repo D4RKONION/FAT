@@ -11,6 +11,7 @@ const BrightnessToggle = () => {
 
   return (
     <IonToggle
+      aria-label={`Switch to ${themeBrightness === "light" ? "dark" : "light"} mode`}
       mode="md"
       className={`${styles.brightnessToggle} widescreenMode`}
       checked={themeBrightness === "light" ? false : true}

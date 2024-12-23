@@ -186,7 +186,7 @@ const MenuEntry = ({menuEntryKey, wideMenuIsOpen}: Props) => {
   } else {
     return (
       <div>
-        <div
+        <button
           className={`
           widescreen-menu-entry
           ion-activatable
@@ -194,13 +194,13 @@ const MenuEntry = ({menuEntryKey, wideMenuIsOpen}: Props) => {
           ${menuEntryDetails[menuEntryKey].modeName === currentMode || (currentMode === "movedetail" && menuEntryDetails[menuEntryKey].modeName === window.location.hash.split("/")[1]) ? "active-mode" : ""}
           ${!wideMenuIsOpen && "menu-collapsed"}
         `}
-        
+          aria-label={menuEntryDetails[menuEntryKey].title}
           onClick={() => onClickHandler(menuEntryDetails[menuEntryKey].type)} key={`wide-${menuEntryDetails[menuEntryKey].title}`}
         >
           <IonIcon aria-label={menuEntryDetails[menuEntryKey].title} icon={menuEntryDetails[menuEntryKey].iosIcon} className={!wideMenuIsOpen || (menuEntryDetails[menuEntryKey].modeName === currentMode || (currentMode === "movedetail" && menuEntryDetails[menuEntryKey].modeName === window.location.hash.split("/")[1])) ? "" : "dimmed-color"} />
           {wideMenuIsOpen && <span>{menuEntryDetails[menuEntryKey].title}</span>}
           <IonRippleEffect/>
-        </div>
+        </button>
         {((!isPlatform("capacitor") && menuEntryDetails[menuEntryKey].modeName === "settings") || menuEntryDetails[menuEntryKey].modeName === "bookmarks") && <hr />}
       </div>
     );

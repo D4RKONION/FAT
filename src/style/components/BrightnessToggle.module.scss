@@ -1,5 +1,5 @@
 .brightnessToggle {
-  padding-right: 16px;
+  margin-right: 16px;
 
 	&[checked=false]::part(handle) {
 		border-radius: 0;
@@ -13,5 +13,11 @@
 		box-shadow: none;
 		background: url(../../images/icons/dark.png);
 		background-size: cover;
+		
+	}
+	
+	&:focus {
+		outline: 2px solid white;
+		border-radius: 10px;
 	}
 }
