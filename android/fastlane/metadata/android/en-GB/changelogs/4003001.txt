@@ -1,0 +1,14 @@
+Ver 4.3.1
+
+Hotfix
+- Fixed a bug where the frame meter was showing one too many startup frames
+
+Frame Meters!
+- Dynamically generated Frame Meters now display on the Move Detail screen for all moves
+
+Edge to edge improvements
+- Android finally receives the edge to edge treatment it deserves
+- iOS gets many tweaks to it's edge to edge look
+
+Bug Fixes
+- Fixed a bug where stat compare screen wasn't working with older games

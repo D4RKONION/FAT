@@ -35,7 +35,7 @@ const WhatsNewModal = () => {
           <h6>{APP_DATE_UPDATED}</h6>
           {Object.keys(VERSION_LOGS[APP_CURRENT_VERSION_NAME]).map(heading =>
             <div key={heading}>
-              <h5 className={heading.includes("Bug Fixes") ? "bug" : "feature"}>{heading}</h5>
+              <h5 className={heading.includes("Bug Fixes") || heading.includes("Hotfix") ? "bug" : "feature"}>{heading}</h5>
               <ul>
                 {VERSION_LOGS[APP_CURRENT_VERSION_NAME][heading].map((newThing, index) =>
                   <li key={heading+index}>

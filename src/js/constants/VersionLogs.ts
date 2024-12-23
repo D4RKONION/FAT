@@ -1,6 +1,6 @@
-export const APP_CURRENT_VERSION_NAME = "4.3.0";
-export const APP_CURRENT_VERSION_CODE = 40300;
-export const APP_DATE_UPDATED = "Dec 18 2024"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "4.3.1";
+export const APP_CURRENT_VERSION_CODE = 40301;
+export const APP_DATE_UPDATED = "Dec 23 2024"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"];
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"];
@@ -14,12 +14,29 @@ export const UPDATABLE_GAMES_APP_CODES = {
     GameDetails: 7,
   },
   SF6: {
-    FrameData: 44,
+    FrameData: 45,
     GameDetails: 9,
   },
 };
 
 export const VERSION_LOGS = {
+  "4.3.1": {
+    Hotfix: [
+      "Fixed a bug where the frame meter was showing one too many startup frames",
+    ],
+    "Frame Meters!": [
+      "Dynamically generated Frame Meters now display on the Move Detail screen for all moves",
+      "It's possible you might find a few edge cases where this doesn't work as intended. If so please let me know!",
+    ],
+    "Edge to edge improvements": [
+      "Android finally receives the edge to edge treatment it deserves",
+      "iOS gets many tweaks to it's edge to edge look",
+      "If you find something hard to access above or below the screen, please let me know!",
+    ],
+    "Bug Fixes": [
+      "Fixed a bug where stat compare screen wasn't working with older games",
+    ],
+  },
   "4.3.0": {
     "Frame Meters!": [
       "Dynamically generated Frame Meters now display on the Move Detail screen for all moves",
