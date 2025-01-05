@@ -138,7 +138,7 @@ const App = () => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  
+
   useEffect(() => {
     if (isPlatform("capacitor") && CdvPurchase.store.when().productUpdated) {
       // Awesome Cordova Plugins has not updated it's iap wrapper, so we have to import the entire store
@@ -171,7 +171,12 @@ const App = () => {
       iapStore.when().approved(transaction => {
         transaction.finish();
         transaction.products.forEach(purchase => {
-          if (iapStore.owned(purchase)) {
+          if (
+            iapStore.owned(purchase)
+            // Ensure the purchased product is one that actually unlocks Premium. This is needed
+            // because on iOS, the app itself (com.fullmeter.fat) is returned as an owned product.
+            && productList.find(product => product.id === purchase.id)
+          ) {
             dispatch(purchaseLifetimePremium());
           }
         });
