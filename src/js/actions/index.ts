@@ -14,7 +14,7 @@ import AppSFVGameDetails from "../constants/gamedetails/SFVGameDetails.json";
 import USF4GameDetails from "../constants/gamedetails/USF4GameDetails.json";
 import { UPDATABLE_GAMES, UPDATABLE_GAMES_APP_CODES } from "../constants/VersionLogs";
 import { RootState } from "../reducers";
-import type { AdviceToastPrevRead, AppModal, NormalNotationType, GameName, InputNotationType, MoveNameType, Orientation, PlayerData, PlayerId, ThemeBrightness, ThemeColor, VtState, ThemeAccessibility, TableType, MoveAdvantageIndicator, Bookmark, CharacterSelectLayout, FrameMeterLayout } from "../types";
+import type { AdviceToastPrevRead, AppModal, NormalNotationType, GameName, InputNotationType, MoveNameType, Orientation, PlayerData, PlayerId, ThemeBrightness, ThemeColor, VtState, ThemeAccessibility, TableType, MoveAdvantageIndicator, Bookmark, CharacterSelectLayout, FrameMeterLayout, SubheaderStatsCollapsed } from "../types";
 import { helpCreateFrameDataJSON } from "../utils";
 
 // ACTION CREATORS
@@ -274,6 +274,11 @@ export const setCharacterSelectLayout = (characterSelectLayout: CharacterSelectL
 export const setFrameMeterLayout = (frameMeterLayout: FrameMeterLayout) => ({
   type: "SET_FRAME_METER_LAYOUT",
   frameMeterLayout,
+});
+
+export const setSubheaderStatsCollapsed = (subheaderStatsCollapsed: SubheaderStatsCollapsed) => ({
+  type: "SET_SUBHEADER_STATS_COLLAPSED",
+  subheaderStatsCollapsed,
 });
 
 export const purchaseLifetimePremium = () => ({

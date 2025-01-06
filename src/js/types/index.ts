@@ -33,6 +33,8 @@ export type CharacterSelectLayout = "largePortraits" | "smallPortraits" | "simpl
 
 export type FrameMeterLayout = "wrap" | "nowrap";
 
+export type SubheaderStatsCollapsed = boolean;
+
 export type Bookmark = {
   modeName: "framedata" | "moveslist" | "combos" | "movedetail",
   gameName: GameName,

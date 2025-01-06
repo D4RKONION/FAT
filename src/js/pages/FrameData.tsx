@@ -14,7 +14,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import { setActiveFrameDataPlayer, setModalVisibility, setPlayerAttr, setDataTableColumns, addBookmark, removeBookmark } from "../actions";
+import { setActiveFrameDataPlayer, setModalVisibility, setPlayerAttr, setDataTableColumns, addBookmark, removeBookmark, setSubheaderStatsCollapsed } from "../actions";
 import AdviceToast from "../components/AdviceToast";
 import BookmarkToast from "../components/BookmarkToast";
 import DataTable from "../components/DataTable";
@@ -23,7 +23,7 @@ import LandscapeOptions from "../components/LandscapeOptions";
 import PopoverButton from "../components/PopoverButton";
 import SegmentSwitcher from "../components/SegmentSwitcher";
 import { APP_CURRENT_VERSION_CODE } from "../constants/VersionLogs";
-import { activeGameSelector, activePlayerSelector, bookmarksSelector, dataDisplaySettingsSelector, dataTableSettingsSelector, frameDataSelector, gameDetailsSelector, modalVisibilitySelector, premiumSelector, selectedCharactersSelector } from "../selectors";
+import { activeGameSelector, activePlayerSelector, appDisplaySettingsSelector, bookmarksSelector, dataDisplaySettingsSelector, dataTableSettingsSelector, frameDataSelector, gameDetailsSelector, modalVisibilitySelector, premiumSelector, selectedCharactersSelector } from "../selectors";
 import { FrameDataSlug } from "../types";
 import { handleNewCharacterLandscapeCols } from "../utils/landscapecols";
 import { createSegmentSwitcherObject } from "../utils/segmentSwitcherObject";
@@ -37,6 +37,7 @@ const FrameData = () => {
   const autoSetCharacterSpecificColumnsOn = useSelector(dataTableSettingsSelector).autoSetCharacterSpecificColumnsOn;
   const gameDetails = useSelector(gameDetailsSelector);
   const dataDisplaySettings = useSelector(dataDisplaySettingsSelector);
+  const subheaderStatsCollapsed = useSelector(appDisplaySettingsSelector).subheaderStatsCollapsed;
   const xScrollEnabled = useSelector(dataTableSettingsSelector).tableType === "scrolling";
   const frameData = useSelector(frameDataSelector);
 
@@ -62,8 +63,6 @@ const FrameData = () => {
 
   const [bookmarkToastVisible, setBookmarkToastVisible] = useState(false);
   const [bookmarkToastMessage, setBookmarkToastMessage] = useState("");
-
-  const [statsCollapsed, setStatsCollapsed]= useState(true);
 
   useEffect(() => {
     dispatch(setDataTableColumns(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters["playerOne"].name, slugs.characterSlug, autoSetCharacterSpecificColumnsOn, dataTableColumns)));
@@ -203,7 +202,7 @@ const FrameData = () => {
 
       <IonContent className={xScrollEnabled ? "xScroll" : "fixed"} ref={contentRef} scrollEvents={true} onIonScroll={handleScroll}>
 
-        <Swiper pagination={true} modules={[Pagination]} loop={true} className={statsCollapsed && "collapsed"}>
+        <Swiper pagination={true} modules={[Pagination]} loop={true} className={subheaderStatsCollapsed && "collapsed"}>
           {Object.keys(gameDetails.statsPoints).filter(dataSection =>
             gameDetails.statsPoints[dataSection].some(dataRow =>
               Object.keys(dataRow).some(dataKey => selectedCharacters[activePlayer].stats[dataKey] !== undefined)
@@ -246,7 +245,7 @@ const FrameData = () => {
             </div>
           </SwiperSlide>
 
-          <button onClick={() => setStatsCollapsed(!statsCollapsed)} className="swiper-toggle"><span className="label">Show stats</span> <IonIcon size="icon-only" icon={statsCollapsed ? chevronDown : chevronUp} /></button>
+          <button onClick={() => dispatch(setSubheaderStatsCollapsed(!subheaderStatsCollapsed))} className="swiper-toggle"><span className="label">Show stats</span> <IonIcon size="icon-only" icon={subheaderStatsCollapsed ? chevronDown : chevronUp} /></button>
         </Swiper>
         <div className={`hideOnWideScreen segments ${!isPlatform("ios") && "md"}`} style={{flexDirection: "column"}}>
           <SegmentSwitcher
