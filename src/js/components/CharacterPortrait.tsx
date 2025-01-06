@@ -49,7 +49,7 @@ const CharacterPortrait = ( {className, charName, charThreeLetterCode, game, sel
         }
       />
       {showName &&
-        <h2 className={`${className} ${selected ? "selected" : "not-selected"}`}>{charThreeLetterCode ? charThreeLetterCode : charName}</h2>
+        <h2 className={`${className} ${selected ? "selected" : "not-selected"}`} aria-hidden="true">{charThreeLetterCode ? charThreeLetterCode : charName}</h2>
       }
     </div>
   );

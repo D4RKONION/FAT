@@ -171,18 +171,38 @@ const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displ
     }
   };
 
+  const handleRowAction = (event: React.MouseEvent<HTMLTableRowElement> | React.KeyboardEvent<HTMLTableRowElement>) => {
+    if (event.type === "keydown") {
+      const keyboardEvent = event as React.KeyboardEvent<HTMLTableRowElement>;
+      if (keyboardEvent.key !== "Enter" && keyboardEvent.key !== " ") {
+        return;
+      }
+      if (keyboardEvent.key === " ") {
+        keyboardEvent.preventDefault();
+      }
+    }
+
+    if (sample) return;
+    dispatch(
+      setPlayerAttr(
+        activePlayer,
+        selectedCharacters[activePlayer].name,
+        { selectedMove: moveName }
+      )
+    );
+    history.push(
+      `/movedetail/${activeGame}/${selectedCharacters[activePlayer].name}/${selectedCharacters[activePlayer].vtState}/${selectedCharacters[activePlayer].frameData[moveName]["moveName"]}`
+    );
+  };
+
   return (
-    <tr onClick={() => {
-      if (sample) return false;
-      dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, { selectedMove: moveName }));
-      history.push(`/movedetail/${activeGame}/${selectedCharacters[activePlayer].name}/${selectedCharacters[activePlayer].vtState}/${selectedCharacters[activePlayer].frameData[moveName]["moveName"]}`);
-    }} className={`DataTableRow ${xScrollEnabled ? "xScroll" : "fixed"}`}>
+    <tr tabIndex={0} onClick={handleRowAction} onKeyDown={handleRowAction} className={`DataTableRow ${xScrollEnabled ? "xScroll" : "fixed"}`}>
       <td className={`cell move-name ${generateClassNames("moveName", getMoveName(moveName)).map(className => `${className}`).join(" ")}`}>{getMoveName(moveName)}</td>
       {Object.keys(colsToDisplay).map(detailKey => {
         // we first parse and modify out cell data as advantage can change
         const cellDataToDisplay = addPlusToAdvantageMoves(detailKey, parseCellData(detailKey));
         return (
-          <td className={`cell ${generateClassNames(detailKey, cellDataToDisplay).map(className => className).join(" ")} ${compactViewOn && "compact"}`}
+          <td aria-label={`${getMoveName(moveName)} ${detailKey}: ${cellDataToDisplay}`} className={`cell ${generateClassNames(detailKey, cellDataToDisplay).map(className => className).join(" ")} ${compactViewOn && "compact"}`}
             key={`cell-entry-${detailKey}`}
           >
             {cellDataToDisplay}

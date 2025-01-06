@@ -240,7 +240,7 @@ const Menu = () => {
               <p onClick={() => {history.push("/settings/versionlogs"); menuRef.current.close(); }}>Ver {APP_CURRENT_VERSION_NAME}</p>
             </div>
             <div className="quick-set-bar">
-              <div id="quick-set-game" className="quick-set-section ion-activatable" onClick={() => setShowGameNamePopover(true)}>
+              <div id="quick-set-game" className="quick-set-section ion-activatable" onClick={() => setShowGameNamePopover(true)} tabIndex={0} role="button" aria-label="Set Game">
                 <IonIcon icon={gameControllerOutline} /> {activeGame}
                 <IonPopover
                   className="quick-set-game"
@@ -258,6 +258,7 @@ const Menu = () => {
                           style={{"--background": activeGame === gameName && "var(--fat-primary-tint-step-800)"}}
                           key={`switcher-${gameName}-option`}
                           lines="none"
+                          button
                           onClick={() => {
                             dispatch(setActiveGame(gameName, true));
                             if (modeName === "framedata" || modeName === "moveslist" || modeName === "combos") {
@@ -272,7 +273,7 @@ const Menu = () => {
                 </IonPopover>
                 <IonRippleEffect></IonRippleEffect>
               </div>
-              <div className="quick-set-section ion-activatable" onClick={() => {modeName !== "movedetail" && dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true })); menuRef.current.close();}}>
+              <div className="quick-set-section ion-activatable" onClick={() => {modeName !== "movedetail" && dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true })); menuRef.current.close();}} tabIndex={0} role="button" aria-label="Set Character">
                 <IonIcon icon={peopleOutline} />{selectedCharacters[activePlayer].name}
                 <IonRippleEffect></IonRippleEffect>
               </div>

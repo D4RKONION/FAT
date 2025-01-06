@@ -12,6 +12,15 @@
   &:hover > .cell {
     border-bottom: solid 3px var(--fat-datatable-hover-border)
   }
+  &:focus {
+    outline: 2px solid var(--fat-primary-shade-step-100);
+    & > .cell {
+      background-color: var(--fat-primary-tint-step-800);
+      border-bottom: solid 2px var(--fat-primary-shade-step-100);
+    }
+  }
+  
+  
 
   .cell {
     text-align: center;
