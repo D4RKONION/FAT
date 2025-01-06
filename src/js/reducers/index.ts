@@ -35,7 +35,7 @@ const rootReducer = combineReducers({
   selectedCharactersState: selectedCharactersReducer,
   dataDisplaySettingsState: dataDisplaySettingsReducer,
   appDisplaySettingsState: appDisplaySettingsReducer,
-  premiumState: premiumReducer,
+  premium: premiumReducer,
   dataTableSettingsState: dataTableSettingsReducer,
   advantageModifiersState: advantageModifiersReducer,
   adviceToastState: persistReducer(adviceToastPersistConfig, adviceToastReducer),
