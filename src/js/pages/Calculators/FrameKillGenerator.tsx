@@ -1,4 +1,4 @@
-import { IonContent, IonPage, IonItem, IonLabel, IonIcon, IonFab, IonFabButton, IonList, IonSelect, IonSelectOption, IonListHeader, IonItemDivider, IonItemGroup, IonGrid, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle } from "@ionic/react";
+import { IonContent, IonPage, IonItem, IonLabel, IonIcon, IonFab, IonFabButton, IonList, IonSelect, IonSelectOption, IonListHeader, IonItemDivider, IonItemGroup, IonGrid, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonInput } from "@ionic/react";
 import { useState, useMemo, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -53,6 +53,7 @@ const FrameKillGenerator = () => {
 
   const [recoveryType, setRecoveryType] = useState(Object.keys(GAME_KNOCKDOWN_LABELS[activeGame])[0]);
   const [knockdownMove, setKnockdownMove] = useState(null);
+  const [customKDA, setCustomKDA] = useState(0);
   const [lateByFrames, setLateByFrames] = useState(0);
   const [specificSetupMove, setSpecificSetupMove] = useState("anything");
   const [targetMeaty, setTargetMeaty] = useState(null);
@@ -76,11 +77,12 @@ const FrameKillGenerator = () => {
 
   useEffect(() => {
     setRecoveryType(Object.keys(GAME_KNOCKDOWN_LABELS[activeGame])[0]);
+    setSpecificSetupMove("anything");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeGame]);
 
   useMemo(() => {
-    if (typeof knockdownMove === "string" && typeof targetMeaty === "string" && typeof playerOneMoves[knockdownMove] !== "undefined" && typeof playerOneMoves[targetMeaty] !== "undefined") {
+    if (typeof knockdownMove === "string" && typeof targetMeaty === "string" && (typeof playerOneMoves[knockdownMove] !== "undefined" || knockdownMove === "Custom KDA") && typeof playerOneMoves[targetMeaty] !== "undefined") {
       // https://stackoverflow.com/questions/12487422/take-a-value-1-31-and-convert-it-to-ordinal-date-w-javascript
       // This allows us to quickly create ordinal strings using active frame numbers
       const getOrdinal = (n) => {
@@ -95,7 +97,10 @@ const FrameKillGenerator = () => {
       // Set up the number of frames the opponent is knocked down for. We add plus 1 because that is the frame the opponent is vunerable again
       let knockdownFrames;
       let coverBothKDs;
-      if (recoveryType === "both") {
+      console.log(knockdownMove);
+      if (knockdownMove === "Custom KDA") {
+        knockdownFrames = customKDA + 1;
+      } else if (recoveryType === "both") {
         knockdownFrames = playerOneMoves[knockdownMove]["kdr"] + 1;
         coverBothKDs = true;
       } else if (activeGame === "SFV") {
@@ -113,6 +118,13 @@ const FrameKillGenerator = () => {
         startup: 1,
         active: 0,
         recovery: parseInt(selectedCharacters.playerOne.stats.fDash as string),
+      };
+
+      // Put Drive Rush into the data model as a possible setup move if the game is SF6. We will remove this at the end
+      playerOneMoves["Drive Rush >"] = {
+        startup: 11,
+        active: 0,
+        recovery: 0,
       };
 
       // If a specific move is required in the setup, make that the only option in firstokimove
@@ -181,7 +193,7 @@ const FrameKillGenerator = () => {
                 playerOneMoves[secondOkiMove].multiActive = multiActiveGenerator(playerOneMoves[secondOkiMove]);
               }
 
-              if (((typeof playerOneMoves[secondOkiMove]["startup"] === "number" && typeof playerOneMoves[secondOkiMove]["active"] === "number") || playerOneMoves[secondOkiMove]["multiActive"]) && typeof playerOneMoves[secondOkiMove]["recovery"] === "number" && playerOneMoves[secondOkiMove]["followUp"] !== true && playerOneMoves[secondOkiMove]["moveType"] !== "alpha" && playerOneMoves[secondOkiMove]["moveType"] !== "super" && !playerOneMoves[secondOkiMove]["airmove"]) {
+              if (((typeof playerOneMoves[secondOkiMove]["startup"] === "number" && typeof playerOneMoves[secondOkiMove]["active"] === "number") || playerOneMoves[secondOkiMove]["multiActive"]) && typeof playerOneMoves[secondOkiMove]["recovery"] === "number" && playerOneMoves[secondOkiMove]["followUp"] !== true && playerOneMoves[secondOkiMove]["moveType"] !== "alpha" && playerOneMoves[secondOkiMove]["moveType"] !== "super" && !playerOneMoves[secondOkiMove]["airmove"] && !(firstOkiMove === "Drive Rush >" && secondOkiMove === "Drive Rush >" )) {
                 let secondOkiMoveTotalFrames;
                 if (playerOneMoves[secondOkiMove]["multiActive"]) {
                   secondOkiMoveTotalFrames = playerOneMoves[secondOkiMove]["multiActive"][(playerOneMoves[secondOkiMove]["multiActive"].length -1)] + playerOneMoves[secondOkiMove]["recovery"];
@@ -214,7 +226,7 @@ const FrameKillGenerator = () => {
                     playerOneMoves[thirdOkiMove].multiActive = multiActiveGenerator(playerOneMoves[thirdOkiMove]);
                   }
 
-                  if (((typeof playerOneMoves[thirdOkiMove]["startup"] === "number" && typeof playerOneMoves[thirdOkiMove]["active"] === "number") || playerOneMoves[thirdOkiMove]["multiActive"]) && typeof playerOneMoves[thirdOkiMove]["recovery"] === "number" && playerOneMoves[thirdOkiMove]["followUp"] !== true && playerOneMoves[thirdOkiMove]["moveType"] !== "alpha" && playerOneMoves[thirdOkiMove]["moveType"] !== "super" && !playerOneMoves[thirdOkiMove]["airmove"]) {
+                  if (((typeof playerOneMoves[thirdOkiMove]["startup"] === "number" && typeof playerOneMoves[thirdOkiMove]["active"] === "number") || playerOneMoves[thirdOkiMove]["multiActive"]) && typeof playerOneMoves[thirdOkiMove]["recovery"] === "number" && playerOneMoves[thirdOkiMove]["followUp"] !== true && playerOneMoves[thirdOkiMove]["moveType"] !== "alpha" && playerOneMoves[thirdOkiMove]["moveType"] !== "super" && !playerOneMoves[thirdOkiMove]["airmove"] && !(firstOkiMove === "Drive Rush >" && secondOkiMove === "Drive Rush >" && thirdOkiMove === "Drive Rush >" )) {
                     let thirdOkiMoveTotalFrames;
                     if (playerOneMoves[thirdOkiMove]["multiActive"]) {
                       thirdOkiMoveTotalFrames = playerOneMoves[thirdOkiMove]["multiActive"][(playerOneMoves[thirdOkiMove]["multiActive"].length -1)] + playerOneMoves[thirdOkiMove]["recovery"];
@@ -288,7 +300,7 @@ const FrameKillGenerator = () => {
             // Then we do a late meaty search. Late meaties are only ever going to happen on the first active frame, so
             //we don't need to loop this time
             currentActiveFrame = 1;
-            targetMeatyFrames = parseInt(playerOneMoves[targetMeaty]["startup"]);
+            targetMeatyFrames = parseInt(playerOneMoves[targetMeaty]["startup"] as unknown as string);
             moveSetLoop(currentLateByFramesSearch, targetMeatyFrames);
           }
         }
@@ -321,7 +333,7 @@ const FrameKillGenerator = () => {
               // Then we do a late meaty search. Late meaties are only ever going to happen on the first active frame, so
               //we don't need to loop this time
               currentActiveFrame = 1;
-              targetMeatyFrames = parseInt(playerOneMoves[targetMeaty]["startup"]);
+              targetMeatyFrames = parseInt(playerOneMoves[targetMeaty]["startup"] as unknown as string);
               moveSetLoop(currentLateByFramesSearch, targetMeatyFrames);
             }
           }
@@ -393,6 +405,7 @@ const FrameKillGenerator = () => {
 
       // Remove the character's forward dash from the move model, so it doesn't show up elsewhere
       delete playerOneMoves["Forward Dash"];
+      delete playerOneMoves["Drive Rush >"];
       if (Object.keys(processedResults).length !== 0) {
         setOkiResults(processedResults);
       } else {
@@ -400,7 +413,7 @@ const FrameKillGenerator = () => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[recoveryType, knockdownMove, lateByFrames, specificSetupMove, targetMeaty, playerOneMoves, selectedCharacters.playerOne.stats.fDash]);
+  },[recoveryType, knockdownMove, lateByFrames, specificSetupMove, targetMeaty, playerOneMoves, selectedCharacters.playerOne.stats.fDash, customKDA]);
 
   if (Object.keys(GAME_KNOCKDOWN_LABELS[activeGame])[0] === "disabled") {
     return (
@@ -463,7 +476,8 @@ const FrameKillGenerator = () => {
               cancelText="Cancel"
               onIonChange={e => setKnockdownMove(e.detail.value)}
             >
-              <IonSelectOption key="knockdownMove-select" value={null}>Select a move</IonSelectOption>
+              <IonSelectOption value={null}>Select a move</IonSelectOption>
+              <IonSelectOption value={"Custom KDA"}>Custom KDA</IonSelectOption>
               {Object.keys(playerOneMoves).filter(move =>
                 activeGame === "SFV" ?
                   playerOneMoves[move].kd || playerOneMoves[move].kdr || playerOneMoves[move].kdrb
@@ -476,6 +490,14 @@ const FrameKillGenerator = () => {
               }
             </IonSelect>
           </IonItem>
+          
+          {knockdownMove === "Custom KDA" &&
+            <IonItem>
+              <IonLabel position="fixed">Custom KDA</IonLabel>
+              <IonInput style={{textAlign: "end"}} slot="end" type="number" value={customKDA} placeholder="Enter Number" onIonInput={e => setCustomKDA(!!parseInt(e.detail.value) && parseInt(e.detail.value))}></IonInput>
+            </IonItem>
+          }
+          
 
           <IonItem lines="full">
             <IonSelect
@@ -504,8 +526,9 @@ const FrameKillGenerator = () => {
               cancelText="Cancel"
               onIonChange={e => setSpecificSetupMove(e.detail.value)}
             >
-              <IonSelectOption key="specificSetupMove-anything" value={"anything"}>Anything</IonSelectOption>
-              <IonSelectOption key="specificSetupMove-forward-dash" value={"Forward Dash"}>Forward Dash</IonSelectOption>
+              <IonSelectOption value={"anything"}>Anything</IonSelectOption>
+              <IonSelectOption value={"Forward Dash"}>Forward Dash</IonSelectOption>
+              <IonSelectOption value={"Drive Rush >"}>{`Drive Rush >`}</IonSelectOption>
               {Object.keys(playerOneMoves).filter(move =>
                 (
                   (typeof playerOneMoves[move].startup === "number" &&
@@ -544,7 +567,7 @@ const FrameKillGenerator = () => {
             </IonSelect>
           </IonItem>
 
-          {playerOneMoves[knockdownMove] && playerOneMoves[targetMeaty] &&
+          {(playerOneMoves[knockdownMove] || knockdownMove === "Custom KDA") && playerOneMoves[targetMeaty] &&
             <IonItem lines="full" className="selected-move-info">
               <IonLabel>
                 <h3>Knockdown with</h3>
@@ -555,7 +578,7 @@ const FrameKillGenerator = () => {
                       <p>KD Advantage (Q): <strong>{playerOneMoves[knockdownMove]["kdr"]}</strong></p>
                       <p>KD Advantage (B): <strong>{playerOneMoves[knockdownMove]["kdrb"]}</strong></p>
                     </>
-                    : <p>KD Advantage: <strong>{playerOneMoves[knockdownMove][recoveryType] || playerOneMoves[knockdownMove].onHit.split("KD +").at(-1)}</strong></p>
+                    : <p>KD Advantage: <strong>{knockdownMove === "Custom KDA" ? customKDA : playerOneMoves[knockdownMove][recoveryType] || playerOneMoves[knockdownMove].onHit.split("KD +").at(-1)}</strong></p>
                   }
                 </>
 
