@@ -1,4 +1,4 @@
-import { IonButton, IonButtons, IonContent, IonGrid, IonHeader, IonModal, IonTitle, IonToolbar } from "@ionic/react";
+import { IonButton, IonButtons, IonContent, IonGrid, IonHeader, IonModal, IonTitle, IonToolbar, isPlatform } from "@ionic/react";
 import { useSelector, useDispatch } from "react-redux";
 
 import "../../style/components/WhatsNew.scss";
@@ -34,16 +34,22 @@ const WhatsNewModal = () => {
           </h3>
           <h6>{APP_DATE_UPDATED}</h6>
           {Object.keys(VERSION_LOGS[APP_CURRENT_VERSION_NAME]).map(heading =>
-            <div key={heading}>
-              <h5 className={heading.includes("Bug Fixes") || heading.includes("Hotfix") ? "bug" : "feature"}>{heading}</h5>
-              <ul>
-                {VERSION_LOGS[APP_CURRENT_VERSION_NAME][heading].map((newThing, index) =>
-                  <li key={heading+index}>
-                    {newThing}
-                  </li>
-                )}
-              </ul>
-            </div>
+            (!isPlatform("ios") && heading.toLowerCase().includes("ios")) || (!isPlatform("android") && heading.toLowerCase().includes("android")) ?
+              false
+              : (
+                <div key={heading}>
+                  <h5 className={heading.includes("Bug Fixes") || heading.includes("Hotfix") ? "bug" : "feature"}>{heading}</h5>
+                  <ul>
+                    {VERSION_LOGS[APP_CURRENT_VERSION_NAME][heading].map((newThing, index) =>
+                      !(!isPlatform("ios") && newThing.toLowerCase().startsWith("ios") || !isPlatform("android") && newThing.toLowerCase().startsWith("android")) &&
+                      <li key={heading+index}>
+                        {newThing}
+                      </li>
+                      
+                    )}
+                  </ul>
+                </div>
+              )
           )}
           <ChunkyButton
             onClick={() => window.open("https://bsky.app/profile/d4rkonion.bsky.social", "_blank")}>Follow me on Bluesky!</ChunkyButton>
