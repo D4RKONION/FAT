@@ -10,12 +10,47 @@
     background-color: var(--ion-toolbar-background);
     --swiper-theme-color: var(--fat-bullet-color);
     --swiper-pagination-bullet-inactive-color: var(--fat-bullet-inactive-color);
+
+    //Collapse stuff
+    transition: max-height 0.3s ease-in-out;
+    max-height: 152px;
+    &.collapsed {
+      max-height: 17px;
+      .swiper-wrapper > .swiper-slide {
+        opacity: 0;
+      }
+      .swiper-toggle {
+        bottom: 4px;
+        .label {
+          opacity: 1;
+        }
+      }
+    }
     .swiper-pagination {
       position: initial;
+    }
+    .swiper-toggle {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      right: 8px;
+      bottom: 8px;
+      font-size: 11px;
+      z-index: 2;
+      ion-icon {
+        font-size: 18px;
+      }
+      .label {
+        transition: opacity 0.3s ease-in-out;
+        opacity: 0;
+      }
     }
     padding: 0 0 7px;
     .swiper-wrapper {
       .swiper-slide {
+        transition: opacity 0.2s ease-in-out;
+        opacity: 1;
         padding: 1px 0 6px;
         height: auto;
         display: flex;
@@ -24,6 +59,9 @@
 
         .slide-card {
           // border: 1px solid var(--fat-surface-border);
+          &.collapsed {
+            opacity: 0;
+          }
           border-radius: 7px;
           width: 90%;
           min-width: 340px;

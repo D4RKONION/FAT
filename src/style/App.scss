@@ -4,6 +4,9 @@
 .ios {
   --header-height: 44px;
 }
+button {
+  background: none;
+}
 
 ion-header {
   &.header-ios {

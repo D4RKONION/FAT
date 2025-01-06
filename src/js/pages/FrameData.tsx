@@ -4,7 +4,7 @@ import "../../style/components/DetailCards.scss";
 import { Preferences } from "@capacitor/preferences";
 import { IonContent, IonPage, IonIcon, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonSearchbar, IonButton, IonTitle, IonFab, IonFabButton, ScrollDetail, IonCard, IonCardHeader, IonCardTitle, IonCardContent } from "@ionic/react";
 import { isPlatform } from "@ionic/react";
-import { backspaceOutline, bookmarkOutline, bookmarkSharp, bookmarksSharp, closeOutline, informationCircleOutline, searchSharp } from "ionicons/icons";
+import { backspaceOutline, bookmarkOutline, bookmarkSharp, bookmarksSharp, chevronDown, chevronUp, closeOutline, informationCircleOutline, searchSharp } from "ionicons/icons";
 import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router";
@@ -62,6 +62,8 @@ const FrameData = () => {
 
   const [bookmarkToastVisible, setBookmarkToastVisible] = useState(false);
   const [bookmarkToastMessage, setBookmarkToastMessage] = useState("");
+
+  const [statsCollapsed, setStatsCollapsed]= useState(true);
 
   useEffect(() => {
     dispatch(setDataTableColumns(handleNewCharacterLandscapeCols(gameDetails, selectedCharacters["playerOne"].name, slugs.characterSlug, autoSetCharacterSpecificColumnsOn, dataTableColumns)));
@@ -201,7 +203,7 @@ const FrameData = () => {
 
       <IonContent className={xScrollEnabled ? "xScroll" : "fixed"} ref={contentRef} scrollEvents={true} onIonScroll={handleScroll}>
 
-        <Swiper pagination={true} modules={[Pagination]} loop={true}>
+        <Swiper pagination={true} modules={[Pagination]} loop={true} className={statsCollapsed && "collapsed"}>
           {Object.keys(gameDetails.statsPoints).filter(dataSection =>
             gameDetails.statsPoints[dataSection].some(dataRow =>
               Object.keys(dataRow).some(dataKey => selectedCharacters[activePlayer].stats[dataKey] !== undefined)
@@ -233,7 +235,7 @@ const FrameData = () => {
             );
           })}
           <SwiperSlide>
-            <div className="slide-card see-all-card" onClick={() => history.push(`/stats/${activeGame}/${selectedCharacters[activePlayer].name}`)}>
+            <div className="slide-card see-all-card " onClick={() => history.push(`/stats/${activeGame}/${selectedCharacters[activePlayer].name}`)}>
               <div className="row">
                 <div className="col">
                   <h4>See all stats</h4>
@@ -243,6 +245,8 @@ const FrameData = () => {
 
             </div>
           </SwiperSlide>
+
+          <button onClick={() => setStatsCollapsed(!statsCollapsed)} className="swiper-toggle"><span className="label">Show stats</span> <IonIcon size="icon-only" icon={statsCollapsed ? chevronDown : chevronUp} /></button>
         </Swiper>
         <div className={`hideOnWideScreen segments ${!isPlatform("ios") && "md"}`} style={{flexDirection: "column"}}>
           <SegmentSwitcher
