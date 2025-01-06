@@ -44,7 +44,7 @@ import { useEffect, useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Route } from "react-router-dom";
 
-import { setOrientation, setModalVisibility, setThemeBrightness, setActiveGame, setThemeColor, purchaseLifetimePremium } from "./js/actions";
+import { setOrientation, setModalVisibility, setThemeBrightness, setActiveGame, setThemeColor, purchaseLifetimePremium, setAppOpenCount } from "./js/actions";
 import Menu from "./js/components/Menu";
 import { APP_CURRENT_VERSION_CODE, APP_DATE_UPDATED, UPDATABLE_GAMES, TYPES_OF_UPDATES, UPDATABLE_GAMES_APP_CODES } from "./js/constants/VersionLogs";
 import CalculatorMenu from "./js/pages/CalculatorMenu";
@@ -69,7 +69,7 @@ import Settings from "./js/pages/Settings";
 import Shoutouts from "./js/pages/Shoutouts";
 import StatCompare from "./js/pages/StatCompare";
 import VersionLogs from "./js/pages/VersionLogs";
-import { activeGameSelector, appDisplaySettingsSelector } from "./js/selectors";
+import { activeGameSelector, appDisplaySettingsSelector, modalVisibilitySelector, premiumSelector } from "./js/selectors";
 import { store } from "./js/store";
 
 const App = () => {
@@ -77,6 +77,8 @@ const App = () => {
   const themeAccessibility = useSelector(appDisplaySettingsSelector).themeAccessibility;
   const themeColor = useSelector(appDisplaySettingsSelector).themeColor;
   const activeGame = useSelector(activeGameSelector);
+  const premiumInfo = useSelector(premiumSelector);
+  const modalVisibility = useSelector(modalVisibilitySelector);
 
   const dispatch = useDispatch();
 
@@ -189,6 +191,15 @@ const App = () => {
     // Reset theme name if using old theme name
     if (["secondincommand", "deltagreen", "reddragon", "poisonouspink"].includes(themeColor)) {
       dispatch(setThemeColor("classic"));
+    }
+
+    // If the user has opened the app 2 weeks after first open FAT begins counting opens.
+    // After 5, 50, 150, 250, FAT will prompt the user to upgrade to premium
+    if (Capacitor.isNativePlatform() && !premiumInfo.lifetimePremiumPurchased && (new Date().getTime() - premiumInfo.appFirstOpened) > 1209600000 && !modalVisibility.visible) {
+      dispatch(setAppOpenCount(premiumInfo.appOpenCount + 1));
+      if (premiumInfo.appOpenCount === 5 || premiumInfo.appOpenCount === 50 || premiumInfo.appOpenCount === 150 || premiumInfo.appOpenCount === 250) {
+        dispatch(setModalVisibility({ currentModal: "premiumEncouragement", visible: true }));
+      }
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

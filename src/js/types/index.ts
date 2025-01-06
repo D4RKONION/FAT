@@ -3,7 +3,7 @@ import THEMES from "../constants/Themes";
 
 export type PlayerId = "playerOne" | "playerTwo";
 
-export type AppModal = "characterSelect" | "help" | "landscapeOptions" | "whatsNew" | "tableSettings" | "bookmarks";
+export type AppModal = "characterSelect" | "help" | "landscapeOptions" | "whatsNew" | "tableSettings" | "bookmarks" | "premiumEncouragement";
 
 export type MoveNameType = "official" | "common" | "inputs";
 

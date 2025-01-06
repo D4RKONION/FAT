@@ -287,6 +287,10 @@ export const purchaseLifetimePremium = () => ({
 export const resetPremium = () => ({
   type: "RESET_PREMIUM",
 });
+export const setAppOpenCount = (appOpenCount: number) => ({
+  type: "SET_APP_OPEN_COUNT",
+  appOpenCount,
+});
 
 //handle turning advice toast on and off
 export const setAdviceToastsOn = (adviceToastsOn: boolean) => ({

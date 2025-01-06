@@ -135,6 +135,39 @@ ion-modal.character-select-settings-modal {
 
 }
 
+ion-modal.premium-encouragement-modal {
+  --border-radius: 20px 20px 0 0;
+  --max-width: 535px;
+  --height: auto;
+  --backdrop-opacity: 0.7;
+  &::part(content) {
+    padding-bottom: 18px;
+  }
+
+  h2 {
+    color: var(--fat-header);
+    text-align: center;
+    padding: 8px 0 0;
+  }
+  p {
+    padding: 6px 15px 20px;
+    margin: 0;
+  }
+  .chunky-button {
+    // position: fixed;
+    // bottom: 20px;
+    // left: 10px;
+    // right: 10px;
+    width: 93%;
+    margin-bottom: 13px;
+  }
+  button {
+    color: var(--fat-surface-faded);
+    padding-bottom: max(var(--safe-area-inset-bottom), 5px);
+  }
+
+}
+
 ion-modal.premium-offer-modal {
   --border-radius: 20px 20px 0 0;
   --height: auto;

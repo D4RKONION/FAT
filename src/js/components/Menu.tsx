@@ -20,6 +20,7 @@ import { allCharacterLists } from "../constants/gamedetails/characterLists";
 import { GAME_NAMES } from "../constants/ImmutableGameDetails";
 import { APP_CURRENT_VERSION_NAME } from "../constants/VersionLogs";
 import { activeGameSelector, modeNameSelector, selectedCharactersSelector, appDisplaySettingsSelector, activePlayerSelector, premiumSelector } from "../selectors";
+import PremiumEncouragementModal from "./PremiumEncouragement";
 
 const Menu = () => {
   const themeBrightness = useSelector(appDisplaySettingsSelector).themeBrightness;
@@ -178,7 +179,6 @@ const Menu = () => {
       modeName: null,
       desktopOnly: true,
     },
-    
   ];
 
   const MENU_ENTRIES = [
@@ -345,6 +345,7 @@ const Menu = () => {
         <WhatsNewModal />
         <BookmarksModal />
         <TableSettings />
+        <PremiumEncouragementModal />
         
         <IonAlert
           isOpen={activeGameAlertOpen}
