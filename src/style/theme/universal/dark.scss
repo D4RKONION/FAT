@@ -112,13 +112,15 @@ ion-app.universal-dark-none, .themePreview.universal-dark-none {
   --fat-page-subheader-background: #1f1f1f;
   --fat-page-subheader-highlight: #ffffff20;
   --fat-page-subheader-contrast: #ffffff;
-  --fat-bullet-color: var(--fat-primary-tint-step-100);
-  --fat-bullet-inactive-color: #ffffff;
   
   // Frame Data Sub Header
   --fat-frame-data-sub-header-stats-bg: var(--fat-surface-tint);
   --fat-frame-data-sub-header-stats-contrast: #ffffff;
   --fat-frame-data-sub-header-stats-border: #ffffff40;
+  --fat-slider-card-bg: var(--fat-datatable-header-bg);
+  --fat-slider-card-border: #ffffff30;
+  --fat-bullet-color: var(--fat-primary-tint-step-100);
+  --fat-bullet-inactive-color: #ffffff;
   
   // Menu
   // --fat-menu-top: #0f4c75;
@@ -302,12 +304,15 @@ ion-app.universal-dark-colorBlind, .themePreview.universal-dark-colorBlind {
 
   // Page Subheader
   --fat-page-subheader-background: #1f1f1f;
+  // --fat-page-subheader-highlight: #ffffff20;
   --fat-page-subheader-contrast: #ffffff;
   
   // Frame Data Sub Header
   --fat-frame-data-sub-header-stats-bg: var(--fat-surface-tint);
   --fat-frame-data-sub-header-stats-contrast: #ffffff;
   --fat-frame-data-sub-header-stats-border: #ffffff40;
+  --fat-slider-card-bg: var(--fat-primary-shade-step-550);
+  --fat-slider-card-border: #ffffff30;
   --fat-bullet-color: var(--fat-primary-tint-step-100);
   --fat-bullet-inactive-color: #ffffff;
   
@@ -322,7 +327,7 @@ ion-app.universal-dark-colorBlind, .themePreview.universal-dark-colorBlind {
   // --fat-menu-selected-item-bg: #173346;
   // --fat-menu-selected-item-contrast: #87d2f6;
   --fat-menu-selected-item-ios: var(--fat-primary-shade-step-100);
-  --fat-menu-quick-set-background: var(--fat-primary-tint-step-900);
+  --fat-menu-quick-set-background: var(--fat-menu-top-lightswitch);
   --fat-menu-quick-set-contrast: var(--fat-surface-contrast);
   --fat-menu-quick-set-border: var(--fat-primary-shade-step-300);
 

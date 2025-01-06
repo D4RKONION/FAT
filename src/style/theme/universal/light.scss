@@ -110,6 +110,8 @@ ion-app.universal-light-none, .themePreview.universal-light-none {
   // --fat-frame-data-sub-header-stats-bg: #e4f1fa;
   // --fat-frame-data-sub-header-stats-contrast: #16527b;
   // --fat-frame-data-sub-header-stats-border: #00000040;
+  --fat-slider-card-bg: var(--fat-frame-data-sub-header-stats-bg);
+  --fat-slider-card-border: #00000030;
   --fat-bullet-color: var(--fat-primary-tint-step-900);
   --fat-bullet-inactive-color: #000000;
 
