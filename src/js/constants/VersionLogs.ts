@@ -1,6 +1,6 @@
-export const APP_CURRENT_VERSION_NAME = "4.3.1";
-export const APP_CURRENT_VERSION_CODE = 40301;
-export const APP_DATE_UPDATED = "Dec 23 2024"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "4.4.0";
+export const APP_CURRENT_VERSION_CODE = 40400;
+export const APP_DATE_UPDATED = "Jan 08 2024"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"];
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"];
@@ -20,6 +20,23 @@ export const UPDATABLE_GAMES_APP_CODES = {
 };
 
 export const VERSION_LOGS = {
+  "4.4.0": {
+    "Improved mobile stats header": [
+      "Added a collapsable, swipable stat header!",
+      "Swipe left and tap to see all stats at once",
+    ],
+    "Frame Kill Calculator": [
+      "Added Custom KDA option to allow labbing meaties after a juggle",
+      "FAT now checks if Drive Rush normals will work as meaties",
+    ],
+    "Accessibility improvements": [
+      "I've tried to make the app work better with Screen Announcers. Feedback very welcome",
+      "Tabbing improved on desktop",
+    ],
+    iOS: [
+      "Due to some Premium changes, you may have to restore previous purchases. Apologies for the inconvenience!",
+    ],
+  },
   "4.3.1": {
     Hotfix: [
       "Fixed a bug where the frame meter was showing one too many startup frames",

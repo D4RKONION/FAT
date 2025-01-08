@@ -1,0 +1,13 @@
+Ver 4.4.0
+
+Improved mobile stats header
+- Added a collapsable, swipable stat header!
+- Swipe left and tap to see all stats at once
+
+Frame Kill Calculator
+- Added Custom KDA option to allow labbing meaties after a juggle
+- FAT now checks if Drive Rush normals will work as meaties
+
+Accessibility improvements
+- I've tried to make the app work better with Screen Announcers. Feedback very welcome
+- Tabbing improved on desktop
