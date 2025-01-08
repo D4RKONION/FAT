@@ -110,7 +110,11 @@ const FrameKillGenerator = () => {
       }
 
       if (playerOneMoves[targetMeaty]["atkLvl"] === "T" ) {
-        knockdownFrames +=2;
+        if (activeGame === "SFV") {
+          knockdownFrames +=2;
+        } else if (activeGame === "SF6") {
+          knockdownFrames +=1;
+        }
       }
 
       // Put the character's forward dash into the data model as a possible setup move. We will remove this at the end
@@ -120,12 +124,15 @@ const FrameKillGenerator = () => {
         recovery: parseInt(selectedCharacters.playerOne.stats.fDash as string),
       };
 
-      // Put Drive Rush into the data model as a possible setup move if the game is SF6. We will remove this at the end
-      playerOneMoves["Drive Rush >"] = {
-        startup: 11,
-        active: 0,
-        recovery: 0,
-      };
+      if (activeGame === "SF6") {
+        // Put Drive Rush into the data model as a possible setup move if the game is SF6. We will remove this at the end
+        playerOneMoves["Drive Rush >"] = {
+          startup: 1,
+          active: 0,
+          recovery: 11,
+        };
+      }
+      
 
       // If a specific move is required in the setup, make that the only option in firstokimove
       let firstOkiMoveModel;
@@ -193,7 +200,7 @@ const FrameKillGenerator = () => {
                 playerOneMoves[secondOkiMove].multiActive = multiActiveGenerator(playerOneMoves[secondOkiMove]);
               }
 
-              if (((typeof playerOneMoves[secondOkiMove]["startup"] === "number" && typeof playerOneMoves[secondOkiMove]["active"] === "number") || playerOneMoves[secondOkiMove]["multiActive"]) && typeof playerOneMoves[secondOkiMove]["recovery"] === "number" && playerOneMoves[secondOkiMove]["followUp"] !== true && playerOneMoves[secondOkiMove]["moveType"] !== "alpha" && playerOneMoves[secondOkiMove]["moveType"] !== "super" && !playerOneMoves[secondOkiMove]["airmove"] && !(firstOkiMove === "Drive Rush >" && secondOkiMove === "Drive Rush >" )) {
+              if (((typeof playerOneMoves[secondOkiMove]["startup"] === "number" && typeof playerOneMoves[secondOkiMove]["active"] === "number") || playerOneMoves[secondOkiMove]["multiActive"]) && typeof playerOneMoves[secondOkiMove]["recovery"] === "number" && playerOneMoves[secondOkiMove]["followUp"] !== true && playerOneMoves[secondOkiMove]["moveType"] !== "alpha" && playerOneMoves[secondOkiMove]["moveType"] !== "super" && !playerOneMoves[secondOkiMove]["airmove"] && firstOkiMove !== "Drive Rush >") {
                 let secondOkiMoveTotalFrames;
                 if (playerOneMoves[secondOkiMove]["multiActive"]) {
                   secondOkiMoveTotalFrames = playerOneMoves[secondOkiMove]["multiActive"][(playerOneMoves[secondOkiMove]["multiActive"].length -1)] + playerOneMoves[secondOkiMove]["recovery"];
@@ -226,7 +233,7 @@ const FrameKillGenerator = () => {
                     playerOneMoves[thirdOkiMove].multiActive = multiActiveGenerator(playerOneMoves[thirdOkiMove]);
                   }
 
-                  if (((typeof playerOneMoves[thirdOkiMove]["startup"] === "number" && typeof playerOneMoves[thirdOkiMove]["active"] === "number") || playerOneMoves[thirdOkiMove]["multiActive"]) && typeof playerOneMoves[thirdOkiMove]["recovery"] === "number" && playerOneMoves[thirdOkiMove]["followUp"] !== true && playerOneMoves[thirdOkiMove]["moveType"] !== "alpha" && playerOneMoves[thirdOkiMove]["moveType"] !== "super" && !playerOneMoves[thirdOkiMove]["airmove"] && !(firstOkiMove === "Drive Rush >" && secondOkiMove === "Drive Rush >" && thirdOkiMove === "Drive Rush >" )) {
+                  if (((typeof playerOneMoves[thirdOkiMove]["startup"] === "number" && typeof playerOneMoves[thirdOkiMove]["active"] === "number") || playerOneMoves[thirdOkiMove]["multiActive"]) && typeof playerOneMoves[thirdOkiMove]["recovery"] === "number" && playerOneMoves[thirdOkiMove]["followUp"] !== true && playerOneMoves[thirdOkiMove]["moveType"] !== "alpha" && playerOneMoves[thirdOkiMove]["moveType"] !== "super" && !playerOneMoves[thirdOkiMove]["airmove"] && firstOkiMove !== "Drive Rush >" && secondOkiMove !== "Drive Rush >") {
                     let thirdOkiMoveTotalFrames;
                     if (playerOneMoves[thirdOkiMove]["multiActive"]) {
                       thirdOkiMoveTotalFrames = playerOneMoves[thirdOkiMove]["multiActive"][(playerOneMoves[thirdOkiMove]["multiActive"].length -1)] + playerOneMoves[thirdOkiMove]["recovery"];
@@ -405,7 +412,10 @@ const FrameKillGenerator = () => {
 
       // Remove the character's forward dash from the move model, so it doesn't show up elsewhere
       delete playerOneMoves["Forward Dash"];
-      delete playerOneMoves["Drive Rush >"];
+      if (activeGame === "SF6") {
+        delete playerOneMoves["Drive Rush >"];
+      }
+      
       if (Object.keys(processedResults).length !== 0) {
         setOkiResults(processedResults);
       } else {
@@ -528,7 +538,9 @@ const FrameKillGenerator = () => {
             >
               <IonSelectOption value={"anything"}>Anything</IonSelectOption>
               <IonSelectOption value={"Forward Dash"}>Forward Dash</IonSelectOption>
-              <IonSelectOption value={"Drive Rush >"}>{`Drive Rush >`}</IonSelectOption>
+              {activeGame === "SF6" &&
+                <IonSelectOption value={"Drive Rush >"}>{`Drive Rush >`}</IonSelectOption>
+              }
               {Object.keys(playerOneMoves).filter(move =>
                 (
                   (typeof playerOneMoves[move].startup === "number" &&
@@ -575,8 +587,8 @@ const FrameKillGenerator = () => {
                 <>
                   {recoveryType === "both"
                     ? <>
-                      <p>KD Advantage (Q): <strong>{playerOneMoves[knockdownMove]["kdr"]}</strong></p>
-                      <p>KD Advantage (B): <strong>{playerOneMoves[knockdownMove]["kdrb"]}</strong></p>
+                      <p>KD Advantage (Q): <strong>{knockdownMove === "Custom KDA" ? customKDA : playerOneMoves[knockdownMove]["kdr"]}</strong></p>
+                      <p>KD Advantage (B): <strong>{knockdownMove === "Custom KDA" ? customKDA : playerOneMoves[knockdownMove]["kdrb"]}</strong></p>
                     </>
                     : <p>KD Advantage: <strong>{knockdownMove === "Custom KDA" ? customKDA : playerOneMoves[knockdownMove][recoveryType] || playerOneMoves[knockdownMove].onHit.split("KD +").at(-1)}</strong></p>
                   }
