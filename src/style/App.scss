@@ -196,6 +196,11 @@ ion-fab {
   }
 }
 
+ion-toast {
+  --max-width: 600px;
+	transform: translateY(calc(-10px - var(--safe-area-inset-bottom)));
+}
+
 // PAGE HEADER AND TOOLBAR
 ion-header {
   ion-toolbar {

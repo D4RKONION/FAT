@@ -1,5 +1,3 @@
-
-import "../../style/components/AdviceToast.scss";
 import { IonToast } from "@ionic/react";
 import { settingsOutline, star, thumbsUpOutline } from "ionicons/icons";
 import { useRef } from "react";
@@ -62,7 +60,6 @@ const AdviceToast = () => {
   
   return (
     <IonToast
-      className="adviceToast"
       ref={toastRef}
       isOpen={true}
       duration={2000}
