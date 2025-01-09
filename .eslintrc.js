@@ -42,8 +42,8 @@ module.exports = {
     "@stylistic/semi": ["error", "always"],
     "@typescript-eslint/no-unused-vars": ["warn", {
       argsIgnorePattern: "^_",
-      varsIgnorePattern: "^_"
-    }]
+      varsIgnorePattern: "^_",
+    }],
   },
   ignorePatterns: [
     "node_modules",
