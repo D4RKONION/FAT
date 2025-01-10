@@ -21,8 +21,7 @@ const FrameTrapChecker = () => {
   const [secondMove, setSecondMove] = useState(null);
 
   const playerOneMoves = selectedCharacters["playerOne"].frameData;
-  const firstMoveBlockStun = playerOneMoves[firstMove] && parseInt(playerOneMoves[firstMove].active) + playerOneMoves[firstMove].recovery + playerOneMoves[firstMove].onBlock;
-
+  const firstMoveBlockStun = playerOneMoves[firstMove] && ((parseInt(playerOneMoves[firstMove].blockstun) && playerOneMoves[firstMove].blockstun) ?? parseInt(playerOneMoves[firstMove].active) + playerOneMoves[firstMove].recovery + playerOneMoves[firstMove].onBlock);
   // When we change characters, we want to reset the dropdowns to null if the new character doesn't have
   // one of the selected moves. This leaves most generic normals in tact in the dropdown.
 
@@ -132,7 +131,7 @@ const FrameTrapChecker = () => {
                     !playerOneMoves[move].followUp &&
                     !isNaN(playerOneMoves[move].startup) &&
                     (
-                      (playerOneMoves[move].moveType === "super" && playerOneMoves[firstMove].xx.includes("su")) ||
+                      (playerOneMoves[move].moveType === "super" && playerOneMoves[firstMove].xx.map(cancelType => cancelType.includes("su"))) ||
                         (playerOneMoves[move].moveType === "vskill" && (playerOneMoves[firstMove].xx.includes("vs1") || playerOneMoves[firstMove].xx.includes("vs2"))) ||
                         (playerOneMoves[move].moveType === "vtrigger" && (playerOneMoves[firstMove].xx.includes("vt1") || playerOneMoves[firstMove].xx.includes("vt2"))) ||
                         ((playerOneMoves[move].moveType === "special" || playerOneMoves[move].moveType === "movement-special" ) && playerOneMoves[firstMove].xx.includes("sp"))
