@@ -1,5 +1,7 @@
 # Frame Kill Generator
 
+[![Frame Kill Generator](https://markdown-videos-api.jorgenkh.no/url?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DOyHcgtVnqg8)](https://www.youtube.com/watch?v=OyHcgtVnqg8)
+
 ## How to Use
 This mode will auto generate setups that allow you to get perfect meaties every time! There are 4 separate inputs in Frame Kill Generator.
 

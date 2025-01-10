@@ -2,7 +2,6 @@
 
   padding: 0 17px 22px;
 
-
   h1 {
     text-align: center;
     color: var(--fat-markdown-h125);
@@ -40,6 +39,14 @@
     font-size: 16px;
     line-height: 25px;
     margin-top: 0;
+  }
+
+  p:has(a):has(img) {
+    text-align: center;
+    img {
+      width: 80%;
+      max-width: 400px;
+    }
   }
 
   b, strong {
