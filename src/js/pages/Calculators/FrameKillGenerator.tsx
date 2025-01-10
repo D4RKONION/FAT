@@ -12,6 +12,7 @@ import { person } from "ionicons/icons";
 import PopoverButton from "../../components/PopoverButton";
 import SegmentSwitcher from "../../components/SegmentSwitcher";
 import { activeGameSelector, selectedCharactersSelector } from "../../selectors";
+import { GameName } from "../../types";
 
 // We used to keep multiActive arrays in the sheets, but for consistency and ease
 // it's now generated on the fly. This adds a little more computational overhead
@@ -42,6 +43,13 @@ const FrameKillGenerator = () => {
   const activeGame = useSelector(activeGameSelector);
 
   const dispatch = useDispatch();
+
+  const EXCLUDED_SETUP_MOVES: { [key in GameName]?: { [characterName: string]: string[] } } = {
+    SF6: {
+      Jamie: ["The Devil Inside (DR4 activation)"],
+    },
+  };
+  
 
   const GAME_KNOCKDOWN_LABELS = {
     "3S": {disabled: "disabled"},
@@ -97,7 +105,6 @@ const FrameKillGenerator = () => {
       // Set up the number of frames the opponent is knocked down for. We add plus 1 because that is the frame the opponent is vunerable again
       let knockdownFrames;
       let coverBothKDs;
-      console.log(knockdownMove);
       if (knockdownMove === "Custom KDA") {
         knockdownFrames = customKDA + 1;
       } else if (recoveryType === "both") {
@@ -106,7 +113,7 @@ const FrameKillGenerator = () => {
       } else if (activeGame === "SFV") {
         knockdownFrames = playerOneMoves[knockdownMove][recoveryType] + 1;
       } else if (activeGame === "SF6") {
-        knockdownFrames = Number(playerOneMoves[knockdownMove][recoveryType].split("KD +").at(-1).split("(")[0]) + 1;
+        knockdownFrames = Number(playerOneMoves[knockdownMove][recoveryType].match(/KD \+([^\(*,\[]+)/)?.[1]) + 1;
       }
 
       if (playerOneMoves[targetMeaty]["atkLvl"] === "T" ) {
@@ -139,8 +146,6 @@ const FrameKillGenerator = () => {
       if (specificSetupMove === "anything" || typeof specificSetupMove === "undefined") {
         firstOkiMoveModel = {...playerOneMoves};
       } else {
-        // WARNING
-        // firstOkiMoveModel[specificSetupMove] = moveObj;
         firstOkiMoveModel = {[specificSetupMove]: playerOneMoves[specificSetupMove]};
       }
 
@@ -165,12 +170,34 @@ const FrameKillGenerator = () => {
 
         // loop through the entire move set
         for (const firstOkiMove in firstOkiMoveModel) {
+          // Skip any move in the explicit skip map
+          if (EXCLUDED_SETUP_MOVES?.[activeGame]?.[selectedCharacters?.playerOne?.name]?.includes(firstOkiMoveModel?.[firstOkiMove]?.moveName)) {
+            continue;
+          }
+
           // Generate multiActive frames if needed
           if (typeof firstOkiMoveModel[firstOkiMove]["active"] === "string" && (firstOkiMoveModel[firstOkiMove]["active"].includes("(") || firstOkiMoveModel[firstOkiMove]["active"].includes("*")) && typeof firstOkiMoveModel[firstOkiMove]["startup"] === "number") {
             firstOkiMoveModel[firstOkiMove].multiActive = multiActiveGenerator(firstOkiMoveModel[firstOkiMove]);
           }
-          // First we check if a move is a viable setup move (has fixed total OR startup/active/recovery; takes place on the ground etc.)
-          if ((typeof firstOkiMoveModel[firstOkiMove]["total"] === "number" ||(typeof firstOkiMoveModel[firstOkiMove]["startup"] === "number" && typeof firstOkiMoveModel[firstOkiMove]["active"] === "number") || firstOkiMoveModel[firstOkiMove]["multiActive"]) && typeof firstOkiMoveModel[firstOkiMove]["recovery"] === "number" && firstOkiMoveModel[firstOkiMove]["followUp"] !== true && firstOkiMoveModel[firstOkiMove]["moveType"] !== "alpha" && firstOkiMoveModel[firstOkiMove]["moveType"] !== "super" && !firstOkiMoveModel[firstOkiMove]["airmove"]) {
+
+          // First we check if a move is a viable setup move
+          if (
+            (
+              // It must have an explicit total value OR
+              typeof firstOkiMoveModel[firstOkiMove]["total"] === "number"
+              || (
+                // Number values for s a (normal or multi) and r
+                typeof firstOkiMoveModel[firstOkiMove]["startup"] === "number"
+                && (typeof firstOkiMoveModel[firstOkiMove]["active"] === "number" || firstOkiMoveModel[firstOkiMove]["multiActive"])
+                && typeof firstOkiMoveModel[firstOkiMove]["recovery"] === "number"
+              )
+            )
+            // and it must be possible to input from neutral
+            && (firstOkiMoveModel[firstOkiMove]["followUp"] !== true || typeof firstOkiMoveModel[firstOkiMove]["total"] === "number")
+            && firstOkiMoveModel[firstOkiMove]["moveType"] !== "alpha"
+            && firstOkiMoveModel[firstOkiMove]["moveType"] !== "super"
+            && !firstOkiMoveModel[firstOkiMove]["airmove"]
+          ) {
             let firstOkiMoveTotalFrames;
             // If a move has total frames, just use that
             // If a move has multiActive, we take the last element (last active frame) and add it to recovery to calculate total frames.
@@ -200,14 +227,35 @@ const FrameKillGenerator = () => {
                 playerOneMoves[secondOkiMove].multiActive = multiActiveGenerator(playerOneMoves[secondOkiMove]);
               }
 
-              if (((typeof playerOneMoves[secondOkiMove]["startup"] === "number" && typeof playerOneMoves[secondOkiMove]["active"] === "number") || playerOneMoves[secondOkiMove]["multiActive"]) && typeof playerOneMoves[secondOkiMove]["recovery"] === "number" && playerOneMoves[secondOkiMove]["followUp"] !== true && playerOneMoves[secondOkiMove]["moveType"] !== "alpha" && playerOneMoves[secondOkiMove]["moveType"] !== "super" && !playerOneMoves[secondOkiMove]["airmove"] && firstOkiMove !== "Drive Rush >") {
+              // First we check if a move is a viable setup move
+              if (
+                (
+                  typeof playerOneMoves[secondOkiMove]["total"] === "number"
+                  || (
+                    typeof playerOneMoves[secondOkiMove]["startup"] === "number"
+                    && (typeof playerOneMoves[secondOkiMove]["active"] === "number" || playerOneMoves[secondOkiMove]["multiActive"])
+                    && typeof playerOneMoves[secondOkiMove]["recovery"] === "number"
+                  )
+                )
+                && (playerOneMoves[secondOkiMove]["followUp"] !== true || typeof playerOneMoves[secondOkiMove]["total"] === "number")
+                && playerOneMoves[secondOkiMove]["moveType"] !== "alpha"
+                && playerOneMoves[secondOkiMove]["moveType"] !== "super"
+                && !playerOneMoves[secondOkiMove]["airmove"]
+                && firstOkiMove !== "Drive Rush >" // Drive Rush should only be offered as a frame kill ender, so exclude all situations where it occurs earlier in the setup
+              ) {
                 let secondOkiMoveTotalFrames;
-                if (playerOneMoves[secondOkiMove]["multiActive"]) {
+                // If a move has total frames, just use that
+                // If a move has multiActive, we take the last element (last active frame) and add it to recovery to calculate total frames.
+                // Otherwise, we just add startup active and recovery
+                if (playerOneMoves[secondOkiMove]["total"]) {
+                  secondOkiMoveTotalFrames = playerOneMoves[secondOkiMove]["total"];
+                } else if (playerOneMoves[secondOkiMove]["multiActive"]) {
                   secondOkiMoveTotalFrames = playerOneMoves[secondOkiMove]["multiActive"][(playerOneMoves[secondOkiMove]["multiActive"].length -1)] + playerOneMoves[secondOkiMove]["recovery"];
                 } else {
                   secondOkiMoveTotalFrames = (playerOneMoves[secondOkiMove]["startup"] -1) + playerOneMoves[secondOkiMove]["active"] + playerOneMoves[secondOkiMove]["recovery"];
                 }
 
+                // Check for a successful meaty
                 if ((firstOkiMoveTotalFrames + secondOkiMoveTotalFrames) === (knockdownFrames - targetMeatyFrames + currentLateByFramesSearch)) {
                   let skipDupe2 = false;
                   // here we check if we have a duplicate match. For instance, [st. lp, st.mp] would provide the same setup as [st.mp, st.lp] so we use this to ignore it
@@ -233,14 +281,35 @@ const FrameKillGenerator = () => {
                     playerOneMoves[thirdOkiMove].multiActive = multiActiveGenerator(playerOneMoves[thirdOkiMove]);
                   }
 
-                  if (((typeof playerOneMoves[thirdOkiMove]["startup"] === "number" && typeof playerOneMoves[thirdOkiMove]["active"] === "number") || playerOneMoves[thirdOkiMove]["multiActive"]) && typeof playerOneMoves[thirdOkiMove]["recovery"] === "number" && playerOneMoves[thirdOkiMove]["followUp"] !== true && playerOneMoves[thirdOkiMove]["moveType"] !== "alpha" && playerOneMoves[thirdOkiMove]["moveType"] !== "super" && !playerOneMoves[thirdOkiMove]["airmove"] && firstOkiMove !== "Drive Rush >" && secondOkiMove !== "Drive Rush >") {
+                  // First we check if a move is a viable setup move
+                  if (
+                    (
+                      typeof playerOneMoves[thirdOkiMove]["total"] === "number"
+                      || (
+                        typeof playerOneMoves[thirdOkiMove]["startup"] === "number"
+                        && (typeof playerOneMoves[thirdOkiMove]["active"] === "number" || playerOneMoves[thirdOkiMove]["multiActive"])
+                        && typeof playerOneMoves[thirdOkiMove]["recovery"] === "number"
+                      )
+                    )
+                    && (playerOneMoves[thirdOkiMove]["followUp"] !== true || typeof playerOneMoves[thirdOkiMove]["total"] === "number")
+                    && playerOneMoves[thirdOkiMove]["moveType"] !== "alpha"
+                    && playerOneMoves[thirdOkiMove]["moveType"] !== "super"
+                    && !playerOneMoves[thirdOkiMove]["airmove"]
+                    && firstOkiMove !== "Drive Rush >" && secondOkiMove !== "Drive Rush >" // Drive Rush should only be offered as a frame kill ender, so exclude all situations where it occurs earlier in the setup
+                  ) {
                     let thirdOkiMoveTotalFrames;
-                    if (playerOneMoves[thirdOkiMove]["multiActive"]) {
+                    // If a move has total frames, just use that
+                    // If a move has multiActive, we take the last element (last active frame) and add it to recovery to calculate total frames.
+                    // Otherwise, we just add startup active and recovery
+                    if (playerOneMoves[thirdOkiMove]["total"]) {
+                      thirdOkiMoveTotalFrames = playerOneMoves[thirdOkiMove]["total"];
+                    } else if (playerOneMoves[thirdOkiMove]["multiActive"]) {
                       thirdOkiMoveTotalFrames = playerOneMoves[thirdOkiMove]["multiActive"][(playerOneMoves[thirdOkiMove]["multiActive"].length -1)] + playerOneMoves[thirdOkiMove]["recovery"];
                     } else {
                       thirdOkiMoveTotalFrames = (playerOneMoves[thirdOkiMove]["startup"] -1) + playerOneMoves[thirdOkiMove]["active"] + playerOneMoves[thirdOkiMove]["recovery"];
                     }
 
+                    // Check for a successful meaty
                     if ((firstOkiMoveTotalFrames + secondOkiMoveTotalFrames + thirdOkiMoveTotalFrames) === (knockdownFrames - targetMeatyFrames + currentLateByFramesSearch)) {
                       let skipDupe3 = false;
                       for (previousSetup in processedResults["Three Move Setups"][ordinalName]) {
@@ -480,6 +549,7 @@ const FrameKillGenerator = () => {
           <IonItem lines="full">
             <IonSelect
               label={"Knock down with"}
+              interface="modal"
               interfaceOptions={{ header: "Knock down with" }}
               value={knockdownMove}
               okText="Select"
@@ -492,7 +562,7 @@ const FrameKillGenerator = () => {
                 activeGame === "SFV" ?
                   playerOneMoves[move].kd || playerOneMoves[move].kdr || playerOneMoves[move].kdrb
                   : activeGame === "SF6" ?
-                    playerOneMoves[move][recoveryType] && isNaN(playerOneMoves[move][recoveryType]) && !isNaN(Number(playerOneMoves[move][recoveryType].split("KD +").at(-1).split("(")[0]))
+                    playerOneMoves[move][recoveryType] && isNaN(playerOneMoves[move][recoveryType]) && !isNaN(Number(playerOneMoves[move][recoveryType].match(/KD \+([^\(*,\[]+)/)?.[1]) + 1)
                     : null
               ).map(move =>
                 <IonSelectOption key={`knockdownMove-${move}`} value={move}>{move}</IonSelectOption>
@@ -502,34 +572,22 @@ const FrameKillGenerator = () => {
           </IonItem>
           
           {knockdownMove === "Custom KDA" &&
-            <IonItem>
+            <IonItem lines="full">
               <IonLabel position="fixed">Custom KDA</IonLabel>
               <IonInput style={{textAlign: "end"}} slot="end" type="number" value={customKDA} placeholder="Enter Number" onIonInput={e => setCustomKDA(!!parseInt(e.detail.value) && parseInt(e.detail.value))}></IonInput>
             </IonItem>
           }
           
-
           <IonItem lines="full">
-            <IonSelect
-              label="Include late meaties"
-              interfaceOptions={{ header: "Include late meaties" }}
-              value={lateByFrames}
-              okText="Select"
-              cancelText="Cancel"
-              onIonChange={e => setLateByFrames(e.detail.value)}
-            >
-              <IonSelectOption key="late-meaties-0" value={0}>No</IonSelectOption>
-              {[1, 2, 3, 4, 5].map(lateByFrames =>
-                <IonSelectOption key={`late-meaties-${lateByFrames}`} value={lateByFrames}>{lateByFrames} Frame{lateByFrames > 1 &&
-                  "s"} Late</IonSelectOption>
-              )
-              }
-            </IonSelect>
+            <IonLabel style={{flex: "1 0 auto"}} slot="start">Include Late Meaties</IonLabel>
+            <IonInput style={{textAlign: "end"}} slot="end" type="number" value={lateByFrames} placeholder="Enter Number" onIonInput={e => setLateByFrames(!!parseInt(e.detail.value) ? parseInt(e.detail.value) : 0)}></IonInput>
+            <IonLabel slot="end">Frames</IonLabel>
           </IonItem>
 
           <IonItem lines="full">
             <IonSelect
               label="Setup contains"
+              interface="modal"
               interfaceOptions={{ header: "Setup Contains" }}
               value={specificSetupMove}
               okText="Select"
@@ -561,6 +619,7 @@ const FrameKillGenerator = () => {
           <IonItem lines="full">
             <IonSelect
               label="Target meaty"
+              interface="modal"
               interfaceOptions={{ header: "Target Meaty" }}
               value={targetMeaty}
               okText="Select"
