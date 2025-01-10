@@ -2,7 +2,7 @@ import "../../style/pages/FrameData.scss";
 import "../../style/components/DetailCards.scss";
 
 import { Preferences } from "@capacitor/preferences";
-import { IonContent, IonPage, IonIcon, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonSearchbar, IonButton, IonTitle, IonFab, IonFabButton, ScrollDetail, IonCard, IonCardHeader, IonCardTitle, IonCardContent } from "@ionic/react";
+import { IonContent, IonPage, IonIcon, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonSearchbar, IonButton, IonTitle, IonFab, IonFabButton, ScrollDetail } from "@ionic/react";
 import { isPlatform } from "@ionic/react";
 import { backspaceOutline, bookmarkOutline, bookmarkSharp, bookmarksSharp, chevronDown, chevronUp, closeOutline, informationCircleOutline, searchSharp } from "ionicons/icons";
 import { useEffect, useRef, useState } from "react";
