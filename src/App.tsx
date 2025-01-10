@@ -38,9 +38,9 @@ import { Preferences } from "@capacitor/preferences";
 import { SplashScreen } from "@capacitor/splash-screen";
 import { SafeArea } from "@capacitor-community/safe-area";
 import { actionSheetController, menuController, modalController, popoverController } from "@ionic/core/components";
-import { IonApp, IonRouterOutlet, IonSplitPane, IonAlert, isPlatform } from "@ionic/react";
+import { IonApp, IonRouterOutlet, IonSplitPane, isPlatform } from "@ionic/react";
 import { IonReactHashRouter } from "@ionic/react-router";
-import { useEffect, useState} from "react";
+import { useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Route } from "react-router-dom";
 
@@ -81,8 +81,6 @@ const App = () => {
   const modalVisibility = useSelector(modalVisibilitySelector);
 
   const dispatch = useDispatch();
-
-  const [exitAlert, setExitAlert] = useState(false);
 
   useEffect(() => {
     if (Capacitor.isNativePlatform()) {
@@ -130,8 +128,8 @@ const App = () => {
             console.log("Opening menu");
             await menuController.open();
           } else {
-            console.log("Closing app, showing exit alert");
-            setExitAlert(true);
+            console.log("Closing app");
+            CapAppPlugin.exitApp();
           }
         } catch (error) {
           console.error("Error handling back button:", error);
@@ -373,25 +371,6 @@ const App = () => {
           </IonRouterOutlet>
         </IonSplitPane>
       </IonReactHashRouter>
-      <IonAlert
-        isOpen={exitAlert}
-        onDidDismiss={() => setExitAlert(false)}
-        header={"Close App"}
-        message={"Are you sure you want to exit FAT?"}
-        buttons={[
-          {
-            text: "Cancel",
-            role: "cancel",
-            cssClass: "secondary",
-          },
-          {
-            text: "Okay",
-            handler: () => {
-              CapAppPlugin.exitApp();
-            },
-          },
-        ]}
-      />
     </IonApp>
   );
 };
