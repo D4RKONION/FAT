@@ -69,6 +69,7 @@ const MoveLinker = () => {
           <IonItem lines="full">
             <IonSelect
               label="First Move"
+              interface="modal"
               interfaceOptions={{ header: "First Move" }}
               value={firstMove}
               okText="Select"

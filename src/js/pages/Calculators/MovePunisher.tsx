@@ -66,6 +66,7 @@ const MovePunisher = () => {
           <IonItem lines="full">
             <IonSelect
               label={`${selectedCharacters["playerOne"].name} blocks ${selectedCharacters["playerTwo"].name}'s:`}
+              interface="modal"
               interfaceOptions={{ header: "Punishable Moves" }}
               value={blockedMove}
               okText="Select"

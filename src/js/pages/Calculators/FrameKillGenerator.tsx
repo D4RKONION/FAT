@@ -1,4 +1,4 @@
-import { IonContent, IonPage, IonItem, IonLabel, IonIcon, IonFab, IonFabButton, IonList, IonSelect, IonSelectOption, IonListHeader, IonItemDivider, IonItemGroup, IonGrid, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonInput } from "@ionic/react";
+import { IonContent, IonPage, IonItem, IonLabel, IonIcon, IonFab, IonFabButton, IonList, IonSelect, IonSelectOption, IonListHeader, IonItemDivider, IonItemGroup, IonGrid, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonInput, IonButton } from "@ionic/react";
 import { useState, useMemo, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -7,9 +7,8 @@ import "../../../style/pages/FrameKillGenerator.scss";
 import "../../../style/components/FAB.scss";
 import { setActiveFrameDataPlayer, setModalVisibility } from "../../actions";
 
-import { person } from "ionicons/icons";
+import { helpSharp, person } from "ionicons/icons";
 
-import PopoverButton from "../../components/PopoverButton";
 import SegmentSwitcher from "../../components/SegmentSwitcher";
 import { activeGameSelector, selectedCharactersSelector } from "../../selectors";
 import { GameName } from "../../types";
@@ -49,7 +48,6 @@ const FrameKillGenerator = () => {
       Jamie: ["The Devil Inside (DR4 activation)"],
     },
   };
-  
 
   const GAME_KNOCKDOWN_LABELS = {
     "3S": {disabled: "disabled"},
@@ -139,7 +137,6 @@ const FrameKillGenerator = () => {
           recovery: 11,
         };
       }
-      
 
       // If a specific move is required in the setup, make that the only option in firstokimove
       let firstOkiMoveModel;
@@ -494,35 +491,8 @@ const FrameKillGenerator = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[recoveryType, knockdownMove, lateByFrames, specificSetupMove, targetMeaty, playerOneMoves, selectedCharacters.playerOne.stats.fDash, customKDA]);
 
-  if (Object.keys(GAME_KNOCKDOWN_LABELS[activeGame])[0] === "disabled") {
-    return (
-      <IonPage>
-        <IonHeader>
-          <IonToolbar>
-            <IonButtons slot="start">
-              <IonBackButton defaultHref="/calculators" />
-            </IonButtons>
-            <IonTitle>{`Oki - ${selectedCharacters.playerOne.name}`}</IonTitle>
-            <IonButtons slot="end">
-              <PopoverButton />
-            </IonButtons>
-          </IonToolbar>
-        </IonHeader>
-
-        <IonContent id="FrameKillGenerator" className="calculators">
-          <IonGrid fixed>
-            <div>
-              <h4>Sorry, this calculator doesn't work with {activeGame}</h4>
-            </div>
-          </IonGrid>
-        </IonContent>
-      </IonPage>
-
-    );
-  }
   return (
     <IonPage>
-
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
@@ -530,115 +500,125 @@ const FrameKillGenerator = () => {
           </IonButtons>
           <IonTitle>{`Oki - ${selectedCharacters.playerOne.name}`}</IonTitle>
           <IonButtons slot="end">
-            <PopoverButton />
+            <IonButton onClick={() => { dispatch(setModalVisibility({ currentModal: "help", visible: true }));}}><IonIcon slot="icon-only" icon={helpSharp} /></IonButton>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
 
       <IonContent id="FrameKillGenerator" className="calculators">
-        <IonGrid fixed>
-          <SegmentSwitcher
-            key={"Oki KD type"}
-            valueToTrack={recoveryType}
-            segmentType={"recovery-type"}
-            labels={ GAME_KNOCKDOWN_LABELS[activeGame] }
-            clickFunc={ (eventValue) => recoveryType !== eventValue &&
+        {Object.keys(GAME_KNOCKDOWN_LABELS[activeGame])[0] === "disabled" ? (
+        
+          <IonGrid fixed>
+            <div>
+              <h4>Sorry, this calculator doesn't work with {activeGame}</h4>
+            </div>
+          </IonGrid>
+        ) :(
+          <>
+        
+            <IonGrid fixed>
+              <SegmentSwitcher
+                key={"Oki KD type"}
+                valueToTrack={recoveryType}
+                segmentType={"recovery-type"}
+                labels={ GAME_KNOCKDOWN_LABELS[activeGame] }
+                clickFunc={ (eventValue) => recoveryType !== eventValue &&
               setRecoveryType(eventValue)}
-          />
+              />
 
-          <IonItem lines="full">
-            <IonSelect
-              label={"Knock down with"}
-              interface="modal"
-              interfaceOptions={{ header: "Knock down with" }}
-              value={knockdownMove}
-              okText="Select"
-              cancelText="Cancel"
-              onIonChange={e => setKnockdownMove(e.detail.value)}
-            >
-              <IonSelectOption value={null}>Select a move</IonSelectOption>
-              <IonSelectOption value={"Custom KDA"}>Custom KDA</IonSelectOption>
-              {Object.keys(playerOneMoves).filter(move =>
-                activeGame === "SFV" ?
-                  playerOneMoves[move].kd || playerOneMoves[move].kdr || playerOneMoves[move].kdrb
-                  : activeGame === "SF6" ?
-                    playerOneMoves[move][recoveryType] && isNaN(playerOneMoves[move][recoveryType]) && !isNaN(Number(playerOneMoves[move][recoveryType].match(/KD \+([^\(*,\[]+)/)?.[1]) + 1)
-                    : null
-              ).map(move =>
-                <IonSelectOption key={`knockdownMove-${move}`} value={move}>{move}</IonSelectOption>
-              )
-              }
-            </IonSelect>
-          </IonItem>
+              <IonItem lines="full">
+                <IonSelect
+                  label={"Knock down with"}
+                  interface="modal"
+                  interfaceOptions={{ header: "Knock down with" }}
+                  value={knockdownMove}
+                  okText="Select"
+                  cancelText="Cancel"
+                  onIonChange={e => setKnockdownMove(e.detail.value)}
+                >
+                  <IonSelectOption value={null}>Select a move</IonSelectOption>
+                  <IonSelectOption value={"Custom KDA"}>Custom KDA</IonSelectOption>
+                  {Object.keys(playerOneMoves).filter(move =>
+                    activeGame === "SFV" ?
+                      playerOneMoves[move].kd || playerOneMoves[move].kdr || playerOneMoves[move].kdrb
+                      : activeGame === "SF6" ?
+                        playerOneMoves[move][recoveryType] && isNaN(playerOneMoves[move][recoveryType]) && !isNaN(Number(playerOneMoves[move][recoveryType].match(/KD \+([^\(*,\[]+)/)?.[1]) + 1)
+                        : null
+                  ).map(move =>
+                    <IonSelectOption key={`knockdownMove-${move}`} value={move}>{move}</IonSelectOption>
+                  )
+                  }
+                </IonSelect>
+              </IonItem>
           
-          {knockdownMove === "Custom KDA" &&
+              {knockdownMove === "Custom KDA" &&
             <IonItem lines="full">
               <IonLabel position="fixed">Custom KDA</IonLabel>
               <IonInput style={{textAlign: "end"}} slot="end" type="number" value={customKDA} placeholder="Enter Number" onIonInput={e => setCustomKDA(!!parseInt(e.detail.value) && parseInt(e.detail.value))}></IonInput>
             </IonItem>
-          }
-          
-          <IonItem lines="full">
-            <IonLabel style={{flex: "1 0 auto"}} slot="start">Include Late Meaties</IonLabel>
-            <IonInput style={{textAlign: "end"}} slot="end" type="number" value={lateByFrames} placeholder="Enter Number" onIonInput={e => setLateByFrames(!!parseInt(e.detail.value) ? parseInt(e.detail.value) : 0)}></IonInput>
-            <IonLabel slot="end">Frames</IonLabel>
-          </IonItem>
-
-          <IonItem lines="full">
-            <IonSelect
-              label="Setup contains"
-              interface="modal"
-              interfaceOptions={{ header: "Setup Contains" }}
-              value={specificSetupMove}
-              okText="Select"
-              cancelText="Cancel"
-              onIonChange={e => setSpecificSetupMove(e.detail.value)}
-            >
-              <IonSelectOption value={"anything"}>Anything</IonSelectOption>
-              <IonSelectOption value={"Forward Dash"}>Forward Dash</IonSelectOption>
-              {activeGame === "SF6" &&
-                <IonSelectOption value={"Drive Rush >"}>{`Drive Rush >`}</IonSelectOption>
               }
-              {Object.keys(playerOneMoves).filter(move =>
-                (
-                  (typeof playerOneMoves[move].startup === "number" &&
+          
+              <IonItem lines="full">
+                <IonLabel style={{flex: "1 0 auto"}} slot="start">Include Late Meaties</IonLabel>
+                <IonInput style={{textAlign: "end"}} slot="end" type="number" value={lateByFrames} placeholder="Enter Number" onIonInput={e => setLateByFrames(!!parseInt(e.detail.value) ? parseInt(e.detail.value) : 0)}></IonInput>
+                <IonLabel slot="end">Frames</IonLabel>
+              </IonItem>
+
+              <IonItem lines="full">
+                <IonSelect
+                  label="Setup contains"
+                  interface="modal"
+                  interfaceOptions={{ header: "Setup Contains" }}
+                  value={specificSetupMove}
+                  okText="Select"
+                  cancelText="Cancel"
+                  onIonChange={e => setSpecificSetupMove(e.detail.value)}
+                >
+                  <IonSelectOption value={"anything"}>Anything</IonSelectOption>
+                  <IonSelectOption value={"Forward Dash"}>Forward Dash</IonSelectOption>
+                  {activeGame === "SF6" &&
+                <IonSelectOption value={"Drive Rush >"}>{"Drive Rush >"}</IonSelectOption>
+                  }
+                  {Object.keys(playerOneMoves).filter(move =>
+                    (
+                      (typeof playerOneMoves[move].startup === "number" &&
                   typeof playerOneMoves[move].active === "number") ||
                   typeof playerOneMoves[move].multiActive
-                ) &&
+                    ) &&
                 typeof playerOneMoves[move].recovery === "number" &&
                 !playerOneMoves[move].followUp &&
                 playerOneMoves[move].moveType !== "alpha" &&
                 playerOneMoves[move].moveType !== "super" &&
                 !playerOneMoves[move].airmove
-              ).map(move =>
-                <IonSelectOption key={`specificSetup-${move}`} value={move}>{move}</IonSelectOption>
-              )}
-            </IonSelect>
-          </IonItem>
+                  ).map(move =>
+                    <IonSelectOption key={`specificSetup-${move}`} value={move}>{move}</IonSelectOption>
+                  )}
+                </IonSelect>
+              </IonItem>
 
-          <IonItem lines="full">
-            <IonSelect
-              label="Target meaty"
-              interface="modal"
-              interfaceOptions={{ header: "Target Meaty" }}
-              value={targetMeaty}
-              okText="Select"
-              cancelText="Cancel"
-              onIonChange={e => setTargetMeaty(e.detail.value)}
-            >
-              <IonSelectOption key="targetMeaty-select" value={null}>Select a move</IonSelectOption>
-              {Object.keys(playerOneMoves).filter(move =>
-                !playerOneMoves[move].airmove &&
+              <IonItem lines="full">
+                <IonSelect
+                  label="Target meaty"
+                  interface="modal"
+                  interfaceOptions={{ header: "Target Meaty" }}
+                  value={targetMeaty}
+                  okText="Select"
+                  cancelText="Cancel"
+                  onIonChange={e => setTargetMeaty(e.detail.value)}
+                >
+                  <IonSelectOption key="targetMeaty-select" value={null}>Select a move</IonSelectOption>
+                  {Object.keys(playerOneMoves).filter(move =>
+                    !playerOneMoves[move].airmove &&
                 !playerOneMoves[move].followUp &&
                 !playerOneMoves[move].nonHittingMove &&
                 playerOneMoves[move].moveType !== "alpha"
-              ).map(move =>
-                <IonSelectOption key={`targetMeaty-${move}`} value={move}>{move}</IonSelectOption>
-              )}
-            </IonSelect>
-          </IonItem>
+                  ).map(move =>
+                    <IonSelectOption key={`targetMeaty-${move}`} value={move}>{move}</IonSelectOption>
+                  )}
+                </IonSelect>
+              </IonItem>
 
-          {(playerOneMoves[knockdownMove] || knockdownMove === "Custom KDA") && playerOneMoves[targetMeaty] &&
+              {(playerOneMoves[knockdownMove] || knockdownMove === "Custom KDA") && playerOneMoves[targetMeaty] &&
             <IonItem lines="full" className="selected-move-info">
               <IonLabel>
                 <h3>Knockdown with</h3>
@@ -661,44 +641,48 @@ const FrameKillGenerator = () => {
                 <p>Active: <b>{playerOneMoves[targetMeaty].active}</b></p>
               </IonLabel>
             </IonItem>
-          }
+              }
 
-          <IonList>
-            {okiResults
-              ? Object.keys(okiResults).map(numOfMovesSetup =>
-                <IonItemGroup key={numOfMovesSetup}>
-                  <IonItemDivider><p>{numOfMovesSetup}</p></IonItemDivider>
-                  {Object.keys(okiResults[numOfMovesSetup]).map(activeAsOrdinal =>
-                    <div key={activeAsOrdinal}>
-                      <IonListHeader className="ordinal-header">
-                        <IonLabel>
-                          <p>Meaty on the <strong>{activeAsOrdinal}</strong> active frame{recoveryType === "both" && "s"}</p>
-                        </IonLabel>
-                      </IonListHeader>
-                      {Object.keys(okiResults[numOfMovesSetup][activeAsOrdinal]).map((setup, index) =>
-                        <IonItem key={activeAsOrdinal + index}>
-                          <IonLabel>
-                            <p>{knockdownMove}, <strong style={{marginLeft: "3px"}}>[{okiResults[numOfMovesSetup][activeAsOrdinal][setup]}]</strong>, {targetMeaty}</p>
-                          </IonLabel>
-                        </IonItem>
+              <IonList>
+                {okiResults
+                  ? Object.keys(okiResults).map(numOfMovesSetup =>
+                    <IonItemGroup key={numOfMovesSetup}>
+                      <IonItemDivider><p>{numOfMovesSetup}</p></IonItemDivider>
+                      {Object.keys(okiResults[numOfMovesSetup]).map(activeAsOrdinal =>
+                        <div key={activeAsOrdinal}>
+                          <IonListHeader className="ordinal-header">
+                            <IonLabel>
+                              <p>Meaty on the <strong>{activeAsOrdinal}</strong> active frame{recoveryType === "both" && "s"}</p>
+                            </IonLabel>
+                          </IonListHeader>
+                          {Object.keys(okiResults[numOfMovesSetup][activeAsOrdinal]).map((setup, index) =>
+                            <IonItem key={activeAsOrdinal + index}>
+                              <IonLabel>
+                                <p>{knockdownMove}, <strong style={{marginLeft: "3px"}}>[{okiResults[numOfMovesSetup][activeAsOrdinal][setup]}]</strong>, {targetMeaty}</p>
+                              </IonLabel>
+                            </IonItem>
+                          )}
+                        </div>
                       )}
-                    </div>
-                  )}
-                </IonItemGroup>
-              )
-              : <h4>No oki found for this setup...<br/>Sorry!</h4>
-            }
-          </IonList>
+                    </IonItemGroup>
+                  )
+                  : <h4>No oki found for this setup...<br/>Sorry!</h4>
+                }
+              </IonList>
 
-        </IonGrid>
+            </IonGrid>
 
-        <IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton onClick={() => {dispatch(setActiveFrameDataPlayer("playerOne")); dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true})); } }>
-            <IonIcon icon={person} />
-          </IonFabButton>
-        </IonFab>
+            <IonFab vertical="bottom" horizontal="end" slot="fixed">
+              <IonFabButton onClick={() => {dispatch(setActiveFrameDataPlayer("playerOne")); dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true})); } }>
+                <IonIcon icon={person} />
+              </IonFabButton>
+            </IonFab>
+          </>
+
+        )}
 
       </IonContent>
+      
     </IonPage>
   );
 };

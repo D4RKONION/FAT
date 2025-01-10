@@ -147,6 +147,7 @@ const StringInterrupter = () => {
 
             <IonSelect
               label={`${selectedCharacters.playerTwo.name}'s 1st Move`}
+              interface="modal"
               interfaceOptions={{ header: "First Move" }}
               value={firstMove}
               okText="Select"
@@ -169,11 +170,10 @@ const StringInterrupter = () => {
           </IonItem>
 
           <IonItem lines="full">
-            <IonLabel>
-              <h2>{selectedCharacters.playerTwo.name}'s 2nd Move</h2>
-            </IonLabel>
             <IonSelect
+              label={`${selectedCharacters.playerTwo.name}'s 2nd Move`}
               interfaceOptions={{ header: "Second Move" }}
+              interface="modal"
               value={secondMove}
               okText="Select"
               cancelText="Cancel"

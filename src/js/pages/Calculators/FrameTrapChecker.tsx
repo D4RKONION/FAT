@@ -73,6 +73,7 @@ const FrameTrapChecker = () => {
           <IonItem lines="full">
             <IonSelect
               label="First Move"
+              interface="modal"
               interfaceOptions={{ header: "First Move" }}
               value={firstMove}
               okText="Select"
@@ -116,6 +117,7 @@ const FrameTrapChecker = () => {
           <IonItem lines="full">
             <IonSelect
               label="Second Move"
+              interface="modal"
               interfaceOptions={{ header: "Second Move" }}
               value={secondMove}
               okText="Select"
