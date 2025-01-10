@@ -37,7 +37,7 @@ import { Capacitor } from "@capacitor/core";
 import { Preferences } from "@capacitor/preferences";
 import { SplashScreen } from "@capacitor/splash-screen";
 import { SafeArea } from "@capacitor-community/safe-area";
-import { menuController } from "@ionic/core/components";
+import { actionSheetController, menuController, modalController, popoverController } from "@ionic/core/components";
 import { IonApp, IonRouterOutlet, IonSplitPane, IonAlert, isPlatform } from "@ionic/react";
 import { IonReactHashRouter } from "@ionic/react-router";
 import { useEffect, useState} from "react";
@@ -101,24 +101,51 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    CapAppPlugin.addListener("backButton", async () => {
+    const backButtonListener = async () => {
+      // Get modal visibility state and mode state from Redux store & Controllers
       const currentModalState = store.getState().modalVisibilityState;
       const modeNameState = store.getState().modeNameState;
-      if (currentModalState.visible) {
-        console.log("closing modal");
-        store.dispatch(setModalVisibility({ currentModal: currentModalState.currentModal, visible: false }));
-      } else if (modeNameState === "movedetail" || modeNameState.startsWith("subpage") || modeNameState.startsWith("calc-")) {
-        console.log("going back");
-        window.history.back();
-      } else if ( !(await menuController.isOpen()) ) {
-        menuController.open();
-      } else {
-        console.log("closing app");
-        setExitAlert(true);
-      }
-    });
+      const topPopover = await popoverController.getTop();
+      const topActionSheet = await actionSheetController.getTop();
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+      if (topPopover && topPopover.isConnected && topPopover.nodeName === "ION-POPOVER") {
+        console.log("Dismissing popover...");
+        await popoverController.dismiss();
+      } else if (topActionSheet && topActionSheet.isConnected && topActionSheet.nodeName === "ION-ACTION-SHEET") {
+        console.log("Dismissing action sheet...");
+        await actionSheetController.dismiss();
+      } else if (currentModalState.visible) {
+        console.log("Closing modal because it's visible");
+        store.dispatch(setModalVisibility({ currentModal: currentModalState.currentModal, visible: false }));
+      } else {
+        try {
+          const topModal = await modalController.getTop();
+          if (topModal && topModal.isConnected && topModal.nodeName === "ION-MODAL") {
+            console.log("Dismissing modal...");
+            await modalController.dismiss();
+          } else if (modeNameState === "movedetail" || modeNameState.startsWith("subpage") || modeNameState.startsWith("calc-")) {
+            console.log("Going back in history");
+            window.history.back();
+          } else if (!(await menuController.isOpen())) {
+            console.log("Opening menu");
+            await menuController.open();
+          } else {
+            console.log("Closing app, showing exit alert");
+            setExitAlert(true);
+          }
+        } catch (error) {
+          console.error("Error handling back button:", error);
+        }
+      }
+    };
+  
+    // Add listener for the back button event
+    CapAppPlugin.addListener("backButton", backButtonListener);
+  
+    // Clean up listener on component unmount
+    return () => {
+      CapAppPlugin.removeAllListeners();
+    };
   }, []);
 
   useEffect(() => {
