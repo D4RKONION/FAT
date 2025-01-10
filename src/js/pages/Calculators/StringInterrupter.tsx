@@ -2,7 +2,7 @@ import "../../../style/pages/Calculators.scss";
 import "../../../style/components/FAB.scss";
 
 import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, IonIcon, IonFab, IonFabButton, IonItemGroup, IonItemDivider, IonGrid, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle } from "@ionic/react";
-import { person, checkmark, warning } from "ionicons/icons";
+import { person, warning, checkmarkSharp } from "ionicons/icons";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -221,9 +221,9 @@ const StringInterrupter = () => {
                 <IonItemGroup>
                   <IonItem className="color-subheader" lines="full" color="success">
                     <IonLabel>
-                      <p>{selectedCharacters["playerOne"].name} can interrupt {selectedCharacters["playerTwo"].name}'s string cleanly using the following moves</p>
+                      <p className="success">{selectedCharacters["playerOne"].name} can interrupt {selectedCharacters["playerTwo"].name}'s string cleanly using the following moves</p>
                     </IonLabel>
-                    <IonIcon icon={checkmark} slot="start" />
+                    <IonIcon icon={checkmarkSharp} slot="start" />
                   </IonItem>
                   {Object.keys(processedResults.wins).map(framesToInterrupt =>
                     <IonItemGroup key={`winning-at-frame-${framesToInterrupt}-group`}>
@@ -246,7 +246,7 @@ const StringInterrupter = () => {
                 <IonItemGroup>
                   <IonItem className="color-subheader" lines="full" color="warning">
                     <IonLabel>
-                      <p>{selectedCharacters["playerOne"].name} can interrupt {selectedCharacters["playerTwo"].name}'s string by trading with the following moves (all 1 frame)</p>
+                      <p className="warn">{selectedCharacters["playerOne"].name} can interrupt {selectedCharacters["playerTwo"].name}'s string by trading with the following moves (all 1 frame)</p>
                     </IonLabel>
                     <IonIcon className="warning-icon" icon={warning} slot="start" />
                   </IonItem>

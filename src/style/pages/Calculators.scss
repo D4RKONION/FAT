@@ -43,8 +43,15 @@
       }
     }
     &.color-subheader.ion-color {
-      ion-label p, ion-{
+      > ion-label p {
         font-size: 16px;
+        font-weight: bold;
+        &.success {
+          color: #ffffff;
+        }
+        &.warn {
+          color: #000000;
+        }
       }
       ion-icon {
         color: #ffffff;
