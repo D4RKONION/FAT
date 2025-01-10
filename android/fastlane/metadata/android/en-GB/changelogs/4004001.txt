@@ -1,0 +1,22 @@
+Ver 4.4.1
+
+Improved mobile stats header
+- Added a collapsable, swipable stat header!
+- Swipe left and tap to see all stats at once
+
+Frame Kill Calculator
+- Added Custom KDA option to allow labbing meaties after a juggle
+- FAT now checks if Drive Rush normals will work as meaties
+
+Accessibility improvements
+- I've tried to make the app work better with Screen Announcers. Feedback very welcome
+- Tabbing improved on desktop
+
+Hotfix
+- Improved the 'go back' gestures
+- Improved the interface of the move selectors in all calculators
+- Fixed a bug where Jamie's 'Level 4 Activation' was showing up as an option in frame kills
+- Fixed a bug where moves with annotated KDAs like Ryu's 'MK Tatsu' (+23*38) were excluded as knockdown moves
+- Fixed a bug where followup moves such as Kim's 'Run > Stop' were excluded as possible frame kill filler
+- 'Include Late Meaties' is now a number input to allow more flexibility
+- Frame Trap Checker: Fixed a bug where certain supers weren't appearing for cancel frame traps

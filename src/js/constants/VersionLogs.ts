@@ -1,6 +1,6 @@
-export const APP_CURRENT_VERSION_NAME = "4.4.0";
-export const APP_CURRENT_VERSION_CODE = 40400;
-export const APP_DATE_UPDATED = "Jan 08 2024"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "4.4.1";
+export const APP_CURRENT_VERSION_CODE = 40401;
+export const APP_DATE_UPDATED = "Jan 10 2024"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"];
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"];
@@ -20,6 +20,32 @@ export const UPDATABLE_GAMES_APP_CODES = {
 };
 
 export const VERSION_LOGS = {
+  "4.4.1": {
+    "Improved mobile stats header": [
+      "Added a collapsable, swipable stat header!",
+      "Swipe left and tap to see all stats at once",
+    ],
+    "Frame Kill Calculator": [
+      "Added Custom KDA option to allow labbing meaties after a juggle",
+      "FAT now checks if Drive Rush normals will work as meaties",
+    ],
+    "Accessibility improvements": [
+      "I've tried to make the app work better with Screen Announcers. Feedback very welcome",
+      "Tabbing improved on desktop",
+    ],
+    iOS: [
+      "Due to some Premium changes, you may have to restore previous purchases. Apologies for the inconvenience!",
+    ],
+    Hotfix: [
+      "Android: Improved the 'go back' gestures",
+      "Improved the interface of the move selectors in all calculators",
+      "Fixed a bug where Jamie's 'Level 4 Activation' was showing up as an option in frame kills",
+      "Fixed a bug where moves with annotated KDAs like Ryu's 'MK Tatsu' (+23*38) were excluded as knockdown moves",
+      "Fixed a bug where followup moves such as Kim's 'Run > Stop' were excluded as possible frame kill filler",
+      "'Include Late Meaties' is now a number input to allow more flexibility",
+      "Frame Trap Checker: Fixed a bug where certain supers weren't appearing for cancel frame traps",
+    ],
+  },
   "4.4.0": {
     "Improved mobile stats header": [
       "Added a collapsable, swipable stat header!",
@@ -40,18 +66,6 @@ export const VERSION_LOGS = {
   "4.3.1": {
     Hotfix: [
       "Fixed a bug where the frame meter was showing one too many startup frames",
-    ],
-    "Frame Meters!": [
-      "Dynamically generated Frame Meters now display on the Move Detail screen for all moves",
-      "It's possible you might find a few edge cases where this doesn't work as intended. If so please let me know!",
-    ],
-    "Edge to edge improvements": [
-      "Android finally receives the edge to edge treatment it deserves",
-      "iOS gets many tweaks to it's edge to edge look",
-      "If you find something hard to access above or below the screen, please let me know!",
-    ],
-    "Bug Fixes": [
-      "Fixed a bug where stat compare screen wasn't working with older games",
     ],
   },
   "4.3.0": {
