@@ -219,6 +219,11 @@ const FrameKillGenerator = () => {
 
             // Pretty much the same as oki loop one
             for (const secondOkiMove in playerOneMoves) {
+              // Skip any move in the explicit skip map
+              if (EXCLUDED_SETUP_MOVES?.[activeGame]?.[selectedCharacters?.playerOne?.name]?.includes(playerOneMoves?.[secondOkiMove]?.moveName)) {
+                continue;
+              }
+
               // Generate multiActive frames if needed
               if (typeof playerOneMoves[secondOkiMove]["active"] === "string" && (playerOneMoves[secondOkiMove]["active"].includes("(") || playerOneMoves[secondOkiMove]["active"].includes("*")) && typeof playerOneMoves[secondOkiMove]["startup"] === "number") {
                 playerOneMoves[secondOkiMove].multiActive = multiActiveGenerator(playerOneMoves[secondOkiMove]);
@@ -273,6 +278,10 @@ const FrameKillGenerator = () => {
 
                 // Exactly the same as loop 2
                 for (const thirdOkiMove in playerOneMoves) {
+                  // Skip any move in the explicit skip map
+                  if (EXCLUDED_SETUP_MOVES?.[activeGame]?.[selectedCharacters?.playerOne?.name]?.includes(playerOneMoves?.[thirdOkiMove]?.moveName)) {
+                    continue;
+                  }
                   // Generate multiActive frames if needed
                   if (typeof playerOneMoves[thirdOkiMove]["active"] === "string" && (playerOneMoves[thirdOkiMove]["active"].includes("(") || playerOneMoves[thirdOkiMove]["active"].includes("*")) && typeof playerOneMoves[thirdOkiMove]["startup"] === "number") {
                     playerOneMoves[thirdOkiMove].multiActive = multiActiveGenerator(playerOneMoves[thirdOkiMove]);
@@ -609,9 +618,9 @@ const FrameKillGenerator = () => {
                   <IonSelectOption key="targetMeaty-select" value={null}>Select a move</IonSelectOption>
                   {Object.keys(playerOneMoves).filter(move =>
                     !playerOneMoves[move].airmove &&
-                !playerOneMoves[move].followUp &&
-                !playerOneMoves[move].nonHittingMove &&
-                playerOneMoves[move].moveType !== "alpha"
+                    !playerOneMoves[move].followUp &&
+                    !playerOneMoves[move].nonHittingMove &&
+                    playerOneMoves[move].moveType !== "alpha"
                   ).map(move =>
                     <IonSelectOption key={`targetMeaty-${move}`} value={move}>{move}</IonSelectOption>
                   )}
