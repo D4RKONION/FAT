@@ -167,7 +167,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    if (isPlatform("capacitor") && CdvPurchase.store.when().productUpdated) {
+    if (Capacitor.isNativePlatform() && CdvPurchase.store.when().productUpdated) {
       // Awesome Cordova Plugins has not updated it's iap wrapper, so we have to import the entire store
       // https://github.com/danielsogl/awesome-cordova-plugins/issues/4457
 

@@ -1,4 +1,5 @@
-import { IonIcon, IonRippleEffect, isPlatform, useIonRouter } from "@ionic/react";
+import { Capacitor } from "@capacitor/core";
+import { IonIcon, IonRippleEffect, useIonRouter } from "@ionic/react";
 import { peopleOutline, settingsOutline, settingsSharp, libraryOutline, librarySharp, calculatorOutline, calculatorSharp, searchOutline, searchSharp, statsChartOutline, statsChartSharp, barbellOutline, barbellSharp, logoPaypal, phonePortraitOutline, phonePortraitSharp, cafe, diamondOutline, diamondSharp, bookmarksOutline } from "ionicons/icons";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -178,8 +179,8 @@ const MenuEntry = ({menuEntryKey, wideMenuIsOpen}: Props) => {
   };
 
   if (
-    (!isPlatform("capacitor") && menuEntryDetails[menuEntryKey].appOnly)
-    || (isPlatform("capacitor") && menuEntryDetails[menuEntryKey].desktopOnly)
+    (!Capacitor.isNativePlatform() && menuEntryDetails[menuEntryKey].appOnly)
+    || (Capacitor.isNativePlatform() && menuEntryDetails[menuEntryKey].desktopOnly)
     || (menuEntryDetails[menuEntryKey].noDisplay && menuEntryDetails[menuEntryKey].noDisplay.includes(activeGame))
   ) {
     return null;
@@ -201,7 +202,7 @@ const MenuEntry = ({menuEntryKey, wideMenuIsOpen}: Props) => {
           {wideMenuIsOpen && <span>{menuEntryDetails[menuEntryKey].title}</span>}
           <IonRippleEffect/>
         </button>
-        {((!isPlatform("capacitor") && menuEntryDetails[menuEntryKey].modeName === "settings") || menuEntryDetails[menuEntryKey].modeName === "bookmarks") && <hr />}
+        {((!Capacitor.isNativePlatform() && menuEntryDetails[menuEntryKey].modeName === "settings") || menuEntryDetails[menuEntryKey].modeName === "bookmarks") && <hr />}
       </div>
     );
   }

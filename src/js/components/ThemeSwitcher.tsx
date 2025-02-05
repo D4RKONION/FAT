@@ -1,6 +1,6 @@
 import "../../style/components/ThemeSwitcher.scss";
 
-import { isPlatform } from "@ionic/core";
+import { Capacitor } from "@capacitor/core";
 import { IonIcon } from "@ionic/react";
 import { diamondSharp } from "ionicons/icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,7 +31,7 @@ const ThemeSwitcher = ({premiumPreview, lines}: Props) => {
     pink: "#D83F87",
   };
 
-  if (premiumPreview || isPlatform("capacitor")) {
+  if (premiumPreview || Capacitor.isNativePlatform()) {
     return (
       <div id="ThemeSwitcher" className={!lines ? "no-lines" : null}>
         {Object.keys(THEMES).map(themeName =>

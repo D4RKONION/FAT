@@ -1,5 +1,5 @@
 import "../../style/components/BookmarksModal.scss";
-import { isPlatform } from "@ionic/core";
+import { Capacitor } from "@capacitor/core";
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonList, IonModal, IonReorder, IonReorderGroup, IonTitle, IonToolbar } from "@ionic/react";
 import { bookmarkOutline, checkmarkSharp, closeSharp, reorderTwoSharp, trashSharp } from "ionicons/icons";
 import { useEffect, useState } from "react";
@@ -71,11 +71,11 @@ const BookmarksModal = () => {
       </IonHeader>
 
       <IonContent>
-        <IonList style={{paddingBottom: (((bookmarks.length < 3 && !premiumIsPurchased) || premiumIsPurchased || !isPlatform("capacitor"))
+        <IonList style={{paddingBottom: (((bookmarks.length < 3 && !premiumIsPurchased) || premiumIsPurchased || !Capacitor.isNativePlatform())
           && !(removalActive || reorderingActive)
           && bookmarks.findIndex( (bookmark) =>
             bookmark.modeName === "framedata" && bookmark.gameName === activeGame && bookmark.characterName === selectedCharacters[activePlayer].name
-          ) === -1 ) || bookmarks.length >=3 && (!premiumIsPurchased && isPlatform("capacitor")) ? "calc(var(--safe-area-inset-bottom) + 70px)" : "var(--safe-area-inset-bottom)"}}>
+          ) === -1 ) || bookmarks.length >=3 && (!premiumIsPurchased && Capacitor.isNativePlatform()) ? "calc(var(--safe-area-inset-bottom) + 70px)" : "var(--safe-area-inset-bottom)"}}>
           <IonReorderGroup disabled={!reorderingActive} onIonItemReorder={event => dispatch(reorderBookmarks(event.detail.complete(bookmarks)))}>
             {bookmarks.map((bookmark, index) => {
             // MOVE-DETAIL BOOKMARK
@@ -133,9 +133,9 @@ const BookmarksModal = () => {
         {bookmarks.length === 0 ?
           <div className="bookmark-message-container">
             <h1>No bookmarks!</h1>
-            <p>{isPlatform("capacitor") ? "Tap" : "Click"} a bookmark <IonIcon icon={bookmarkOutline}/> to see it here</p>
+            <p>{Capacitor.isNativePlatform() ? "Tap" : "Click"} a bookmark <IonIcon icon={bookmarkOutline}/> to see it here</p>
             <p>or <span onClick={() => {
-              if (bookmarks.length >= 3 && !premiumIsPurchased && isPlatform("capacitor")) {
+              if (bookmarks.length >= 3 && !premiumIsPurchased && Capacitor.isNativePlatform()) {
                 history.push("/settings/premium");
               } else {
                 dispatch(addBookmark({
@@ -146,14 +146,14 @@ const BookmarksModal = () => {
               }
             }}>add the current character</span></p>
           </div>
-          : ((bookmarks.length < 3 && !premiumIsPurchased) || premiumIsPurchased || !isPlatform("capacitor"))
+          : ((bookmarks.length < 3 && !premiumIsPurchased) || premiumIsPurchased || !Capacitor.isNativePlatform())
           && !(removalActive || reorderingActive)
           && bookmarks.findIndex( (bookmark) =>
             bookmark.modeName === "framedata" && bookmark.gameName === activeGame && bookmark.characterName === selectedCharacters[activePlayer].name
           ) === -1 ?
             <div className="bookmark-message-container">
-              <ChunkyButton extraText={!premiumIsPurchased && isPlatform("capacitor") && `${3 - bookmarks.length} free bookmark${bookmarks.length !== 2 ? "s" : ""} left`} onClick={() => {
-                if (bookmarks.length >= 3 && !premiumIsPurchased && isPlatform("capacitor")) {
+              <ChunkyButton extraText={!premiumIsPurchased && Capacitor.isNativePlatform() && `${3 - bookmarks.length} free bookmark${bookmarks.length !== 2 ? "s" : ""} left`} onClick={() => {
+                if (bookmarks.length >= 3 && !premiumIsPurchased && Capacitor.isNativePlatform()) {
                   history.push("/settings/premium");
                 } else {
                   dispatch(addBookmark({
@@ -166,7 +166,7 @@ const BookmarksModal = () => {
             </div>
             : ""
         }
-        {bookmarks.length >=3 && (!premiumIsPurchased && isPlatform("capacitor")) &&
+        {bookmarks.length >=3 && (!premiumIsPurchased && Capacitor.isNativePlatform()) &&
           <div className="bookmark-message-container">
             <ChunkyButton extraText={"Get unlimited bookmarks"} onClick={() => {
               handleModalDismiss();

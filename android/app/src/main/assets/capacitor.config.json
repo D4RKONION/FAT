@@ -1,7 +1,6 @@
 {
 	"appId": "com.fullmeter.fat",
 	"appName": "FAT",
-	"bundledWebRuntime": false,
 	"npmClient": "npm",
 	"webDir": "build",
 	"cordova": {},

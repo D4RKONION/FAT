@@ -131,7 +131,7 @@ const Premium = () => {
 
         </article>
         {/* DEBUG BUTTON */}
-        {/* {!isPlatform("capacitor") &&
+        {/* {!Capacitor.isNativePlatform() &&
           <IonFab slot="fixed" vertical="bottom" horizontal="end">
             <IonFabButton onClick={() => premiumIsPurchased ? dispatch(resetPremium()) : dispatch(purchaseLifetimePremium())}>
               <IonIcon icon={diamondSharp}></IonIcon>

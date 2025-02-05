@@ -1,6 +1,7 @@
 import "../../style/pages/FrameData.scss";
 import "../../style/components/DetailCards.scss";
 
+import { Capacitor } from "@capacitor/core";
 import { Preferences } from "@capacitor/preferences";
 import { IonContent, IonPage, IonIcon, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonSearchbar, IonButton, IonTitle, IonFab, IonFabButton, ScrollDetail } from "@ionic/react";
 import { isPlatform } from "@ionic/react";
@@ -177,7 +178,7 @@ const FrameData = () => {
                     dispatch(removeBookmark(currentBookmarkIndex));
                     setBookmarkToastMessage(`Bookmark Removed: ${activeGame} ${selectedCharacters[activePlayer].name}`);
                     setBookmarkToastVisible(true);
-                  } else if (bookmarks.length >= 3 && !premiumIsPurchased && isPlatform("capacitor")) {
+                  } else if (bookmarks.length >= 3 && !premiumIsPurchased && Capacitor.isNativePlatform()) {
                     history.push("/settings/premium");
                   } else {
                     dispatch(addBookmark({

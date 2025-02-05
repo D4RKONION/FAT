@@ -1,5 +1,6 @@
 import "../../style/components/CharacterSelect.scss";
 
+import { Capacitor } from "@capacitor/core";
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonModal, IonSearchbar, IonTitle, IonToolbar, isPlatform } from "@ionic/react";
 import { backspaceOutline, checkmarkSharp, closeOutline, closeSharp, diamondSharp, eyeSharp, searchSharp } from "ionicons/icons";
 import { Fragment, useEffect, useRef, useState } from "react";
@@ -288,7 +289,7 @@ const CharacterSelectModal = () => {
           <h2>Character Select Layout</h2>
           <IonList>
             {CHARACTER_SELECT_LAYOUTS.filter(optionEntry => {
-              if (!isPlatform("capacitor") && optionEntry.premiumLayout) {
+              if (!Capacitor.isNativePlatform() && optionEntry.premiumLayout) {
                 return false;
               } else {
                 return true;

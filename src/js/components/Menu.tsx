@@ -1,3 +1,4 @@
+import { Capacitor } from "@capacitor/core";
 import { IonContent, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonAlert, isPlatform, IonGrid, IonRippleEffect, IonButton, IonPopover } from "@ionic/react";
 import { peopleOutline, settingsOutline, settingsSharp, moon, sunny, gameControllerOutline, libraryOutline, librarySharp, calculatorOutline, calculatorSharp, searchOutline, searchSharp, statsChartOutline, statsChartSharp, barbellOutline, barbellSharp, menuSharp, logoPaypal, phonePortraitOutline, phonePortraitSharp, cafe, diamondOutline, diamondSharp, bookmarksSharp } from "ionicons/icons";
 import { Fragment, useEffect, useRef, useState } from "react";
@@ -281,9 +282,9 @@ const Menu = () => {
           </div>
           <IonList id="pageList">
             {appPages.map((appPage) => {
-              if (!isPlatform("capacitor") && appPage.appOnly) {
+              if (!Capacitor.isNativePlatform() && appPage.appOnly) {
                 return false;
-              } else if (isPlatform("capacitor") && appPage.desktopOnly) {
+              } else if (Capacitor.isNativePlatform() && appPage.desktopOnly) {
                 return false;
               } else if (appPage.noDisplay && appPage.noDisplay.includes(activeGame)) {
                 return false;
@@ -296,7 +297,7 @@ const Menu = () => {
                         <IonLabel>{appPage.title}</IonLabel>
                       </IonItem>
                     </IonMenuToggle>
-                    {!isPlatform("capacitor") && appPage.modeName === "settings" && <hr style={{backgroundColor: "var(--fat-settings-item-border)"}} />}
+                    {!Capacitor.isNativePlatform() && appPage.modeName === "settings" && <hr style={{backgroundColor: "var(--fat-settings-item-border)"}} />}
                   </Fragment>
                 );
               }

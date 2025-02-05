@@ -1,11 +1,11 @@
 {
   "name": "fat-os",
-  "version": "4.4.1",
+  "version": "4.5.0",
   "private": true,
   "dependencies": {
     "@babel/core": "^7.22.6",
-    "@capacitor-community/safe-area": "^6.0.0-alpha.8",
-    "@capacitor/preferences": "^6.0.0",
+    "@capacitor-community/safe-area": "^7.0.0-alpha.1",
+    "@capacitor/preferences": "^7.0.0",
     "@ionic-native/core": "^5.36.0",
     "@ionic/cli": "^7.1.1",
     "@ionic/core": "^8.3.1",
@@ -68,15 +68,15 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@capacitor/android": "^6.0.0",
-    "@capacitor/app": "^6.0.0",
-    "@capacitor/cli": "^6.0.0",
-    "@capacitor/clipboard": "^6.0.0",
-    "@capacitor/core": "^6.0.0",
-    "@capacitor/haptics": "^6.0.0",
-    "@capacitor/ios": "^6.0.0",
-    "@capacitor/keyboard": "^6.0.0",
-    "@capacitor/splash-screen": "^6.0.0",
+    "@capacitor/android": "^7.0.0",
+    "@capacitor/app": "^7.0.0",
+    "@capacitor/cli": "^7.0.0",
+    "@capacitor/clipboard": "^7.0.0",
+    "@capacitor/core": "^7.0.0",
+    "@capacitor/haptics": "^7.0.0",
+    "@capacitor/ios": "^7.0.0",
+    "@capacitor/keyboard": "^7.0.0",
+    "@capacitor/splash-screen": "^7.0.0",
     "@stylistic/eslint-plugin": "^2.11.0",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
@@ -85,5 +85,5 @@
     "eslint-plugin-react-hooks": "^5.0.0",
     "redux-devtools-extension": "^2.13.9"
   },
-  "description": "An Ionic project"
+  "description": "An open source frame data project"
 }
