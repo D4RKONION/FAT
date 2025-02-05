@@ -1,6 +1,6 @@
-export const APP_CURRENT_VERSION_NAME = "4.4.1";
-export const APP_CURRENT_VERSION_CODE = 40401;
-export const APP_DATE_UPDATED = "Jan 10 2024"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "4.5.0";
+export const APP_CURRENT_VERSION_CODE = 40500;
+export const APP_DATE_UPDATED = "Feb 05 2024"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"];
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"];
@@ -20,22 +20,13 @@ export const UPDATABLE_GAMES_APP_CODES = {
 };
 
 export const VERSION_LOGS = {
+  "4.5.0": {
+    "Added Mai in SF6": [
+      "We've added preliminary Mai data to FAT",
+      "When her phrase no longer says WORK IN PROGRESS, her data will be fully confirmed",
+    ],
+  },
   "4.4.1": {
-    "Improved mobile stats header": [
-      "Added a collapsable, swipable stat header!",
-      "Swipe left and tap to see all stats at once",
-    ],
-    "Frame Kill Calculator": [
-      "Added Custom KDA option to allow labbing meaties after a juggle",
-      "FAT now checks if Drive Rush normals will work as meaties",
-    ],
-    "Accessibility improvements": [
-      "I've tried to make the app work better with Screen Announcers. Feedback very welcome",
-      "Tabbing improved on desktop",
-    ],
-    iOS: [
-      "Due to some Premium changes, you may have to restore previous purchases. Apologies for the inconvenience!",
-    ],
     Hotfix: [
       "Android: Improved the 'go back' gestures",
       "Improved the interface of the move selectors in all calculators",

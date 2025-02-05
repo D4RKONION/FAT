@@ -1,0 +1,5 @@
+Ver 4.5.0
+
+Added Mai in SF6
+- We've added preliminary Mai data to FAT
+- When her phrase no longer says WORK IN PROGRESS, her data will be fully confirmed
