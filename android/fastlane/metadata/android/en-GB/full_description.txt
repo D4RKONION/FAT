@@ -1,15 +1,22 @@
-FAT 3.0 is here! We have frame data for many popular fighting games and more! Built from the ground up, FAT 3 is filled with new features and tons of polish on old ones, including a dark theme, better layouts and the all new stat compare mode. Check it out!
+Master the Game with FAT – Your Ultimate Fighting Game Companion!
 
-Modes include: 
-* Frame Data
-* Move Searcher
-* Moves List
-* Combos & Tech
-* Stat Compare
-* 7 Unique Calculators
-* More Resources
-* Theme Store
+Looking to level up your skills and gain the competitive edge? FAT (Frame Assistant Tool) is the must-have app for fighting game enthusiasts, packed with features to help you learn, adapt, and dominate.
 
-Then, choose a character and input what you need to know. It's as simple as that. FAT will give you back an answer instantaneously. No PDFs; no fancy images. Just information at your fingertips.
+Core Features:
+🕹️ Frame Data for 5 Games – Get detailed, expertly curated frame data across a variety of games.
+🎛️ Customizable Data Tables – Choose the columns you want to view for a streamlined experience.
+🔍 Quick Search Mode – Instantly find moves and characters with fuzzy search functionality.
+📖 Move Lists for All Characters – Never miss a move, from the basics to the advanced techniques.
+📊 Stat Comparer – Quickly compare stats across characters with tier-list-style visuals.
+🛠️ 7 Unique Calculators – Dive deep into complex scenarios with tools designed for both beginner understanding and serious analysis.
+⭐ Bookmarking – Save your favorite characters for lightning-fast switching.
 
-If you notice any bugs or incorrect data, please leave a comment below or email me at apps@fullmeter.com and I'll get back to you ASAP
+Why Choose FAT?
+
+✅ Expertly Curated: Every detail is manually researched by a team of experienced lab monsters.
+✅ Compact & Readable: Clean, well-organized data ensures you find what you need, when you need it.
+✅ Beginner-Friendly: Move lists and calculators make this app great for players just starting out.
+
+Whether you’re studying frame data, crafting strategies, or exploring match-ups, FAT has the tools to make you a better player. Join thousands of players who are already using FAT to up their game!
+
+Download now and become a frame data master!
