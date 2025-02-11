@@ -82,6 +82,27 @@
         }
       }
     ],
+    "Full Sequence Data": [
+      {
+        "fullStartup": {
+          "dataTableHeader": "S (f)",
+          "detailedHeader": "Startup (f)",
+          "dataFileKey": "fullStartup"
+        },
+        "fullActive": {
+          "dataTableHeader": "A (f)",
+          "detailedHeader": "Active (f)",
+          "dataFileKey": "fullActive"
+        }
+      },
+      {
+        "fullDmg": {
+          "dataTableHeader": "F-Dmg",
+          "detailedHeader": "Damage (f)",
+          "dataFileKey": "fullDmg"
+        }
+      }
+    ],
     "Move Properties": [
       {
         "moveType": {
