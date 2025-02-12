@@ -6,8 +6,17 @@ import { FrameMeterBlockSegment } from "../types";
  * to decide whether to use this or parseMultiActive
  * @param valueToParse the string or number you want parsed
  */
+
+export const canParseBasicFrames = (valueToCheck):boolean => 
+  typeof valueToCheck === "number" || valueToCheck.match(/[0-9]/);
+
 export const parseBasicFrames = (valueToParse: string | number): number => {
   if (typeof valueToParse === "number") return valueToParse;
+
+  // Handle cases where a KD appears before a number which we want to return
+  if (valueToParse.match(/(KD|Crumple) \+([^\(*,\[]+)/)?.[1]) {
+    return parseInt(valueToParse.match(/(KD|Crumple) \+([^\(*,\[]+)/)?.[2], 10);
+  }
 
   // Handle cases with square brackets or other delimiters
   const cleanedValue = valueToParse.split(/[([/~,a-zA-Z]/)[0];

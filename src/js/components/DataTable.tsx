@@ -8,6 +8,7 @@ import { PlayerData } from "../types";
 import DataTableRow from "./DataTableRow";
 import { activeGameSelector, activePlayerSelector, dataTableSettingsSelector, orientationSelector, selectedCharactersSelector } from "../selectors";
 import DataTableHeader from "./DataTableHeader";
+import { parseBasicFrames, parseMultiActiveFrames } from "../utils/ParseFrameData";
 
 type Props = {
   frameData: PlayerData["frameData"];
@@ -89,17 +90,26 @@ const DataTable = ({frameData, searchText, scrollToBottom, clearSearchText}: Pro
       if (lowerKey === "info" && moveData["extraInfo"]) {
         return moveData["extraInfo"].some(entry => entry.toLowerCase().includes(value.trim().toLowerCase()));
       }
+      
+      // Handle oH being KD
+      if (lowerKey === "oh" && moveData["onHit"] && isNaN(moveData["onHit"]) && moveData["onHit"].includes("HKD") && value.includes("hkd")) {
+        return moveData["onHit"].includes("HKD");
+      } else if (lowerKey === "oh" && moveData["onHit"] && isNaN(moveData["onHit"]) && moveData["onHit"].includes("KD") && value === ("kd")) {
+        return moveData["onHit"].includes("KD");
+      }
 
       // Handle other operators
       if (moveData[dataKey]) {
-        const dataValue = moveData[dataKey];
+        const dataValue = 
+          dataKey === "active" && isNaN(moveData["active"]) ? parseMultiActiveFrames(moveData["startup"], moveData["active"]).length
+            : parseBasicFrames(moveData[dataKey]);
 
         switch (operator) {
           case "=": case ":": return dataValue.toString() === value.trim();
-          case ">=": return parseInt(dataValue) >= parseInt(value);
-          case "<=": return parseInt(dataValue) <= parseInt(value);
-          case ">": return parseInt(dataValue) > parseInt(value);
-          case "<": return parseInt(dataValue) < parseInt(value);
+          case ">=": return dataValue >= parseInt(value);
+          case "<=": return dataValue <= parseInt(value);
+          case ">": return dataValue > parseInt(value);
+          case "<": return dataValue < parseInt(value);
           default:
             return false; // Operator not recognized, exclude from result
         }
