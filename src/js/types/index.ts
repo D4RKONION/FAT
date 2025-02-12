@@ -65,3 +65,8 @@ export type PlayerData = {
   },
   selectedMove?: string,
 };
+
+export type FrameMeterBlockSegment = {
+  length: number;
+  type: "startup" | "active" | "recovery" | "invalid";
+};

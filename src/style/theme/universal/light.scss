@@ -188,7 +188,7 @@ ion-app.universal-light-none, .themePreview.universal-light-none {
   --fat-frame-meter-startup: #15c78f;
   --fat-frame-meter-active: #ba1663;
   --fat-frame-meter-recovery: #0a77b1;
-  --fat-frame-meter-unknown: #4f4f4f;
+  --fat-frame-meter-invalid: #4f4f4f;
 }
 
 ion-app.universal-light-colorBlind, .themePreview.universal-light-colorBlind {
@@ -372,5 +372,5 @@ ion-app.universal-light-colorBlind, .themePreview.universal-light-colorBlind {
   --fat-frame-meter-startup: #15c78f;
   --fat-frame-meter-active: #ba1663;
   --fat-frame-meter-recovery: #0a77b1;
-  --fat-frame-meter-unknown: #4f4f4f;
+  --fat-frame-meter-invalid: #4f4f4f;
  }

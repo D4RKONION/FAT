@@ -1,90 +1,15 @@
 import styles from "../../style/components/FrameMeter.module.scss";
+import { FrameMeterBlockSegment } from "../types";
+import { parseFrameMeterActiveFrames, parseBasicFrames } from "../utils/ParseFrameData";
 
 type Props = {
   moveData: {
-    startup: number | string;
-    active: number | string;
-    recovery: number | string;
+    [key in "startup" | "active" | "recovery"]: number | string;
   };
   wrap: boolean;
 };
 
 const FrameMeter = ({ moveData, wrap }: Props) => {
-  // Helper function to parse active frame strings like "2(3)2(23)3"
-  const parseActiveFrames = (value: string) => {
-    // Handle cases with square brackets or other delimiters
-    const cleanedValue = value.split("[")[0];
-
-    const segments: { length: number; type: string }[] = [];
-    const regex = /(\d+)|\((\d+)\)|(\d+,\d+)|(\d+\*\d+)/g;
-    let match;
-
-    while ((match = regex.exec(cleanedValue)) !== null) {
-      if (match[1]) {
-        // Regular active blocks (e.g., "2" or "3")
-        segments.push({ length: parseInt(match[1], 10), type: "active" });
-      } else if (match[2]) {
-        // Special blocks inside parentheses (e.g., "(23)")
-        segments.push({ length: parseInt(match[2], 10), type: "recovery" });
-      }
-    }
-
-    return segments;
-  };
-
-  // Helper function to clean and evaluate a frame value
-  const evaluateFrameValue = (value: string | number) => {
-    if (typeof value === "number") return value;
-
-    // Handle cases with square brackets or other delimiters
-    const cleanedValue = value.split("[")[0].split(/[([/~]/)[0];
-
-    // Check if the value contains "land" or "+land"
-    const landRegex = /(\d+)?\s?(UL\+|land)\s?(\d+)?/;
-    const landMatch = cleanedValue.match(landRegex);
-    if (landMatch) {
-      // Check which capture group contains the number and return it
-      const before = landMatch[1]; // Number before "land" or "UL+"
-      const after = landMatch[3]; // Number after "land" or "UL+"
-      return before ? parseInt(before, 10) : after ? parseInt(after, 10) : 0;
-    }
-
-    // Check if the value contains "total"
-    const totalRegex = /(\d+)\s*total/;
-    const totalMatch = cleanedValue.match(totalRegex);
-    if (totalMatch) {
-      return parseInt(totalMatch[1], 10);
-    }
-
-    // Evaluate sums like "12+3"
-    if (cleanedValue.includes("+")) {
-      return eval(cleanedValue); // Safe because it's controlled input
-    }
-
-    // Handle commas and asterisks for addition and multiplication
-    if (cleanedValue.includes(",")) {
-      return cleanedValue
-        .split(",")
-        .map(Number)
-        .reduce((a, b) => a + b, 0);
-    }
-
-    if (cleanedValue.includes("*")) {
-      return cleanedValue
-        .split("*")
-        .map(Number)
-        .reduce((a, b) => a * b, 1);
-    }
-
-    // Convert to number if no further processing is needed
-    return parseInt(cleanedValue, 10);
-  };
-
-  // Helper function to handle invalid or empty values
-  const handleInvalidValue = () => {
-    return [{ length: 1, type: "invalid" }];
-  };
-
   return (
     <div
       className={styles.FrameMeter}
@@ -92,50 +17,37 @@ const FrameMeter = ({ moveData, wrap }: Props) => {
     >
       {Object.keys(moveData).map(moveStage => {
         const moveStageValue = moveData[moveStage];
-
-        // If the value is invalid (blank or contains letters), render a "?"
-        if (
-          !moveStageValue ||
-          (!/^(\d+(\+land|\s*land|UL\+)?|(UL\+|land)\s?\d+)$/.test(String(moveStageValue)) &&
-          !/^\d+\s*total$/.test(String(moveStageValue)) && // Handles "51 total"
-          /[a-zA-Z\?]+/.test(String(moveStageValue))) // Detects invalid patterns
-        ) {
-          const invalidFrameSegments = handleInvalidValue();
-          return invalidFrameSegments.map(segment =>
-            [...Array(segment.length)].map((_, index) => {
-              return (
-                <div
-                  key={`${moveStage}-${index}`}
-                  className={`${styles["unknown"]} ${styles.FrameBlock}`}
-                >
-                  ?
-                </div>
-              );
-            })
-          );
+        let frameSegments : FrameMeterBlockSegment[];
+        
+        // Ensure that the value is defined and that it has at least one number in it
+        if (moveStageValue && !/^(?!.*\d).*$/.test(String(moveStageValue))) {
+          // if it's an active stage that needs to be broken a part, deal with that
+          if (moveStage === "active" && typeof moveStageValue === "string" && /[(*,]/.test(moveStageValue)) {
+            frameSegments = parseFrameMeterActiveFrames(moveStageValue);
+          // otherwise, use basic parsing
+          } else {
+            frameSegments = [{ length: moveStage === "startup" ? parseBasicFrames(moveStageValue) - 1 : parseBasicFrames(moveStageValue), type: moveStage as "startup" | "active" | "recovery" }]; // -1 for startup moves!
+          }
+        // if the value is undefined or there's no numbers in it to be parsed
+        // (only words), we'll print a "?"
+        } else {
+          frameSegments = [{ length: 1, type: "invalid" }];
         }
-
-        // Special handling for active frames with brackets or delimiters
-        const frameSegments =
-          moveStage === "active" && typeof moveStageValue === "string" && /[(*,]/.test(moveStageValue)
-            ? parseActiveFrames(moveStageValue)
-            // -1 when type is startup, as the last frame of startup and first frame of active are the same frame
-            : [{ length: moveStage === "startup" ? evaluateFrameValue(moveStageValue) - 1 : evaluateFrameValue(moveStageValue), type: moveStage }];
 
         // Render the frame segments
         return frameSegments.map(segment => {
-          const segmentValue = segment.length.toString();
+          const segmentValue = segment.length.toString(); // The number to print in the last block
           const valueLength = segmentValue.length; // Used to decide when to print a number to the bar
 
           return [...Array(segment.length)].map((_, index) => {
-            const digitIndex = valueLength - (segment.length - index);
+            const digitIndex = valueLength - (segment.length - index); // we use this to print large numbers across multiple blocks
 
             return (
               <div
                 key={`${moveStage}-${index}`}
                 className={`${styles[segment.type]} ${styles.FrameBlock}`}
               >
-                {digitIndex >= 0 && digitIndex < valueLength ? segmentValue[digitIndex] : ""}
+                {segment.type === "invalid" ? "?" : digitIndex >= 0 && digitIndex < valueLength ? segmentValue[digitIndex] : ""}
               </div>
             );
           });

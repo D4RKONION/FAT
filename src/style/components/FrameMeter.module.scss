@@ -31,8 +31,8 @@
     &.recovery {
       background-color: var(--fat-frame-meter-recovery)
     }
-    &.unknown {
-      background-color: var(--fat-frame-meter-unknown)
+    &.invalid {
+      background-color: var(--fat-frame-meter-invalid)
     }
   }
   
