@@ -33,13 +33,12 @@ const PopoverButton = () => {
           <IonItem lines="none" onClick={() => { dispatch(setModalVisibility({ currentModal: "help", visible: true })); setPopoverVisible({open: false, event: undefined});}} button>
             Help
           </IonItem>
-          {modeName === "framedata" &&
+          {modeName === "framedata" ? (
             <>
-
               <IonItem lines="none" onClick={() => { dispatch(setModalVisibility({ currentModal: "tableSettings", visible: true })); setPopoverVisible({open: false, event: undefined});}} button>
                 Table Settings
               </IonItem>
-            
+
               <IonItem lines="none" onClick={() => { dispatch(setModalVisibility({ currentModal: "landscapeOptions", visible: true })); setPopoverVisible({open: false, event: undefined});}} button>
                 Data Columns
               </IonItem>
@@ -62,9 +61,14 @@ const PopoverButton = () => {
                 </IonItem>
               </>
               }
-
             </>
-          }
+          ) : modeName.includes("calc") || modeName === "moveslist" || modeName === "quicksearch" ? (
+            <IonItem lines="none" onClick={() => { dispatch(setModalVisibility({ currentModal: "tableSettings", visible: true })); setPopoverVisible({open: false, event: undefined});}} button>
+              Frame Data Settings
+            </IonItem>
+          ) : (
+            <></>
+          )}
         </IonList>
       </IonPopover>
     </>
