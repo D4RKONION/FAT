@@ -43,11 +43,6 @@
         }
       }
     }
-    ion-checkbox {
-      --checkbox-background-checked: var(--fat-checkbox-checked);
-      --border-color-checked: var(--fat-checkbox-checked);
-      --border-color: var(--fat-primary);
-    }
 
     &:last-child {
       ion-item:last-child {

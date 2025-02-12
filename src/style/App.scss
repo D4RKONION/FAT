@@ -180,9 +180,18 @@ ion-modal.premium-offer-modal {
     ion-checkbox {
       font-size: 17px;
       --size: 20px;
+      --checkbox-background-checked: var(--fat-chunky-button-bg);
+      --checkmark-color: var(--fat-chunky-button-contrast);
       --border-color: var(--fat-surface-contrast);
+      --border-color-checked: var(--fat-chunky-button-bg);
     }
   }
+}
+
+ion-checkbox {
+  --checkbox-background-checked: var(--fat-checkbox-checked);
+  --border-color-checked: var(--fat-checkbox-checked);
+  --border-color: var(--fat-primary);
 }
 
 ion-modal.select-modal > ion-select-modal > ion-content > ion-list ion-item.item-radio-checked {
