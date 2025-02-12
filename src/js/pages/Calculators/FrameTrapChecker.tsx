@@ -10,6 +10,7 @@ import { setActiveFrameDataPlayer, setModalVisibility } from "../../actions";
 import PopoverButton from "../../components/PopoverButton";
 import SegmentSwitcher from "../../components/SegmentSwitcher";
 import { selectedCharactersSelector } from "../../selectors";
+import { canParseBasicFrames, parseBasicFrames } from "../../utils/ParseFrameData";
 
 const FrameTrapChecker = () => {
   const selectedCharacters = useSelector(selectedCharactersSelector);
@@ -21,10 +22,9 @@ const FrameTrapChecker = () => {
   const [secondMove, setSecondMove] = useState(null);
 
   const playerOneMoves = selectedCharacters["playerOne"].frameData;
-  const firstMoveBlockStun = playerOneMoves[firstMove] && ((parseInt(playerOneMoves[firstMove].blockstun) && playerOneMoves[firstMove].blockstun) ?? parseInt(playerOneMoves[firstMove].active) + playerOneMoves[firstMove].recovery + playerOneMoves[firstMove].onBlock);
+  
   // When we change characters, we want to reset the dropdowns to null if the new character doesn't have
   // one of the selected moves. This leaves most generic normals in tact in the dropdown.
-
   useEffect(() => {
     setFirstMove(null);
     setSecondMove(null);
@@ -44,6 +44,11 @@ const FrameTrapChecker = () => {
       setSecondMove(null);
     }
   },[firstMove, linkOrCancel]);
+
+  const firstMoveOnBlock = playerOneMoves[firstMove] && parseBasicFrames(playerOneMoves[firstMove].onBlock);
+  const secondMoveStartup = playerOneMoves[secondMove] && parseBasicFrames(playerOneMoves[secondMove].startup);
+  const secondMoveRecovery = playerOneMoves[secondMove] && parseBasicFrames(playerOneMoves[secondMove].recovery);
+  const firstMoveBlockStun = playerOneMoves[firstMove] && ((canParseBasicFrames(playerOneMoves[firstMove].blockstun) && parseBasicFrames(playerOneMoves[firstMove].blockstun)) ?? parseBasicFrames(playerOneMoves[firstMove].active) + parseBasicFrames(playerOneMoves[firstMove].recovery) + parseBasicFrames(playerOneMoves[firstMove].onBlock));
 
   return (
     <IonPage>
@@ -88,7 +93,9 @@ const FrameTrapChecker = () => {
                     !playerOneMoves[move].antiAirMove &&
                     !playerOneMoves[move].nonHittingMove &&
                     !playerOneMoves[move].airMove &&
-                    !isNaN(playerOneMoves[move].onBlock)
+                    playerOneMoves[move].onBlock && 
+                    canParseBasicFrames(playerOneMoves[move].onBlock) &&
+                    parseBasicFrames(playerOneMoves[move].onBlock)
                 ).map(move =>
                   <IonSelectOption key={`firstMove-${move}`} value={move}>{move}</IonSelectOption>
                 )
@@ -129,7 +136,9 @@ const FrameTrapChecker = () => {
                 ? Object.keys(playerOneMoves).filter(move =>
                   !playerOneMoves[move].airmove &&
                     !playerOneMoves[move].followUp &&
-                    !isNaN(playerOneMoves[move].startup) &&
+                    playerOneMoves[move].startup && 
+                    canParseBasicFrames(playerOneMoves[move].startup) &&
+                    parseBasicFrames(playerOneMoves[move].startup) &&
                     (
                       (playerOneMoves[move].moveType === "super" && playerOneMoves[firstMove].xx.map(cancelType => cancelType.includes("su"))) ||
                         (playerOneMoves[move].moveType === "vskill" && (playerOneMoves[firstMove].xx.includes("vs1") || playerOneMoves[firstMove].xx.includes("vs2"))) ||
@@ -146,7 +155,9 @@ const FrameTrapChecker = () => {
                     !playerOneMoves[move].nonHittingMove &&
                     !playerOneMoves[move].airMove &&
                     !playerOneMoves[move].followUp &&
-                    !isNaN(playerOneMoves[move].startup)
+                    playerOneMoves[move].startup && 
+                    canParseBasicFrames(playerOneMoves[move].startup) &&
+                    parseBasicFrames(playerOneMoves[move].startup)
                 ).map(move =>
                   <IonSelectOption key={`secondMove-${move}`} value={move}>{move}</IonSelectOption>
                 )
@@ -161,20 +172,20 @@ const FrameTrapChecker = () => {
                   <h3>First Move</h3>
                   <h2>{firstMove}</h2>
                   {linkOrCancel === "link"
-                    ? <p><b>{playerOneMoves[firstMove].onBlock > 0 && "+"}{playerOneMoves[firstMove].onBlock}</b> On Block</p>
+                    ? <p><b>{firstMoveOnBlock > 0 && "+"}{firstMoveOnBlock}</b> On Block</p>
                     : <p><b>{firstMoveBlockStun}</b> frames of blockstun</p>
                   }
                 </IonLabel>
                 <IonLabel>
                   <h3>Second Move</h3>
                   <h2>{secondMove}</h2>
-                  <p><b>{playerOneMoves[secondMove].startup}</b> Startup</p>
+                  <p><b>{secondMoveStartup}</b> Startup</p>
                 </IonLabel>
               </IonItem>
               {linkOrCancel === "link" &&
                 <IonItem lines="full">
-                  {playerOneMoves[secondMove].startup - playerOneMoves[firstMove].onBlock > 0
-                    ? <p>There is a gap of <b>{playerOneMoves[secondMove].startup - playerOneMoves[firstMove].onBlock}</b> frame{(playerOneMoves[secondMove].startup - playerOneMoves[firstMove].onBlock) > 1 && "s"} between {firstMove} and {secondMove}.</p>
+                  {secondMoveStartup - playerOneMoves[firstMove].onBlock > 0
+                    ? <p>There is a gap of <b>{secondMoveStartup - playerOneMoves[firstMove].onBlock}</b> frame{(secondMoveStartup - firstMoveOnBlock) > 1 && "s"} between {firstMove} and {secondMove}.</p>
                     : <p>There is <b>no gap</b> between {firstMove} and {secondMove}. It is a true blockstring</p>
                   }
                 </IonItem>
@@ -182,11 +193,11 @@ const FrameTrapChecker = () => {
               {linkOrCancel === "cancel" &&
                 <IonItem lines="full">
                   {
-                    (-1 * (firstMoveBlockStun + (1 - 3) - playerOneMoves[secondMove].startup) > 0) && playerOneMoves[secondMove].startup
-                      ? <p>There is a <b>gap of {-1 * (firstMoveBlockStun + (1 - 3) - playerOneMoves[secondMove].startup)} frames </b> in the string {firstMove} xx {secondMove} when {firstMove} connects on active frame 1 and is cancelled immediately.</p>
-                      : (-1 * (firstMoveBlockStun + (1 - 3) - playerOneMoves[secondMove].recovery) > 0) && !playerOneMoves[secondMove].startup && playerOneMoves[secondMove].recovery
-                        ? <p>There is a <b>gap of {-1 * (firstMoveBlockStun + (1 - 3) - playerOneMoves[secondMove].recovery)} frames </b> in the string {firstMove} xx {secondMove} when {firstMove} connects on active frame 1 and is cancelled immediately.</p>
-                        : (-1 * (firstMoveBlockStun + (1 - 3) - playerOneMoves[secondMove].startup) <= 0)
+                    (-1 * (firstMoveBlockStun + (1 - 3) - secondMoveStartup) > 0) && secondMoveStartup
+                      ? <p>There is a <b>gap of {-1 * (firstMoveBlockStun + (1 - 3) - secondMoveStartup)} frames </b> in the string {firstMove} xx {secondMove} when {firstMove} coonnects on active frame 1 and is cancelled immediately.</p>
+                      : (-1 * (firstMoveBlockStun + (1 - 3) - secondMoveRecovery) > 0) && !secondMoveStartup && secondMoveRecovery
+                        ? <p>There is a <b>gap of {-1 * (firstMoveBlockStun + (1 - 3) - secondMoveRecovery)} frames </b> in the string {firstMove} xx {secondMove} when {firstMove} connects on active frame 1 and is cancelled immediately.</p>
+                        : (-1 * (firstMoveBlockStun + (1 - 3) - secondMoveStartup) <= 0)
                           ? <p>There is <b>no gap</b> between {firstMove} xx {secondMove}. It is a true blockstring.</p>
                           : <p>You broke the calculator, congratulations! Please email me with the inputted data so I can fix this :)</p>
                   }
