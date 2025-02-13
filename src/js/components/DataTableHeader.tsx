@@ -1,7 +1,9 @@
-import { useDispatch, useSelector } from "react-redux";
 
 import "../../style/components/DataTableRow.scss";
 import "../../style/components/DataTableHeader.scss";
+import { memo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import { setModalVisibility } from "../actions";
 import { advantageModifiersSelector } from "../selectors";
 
@@ -39,4 +41,4 @@ const DataTableHeader = ({colsToDisplay, moveType, xScrollEnabled, sample}: Prop
   );
 };
 
-export default DataTableHeader;
+export default memo(DataTableHeader);

@@ -6,7 +6,7 @@ import { Preferences } from "@capacitor/preferences";
 import { IonContent, IonPage, IonIcon, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonSearchbar, IonButton, IonTitle, IonFab, IonFabButton, ScrollDetail } from "@ionic/react";
 import { isPlatform } from "@ionic/react";
 import { backspaceOutline, bookmarkOutline, bookmarkSharp, bookmarksSharp, chevronDown, chevronUp, closeOutline, informationCircleOutline, searchSharp } from "ionicons/icons";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import { Pagination } from "swiper/modules";
@@ -112,15 +112,15 @@ const FrameData = () => {
   const contentRef = useRef(null);
   const lastScrollTime = useRef(0);
 
-  const scrollToBottom = (scrollEvent) => {
+  const scrollToBottom = useCallback((scrollEvent) => {
     if (scrollEvent.target.scrollTop < 10 || (scrollEvent.timeStamp - lastScrollTime.current) > 1000 ) {
       lastScrollTime.current = scrollEvent.timeStamp;
       contentRef.current?.scrollToBottom(500); // over 500ms
     }
-  };
+  }, []);
 
   //Handles scrolling up to display the bookmarks fab
-  function handleScroll(ev: CustomEvent<ScrollDetail>) {
+  const handleScroll = useCallback((ev: CustomEvent<ScrollDetail>) => {
     if (ev.detail.scrollTop === 0) {
       setScrolledToTop(true);
     } else {
@@ -131,7 +131,7 @@ const FrameData = () => {
     } else {
       setScrollingUp(false);
     }
-  }
+  }, []);
 
   return (
     <IonPage id="FrameData">

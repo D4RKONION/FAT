@@ -1,5 +1,6 @@
 import "../../style/components/DataTableRow.scss";
 
+import { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 
@@ -216,4 +217,4 @@ const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displ
   );
 };
 
-export default DataTableRow;
+export default memo(DataTableRow);
