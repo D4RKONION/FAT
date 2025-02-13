@@ -146,7 +146,7 @@ const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displ
       && (detailKeyLowerCase.includes("block") || detailKeyLowerCase.includes("ob") || detailKeyLowerCase.includes("hit") || detailKeyLowerCase.includes("oh") || detailKey === "onPC" || detailKey === "onPP" || detailKey === "toxicblossom")
     ) {
       const amountToCheck =
-        typeof cellDataToDisplay === "string" && canParseBasicFrames(cellDataToDisplay) ? parseBasicFrames(cellDataToDisplay)
+        canParseBasicFrames(cellDataToDisplay) ? parseBasicFrames(cellDataToDisplay)
           : cellDataToDisplay;
           
       const advantageAmount =

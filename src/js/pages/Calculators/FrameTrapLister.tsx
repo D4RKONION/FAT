@@ -68,12 +68,12 @@ const FrameTrapLister = () => {
                 !playerOneMoves[firstMove].nonHittingMove &&
                 !playerOneMoves[firstMove].antiAirMove &&
                 (!firstMoveIsNormal || playerOneMoves[firstMove].moveType === "normal") &&
-                playerOneMoves[firstMove].onBlock && canParseBasicFrames(playerOneMoves[firstMove].onBlock) && parseBasicFrames(playerOneMoves[firstMove].onBlock) &&
+                canParseBasicFrames(playerOneMoves[firstMove].onBlock) &&
                 (!firstMoveIsSafe || parseBasicFrames(playerOneMoves[firstMove].onBlock) > -4)
             ).map(firstMove =>
               Object.keys(playerOneMoves).filter(secondMove =>
-                (playerOneMoves[secondMove].startup && canParseBasicFrames(playerOneMoves[secondMove].startup) && parseBasicFrames(playerOneMoves[secondMove].startup)) - (parseBasicFrames(playerOneMoves[firstMove].onBlock)) === frameGap &&
-                (!secondMoveIsSafe || playerOneMoves[secondMove].onBlock && canParseBasicFrames(playerOneMoves[secondMove].onBlock) && parseBasicFrames(playerOneMoves[secondMove].onBlock) > -4) &&
+                (canParseBasicFrames(playerOneMoves[secondMove].startup) && parseBasicFrames(playerOneMoves[secondMove].startup)) - (parseBasicFrames(playerOneMoves[firstMove].onBlock)) === frameGap &&
+                (!secondMoveIsSafe || canParseBasicFrames(playerOneMoves[secondMove].onBlock) && parseBasicFrames(playerOneMoves[secondMove].onBlock) > -4) &&
                 (!secondMoveIsNormal || playerOneMoves[secondMove].moveType === "normal") &&  
                 playerOneMoves[secondMove].moveType !== "throw" &&
                 playerOneMoves[secondMove].startup !== "~" &&

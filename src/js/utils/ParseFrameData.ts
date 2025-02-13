@@ -8,7 +8,7 @@ import { FrameMeterBlockSegment } from "../types";
  */
 
 export const canParseBasicFrames = (valueToCheck):boolean => 
-  typeof valueToCheck === "number" || valueToCheck.match(/[0-9]/);
+  valueToCheck != null && (typeof valueToCheck === "number" || /[0-9]/.test(valueToCheck));
 
 export const parseBasicFrames = (valueToParse: string | number): number => {
   if (typeof valueToParse === "number") return valueToParse;

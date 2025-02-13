@@ -93,9 +93,7 @@ const FrameTrapChecker = () => {
                     !playerOneMoves[move].antiAirMove &&
                     !playerOneMoves[move].nonHittingMove &&
                     !playerOneMoves[move].airMove &&
-                    playerOneMoves[move].onBlock && 
-                    canParseBasicFrames(playerOneMoves[move].onBlock) &&
-                    parseBasicFrames(playerOneMoves[move].onBlock)
+                    canParseBasicFrames(playerOneMoves[move].onBlock)
                 ).map(move =>
                   <IonSelectOption key={`firstMove-${move}`} value={move}>{move}</IonSelectOption>
                 )
@@ -136,9 +134,7 @@ const FrameTrapChecker = () => {
                 ? Object.keys(playerOneMoves).filter(move =>
                   !playerOneMoves[move].airmove &&
                     !playerOneMoves[move].followUp &&
-                    playerOneMoves[move].startup && 
                     canParseBasicFrames(playerOneMoves[move].startup) &&
-                    parseBasicFrames(playerOneMoves[move].startup) &&
                     (
                       (playerOneMoves[move].moveType === "super" && playerOneMoves[firstMove].xx.map(cancelType => cancelType.includes("su"))) ||
                         (playerOneMoves[move].moveType === "vskill" && (playerOneMoves[firstMove].xx.includes("vs1") || playerOneMoves[firstMove].xx.includes("vs2"))) ||
@@ -155,9 +151,7 @@ const FrameTrapChecker = () => {
                     !playerOneMoves[move].nonHittingMove &&
                     !playerOneMoves[move].airMove &&
                     !playerOneMoves[move].followUp &&
-                    playerOneMoves[move].startup && 
-                    canParseBasicFrames(playerOneMoves[move].startup) &&
-                    parseBasicFrames(playerOneMoves[move].startup)
+                    canParseBasicFrames(playerOneMoves[move].startup)
                 ).map(move =>
                   <IonSelectOption key={`secondMove-${move}`} value={move}>{move}</IonSelectOption>
                 )

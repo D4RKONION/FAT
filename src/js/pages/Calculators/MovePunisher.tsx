@@ -39,7 +39,7 @@ const MovePunisher = () => {
 
   useEffect(() => {
     // If player two changes and either the selected move doesn't exist OR the selected move is no longer a punishable move, set to null
-    if (!playerTwoMoves[blockedMove] || !(playerTwoMoves[blockedMove].onBlock && canParseBasicFrames(playerTwoMoves[blockedMove].onBlock) && playerOneFastestStartup <= parseBasicFrames(playerTwoMoves[blockedMove].onBlock) * -1)) {
+    if (!(canParseBasicFrames(playerTwoMoves[blockedMove]?.onBlock) && playerOneFastestStartup <= parseBasicFrames(playerTwoMoves[blockedMove].onBlock) * -1)) {
       setBlockedMove(null);
     }
   },[blockedMove, playerOneFastestStartup, playerTwoMoves, selectedCharacters]);

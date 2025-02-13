@@ -82,7 +82,7 @@ const CharacterPunisher = () => {
                 <IonList>
                   {
                     Object.keys(playerTwoMoves).filter(blockedMove =>
-                      playerTwoMoves[blockedMove].onBlock && canParseBasicFrames(playerTwoMoves[blockedMove].onBlock) && (parseBasicFrames(playerTwoMoves[blockedMove].onBlock) * -1) >= parseBasicFrames(playerOneMoves[punishingMove].startup)
+                      canParseBasicFrames(playerTwoMoves[blockedMove].onBlock) && (parseBasicFrames(playerTwoMoves[blockedMove].onBlock) * -1) >= parseBasicFrames(playerOneMoves[punishingMove].startup)
                     ).map(blockedMove =>
                       <IonItem key={`${selectedCharacters["playerTwo"].name}, ${blockedMove}`}>
                         <p><em>{blockedMove}</em>: <strong>{parseBasicFrames(playerTwoMoves[blockedMove].onBlock) * -1 - parseBasicFrames(playerOneMoves[punishingMove].startup) + 1}</strong> frame punish</p>
