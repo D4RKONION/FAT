@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setModalVisibility } from "../../actions";
 import PopoverButton from "../../components/PopoverButton";
 import { activeGameSelector, selectedCharactersSelector } from "../../selectors";
+import { canParseBasicFrames, parseBasicFrames } from "../../utils/ParseFrameData";
 
 const StringInterrupter = () => {
   const selectedCharacters = useSelector(selectedCharactersSelector);
@@ -37,12 +38,12 @@ const StringInterrupter = () => {
       setSecondMove(null);
     }
 
-    if (playerTwoMoves[firstMove] && playerTwoMoves[secondMove]) {
+    if (canParseBasicFrames(playerTwoMoves[firstMove]?.onBlock) && canParseBasicFrames(playerTwoMoves[secondMove]?.startup)) {
       const tempResults:WinsAndTrades = {trades: {}, wins: {}};
       let defenderPriority;
       let attackerPriority;
 
-      const frameGap = playerTwoMoves[secondMove]["startup"] - playerTwoMoves[firstMove]["onBlock"];
+      const frameGap = parseBasicFrames(playerTwoMoves[secondMove]["startup"]) - parseBasicFrames(playerTwoMoves[firstMove]["onBlock"]);
 
       if (playerTwoMoves[secondMove]["moveType"] === "normal" && activeGame === "SFV") {
         switch (playerTwoMoves[secondMove].moveButton[0]) {
@@ -89,25 +90,26 @@ const StringInterrupter = () => {
           defenderPriority = 10;
         }
 
-        if (!isNaN(currentMoveData["startup"])
+        if (canParseBasicFrames(currentMoveData["startup"])
           && currentMoveData.moveType !== "movement-special"
           && !currentMoveData.airmove
           && !currentMoveData.followUp
           && !currentMoveData.nonHittingMove
           && !currentMoveData.antiAirMove
         ) {
-          if ( (defenderPriority === "nonNormal" || attackerPriority === "nonNormal") && currentMoveData["startup"] === frameGap) {
-            tempResults["trades"][currentMoveName] = (frameGap - currentMoveData["startup"] + 1);
-          } else if ( (defenderPriority === "nonNormal" || attackerPriority === "nonNormal") && currentMoveData["startup"] < frameGap) {
-            tempResults["wins"][currentMoveName] = (frameGap - currentMoveData["startup"] + 1);
-          } else if (currentMoveData["startup"] < frameGap && attackerPriority > defenderPriority) {
-            tempResults["wins"][currentMoveName] = (frameGap - currentMoveData["startup"]);
-          } else if (currentMoveData["startup"] < frameGap) {
-            tempResults["wins"][currentMoveName] = (frameGap - currentMoveData["startup"] + 1);
-          } else if (currentMoveData["startup"] === frameGap && attackerPriority === defenderPriority) {
-            tempResults["trades"][currentMoveName] = (frameGap - currentMoveData["startup"] + 1);
-          } else if (currentMoveData["startup"] === frameGap && attackerPriority < defenderPriority) {
-            tempResults["wins"][currentMoveName] = (frameGap - currentMoveData["startup"] + 1);
+          const currentMoveStartup = parseBasicFrames(currentMoveData["startup"]);
+          if ( (defenderPriority === "nonNormal" || attackerPriority === "nonNormal") && currentMoveStartup === frameGap) {
+            tempResults["trades"][currentMoveName] = (frameGap - currentMoveStartup + 1);
+          } else if ( (defenderPriority === "nonNormal" || attackerPriority === "nonNormal") && currentMoveStartup < frameGap) {
+            tempResults["wins"][currentMoveName] = (frameGap - currentMoveStartup + 1);
+          } else if (currentMoveStartup < frameGap && attackerPriority > defenderPriority) {
+            tempResults["wins"][currentMoveName] = (frameGap - currentMoveStartup);
+          } else if (currentMoveStartup < frameGap) {
+            tempResults["wins"][currentMoveName] = (frameGap - currentMoveStartup + 1);
+          } else if (currentMoveStartup === frameGap && attackerPriority === defenderPriority) {
+            tempResults["trades"][currentMoveName] = (frameGap - currentMoveStartup + 1);
+          } else if (currentMoveStartup === frameGap && attackerPriority < defenderPriority) {
+            tempResults["wins"][currentMoveName] = (frameGap - currentMoveStartup + 1);
           }
         }
       }
@@ -159,10 +161,9 @@ const StringInterrupter = () => {
                 playerTwoMoves[move].moveType !== "movement-special" &&
                   playerTwoMoves[move].moveType !== "throw" &&
                   playerTwoMoves[move].moveType !== "command-grab" &&
-                  !playerTwoMoves[move].airMove &&
                   !playerTwoMoves[move].nonHittingMove &&
                   !playerTwoMoves[move].antiAirMove &&
-                  !isNaN(playerTwoMoves[move].onBlock)
+                  canParseBasicFrames(playerTwoMoves[move].onBlock)
               ).map(move =>
                 <IonSelectOption key={`firstMove-${move}`} value={move}>{move}</IonSelectOption>
               )}
@@ -188,7 +189,7 @@ const StringInterrupter = () => {
                 !playerTwoMoves[move].antiAirMove &&
                 !playerTwoMoves[move].airmove &&
                 !playerTwoMoves[move].followUp &&
-                !isNaN(playerTwoMoves[move].startup)
+                canParseBasicFrames(playerTwoMoves[move].startup)
               ).map(move =>
                 <IonSelectOption key={`secondMove-${move}`} value={move}>{move}</IonSelectOption>
               )
@@ -201,18 +202,18 @@ const StringInterrupter = () => {
                 <IonLabel>
                   <h3>First Move</h3>
                   <h2>{firstMove}</h2>
-                  <p><b>{playerTwoMoves[firstMove].onBlock > 0 && "+"}{playerTwoMoves[firstMove].onBlock}</b> On Block</p>
+                  <p><b>{parseBasicFrames(playerTwoMoves[firstMove].onBlock) > 0 && "+"}{parseBasicFrames(playerTwoMoves[firstMove].onBlock)}</b> On Block</p>
                 </IonLabel>
                 <IonLabel>
                   <h3>Second Move</h3>
                   <h2>{secondMove}</h2>
-                  <p><b>{playerTwoMoves[secondMove].startup}</b> Startup</p>
+                  <p><b>{parseBasicFrames(playerTwoMoves[secondMove].startup)}</b> Startup</p>
                 </IonLabel>
               </IonItem>
 
               <IonItem lines="full">
-                {playerTwoMoves[secondMove].startup - playerTwoMoves[firstMove].onBlock > 0
-                  ? <p>There is a gap of <b>{playerTwoMoves[secondMove].startup - playerTwoMoves[firstMove].onBlock}</b> frame{(playerTwoMoves[secondMove].startup - playerTwoMoves[firstMove].onBlock) > 1 && "s"} between {firstMove} and {secondMove}.</p>
+                {parseBasicFrames(playerTwoMoves[secondMove].startup) - parseBasicFrames(playerTwoMoves[firstMove].onBlock) > 0
+                  ? <p>There is a gap of <b>{parseBasicFrames(playerTwoMoves[secondMove].startup) - parseBasicFrames(playerTwoMoves[firstMove].onBlock)}</b> frame{(parseBasicFrames(playerTwoMoves[secondMove].startup) - parseBasicFrames(playerTwoMoves[firstMove].onBlock)) > 1 && "s"} between {firstMove} and {secondMove}.</p>
                   : <p>There is <b>no gap</b> between {firstMove} and {secondMove}. It is a true blockstring</p>
                 }
               </IonItem>
@@ -234,7 +235,7 @@ const StringInterrupter = () => {
                       </IonItemDivider>
                       {Object.keys(processedResults.wins[framesToInterrupt]).map(winMove =>
                         <IonItem key={`win-${processedResults.wins[framesToInterrupt][winMove]}`} lines="full">
-                          <IonLabel><b>{processedResults.wins[framesToInterrupt][winMove]}</b> <i>({playerOneMoves[processedResults.wins[framesToInterrupt][winMove]] && playerOneMoves[processedResults.wins[framesToInterrupt][winMove]].startup}f startup)</i></IonLabel>
+                          <IonLabel><b>{processedResults.wins[framesToInterrupt][winMove]}</b> <i>({playerOneMoves[processedResults.wins[framesToInterrupt][winMove]] && parseBasicFrames(playerOneMoves[processedResults.wins[framesToInterrupt][winMove]].startup)}f startup)</i></IonLabel>
                         </IonItem>
                       )}
                     </IonItemGroup>
@@ -252,7 +253,7 @@ const StringInterrupter = () => {
                   </IonItem>
                   {Object.keys(processedResults.trades).map(tradeMove =>
                     <IonItem key={`trade-${tradeMove}`} lines="full">
-                      <IonLabel><b>{tradeMove}</b> <i>({playerOneMoves[tradeMove] && playerOneMoves[tradeMove].startup}f startup)</i></IonLabel>
+                      <IonLabel><b>{tradeMove}</b> <i>({playerOneMoves[tradeMove] && parseBasicFrames(playerOneMoves[tradeMove].startup)}f startup)</i></IonLabel>
                     </IonItem>
                   )}
                 </IonItemGroup>
