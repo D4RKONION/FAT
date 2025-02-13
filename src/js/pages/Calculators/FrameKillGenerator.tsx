@@ -34,6 +34,11 @@ const FrameKillGenerator = () => {
     GGST: {disabled: "disabled"},
   };
 
+  const SETUP_CONTAINS_LABELS = {
+    universal: {anything: "Anything", "Forward Dash": "Forward Dash"},
+    SF6: {"Drive Rush >": "Drive Rush >"},
+  }
+
   const [recoveryType, setRecoveryType] = useState(Object.keys(GAME_KNOCKDOWN_LABELS[activeGame])[0]);
   const [knockdownMove, setKnockdownMove] = useState(null);
   const [customKDA, setCustomKDA] = useState(0);
@@ -65,13 +70,18 @@ const FrameKillGenerator = () => {
   }, [activeGame]);
 
   useEffect(() => {
+    //prep specific setup labels for checking
+    const gameLabels = SETUP_CONTAINS_LABELS[activeGame] || {};
+    const universalLabels = SETUP_CONTAINS_LABELS.universal || {};
+    const allLabels = { ...universalLabels, ...gameLabels };
+
     // cancel the calculation if the required dropdowns have not been selected
     if (
       !knockdownMove ||
       (!playerOneMoves[knockdownMove] && knockdownMove !== "Custom KDA") ||
       !targetMeaty ||
       !playerOneMoves[targetMeaty] ||
-      (specificSetupMove && !playerOneMoves[specificSetupMove])
+      (!allLabels[specificSetupMove] && !playerOneMoves[specificSetupMove])
     ) { return }
 
 
@@ -575,11 +585,13 @@ const FrameKillGenerator = () => {
                   cancelText="Cancel"
                   onIonChange={e => setSpecificSetupMove(e.detail.value)}
                 >
-                  <IonSelectOption value={"anything"}>Anything</IonSelectOption>
-                  <IonSelectOption value={"Forward Dash"}>Forward Dash</IonSelectOption>
-                  {activeGame === "SF6" &&
-                    <IonSelectOption value={"Drive Rush >"}>{"Drive Rush >"}</IonSelectOption>
-                  }
+                  {Object.keys(SETUP_CONTAINS_LABELS).map(gameName =>
+                    (gameName === activeGame || gameName === "universal") && (
+                      Object.keys(SETUP_CONTAINS_LABELS[gameName]).map(value =>
+                        <IonSelectOption key={`setup-contains-${gameName}-${value}`} value={value}>{SETUP_CONTAINS_LABELS[gameName][value]}</IonSelectOption>
+                      )
+                    )
+                  )}
                   {Object.keys(playerOneMoves).filter(move =>
                     (
                       canParseBasicFrames(playerOneMoves[move].total) ||
