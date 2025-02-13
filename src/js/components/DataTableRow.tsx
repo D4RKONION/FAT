@@ -5,7 +5,7 @@ import { useHistory } from "react-router";
 
 import { setPlayerAttr } from "../actions";
 import { activeGameSelector, activePlayerSelector, advantageModifiersSelector, dataDisplaySettingsSelector, dataTableSettingsSelector, selectedCharactersSelector } from "../selectors";
-import { parseBasicFrames } from "../utils/ParseFrameData";
+import { canParseBasicFrames, parseBasicFrames } from "../utils/ParseFrameData";
 
 type Props = {
   moveName: string;
@@ -145,7 +145,7 @@ const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displ
       && (detailKeyLowerCase.includes("block") || detailKeyLowerCase.includes("ob") || detailKeyLowerCase.includes("hit") || detailKeyLowerCase.includes("oh") || detailKey === "onPC" || detailKey === "onPP" || detailKey === "toxicblossom")
     ) {
       const amountToCheck =
-        typeof cellDataToDisplay === "string" && cellDataToDisplay.match(/[0-9]/) ? parseBasicFrames(cellDataToDisplay) // Split on any of (, [, /, or ~ and take the first part
+        typeof cellDataToDisplay === "string" && canParseBasicFrames(cellDataToDisplay) ? parseBasicFrames(cellDataToDisplay)
           : cellDataToDisplay;
           
       const advantageAmount =

@@ -18,8 +18,8 @@ export const parseBasicFrames = (valueToParse: string | number): number => {
     return parseInt(valueToParse.match(/(KD|Crumple) \+([^\(*,\[]+)/)?.[2], 10);
   }
 
-  // Handle cases with square brackets or other delimiters
-  const cleanedValue = valueToParse.split(/[([/~,a-zA-Z]/)[0];
+  // Handle cases with trailing operators, square brackets or other delimiters
+  const cleanedValue = valueToParse.replace(/[\+\-\*\/\.]$/, "").split(/[([/~,a-zA-Z]/)[0];
 
   // Evaluate sums like "12+3"
   if (cleanedValue.includes("+")) {
