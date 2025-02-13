@@ -1,7 +1,7 @@
 import "../../../style/pages/Calculators.scss";
 import "../../../style/components/FAB.scss";
 
-import { IonContent, IonPage, IonItem, IonLabel, IonIcon, IonFab, IonFabButton, IonInput, IonList, IonGrid, IonBackButton, IonButtons, IonHeader, IonTitle, IonToolbar, IonCheckbox, IonListHeader } from "@ionic/react";
+import { IonContent, IonPage, IonItem, IonLabel, IonIcon, IonFab, IonFabButton, IonInput, IonList, IonGrid, IonBackButton, IonButtons, IonHeader, IonTitle, IonToolbar, IonListHeader, IonToggle } from "@ionic/react";
 import { person } from "ionicons/icons";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -46,16 +46,16 @@ const FrameTrapLister = () => {
             <IonInput slot="end" type="number" value={frameGap} placeholder="Enter Number" onIonInput={e => setFrameGap(!!parseInt(e.detail.value) && parseInt(e.detail.value))}></IonInput>
           </IonItem>
           <IonItem>
-            <IonCheckbox checked={firstMoveIsSafe} onIonChange={(e) => setFirstMoveIsSafe(!firstMoveIsSafe)}>First move is safe</IonCheckbox>
+            <IonToggle checked={firstMoveIsSafe} onIonChange={() => setFirstMoveIsSafe(!firstMoveIsSafe)}>First move is safe</IonToggle>
           </IonItem>
           <IonItem>
-            <IonCheckbox checked={firstMoveIsNormal} onIonChange={(e) => setFirstMoveIsNormal(!firstMoveIsNormal)}>First move is a normal</IonCheckbox>
+            <IonToggle checked={firstMoveIsNormal} onIonChange={() => setFirstMoveIsNormal(!firstMoveIsNormal)}>First move is a normal</IonToggle>
           </IonItem>
           <IonItem>
-            <IonCheckbox checked={secondMoveIsSafe} onIonChange={(e) => setSecondMoveIsSafe(!secondMoveIsSafe)}>Second move is safe</IonCheckbox>
+            <IonToggle checked={secondMoveIsSafe} onIonChange={() => setSecondMoveIsSafe(!secondMoveIsSafe)}>Second move is safe</IonToggle>
           </IonItem>
           <IonItem>
-            <IonCheckbox checked={secondMoveIsNormal} onIonChange={(e) => setSecondMoveIsNormal(!secondMoveIsNormal)}>Second move is a normal</IonCheckbox>
+            <IonToggle checked={secondMoveIsNormal} onIonChange={() => setSecondMoveIsNormal(!secondMoveIsNormal)}>Second move is a normal</IonToggle>
           </IonItem>
 
           <IonList>

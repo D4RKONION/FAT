@@ -1,7 +1,7 @@
 import "../../../style/pages/Calculators.scss";
 import "../../../style/components/FAB.scss";
 
-import { IonContent, IonPage, IonItem, IonLabel, IonIcon, IonFab, IonFabButton, IonList, IonSelect, IonSelectOption, IonGrid, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonCheckbox } from "@ionic/react";
+import { IonContent, IonPage, IonItem, IonLabel, IonIcon, IonFab, IonFabButton, IonList, IonSelect, IonSelectOption, IonGrid, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonToggle } from "@ionic/react";
 import { person } from "ionicons/icons";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -85,10 +85,10 @@ const MovePunisher = () => {
             </IonSelect>
           </IonItem>
           <IonItem>
-            <IonCheckbox checked={punishWithNormal} onIonChange={(e) => setPunishWithNormal(!punishWithNormal)}>Only punish with normals</IonCheckbox>
+            <IonToggle checked={punishWithNormal} onIonChange={() => setPunishWithNormal(!punishWithNormal)}>Only punish with normals</IonToggle>
           </IonItem>
           <IonItem>
-            <IonCheckbox checked={onlyPerfectPunishes} onIonChange={(e) => setOnlyPerfectPunishes(!onlyPerfectPunishes)}>Only perfect punishes</IonCheckbox>
+            <IonToggle checked={onlyPerfectPunishes} onIonChange={() => setOnlyPerfectPunishes(!onlyPerfectPunishes)}>Only perfect punishes</IonToggle>
           </IonItem>
 
           {playerTwoMoves[blockedMove] ?
