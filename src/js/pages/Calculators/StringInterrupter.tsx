@@ -1,7 +1,7 @@
 import "../../../style/pages/Calculators.scss";
 import "../../../style/components/FAB.scss";
 
-import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, IonIcon, IonFab, IonFabButton, IonItemGroup, IonItemDivider, IonGrid, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle } from "@ionic/react";
+import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, IonIcon, IonFab, IonFabButton, IonItemGroup, IonItemDivider, IonGrid, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonToggle } from "@ionic/react";
 import { person, warning, checkmarkSharp } from "ionicons/icons";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -19,6 +19,9 @@ const StringInterrupter = () => {
 
   const [firstMove, setFirstMove] = useState(null);
   const [secondMove, setSecondMove] = useState(null);
+
+  const [interruptionIsSafe, setInterruptionIsSafe] = useState(true);
+  const [interruptionIsNormal, setInterruptionIsNormal] = useState(false);
 
   type WinsAndTrades = {trades: {[key: number]: string[]}, wins: {[key: number]: string[]}};
   const initialState: WinsAndTrades = {trades: {}, wins: {}};
@@ -96,6 +99,8 @@ const StringInterrupter = () => {
           && !currentMoveData.followUp
           && !currentMoveData.nonHittingMove
           && !currentMoveData.antiAirMove
+          && (!interruptionIsSafe || (canParseBasicFrames(currentMoveData["onBlock"]) && parseBasicFrames(currentMoveData["onBlock"]) > -4))
+          && (!interruptionIsNormal || currentMoveData.moveType === "normal")
         ) {
           const currentMoveStartup = parseBasicFrames(currentMoveData["startup"]);
           if ( (defenderPriority === "nonNormal" || attackerPriority === "nonNormal") && currentMoveStartup === frameGap) {
@@ -126,7 +131,7 @@ const StringInterrupter = () => {
 
       setProcessedResults(tempResults);
     }
-  },[playerOneMoves, playerTwoMoves, firstMove, secondMove, selectedCharacters, activeGame]);
+  },[playerOneMoves, playerTwoMoves, firstMove, secondMove, selectedCharacters, activeGame, interruptionIsSafe, interruptionIsNormal]);
 
   return (
     <IonPage>
@@ -195,6 +200,12 @@ const StringInterrupter = () => {
               )
               }
             </IonSelect>
+          </IonItem>
+          <IonItem>
+            <IonToggle checked={interruptionIsSafe} onIonChange={() => setInterruptionIsSafe(!interruptionIsSafe)}>Interrupting move is safe</IonToggle>
+          </IonItem>
+          <IonItem>
+            <IonToggle checked={interruptionIsNormal} onIonChange={() => setInterruptionIsNormal(!interruptionIsNormal)}>Interrupting move is normal</IonToggle>
           </IonItem>
           {playerTwoMoves[firstMove] && playerTwoMoves[secondMove] &&
             <>
