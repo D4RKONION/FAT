@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setActiveFrameDataPlayer, setModalVisibility } from "../../actions";
 import PopoverButton from "../../components/PopoverButton";
 import { activeGameSelector, selectedCharactersSelector } from "../../selectors";
+import { canParseBasicFrames, parseBasicFrames } from "../../utils/ParseFrameData";
 
 const MoveLinker = () => {
   const activeGame = useSelector(activeGameSelector);
@@ -24,19 +25,19 @@ const MoveLinker = () => {
   const playerOneMoves = selectedCharacters["playerOne"].frameData;
 
   useEffect(() => {
-    if (playerOneMoves[firstMove]) {
-      if ((counterHitState || punishCounterState) && playerOneMoves[firstMove]) {
-        if (activeGame === "SF6" && punishCounterState && playerOneMoves[firstMove].onPC) {
-          setCounterHitBonus(playerOneMoves[firstMove].onPC - playerOneMoves[firstMove].onHit);
-        } else if (activeGame === "SF6" && (!!parseInt(playerOneMoves[firstMove].onHit) || playerOneMoves[firstMove].onHit === 0)) {
+    if (canParseBasicFrames(playerOneMoves[firstMove]?.onHit) && !(typeof playerOneMoves[firstMove].onHit === "string" && playerOneMoves[firstMove].onHit.toLowerCase().includes("kd"))) {
+      if ((counterHitState || punishCounterState)) {
+        if (activeGame === "SF6" && punishCounterState && canParseBasicFrames(playerOneMoves[firstMove].onPC)) {
+          setCounterHitBonus(parseBasicFrames(playerOneMoves[firstMove].onPC) - parseBasicFrames(playerOneMoves[firstMove].onHit));
+        } else if (activeGame === "SF6") {
           setCounterHitBonus(2);
         } else if (activeGame === "SFV" && playerOneMoves[firstMove].ccAdv) {
-          setCounterHitBonus(playerOneMoves[firstMove].ccAdv - playerOneMoves[firstMove].onHit);
-        } else if (activeGame === "SFV" && (!!parseInt(playerOneMoves[firstMove].onHit) || playerOneMoves[firstMove].onHit === 0)) {
+          setCounterHitBonus(playerOneMoves[firstMove].ccAdv - parseBasicFrames(playerOneMoves[firstMove].onHit));
+        } else if (activeGame === "SFV") {
           setCounterHitBonus(2);
-        } else if (activeGame === "USF4" && (!!parseInt(playerOneMoves[firstMove].onHit) || playerOneMoves[firstMove].onHit === 0) && playerOneMoves[firstMove].moveType === "normal" && playerOneMoves[firstMove].moveButton.includes("L")) {
+        } else if (activeGame === "USF4" && playerOneMoves[firstMove].moveType === "normal" && playerOneMoves[firstMove].moveButton.includes("L")) {
           setCounterHitBonus(1);
-        } else if (activeGame === "USF4" && (!!parseInt(playerOneMoves[firstMove].onHit) || playerOneMoves[firstMove].onHit === 0)) {
+        } else if (activeGame === "USF4") {
           setCounterHitBonus(3);
         } else {
           setCounterHitBonus(0);
@@ -79,14 +80,14 @@ const MoveLinker = () => {
               <IonSelectOption key="firstMove-select" value={null}>Select a move</IonSelectOption>
 
               {Object.keys(playerOneMoves).filter(move =>
-
                 playerOneMoves[move].moveType !== "movement-special" &&
-              playerOneMoves[move].moveType !== "throw" &&
-              playerOneMoves[move].moveType !== "command-grab" &&
-              !playerOneMoves[move].airmove &&
-              !playerOneMoves[move].followUp &&
-              !playerOneMoves[move].antiAirMove &&
-              !isNaN(playerOneMoves[move].onHit)
+                playerOneMoves[move].moveType !== "throw" &&
+                playerOneMoves[move].moveType !== "command-grab" &&
+                // !playerOneMoves[move].airmove &&
+                !playerOneMoves[move].followUp &&
+                !playerOneMoves[move].antiAirMove &&
+                canParseBasicFrames(playerOneMoves[move].onHit) &&
+                !(typeof playerOneMoves[move].onHit === "string" && playerOneMoves[move].onHit.toLowerCase().includes("kd")) // remove kd moves as they can't be linked from
               ).map(move =>
                 <IonSelectOption key={`firstMove-${move}`} value={move}>{move}</IonSelectOption>
               )}
@@ -111,26 +112,26 @@ const MoveLinker = () => {
                   <IonLabel>
                     <h3>First Move</h3>
                     <h2>{firstMove}</h2>
-                    <p><b>{playerOneMoves[firstMove].onHit + counterHitBonus}</b> On Hit <em>{(counterHitState || punishCounterState) && `(inc. CH +${counterHitBonus})`}</em></p>
+                    <p><b>{parseBasicFrames(playerOneMoves[firstMove].onHit) > 0 && "+"}{parseBasicFrames(playerOneMoves[firstMove].onHit) + counterHitBonus}</b> On Hit <em>{(counterHitState || punishCounterState) && `(inc. CH +${counterHitBonus})`}</em></p>
                   </IonLabel>
                 </IonItem>
                 <IonList>
                   {
                     Object.keys(playerOneMoves).filter(secondMove =>
-                      !isNaN(playerOneMoves[firstMove].onHit) &&
-                    playerOneMoves[secondMove].startup <= (playerOneMoves[firstMove].onHit + counterHitBonus) &&
-                    playerOneMoves[secondMove].moveType !== "movement-special" &&
-                    playerOneMoves[secondMove].moveType !== "throw" &&
-                    playerOneMoves[secondMove].moveType !== "command-grab" &&
-                    playerOneMoves[secondMove].moveType !== "combo grab" &&
-                    !playerOneMoves[secondMove].airmove &&
-                    !playerOneMoves[secondMove].followUp &&
-                    !playerOneMoves[secondMove].nonHittingMove &&
-                    !playerOneMoves[secondMove].antiAirMove &&
-                    !playerOneMoves[secondMove].throwMove
+                      canParseBasicFrames(playerOneMoves[secondMove].startup) &&
+                      parseBasicFrames(playerOneMoves[secondMove].startup) <= (parseBasicFrames(playerOneMoves[firstMove].onHit) + counterHitBonus) &&
+                      playerOneMoves[secondMove].moveType !== "movement-special" &&
+                      playerOneMoves[secondMove].moveType !== "throw" &&
+                      playerOneMoves[secondMove].moveType !== "command-grab" &&
+                      playerOneMoves[secondMove].moveType !== "combo grab" &&
+                      !playerOneMoves[secondMove].airmove &&
+                      !playerOneMoves[secondMove].followUp &&
+                      !playerOneMoves[secondMove].nonHittingMove &&
+                      !playerOneMoves[secondMove].antiAirMove &&
+                      !playerOneMoves[secondMove].throwMove
                     ).map(secondMove =>
                       <IonItem key={`${firstMove}, ${secondMove}`}>
-                        <p>{firstMove}, {secondMove} (s: {playerOneMoves[secondMove].startup}) is a {playerOneMoves[firstMove].onHit - playerOneMoves[secondMove].startup + counterHitBonus + 1} frame link</p>
+                        <p>{firstMove}, {secondMove} (s: {parseBasicFrames(playerOneMoves[secondMove].startup)}) is a {parseBasicFrames(playerOneMoves[firstMove].onHit) - parseBasicFrames(playerOneMoves[secondMove].startup) + counterHitBonus + 1} frame link</p>
                       </IonItem>
                     )
                   }
