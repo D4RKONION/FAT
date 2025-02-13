@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setModalVisibility } from "../../actions";
 import PopoverButton from "../../components/PopoverButton";
 import { selectedCharactersSelector } from "../../selectors";
+import { canParseBasicFrames, parseBasicFrames } from "../../utils/ParseFrameData";
 
 const CharacterPunisher = () => {
   const selectedCharacters = useSelector(selectedCharactersSelector);
@@ -61,7 +62,7 @@ const CharacterPunisher = () => {
                 !playerOneMoves[move].airmove &&
                 !playerOneMoves[move].nonHittingMove &&
                 !playerOneMoves[move].antiAirMove &&
-                !isNaN(playerOneMoves[move].startup)
+                canParseBasicFrames(playerOneMoves[move].startup)
               ).map(move =>
                 <IonSelectOption key={`punishingMove-${move}`} value={move}>{move}</IonSelectOption>
               )}
@@ -74,17 +75,17 @@ const CharacterPunisher = () => {
                   <IonLabel>
                     <h3>Punish With</h3>
                     <h2>{punishingMove}</h2>
-                    <p><b>{playerOneMoves[punishingMove].startup}</b> Startup</p>
+                    <p><b>{parseBasicFrames(playerOneMoves[punishingMove].startup)}</b> Startup</p>
                   </IonLabel>
                 </IonItem>
                 <IonItemDivider><p>{selectedCharacters["playerOne"].name}'s <strong>{punishingMove}</strong> can punish {selectedCharacters["playerTwo"].name}'s</p></IonItemDivider>
                 <IonList>
                   {
                     Object.keys(playerTwoMoves).filter(blockedMove =>
-                      playerTwoMoves[blockedMove].onBlock * -1 >= playerOneMoves[punishingMove].startup
+                      playerTwoMoves[blockedMove].onBlock && canParseBasicFrames(playerTwoMoves[blockedMove].onBlock) && (parseBasicFrames(playerTwoMoves[blockedMove].onBlock) * -1) >= parseBasicFrames(playerOneMoves[punishingMove].startup)
                     ).map(blockedMove =>
                       <IonItem key={`${selectedCharacters["playerTwo"].name}, ${blockedMove}`}>
-                        <p><em>{blockedMove}</em>: <strong>{(playerTwoMoves[blockedMove].onBlock * -1) - playerOneMoves[punishingMove].startup + 1}</strong> frame punish</p>
+                        <p><em>{blockedMove}</em>: <strong>{parseBasicFrames(playerTwoMoves[blockedMove].onBlock) * -1 - parseBasicFrames(playerOneMoves[punishingMove].startup) + 1}</strong> frame punish</p>
                       </IonItem>
                     )
                   }
