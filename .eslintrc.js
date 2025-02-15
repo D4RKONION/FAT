@@ -49,6 +49,5 @@ module.exports = {
     "node_modules",
     "src/js/constants/Combos.ts",
     "src/js/constants/framedata/*.json",
-    "src/js/pages/Calculators/FrameKillGenerator.tsx",
   ],
 };
