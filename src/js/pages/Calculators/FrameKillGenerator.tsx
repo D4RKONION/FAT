@@ -296,9 +296,9 @@ const FrameKillGenerator = () => {
         let targetMeatyFrames;
         if (currentLateByFramesSearch === 0) {
           if (isMultiActive) {
-            for (const currentActiveFrame of playerOneMoves[targetMeaty]["multiActive"]) {
-              targetMeatyFrames = currentActiveFrame;
-              moveSetLoop(currentLateByFramesSearch, targetMeatyFrames, currentActiveFrame);
+            for (const [currentActiveFrame, frameinTotalMove] of playerOneMoves[targetMeaty]["multiActive"].entries()) {
+              targetMeatyFrames = frameinTotalMove;
+              moveSetLoop(currentLateByFramesSearch, targetMeatyFrames, currentActiveFrame + 1);
             }
           } else {
             for (let currentActiveFrame = 1; currentActiveFrame <= playerOneMoves[targetMeaty]["active"]; currentActiveFrame++) {
