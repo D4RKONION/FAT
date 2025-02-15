@@ -1,18 +1,72 @@
-import { IonContent, IonPage, IonItem, IonLabel, IonIcon, IonFab, IonFabButton, IonList, IonSelect, IonSelectOption, IonListHeader, IonItemDivider, IonItemGroup, IonGrid, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonInput, IonButton } from "@ionic/react";
-import { useState, useMemo, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-
 import "../../../style/pages/Calculators.scss";
 import "../../../style/pages/FrameKillGenerator.scss";
 import "../../../style/components/FAB.scss";
-import { setActiveFrameDataPlayer, setModalVisibility } from "../../actions";
 
+import { IonContent, IonPage, IonItem, IonLabel, IonIcon, IonFab, IonFabButton, IonList, IonSelect, IonSelectOption, IonListHeader, IonItemDivider, IonItemGroup, IonGrid, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonInput, IonButton } from "@ionic/react";
 import { helpSharp, person } from "ionicons/icons";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
+import { setActiveFrameDataPlayer, setModalVisibility } from "../../actions";
 import SegmentSwitcher from "../../components/SegmentSwitcher";
 import { activeGameSelector, selectedCharactersSelector } from "../../selectors";
 import { GameName } from "../../types";
 import { canParseBasicFrames, parseBasicFrames, parseMultiActiveFrames } from "../../utils/ParseFrameData";
+
+/* Helper Functions for the oki loop */
+
+// https://stackoverflow.com/questions/12487422/take-a-value-1-31-and-convert-it-to-ordinal-date-w-javascript
+// This allows us to quickly create ordinal strings using active frame numbers
+const getOrdinal = (n) => {
+  const s=["th","st","nd","rd"],
+    v=n%100;
+  return n+(s[(v-20)%10]||s[v]||s[0]);
+};
+
+// This is used in isDuplicateSetup to compare arrays
+const arraysAreEqual = (arr1, arr2) => {
+  if (arr1.length !== arr2.length) return false;
+  const sortedArr1 = [...arr1].sort();
+  const sortedArr2 = [...arr2].sort();
+  return sortedArr1.every((value, index) => value === sortedArr2[index]);
+};
+
+const isDuplicateSetup = (setupArray, moves): boolean => {
+  // If this specific setup array doesn't exist this must not be a dupe
+  if (!setupArray) return false;
+
+  return setupArray.some(previousSetup => 
+    arraysAreEqual(previousSetup.split(", "), moves)
+  );    
+};
+
+const getTotalFramesForMove = (moveEntry) => {
+  if (!isNaN(moveEntry["total"])) {
+    // if we have a total value, just use that
+    return moveEntry["total"];
+  } else if (moveEntry["multiActive"]) {
+    // If we have multiActive, last active frame + recovery to calculate total
+    return moveEntry["multiActive"][(moveEntry["multiActive"].length - 1)] + parseBasicFrames(moveEntry["recovery"]);
+  } else {
+    // otherwise add s, a & r (-1 because last s and first a are the same)
+    return (parseBasicFrames(moveEntry["startup"]) - 1) + parseBasicFrames(moveEntry["active"]) + parseBasicFrames(moveEntry["recovery"]); //
+  }
+};
+
+const isValidMove = (move) => {
+  return (
+    (
+      typeof move["total"] === "number" || // has a total duration OR
+      (canParseBasicFrames(move["startup"]) && // has a valid s,a,r
+        (canParseBasicFrames(move["active"]) || move["multiActive"]) &&
+        canParseBasicFrames(move["recovery"]))
+    ) &&
+    (!move["followUp"] || typeof move["total"] === "number") && //if it's followup, we need a valid total
+    (!move["alpha"] || move["moveType"] !== "alpha") && // no moves that happen out of blockstun
+    move["moveType"] !== "super" && // no supers
+    !move["airmove"] // no airmoves
+  );
+};
 
 const FrameKillGenerator = () => {
   const selectedCharacters = useSelector(selectedCharactersSelector);
@@ -29,7 +83,7 @@ const FrameKillGenerator = () => {
   const GAME_KNOCKDOWN_LABELS = {
     "3S": {disabled: "disabled"},
     USF4: {disabled: "disabled"},
-    SFV: {kdr: "Quick", kdrb: "Back", both: "Q&B", kd: "None"},
+    SFV: {kdr: "Quick", kdrb: "Back", all: "Q&B", kd: "None"},
     SF6: {onHit: "Normal Hit", onPC: "Punish Counter"},
     GGST: {disabled: "disabled"},
   };
@@ -37,7 +91,7 @@ const FrameKillGenerator = () => {
   const SETUP_CONTAINS_LABELS = {
     universal: {anything: "Anything", "Forward Dash": "Forward Dash"},
     SF6: {"Drive Rush >": "Drive Rush >"},
-  }
+  };
 
   const [recoveryType, setRecoveryType] = useState(Object.keys(GAME_KNOCKDOWN_LABELS[activeGame])[0]);
   const [knockdownMove, setKnockdownMove] = useState(null);
@@ -82,16 +136,7 @@ const FrameKillGenerator = () => {
       !targetMeaty ||
       !playerOneMoves[targetMeaty] ||
       (!allLabels[specificSetupMove] && !playerOneMoves[specificSetupMove])
-    ) { return }
-
-
-    // https://stackoverflow.com/questions/12487422/take-a-value-1-31-and-convert-it-to-ordinal-date-w-javascript
-    // This allows us to quickly create ordinal strings using active frame numbers
-    const getOrdinal = (n) => {
-      const s=["th","st","nd","rd"],
-        v=n%100;
-      return n+(s[(v-20)%10]||s[v]||s[0]);
-    };
+    ) { return; }
 
     // set up the processed data container
     let processedResults = { "Natural Setups": {}, "One Move Setups": {}, "Two Move Setups": {}, "Three Move Setups": {} };
@@ -103,13 +148,13 @@ const FrameKillGenerator = () => {
 
     if (knockdownMove === "Custom KDA") {
       knockdownFrames = customKDA + 1;
-    } else if (recoveryType === "both") {
+    } else if (recoveryType === "all") {
       knockdownFrames = playerOneMoves[knockdownMove]["kdr"] + 1;
       coverBothKDs = true;
     } else if (activeGame === "SFV") {
       knockdownFrames = playerOneMoves[knockdownMove][recoveryType] + 1;
     } else {
-      knockdownFrames = parseBasicFrames(playerOneMoves[knockdownMove][recoveryType]) + 1
+      knockdownFrames = parseBasicFrames(playerOneMoves[knockdownMove][recoveryType]) + 1;
     }
 
     if (playerOneMoves[targetMeaty]["atkLvl"] === "T" ) {
@@ -144,197 +189,99 @@ const FrameKillGenerator = () => {
     } else {
       firstOkiMoveModel = {[specificSetupMove]: playerOneMoves[specificSetupMove]};
     }
+    
+    const handlePossibleOkiSetup = (ordinalName, numberOfSetupMovesKey, firstOkiMove, secondOkiMove, thirdOkiMove) => {
+      // Discard if it's a dupe setup
+      if (isDuplicateSetup(processedResults[numberOfSetupMovesKey][ordinalName], [firstOkiMove, secondOkiMove, thirdOkiMove].filter(Boolean))) return;
 
-    let ordinalName;
-    const moveSetLoop = (currentLateByFramesSearch: number, targetMeatyFrames: number) => {
-      if (currentLateByFramesSearch === 1) {
-        ordinalName = "1st (" + currentLateByFramesSearch + " frame late)";
-      } else if (currentLateByFramesSearch > 1) {
-        ordinalName = "1st (" + currentLateByFramesSearch + " frames late)";
-      } else {
-        ordinalName = getOrdinal(currentActiveFrame);
+      // If this specific setup array doesn't exist, create it
+      if (!processedResults[numberOfSetupMovesKey][ordinalName]) {
+        processedResults[numberOfSetupMovesKey][ordinalName] = [];
       }
+      
+      const setupArray = processedResults[numberOfSetupMovesKey][ordinalName];
+      const setupInstructions = `${firstOkiMove}${secondOkiMove ? `, ${secondOkiMove}` : ""}${thirdOkiMove ? `, ${thirdOkiMove}` : ""}`;
+      
+      setupArray.push(setupInstructions);
+    };
 
-      // Before we begin the loop, we check for natural meaties
-      if (0 === (knockdownFrames - targetMeatyFrames + currentLateByFramesSearch)) {
-        // If this is the first setup for this particular active frame, create an array for it
-        if (typeof processedResults["Natural Setups"][ordinalName] === "undefined") {
+    // The loop which does all the work
+    const moveSetLoop = (currentLateByFramesSearch, targetMeatyFrames, currentActiveFrame) => {
+      // Get ordinal name for the current late frame
+      let ordinalName = getOrdinal(currentActiveFrame);
+      if (currentLateByFramesSearch === 1) {
+        ordinalName = `1st (${currentLateByFramesSearch} frame late)`;
+      } else if (currentLateByFramesSearch > 1) {
+        ordinalName = `1st (${currentLateByFramesSearch} frames late)`;
+      }
+    
+      // Before we begin the loop, check for natural meaties
+      if (knockdownFrames - targetMeatyFrames + currentLateByFramesSearch === 0) {
+        if (!processedResults["Natural Setups"][ordinalName]) {
           processedResults["Natural Setups"][ordinalName] = [];
         }
         processedResults["Natural Setups"][ordinalName].push(">");
       }
-
-      // loop through the entire move set
+    
+      // Loop through first oki move
       for (const firstOkiMove in firstOkiMoveModel) {
-        // Skip any move in the explicit skip map
-        if (EXCLUDED_SETUP_MOVES?.[activeGame]?.[selectedCharacters?.playerOne?.name]?.includes(firstOkiMoveModel?.[firstOkiMove]?.moveName)) {
-          continue;
+        const firstSetupMove = firstOkiMoveModel[firstOkiMove];
+        // Exlude specific moves which make no sense as oki setups, but which are hard to quantify generically
+        if (EXCLUDED_SETUP_MOVES?.[activeGame]?.[selectedCharacters?.playerOne?.name]?.includes(firstSetupMove?.moveName)) {
+          return;
         }
-
-        // Generate multiActive frames if needed
-        if (typeof firstOkiMoveModel[firstOkiMove]["active"] === "string" && (firstOkiMoveModel[firstOkiMove]["active"].includes("(") || firstOkiMoveModel[firstOkiMove]["active"].includes("*")) && canParseBasicFrames(firstOkiMoveModel[firstOkiMove]["startup"])) {
-          firstOkiMoveModel[firstOkiMove].multiActive = parseMultiActiveFrames(firstOkiMoveModel[firstOkiMove].startup, firstOkiMoveModel[firstOkiMove].active);
+    
+        // Parse the move's active frames if it has non-number active amount of them
+        if (typeof firstSetupMove["active"] === "string" && (firstSetupMove["active"].includes("(") || firstSetupMove["active"].includes("*")) && canParseBasicFrames(firstSetupMove["startup"])) {
+          firstSetupMove.multiActive = parseMultiActiveFrames(firstSetupMove.startup, firstSetupMove.active);
         }
-
-        // First we check if a move is a viable setup move
-        if (
-          (
-            // It must have an explicit total value OR
-            typeof firstOkiMoveModel[firstOkiMove]["total"] === "number"
-            || (
-              // Parseable values for s a (normal or multi) and r
-              canParseBasicFrames(firstOkiMoveModel[firstOkiMove]["startup"])
-              && (canParseBasicFrames(firstOkiMoveModel[firstOkiMove]["active"]) || firstOkiMoveModel[firstOkiMove]["multiActive"])
-              && canParseBasicFrames(firstOkiMoveModel[firstOkiMove]["recovery"])
-            )
-          )
-          // and it must be possible to input from neutral
-          && (!firstOkiMoveModel[firstOkiMove]["followUp"] || typeof firstOkiMoveModel[firstOkiMove]["total"] === "number")
-          && firstOkiMoveModel[firstOkiMove]["moveType"] !== "alpha"
-          && firstOkiMoveModel[firstOkiMove]["moveType"] !== "super"
-          && !firstOkiMoveModel[firstOkiMove]["airmove"]
-        ) {
-          let firstOkiMoveTotalFrames;
-          // If a move has total frames, just use that
-          if (firstOkiMoveModel[firstOkiMove]["total"]) {
-            firstOkiMoveTotalFrames = firstOkiMoveModel[firstOkiMove]["total"];
-          // If a move has multiActive, we take the last element (last active frame) and add it to recovery to calculate total frames.
-          } else if (firstOkiMoveModel[firstOkiMove]["multiActive"]) {
-            firstOkiMoveTotalFrames = firstOkiMoveModel[firstOkiMove]["multiActive"][(firstOkiMoveModel[firstOkiMove]["multiActive"].length -1)] + parseBasicFrames(firstOkiMoveModel[firstOkiMove]["recovery"]);
-          // Otherwise, we just add startup active and recovery
-          } else {
-            firstOkiMoveTotalFrames = (parseBasicFrames(firstOkiMoveModel[firstOkiMove]["startup"]) -1) + parseBasicFrames(firstOkiMoveModel[firstOkiMove]["active"]) + parseBasicFrames(firstOkiMoveModel[firstOkiMove]["recovery"]);
-          }
-
-          // Then we check if the setup move would allow our target meaty to perfectly overlap with the knockdown.
-          // Remember we're looping for each active frame the meaty has
+    
+        if (isValidMove(firstSetupMove)) {
+          const firstOkiMoveTotalFrames = getTotalFramesForMove(firstSetupMove);
+    
+          // Check if the setup move would allow target meaty to overlap with the knockdown
           if (firstOkiMoveTotalFrames === (knockdownFrames - targetMeatyFrames + currentLateByFramesSearch)) {
-            // If this is the first setup for this particular active frame, create an array for it
-            if (typeof processedResults["One Move Setups"][ordinalName] === "undefined") {
+            if (!processedResults["One Move Setups"][ordinalName]) {
               processedResults["One Move Setups"][ordinalName] = [];
             }
             processedResults["One Move Setups"][ordinalName].push(firstOkiMove);
           }
-
-          // Pretty much the same as oki loop one
+    
+          // Loop through second oki move
           for (const secondOkiMove in playerOneMoves) {
-            // Skip any move in the explicit skip map
-            if (EXCLUDED_SETUP_MOVES?.[activeGame]?.[selectedCharacters?.playerOne?.name]?.includes(playerOneMoves?.[secondOkiMove]?.moveName)) {
-              continue;
+            const secondSetupMove = playerOneMoves[secondOkiMove];
+            if (EXCLUDED_SETUP_MOVES?.[activeGame]?.[selectedCharacters?.playerOne?.name]?.includes(secondSetupMove?.moveName)) {
+              return;
             }
-
-            // Generate multiActive frames if needed
-            if (typeof playerOneMoves[secondOkiMove]["active"] === "string" && (playerOneMoves[secondOkiMove]["active"].includes("(") || playerOneMoves[secondOkiMove]["active"].includes("*")) && canParseBasicFrames(playerOneMoves[secondOkiMove]["startup"])) {
-              playerOneMoves[secondOkiMove].multiActive = parseMultiActiveFrames(playerOneMoves[secondOkiMove].startup, playerOneMoves[secondOkiMove].active);
+    
+            if (typeof secondSetupMove["active"] === "string" && (secondSetupMove["active"].includes("(") || secondSetupMove["active"].includes("*")) && canParseBasicFrames(secondSetupMove["startup"])) {
+              secondSetupMove.multiActive = parseMultiActiveFrames(secondSetupMove.startup, secondSetupMove.active);
             }
-
-            // First we check if a move is a viable setup move
-            if (
-              (
-                // It must have an explicit total value OR
-                typeof playerOneMoves[secondOkiMove]["total"] === "number"
-                || (
-                  // Parseable values for s a (normal or multi) and r
-                  canParseBasicFrames(playerOneMoves[secondOkiMove]["startup"])
-                  && (canParseBasicFrames(playerOneMoves[secondOkiMove]["active"]) || playerOneMoves[secondOkiMove]["multiActive"])
-                  && canParseBasicFrames(playerOneMoves[secondOkiMove]["recovery"])
-                )
-              )
-              && (!playerOneMoves[secondOkiMove]["followUp"] || typeof playerOneMoves[secondOkiMove]["total"] === "number")
-              && playerOneMoves[secondOkiMove]["moveType"] !== "alpha"
-              && playerOneMoves[secondOkiMove]["moveType"] !== "super"
-              && !playerOneMoves[secondOkiMove]["airmove"]
-              && firstOkiMove !== "Drive Rush >" // Drive Rush should only be offered as a frame kill ender, so exclude all situations where it occurs earlier in the setup
-            ) {
-              let secondOkiMoveTotalFrames;
-              // If a move has total frames, just use that
-              if (playerOneMoves[secondOkiMove]["total"]) {
-                secondOkiMoveTotalFrames = playerOneMoves[secondOkiMove]["total"];
-              // If a move has multiActive, we take the last element (last active frame) and add it to recovery to calculate total frames.
-              } else if (playerOneMoves[secondOkiMove]["multiActive"]) {
-                secondOkiMoveTotalFrames = playerOneMoves[secondOkiMove]["multiActive"][(playerOneMoves[secondOkiMove]["multiActive"].length -1)] + parseBasicFrames(playerOneMoves[secondOkiMove]["recovery"]);
-              // Otherwise, we just add startup active and recovery
-              } else {
-                secondOkiMoveTotalFrames = (parseBasicFrames(playerOneMoves[secondOkiMove]["startup"]) -1) + parseBasicFrames(playerOneMoves[secondOkiMove]["active"]) + parseBasicFrames(playerOneMoves[secondOkiMove]["recovery"]);
-              }
-
-              // Check for a successful meaty
+            
+            if (isValidMove(secondSetupMove) && firstOkiMove !== "Drive Rush >") {
+              const secondOkiMoveTotalFrames = getTotalFramesForMove(secondSetupMove);
+              
+              // Check if the setup move would allow target meaty to overlap with the knockdown
               if ((firstOkiMoveTotalFrames + secondOkiMoveTotalFrames) === (knockdownFrames - targetMeatyFrames + currentLateByFramesSearch)) {
-                let skipDupe2 = false;
-                // here we check if we have a duplicate match. For instance, [st. lp, st.mp] would provide the same setup as [st.mp, st.lp] so we use this to ignore it
-                for (let previousSetup in processedResults["Two Move Setups"][ordinalName]) {
-                  if ((processedResults["Two Move Setups"][ordinalName][previousSetup].indexOf(firstOkiMove) > -1 && processedResults["Two Move Setups"][ordinalName][previousSetup].indexOf(secondOkiMove) > -1)) {
-                    if (firstOkiMove !== "Forward Dash" || secondOkiMove !== "Forward Dash") {
-                      skipDupe2 = true;
-                    }
-                  }
-                }
-                if (!skipDupe2) {
-                  if (typeof processedResults["Two Move Setups"][ordinalName] === "undefined") {
-                    processedResults["Two Move Setups"][ordinalName] = [];
-                  }
-                  processedResults["Two Move Setups"][ordinalName].push(firstOkiMove + ", " + secondOkiMove);
-                }
+                handlePossibleOkiSetup(ordinalName, "Two Move Setups", firstOkiMove, secondOkiMove, null);
               }
-
-              // Exactly the same as loop 2
+              
+              // Loop through third oki move
               for (const thirdOkiMove in playerOneMoves) {
-                // Skip any move in the explicit skip map
-                if (EXCLUDED_SETUP_MOVES?.[activeGame]?.[selectedCharacters?.playerOne?.name]?.includes(playerOneMoves?.[thirdOkiMove]?.moveName)) {
-                  continue;
+                const thirdSetupMove = playerOneMoves[thirdOkiMove];
+
+                if (EXCLUDED_SETUP_MOVES?.[activeGame]?.[selectedCharacters?.playerOne?.name]?.includes(thirdSetupMove?.moveName)) {
+                  return;
                 }
                 
-                // Generate multiActive frames if needed
-                if (typeof playerOneMoves[thirdOkiMove]["active"] === "string" && (playerOneMoves[thirdOkiMove]["active"].includes("(") || playerOneMoves[thirdOkiMove]["active"].includes("*")) && canParseBasicFrames(playerOneMoves[thirdOkiMove]["startup"])) {
-                  playerOneMoves[thirdOkiMove].multiActive = parseMultiActiveFrames(playerOneMoves[thirdOkiMove].startup, playerOneMoves[thirdOkiMove].active);
+                if (typeof thirdSetupMove["active"] === "string" && (thirdSetupMove["active"].includes("(") || thirdSetupMove["active"].includes("*")) && canParseBasicFrames(thirdSetupMove["startup"])) {
+                  thirdSetupMove.multiActive = parseMultiActiveFrames(thirdSetupMove.startup, thirdSetupMove.active);
                 }
-
-                // First we check if a move is a viable setup move
-                if (
-                  (
-                    // It must have an explicit total value OR
-                    typeof playerOneMoves[thirdOkiMove]["total"] === "number"
-                    || (
-                      // Parseable values for s a (normal or multi) and r
-                      canParseBasicFrames(playerOneMoves[thirdOkiMove]["startup"])
-                      && (canParseBasicFrames(playerOneMoves[thirdOkiMove]["active"]) || playerOneMoves[thirdOkiMove]["multiActive"])
-                      && canParseBasicFrames(playerOneMoves[thirdOkiMove]["recovery"])
-                    )
-                  )
-                  && (!playerOneMoves[thirdOkiMove]["followUp"] || typeof playerOneMoves[thirdOkiMove]["total"] === "number")
-                  && playerOneMoves[thirdOkiMove]["moveType"] !== "alpha"
-                  && playerOneMoves[thirdOkiMove]["moveType"] !== "super"
-                  && !playerOneMoves[thirdOkiMove]["airmove"]
-                  && firstOkiMove !== "Drive Rush >" && secondOkiMove !== "Drive Rush >" // Drive Rush should only be offered as a frame kill ender, so exclude all situations where it occurs earlier in the setup
-                ) {
-                  let thirdOkiMoveTotalFrames;
-                  // If a move has total frames, just use that
-                  if (playerOneMoves[thirdOkiMove]["total"]) {
-                    thirdOkiMoveTotalFrames = playerOneMoves[thirdOkiMove]["total"];
-                  // If a move has multiActive, we take the last element (last active frame) and add it to recovery to calculate total frames.
-                  } else if (playerOneMoves[thirdOkiMove]["multiActive"]) {
-                    thirdOkiMoveTotalFrames = playerOneMoves[thirdOkiMove]["multiActive"][(playerOneMoves[thirdOkiMove]["multiActive"].length -1)] + parseBasicFrames(playerOneMoves[thirdOkiMove]["recovery"]);
-                  // Otherwise, we just add startup active and recovery
-                  } else {
-                    thirdOkiMoveTotalFrames = (parseBasicFrames(playerOneMoves[thirdOkiMove]["startup"]) -1) + parseBasicFrames(playerOneMoves[thirdOkiMove]["active"]) + parseBasicFrames(playerOneMoves[thirdOkiMove]["recovery"]);
-                  }
-
-                  // Check for a successful meaty
+  
+                if (isValidMove(thirdSetupMove) && firstOkiMove !== "Drive Rush >" && secondOkiMove !== "Drive Rush >") {
+                  const thirdOkiMoveTotalFrames = getTotalFramesForMove(thirdSetupMove);
                   if ((firstOkiMoveTotalFrames + secondOkiMoveTotalFrames + thirdOkiMoveTotalFrames) === (knockdownFrames - targetMeatyFrames + currentLateByFramesSearch)) {
-                    let skipDupe3 = false;
-                    for (let previousSetup in processedResults["Three Move Setups"][ordinalName]) {
-                      if (processedResults["Three Move Setups"][ordinalName][previousSetup].indexOf(firstOkiMove) > -1 && processedResults["Three Move Setups"][ordinalName][previousSetup].indexOf(secondOkiMove) > -1 && processedResults["Three Move Setups"][ordinalName][previousSetup].indexOf(thirdOkiMove) > -1) {
-                        if (firstOkiMove !== "Forward Dash" || secondOkiMove !== "Forward Dash"|| thirdOkiMove !== "Forward Dash") {
-                          skipDupe3 = true;
-                        }
-                      }
-                    }
-                    if (!skipDupe3) {
-                      if (typeof processedResults["Three Move Setups"][ordinalName] === "undefined") {
-                        processedResults["Three Move Setups"][ordinalName] = [];
-                      }
-                      processedResults["Three Move Setups"][ordinalName].push(firstOkiMove + ", " + secondOkiMove + ", " + thirdOkiMove);
-                    }
+                    handlePossibleOkiSetup(ordinalName, "Three Move Setups", firstOkiMove, secondOkiMove, thirdOkiMove);
                   }
                 }
               }
@@ -344,7 +291,46 @@ const FrameKillGenerator = () => {
       }
     };
 
-    const pathComparer = (kdrResults, kdrbResults) => {
+    function findMeatySetups(lateFrames, isMultiActive) {
+      for (let currentLateByFramesSearch = 0; currentLateByFramesSearch <= lateFrames; currentLateByFramesSearch++) {
+        let targetMeatyFrames;
+        if (currentLateByFramesSearch === 0) {
+          if (isMultiActive) {
+            for (const currentActiveFrame of playerOneMoves[targetMeaty]["multiActive"]) {
+              targetMeatyFrames = currentActiveFrame;
+              moveSetLoop(currentLateByFramesSearch, targetMeatyFrames, currentActiveFrame);
+            }
+          } else {
+            for (let currentActiveFrame = 1; currentActiveFrame <= playerOneMoves[targetMeaty]["active"]; currentActiveFrame++) {
+              targetMeatyFrames = parseBasicFrames(playerOneMoves[targetMeaty]["startup"]) - 1 + currentActiveFrame;
+              moveSetLoop(currentLateByFramesSearch, targetMeatyFrames, currentActiveFrame);
+            }
+          }
+        } else {
+          targetMeatyFrames = parseBasicFrames(playerOneMoves[targetMeaty]["startup"]);
+          moveSetLoop(currentLateByFramesSearch, targetMeatyFrames, lateByFrames);
+        }
+      }
+    }
+
+    // This is for use with games where knockdowns have 2 get-up options
+    // It compares kdr and kdrb results for duplicates and then combines them into one result
+    // Some day I might need to refactor this to allow for more than 2. I'll cross that bridge when I get to it :)
+    function handleMultipleKDAs() {
+      console.log("I'm in here!");
+      const kdrResults = { ...processedResults };
+      processedResults = { "Natural Setups": {}, "One Move Setups": {}, "Two Move Setups": {}, "Three Move Setups": {} };
+
+      knockdownFrames = playerOneMoves[knockdownMove]["kdrb"] + 1;
+      if (playerOneMoves[targetMeaty]["atkLvl"] === "T") {
+        knockdownFrames += 2;
+      }
+
+      findMeatySetups(lateByFrames, isNaN(playerOneMoves[targetMeaty]["active"]));
+      const kdrbResults = { ...processedResults };
+
+      processedResults = { "Natural Setups": {}, "One Move Setups": {}, "Two Move Setups": {}, "Three Move Setups": {} };
+      
       for (const obj1 in kdrResults) {
         for (const ordinal1 in kdrResults[obj1]) {
           for (const setup1 in kdrResults[obj1][ordinal1]) {
@@ -363,125 +349,23 @@ const FrameKillGenerator = () => {
           }
         }
       }
-    };
-
+    }
+    
+    // Find setups
     if (isNaN(playerOneMoves[targetMeaty]["active"]) && canParseBasicFrames(playerOneMoves[targetMeaty]["startup"])) {
-      // Generate multiActive frames
       playerOneMoves[targetMeaty].multiActive = parseMultiActiveFrames(firstOkiMoveModel[targetMeaty].startup, firstOkiMoveModel[targetMeaty].active);
-      var currentActiveFrame = 1;
-      let targetMeatyFrames;
 
-      // This first for loop is used to allow for late meaties.
-      for (var currentLateByFramesSearch = 0; currentLateByFramesSearch <= lateByFrames; currentLateByFramesSearch++) {
-        //First, perfect meaties are checked for
-        if (currentLateByFramesSearch === 0) {
-          // Begin the for loop. We loop through once for each active frame the targe meaty has)
-          for (var frame in playerOneMoves[targetMeaty]["multiActive"]) {
-            // multiActive is a direct array of when each active frame occurs. No need for any extra calculation
-            targetMeatyFrames = playerOneMoves[targetMeaty]["multiActive"][frame];
-            moveSetLoop(currentLateByFramesSearch, targetMeatyFrames);
-            currentActiveFrame++;
-          }
-        } else {
-          // Then we do a late meaty search. Late meaties are only ever going to happen on the first active frame, so
-          //we don't need to loop this time
-          currentActiveFrame = 1;
-          targetMeatyFrames = parseBasicFrames(playerOneMoves[targetMeaty]["startup"]);
-          moveSetLoop(currentLateByFramesSearch, targetMeatyFrames);
-        }
-      }
-
+      findMeatySetups(lateByFrames, true);
       if (coverBothKDs) {
-        currentActiveFrame = 1;
-
-        const kdrResults = {...processedResults};
-        processedResults = {"Natural Setups": {}, "One Move Setups": {}, "Two Move Setups": {}, "Three Move Setups": {}};
-
-        knockdownFrames = playerOneMoves[knockdownMove]["kdrb"] + 1;
-        if (playerOneMoves[targetMeaty]["atkLvl"] === "T" ) {
-          knockdownFrames +=2;
-        }
-
-        // This first for loop is used to allow for late meaties.
-        for (currentLateByFramesSearch = 0; currentLateByFramesSearch <= lateByFrames; currentLateByFramesSearch++) {
-          //First, perfect meaties are checked for
-          if (currentLateByFramesSearch === 0) {
-            // Begin the for loop. We loop through once for each active frame the targe meaty has)
-            for (frame in playerOneMoves[targetMeaty]["multiActive"]) {
-              // multiActive is a direct array of when each active frame occurs. No need for any extra calculation
-              targetMeatyFrames = playerOneMoves[targetMeaty]["multiActive"][frame];
-
-              moveSetLoop(currentLateByFramesSearch, targetMeatyFrames);
-
-              currentActiveFrame++;
-            }
-          } else {
-            // Then we do a late meaty search. Late meaties are only ever going to happen on the first active frame, so
-            //we don't need to loop this time
-            currentActiveFrame = 1;
-            targetMeatyFrames = parseBasicFrames(playerOneMoves[targetMeaty]["startup"]);
-            moveSetLoop(currentLateByFramesSearch, targetMeatyFrames);
-          }
-        }
-        var kdrbResults = {...processedResults};
-        processedResults = {"Natural Setups": {}, "One Move Setups": {}, "Two Move Setups": {}, "Three Move Setups": {}};
-
-        pathComparer(kdrResults, kdrbResults);
+        handleMultipleKDAs();
       }
     } else {
-      // This first for loop is used to allow for late meaties.
-      for (currentLateByFramesSearch = 0; currentLateByFramesSearch <= lateByFrames; currentLateByFramesSearch++) {
-        //First, perfect meaties are checked for
-        if (currentLateByFramesSearch === 0) {
-          // Begin the for loop. We loop through once for each active frame the targe meaty has)
-          for (currentActiveFrame = 1; currentActiveFrame <= playerOneMoves[targetMeaty]["active"]; currentActiveFrame++) {
-            // We minus one because last frame of startup and first active frame are the same frame
-            var targetMeatyFrames = parseBasicFrames(playerOneMoves[targetMeaty]["startup"]) - 1 + currentActiveFrame;
-
-            moveSetLoop(currentLateByFramesSearch, targetMeatyFrames);
-          }
-        } else {
-          // Then we do a late meaty search. Late meaties are only ever going to happen on the first active frame, so
-          //we don't need to loop this time
-          currentActiveFrame = 1;
-          targetMeatyFrames = parseBasicFrames(playerOneMoves[targetMeaty]["startup"])
-          moveSetLoop(currentLateByFramesSearch, targetMeatyFrames);
-        }
-      }
-
+      findMeatySetups(lateByFrames, false);
       if (coverBothKDs) {
-        const kdrResults = {...processedResults};
-        processedResults = {"Natural Setups": {}, "One Move Setups": {}, "Two Move Setups": {}, "Three Move Setups": {}};
-        knockdownFrames = playerOneMoves[knockdownMove]["kdrb"] + 1;
-        if (playerOneMoves[targetMeaty]["atkLvl"] === "T" ) {
-          knockdownFrames +=2;
-        }
-
-        // This first for loop is used to allow for late meaties.
-        for (currentLateByFramesSearch = 0; currentLateByFramesSearch <= lateByFrames; currentLateByFramesSearch++) {
-          //First, perfect meaties are checked for
-          if (currentLateByFramesSearch === 0) {
-            // Begin the for loop. We loop through once for each active frame the targe meaty has)
-            for (currentActiveFrame = 1; currentActiveFrame <= playerOneMoves[targetMeaty]["active"]; currentActiveFrame++) {
-              // We minus one because last frame of startup and first active frame are the same frame
-              targetMeatyFrames = parseBasicFrames(playerOneMoves[targetMeaty]["startup"]) -1 + currentActiveFrame;
-
-              moveSetLoop(currentLateByFramesSearch, targetMeatyFrames);
-            }
-          } else {
-            // Then we do a late meaty search. Late meaties are only ever going to happen on the first active frame, so
-            //we don't need to loop this time
-            currentActiveFrame = 1;
-            targetMeatyFrames = parseBasicFrames(playerOneMoves[targetMeaty]["startup"]);
-            moveSetLoop(currentLateByFramesSearch, targetMeatyFrames);
-          }
-        }
-        kdrbResults = {...processedResults};
-        processedResults = {"Natural Setups": {}, "One Move Setups": {}, "Two Move Setups": {}, "Three Move Setups": {}};
-        pathComparer(kdrResults, kdrbResults);
+        handleMultipleKDAs();
       }
     }
-
+    
     // Remove any empty objects
     for (const obj in processedResults) {
       if (Object.keys(processedResults[obj]).length === 0 && processedResults[obj].constructor === Object) {
@@ -636,7 +520,7 @@ const FrameKillGenerator = () => {
                 <h3>Knockdown with</h3>
                 <h2>{knockdownMove}</h2>
                 <>
-                  {recoveryType === "both"
+                  {recoveryType === "all"
                     ? <>
                       <p>KD Advantage (Q): <strong>{knockdownMove === "Custom KDA" ? customKDA : playerOneMoves[knockdownMove]["kdr"]}</strong></p>
                       <p>KD Advantage (B): <strong>{knockdownMove === "Custom KDA" ? customKDA : playerOneMoves[knockdownMove]["kdrb"]}</strong></p>
@@ -664,7 +548,7 @@ const FrameKillGenerator = () => {
                         <div key={activeAsOrdinal}>
                           <IonListHeader className="ordinal-header">
                             <IonLabel>
-                              <p>Meaty on the <strong>{activeAsOrdinal}</strong> active frame{recoveryType === "both" && "s"}</p>
+                              <p>Meaty on the <strong>{activeAsOrdinal}</strong> active frame{recoveryType === "all" && "s"}</p>
                             </IonLabel>
                           </IonListHeader>
                           {Object.keys(okiResults[numOfMovesSetup][activeAsOrdinal]).map((setup, index) =>
