@@ -13,6 +13,25 @@ import { activeGameSelector, selectedCharactersSelector } from "../../selectors"
 import { GameName } from "../../types";
 import { canParseBasicFrames, parseBasicFrames, parseMultiActiveFrames } from "../../utils/ParseFrameData";
 
+const EXCLUDED_SETUP_MOVES: { [key in GameName]?: { [characterName: string]: string[] } } = {
+  SF6: {
+    Jamie: ["The Devil Inside (DR4 activation)"],
+  },
+};
+
+const GAME_KNOCKDOWN_LABELS = {
+  "3S": {disabled: "disabled"},
+  USF4: {disabled: "disabled"},
+  SFV: {kdr: "Quick", kdrb: "Back", all: "Q&B", kd: "None"},
+  SF6: {onHit: "Normal Hit", onPC: "Punish Counter"},
+  GGST: {disabled: "disabled"},
+};
+
+const SETUP_CONTAINS_LABELS = {
+  universal: {anything: "Anything", "Forward Dash": "Forward Dash"},
+  SF6: {"Drive Rush >": "Drive Rush >"},
+};
+
 /* Helper Functions for the oki loop */
 
 // https://stackoverflow.com/questions/12487422/take-a-value-1-31-and-convert-it-to-ordinal-date-w-javascript
@@ -74,25 +93,6 @@ const FrameKillGenerator = () => {
 
   const dispatch = useDispatch();
 
-  const EXCLUDED_SETUP_MOVES: { [key in GameName]?: { [characterName: string]: string[] } } = {
-    SF6: {
-      Jamie: ["The Devil Inside (DR4 activation)"],
-    },
-  };
-
-  const GAME_KNOCKDOWN_LABELS = {
-    "3S": {disabled: "disabled"},
-    USF4: {disabled: "disabled"},
-    SFV: {kdr: "Quick", kdrb: "Back", all: "Q&B", kd: "None"},
-    SF6: {onHit: "Normal Hit", onPC: "Punish Counter"},
-    GGST: {disabled: "disabled"},
-  };
-
-  const SETUP_CONTAINS_LABELS = {
-    universal: {anything: "Anything", "Forward Dash": "Forward Dash"},
-    SF6: {"Drive Rush >": "Drive Rush >"},
-  };
-
   const [recoveryType, setRecoveryType] = useState(Object.keys(GAME_KNOCKDOWN_LABELS[activeGame])[0]);
   const [knockdownMove, setKnockdownMove] = useState(null);
   const [customKDA, setCustomKDA] = useState(0);
@@ -114,13 +114,11 @@ const FrameKillGenerator = () => {
     if (!playerOneMoves[targetMeaty]) {
       setTargetMeaty(null);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[selectedCharacters]);
+  },[knockdownMove, playerOneMoves, selectedCharacters, specificSetupMove, targetMeaty]);
 
   useEffect(() => {
     setRecoveryType(Object.keys(GAME_KNOCKDOWN_LABELS[activeGame])[0]);
     setSpecificSetupMove("anything");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeGame]);
 
   useEffect(() => {
