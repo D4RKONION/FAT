@@ -1,6 +1,6 @@
 import styles from "../../style/components/FrameMeter.module.scss";
 import { FrameMeterBlockSegment } from "../types";
-import { parseFrameMeterActiveFrames, parseBasicFrames } from "../utils/ParseFrameData";
+import { parseFrameMeterActiveFrames, parseBasicFrames, canParseBasicFrames } from "../utils/ParseFrameData";
 
 type Props = {
   moveData: {
@@ -21,12 +21,14 @@ const FrameMeter = ({ moveData, wrap }: Props) => {
         
         // Ensure that the value is defined and that it has at least one number in it
         if (moveStageValue && !/^(?!.*\d).*$/.test(String(moveStageValue))) {
-          // if it's an active stage that needs to be broken a part, deal with that
+          // if it's an active stage that needs to be broken apart, deal with that
           if (moveStage === "active" && typeof moveStageValue === "string" && /[(*,]/.test(moveStageValue)) {
             frameSegments = parseFrameMeterActiveFrames(moveStageValue);
           // otherwise, use basic parsing
-          } else {
+          } else if (canParseBasicFrames(moveStageValue)){
             frameSegments = [{ length: moveStage === "startup" ? parseBasicFrames(moveStageValue) - 1 : parseBasicFrames(moveStageValue), type: moveStage as "startup" | "active" | "recovery" }]; // -1 for startup moves!
+          } else {
+            frameSegments = [{ length: 1, type: "invalid" }];
           }
         // if the value is undefined or there's no numbers in it to be parsed
         // (only words), we'll print a "?"
@@ -39,7 +41,8 @@ const FrameMeter = ({ moveData, wrap }: Props) => {
           const segmentValue = segment.length.toString(); // The number to print in the last block
           const valueLength = segmentValue.length; // Used to decide when to print a number to the bar
 
-          return [...Array(segment.length)].map((_, index) => {
+          const length = Number.isInteger(segment.length) && segment.length > 0 ? segment.length : "invalid";
+          return [...Array(length)].map((_, index) => {
             const digitIndex = valueLength - (segment.length - index); // we use this to print large numbers across multiple blocks
 
             return (
@@ -47,7 +50,7 @@ const FrameMeter = ({ moveData, wrap }: Props) => {
                 key={`${moveStage}-${index}`}
                 className={`${styles[segment.type]} ${styles.FrameBlock}`}
               >
-                {segment.type === "invalid" ? "?" : digitIndex >= 0 && digitIndex < valueLength ? segmentValue[digitIndex] : ""}
+                {segment.type === "invalid" || (length === "invalid")? "?" : digitIndex >= 0 && digitIndex < valueLength ? segmentValue[digitIndex] : ""}
               </div>
             );
           });

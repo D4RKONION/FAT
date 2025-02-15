@@ -7,8 +7,8 @@ import { FrameMeterBlockSegment } from "../types";
  * @param valueToParse the string or number you want parsed
  */
 
-export const canParseBasicFrames = (valueToCheck):boolean => 
-  valueToCheck != null && (typeof valueToCheck === "number" || /[0-9]/.test(valueToCheck));
+export const canParseBasicFrames = (valueToCheck):boolean =>
+  valueToCheck != null && (typeof valueToCheck === "number" || (/[0-9]/.test(valueToCheck) && !valueToCheck.startsWith("~")));
 
 export const parseBasicFrames = (valueToParse: string | number): number => {
   if (typeof valueToParse === "number") return valueToParse;
@@ -19,11 +19,16 @@ export const parseBasicFrames = (valueToParse: string | number): number => {
   }
 
   // Handle cases with trailing operators, square brackets or other delimiters
-  const cleanedValue = valueToParse.replace(/[\+\-\*\/\.]$/, "").split(/[([/~,a-zA-Z]/)[0];
+  const cleanedValue = valueToParse.split(/[([/~,a-zA-Z]/)[0].replace(/[\+\-\*\/\.]$/, "");
 
   // Evaluate sums like "12+3"
   if (cleanedValue.includes("+")) {
-    return eval(cleanedValue); // Safe because it's controlled input
+    try {
+      return eval(cleanedValue); // Safe because it's controlled input
+    } catch (e) {
+      console.error(`Evaluating ${cleanedValue} failed: ${e}`);
+      return 1;
+    }
   }
 
   // Convert to number if no further processing is needed

@@ -315,7 +315,6 @@ const FrameKillGenerator = () => {
     // It compares kdr and kdrb results for duplicates and then combines them into one result
     // Some day I might need to refactor this to allow for more than 2. I'll cross that bridge when I get to it :)
     function handleMultipleKDAs() {
-      console.log("I'm in here!");
       const kdrResults = { ...processedResults };
       processedResults = { "Natural Setups": {}, "One Move Setups": {}, "Two Move Setups": {}, "Three Move Setups": {} };
 
