@@ -353,7 +353,13 @@ const FrameKillGenerator = () => {
     
     // Find setups
     if (isNaN(playerOneMoves[targetMeaty]["active"]) && canParseBasicFrames(playerOneMoves[targetMeaty]["startup"])) {
-      playerOneMoves[targetMeaty].multiActive = parseMultiActiveFrames(firstOkiMoveModel[targetMeaty].startup, firstOkiMoveModel[targetMeaty].active);
+      // if the move has no active frames, but it has startup frames (and it must not be nonhitting
+      // because they can't be selected in the dropdown), then give it 1 active frame
+      if (!playerOneMoves[targetMeaty].active) {
+        playerOneMoves[targetMeaty].multiActive = parseMultiActiveFrames(firstOkiMoveModel[targetMeaty].startup, "1");
+      } else {
+        playerOneMoves[targetMeaty].multiActive = parseMultiActiveFrames(firstOkiMoveModel[targetMeaty].startup, firstOkiMoveModel[targetMeaty].active);
+      }
 
       findMeatySetups(lateByFrames, true);
       if (coverBothKDs) {
@@ -504,6 +510,7 @@ const FrameKillGenerator = () => {
                 >
                   <IonSelectOption key="targetMeaty-select" value={null}>Select a move</IonSelectOption>
                   {Object.keys(playerOneMoves).filter(move =>
+                    (playerOneMoves[move].active || playerOneMoves[move].startup) &&
                     !playerOneMoves[move].airmove &&
                     !playerOneMoves[move].followUp &&
                     !playerOneMoves[move].nonHittingMove &&
@@ -534,7 +541,7 @@ const FrameKillGenerator = () => {
                 <h3>Target Meaty</h3>
                 <h2>{targetMeaty}</h2>
                 <p>Startup: <b>{parseBasicFrames(playerOneMoves[targetMeaty].startup)}</b></p>
-                <p>Active: <b>{isNaN(playerOneMoves[targetMeaty].active) ? playerOneMoves[targetMeaty].active : parseBasicFrames(playerOneMoves[targetMeaty].active)}</b></p>
+                <p>Active: <b>{!playerOneMoves[targetMeaty].active ? "-" : isNaN(playerOneMoves[targetMeaty].active) ? playerOneMoves[targetMeaty].active : parseBasicFrames(playerOneMoves[targetMeaty].active)}</b></p>
               </IonLabel>
             </IonItem>
               }
