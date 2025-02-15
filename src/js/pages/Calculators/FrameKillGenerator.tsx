@@ -417,13 +417,15 @@ const FrameKillGenerator = () => {
         ) :(
           <>
             <IonGrid fixed>
-              <SegmentSwitcher
-                key={"Oki KD type"}
-                valueToTrack={recoveryType}
-                segmentType={"recovery-type"}
-                labels={GAME_KNOCKDOWN_LABELS[activeGame]}
-                clickFunc={(eventValue) => recoveryType !== eventValue && setRecoveryType(eventValue)}
-              />
+              {Object.keys(GAME_KNOCKDOWN_LABELS[activeGame]).length > 1 &&
+                <SegmentSwitcher
+                  key={"Oki KD type"}
+                  valueToTrack={recoveryType}
+                  segmentType={"recovery-type"}
+                  labels={GAME_KNOCKDOWN_LABELS[activeGame]}
+                  clickFunc={(eventValue) => recoveryType !== eventValue && setRecoveryType(eventValue)}
+                />
+              }
 
               <IonItem lines="full">
                 <IonSelect
