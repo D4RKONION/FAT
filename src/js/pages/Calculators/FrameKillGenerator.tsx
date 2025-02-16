@@ -32,6 +32,11 @@ const SETUP_CONTAINS_LABELS = {
   SF6: {"Drive Rush >": "Drive Rush >"},
 };
 
+const TARGET_MEATY_LABELS = {
+  SFV: {"Safe Jump": "Safe Jump"},
+  SF6: {"Safe Jump": "Safe Jump"},
+};
+
 /* Helper Functions for the oki loop */
 
 // https://stackoverflow.com/questions/12487422/take-a-value-1-31-and-convert-it-to-ordinal-date-w-javascript
@@ -105,16 +110,24 @@ const FrameKillGenerator = () => {
   const playerOneMoves = selectedCharacters["playerOne"].frameData;
 
   useEffect(() => {
-    if (!playerOneMoves && !playerOneMoves[knockdownMove] && !(playerOneMoves[knockdownMove].kd || playerOneMoves[knockdownMove].kdr || playerOneMoves[knockdownMove].kdrb)) {
+    if (
+      knockdownMove !== "Custom KDA" &&
+      (!playerOneMoves || !playerOneMoves[knockdownMove] ||
+      !(
+        (playerOneMoves[knockdownMove].kd || playerOneMoves[knockdownMove].kdr || playerOneMoves[knockdownMove].kdrb) ||
+        (playerOneMoves[knockdownMove][recoveryType] && isNaN(playerOneMoves[knockdownMove][recoveryType]) && !isNaN(Number(playerOneMoves[knockdownMove][recoveryType].match(/KD \+([^\(*,\[]+)/)?.[1]) + 1))
+      ))
+    ) {  
       setKnockdownMove(null);
     }
-    if (!playerOneMoves[specificSetupMove] || specificSetupMove !== "Forward Dash") {
+    if (!(playerOneMoves[specificSetupMove] || specificSetupMove === "Forward Dash")) {
       setSpecificSetupMove("anything");
     }
-    if (!playerOneMoves[targetMeaty]) {
+    
+    if (!playerOneMoves[targetMeaty] && !TARGET_MEATY_LABELS?.[activeGame]?.[targetMeaty]) {
       setTargetMeaty(null);
     }
-  },[knockdownMove, playerOneMoves, selectedCharacters, specificSetupMove, targetMeaty]);
+  },[activeGame, knockdownMove, playerOneMoves, recoveryType, selectedCharacters, specificSetupMove, targetMeaty]);
 
   useEffect(() => {
     setRecoveryType(Object.keys(GAME_KNOCKDOWN_LABELS[activeGame])[0]);
@@ -132,7 +145,7 @@ const FrameKillGenerator = () => {
       !knockdownMove ||
       (!playerOneMoves[knockdownMove] && knockdownMove !== "Custom KDA") ||
       !targetMeaty ||
-      !playerOneMoves[targetMeaty] ||
+      (!playerOneMoves[targetMeaty] && !TARGET_MEATY_LABELS?.[activeGame]?.[targetMeaty]) ||
       (!allLabels[specificSetupMove] && !playerOneMoves[specificSetupMove])
     ) { return; }
 
@@ -147,21 +160,12 @@ const FrameKillGenerator = () => {
     if (knockdownMove === "Custom KDA") {
       knockdownFrames = customKDA + 1;
     } else if (recoveryType === "all") {
-      knockdownFrames = playerOneMoves[knockdownMove]["kdr"] + 1;
+      knockdownFrames = parseBasicFrames(playerOneMoves[knockdownMove]["kdr"]) + 1;
       coverBothKDs = true;
     } else if (activeGame === "SFV") {
-      knockdownFrames = playerOneMoves[knockdownMove][recoveryType] + 1;
+      knockdownFrames = parseBasicFrames(playerOneMoves[knockdownMove][recoveryType]) + 1;
     } else {
       knockdownFrames = parseBasicFrames(playerOneMoves[knockdownMove][recoveryType]) + 1;
-    }
-
-    if (playerOneMoves[targetMeaty]["atkLvl"] === "T" ) {
-      if (activeGame === "SFV") {
-        knockdownFrames +=2;
-      } else if (activeGame === "SF6") {
-        knockdownFrames +=1;
-      }
-      // TODO how many extra frames do you need to make throw meaty on the other games?
     }
 
     // Put the character's forward dash into the data model as a possible setup move. We will remove this at the end
@@ -178,6 +182,22 @@ const FrameKillGenerator = () => {
         active: 0,
         recovery: 11,
       };
+    }
+    if (targetMeaty === "Safe Jump") {
+      playerOneMoves["Safe Jump"] = {
+        startup: parseBasicFrames(selectedCharacters["playerOne"].stats.fJump) - Number(selectedCharacters["playerOne"].stats.fJump.match(/(?<=\+)(\d+)(?=\))/)[1]) + 1,
+        active: 1,
+        atkLvl: "M",
+      };
+    }
+
+    if (playerOneMoves[targetMeaty]["atkLvl"] === "T" ) {
+      if (activeGame === "SFV") {
+        knockdownFrames +=2;
+      } else if (activeGame === "SF6") {
+        knockdownFrames +=1;
+      }
+      // TODO how many extra frames do you need to make throw meaty on the other games?
     }
 
     // If a specific move is required in the setup, make that the only option in firstokimove
@@ -381,6 +401,10 @@ const FrameKillGenerator = () => {
     if (activeGame === "SF6") {
       delete playerOneMoves["Drive Rush >"];
     }
+
+    if (targetMeaty === "Safe Jump") {
+      delete playerOneMoves["Safe Jump"];
+    }
     
     if (Object.keys(processedResults).length !== 0) {
       setOkiResults(processedResults);
@@ -507,7 +531,16 @@ const FrameKillGenerator = () => {
                   cancelText="Cancel"
                   onIonChange={e => setTargetMeaty(e.detail.value)}
                 >
-                  <IonSelectOption key="targetMeaty-select" value={null}>Select a move</IonSelectOption>
+                  <IonSelectOption key="target-meaty-select" value={null}>Select a move</IonSelectOption>
+
+                  {Object.keys(TARGET_MEATY_LABELS).map(gameName =>
+                    (gameName === activeGame) && (
+                      Object.keys(TARGET_MEATY_LABELS[gameName]).map(value =>
+                        <IonSelectOption key={`target-meaty-${gameName}-${value}`} value={value}>{TARGET_MEATY_LABELS[gameName][value]}</IonSelectOption>
+                      )
+                    )
+                  )}
+
                   {Object.keys(playerOneMoves).filter(move =>
                     (playerOneMoves[move].active || playerOneMoves[move].startup) &&
                     !playerOneMoves[move].airmove &&
@@ -515,12 +548,12 @@ const FrameKillGenerator = () => {
                     !playerOneMoves[move].nonHittingMove &&
                     playerOneMoves[move].moveType !== "alpha"
                   ).map(move =>
-                    <IonSelectOption key={`targetMeaty-${move}`} value={move}>{move}</IonSelectOption>
+                    <IonSelectOption key={`target-meaty-${move}`} value={move}>{move}</IonSelectOption>
                   )}
                 </IonSelect>
               </IonItem>
 
-              {(playerOneMoves[knockdownMove] || knockdownMove === "Custom KDA") && playerOneMoves[targetMeaty] &&
+              {(playerOneMoves[knockdownMove] || knockdownMove === "Custom KDA") && (playerOneMoves[targetMeaty] || TARGET_MEATY_LABELS?.[activeGame]?.[targetMeaty]) &&
             <IonItem lines="full" className="selected-move-info">
               <IonLabel>
                 <h3>Knockdown with</h3>
@@ -539,14 +572,18 @@ const FrameKillGenerator = () => {
               <IonLabel>
                 <h3>Target Meaty</h3>
                 <h2>{targetMeaty}</h2>
-                <p>Startup: <b>{parseBasicFrames(playerOneMoves[targetMeaty].startup)}</b></p>
-                <p>Active: <b>{!playerOneMoves[targetMeaty].active ? "-" : isNaN(playerOneMoves[targetMeaty].active) ? playerOneMoves[targetMeaty].active : parseBasicFrames(playerOneMoves[targetMeaty].active)}</b></p>
+                {!TARGET_MEATY_LABELS?.[activeGame]?.[targetMeaty] &&
+                  <>
+                    <p>Startup: <b>{parseBasicFrames(playerOneMoves[targetMeaty].startup)}</b></p>
+                    <p>Active: <b>{!playerOneMoves[targetMeaty].active ? "-" : isNaN(playerOneMoves[targetMeaty].active) ? playerOneMoves[targetMeaty].active : parseBasicFrames(playerOneMoves[targetMeaty].active)}</b></p>
+                  </>
+                }
               </IonLabel>
             </IonItem>
               }
 
               <IonList>
-                {okiResults
+                {okiResults && knockdownMove && targetMeaty
                   ? Object.keys(okiResults).map(numOfMovesSetup =>
                     <IonItemGroup key={numOfMovesSetup}>
                       <IonItemDivider><p>{numOfMovesSetup}</p></IonItemDivider>

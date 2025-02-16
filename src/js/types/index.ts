@@ -62,6 +62,7 @@ export type PlayerData = {
   },
   stats?: {
     [key: string]: number | string;
+    fJump?: string;
   },
   selectedMove?: string,
 };
