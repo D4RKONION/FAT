@@ -28,13 +28,13 @@ const GAME_KNOCKDOWN_TYPES = {
 };
 
 const SETUP_CONTAINS_LABELS = {
-  universal: {anything: "Anything", nothing: "Nothing (Natural Meaty)", "Forward Dash": "Forward Dash"},
-  SF6: {"Drive Rush >": "Drive Rush >"},
+  universal: ["Anything", "Nothing (Natural Meaty)", "Forward Dash"],
+  SF6: ["Drive Rush >"],
 };
 
 const TARGET_MEATY_LABELS = {
-  SFV: {"Safe Jump": "Safe Jump"},
-  SF6: {"Safe Jump": "Safe Jump"},
+  SFV: ["Safe Jump"],
+  SF6: ["Safe Jump"],
 };
 
 /* Helper Functions for the oki loop */
@@ -102,7 +102,7 @@ const FrameKillGenerator = () => {
   const [knockdownMove, setKnockdownMove] = useState(null);
   const [customKDA, setCustomKDA] = useState(0);
   const [lateByFrames, setLateByFrames] = useState(0);
-  const [specificSetupMove, setSpecificSetupMove] = useState("anything");
+  const [specificSetupMove, setSpecificSetupMove] = useState("Anything");
   const [targetMeaty, setTargetMeaty] = useState(null);
 
   const [okiResults, setOkiResults] = useState({});
@@ -120,33 +120,33 @@ const FrameKillGenerator = () => {
     ) {  
       setKnockdownMove(null);
     }
-    if (!(playerOneMoves[specificSetupMove] || SETUP_CONTAINS_LABELS["universal"][specificSetupMove] || SETUP_CONTAINS_LABELS[activeGame]?.[specificSetupMove])) {
-      setSpecificSetupMove("anything");
+    if (!(playerOneMoves[specificSetupMove] || SETUP_CONTAINS_LABELS["universal"].includes(specificSetupMove) || SETUP_CONTAINS_LABELS[activeGame]?.includes(specificSetupMove))) {
+      setSpecificSetupMove("Anything");
     }
     
-    if (!playerOneMoves[targetMeaty] && !TARGET_MEATY_LABELS?.[activeGame]?.[targetMeaty]) {
+    if (!playerOneMoves[targetMeaty] && !TARGET_MEATY_LABELS?.[activeGame]?.includes(targetMeaty)) {
       setTargetMeaty(null);
     }
   },[activeGame, knockdownMove, playerOneMoves, recoveryType, selectedCharacters, specificSetupMove, targetMeaty]);
 
   useEffect(() => {
     setRecoveryType(Object.keys(GAME_KNOCKDOWN_TYPES[activeGame])[0]);
-    setSpecificSetupMove("anything");
+    setSpecificSetupMove("Anything");
   }, [activeGame]);
 
   useEffect(() => {
     //prep specific setup labels for checking
-    const gameLabels = SETUP_CONTAINS_LABELS[activeGame] || {};
-    const universalLabels = SETUP_CONTAINS_LABELS.universal || {};
-    const allLabels = { ...universalLabels, ...gameLabels };
+    const gameLabels = SETUP_CONTAINS_LABELS[activeGame] || [];
+    const universalLabels = SETUP_CONTAINS_LABELS.universal || [];
+    const allLabels = gameLabels.concat(universalLabels);
 
     // cancel the calculation if the required dropdowns have not been selected
     if (
       !knockdownMove ||
       (!playerOneMoves[knockdownMove] && knockdownMove !== "Custom KDA") ||
       !targetMeaty ||
-      (!playerOneMoves[targetMeaty] && !TARGET_MEATY_LABELS?.[activeGame]?.[targetMeaty]) ||
-      (!allLabels[specificSetupMove] && !playerOneMoves[specificSetupMove])
+      (!playerOneMoves[targetMeaty] && !TARGET_MEATY_LABELS?.[activeGame]?.includes(targetMeaty)) ||
+      (!allLabels.includes(specificSetupMove) && !playerOneMoves[specificSetupMove])
     ) { return; }
 
     // set up the processed data container
@@ -202,9 +202,9 @@ const FrameKillGenerator = () => {
 
     // If a specific move is required in the setup, make that the only option in firstokimove
     let firstOkiMoveModel;
-    if (!specificSetupMove || specificSetupMove === "anything") {
+    if (!specificSetupMove || specificSetupMove === "Anything") {
       firstOkiMoveModel = {...playerOneMoves};
-    } else if (specificSetupMove === "nothing") {
+    } else if (specificSetupMove === "Nothing (Natural Meaty)") {
       firstOkiMoveModel = {};
     } else {
       firstOkiMoveModel = {[specificSetupMove]: playerOneMoves[specificSetupMove]};
@@ -234,9 +234,9 @@ const FrameKillGenerator = () => {
       } else if (currentLateByFramesSearch > 1) {
         ordinalName = `1st (${currentLateByFramesSearch} frames late)`;
       }
-    
+   
       // Before we begin the loop, and "setupContains" is not a specific move, check for natural meaties
-      if (knockdownFrames - targetMeatyFrames + currentLateByFramesSearch === 0 && (specificSetupMove === "anything" || specificSetupMove === "nothing")) {
+      if (knockdownFrames - targetMeatyFrames + currentLateByFramesSearch === 0 && (specificSetupMove === "Anything" || specificSetupMove === "Nothing (Natural Meaty)")) {
         if (!processedResults["Natural Setups"][ordinalName]) {
           processedResults["Natural Setups"][ordinalName] = [];
         }
@@ -502,8 +502,8 @@ const FrameKillGenerator = () => {
                 >
                   {Object.keys(SETUP_CONTAINS_LABELS).map(gameName =>
                     (gameName === activeGame || gameName === "universal") && (
-                      Object.keys(SETUP_CONTAINS_LABELS[gameName]).map(value =>
-                        <IonSelectOption key={`setup-contains-${gameName}-${value}`} value={value}>{SETUP_CONTAINS_LABELS[gameName][value]}</IonSelectOption>
+                      SETUP_CONTAINS_LABELS[gameName].map(setupContainsLabel =>
+                        <IonSelectOption key={`setup-contains-${gameName}-${setupContainsLabel}`} value={setupContainsLabel}>{setupContainsLabel}</IonSelectOption>
                       )
                     )
                   )}
@@ -537,8 +537,8 @@ const FrameKillGenerator = () => {
 
                   {Object.keys(TARGET_MEATY_LABELS).map(gameName =>
                     (gameName === activeGame) && (
-                      Object.keys(TARGET_MEATY_LABELS[gameName]).map(value =>
-                        <IonSelectOption key={`target-meaty-${gameName}-${value}`} value={value}>{TARGET_MEATY_LABELS[gameName][value]}</IonSelectOption>
+                      TARGET_MEATY_LABELS[gameName].map(tagetMeatyLabel =>
+                        <IonSelectOption key={`target-meaty-${gameName}-${tagetMeatyLabel}`} value={tagetMeatyLabel}>{tagetMeatyLabel}</IonSelectOption>
                       )
                     )
                   )}
@@ -555,7 +555,7 @@ const FrameKillGenerator = () => {
                 </IonSelect>
               </IonItem>
 
-              {(playerOneMoves[knockdownMove] || knockdownMove === "Custom KDA") && (playerOneMoves[targetMeaty] || TARGET_MEATY_LABELS?.[activeGame]?.[targetMeaty]) &&
+              {(playerOneMoves[knockdownMove] || knockdownMove === "Custom KDA") && (playerOneMoves[targetMeaty] || TARGET_MEATY_LABELS?.[activeGame]?.includes(targetMeaty)) &&
             <IonItem lines="full" className="selected-move-info">
               <IonLabel>
                 <h3>Knockdown with</h3>
@@ -574,7 +574,7 @@ const FrameKillGenerator = () => {
               <IonLabel>
                 <h3>Target Meaty</h3>
                 <h2>{targetMeaty}</h2>
-                {!TARGET_MEATY_LABELS?.[activeGame]?.[targetMeaty] &&
+                {!TARGET_MEATY_LABELS?.[activeGame]?.includes(targetMeaty) &&
                   <>
                     <p>Startup: <b>{parseBasicFrames(playerOneMoves[targetMeaty].startup)}</b></p>
                     <p>Active: <b>{!playerOneMoves[targetMeaty].active ? "-" : isNaN(playerOneMoves[targetMeaty].active) ? playerOneMoves[targetMeaty].active : parseBasicFrames(playerOneMoves[targetMeaty].active)}</b></p>
