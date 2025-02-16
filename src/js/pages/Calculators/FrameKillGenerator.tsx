@@ -19,7 +19,7 @@ const EXCLUDED_SETUP_MOVES: { [key in GameName]?: { [characterName: string]: str
   },
 };
 
-const GAME_KNOCKDOWN_LABELS = {
+const GAME_KNOCKDOWN_TYPES = {
   "3S": {disabled: "disabled"},
   USF4: {disabled: "disabled"},
   SFV: {kdr: "Quick", kdrb: "Back", all: "Q&B", kd: "None"},
@@ -28,7 +28,7 @@ const GAME_KNOCKDOWN_LABELS = {
 };
 
 const SETUP_CONTAINS_LABELS = {
-  universal: {anything: "Anything", "Forward Dash": "Forward Dash"},
+  universal: {anything: "Anything", nothing: "Nothing (Natural Meaty)", "Forward Dash": "Forward Dash"},
   SF6: {"Drive Rush >": "Drive Rush >"},
 };
 
@@ -98,7 +98,7 @@ const FrameKillGenerator = () => {
 
   const dispatch = useDispatch();
 
-  const [recoveryType, setRecoveryType] = useState(Object.keys(GAME_KNOCKDOWN_LABELS[activeGame])[0]);
+  const [recoveryType, setRecoveryType] = useState(Object.keys(GAME_KNOCKDOWN_TYPES[activeGame])[0]);
   const [knockdownMove, setKnockdownMove] = useState(null);
   const [customKDA, setCustomKDA] = useState(0);
   const [lateByFrames, setLateByFrames] = useState(0);
@@ -120,7 +120,7 @@ const FrameKillGenerator = () => {
     ) {  
       setKnockdownMove(null);
     }
-    if (!(playerOneMoves[specificSetupMove] || specificSetupMove === "Forward Dash")) {
+    if (!(playerOneMoves[specificSetupMove] || SETUP_CONTAINS_LABELS["universal"][specificSetupMove] || SETUP_CONTAINS_LABELS[activeGame]?.[specificSetupMove])) {
       setSpecificSetupMove("anything");
     }
     
@@ -130,7 +130,7 @@ const FrameKillGenerator = () => {
   },[activeGame, knockdownMove, playerOneMoves, recoveryType, selectedCharacters, specificSetupMove, targetMeaty]);
 
   useEffect(() => {
-    setRecoveryType(Object.keys(GAME_KNOCKDOWN_LABELS[activeGame])[0]);
+    setRecoveryType(Object.keys(GAME_KNOCKDOWN_TYPES[activeGame])[0]);
     setSpecificSetupMove("anything");
   }, [activeGame]);
 
@@ -204,6 +204,8 @@ const FrameKillGenerator = () => {
     let firstOkiMoveModel;
     if (!specificSetupMove || specificSetupMove === "anything") {
       firstOkiMoveModel = {...playerOneMoves};
+    } else if (specificSetupMove === "nothing") {
+      firstOkiMoveModel = {};
     } else {
       firstOkiMoveModel = {[specificSetupMove]: playerOneMoves[specificSetupMove]};
     }
@@ -233,8 +235,8 @@ const FrameKillGenerator = () => {
         ordinalName = `1st (${currentLateByFramesSearch} frames late)`;
       }
     
-      // Before we begin the loop, check for natural meaties
-      if (knockdownFrames - targetMeatyFrames + currentLateByFramesSearch === 0) {
+      // Before we begin the loop, and "setupContains" is not a specific move, check for natural meaties
+      if (knockdownFrames - targetMeatyFrames + currentLateByFramesSearch === 0 && (specificSetupMove === "anything" || specificSetupMove === "nothing")) {
         if (!processedResults["Natural Setups"][ordinalName]) {
           processedResults["Natural Setups"][ordinalName] = [];
         }
@@ -430,7 +432,7 @@ const FrameKillGenerator = () => {
       </IonHeader>
 
       <IonContent id="FrameKillGenerator" className="calculators">
-        {Object.keys(GAME_KNOCKDOWN_LABELS[activeGame])[0] === "disabled" ? (
+        {Object.keys(GAME_KNOCKDOWN_TYPES[activeGame])[0] === "disabled" ? (
         
           <IonGrid fixed>
             <div>
@@ -440,12 +442,12 @@ const FrameKillGenerator = () => {
         ) :(
           <>
             <IonGrid fixed>
-              {Object.keys(GAME_KNOCKDOWN_LABELS[activeGame]).length > 1 &&
+              {Object.keys(GAME_KNOCKDOWN_TYPES[activeGame]).length > 1 &&
                 <SegmentSwitcher
                   key={"Oki KD type"}
                   valueToTrack={recoveryType}
                   segmentType={"recovery-type"}
-                  labels={GAME_KNOCKDOWN_LABELS[activeGame]}
+                  labels={GAME_KNOCKDOWN_TYPES[activeGame]}
                   clickFunc={(eventValue) => recoveryType !== eventValue && setRecoveryType(eventValue)}
                 />
               }
