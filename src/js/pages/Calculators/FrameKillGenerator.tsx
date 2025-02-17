@@ -27,6 +27,10 @@ const GAME_KNOCKDOWN_TYPES = {
   GGST: {disabled: "disabled"},
 };
 
+const KNOCKDOWN_WITH_LABELS = {
+  universal: ["Anything", "Custom KDA"],
+};
+
 const SETUP_CONTAINS_LABELS = {
   universal: ["Anything", "Nothing (Natural Meaty)", "Forward Dash"],
   SF6: ["Drive Rush >"],
@@ -251,9 +255,6 @@ const handleMultipleKDAs = (processedResults, playerOneMoves, knockdownMove, tar
       }
     }
   }
-  console.log(kdrResults);
-  console.log(kdrbResults);
-  console.log(combinedResults);
 
   return combinedResults;
 };
@@ -278,6 +279,7 @@ const FrameKillGenerator = () => {
   useEffect(() => {
     if (
       knockdownMove !== "Custom KDA" &&
+      !(KNOCKDOWN_WITH_LABELS["universal"].includes(knockdownMove) || KNOCKDOWN_WITH_LABELS[activeGame]?.includes(knockdownMove)) &&
       (!playerOneMoves || !playerOneMoves[knockdownMove] ||
       !(
         (playerOneMoves[knockdownMove].kd || playerOneMoves[knockdownMove].kdr || playerOneMoves[knockdownMove].kdrb) ||
@@ -309,27 +311,11 @@ const FrameKillGenerator = () => {
     // cancel the calculation if the required dropdowns have not been selected
     if (
       !knockdownMove ||
-      (!playerOneMoves[knockdownMove] && knockdownMove !== "Custom KDA") ||
+      !(playerOneMoves[knockdownMove] || KNOCKDOWN_WITH_LABELS["universal"].includes(knockdownMove) || KNOCKDOWN_WITH_LABELS[activeGame]?.includes(knockdownMove)) ||
       !targetMeaty ||
       (!playerOneMoves[targetMeaty] && !TARGET_MEATY_LABELS?.[activeGame]?.includes(targetMeaty)) ||
       (!allLabels.includes(specificSetupMove) && !playerOneMoves[specificSetupMove])
     ) { return; }
-
-    // Set up the number of frames the opponent is knocked down for.
-    // We add plus 1 because that is the frame the opponent is vunerable again
-    let knockdownFrames = 1;
-    let coverBothKDs = false;
-
-    if (knockdownMove === "Custom KDA") {
-      knockdownFrames += customKDA;
-    } else if (recoveryType === "all") {
-      knockdownFrames += parseBasicFrames(playerOneMoves[knockdownMove]["kdr"]);
-      coverBothKDs = true;
-    } else if (activeGame === "SFV") {
-      knockdownFrames += parseBasicFrames(playerOneMoves[knockdownMove][recoveryType]);
-    } else {
-      knockdownFrames += parseBasicFrames(playerOneMoves[knockdownMove][recoveryType]);
-    }
 
     // Put the character's forward dash into the data model as a possible setup move. We will remove this at the end
     playerOneMoves["Forward Dash"] = {
@@ -354,15 +340,6 @@ const FrameKillGenerator = () => {
       };
     }
 
-    if (playerOneMoves[targetMeaty]["atkLvl"] === "T" ) {
-      if (activeGame === "SFV") {
-        knockdownFrames +=2;
-      } else if (activeGame === "SF6") {
-        knockdownFrames +=1;
-      }
-      // TODO how many extra frames do you need to make throw meaty on the other games?
-    }
-
     // If a specific move is required in the setup, make that the only option in firstokimove
     let firstOkiMoveModel;
     if (!specificSetupMove || specificSetupMove === "Anything") {
@@ -373,33 +350,86 @@ const FrameKillGenerator = () => {
       firstOkiMoveModel = {[specificSetupMove]: playerOneMoves[specificSetupMove]};
     }
 
-    // set up the processed data container
-    let processedResults;
-    
-    // Find setups
-    if (isNaN(playerOneMoves[targetMeaty]["active"]) && canParseBasicFrames(playerOneMoves[targetMeaty]["startup"])) {
-      // if the move has no active frames, but it has startup frames (and it must not be nonhitting
-      // because they can't be selected in the dropdown), then give it 1 active frame
-      if (!playerOneMoves[targetMeaty].active) {
-        playerOneMoves[targetMeaty].multiActive = parseMultiActiveFrames(firstOkiMoveModel[targetMeaty].startup, "1");
-      } else {
-        playerOneMoves[targetMeaty].multiActive = parseMultiActiveFrames(firstOkiMoveModel[targetMeaty].startup, firstOkiMoveModel[targetMeaty].active);
+    // Create an object containing the knockdown moves to search through
+    // This will be one move unless knockdown === "Anything", in which case
+    // it will be every move with a valid knockdown number
+    const allKnockdownMovesToTry = Object.keys(playerOneMoves).filter(moveName => {
+      if (knockdownMove === "Anything") {
+        if (
+          (activeGame === "SFV" && (playerOneMoves[moveName][recoveryType])) ||
+          playerOneMoves[moveName][recoveryType] && isNaN(playerOneMoves[moveName][recoveryType]) && !isNaN(Number(playerOneMoves[moveName][recoveryType].match(/KD \+([^\(*,\[]+)/)?.[1]) + 1)
+        ) {
+          return moveName;
+        }
+      } else if (moveName === knockdownMove) {
+        return moveName;
       }
-      
-      processedResults = findMeatySetups(lateByFrames, true, playerOneMoves, targetMeaty, knockdownFrames, specificSetupMove, firstOkiMoveModel, selectedCharacters); 
-    } else {
-      processedResults = findMeatySetups(lateByFrames, false, playerOneMoves, targetMeaty, knockdownFrames, specificSetupMove, firstOkiMoveModel, selectedCharacters);
+    });
+
+    if (knockdownMove === "Custom KDA") {
+      allKnockdownMovesToTry.push("Custom KDA");
     }
 
-    if (coverBothKDs) {
-      processedResults = handleMultipleKDAs(processedResults, playerOneMoves, knockdownMove, targetMeaty, lateByFrames, specificSetupMove, firstOkiMoveModel, selectedCharacters);
-    }
-    
-    // Remove any empty objects
-    for (const obj in processedResults) {
-      if (Object.keys(processedResults[obj]).length === 0 && processedResults[obj].constructor === Object) {
-        delete processedResults[obj];
+    // set up the processed data container
+    const processedResults = {};
+
+    for (const knockdownMove in allKnockdownMovesToTry) {
+      const knockdownMoveName = allKnockdownMovesToTry[knockdownMove];
+
+      let thisMoveProcessedResults;
+
+      // Set up the number of frames the opponent is knocked down for.
+      // We add plus 1 because that is the frame the opponent is vunerable again
+      let knockdownFrames = 1;
+      let coverBothKDs = false;
+
+      if (knockdownMoveName === "Custom KDA") {
+        knockdownFrames += customKDA;
+      } else if (recoveryType === "all") {
+        knockdownFrames += parseBasicFrames(playerOneMoves[knockdownMoveName]["kdr"]);
+        coverBothKDs = true;
+      } else if (activeGame === "SFV") {
+        knockdownFrames += parseBasicFrames(playerOneMoves[knockdownMoveName][recoveryType]);
+      } else {
+        knockdownFrames += parseBasicFrames(playerOneMoves[knockdownMoveName][recoveryType]);
       }
+
+      if (playerOneMoves[targetMeaty]["atkLvl"] === "T" ) {
+        if (activeGame === "SFV") {
+          knockdownFrames +=2;
+        } else if (activeGame === "SF6") {
+          knockdownFrames +=1;
+        }
+      // TODO how many extra frames do you need to make throw meaty on the other games?
+      }
+    
+      // Find setups
+      if (isNaN(playerOneMoves[targetMeaty]["active"]) && canParseBasicFrames(playerOneMoves[targetMeaty]["startup"])) {
+      // if the move has no active frames, but it has startup frames (and it must not be nonhitting
+      // because they can't be selected in the dropdown), then give it 1 active frame
+        if (!playerOneMoves[targetMeaty].active) {
+          playerOneMoves[targetMeaty].multiActive = parseMultiActiveFrames(firstOkiMoveModel[targetMeaty].startup, "1");
+        } else {
+          playerOneMoves[targetMeaty].multiActive = parseMultiActiveFrames(firstOkiMoveModel[targetMeaty].startup, firstOkiMoveModel[targetMeaty].active);
+        }
+      
+        thisMoveProcessedResults = findMeatySetups(lateByFrames, true, playerOneMoves, targetMeaty, knockdownFrames, specificSetupMove, firstOkiMoveModel, selectedCharacters); 
+      } else {
+        thisMoveProcessedResults = findMeatySetups(lateByFrames, false, playerOneMoves, targetMeaty, knockdownFrames, specificSetupMove, firstOkiMoveModel, selectedCharacters);
+      }
+
+      if (coverBothKDs) {
+        thisMoveProcessedResults = handleMultipleKDAs(thisMoveProcessedResults, playerOneMoves, knockdownMoveName, targetMeaty, lateByFrames, specificSetupMove, firstOkiMoveModel, selectedCharacters);
+      }
+    
+      // Remove any empty objects
+      for (const obj in thisMoveProcessedResults) {
+        if (Object.keys(thisMoveProcessedResults[obj]).length === 0 && thisMoveProcessedResults[obj].constructor === Object) {
+          delete thisMoveProcessedResults[obj];
+        }
+      }
+
+      processedResults[knockdownMoveName] = thisMoveProcessedResults;
     }
 
     // Remove the character's forward dash from the move model, so it doesn't show up elsewhere
@@ -417,7 +447,6 @@ const FrameKillGenerator = () => {
     } else {
       setOkiResults(false);
     }
-    
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [recoveryType, knockdownMove, lateByFrames, specificSetupMove, targetMeaty, playerOneMoves, selectedCharacters.playerOne.stats.fDash, customKDA]);
 
@@ -467,7 +496,13 @@ const FrameKillGenerator = () => {
                   onIonChange={e => setKnockdownMove(e.detail.value)}
                 >
                   <IonSelectOption value={null}>Select a move</IonSelectOption>
-                  <IonSelectOption value={"Custom KDA"}>Custom KDA</IonSelectOption>
+                  {Object.keys(KNOCKDOWN_WITH_LABELS).map(gameName =>
+                    (gameName === activeGame || gameName === "universal") && (
+                      KNOCKDOWN_WITH_LABELS[gameName].map(knockdownWithLabels =>
+                        <IonSelectOption key={`knockdown-with-${gameName}-${knockdownWithLabels}`} value={knockdownWithLabels}>{knockdownWithLabels}</IonSelectOption>
+                      )
+                    )
+                  )}
                   {Object.keys(playerOneMoves).filter(move =>
                     activeGame === "SFV" ?
                       playerOneMoves[move].kd || playerOneMoves[move].kdr || playerOneMoves[move].kdrb
@@ -559,57 +594,74 @@ const FrameKillGenerator = () => {
                 </IonSelect>
               </IonItem>
 
-              {(playerOneMoves[knockdownMove] || knockdownMove === "Custom KDA") && (playerOneMoves[targetMeaty] || TARGET_MEATY_LABELS?.[activeGame]?.includes(targetMeaty)) &&
-            <IonItem lines="full" className="selected-move-info">
-              <IonLabel>
-                <h3>Knockdown with</h3>
-                <h2>{knockdownMove}</h2>
-                <>
-                  {recoveryType === "all"
-                    ? <>
-                      <p>KD Advantage (Q): <strong>{knockdownMove === "Custom KDA" ? customKDA : playerOneMoves[knockdownMove]["kdr"]}</strong></p>
-                      <p>KD Advantage (B): <strong>{knockdownMove === "Custom KDA" ? customKDA : playerOneMoves[knockdownMove]["kdrb"]}</strong></p>
-                    </>
-                    : <p>KD Advantage: <strong>{knockdownMove === "Custom KDA" ? customKDA : playerOneMoves[knockdownMove][recoveryType]}</strong></p>
-                  }
-                </>
+              {(playerOneMoves[knockdownMove] || KNOCKDOWN_WITH_LABELS["universal"].includes(knockdownMove) || KNOCKDOWN_WITH_LABELS[activeGame]?.includes(knockdownMove)) && (playerOneMoves[targetMeaty] || TARGET_MEATY_LABELS?.[activeGame]?.includes(targetMeaty)) &&
+                <IonItem lines="full" className="selected-move-info">
+                  <IonLabel>
+                    <h3>Knockdown with</h3>
+                    <h2>{knockdownMove}</h2>
+                    {knockdownMove !== "Anything" &&
+                      <>
+                        {recoveryType === "all"
+                          ? <>
+                            <p>KD Advantage (Q): <strong>{knockdownMove === "Custom KDA" ? customKDA : playerOneMoves[knockdownMove]["kdr"]}</strong></p>
+                            <p>KD Advantage (B): <strong>{knockdownMove === "Custom KDA" ? customKDA : playerOneMoves[knockdownMove]["kdrb"]}</strong></p>
+                          </>
+                          : <p>KD Advantage: <strong>{knockdownMove === "Custom KDA" ? customKDA : playerOneMoves[knockdownMove][recoveryType]}</strong></p>
+                        }
+                      </>
+                    }
 
-              </IonLabel>
-              <IonLabel>
-                <h3>Target Meaty</h3>
-                <h2>{targetMeaty}</h2>
-                {!TARGET_MEATY_LABELS?.[activeGame]?.includes(targetMeaty) &&
-                  <>
-                    <p>Startup: <b>{parseBasicFrames(playerOneMoves[targetMeaty].startup)}</b></p>
-                    <p>Active: <b>{!playerOneMoves[targetMeaty].active ? "-" : isNaN(playerOneMoves[targetMeaty].active) ? playerOneMoves[targetMeaty].active : parseBasicFrames(playerOneMoves[targetMeaty].active)}</b></p>
-                  </>
-                }
-              </IonLabel>
-            </IonItem>
+                  </IonLabel>
+                  <IonLabel>
+                    <h3>Target Meaty</h3>
+                    <h2>{targetMeaty}</h2>
+                    {!TARGET_MEATY_LABELS?.[activeGame]?.includes(targetMeaty) &&
+                      <>
+                        <p>Startup: <b>{parseBasicFrames(playerOneMoves[targetMeaty].startup)}</b></p>
+                        <p>Active: <b>{!playerOneMoves[targetMeaty].active ? "-" : isNaN(playerOneMoves[targetMeaty].active) ? playerOneMoves[targetMeaty].active : parseBasicFrames(playerOneMoves[targetMeaty].active)}</b></p>
+                      </>
+                    }
+                  </IonLabel>
+                </IonItem>
               }
 
               <IonList>
                 {okiResults && knockdownMove && targetMeaty
-                  ? Object.keys(okiResults).map(numOfMovesSetup =>
-                    <IonItemGroup key={numOfMovesSetup}>
-                      <IonItemDivider><p>{numOfMovesSetup}</p></IonItemDivider>
-                      {Object.keys(okiResults[numOfMovesSetup]).map(activeAsOrdinal =>
-                        <div key={activeAsOrdinal}>
-                          <IonListHeader className="ordinal-header">
-                            <IonLabel>
-                              <p>Meaty on the <strong>{activeAsOrdinal}</strong> active frame{recoveryType === "all" && "s"}</p>
-                            </IonLabel>
-                          </IonListHeader>
-                          {Object.keys(okiResults[numOfMovesSetup][activeAsOrdinal]).map((setup, index) =>
-                            <IonItem key={activeAsOrdinal + index}>
-                              <IonLabel>
-                                <p>{knockdownMove}, <strong style={{marginLeft: "3px"}}>[{okiResults[numOfMovesSetup][activeAsOrdinal][setup]}]</strong>, {targetMeaty}</p>
-                              </IonLabel>
-                            </IonItem>
+                  ? Object.keys(okiResults).map(knockdownMove => {
+                    // Check if there are any valid setups for this knockdown move
+                    const validSetups = Object.keys(okiResults[knockdownMove]).filter(numOfMovesSetup => okiResults[knockdownMove][numOfMovesSetup]);
+
+                    if (validSetups.length === 0) {
+                      return null; // Skip rendering if no valid setups
+                    }
+                    return (<>
+                      <h2>{knockdownMove}</h2>
+                      {Object.keys(okiResults[knockdownMove]).map(numOfMovesSetup => 
+
+                        <IonItemGroup key={numOfMovesSetup}>
+                          <IonItemDivider><p>{numOfMovesSetup}</p></IonItemDivider>
+                          {Object.keys(okiResults[knockdownMove][numOfMovesSetup]).map(activeAsOrdinal =>
+                            <div key={activeAsOrdinal}>
+                              <IonListHeader className="ordinal-header">
+                                <IonLabel>
+                                  <p>Meaty on the <strong>{activeAsOrdinal}</strong> active frame{recoveryType === "all" && "s"}</p>
+                                </IonLabel>
+                              </IonListHeader>
+                              {Object.keys(okiResults[knockdownMove][numOfMovesSetup][activeAsOrdinal]).map((setup, index) =>
+                                <IonItem key={activeAsOrdinal + index}>
+                                  <IonLabel>
+                                    <p>{knockdownMove}, <strong style={{marginLeft: "3px"}}>[{okiResults[knockdownMove][numOfMovesSetup][activeAsOrdinal][setup]}]</strong>, {targetMeaty}</p>
+                                  </IonLabel>
+                                </IonItem>
+                              )}
+                            </div>
                           )}
-                        </div>
+                        </IonItemGroup>
                       )}
-                    </IonItemGroup>
+                      
+                    </>);
+                  }
+                    
                   )
                   : <h4>No oki found for this setup...<br/>Sorry!</h4>
                 }
