@@ -394,7 +394,7 @@ const FrameKillGenerator = () => {
                         return null; // Skip rendering if no valid setups
                       }
                       return (<>
-                        <h2>{knockdownMove}</h2>
+                        <h5>{knockdownMove}</h5>
                         {Object.keys(okiResults[knockdownMove]).map(numOfMovesSetup => 
 
                           <IonItemGroup key={numOfMovesSetup}>
@@ -407,7 +407,7 @@ const FrameKillGenerator = () => {
                                   </IonLabel>
                                 </IonListHeader>
                                 {Object.keys(okiResults[knockdownMove][numOfMovesSetup][activeAsOrdinal]).map((setup, index) =>
-                                  <IonItem key={activeAsOrdinal + index}>
+                                  <IonItem key={activeAsOrdinal + index} lines={Object.keys(okiResults[knockdownMove][numOfMovesSetup][activeAsOrdinal]).length === index + 1 ? "full" : "inset"}>
                                     <IonLabel>
                                       <p>{knockdownMove}, <strong style={{marginLeft: "3px"}}>[{okiResults[knockdownMove][numOfMovesSetup][activeAsOrdinal][setup]}]</strong>, {targetMeaty}</p>
                                     </IonLabel>

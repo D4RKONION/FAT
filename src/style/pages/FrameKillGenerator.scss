@@ -17,19 +17,29 @@
     padding-top: 0;
     margin-bottom: 80px;
 
-    .ordinal-header {
+    h5 {
+      color: var(--fat-header);
+      font-weight: 900;
+      background: var(--fat-ionlist-sublist-header-background);
       position: sticky;
+      top: 0;
+      z-index: 101;
+      margin: 30px 0 0;
+      padding: 10px 0 10px 16px;
+      border-bottom: 1px solid var(--fat-ionlist-border);
+      &:first-child {
+        margin: 0;
+      }
+    }
+    ion-item-divider {
+      position: relative;
+    }
+
+    .ordinal-header {
+      // position: sticky;
       z-index: 3;
       background: var(--fat-ionlist-sublist-header-background);
       border-bottom: solid 1px var(--fat-ionlist-border);
-
-      &.md {
-        top: 39px
-      }
-
-      &.ios {
-        top: 30px;
-      }
 
       ion-label {
         margin-top: 0;
