@@ -1,4 +1,18 @@
 #FrameKillGenerator {
+  .calculating-oki-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h3 {
+      margin: 20px 0 0;
+    }
+    p {
+      margin: 5px 0 0;
+    }
+    ion-spinner {
+      margin-top: 10px;
+    }
+  }
   ion-list {
     padding-top: 0;
     margin-bottom: 80px;
