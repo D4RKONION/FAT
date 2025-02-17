@@ -24,6 +24,8 @@ const KNOCKDOWN_WITH_LABELS = {
   universal: ["Anything", "Custom KDA"],
 };
 
+const SETUP_LENGTH_LABELS = ["One Move", "Two Moves", "Three Moves"];
+
 const SETUP_CONTAINS_LABELS = {
   universal: ["Anything", "Nothing (Natural Meaty)", "Forward Dash"],
   SF6: ["Drive Rush >"],
@@ -44,6 +46,7 @@ const FrameKillGenerator = () => {
   const [knockdownMove, setKnockdownMove] = useState(null);
   const [customKDA, setCustomKDA] = useState(0);
   const [lateByFrames, setLateByFrames] = useState(0);
+  const [setupLength, setSetupLength] = useState(2);
   const [specificSetupMove, setSpecificSetupMove] = useState("Anything");
   const [targetMeaty, setTargetMeaty] = useState(null);
 
@@ -144,9 +147,11 @@ const FrameKillGenerator = () => {
     if (knockdownMove === "Custom KDA") {
       allKnockdownMovesToTry.push("Custom KDA");
     }
+
+    // Send the calculation to a worker process to stop the page from freezing while the calculation happens
     const worker = new Worker(new URL("./framekillgeneratorworker.ts", import.meta.url));
-    setOkiResults("inProgress");
-    worker.postMessage({ allKnockdownMovesToTry, recoveryType, activeGame, customKDA, playerOneMoves, targetMeaty, firstOkiMoveModel, lateByFrames, specificSetupMove, selectedCharacters });
+    setOkiResults("inProgress"); //displays a thinking message
+    worker.postMessage({ allKnockdownMovesToTry, recoveryType, activeGame, customKDA, playerOneMoves, targetMeaty, firstOkiMoveModel, lateByFrames, specificSetupMove, selectedCharacters, setupLength });
     worker.onmessage = (event) => {
       if (Object.keys(event.data).length !== 0) {
         setOkiResults(event.data);
@@ -170,7 +175,7 @@ const FrameKillGenerator = () => {
     };
     
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [recoveryType, knockdownMove, lateByFrames, specificSetupMove, targetMeaty, playerOneMoves, selectedCharacters.playerOne.stats.fDash, customKDA]);
+  }, [recoveryType, knockdownMove, lateByFrames, specificSetupMove, targetMeaty, playerOneMoves, selectedCharacters.playerOne.stats.fDash, customKDA, setupLength]);
 
   return (
     <IonPage>
@@ -209,9 +214,9 @@ const FrameKillGenerator = () => {
 
               <IonItem lines="full">
                 <IonSelect
-                  label={"Knock down with"}
+                  label={"Knockdown with"}
                   interface="modal"
-                  interfaceOptions={{ header: "Knock down with" }}
+                  interfaceOptions={{ header: "Knockdown with" }}
                   value={knockdownMove}
                   okText="Select"
                   cancelText="Cancel"
@@ -246,9 +251,25 @@ const FrameKillGenerator = () => {
               }
           
               <IonItem lines="full">
-                <IonLabel style={{flex: "1 0 auto"}} slot="start">Include Late Meaties</IonLabel>
+                <IonLabel style={{flex: "1 0 auto"}} slot="start">Include late meaties</IonLabel>
                 <IonInput style={{textAlign: "end"}} slot="end" type="number" value={lateByFrames} placeholder="Enter Number" onIonInput={e => setLateByFrames(!!parseInt(e.detail.value) ? parseInt(e.detail.value) : 0)}></IonInput>
                 <IonLabel slot="end">Frames</IonLabel>
+              </IonItem>
+
+              <IonItem lines="full">
+                <IonSelect
+                  label="Setup length"
+                  interface="modal"
+                  interfaceOptions={{ header: "Setup Length" }}
+                  value={SETUP_LENGTH_LABELS[setupLength - 1]}
+                  okText="Select"
+                  cancelText="Cancel"
+                  onIonChange={e => setSetupLength(SETUP_LENGTH_LABELS.indexOf(e.detail.value) + 1)}
+                >
+                  {SETUP_LENGTH_LABELS.map(numberOfMoves =>
+                    <IonSelectOption key={`setup-contains-${numberOfMoves}-${numberOfMoves}`} value={numberOfMoves}>{numberOfMoves}</IonSelectOption> 
+                  )}
+                </IonSelect>
               </IonItem>
 
               <IonItem lines="full">
@@ -350,7 +371,16 @@ const FrameKillGenerator = () => {
                 <div className="calculating-oki-message">
                   <h3>Calculating Oki</h3>
                   {knockdownMove === "Anything" &&
-                    <p>This might take a moment...</p>
+                  <>
+                    {setupLength === 3 && specificSetupMove === "Anything" ?
+                      <>
+                        <p>You can speed up the process by changing</p>
+                        <p>"Setup Length" or "Setup Contains"</p>
+                      </> :
+                      <p>This might take a moment...</p>
+                    }
+                    
+                  </>
                   }
                   <IonSpinner></IonSpinner>
                 </div>

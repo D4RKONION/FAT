@@ -78,7 +78,7 @@ const handlePossibleOkiSetup = (processedResults, ordinalName, numberOfSetupMove
 };
 
 // The loop which does all the work
-const moveSetLoop = (currentLateByFramesSearch, targetMeatyFrames, currentActiveFrame, knockdownFrames, specificSetupMove, processedResults, firstOkiMoveModel, playerOneMoves, activeGame, selectedCharacters) => {
+const moveSetLoop = (currentLateByFramesSearch, targetMeatyFrames, currentActiveFrame, knockdownFrames, specificSetupMove, processedResults, firstOkiMoveModel, playerOneMoves, activeGame, selectedCharacters, setupLength) => {
   // Get ordinal name for the current late frame
   let ordinalName = getOrdinal(currentActiveFrame);
   if (currentLateByFramesSearch === 1) {
@@ -120,6 +120,7 @@ const moveSetLoop = (currentLateByFramesSearch, targetMeatyFrames, currentActive
       }
 
       // Loop through second oki move
+      if (setupLength < 2) continue;
       for (const secondOkiMove in playerOneMoves) {
         const secondSetupMove = playerOneMoves[secondOkiMove];
         if (EXCLUDED_SETUP_MOVES?.[activeGame]?.[selectedCharacters?.playerOne?.name]?.includes(secondSetupMove?.moveName)) {
@@ -139,6 +140,7 @@ const moveSetLoop = (currentLateByFramesSearch, targetMeatyFrames, currentActive
           }
           
           // Loop through third oki move
+          if (setupLength < 3) continue;
           for (const thirdOkiMove in playerOneMoves) {
             const thirdSetupMove = playerOneMoves[thirdOkiMove];
 
@@ -163,7 +165,7 @@ const moveSetLoop = (currentLateByFramesSearch, targetMeatyFrames, currentActive
   }
 };
 
-const findMeatySetups = (lateFrames, isMultiActive, playerOneMoves, targetMeaty, knockdownFrames, specificSetupMove, firstOkiMoveModel, selectedCharacters, activeGame) => {
+const findMeatySetups = (lateFrames, isMultiActive, playerOneMoves, targetMeaty, knockdownFrames, specificSetupMove, firstOkiMoveModel, selectedCharacters, activeGame, setupLength) => {
   const meatyResults = { "Natural Setups": {}, "One Move Setups": {}, "Two Move Setups": {}, "Three Move Setups": {} };
 
   for (let currentLateByFramesSearch = 0; currentLateByFramesSearch <= lateFrames; currentLateByFramesSearch++) {
@@ -172,17 +174,17 @@ const findMeatySetups = (lateFrames, isMultiActive, playerOneMoves, targetMeaty,
       if (isMultiActive) {
         for (const [currentActiveFrame, frameinTotalMove] of playerOneMoves[targetMeaty]["multiActive"].entries()) {
           targetMeatyFrames = frameinTotalMove;
-          moveSetLoop(currentLateByFramesSearch, targetMeatyFrames, currentActiveFrame + 1, knockdownFrames, specificSetupMove, meatyResults, firstOkiMoveModel, playerOneMoves, activeGame, selectedCharacters);
+          moveSetLoop(currentLateByFramesSearch, targetMeatyFrames, currentActiveFrame + 1, knockdownFrames, specificSetupMove, meatyResults, firstOkiMoveModel, playerOneMoves, activeGame, selectedCharacters, setupLength);
         }
       } else {
         for (let currentActiveFrame = 1; currentActiveFrame <= playerOneMoves[targetMeaty]["active"]; currentActiveFrame++) {
           targetMeatyFrames = parseBasicFrames(playerOneMoves[targetMeaty]["startup"]) - 1 + currentActiveFrame;
-          moveSetLoop(currentLateByFramesSearch, targetMeatyFrames, currentActiveFrame, knockdownFrames, specificSetupMove, meatyResults, firstOkiMoveModel, playerOneMoves, activeGame, selectedCharacters);
+          moveSetLoop(currentLateByFramesSearch, targetMeatyFrames, currentActiveFrame, knockdownFrames, specificSetupMove, meatyResults, firstOkiMoveModel, playerOneMoves, activeGame, selectedCharacters, setupLength);
         }
       }
     } else {
       targetMeatyFrames = parseBasicFrames(playerOneMoves[targetMeaty]["startup"]);
-      moveSetLoop(currentLateByFramesSearch, targetMeatyFrames, 0, knockdownFrames, specificSetupMove, meatyResults, firstOkiMoveModel, playerOneMoves, activeGame, selectedCharacters);
+      moveSetLoop(currentLateByFramesSearch, targetMeatyFrames, 0, knockdownFrames, specificSetupMove, meatyResults, firstOkiMoveModel, playerOneMoves, activeGame, selectedCharacters, setupLength);
     }
   }
   return meatyResults;
@@ -191,7 +193,7 @@ const findMeatySetups = (lateFrames, isMultiActive, playerOneMoves, targetMeaty,
 // This is for use with games where knockdowns have 2 get-up options
 // It compares kdr and kdrb results for duplicates and then combines them into one result
 // Some day I might need to refactor this to allow for more than 2. I'll cross that bridge when I get to it :)
-const handleMultipleKDAs = (processedResults, playerOneMoves, knockdownMove, targetMeaty, lateByFrames, specificSetupMove, firstOkiMoveModel, selectedCharacters, activeGame) => {
+const handleMultipleKDAs = (processedResults, playerOneMoves, knockdownMove, targetMeaty, lateByFrames, specificSetupMove, firstOkiMoveModel, selectedCharacters, activeGame, setupLength) => {
   const kdrResults = { ...processedResults };
 
   let knockdownFrames = parseBasicFrames(playerOneMoves[knockdownMove]["kdrb"]) + 1;
@@ -199,7 +201,7 @@ const handleMultipleKDAs = (processedResults, playerOneMoves, knockdownMove, tar
     knockdownFrames += 2;
   }
 
-  const kdrbResults = findMeatySetups(lateByFrames, isNaN(playerOneMoves[targetMeaty]["active"]), playerOneMoves, targetMeaty, knockdownFrames, specificSetupMove, firstOkiMoveModel, selectedCharacters, activeGame);
+  const kdrbResults = findMeatySetups(lateByFrames, isNaN(playerOneMoves[targetMeaty]["active"]), playerOneMoves, targetMeaty, knockdownFrames, specificSetupMove, firstOkiMoveModel, selectedCharacters, activeGame, setupLength);
 
   const combinedResults = { "Natural Setups": {}, "One Move Setups": {}, "Two Move Setups": {}, "Three Move Setups": {} };
   
@@ -226,13 +228,13 @@ const handleMultipleKDAs = (processedResults, playerOneMoves, knockdownMove, tar
 };
 
 onmessage = (e) => {
-  const { allKnockdownMovesToTry, recoveryType, activeGame, customKDA, playerOneMoves, targetMeaty, firstOkiMoveModel, lateByFrames, specificSetupMove, selectedCharacters } = e.data;
+  const { allKnockdownMovesToTry, recoveryType, activeGame, customKDA, playerOneMoves, targetMeaty, firstOkiMoveModel, lateByFrames, specificSetupMove, selectedCharacters, setupLength } = e.data;
 
-  const result = heavyCalculation(allKnockdownMovesToTry, recoveryType, activeGame, customKDA, playerOneMoves, targetMeaty, firstOkiMoveModel, lateByFrames, specificSetupMove, selectedCharacters);
+  const result = heavyCalculation(allKnockdownMovesToTry, recoveryType, activeGame, customKDA, playerOneMoves, targetMeaty, firstOkiMoveModel, lateByFrames, specificSetupMove, selectedCharacters, setupLength);
   postMessage(result);
 };
 
-function heavyCalculation(allKnockdownMovesToTry, recoveryType, activeGame, customKDA, playerOneMoves, targetMeaty, firstOkiMoveModel, lateByFrames, specificSetupMove, selectedCharacters) {
+function heavyCalculation(allKnockdownMovesToTry, recoveryType, activeGame, customKDA, playerOneMoves, targetMeaty, firstOkiMoveModel, lateByFrames, specificSetupMove, selectedCharacters, setupLength) {
   // set up the processed data container
   const processedResults = {};
 
@@ -276,13 +278,13 @@ function heavyCalculation(allKnockdownMovesToTry, recoveryType, activeGame, cust
         playerOneMoves[targetMeaty].multiActive = parseMultiActiveFrames(firstOkiMoveModel[targetMeaty].startup, firstOkiMoveModel[targetMeaty].active);
       }
    
-      thisMoveProcessedResults = findMeatySetups(lateByFrames, true, playerOneMoves, targetMeaty, knockdownFrames, specificSetupMove, firstOkiMoveModel, selectedCharacters, activeGame); 
+      thisMoveProcessedResults = findMeatySetups(lateByFrames, true, playerOneMoves, targetMeaty, knockdownFrames, specificSetupMove, firstOkiMoveModel, selectedCharacters, activeGame, setupLength); 
     } else {
-      thisMoveProcessedResults = findMeatySetups(lateByFrames, false, playerOneMoves, targetMeaty, knockdownFrames, specificSetupMove, firstOkiMoveModel, selectedCharacters, activeGame);
+      thisMoveProcessedResults = findMeatySetups(lateByFrames, false, playerOneMoves, targetMeaty, knockdownFrames, specificSetupMove, firstOkiMoveModel, selectedCharacters, activeGame, setupLength);
     }
 
     if (coverBothKDs) {
-      thisMoveProcessedResults = handleMultipleKDAs(thisMoveProcessedResults, playerOneMoves, knockdownMoveName, targetMeaty, lateByFrames, specificSetupMove, firstOkiMoveModel, selectedCharacters, activeGame);
+      thisMoveProcessedResults = handleMultipleKDAs(thisMoveProcessedResults, playerOneMoves, knockdownMoveName, targetMeaty, lateByFrames, specificSetupMove, firstOkiMoveModel, selectedCharacters, activeGame, setupLength);
     }
  
     // Remove any empty objects
