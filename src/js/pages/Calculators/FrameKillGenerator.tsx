@@ -2,12 +2,15 @@ import "../../../style/pages/Calculators.scss";
 import "../../../style/pages/FrameKillGenerator.scss";
 import "../../../style/components/FAB.scss";
 
-import { IonContent, IonPage, IonItem, IonLabel, IonIcon, IonFab, IonFabButton, IonList, IonSelect, IonSelectOption, IonListHeader, IonItemDivider, IonItemGroup, IonGrid, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonInput, IonButton, IonSpinner } from "@ionic/react";
-import { helpSharp, person } from "ionicons/icons";
+import { IonContent, IonPage, IonItem, IonLabel, IonIcon, IonFab, IonFabButton, IonList, IonSelect, IonSelectOption, IonListHeader, IonItemDivider, IonItemGroup, IonGrid, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonInput, IonSpinner } from "@ionic/react";
+import { person } from "ionicons/icons";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setActiveFrameDataPlayer, setModalVisibility } from "../../actions";
+import DataTableHeader from "../../components/DataTableHeader";
+import DataTableRow from "../../components/DataTableRow";
+import PopoverButton from "../../components/PopoverButton";
 import SegmentSwitcher from "../../components/SegmentSwitcher";
 import { activeGameSelector, selectedCharactersSelector } from "../../selectors";
 import { canParseBasicFrames, parseBasicFrames } from "../../utils/ParseFrameData";
@@ -46,7 +49,7 @@ const FrameKillGenerator = () => {
   const [knockdownMove, setKnockdownMove] = useState(null);
   const [customKDA, setCustomKDA] = useState(0);
   const [lateByFrames, setLateByFrames] = useState(0);
-  const [setupLength, setSetupLength] = useState(2);
+  const [setupLength, setSetupLength] = useState(3);
   const [specificSetupMove, setSpecificSetupMove] = useState("Anything");
   const [targetMeaty, setTargetMeaty] = useState(null);
 
@@ -186,7 +189,7 @@ const FrameKillGenerator = () => {
           </IonButtons>
           <IonTitle>{`Oki - ${selectedCharacters.playerOne.name}`}</IonTitle>
           <IonButtons slot="end">
-            <IonButton onClick={() => { dispatch(setModalVisibility({ currentModal: "help", visible: true }));}}><IonIcon slot="icon-only" icon={helpSharp} /></IonButton>
+            <PopoverButton />
           </IonButtons>
         </IonToolbar>
       </IonHeader>
@@ -338,34 +341,58 @@ const FrameKillGenerator = () => {
               </IonItem>
 
               {(playerOneMoves[knockdownMove] || KNOCKDOWN_WITH_LABELS["universal"].includes(knockdownMove) || KNOCKDOWN_WITH_LABELS[activeGame]?.includes(knockdownMove)) && (playerOneMoves[targetMeaty] || TARGET_MEATY_LABELS?.[activeGame]?.includes(targetMeaty)) &&
-                <IonItem lines="full" className="selected-move-info">
-                  <IonLabel>
-                    <h3>Knockdown with</h3>
-                    <h2>{knockdownMove}</h2>
-                    {knockdownMove !== "Anything" &&
-                      <>
-                        {recoveryType === "all"
-                          ? <>
-                            <p>KD Advantage (Q): <strong>{knockdownMove === "Custom KDA" ? customKDA : playerOneMoves[knockdownMove]["kdr"]}</strong></p>
-                            <p>KD Advantage (B): <strong>{knockdownMove === "Custom KDA" ? customKDA : playerOneMoves[knockdownMove]["kdrb"]}</strong></p>
-                          </>
-                          : <p>KD Advantage: <strong>{knockdownMove === "Custom KDA" ? customKDA : playerOneMoves[knockdownMove][recoveryType]}</strong></p>
-                        }
-                      </>
-                    }
-
-                  </IonLabel>
-                  <IonLabel>
-                    <h3>Target Meaty</h3>
-                    <h2>{targetMeaty}</h2>
-                    {!TARGET_MEATY_LABELS?.[activeGame]?.includes(targetMeaty) &&
-                      <>
-                        <p>Startup: <b>{parseBasicFrames(playerOneMoves[targetMeaty].startup)}</b></p>
-                        <p>Active: <b>{!playerOneMoves[targetMeaty].active ? "-" : isNaN(playerOneMoves[targetMeaty].active) ? playerOneMoves[targetMeaty].active : parseBasicFrames(playerOneMoves[targetMeaty].active)}</b></p>
-                      </>
-                    }
-                  </IonLabel>
-                </IonItem>
+                  <table>
+                    <tbody>
+                      {playerOneMoves[knockdownMove] &&
+                        <>
+                          <DataTableHeader
+                            colsToDisplay={
+                              activeGame === "SFV" ? (
+                                {kd: "KD", kdr: "KDR", kdrb: "KDRB"}
+                              )
+                                : {startup: "S", onHit: "oH"}
+                            }
+                            moveType={"Knockdown"}
+                            xScrollEnabled={false}
+                            noPlural
+                            noStick
+                          />
+                          <DataTableRow
+                            moveName={knockdownMove}
+                            moveData={playerOneMoves[knockdownMove]}
+                            colsToDisplay={
+                              activeGame === "SFV" ? (
+                                {kd: "KD", kdr: "KDR", kdrb: "KDRB"}
+                              )
+                                : {startup: "S", onHit: "oH"}
+                            }
+                            xScrollEnabled={false}
+                            displayOnlyStateMoves={false}
+                          />
+                        </>
+                      }
+                      
+                      {playerOneMoves[targetMeaty] &&
+                        <>
+                          <DataTableHeader
+                            colsToDisplay={{startup: "S", active: "A", onHit: "oH", onBlock: "oB"}}
+                            moveType={"Target Meaty"}
+                            xScrollEnabled={false}
+                            noPlural
+                            noStick
+                          />
+                          <DataTableRow
+                            moveName={targetMeaty}
+                            moveData={playerOneMoves[targetMeaty]}
+                            colsToDisplay={{startup: "S", active: "A", onHit: "oH", onBlock: "oB"}}
+                            xScrollEnabled={false}
+                            displayOnlyStateMoves={false}
+                          />
+                        </>
+                      }
+                      
+                    </tbody>
+                  </table>
               }
               {okiResults === "inProgress" ?
                 <div className="calculating-oki-message">
@@ -385,7 +412,7 @@ const FrameKillGenerator = () => {
                   <IonSpinner></IonSpinner>
                 </div>
                 : <IonList>
-                  {okiResults && knockdownMove && targetMeaty
+                  {okiResults && knockdownMove && (KNOCKDOWN_WITH_LABELS["universal"]?.includes(knockdownMove) || playerOneMoves[knockdownMove]) && targetMeaty && (TARGET_MEATY_LABELS[activeGame]?.includes(targetMeaty) || playerOneMoves[targetMeaty])
                     ? Object.keys(okiResults).map(knockdownMove => {
                       // Check if there are any valid setups for this knockdown move
                       const validSetups = Object.keys(okiResults[knockdownMove]).filter(numOfMovesSetup => okiResults[knockdownMove][numOfMovesSetup]);
@@ -394,7 +421,7 @@ const FrameKillGenerator = () => {
                         return null; // Skip rendering if no valid setups
                       }
                       return (<>
-                        <h5>{knockdownMove}</h5>
+                        <h5>{knockdownMove} (KD: +{recoveryType === "all" ? "~" : knockdownMove === "Custom KDA" ? customKDA : parseBasicFrames(playerOneMoves[knockdownMove][recoveryType])})</h5>
                         {Object.keys(okiResults[knockdownMove]).map(numOfMovesSetup => 
 
                           <IonItemGroup key={numOfMovesSetup}>
@@ -403,7 +430,7 @@ const FrameKillGenerator = () => {
                               <div key={activeAsOrdinal}>
                                 <IonListHeader className="ordinal-header">
                                   <IonLabel>
-                                    <p>Meaty on the <strong>{activeAsOrdinal}</strong> active frame{recoveryType === "all" && "s"}</p>
+                                    <p>Meaty on <strong>{activeAsOrdinal}</strong> active frame {recoveryType === "all" && "s"} {!TARGET_MEATY_LABELS?.[activeGame]?.includes(targetMeaty) && `(${parseBasicFrames(playerOneMoves[targetMeaty].onBlock) + Number(activeAsOrdinal.match(/^\d+/)[0]) -1 > 0 ? "+" : ""}${parseBasicFrames(playerOneMoves[targetMeaty].onBlock) + Number(activeAsOrdinal.match(/^\d+/)[0]) -1} oB, ${parseBasicFrames(playerOneMoves[targetMeaty].onHit) + Number(activeAsOrdinal.match(/^\d+/)[0]) -1 > 0 ? "+" : ""}${parseBasicFrames(playerOneMoves[targetMeaty].onHit) + Number(activeAsOrdinal.match(/^\d+/)[0]) -1} oH)`}</p>
                                   </IonLabel>
                                 </IonListHeader>
                                 {Object.keys(okiResults[knockdownMove][numOfMovesSetup][activeAsOrdinal]).map((setup, index) =>
