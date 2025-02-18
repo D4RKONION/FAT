@@ -218,7 +218,7 @@ const FrameTrapChecker = () => {
                 <IonItem lines="none">
                   {
                     (-1 * (firstMoveBlockStun + (1 - 3) - secondMoveStartup) > 0) && secondMoveStartup
-                      ? <p>There is a <b>gap of {-1 * (firstMoveBlockStun + (1 - 3) - secondMoveStartup)} frames </b> in the string {firstMove} xx {secondMove} when {firstMove} coonnects on active frame 1 and is cancelled immediately.</p>
+                      ? <p>There is a <b>gap of {-1 * (firstMoveBlockStun + (1 - 3) - secondMoveStartup)} frames </b> in the string {firstMove} xx {secondMove} when {firstMove} connects on active frame 1 and is cancelled immediately.</p>
                       : (-1 * (firstMoveBlockStun + (1 - 3) - secondMoveRecovery) > 0) && !secondMoveStartup && secondMoveRecovery
                         ? <p>There is a <b>gap of {-1 * (firstMoveBlockStun + (1 - 3) - secondMoveRecovery)} frames </b> in the string {firstMove} xx {secondMove} when {firstMove} connects on active frame 1 and is cancelled immediately.</p>
                         : (-1 * (firstMoveBlockStun + (1 - 3) - secondMoveStartup) <= 0)
