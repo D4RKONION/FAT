@@ -4,8 +4,9 @@ import { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 
-import { setPlayerAttr } from "../actions";
+import { setActiveFrameDataPlayer, setPlayerAttr } from "../actions";
 import { activeGameSelector, activePlayerSelector, advantageModifiersSelector, dataDisplaySettingsSelector, dataTableSettingsSelector, selectedCharactersSelector } from "../selectors";
+import { PlayerId } from "../types";
 import { canParseBasicFrames, parseBasicFrames } from "../utils/ParseFrameData";
 
 type Props = {
@@ -15,6 +16,7 @@ type Props = {
   xScrollEnabled: boolean;
   displayOnlyStateMoves: boolean;
   sample?: boolean;
+  activePlayerOverwrite?: PlayerId;
 };
 
 const moveAdvantageColorsExcludeList = [
@@ -35,7 +37,7 @@ const plusExlcudeList = [
   "blockstun",
 ];
 
-const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displayOnlyStateMoves, sample }: Props) => {
+const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displayOnlyStateMoves, sample, activePlayerOverwrite}: Props) => {
   const activeGame = useSelector(activeGameSelector);
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const activePlayer = useSelector(activePlayerSelector);
@@ -185,15 +187,20 @@ const DataTableRow = ({ moveName, moveData, colsToDisplay, xScrollEnabled, displ
     }
 
     if (sample) return;
+    
+    if (activePlayerOverwrite) {
+      dispatch(setActiveFrameDataPlayer(activePlayerOverwrite));
+    }
+    
     dispatch(
       setPlayerAttr(
-        activePlayer,
-        selectedCharacters[activePlayer].name,
+        activePlayerOverwrite ?? activePlayer,
+        selectedCharacters[activePlayerOverwrite ?? activePlayer].name,
         { selectedMove: moveName }
       )
     );
     history.push(
-      `/movedetail/${activeGame}/${selectedCharacters[activePlayer].name}/${selectedCharacters[activePlayer].vtState}/${selectedCharacters[activePlayer].frameData[moveName]["moveName"]}`
+      `/movedetail/${activeGame}/${selectedCharacters[activePlayerOverwrite ?? activePlayer].name}/${selectedCharacters[activePlayerOverwrite ?? activePlayer].vtState}/${selectedCharacters[activePlayerOverwrite ?? activePlayer].frameData[moveName]["moveName"]}`
     );
   };
 
