@@ -1,4 +1,12 @@
 .calculators {
+  table {
+    width: 90%;
+    margin: 20px auto;
+    border-radius: 7px;
+    overflow: hidden;
+    box-shadow: var(--fat-surface-shadow) 0px 0px 2px;
+  }
+  
   ion-list {
     padding-bottom: var(--safe-area-inset-bottom);
   }

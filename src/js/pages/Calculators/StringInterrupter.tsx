@@ -7,6 +7,8 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setModalVisibility } from "../../actions";
+import DataTableHeader from "../../components/DataTableHeader";
+import DataTableRow from "../../components/DataTableRow";
 import PopoverButton from "../../components/PopoverButton";
 import { activeGameSelector, selectedCharactersSelector } from "../../selectors";
 import { canParseBasicFrames, parseBasicFrames } from "../../utils/ParseFrameData";
@@ -209,18 +211,41 @@ const StringInterrupter = () => {
           </IonItem>
           {playerTwoMoves[firstMove] && playerTwoMoves[secondMove] &&
             <>
-              <IonItem lines="full" className="selected-move-info">
-                <IonLabel>
-                  <h3>First Move</h3>
-                  <h2>{firstMove}</h2>
-                  <p><b>{parseBasicFrames(playerTwoMoves[firstMove].onBlock) > 0 && "+"}{parseBasicFrames(playerTwoMoves[firstMove].onBlock)}</b> On Block</p>
-                </IonLabel>
-                <IonLabel>
-                  <h3>Second Move</h3>
-                  <h2>{secondMove}</h2>
-                  <p><b>{parseBasicFrames(playerTwoMoves[secondMove].startup)}</b> Startup</p>
-                </IonLabel>
-              </IonItem>
+              <table>
+                <tbody>               
+                  <DataTableHeader
+                    colsToDisplay={{startup: "S", active: "A", onBlock: "oB"}}
+                    moveType={`${selectedCharacters.playerTwo.name}'s 1st Move`}
+                    xScrollEnabled={false}
+                    noPlural
+                    noStick
+                  />
+                  <DataTableRow
+                    moveName={firstMove}
+                    moveData={playerTwoMoves[firstMove]}
+                    colsToDisplay={{startup: "S", active: "A", onBlock: "oB"}}
+                    xScrollEnabled={false}
+                    displayOnlyStateMoves={false}
+                    activePlayerOverwrite="playerTwo"
+                  />
+                                                  
+                  <DataTableHeader
+                    colsToDisplay={{startup: "S", onBlock: "oB", onHit: "oH"}}
+                    moveType={`${selectedCharacters.playerTwo.name}'s 2nd Move`}
+                    xScrollEnabled={false}
+                    noPlural
+                    noStick
+                  />
+                  <DataTableRow
+                    moveName={secondMove}
+                    moveData={playerTwoMoves[secondMove]}
+                    colsToDisplay={{startup: "S", onBlock: "oB", onHit: "oH"}}
+                    xScrollEnabled={false}
+                    displayOnlyStateMoves={false}
+                    activePlayerOverwrite="playerTwo"
+                  />            
+                </tbody>
+              </table>
 
               <IonItem lines="full">
                 {parseBasicFrames(playerTwoMoves[secondMove].startup) - parseBasicFrames(playerTwoMoves[firstMove].onBlock) > 0

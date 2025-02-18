@@ -370,6 +370,7 @@ const FrameKillGenerator = () => {
                             }
                             xScrollEnabled={false}
                             displayOnlyStateMoves={false}
+                            activePlayerOverwrite="playerOne"
                           />
                         </>
                       }
@@ -389,6 +390,7 @@ const FrameKillGenerator = () => {
                             colsToDisplay={{startup: "S", active: "A", onHit: "oH", onBlock: "oB"}}
                             xScrollEnabled={false}
                             displayOnlyStateMoves={false}
+                            activePlayerOverwrite="playerOne"
                           />
                         </>
                       }

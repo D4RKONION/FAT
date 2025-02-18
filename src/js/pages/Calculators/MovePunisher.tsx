@@ -7,6 +7,8 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setModalVisibility } from "../../actions";
+import DataTableHeader from "../../components/DataTableHeader";
+import DataTableRow from "../../components/DataTableRow";
 import PopoverButton from "../../components/PopoverButton";
 import { selectedCharactersSelector } from "../../selectors";
 import { canParseBasicFrames, parseBasicFrames } from "../../utils/ParseFrameData";
@@ -92,13 +94,25 @@ const MovePunisher = () => {
           </IonItem>
 
           {playerTwoMoves[blockedMove] ?
-            <IonItem lines="full" className="selected-move-info">
-              <IonLabel>
-                <h3>Blocked Move</h3>
-                <h2>{blockedMove}</h2>
-                <p><b>{parseBasicFrames(playerTwoMoves[blockedMove].onBlock)}</b> On Block</p>
-              </IonLabel>
-            </IonItem>
+            <table>
+              <tbody>                        
+                <DataTableHeader
+                  colsToDisplay={{startup: "S", active: "A", onBlock: "oB"}}
+                  moveType="Blocked Move"
+                  xScrollEnabled={false}
+                  noPlural
+                  noStick
+                />
+                <DataTableRow
+                  moveName={blockedMove}
+                  moveData={playerTwoMoves[blockedMove]}
+                  colsToDisplay={{startup: "S", active: "A", onBlock: "oB"}}
+                  xScrollEnabled={false}
+                  displayOnlyStateMoves={false}
+                  activePlayerOverwrite="playerTwo"
+                />                          
+              </tbody>
+            </table>
             : <p style={{fontStyle: "italic", display: "flex", justifyContent: "center", textAlign: "center", margin: "50px 10px"}}>{selectedCharacters["playerOne"].name} can punish -{playerOneFastestStartup} on block moves</p>
           }
 

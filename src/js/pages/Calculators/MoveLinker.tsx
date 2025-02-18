@@ -1,24 +1,26 @@
 import "../../../style/pages/Calculators.scss";
 import "../../../style/components/FAB.scss";
 
-import { IonContent, IonPage, IonItem, IonLabel, IonIcon, IonFab, IonFabButton, IonList, IonSelect, IonSelectOption, IonToggle, IonGrid, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle } from "@ionic/react";
+import { IonContent, IonPage, IonItem, IonIcon, IonFab, IonFabButton, IonList, IonSelect, IonSelectOption, IonToggle, IonGrid, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, useIonViewDidLeave } from "@ionic/react";
 import { person } from "ionicons/icons";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { setActiveFrameDataPlayer, setModalVisibility } from "../../actions";
+import { setActiveFrameDataPlayer, setCounterHit, setModalVisibility } from "../../actions";
+import DataTableHeader from "../../components/DataTableHeader";
+import DataTableRow from "../../components/DataTableRow";
 import PopoverButton from "../../components/PopoverButton";
-import { activeGameSelector, selectedCharactersSelector } from "../../selectors";
+import { activeGameSelector, advantageModifiersSelector, selectedCharactersSelector } from "../../selectors";
 import { canParseBasicFrames, parseBasicFrames } from "../../utils/ParseFrameData";
 
 const MoveLinker = () => {
   const activeGame = useSelector(activeGameSelector);
   const selectedCharacters = useSelector(selectedCharactersSelector);
+  const counterHitEnabled = useSelector(advantageModifiersSelector).counterHitActive;
 
   const dispatch = useDispatch();
 
   const [firstMove, setFirstMove] = useState(null);
-  const [counterHitState, setCounterHitState] = useState(false);
   const [punishCounterState, setPunishCounterState] = useState(false);
   const [counterHitBonus, setCounterHitBonus] = useState(0);
 
@@ -26,7 +28,7 @@ const MoveLinker = () => {
 
   useEffect(() => {
     if (canParseBasicFrames(playerOneMoves[firstMove]?.onHit) && !(typeof playerOneMoves[firstMove].onHit === "string" && playerOneMoves[firstMove].onHit.toLowerCase().includes("kd"))) {
-      if ((counterHitState || punishCounterState)) {
+      if ((counterHitEnabled || punishCounterState)) {
         if (activeGame === "SF6" && punishCounterState && canParseBasicFrames(playerOneMoves[firstMove].onPC)) {
           setCounterHitBonus(parseBasicFrames(playerOneMoves[firstMove].onPC) - parseBasicFrames(playerOneMoves[firstMove].onHit));
         } else if (activeGame === "SF6") {
@@ -48,7 +50,11 @@ const MoveLinker = () => {
     } else {
       setFirstMove(null);
     }
-  },[playerOneMoves, firstMove, selectedCharacters, counterHitState, punishCounterState, activeGame]);
+  },[playerOneMoves, firstMove, selectedCharacters, counterHitEnabled, punishCounterState, activeGame]);
+
+  useIonViewDidLeave(() => {
+    dispatch(setCounterHit(false));
+  }, []);
 
   return (
     <IonPage>
@@ -96,7 +102,7 @@ const MoveLinker = () => {
           {
             activeGame !== "3S" &&
             <IonItem lines="full">
-              <IonToggle checked={counterHitState} onIonChange={e => setCounterHitState(e.detail.checked)}>Counter Hit</IonToggle>
+              <IonToggle checked={!!counterHitEnabled} onIonChange={e => dispatch(setCounterHit(e.detail.checked))}>Counter Hit</IonToggle>
             </IonItem>
           }
           {
@@ -108,13 +114,31 @@ const MoveLinker = () => {
 
           {playerOneMoves[firstMove] &&
               <>
-                <IonItem lines="full" className="selected-move-info">
-                  <IonLabel>
-                    <h3>First Move</h3>
-                    <h2>{firstMove}</h2>
-                    <p><b>{parseBasicFrames(playerOneMoves[firstMove].onHit) > 0 && "+"}{parseBasicFrames(playerOneMoves[firstMove].onHit) + counterHitBonus}</b> On Hit <em>{(counterHitState || punishCounterState) && `(inc. CH +${counterHitBonus})`}</em></p>
-                  </IonLabel>
-                </IonItem>
+                <table>
+                  <tbody>                                       
+                    <DataTableHeader
+                      colsToDisplay={
+                        punishCounterState ?
+                          {startup: "S", active: "A", onPC: "onPC"}
+                          : {startup: "S", active: "A", onPC: "oH"}}
+                      moveType="First Move"
+                      xScrollEnabled={false}
+                      noPlural
+                      noStick
+                    />
+                    <DataTableRow
+                      moveName={firstMove}
+                      moveData={playerOneMoves[firstMove]}
+                      colsToDisplay={
+                        punishCounterState ?
+                          {startup: "S", active: "A", onPC: "onPC"}
+                          : {startup: "S", active: "A", onHit: "oH"}}
+                      xScrollEnabled={false}
+                      displayOnlyStateMoves={false}
+                      activePlayerOverwrite="playerOne"
+                    />                                     
+                  </tbody>
+                </table>
                 <IonList>
                   {
                     Object.keys(playerOneMoves).filter(secondMove =>

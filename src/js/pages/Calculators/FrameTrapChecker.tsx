@@ -1,12 +1,14 @@
 import "../../../style/pages/Calculators.scss";
 import "../../../style/components/FAB.scss";
 
-import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, IonIcon, IonFab, IonFabButton, IonGrid, IonBackButton, IonButtons, IonHeader, IonTitle, IonToolbar } from "@ionic/react";
+import { IonContent, IonPage, IonItem, IonSelect, IonSelectOption, IonIcon, IonFab, IonFabButton, IonGrid, IonBackButton, IonButtons, IonHeader, IonTitle, IonToolbar } from "@ionic/react";
 import { person } from "ionicons/icons";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setActiveFrameDataPlayer, setModalVisibility } from "../../actions";
+import DataTableHeader from "../../components/DataTableHeader";
+import DataTableRow from "../../components/DataTableRow";
 import PopoverButton from "../../components/PopoverButton";
 import SegmentSwitcher from "../../components/SegmentSwitcher";
 import { selectedCharactersSelector } from "../../selectors";
@@ -163,23 +165,43 @@ const FrameTrapChecker = () => {
           </IonItem>
           {playerOneMoves[firstMove] && playerOneMoves[secondMove] &&
             <>
-              <IonItem lines="full" className="selected-move-info">
-                <IonLabel>
-                  <h3>First Move</h3>
-                  <h2>{firstMove}</h2>
-                  {linkOrCancel === "link"
-                    ? <p><b>{firstMoveOnBlock > 0 && "+"}{firstMoveOnBlock}</b> On Block</p>
-                    : <p><b>{firstMoveBlockStun}</b> frames of blockstun</p>
-                  }
-                </IonLabel>
-                <IonLabel>
-                  <h3>Second Move</h3>
-                  <h2>{secondMove}</h2>
-                  <p><b>{secondMoveStartup}</b> Startup</p>
-                </IonLabel>
-              </IonItem>
+              <table>
+                <tbody>              
+                  <DataTableHeader
+                    colsToDisplay={{startup: "S", active: "A", onBlock: "oB"}}
+                    moveType={"First Move"}
+                    xScrollEnabled={false}
+                    noPlural
+                    noStick
+                  />
+                  <DataTableRow
+                    moveName={firstMove}
+                    moveData={playerOneMoves[firstMove]}
+                    colsToDisplay={{startup: "S", active: "A", onBlock: "oB"}}
+                    xScrollEnabled={false}
+                    displayOnlyStateMoves={false}
+                    activePlayerOverwrite="playerOne"
+                  />
+                                    
+                  <DataTableHeader
+                    colsToDisplay={{startup: "S", onHit: "oH", onBlock: "oB"}}
+                    moveType={"Second Move"}
+                    xScrollEnabled={false}
+                    noPlural
+                    noStick
+                  />
+                  <DataTableRow
+                    moveName={secondMove}
+                    moveData={playerOneMoves[secondMove]}
+                    colsToDisplay={{startup: "S", onHit: "oH", onBlock: "oB"}}
+                    xScrollEnabled={false}
+                    displayOnlyStateMoves={false}
+                    activePlayerOverwrite="playerOne"
+                  /> 
+                </tbody>
+              </table>
               {linkOrCancel === "link" &&
-                <IonItem lines="full">
+                <IonItem lines="none">
                   {secondMoveStartup - playerOneMoves[firstMove].onBlock > 0
                     ? <p>There is a gap of <b>{secondMoveStartup - playerOneMoves[firstMove].onBlock}</b> frame{(secondMoveStartup - firstMoveOnBlock) > 1 && "s"} between {firstMove} and {secondMove}.</p>
                     : <p>There is <b>no gap</b> between {firstMove} and {secondMove}. It is a true blockstring</p>
@@ -187,7 +209,7 @@ const FrameTrapChecker = () => {
                 </IonItem>
               }
               {linkOrCancel === "cancel" &&
-                <IonItem lines="full">
+                <IonItem lines="none">
                   {
                     (-1 * (firstMoveBlockStun + (1 - 3) - secondMoveStartup) > 0) && secondMoveStartup
                       ? <p>There is a <b>gap of {-1 * (firstMoveBlockStun + (1 - 3) - secondMoveStartup)} frames </b> in the string {firstMove} xx {secondMove} when {firstMove} coonnects on active frame 1 and is cancelled immediately.</p>
