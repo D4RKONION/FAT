@@ -2,6 +2,7 @@ import "../../../style/pages/Calculators.scss";
 import "../../../style/components/FAB.scss";
 
 import { IonContent, IonPage, IonItem, IonIcon, IonFab, IonFabButton, IonList, IonSelect, IonSelectOption, IonToggle, IonGrid, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, useIonViewDidLeave } from "@ionic/react";
+import { link } from "fs";
 import { person } from "ionicons/icons";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -23,6 +24,7 @@ const MoveLinker = () => {
   const [firstMove, setFirstMove] = useState(null);
   const [punishCounterState, setPunishCounterState] = useState(false);
   const [counterHitBonus, setCounterHitBonus] = useState(0);
+  const [listOfLinks, setListOfLinks] = useState([]);
 
   const playerOneMoves = selectedCharacters["playerOne"].frameData;
 
@@ -51,6 +53,28 @@ const MoveLinker = () => {
       setFirstMove(null);
     }
   },[playerOneMoves, firstMove, selectedCharacters, counterHitEnabled, punishCounterState, activeGame]);
+
+  useEffect(() => {
+    if (!playerOneMoves[firstMove]) return;
+    const list = [];
+    Object.keys(playerOneMoves).filter(secondMove =>
+      canParseBasicFrames(playerOneMoves[secondMove].startup) &&
+        parseBasicFrames(playerOneMoves[secondMove].startup) <= (parseBasicFrames(playerOneMoves[firstMove].onHit) + counterHitBonus) &&
+        playerOneMoves[secondMove].moveType !== "movement-special" &&
+        playerOneMoves[secondMove].moveType !== "throw" &&
+        playerOneMoves[secondMove].moveType !== "command-grab" &&
+        playerOneMoves[secondMove].moveType !== "combo grab" &&
+        !playerOneMoves[secondMove].airmove &&
+        !playerOneMoves[secondMove].followUp &&
+        !playerOneMoves[secondMove].nonHittingMove &&
+        !playerOneMoves[secondMove].antiAirMove &&
+        !playerOneMoves[secondMove].throwMove
+    ).map(secondMove => 
+      list.push(`${firstMove}, ${secondMove} (s: ${parseBasicFrames(playerOneMoves[secondMove].startup)}) is a ${parseBasicFrames(playerOneMoves[firstMove].onHit) - parseBasicFrames(playerOneMoves[secondMove].startup) + counterHitBonus + 1} frame link`
+      ));
+
+    setListOfLinks(list);
+  }, [counterHitBonus, firstMove, playerOneMoves]);
 
   useIonViewDidLeave(() => {
     dispatch(setCounterHit(false));
@@ -89,7 +113,6 @@ const MoveLinker = () => {
                 playerOneMoves[move].moveType !== "movement-special" &&
                 playerOneMoves[move].moveType !== "throw" &&
                 playerOneMoves[move].moveType !== "command-grab" &&
-                // !playerOneMoves[move].airmove &&
                 !playerOneMoves[move].followUp &&
                 !playerOneMoves[move].antiAirMove &&
                 canParseBasicFrames(playerOneMoves[move].onHit) &&
@@ -111,58 +134,53 @@ const MoveLinker = () => {
               <IonToggle checked={punishCounterState} onIonChange={e => setPunishCounterState(e.detail.checked)}>Punish Counter</IonToggle>
             </IonItem>
           }
+          {!playerOneMoves[firstMove] ? (
+            // Mandatory dropdowns are falsey
+            <div className="nothing-chosen-message">
+              <h4>Select a First Move</h4>
+              <button onClick={() => dispatch(setModalVisibility({ currentModal: "help", visible: true })) }>Get help with Move Linker</button>
+            </div>
+          ) : listOfLinks.length > 0 ? (
+            <>
+              <table>
+                <tbody>                                       
+                  <DataTableHeader
+                    colsToDisplay={
+                      punishCounterState ?
+                        {startup: "S", active: "A", onPC: "onPC"}
+                        : {startup: "S", active: "A", onPC: "oH"}}
+                    moveType="First Move"
+                    xScrollEnabled={false}
+                    noPlural
+                    noStick
+                  />
+                  <DataTableRow
+                    moveName={firstMove}
+                    moveData={playerOneMoves[firstMove]}
+                    colsToDisplay={
+                      punishCounterState ?
+                        {startup: "S", active: "A", onPC: "onPC"}
+                        : {startup: "S", active: "A", onHit: "oH"}}
+                    xScrollEnabled={false}
+                    displayOnlyStateMoves={false}
+                    activePlayerOverwrite="playerOne"
+                  />                                     
+                </tbody>
+              </table>
+              <IonList>
+                {
+                  listOfLinks.map(linkEntry =>
+                    <IonItem key={`${linkEntry}`}>
+                      <p>{linkEntry}</p>
+                    </IonItem>
+                  )
+                }
 
-          {playerOneMoves[firstMove] &&
-              <>
-                <table>
-                  <tbody>                                       
-                    <DataTableHeader
-                      colsToDisplay={
-                        punishCounterState ?
-                          {startup: "S", active: "A", onPC: "onPC"}
-                          : {startup: "S", active: "A", onPC: "oH"}}
-                      moveType="First Move"
-                      xScrollEnabled={false}
-                      noPlural
-                      noStick
-                    />
-                    <DataTableRow
-                      moveName={firstMove}
-                      moveData={playerOneMoves[firstMove]}
-                      colsToDisplay={
-                        punishCounterState ?
-                          {startup: "S", active: "A", onPC: "onPC"}
-                          : {startup: "S", active: "A", onHit: "oH"}}
-                      xScrollEnabled={false}
-                      displayOnlyStateMoves={false}
-                      activePlayerOverwrite="playerOne"
-                    />                                     
-                  </tbody>
-                </table>
-                <IonList>
-                  {
-                    Object.keys(playerOneMoves).filter(secondMove =>
-                      canParseBasicFrames(playerOneMoves[secondMove].startup) &&
-                      parseBasicFrames(playerOneMoves[secondMove].startup) <= (parseBasicFrames(playerOneMoves[firstMove].onHit) + counterHitBonus) &&
-                      playerOneMoves[secondMove].moveType !== "movement-special" &&
-                      playerOneMoves[secondMove].moveType !== "throw" &&
-                      playerOneMoves[secondMove].moveType !== "command-grab" &&
-                      playerOneMoves[secondMove].moveType !== "combo grab" &&
-                      !playerOneMoves[secondMove].airmove &&
-                      !playerOneMoves[secondMove].followUp &&
-                      !playerOneMoves[secondMove].nonHittingMove &&
-                      !playerOneMoves[secondMove].antiAirMove &&
-                      !playerOneMoves[secondMove].throwMove
-                    ).map(secondMove =>
-                      <IonItem key={`${firstMove}, ${secondMove}`}>
-                        <p>{firstMove}, {secondMove} (s: {parseBasicFrames(playerOneMoves[secondMove].startup)}) is a {parseBasicFrames(playerOneMoves[firstMove].onHit) - parseBasicFrames(playerOneMoves[secondMove].startup) + counterHitBonus + 1} frame link</p>
-                      </IonItem>
-                    )
-                  }
-
-                </IonList>
-              </>
-          }
+              </IonList>
+            </>
+          ) : (
+            <h4>No links for {firstMove} fround!<br/>Try adjusting the CH properties</h4>
+          )}
         </IonGrid>
 
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
