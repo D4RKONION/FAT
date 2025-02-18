@@ -134,6 +134,7 @@ const FrameTrapChecker = () => {
                 ? Object.keys(playerOneMoves).filter(move =>
                   !playerOneMoves[move].airmove &&
                     !playerOneMoves[move].followUp &&
+                    !playerOneMoves[move].nonHittingMove &&
                     canParseBasicFrames(playerOneMoves[move].startup) &&
                     (
                       (playerOneMoves[move].moveType === "super" && playerOneMoves[firstMove].xx.map(cancelType => cancelType.includes("su"))) ||
