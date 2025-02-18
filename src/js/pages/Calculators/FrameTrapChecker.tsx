@@ -92,7 +92,7 @@ const FrameTrapChecker = () => {
                     playerOneMoves[move].moveType !== "command-grab" &&
                     !playerOneMoves[move].antiAirMove &&
                     !playerOneMoves[move].nonHittingMove &&
-                    !playerOneMoves[move].airMove &&
+                    !playerOneMoves[move].airmove &&
                     canParseBasicFrames(playerOneMoves[move].onBlock)
                 ).map(move =>
                   <IonSelectOption key={`firstMove-${move}`} value={move}>{move}</IonSelectOption>
@@ -102,7 +102,7 @@ const FrameTrapChecker = () => {
                   playerOneMoves[move].moveType !== "movement-special" &&
                   playerOneMoves[move].moveType !== "throw" &&
                   playerOneMoves[move].moveType !== "command-grab" &&
-                  !playerOneMoves[move].airMove &&
+                  !playerOneMoves[move].airmove &&
                   !isNaN(playerOneMoves[move].onBlock) &&
                   !playerOneMoves[move].nonHittingMove &&
                   !playerOneMoves[move].antiAirMove &&
@@ -144,14 +144,15 @@ const FrameTrapChecker = () => {
                 ).map(move =>
                   <IonSelectOption key={`secondMove-${move}`} value={move}>{move}</IonSelectOption>
                 )
-                : Object.keys(playerOneMoves).filter(move =>
+                : Object.keys(playerOneMoves).filter(move => 
                   playerOneMoves[move].moveType !== "throw" &&
-                    playerOneMoves[move].moveType !== "command-grab" &&
-                    !playerOneMoves[move].antiAirMove &&
-                    !playerOneMoves[move].nonHittingMove &&
-                    !playerOneMoves[move].airMove &&
-                    !playerOneMoves[move].followUp &&
-                    canParseBasicFrames(playerOneMoves[move].startup)
+                  playerOneMoves[move].moveType !== "command-grab" &&
+                  !playerOneMoves[move].antiAirMove &&
+                  !playerOneMoves[move].nonHittingMove &&
+                  !playerOneMoves[move].airmove &&
+                  !playerOneMoves[move].followUp &&
+                  canParseBasicFrames(playerOneMoves[move].startup)
+                 
                 ).map(move =>
                   <IonSelectOption key={`secondMove-${move}`} value={move}>{move}</IonSelectOption>
                 )
