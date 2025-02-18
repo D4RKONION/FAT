@@ -143,7 +143,7 @@ const StringInterrupter = () => {
           <IonButtons slot="start">
             <IonBackButton defaultHref="/calculators" />
           </IonButtons>
-          <IonTitle>{`Str-Int - ${selectedCharacters.playerOne.name} vs  ${selectedCharacters.playerTwo.name}`}</IonTitle>
+          <IonTitle>{`Str. Int. - ${selectedCharacters.playerOne.stats.threeLetterCode} vs  ${selectedCharacters.playerTwo.stats.threeLetterCode}`}</IonTitle>
           <IonButtons slot="end">
             <PopoverButton />
           </IonButtons>
@@ -209,13 +209,19 @@ const StringInterrupter = () => {
           <IonItem>
             <IonToggle checked={interruptionIsNormal} onIonChange={() => setInterruptionIsNormal(!interruptionIsNormal)}>Interrupting move is normal</IonToggle>
           </IonItem>
-          {playerTwoMoves[firstMove] && playerTwoMoves[secondMove] &&
+          {!playerTwoMoves[firstMove] || !playerTwoMoves[secondMove] ? (
+            // Mandatory dropdowns are falsey
+            <div className="nothing-chosen-message">
+              <h4>Select {selectedCharacters.playerTwo.name}'s<br/>1st & 2nd Move</h4>
+              <button onClick={() => dispatch(setModalVisibility({ currentModal: "help", visible: true })) }>Get help with String Interrupter</button>
+            </div>
+          ) : (
             <>
               <table>
                 <tbody>               
                   <DataTableHeader
                     colsToDisplay={{startup: "S", active: "A", onBlock: "oB"}}
-                    moveType={`${selectedCharacters.playerTwo.name}'s 1st Move`}
+                    moveType={`${selectedCharacters.playerTwo.stats.threeLetterCode}'s 1st Move`}
                     xScrollEnabled={false}
                     noPlural
                     noStick
@@ -231,7 +237,7 @@ const StringInterrupter = () => {
                                                   
                   <DataTableHeader
                     colsToDisplay={{startup: "S", onBlock: "oB", onHit: "oH"}}
-                    moveType={`${selectedCharacters.playerTwo.name}'s 2nd Move`}
+                    moveType={`${selectedCharacters.playerTwo.stats.threeLetterCode}'s 2nd Move`}
                     xScrollEnabled={false}
                     noPlural
                     noStick
@@ -254,7 +260,7 @@ const StringInterrupter = () => {
                 }
               </IonItem>
 
-              {Object.keys(processedResults.wins).length > 0 &&
+              {Object.keys(processedResults.wins).length > 0 ?
                 <IonItemGroup>
                   <IonItem className="color-subheader" lines="full" color="success">
                     <IonLabel>
@@ -277,7 +283,10 @@ const StringInterrupter = () => {
                     </IonItemGroup>
                   )}
                 </IonItemGroup>
-              }
+                : (
+                  <h4>This string is not interruptable<br/>{interruptionIsSafe || interruptionIsNormal ? "Try adjusting the toggles" : ""}</h4>
+
+                )}
 
               {Object.keys(processedResults.trades).length > 0 &&
                 <IonItemGroup>
@@ -297,7 +306,7 @@ const StringInterrupter = () => {
 
             </>
 
-          }
+          )}
 
         </IonGrid>
 

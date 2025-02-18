@@ -219,7 +219,7 @@ const FrameKillGenerator = () => {
 
               <IonItem lines="full">
                 <IonSelect
-                  label={"Knockdown with"}
+                  label={"Knockdown with*"}
                   interface="modal"
                   interfaceOptions={{ header: "Knockdown with" }}
                   value={knockdownMove}
@@ -312,7 +312,7 @@ const FrameKillGenerator = () => {
 
               <IonItem lines="full">
                 <IonSelect
-                  label="Target meaty"
+                  label="Target meaty*"
                   interface="modal"
                   interfaceOptions={{ header: "Target Meaty" }}
                   value={targetMeaty}
@@ -400,7 +400,7 @@ const FrameKillGenerator = () => {
               }
   
               {!knockdownMove || !targetMeaty ? (
-                // Manditory dropdowns are falsey
+                // Mandatory dropdowns are falsey
                 <div className="nothing-chosen-message">
                   <h4>Select a Knockdown Move <br/>& Target Meaty</h4>
                   <button onClick={() => dispatch(setModalVisibility({ currentModal: "help", visible: true })) }>Get help with Frame Kill Calculator</button>

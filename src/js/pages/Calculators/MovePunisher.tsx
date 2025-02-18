@@ -70,7 +70,7 @@ const MovePunisher = () => {
         <IonGrid fixed>
           <IonItem lines="full">
             <IonSelect
-              label={`${selectedCharacters["playerOne"].name} blocks ${selectedCharacters["playerTwo"].name}'s:`}
+              label={`You block ${selectedCharacters["playerTwo"].name}'s`}
               interface="modal"
               interfaceOptions={{ header: "Punishable Moves" }}
               value={blockedMove}
@@ -93,47 +93,55 @@ const MovePunisher = () => {
             <IonToggle checked={onlyPerfectPunishes} onIonChange={() => setOnlyPerfectPunishes(!onlyPerfectPunishes)}>Only perfect punishes</IonToggle>
           </IonItem>
 
-          {playerTwoMoves[blockedMove] ?
-            <table>
-              <tbody>                        
-                <DataTableHeader
-                  colsToDisplay={{startup: "S", active: "A", onBlock: "oB"}}
-                  moveType="Blocked Move"
-                  xScrollEnabled={false}
-                  noPlural
-                  noStick
-                />
-                <DataTableRow
-                  moveName={blockedMove}
-                  moveData={playerTwoMoves[blockedMove]}
-                  colsToDisplay={{startup: "S", active: "A", onBlock: "oB"}}
-                  xScrollEnabled={false}
-                  displayOnlyStateMoves={false}
-                  activePlayerOverwrite="playerTwo"
-                />                          
-              </tbody>
-            </table>
-            : <p style={{fontStyle: "italic", display: "flex", justifyContent: "center", textAlign: "center", margin: "50px 10px"}}>{selectedCharacters["playerOne"].name} can punish -{playerOneFastestStartup} on block moves</p>
-          }
+          {!playerTwoMoves[blockedMove] ? (
+            // Mandatory dropdowns are falsey
+            <div className="nothing-chosen-message">
+              <h4>Select a Blocked Move</h4>
+              <button onClick={() => dispatch(setModalVisibility({ currentModal: "help", visible: true })) }>Get help with Move Punisher</button>
+            </div>
+          ) : (
+            <>
+              <table>
+                <tbody>                        
+                  <DataTableHeader
+                    colsToDisplay={{startup: "S", active: "A", onBlock: "oB"}}
+                    moveType="Blocked Move"
+                    xScrollEnabled={false}
+                    noPlural
+                    noStick
+                  />
+                  <DataTableRow
+                    moveName={blockedMove}
+                    moveData={playerTwoMoves[blockedMove]}
+                    colsToDisplay={{startup: "S", active: "A", onBlock: "oB"}}
+                    xScrollEnabled={false}
+                    displayOnlyStateMoves={false}
+                    activePlayerOverwrite="playerTwo"
+                  />                          
+                </tbody>
+              </table>
 
-          <IonList>
-            {playerTwoMoves[blockedMove] && Object.keys(playerOneMoves).filter(move =>
-              playerOneMoves[move].startup <= parseBasicFrames(playerTwoMoves[blockedMove]["onBlock"]) * -1 &&
-              !playerOneMoves[move].followUp &&
-              !playerOneMoves[move].airmove &&
-              !playerOneMoves[move].nonHittingMove &&
-              !playerOneMoves[move].antiAirMove &&
-              playerOneMoves[move].moveType !== "alpha" &&
-              (!punishWithNormal || playerOneMoves[move].moveType === "normal") &&
-              (!onlyPerfectPunishes || playerOneMoves[move].startup === parseBasicFrames(playerTwoMoves[blockedMove]["onBlock"]) * -1)
-            ).map(move =>
-              <IonItem key={`${move}-punishable`}>
-                <IonLabel>
-                  <h5>{move} is a <strong>{(parseBasicFrames(playerTwoMoves[blockedMove]["onBlock"]) * -1) - playerOneMoves[move].startup + 1}</strong> frame punish</h5>
-                </IonLabel>
-              </IonItem>
-            )}
-          </IonList>
+              <IonList>
+                {playerTwoMoves[blockedMove] && Object.keys(playerOneMoves).filter(move =>
+                  playerOneMoves[move].startup <= parseBasicFrames(playerTwoMoves[blockedMove]["onBlock"]) * -1 &&
+                  !playerOneMoves[move].followUp &&
+                  !playerOneMoves[move].airmove &&
+                  !playerOneMoves[move].nonHittingMove &&
+                  !playerOneMoves[move].antiAirMove &&
+                  playerOneMoves[move].moveType !== "alpha" &&
+                  (!punishWithNormal || playerOneMoves[move].moveType === "normal") &&
+                  (!onlyPerfectPunishes || playerOneMoves[move].startup === parseBasicFrames(playerTwoMoves[blockedMove]["onBlock"]) * -1)
+                ).map(move =>
+                  <IonItem key={`${move}-punishable`}>
+                    <IonLabel>
+                      <h5>{move} is a <strong>{(parseBasicFrames(playerTwoMoves[blockedMove]["onBlock"]) * -1) - playerOneMoves[move].startup + 1}</strong> frame punish</h5>
+                    </IonLabel>
+                  </IonItem>
+                )}
+              </IonList>
+            </>
+          )}
+          
         </IonGrid>
 
         <IonFab vertical="bottom" horizontal="end" slot="fixed">

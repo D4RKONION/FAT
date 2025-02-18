@@ -1,4 +1,15 @@
 .calculators {
+  .nothing-chosen-message {
+    display: flex;
+    flex-direction: column;
+    button {
+      margin: 0 auto;
+      font-size: 15px;
+      color: var(--fat-a);
+      text-decoration: underline;
+    }
+  }
+
   table {
     width: 90%;
     margin: 20px auto;
@@ -6,7 +17,12 @@
     overflow: hidden;
     box-shadow: var(--fat-surface-shadow) 0px 0px 2px;
   }
-  
+  h6 {
+    color: var(--fat-header);
+    font-weight: 900;
+    padding: 0 10px;
+    margin: 15px 0 0;
+  }
   ion-list {
     padding-bottom: var(--safe-area-inset-bottom);
   }

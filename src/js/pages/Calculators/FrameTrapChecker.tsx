@@ -163,7 +163,13 @@ const FrameTrapChecker = () => {
               }
             </IonSelect>
           </IonItem>
-          {playerOneMoves[firstMove] && playerOneMoves[secondMove] &&
+          {!playerOneMoves[firstMove] || !playerOneMoves[secondMove] ? (
+            // Mandatory dropdowns are falsey
+            <div className="nothing-chosen-message">
+              <h4>Select a First Move <br/>& a Second Move</h4>
+              <button onClick={() => dispatch(setModalVisibility({ currentModal: "help", visible: true })) }>Get help with Frame Trap Checker</button>
+            </div>
+          ) : (
             <>
               <table>
                 <tbody>              
@@ -223,8 +229,7 @@ const FrameTrapChecker = () => {
               }
 
             </>
-
-          }
+          )}
         </IonGrid>
 
         <IonFab vertical="bottom" horizontal="end" slot="fixed">

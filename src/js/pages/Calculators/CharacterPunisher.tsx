@@ -38,7 +38,7 @@ const CharacterPunisher = () => {
           <IonButtons slot="start">
             <IonBackButton defaultHref="/calculators" />
           </IonButtons>
-          <IonTitle>{`C-Punish - ${selectedCharacters.playerOne.name}`}</IonTitle>
+          <IonTitle>{`CPun - ${selectedCharacters.playerOne.stats.threeLetterCode} vs ${selectedCharacters.playerTwo.stats.threeLetterCode}`}</IonTitle>
           <IonButtons slot="end">
             <PopoverButton />
           </IonButtons>
@@ -49,7 +49,7 @@ const CharacterPunisher = () => {
         <IonGrid fixed>
           <IonItem lines="full">
             <IonSelect
-              label={`Punish ${selectedCharacters["playerTwo"].name} with ${selectedCharacters["playerOne"].name}'s`}
+              label={`Punish with ${selectedCharacters["playerOne"].name}'s`}
               interface="modal"
               interfaceOptions={{ header: "Punishing Move" }}
               value={punishingMove}
@@ -72,50 +72,56 @@ const CharacterPunisher = () => {
             </IonSelect>
           </IonItem>
 
-          {playerOneMoves[punishingMove] &&
-              <>
-                <table>
-                  <tbody>                          
-                    <DataTableHeader
-                      colsToDisplay={
-                        activeGame === "SF6" ?
-                          {startup: "S", active: "A", onPC: "onPC"}
-                          : {startup: "S", active: "A", onHit: "oH"}
-                      }
-                      moveType="Your Punish"
-                      xScrollEnabled={false}
-                      noPlural
-                      noStick
-                    />
-                    <DataTableRow
-                      moveName={punishingMove}
-                      moveData={playerOneMoves[punishingMove]}
-                      colsToDisplay={
-                        activeGame === "SF6" ?
-                          {startup: "S", active: "A", onPC: "onPC"}
-                          : {startup: "S", active: "A", onHit: "oH"}
-                      }
-                      xScrollEnabled={false}
-                      displayOnlyStateMoves={false}
-                      activePlayerOverwrite="playerOne"
-                    />                             
-                  </tbody>
-                </table>
-                <IonItemDivider><p>{selectedCharacters["playerOne"].name}'s <strong>{punishingMove}</strong> can punish {selectedCharacters["playerTwo"].name}'s</p></IonItemDivider>
-                <IonList>
-                  {
-                    Object.keys(playerTwoMoves).filter(blockedMove =>
-                      canParseBasicFrames(playerTwoMoves[blockedMove].onBlock) && (parseBasicFrames(playerTwoMoves[blockedMove].onBlock) * -1) >= parseBasicFrames(playerOneMoves[punishingMove].startup)
-                    ).map(blockedMove =>
-                      <IonItem key={`${selectedCharacters["playerTwo"].name}, ${blockedMove}`}>
-                        <p><em>{blockedMove}</em>: <strong>{parseBasicFrames(playerTwoMoves[blockedMove].onBlock) * -1 - parseBasicFrames(playerOneMoves[punishingMove].startup) + 1}</strong> frame punish</p>
-                      </IonItem>
-                    )
-                  }
+          {!playerOneMoves[punishingMove] ? (
+            // Mandatory dropdowns are falsey
+            <div className="nothing-chosen-message">
+              <h4>Select one of {selectedCharacters.playerOne.name}'s moves<br/>to punish {selectedCharacters.playerTwo.name} with</h4>
+              <button onClick={() => dispatch(setModalVisibility({ currentModal: "help", visible: true })) }>Get help with Character Punisher</button>
+            </div>
+          ) : (
+            <>
+              <table>
+                <tbody>                          
+                  <DataTableHeader
+                    colsToDisplay={
+                      activeGame === "SF6" ?
+                        {startup: "S", active: "A", onPC: "onPC"}
+                        : {startup: "S", active: "A", onHit: "oH"}
+                    }
+                    moveType="Your Punish"
+                    xScrollEnabled={false}
+                    noPlural
+                    noStick
+                  />
+                  <DataTableRow
+                    moveName={punishingMove}
+                    moveData={playerOneMoves[punishingMove]}
+                    colsToDisplay={
+                      activeGame === "SF6" ?
+                        {startup: "S", active: "A", onPC: "onPC"}
+                        : {startup: "S", active: "A", onHit: "oH"}
+                    }
+                    xScrollEnabled={false}
+                    displayOnlyStateMoves={false}
+                    activePlayerOverwrite="playerOne"
+                  />                             
+                </tbody>
+              </table>
+              <h6>{selectedCharacters["playerOne"].name}'s <strong>{punishingMove}</strong> can punish {selectedCharacters["playerTwo"].name}'s</h6>
+              <IonList>
+                {
+                  Object.keys(playerTwoMoves).filter(blockedMove =>
+                    canParseBasicFrames(playerTwoMoves[blockedMove].onBlock) && (parseBasicFrames(playerTwoMoves[blockedMove].onBlock) * -1) >= parseBasicFrames(playerOneMoves[punishingMove].startup)
+                  ).map(blockedMove =>
+                    <IonItem key={`${selectedCharacters["playerTwo"].name}, ${blockedMove}`}>
+                      <p><strong>{blockedMove}</strong>: {parseBasicFrames(playerTwoMoves[blockedMove].onBlock) * -1 - parseBasicFrames(playerOneMoves[punishingMove].startup) + 1} frame punish</p>
+                    </IonItem>
+                  )
+                }
 
-                </IonList>
-              </>
-          }
+              </IonList>
+            </>
+          )}
 
         </IonGrid>
 

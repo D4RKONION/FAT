@@ -1,7 +1,7 @@
 import "../../../style/pages/Calculators.scss";
 import "../../../style/components/FAB.scss";
 
-import { IonContent, IonPage, IonItem, IonLabel, IonIcon, IonFab, IonFabButton, IonInput, IonList, IonGrid, IonBackButton, IonButtons, IonHeader, IonTitle, IonToolbar, IonListHeader, IonToggle } from "@ionic/react";
+import { IonContent, IonPage, IonItem, IonLabel, IonIcon, IonFab, IonFabButton, IonInput, IonList, IonGrid, IonBackButton, IonButtons, IonHeader, IonTitle, IonToolbar, IonToggle } from "@ionic/react";
 import { person } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
