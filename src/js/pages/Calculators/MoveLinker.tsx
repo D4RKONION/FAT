@@ -2,7 +2,6 @@ import "../../../style/pages/Calculators.scss";
 import "../../../style/components/FAB.scss";
 
 import { IonContent, IonPage, IonItem, IonIcon, IonFab, IonFabButton, IonList, IonSelect, IonSelectOption, IonToggle, IonGrid, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, useIonViewDidLeave } from "@ionic/react";
-import { link } from "fs";
 import { person } from "ionicons/icons";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
