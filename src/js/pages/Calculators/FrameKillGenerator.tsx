@@ -4,7 +4,7 @@ import "../../../style/components/FAB.scss";
 
 import { IonContent, IonPage, IonItem, IonLabel, IonIcon, IonFab, IonFabButton, IonList, IonSelect, IonSelectOption, IonListHeader, IonItemDivider, IonItemGroup, IonGrid, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonInput, IonSpinner } from "@ionic/react";
 import { person } from "ionicons/icons";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { setActiveFrameDataPlayer, setModalVisibility } from "../../actions";
@@ -156,10 +156,12 @@ const FrameKillGenerator = () => {
     setOkiResults("inProgress"); //displays a thinking message
     worker.postMessage({ allKnockdownMovesToTry, recoveryType, activeGame, customKDA, playerOneMoves, targetMeaty, firstOkiMoveModel, lateByFrames, specificSetupMove, selectedCharacters, setupLength });
     worker.onmessage = (event) => {
-      if (Object.keys(event.data).length !== 0) {
+      if (Object.keys(event.data).some(moveName =>
+        Object.keys(event.data[moveName]).length > 0
+      )) {
         setOkiResults(event.data);
       } else {
-        setOkiResults(false);
+        setOkiResults("noResults");
       }
     };
 
@@ -394,7 +396,16 @@ const FrameKillGenerator = () => {
                     </tbody>
                   </table>
               }
-              {okiResults === "inProgress" ?
+  
+              {!knockdownMove || !targetMeaty ? (
+                // Manditory dropdowns are falsey
+                <div className="nothing-chosen-message">
+                  <h4>Select a Knockdown Move <br/>& Target Meaty</h4>
+                  <button onClick={() => dispatch(setModalVisibility({ currentModal: "help", visible: true })) }>Get help with Frame Kill Calculator</button>
+                </div>
+
+              ) : okiResults === "inProgress" ? (
+                // Processing results
                 <div className="calculating-oki-message">
                   <h3>Calculating Oki</h3>
                   {knockdownMove === "Anything" &&
@@ -411,17 +422,18 @@ const FrameKillGenerator = () => {
                   }
                   <IonSpinner></IonSpinner>
                 </div>
-                : <IonList>
-                  {okiResults && knockdownMove && (KNOCKDOWN_WITH_LABELS["universal"]?.includes(knockdownMove) || playerOneMoves[knockdownMove]) && targetMeaty && (TARGET_MEATY_LABELS[activeGame]?.includes(targetMeaty) || playerOneMoves[targetMeaty])
-                    ? Object.keys(okiResults).map(knockdownMove => {
-                      // Check if there are any valid setups for this knockdown move
-                      const validSetups = Object.keys(okiResults[knockdownMove]).filter(numOfMovesSetup => okiResults[knockdownMove][numOfMovesSetup]);
+              ) : okiResults !== "noResults" && (playerOneMoves[knockdownMove] || KNOCKDOWN_WITH_LABELS["universal"].includes(knockdownMove)) && (playerOneMoves[targetMeaty] || TARGET_MEATY_LABELS[activeGame]?.includes(targetMeaty)) ? (
+                <IonList>
+                  {Object.keys(okiResults).map(knockdownMove => {
+                    // Check if there are any valid setups for this knockdown move
+                    const validSetups = Object.keys(okiResults[knockdownMove]).filter(numOfMovesSetup => okiResults[knockdownMove][numOfMovesSetup]);
 
-                      if (validSetups.length === 0) {
-                        return null; // Skip rendering if no valid setups
-                      }
-                      return (<>
-                        <h5>{knockdownMove} (KD: +{recoveryType === "all" ? "~" : knockdownMove === "Custom KDA" ? customKDA : parseBasicFrames(playerOneMoves[knockdownMove][recoveryType])})</h5>
+                    if (validSetups.length === 0) {
+                      return null; // Skip rendering if no valid setups
+                    }
+                    return (
+                      <Fragment key={`${knockdownMove}-entry`}>
+                        <h5>{knockdownMove} (KD: +{recoveryType === "all" ? "~" : knockdownMove === "Custom KDA" ? customKDA : playerOneMoves[knockdownMove] ? parseBasicFrames(playerOneMoves[knockdownMove][recoveryType]) : ""})</h5>
                         {Object.keys(okiResults[knockdownMove]).map(numOfMovesSetup => 
 
                           <IonItemGroup key={numOfMovesSetup}>
@@ -430,7 +442,11 @@ const FrameKillGenerator = () => {
                               <div key={activeAsOrdinal}>
                                 <IonListHeader className="ordinal-header">
                                   <IonLabel>
-                                    <p>Meaty on <strong>{activeAsOrdinal}</strong> active frame {recoveryType === "all" && "s"} {!TARGET_MEATY_LABELS?.[activeGame]?.includes(targetMeaty) && `(${parseBasicFrames(playerOneMoves[targetMeaty].onBlock) + Number(activeAsOrdinal.match(/^\d+/)[0]) -1 > 0 ? "+" : ""}${parseBasicFrames(playerOneMoves[targetMeaty].onBlock) + Number(activeAsOrdinal.match(/^\d+/)[0]) -1} oB, ${parseBasicFrames(playerOneMoves[targetMeaty].onHit) + Number(activeAsOrdinal.match(/^\d+/)[0]) -1 > 0 ? "+" : ""}${parseBasicFrames(playerOneMoves[targetMeaty].onHit) + Number(activeAsOrdinal.match(/^\d+/)[0]) -1} oH)`}</p>
+                                    <p>Meaty on <strong>{activeAsOrdinal}</strong> active frame {recoveryType === "all" && "s"} {
+                                      !TARGET_MEATY_LABELS[activeGame]?.includes(targetMeaty) &&
+                                      canParseBasicFrames(playerOneMoves[targetMeaty].onBlock) &&
+                                    `(${parseBasicFrames(playerOneMoves[targetMeaty].onBlock) + Number(activeAsOrdinal.match(/^\d+/)[0]) -1 > 0 ? "+" : ""}${parseBasicFrames(playerOneMoves[targetMeaty].onBlock) + Number(activeAsOrdinal.match(/^\d+/)[0]) -1} oB, ${parseBasicFrames(playerOneMoves[targetMeaty].onHit) + Number(activeAsOrdinal.match(/^\d+/)[0]) -1 > 0 ? "+" : ""}${parseBasicFrames(playerOneMoves[targetMeaty].onHit) + Number(activeAsOrdinal.match(/^\d+/)[0]) -1} oH)`
+                                    }</p>
                                   </IonLabel>
                                 </IonListHeader>
                                 {Object.keys(okiResults[knockdownMove][numOfMovesSetup][activeAsOrdinal]).map((setup, index) =>
@@ -444,16 +460,14 @@ const FrameKillGenerator = () => {
                             )}
                           </IonItemGroup>
                         )}
-                    
-                      </>);
-                    }
-                  
-                    )
-                    : <h4>No oki found for this setup...<br/>Sorry!</h4>
-                  }
+                      
+                      </Fragment>
+                    );
+                  })}
                 </IonList>
+              )
+                : <h4>No oki found for this setup...<br/>Sorry!</h4>
               }
-
             </IonGrid>
 
             <IonFab vertical="bottom" horizontal="end" slot="fixed">
