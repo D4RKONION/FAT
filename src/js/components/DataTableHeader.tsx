@@ -12,9 +12,11 @@ type Props = {
   moveType: string;
   xScrollEnabled: boolean;
   sample?: boolean;
+  noPlural?: boolean;
+  noStick?: boolean
 };
 
-const DataTableHeader = ({colsToDisplay, moveType, xScrollEnabled, sample}: Props) => {
+const DataTableHeader = ({colsToDisplay, moveType, xScrollEnabled, sample, noPlural, noStick}: Props) => {
   const rawDriveRush = useSelector(advantageModifiersSelector).rawDriveRushActive;
   const counterHit = useSelector(advantageModifiersSelector).counterHitActive;
   const vsBurntoutOpponent = useSelector(advantageModifiersSelector).vsBurntoutOpponentActive;
@@ -30,8 +32,8 @@ const DataTableHeader = ({colsToDisplay, moveType, xScrollEnabled, sample}: Prop
   };
 
   return (
-    <tr className={`DataTableRow DataTableHeader ${xScrollEnabled ? "xScroll" : "fixed"}`} onClick={() => sample !== true && dispatch(setModalVisibility({ currentModal: "landscapeOptions", visible: true }))} >
-      <th style={{textTransform: "capitalize"}} className="cell move-name">{moveType}{moveType !== "Move Name" && "s"}</th>
+    <tr style={noStick ? {position: "relative"} : {}} className={`DataTableRow DataTableHeader ${xScrollEnabled ? "xScroll" : "fixed"}`} onClick={() => sample !== true && dispatch(setModalVisibility({ currentModal: "landscapeOptions", visible: true }))} >
+      <th style={{textTransform: "capitalize"}} className="cell move-name">{moveType}{moveType !== "Move Name" && !noPlural && "s"}</th>
       {Object.keys(colsToDisplay).map(headerName =>
         <th className="cell" key={headerName}>
           {colsToDisplay[headerName]} {((headerName === "onHit" && (rawDriveRush || counterHit)) || (headerName === "onBlock" && (rawDriveRush || vsBurntoutOpponent))) && advantageIncreaseAmount(headerName)}
