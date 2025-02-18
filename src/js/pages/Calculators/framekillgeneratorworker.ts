@@ -58,7 +58,8 @@ const isValidMove = (move) => {
     (!move["followUp"] || typeof move["total"] === "number") && //if it's followup, we need a valid total
     (!move["alpha"] || move["moveType"] !== "alpha") && // no moves that happen out of blockstun
     move["moveType"] !== "super" && // no supers
-    !move["airmove"] // no airmoves
+    !move["airmove"] && // no airmoves
+    move["movesList"] !== "Target Combo" // no target combos (would need to be whiff cancellable)
   );
 };
 
