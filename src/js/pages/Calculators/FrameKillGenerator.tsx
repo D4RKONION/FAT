@@ -189,7 +189,7 @@ const FrameKillGenerator = () => {
           <IonButtons slot="start">
             <IonBackButton defaultHref="/calculators" />
           </IonButtons>
-          <IonTitle>{`Oki - ${selectedCharacters.playerOne.name}`}</IonTitle>
+          <IonTitle>{`FKG - ${selectedCharacters.playerOne.name}`}</IonTitle>
           <IonButtons slot="end">
             <PopoverButton />
           </IonButtons>

@@ -1,21 +1,22 @@
 # Frametrap Checker
 
-## How to Use
+## What is a Frame Trap?
+A __Frame Trap__ is a 2-move sequence with a gap in the middle that attempts to trick your opponent into pressing a button, thus scoring you a counterhit.
+
+This calculator will let you know what the gap is between two moves. In time, you'll learn to do this maths yourself, but for now FAT's here to help!
+
+## How to Use FTC
 
 ### Link Mode
-Select your first move on the left (this move is assumed BLOCKED by the opponent), and your second move on the right.
+Select your __First Move__ (the move your opponent blocked), and your __Second Move__ (the move you hope to follow up with).
 
-FAT will show the first move's "on block" data, the second move's "startup" data, and below that the gap in frames between the two.
+FAT will calculate the gap between the two moves. 
+
+_Second Move Startup -  First Move On Block_.
 
 ### Cancel Mode
-A bit more complicated. You must start by selecting your first move. This will then load the second move dropdown with moves that can be cancelled from the first move.
+You must start by selecting your __First move__. This will then load the __Second Move__ dropdown with moves that can be cancelled from the First Move.
 
-Then select your second move.
+FAT will then calculate the gap between the two moves.
 
-FAT will then assume that the move is being cancelled on the first active frame and will display the first move's blockstun, the second move's startup and the gap in frames between the two.
-
-## Changing Character
-You can change character using the circular button in the bottom right.
-
-# What is a Frame Trap?
-A "Frame Trap" is a 2-move sequence with a gap in the middle that attempts to trick your opponent into pressing a button, thus scoring you a counterhit.
+_First Move Blockstun - Second Move Startup_.
