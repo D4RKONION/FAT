@@ -274,9 +274,10 @@ function heavyCalculation(allKnockdownMovesToTry, recoveryType, activeGame, cust
       // if the move has no active frames, but it has startup frames (and it must not be nonhitting
       // because they can't be selected in the dropdown), then give it 1 active frame
       if (!playerOneMoves[targetMeaty].active) {
-        playerOneMoves[targetMeaty].multiActive = parseMultiActiveFrames(firstOkiMoveModel[targetMeaty].startup, "1");
+        playerOneMoves[targetMeaty].multiActive = parseMultiActiveFrames(playerOneMoves[targetMeaty].startup, "1");
+      // otherwise, we parse its multiactive frames
       } else {
-        playerOneMoves[targetMeaty].multiActive = parseMultiActiveFrames(firstOkiMoveModel[targetMeaty].startup, firstOkiMoveModel[targetMeaty].active);
+        playerOneMoves[targetMeaty].multiActive = parseMultiActiveFrames(playerOneMoves[targetMeaty].startup, playerOneMoves[targetMeaty].active);
       }
    
       thisMoveProcessedResults = findMeatySetups(lateByFrames, true, playerOneMoves, targetMeaty, knockdownFrames, specificSetupMove, firstOkiMoveModel, selectedCharacters, activeGame, setupLength); 
