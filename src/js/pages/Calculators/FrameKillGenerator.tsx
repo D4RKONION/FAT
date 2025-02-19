@@ -2,17 +2,20 @@ import "../../../style/pages/Calculators.scss";
 import "../../../style/pages/FrameKillGenerator.scss";
 import "../../../style/components/FAB.scss";
 
+import { Capacitor } from "@capacitor/core";
 import { IonContent, IonPage, IonItem, IonLabel, IonIcon, IonFab, IonFabButton, IonList, IonSelect, IonSelectOption, IonListHeader, IonItemDivider, IonItemGroup, IonGrid, IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonInput, IonSpinner } from "@ionic/react";
 import { person } from "ionicons/icons";
 import { useState, useEffect, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router";
 
 import { setActiveFrameDataPlayer, setModalVisibility } from "../../actions";
+import ChunkyButton from "../../components/ChunkyButton";
 import DataTableHeader from "../../components/DataTableHeader";
 import DataTableRow from "../../components/DataTableRow";
 import PopoverButton from "../../components/PopoverButton";
 import SegmentSwitcher from "../../components/SegmentSwitcher";
-import { activeGameSelector, selectedCharactersSelector } from "../../selectors";
+import { activeGameSelector, premiumSelector, selectedCharactersSelector } from "../../selectors";
 import { canParseBasicFrames, parseBasicFrames } from "../../utils/ParseFrameData";
 
 const GAME_KNOCKDOWN_TYPES = {
@@ -42,8 +45,10 @@ const TARGET_MEATY_LABELS = {
 const FrameKillGenerator = () => {
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const activeGame = useSelector(activeGameSelector);
+  const premiumIsPurchased = useSelector(premiumSelector).lifetimePremiumPurchased;
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [recoveryType, setRecoveryType] = useState(Object.keys(GAME_KNOCKDOWN_TYPES[activeGame])[0]);
   const [knockdownMove, setKnockdownMove] = useState(null);
@@ -84,6 +89,12 @@ const FrameKillGenerator = () => {
   }, [activeGame]);
 
   useEffect(() => {
+    // handle non premium options being chosen
+    if (knockdownMove === "Anything" && !premiumIsPurchased) {
+      setOkiResults("premiumRequired");
+      return;
+    }
+
     //prep specific setup labels for checking
     const gameLabels = SETUP_CONTAINS_LABELS[activeGame] || [];
     const universalLabels = SETUP_CONTAINS_LABELS.universal || [];
@@ -231,7 +242,7 @@ const FrameKillGenerator = () => {
                   {Object.keys(KNOCKDOWN_WITH_LABELS).map(gameName =>
                     (gameName === activeGame || gameName === "universal") && (
                       KNOCKDOWN_WITH_LABELS[gameName].map(knockdownWithLabels =>
-                        <IonSelectOption key={`knockdown-with-${gameName}-${knockdownWithLabels}`} value={knockdownWithLabels}>{knockdownWithLabels}</IonSelectOption>
+                        <IonSelectOption key={`knockdown-with-${gameName}-${knockdownWithLabels}`} value={knockdownWithLabels}>{knockdownWithLabels} {knockdownWithLabels === "Anything" && !premiumIsPurchased ? "💎" : ""}</IonSelectOption>
                       )
                     )
                   )}
@@ -404,6 +415,22 @@ const FrameKillGenerator = () => {
                 <div className="nothing-chosen-message">
                   <h4>Select a Knockdown Move <br/>& Target Meaty</h4>
                   <button onClick={() => dispatch(setModalVisibility({ currentModal: "help", visible: true })) }>Get help with Frame Kill Calculator</button>
+                </div>
+
+              ) : okiResults === "premiumRequired" ? (
+              // Prompt the user to buy premium for this option
+                <div className="premium-required-message">
+                  <h4>See all your knockdown options at once!</h4>
+                  <div className="button-container">
+                    <ChunkyButton extraText={Capacitor.isNativePlatform() ? "Unlock extra options" : "Premium required"} onClick={() =>
+                      Capacitor.isNativePlatform() ? (
+                        history.push("/settings/premium")
+                      ) : (
+                        window.open("https://fullmeter.com/fat", "_blank")
+                      )
+                      
+                    }>{Capacitor.isNativePlatform() ? "Upgrade to Premium!" : "Download the app!"}</ChunkyButton>
+                  </div>
                 </div>
 
               ) : okiResults === "inProgress" ? (
