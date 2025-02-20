@@ -82,7 +82,6 @@ const MovePunisher = () => {
               cancelText="Cancel"
               onIonChange={e => onCharacterSelect(e.detail.value)}
             >
-              <IonSelectOption key="char-name-select" value={null}>Select a character</IonSelectOption>
               {gameDetails.characterList.map(charName =>
                 <IonSelectOption key={`char-name-${charName}`} value={charName}>{charName}</IonSelectOption>
               )}
