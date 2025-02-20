@@ -272,13 +272,23 @@ const StringInterrupter = () => {
               </table>
 
               <IonItem lines="full">
-                {parseBasicFrames(playerTwoMoves[secondMove].startup) - parseBasicFrames(playerTwoMoves[firstMove].onBlock) > 0
-                  ? <p>There is a gap of <b>{parseBasicFrames(playerTwoMoves[secondMove].startup) - parseBasicFrames(playerTwoMoves[firstMove].onBlock)}</b> frame{(parseBasicFrames(playerTwoMoves[secondMove].startup) - parseBasicFrames(playerTwoMoves[firstMove].onBlock)) > 1 && "s"} between {firstMove} and {secondMove}.</p>
-                  : <p>There is <b>no gap</b> between {firstMove} and {secondMove}. It is a true blockstring</p>
-                }
+                <div className="answer-card">
+                  {parseBasicFrames(playerTwoMoves[secondMove].startup) - parseBasicFrames(playerTwoMoves[firstMove].onBlock) > 0 ? (
+                    <div>
+                      <p>There is a gap of <b>{parseBasicFrames(playerTwoMoves[secondMove].startup) - parseBasicFrames(playerTwoMoves[firstMove].onBlock)} frame{(parseBasicFrames(playerTwoMoves[secondMove].startup) - parseBasicFrames(playerTwoMoves[firstMove].onBlock)) > 1 && "s"}</b> in the string</p>
+                      <ul><li>{firstMove}, {secondMove}</li></ul>
+                    </div>
+                  ) : (
+                    <div>
+                      <p>There is <b>no gap</b> in the string</p>
+                      <ul><li>{firstMove}, {secondMove}</li></ul>
+                      <p>It is a true blockstring</p>
+                    </div>
+                  )}
+                </div>
               </IonItem>
 
-              {Object.keys(processedResults.wins).length > 0 ?
+              {Object.keys(processedResults.wins).length > 0 &&
                 <IonItemGroup>
                   <IonItem className="color-subheader" lines="full" color="success">
                     <IonLabel>
@@ -301,10 +311,7 @@ const StringInterrupter = () => {
                     </IonItemGroup>
                   )}
                 </IonItemGroup>
-                : (
-                  <h4>This string is not interruptable<br/>{interruptionIsSafe || interruptionIsNormal ? "Try adjusting the toggles" : ""}</h4>
-
-                )}
+              }
 
               {Object.keys(processedResults.trades).length > 0 &&
                 <IonItemGroup>
@@ -322,6 +329,9 @@ const StringInterrupter = () => {
                 </IonItemGroup>
               }
 
+              {Object.keys(processedResults.wins).length === 0 && Object.keys(processedResults.trades).length === 0 && (
+                <h4>This string is not interruptable<br/>{interruptionIsSafe || interruptionIsNormal ? "Try adjusting the toggles" : ""}</h4>
+              )}
             </>
 
           )}
