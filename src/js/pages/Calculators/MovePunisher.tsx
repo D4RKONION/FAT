@@ -6,15 +6,19 @@ import { person } from "ionicons/icons";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { setModalVisibility } from "../../actions";
+import { setActiveFrameDataPlayer, setModalVisibility } from "../../actions";
 import DataTableHeader from "../../components/DataTableHeader";
 import DataTableRow from "../../components/DataTableRow";
 import PopoverButton from "../../components/PopoverButton";
-import { selectedCharactersSelector } from "../../selectors";
+import { gameDetailsSelector, selectedCharactersSelector } from "../../selectors";
 import { canParseBasicFrames, parseBasicFrames } from "../../utils/ParseFrameData";
+import { useCalcCharacterSelect } from "../../utils/useCalcCharacterSelect";
 
 const MovePunisher = () => {
   const selectedCharacters = useSelector(selectedCharactersSelector);
+  const gameDetails = useSelector(gameDetailsSelector);
+
+  const onCharacterSelect = useCalcCharacterSelect();
 
   const dispatch = useDispatch();
 
@@ -68,6 +72,22 @@ const MovePunisher = () => {
 
       <IonContent className="calculators">
         <IonGrid fixed>
+          <IonItem lines="full">
+            <IonSelect
+              label={"Character attacking you"}
+              interface="modal"
+              interfaceOptions={{ header: "Character Attacking You" }}
+              value={selectedCharacters.playerTwo.name}
+              okText="Select"
+              cancelText="Cancel"
+              onIonChange={e => onCharacterSelect(e.detail.value)}
+            >
+              <IonSelectOption key="char-name-select" value={null}>Select a character</IonSelectOption>
+              {gameDetails.characterList.map(charName =>
+                <IonSelectOption key={`char-name-${charName}`} value={charName}>{charName}</IonSelectOption>
+              )}
+            </IonSelect>
+          </IonItem>
           <IonItem lines="full">
             <IonSelect
               label={`You block ${selectedCharacters["playerTwo"].name}'s`}
@@ -145,7 +165,7 @@ const MovePunisher = () => {
         </IonGrid>
 
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton onClick={() => { dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true})); } }>
+          <IonFabButton onClick={() => { dispatch(setActiveFrameDataPlayer("playerOne")); dispatch(setModalVisibility({ currentModal: "characterSelect", visible: true})); } }>
             <IonIcon icon={person} />
           </IonFabButton>
         </IonFab>
