@@ -126,7 +126,7 @@ const CharacterPunisher = () => {
                   />                             
                 </tbody>
               </table>
-              <h6>{selectedCharacters["playerOne"].name}'s <strong>{punishingMove}</strong> can punish {selectedCharacters["playerTwo"].name}'s</h6>
+              <h6><em>{selectedCharacters["playerOne"].name}'s {punishingMove}</em> can punish {selectedCharacters["playerTwo"].name}'s:</h6>
               <IonList>
                 {
                   Object.keys(playerTwoMoves).filter(blockedMove =>
