@@ -141,6 +141,7 @@ const MovePunisher = () => {
               </table>
 
               <IonList>
+                <h6>{selectedCharacters.playerOne.name} can punish <em>{selectedCharacters.playerTwo.name}'s {blockedMove}</em> with:</h6>
                 {playerTwoMoves[blockedMove] && Object.keys(playerOneMoves).filter(move =>
                   playerOneMoves[move].startup <= parseBasicFrames(playerTwoMoves[blockedMove]["onBlock"]) * -1 &&
                   !playerOneMoves[move].followUp &&
@@ -153,7 +154,7 @@ const MovePunisher = () => {
                 ).map(move =>
                   <IonItem key={`${move}-punishable`}>
                     <IonLabel>
-                      <h5>{move} is a <strong>{(parseBasicFrames(playerTwoMoves[blockedMove]["onBlock"]) * -1) - playerOneMoves[move].startup + 1}</strong> frame punish</h5>
+                      <h5><strong>{move}</strong>: {(parseBasicFrames(playerTwoMoves[blockedMove]["onBlock"]) * -1) - playerOneMoves[move].startup + 1} frame punish</h5>
                     </IonLabel>
                   </IonItem>
                 )}
