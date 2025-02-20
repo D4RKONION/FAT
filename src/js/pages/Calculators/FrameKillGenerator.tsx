@@ -91,7 +91,7 @@ const FrameKillGenerator = () => {
   useEffect(() => {
     // handle non premium options being chosen
     if (knockdownMove === "Anything" && !premiumIsPurchased) {
-      setOkiResults("premiumRequired");
+      setOkiResults({});
       return;
     }
 
@@ -274,9 +274,9 @@ const FrameKillGenerator = () => {
 
               <IonItem lines="full">
                 <IonSelect
-                  label="Setup length"
+                  label="Max setup length"
                   interface="modal"
-                  interfaceOptions={{ header: "Setup Length" }}
+                  interfaceOptions={{ header: "Max Setup Length" }}
                   value={SETUP_LENGTH_LABELS[setupLength - 1]}
                   okText="Select"
                   cancelText="Cancel"
@@ -410,14 +410,7 @@ const FrameKillGenerator = () => {
                   </table>
               }
   
-              {!knockdownMove || !targetMeaty ? (
-                // Mandatory dropdowns are falsey
-                <div className="nothing-chosen-message">
-                  <h4>Select a Knockdown Move <br/>& Target Meaty</h4>
-                  <button onClick={() => dispatch(setModalVisibility({ currentModal: "help", visible: true })) }>Get help with Frame Kill Calculator</button>
-                </div>
-
-              ) : okiResults === "premiumRequired" ? (
+              {knockdownMove === "Anything" && !premiumIsPurchased ? (
               // Prompt the user to buy premium for this option
                 <div className="premium-required-message">
                   <h4>See all your knockdown options at once!</h4>
@@ -431,6 +424,13 @@ const FrameKillGenerator = () => {
                       
                     }>{Capacitor.isNativePlatform() ? "Upgrade to Premium!" : "Download the app!"}</ChunkyButton>
                   </div>
+                </div>
+
+              ) : !knockdownMove || !targetMeaty ? (
+                // Mandatory dropdowns are falsey
+                <div className="nothing-chosen-message">
+                  <h4>Select a Knockdown Move <br/>& Target Meaty</h4>
+                  <button onClick={() => dispatch(setModalVisibility({ currentModal: "help", visible: true })) }>Get help with Frame Kill Calculator</button>
                 </div>
 
               ) : okiResults === "inProgress" ? (
