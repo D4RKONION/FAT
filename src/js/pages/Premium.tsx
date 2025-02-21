@@ -10,6 +10,7 @@ import { useLocation } from "react-router";
 import bookmarkImage from "../../images/premium-examples/bookmarks.png";
 import characterSelectImage1 from "../../images/premium-examples/character-select-1.png";
 import characterSelectImage2 from "../../images/premium-examples/character-select-2.png";
+import fkgAnythingImage from "../../images/premium-examples/fkg-anything.png";
 import ChunkyButton from "../components/ChunkyButton";
 import ThemeSwitcher from "../components/ThemeSwitcher";
 import { APP_CURRENT_VERSION_CODE } from "../constants/VersionLogs";
@@ -95,12 +96,14 @@ const Premium = () => {
         }
 
         <article>
-
           <section>
-            <h1>Unlimited Bookmarks</h1>
+            <h1>App Themes</h1>
             <hr></hr>
-            <p>Become a true power user with unlimited bookmarks! That means quickly checking characters and moves, even across different games.</p>
-            <img style={{borderRadius: "12px"}} src={bookmarkImage} alt="Bookmark example"></img>
+            <p>Want to stand out from the crowd? Sick of the colour blue? Then app themes are for you! Choose from 4 new themes which work in both light and dark mode!</p>
+            <ThemeSwitcher
+              premiumPreview={true}
+              lines={false}
+            ></ThemeSwitcher>
           </section>
 
           <section>
@@ -114,19 +117,30 @@ const Premium = () => {
           </section>
 
           <section>
-            <h1>App Themes</h1>
+            <h1>Knockdown With Anything</h1>
             <hr></hr>
-            <p>Want to stand out from the crowd? Sick of the colour blue? Then app themes are for you! Choose from 4 new themes which work in both light and dark mode!</p>
-            <ThemeSwitcher
-              premiumPreview={true}
-              lines={false}
-            ></ThemeSwitcher>
+            <p>This powerful option for the Frame Kill Generator calculator allows you to test all your knockdowns at the same time to find a setup for a target meaty.</p>
+            <img style={{borderRadius: "12px"}} src={fkgAnythingImage} alt="Bookmark example"></img>
+          </section>
+
+          <section>
+            <h1>Unlimited Bookmarks</h1>
+            <hr></hr>
+            <p>Become a true power user with unlimited bookmarks! That means quickly checking characters and moves, even across different games.</p>
+            <img style={{borderRadius: "12px"}} src={bookmarkImage} alt="Bookmark example"></img>
           </section>
 
           <section>
             <h1>Priority Support</h1>
             <hr></hr>
             <p>I do my best to reply to all emails as soon as I can but life can be hectic! Emails from users who have premium get replies first as priority. Simply tap the email button in settings{premiumIsPurchased && " "}{premiumIsPurchased && <a href={`mailto:apps@fullmeter.com?subject=FAT-${"P~"}${APP_CURRENT_VERSION_CODE} | SUBJECT_HERE`}>or click here</a>}.</p>
+          </section>
+
+          <section>
+            <h1>Future Features</h1>
+            <hr></hr>
+            <p>While I make a concerted effort to keep almost everything in FAT free, it does take me a huge amount of time to add and test new features that will work across all games.</p>
+            <p>Purchasing Premium allows me to continue updating FAT into the future and I will continue to carefully choose additional feautres to add to Premium as a thank you for your support!</p>
           </section>
 
         </article>

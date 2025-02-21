@@ -17,44 +17,56 @@
 
   article {
     margin: 10px auto 0;
-    max-width: 475px;
-
-    h1 {
-      font-size: 22px;
-      text-align: center;
-      font-weight: bold;
-      margin-bottom: 0;
-      color: var(--fat-header);
-    }
-    hr {
-      background-color: #ccc;
-      height: 2px;
-      width: 100%;
-      margin-bottom: 0px;
-    }
-
-    p {
-      margin: 8px 0 16px;
-      &:last-of-type {
-        margin-bottom: 8px;
-      }
-    }
-    .image-scroller {
-      display: flex;
-      gap: 14px;
-      overflow: scroll;
-    }
-    
+    max-width: 475px; 
 
     section {
       margin-bottom: 25px;
       display: flex;
       flex-direction: column;
-      flex: 1 1 auto;
       align-items: center;
 
       &:last-child {
         margin-bottom: 75px;
+      }
+
+      h1 {
+        font-size: 22px;
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 0;
+        color: var(--fat-header);
+      }
+  
+      hr {
+        background-color: #ccc;
+        height: 2px;
+        width: 100%;
+        margin-bottom: 0px;
+      }
+  
+      p {
+        margin: 8px 0 16px;
+        &:last-of-type {
+          margin-bottom: 8px;
+        }
+      }
+  
+      > img {
+        width: 90%;
+        max-width: 300px;
+        border: 2px solid var(--fat-surface-border);
+      }
+  
+      .image-scroller {
+        display: flex;
+        gap: 14px;
+        overflow: scroll;
+        width: 100%;
+        justify-content: center;
+
+        img {
+          border: 2px solid var(--fat-surface-border);
+        }
       }
     } 
   }
