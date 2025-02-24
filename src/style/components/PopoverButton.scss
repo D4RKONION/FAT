@@ -5,6 +5,9 @@
     ion-item {
       --background: var(--fat-popover-bg);
       color: var(--fat-popover-contrast);
+      &.ios:last-child {
+        margin-bottom: 8px;
+      }
     }
   }
 }
