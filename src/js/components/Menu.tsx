@@ -14,7 +14,7 @@ import HelpModal from "./Help";
 import MenuEntry from "./MenuEntry";
 import TableSettings from "./TableSettings";
 import WhatsNewModal from "./WhatsNew";
-import framesIcon from "../../images/icons/frames.svg";
+import framesIcon from "../../images/icons/frame-data-icon.svg";
 import movesListIcon from "../../images/icons/moveslist.svg";
 import patreonIcon from "../../images/icons/patreon.svg";
 import { allCharacterLists } from "../constants/gamedetails/characterLists";

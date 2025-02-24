@@ -3,7 +3,7 @@ import { IonIcon, IonRippleEffect, useIonRouter } from "@ionic/react";
 import { peopleOutline, settingsOutline, settingsSharp, libraryOutline, librarySharp, calculatorOutline, calculatorSharp, searchOutline, searchSharp, statsChartOutline, statsChartSharp, barbellOutline, barbellSharp, logoPaypal, phonePortraitOutline, phonePortraitSharp, cafe, diamondOutline, diamondSharp, bookmarksOutline } from "ionicons/icons";
 import { useDispatch, useSelector } from "react-redux";
 
-import framesIcon from "../../images/icons/frames.svg";
+import framesIcon from "../../images/icons/frame-data-icon.svg";
 import movesListIcon from "../../images/icons/moveslist.svg";
 import patreonIcon from "../../images/icons/patreon.svg";
 import { setModalVisibility } from "../actions";

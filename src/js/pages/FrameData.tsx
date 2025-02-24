@@ -5,7 +5,7 @@ import { Capacitor } from "@capacitor/core";
 import { Preferences } from "@capacitor/preferences";
 import { IonContent, IonPage, IonIcon, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonSearchbar, IonButton, IonTitle, IonFab, IonFabButton, ScrollDetail } from "@ionic/react";
 import { isPlatform } from "@ionic/react";
-import { backspaceOutline, bookmarkOutline, bookmarkSharp, bookmarksSharp, chevronDown, chevronUp, closeOutline, informationCircleOutline, searchSharp } from "ionicons/icons";
+import { backspaceOutline, bookmarkOutline, bookmark, bookmarks, chevronDown, chevronUp, closeOutline, informationCircleOutline, searchSharp } from "ionicons/icons";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router";
@@ -42,7 +42,7 @@ const FrameData = () => {
   const xScrollEnabled = useSelector(dataTableSettingsSelector).tableType === "scrolling";
   const frameData = useSelector(frameDataSelector);
 
-  const bookmarks = useSelector(bookmarksSelector);
+  const bookmarksData = useSelector(bookmarksSelector);
   const premiumIsPurchased = useSelector(premiumSelector).lifetimePremiumPurchased;
 
   const [searchShown, setSearchShown] = useState(false);
@@ -95,10 +95,10 @@ const FrameData = () => {
   // Check if the current state is bookmarked
   const [currentBookmarkIndex, setCurrentBookmarkIndex]= useState(-1);
   useEffect(() => {
-    setCurrentBookmarkIndex(bookmarks.findIndex((bookmark) =>
+    setCurrentBookmarkIndex(bookmarksData.findIndex((bookmark) =>
       bookmark.modeName === "framedata" && bookmark.gameName === activeGame && bookmark.characterName === selectedCharacters[activePlayer].name
     ));
-  }, [selectedCharacters, activeGame, activePlayer, bookmarks]);
+  }, [selectedCharacters, activeGame, activePlayer, bookmarksData]);
   
   // Pops up the keyboard on native platforms when searchbar is tapped
   const searchRef = useRef(null);
@@ -178,7 +178,7 @@ const FrameData = () => {
                     dispatch(removeBookmark(currentBookmarkIndex));
                     setBookmarkToastMessage(`Bookmark Removed: ${activeGame} ${selectedCharacters[activePlayer].name}`);
                     setBookmarkToastVisible(true);
-                  } else if (bookmarks.length >= 3 && !premiumIsPurchased && Capacitor.isNativePlatform()) {
+                  } else if (bookmarksData.length >= 3 && !premiumIsPurchased && Capacitor.isNativePlatform()) {
                     history.push("/settings/premium");
                   } else {
                     dispatch(addBookmark({
@@ -190,7 +190,7 @@ const FrameData = () => {
                     setBookmarkToastVisible(true);
                   }
                 }}>
-                  <IonIcon icon={currentBookmarkIndex !== -1 ? bookmarkSharp : bookmarkOutline} slot="icon-only" />
+                  <IonIcon icon={currentBookmarkIndex !== -1 ? bookmark : bookmarkOutline} slot="icon-only" />
                 </IonButton>
                 <PopoverButton />
               </IonButtons>
@@ -308,7 +308,7 @@ const FrameData = () => {
 
         <IonFab className={`${scrollingUp ? "visible" : "hidden"}`} slot="fixed" vertical="bottom" horizontal="end">
           <IonFabButton onClick={() => dispatch(setModalVisibility({ currentModal: "bookmarks", visible: true }))} >
-            <IonIcon icon={bookmarksSharp}></IonIcon>
+            <IonIcon icon={bookmarks}></IonIcon>
           </IonFabButton>
         </IonFab>
 

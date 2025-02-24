@@ -3,7 +3,7 @@ import "../../style/components/DetailCards.scss";
 import { Capacitor } from "@capacitor/core";
 import { IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 import { isPlatform } from "@ionic/react";
-import { bookmarkOutline, bookmarkSharp, openOutline } from "ionicons/icons";
+import { bookmarkOutline, bookmark, openOutline } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
@@ -98,7 +98,7 @@ const MoveDetail = () => {
                 setBookmarkToastVisible(true);
               }
             }}>
-              <IonIcon icon={currentBookmarkIndex !== -1 ? bookmarkSharp : bookmarkOutline} slot="icon-only" />
+              <IonIcon icon={currentBookmarkIndex !== -1 ? bookmark : bookmarkOutline} slot="icon-only" />
             </IonButton>
           </IonButtons>
         </IonToolbar>
