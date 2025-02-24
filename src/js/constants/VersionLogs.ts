@@ -1,25 +1,63 @@
-export const APP_CURRENT_VERSION_NAME = "4.5.0";
-export const APP_CURRENT_VERSION_CODE = 40500;
-export const APP_DATE_UPDATED = "Feb 05 2024"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "5.0.0";
+export const APP_CURRENT_VERSION_CODE = 50000;
+export const APP_DATE_UPDATED = "Feb 24 2024"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"];
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"];
 export const UPDATABLE_GAMES_APP_CODES = {
   SFV: {
-    FrameData: 94,
+    FrameData: 95,
     GameDetails: 2,
   },
   GGST: {
-    FrameData: 121,
+    FrameData: 122,
     GameDetails: 7,
   },
   SF6: {
-    FrameData: 46,
+    FrameData: 48,
     GameDetails: 11,
   },
 };
 
 export const VERSION_LOGS = {
+  "5.0.0": {
+    "Frame Kill Generator": [
+      "Premium users can now select 'Knockdown with anything'. This will search through all knockdowns for a setup to a given meaty",
+      "Added Safe Jump as a 'Target Meaty' in the Frame Kill Generator",
+      "Added setup length dropdown, to filter setups to one or two moves",
+      "Setup contains can now filter for natural meaties",
+    ],
+    "General Calculator Improvements": [
+      "All calculators have been redesigned and rewritten to improve both the experience and the functionality",
+      "All calculators should show more options in dropdowns and results now, due to improved parsing of data",
+      "Frame Trap Lister, Move Punisher & String Interrupter have new filters to reduce the amount of options listed, hopefully making the ones left more useful",
+      "Added mini tables for viewing a selected move's relevant data",
+      "Move naming can be changed directly from the calculator popover menu",
+      "Fixed several bugs across all calculators",
+      "Rewrote the calculator help screens",
+      "Please let me know if you find a bug in a calculator!",
+    ],
+    "Frame Meter improvements": [
+      "Improved the Frame Meter's parsing of data. Please continue to report any anomalies to me!",
+    ],
+    "Table Search Improvements": [
+      "Improved the search table search's parsing of data.",
+      "Moves are parsed in the same way they are for the frame meter. You can also search oh:kd to show all knockdown moves",
+    ],
+    "Added Full Sequence section": [
+      "We now have data points for both individual hits of a target combo/followup move, and their context in the broader sequence",
+      "By default we now show the individual move's info",
+      "Full sequence data can be viewed by adding its column to the table, or by looking at the move's detail page",
+      "We're working on rolling this data out across the cast, bear with us!",
+    ],
+    "Access Move Name settings from more screens": [
+      "You can access the move name settings (official, common, input etc.) from more pages via the popover button in the top right",
+    ],
+    "Other Improvements": [
+      "FAT should work better on older devices due to some performance optimizations",
+      "Tweaked colours and icons to be more consistent",
+    ],
+  },
   "4.5.0": {
     "Added Mai in SF6": [
       "We've added preliminary Mai data to FAT",
