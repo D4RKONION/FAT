@@ -4,11 +4,7 @@ Overhauled Frame Data Parsing
 - Huge improvements to how FAT is able to parse the data for things like Calculators and the Frame Meter mean FAT can display more and higher quality information and options
 
 Calculator Upgrades
-- All of the calculators have received some much needed care, making them easier to use & more accurate. Many of the calculators also received new features and options. Check em out!
-- Frame Kill Generator has a new option for Premium users, which allows you to search every knockdown for a target meaty. I'm finding it very useful for my own play!
-
-Full Sequence Data
-- We're changing how we display data for moves that are part of a sequence like Target Combos. By default we will now show the individual hit's data. The full sequence data can be found as both a data column option and in the move's detail page
+- All of the calculators have received some much needed care, making them easier to use & more accurate. Many of the calculators also received new features and options.
 
 So much more!
-- This is a huge update with lots to read about! Check out the full details in "What's New" when FAT launches
+- Check out the full details in "What's New" when FAT launches
