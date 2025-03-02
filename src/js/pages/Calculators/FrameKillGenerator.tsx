@@ -125,8 +125,11 @@ const FrameKillGenerator = () => {
       };
     }
     if (targetMeaty === "Safe Jump") {
+      const match = selectedCharacters["playerOne"].stats.fJump.match(/\+(\d+)\)/);
+      const fJumpLandingFrames = match ? Number(match[1]) : 0; // Extract number after '+'
+
       playerOneMoves["Safe Jump"] = {
-        startup: parseBasicFrames(selectedCharacters["playerOne"].stats.fJump) - Number(selectedCharacters["playerOne"].stats.fJump.match(/(?<=\+)(\d+)(?=\))/)[1]) + 1,
+        startup: parseBasicFrames(selectedCharacters["playerOne"].stats.fJump) - fJumpLandingFrames + 1,
         active: 1,
         atkLvl: "M",
       };
