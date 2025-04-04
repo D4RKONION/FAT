@@ -8,6 +8,13 @@ button {
   background: none;
 }
 
+// Fixes a current bug in FF which causes page flicker on router transitions.
+// Can be removed once FF has fixed the issue
+// More details here: https://github.com/D4RKONION/FAT/issues/80
+.ion-page {
+  transform: scale(1)
+}
+
 ion-header {
   &.header-ios {
     ion-toolbar:last-of-type {
