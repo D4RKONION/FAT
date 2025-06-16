@@ -1,7 +1,7 @@
 import "../../style/pages/Settings.scss";
 
 import { IonContent, IonPage, IonItem, IonLabel, IonSelect, IonSelectOption, IonList, IonListHeader, IonIcon, useIonViewDidEnter, isPlatform, IonToast, IonGrid, IonToggle, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle } from "@ionic/react";
-import { chevronForward, mailOutline, starOutline, heartOutline, openOutline, globeOutline, logoGithub, bulbOutline, lockClosedOutline } from "ionicons/icons";
+import { chevronForward, mailOutline, starOutline, heartOutline, openOutline, globeOutline, logoGithub, bulbOutline, lockClosedOutline, logoDiscord } from "ionicons/icons";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
@@ -139,6 +139,13 @@ const Settings = () => {
                 <h2>Bluesky</h2>
               </IonLabel>
               <IonIcon icon={logoBluesky} slot="start" />
+              <IonIcon icon={openOutline} slot="end" />
+            </IonItem>
+            <IonItem detail={false} lines="none" href="https://discord.gg/3wzdxPs" target="_system" button>
+              <IonLabel>
+                <h2>Discord</h2>
+              </IonLabel>
+              <IonIcon icon={logoDiscord} slot="start" />
               <IonIcon icon={openOutline} slot="end" />
             </IonItem>
             <IonItem detail={false} lines="none" href="https://github.com/D4RKONION/FAT" target="_system" button>
