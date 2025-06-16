@@ -1,6 +1,6 @@
-export const APP_CURRENT_VERSION_NAME = "5.1.0";
-export const APP_CURRENT_VERSION_CODE = 50100;
-export const APP_DATE_UPDATED = "Apr 04 2025"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "5.2.0";
+export const APP_CURRENT_VERSION_CODE = 50200;
+export const APP_DATE_UPDATED = "Jun 16 2025"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"];
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"];
@@ -10,16 +10,25 @@ export const UPDATABLE_GAMES_APP_CODES = {
     GameDetails: 2,
   },
   GGST: {
-    FrameData: 123,
-    GameDetails: 8,
+    FrameData: 124,
+    GameDetails: 9,
   },
   SF6: {
-    FrameData: 49,
+    FrameData: 55,
     GameDetails: 12,
   },
 };
 
 export const VERSION_LOGS = {
+  "5.2.0": {
+    SF6: ["Added Elena"],
+    GGST: ["Added Unika"],
+    Discord: ["Did you know we have a discord? It's a popular hangout for many of the community labbers and tech wizards. [Join us](https://discord.gg/3wzdxPs)!"],
+    "Bug Fixes": [
+      "Fixed a bug where the frame data meter wasn't parsing certain moves' active frames correctly",
+      "Fixed a bug where the Version Logs weren't showing if a frame data file had been remote updated",
+    ],
+  },
   "5.1.0": {
     GGST: ["Added Venom, thanks as always to Jojo for filling in the frame data!"],
     SF6: ["Prepped the app for Elena"],

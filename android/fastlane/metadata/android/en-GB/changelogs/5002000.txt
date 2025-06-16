@@ -1,0 +1,4 @@
+Ver 5.2.0
+SF6: Added Elena
+GGST: Added Unika
+Fixed a few minor bugs, details in app
