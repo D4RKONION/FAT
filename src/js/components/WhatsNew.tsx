@@ -1,4 +1,5 @@
 import { IonButton, IonButtons, IonContent, IonGrid, IonHeader, IonModal, IonTitle, IonToolbar, isPlatform } from "@ionic/react";
+import ReactMarkdown from "react-markdown";
 import { useSelector, useDispatch } from "react-redux";
 
 import "../../style/components/WhatsNew.scss";
@@ -43,7 +44,11 @@ const WhatsNewModal = () => {
                     {VERSION_LOGS[APP_CURRENT_VERSION_NAME][heading].map((newThing, index) =>
                       !(!isPlatform("ios") && newThing.toLowerCase().startsWith("ios") || !isPlatform("android") && newThing.toLowerCase().startsWith("android")) &&
                       <li key={heading+index}>
-                        {newThing}
+                        <ReactMarkdown
+                          components={{
+                            p: ({ node, children }) => <span>{children}</span>,
+                          }}
+                          children={newThing} />
                       </li>
                       
                     )}
