@@ -1,3 +1,4 @@
-Ver 5.1.0
-- GGST: Added Vencom
-- SF6: Prepped for Elena
+Ver 5.2.0
+- SF6: Added Elena
+- GGST: Added Unika
+- Fixed a few minor bugs, details in app
