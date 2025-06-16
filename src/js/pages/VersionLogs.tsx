@@ -10,18 +10,22 @@ const VersionLogs = () => {
   const [fileDetails, setFileDetails] = useState({});
 
   useEffect(() => {
-    const getFileDetails = () => {
+    const getFileDetails = async () => {
       const tempFileDetails = {};
-      UPDATABLE_GAMES.forEach(async gameName => {
-        tempFileDetails[gameName] = {};
-        tempFileDetails[gameName].frameDataCode = await Preferences.get({key: `ls${gameName}FrameDataCode`});
-        tempFileDetails[gameName].frameDataLastUpdated = await Preferences.get({key: `ls${gameName}FrameDataLastUpdated`});
-        tempFileDetails[gameName].gameDetailsCode = await Preferences.get({key: `ls${gameName}GameDetails`});
-        tempFileDetails[gameName].gameDetailsLastUpdated = await Preferences.get({key: `ls${gameName}GameDetailsLastUpdated`});
-      });
+  
+      await Promise.all(
+        UPDATABLE_GAMES.map(async gameName => {
+          tempFileDetails[gameName] = {
+            frameDataCode: await Preferences.get({ key: `ls${gameName}FrameDataCode` }),
+            frameDataLastUpdated: await Preferences.get({ key: `ls${gameName}FrameDataLastUpdated` }),
+            gameDetailsCode: await Preferences.get({ key: `ls${gameName}GameDetails` }),
+            gameDetailsLastUpdated: await Preferences.get({ key: `ls${gameName}GameDetailsLastUpdated` }),
+          };
+        })
+      );
+  
       setFileDetails(tempFileDetails);
     };
-		
     getFileDetails();
   }, []);
 	
@@ -81,7 +85,7 @@ const VersionLogs = () => {
                         (fileDetails[gameName].frameDataCode && fileDetails[gameName].frameDataCode.value) || UPDATABLE_GAMES_APP_CODES[gameName].FrameData
                       }
                     </h3>
-                    {fileDetails[gameName].frameDataLastUpdated && fileDetails[gameName].frameDataLastUpdated.value ?
+                    {fileDetails[gameName].frameDataCode && Number(fileDetails[gameName].frameDataCode.value) > UPDATABLE_GAMES_APP_CODES[gameName].FrameData ?
                       <h3>Remote updated on {fileDetails[gameName].frameDataLastUpdated && fileDetails[gameName].frameDataLastUpdated.value}</h3>
                       : <h3>Using local app file</h3>
 
@@ -96,7 +100,7 @@ const VersionLogs = () => {
                         (fileDetails[gameName].gameDetailsCode && fileDetails[gameName].gameDetailsCode.value) || UPDATABLE_GAMES_APP_CODES[gameName].GameDetails
                       }
                     </h3>
-                    {fileDetails[gameName].gameDetailsLastUpdated && fileDetails[gameName].gameDetailsLastUpdated.value ?
+                    {fileDetails[gameName].gameDetailsCode && Number(fileDetails[gameName].gameDetailsCode.value) > UPDATABLE_GAMES_APP_CODES[gameName].GameDetails ?
                       <h3>Remote updated on {fileDetails[gameName].gameDetailsLastUpdated && fileDetails[gameName].gameDetailsLastUpdated.value}</h3>
                       : <h3>Using local app file</h3>
 
