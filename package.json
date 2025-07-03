@@ -1,6 +1,6 @@
 {
   "name": "fat-os",
-  "version": "5.2.0",
+  "version": "5.2.1",
   "private": true,
   "dependencies": {
     "@babel/core": "^7.22.6",

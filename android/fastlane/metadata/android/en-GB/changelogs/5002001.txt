@@ -1,0 +1,2 @@
+Ver 5.2.1
+- Fixed a bug where Jamie's Frame Kill Generator outputs were extremely limited

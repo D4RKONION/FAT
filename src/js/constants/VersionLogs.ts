@@ -1,6 +1,6 @@
-export const APP_CURRENT_VERSION_NAME = "5.2.0";
-export const APP_CURRENT_VERSION_CODE = 50200;
-export const APP_DATE_UPDATED = "Jun 16 2025"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "5.2.1";
+export const APP_CURRENT_VERSION_CODE = 50201;
+export const APP_DATE_UPDATED = "Jul 03 2025"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"];
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"];
@@ -20,6 +20,13 @@ export const UPDATABLE_GAMES_APP_CODES = {
 };
 
 export const VERSION_LOGS = {
+  "5.2.1": {
+    "Bug Fixes": [
+      "Fixed a bug where Jamie's Frame Kill Generator outputs were extremely limited. Thanks to Nonomis for the report!",
+    ],
+    Discord: ["Did you know we have a discord? It's a popular hangout for many of the community labbers and tech wizards. [Join us](https://discord.gg/3wzdxPs)!"],
+
+  },
   "5.2.0": {
     SF6: ["Added Elena"],
     GGST: ["Added Unika"],
