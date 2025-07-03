@@ -101,7 +101,7 @@ const moveSetLoop = (currentLateByFramesSearch, targetMeatyFrames, currentActive
     const firstSetupMove = firstOkiMoveModel[firstOkiMove];
     // Exlude specific moves which make no sense as oki setups, but which are hard to quantify generically
     if (EXCLUDED_SETUP_MOVES?.[activeGame]?.[selectedCharacters?.playerOne?.name]?.includes(firstSetupMove?.moveName)) {
-      return;
+      continue;
     }
 
     // Parse the move's active frames if it has non-number active amount of them
@@ -125,7 +125,7 @@ const moveSetLoop = (currentLateByFramesSearch, targetMeatyFrames, currentActive
       for (const secondOkiMove in playerOneMoves) {
         const secondSetupMove = playerOneMoves[secondOkiMove];
         if (EXCLUDED_SETUP_MOVES?.[activeGame]?.[selectedCharacters?.playerOne?.name]?.includes(secondSetupMove?.moveName)) {
-          return;
+          continue;
         }
 
         if (typeof secondSetupMove["active"] === "string" && (secondSetupMove["active"].includes("(") || secondSetupMove["active"].includes("*")) && canParseBasicFrames(secondSetupMove["startup"])) {
@@ -146,7 +146,7 @@ const moveSetLoop = (currentLateByFramesSearch, targetMeatyFrames, currentActive
             const thirdSetupMove = playerOneMoves[thirdOkiMove];
 
             if (EXCLUDED_SETUP_MOVES?.[activeGame]?.[selectedCharacters?.playerOne?.name]?.includes(thirdSetupMove?.moveName)) {
-              return;
+              continue;
             }
             
             if (typeof thirdSetupMove["active"] === "string" && (thirdSetupMove["active"].includes("(") || thirdSetupMove["active"].includes("*")) && canParseBasicFrames(thirdSetupMove["startup"])) {
