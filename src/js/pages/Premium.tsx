@@ -140,7 +140,7 @@ const Premium = () => {
             <h1>Future Features</h1>
             <hr></hr>
             <p>While I make a concerted effort to keep almost everything in FAT free, it does take me a huge amount of time to add and test new features that will work across all games.</p>
-            <p>Purchasing Premium allows me to continue updating FAT into the future and I will continue to carefully choose additional feautres to add to Premium as a thank you for your support!</p>
+            <p>Purchasing Premium allows me to continue updating FAT into the future and I will continue to carefully choose additional features to add to Premium as a thank you for your support!</p>
           </section>
 
         </article>
