@@ -90,6 +90,11 @@ const DataTable = ({frameData, searchText, scrollToBottom, clearSearchText}: Pro
       if (lowerKey === "info" && moveData["extraInfo"]) {
         return moveData["extraInfo"].some(entry => entry.toLowerCase().includes(value.trim().toLowerCase()));
       }
+
+      // Handle `lvl=` special case
+      if (lowerKey === "lvl" && moveData["atkLvl"]) {
+        return moveData["atkLvl"].toLowerCase().includes(value.trim().toLowerCase());
+      }
       
       // Handle oH being KD
       if (lowerKey === "oh" && moveData["onHit"] && isNaN(moveData["onHit"]) && moveData["onHit"].includes("HKD") && value.includes("hkd")) {
