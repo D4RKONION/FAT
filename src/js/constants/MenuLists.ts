@@ -510,7 +510,7 @@ export const RES_FAT_LIST = {
         url: "https://bsky.app/profile/d4rkonion.bsky.social",
       },
       Jupli: {
-        desc: "My friend Gearóid who does the iOS release and answers my many questions. Thank god it's free, I couldn't afford him.",
+        desc: "My friend Gary who does the iOS release and answers my many questions. Thank god it's free, I couldn't afford him.",
         url: "https://bsky.app/profile/jupli.com",
       },
     },

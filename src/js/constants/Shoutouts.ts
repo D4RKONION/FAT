@@ -1,6 +1,6 @@
 export const DEVS = {
   "D4RK ONION": "This app is coded, designed and maintained by Paul O'Shea (<a href=\"https://bsky.app/profile/d4rkonion.bsky.social\" target=\"_system\">@D4RKONION)</a>. Thank you for using it! I've been developing FAT continuously since 2014, and I'm so happy that I've been able to give back to this community which has given me so much.",
-  "Gearóid Moroney": "While I coded the app on my own, there's no way it would be here without the constant support, advice and mentoring of Gearóid Moroney. He also publishes the iOS version! Check out some of his fantastic products that he releases as <a href=\"https://jupli.com/\" target=\"_system\">Jupli</a> such as <a href=\"https://play.google.com/store/apps/details?id=com.syncostyle.onethingchristmas\" target=\"_system\">Christmas Countdown</a>, and <a href=\"https://play.google.com/store/apps/details?id=com.jupli.meditate\" target=\"_system\">Just Meditate</a>",
+  Gary: "While I coded the app on my own, there's no way it would be here without the constant support, advice and mentoring of Gary. He also publishes the iOS version! Check out some of his fantastic products that he releases as <a href=\"https://jupli.com/\" target=\"_system\">Jupli</a> such as <a href=\"https://play.google.com/store/apps/details?id=com.syncostyle.onethingchristmas\" target=\"_system\">Christmas Countdown</a>, and <a href=\"https://play.google.com/store/apps/details?id=com.jupli.meditate\" target=\"_system\">Just Meditate</a>",
 };
 
 export const FRIENDS = {
@@ -14,6 +14,7 @@ export const DATA_TEAM = {
   adam: "He's a Urien player, but don't let that put you off, <a href=\"https://bsky.app/profile/adam5522.bsky.social\" target=\"_system\">adam</a> did a ton of work on the SFV: CE update and beyond (and no, I haven't typo'd his name)",
   MonkUnit: "Our newest SFV frame data member, <a href=\"https://bsky.app/profile/monkunit.bsky.social\" target=\"_system\">MonkUnit</a> did a mammoth amount of work adding Hit Confirm Windows to the app!",
   JoJo: "You might know <a href=\"https://bsky.app/profile/nchjojo.bsky.social\" target=\"_system\">JoJo</a> for his extensive beginner spreadsheets for <a href=\"http://bit.ly/NCH_SFV\" target=\"_system\">SFV</a> and <a href=\"http://bit.ly/NCH_GGST\" target=\"_system\">GGST</a>. He's put in a huge amount of work testing, homogenising and fleshing out the GGST data",
+  Spabobin: " <a href=\"https://bsky.app/profile/spabobin.bsky.social\" target=\"_system\">Spabobin</a> has been helping out with data on many of our games as he works to make the Supercombo wiki the best in the business.",
 };
 
 export const AWESOME_PEOPLE = [
@@ -37,7 +38,7 @@ export const DONATORS = {
   },
   "AE 2012": {
     "Hit Box Arcade": "<a href=\"http://www.hitboxarcade.com\" target=\"_system\">Hit Box arcade</a> controller for fighting games, with video tutorials and a community full of knowledge.",
-    "Gearóid Moroney": "As always, most of my programming conundrums were solved by JavaScript Guru, Gearóid Moroney. Check out some of his projects like \"<a href=\"http://gearoid.me/pokemon\" target=\"_system\">Who's That Pokemon</a>\" and \"<a href=\"https://play.google.com/store/apps/details?id=com.jupli.mapquiz\" target=\"_system\">Map Quiz</a>\"",
+    Gary: "As always, most of my programming conundrums were solved by JavaScript Guru, Gay. Check out some of his projects like \"<a href=\"http://gearoid.me/pokemon\" target=\"_system\">Who's That Pokemon</a>\" and \"<a href=\"https://play.google.com/store/apps/details?id=com.jupli.mapquiz\" target=\"_system\">Map Quiz</a>\"",
     Supafreak187: "NYC FGC check out MashFest @ <a href=\"https://facebook.com/mashfestnyc\" target=\"_system\">Facebook.com/MashFestNYC",
     Dhami: "Dhami says shoutouts to all you Vampire Saviour players out there!",
     KeyServ2: "KeyServ2 says - \"I post acoustic guitar jams at <a href=\"http://www.youtube.com/keyserv2\" target=\"_system\">youtube.com/keyserv2</a> They're all pretty ok.  This USF4 app is awesome.  Donate.\"",
