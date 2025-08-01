@@ -14,8 +14,8 @@ export const UPDATABLE_GAMES_APP_CODES = {
     GameDetails: 9,
   },
   SF6: {
-    FrameData: 55,
-    GameDetails: 12,
+    FrameData: 58,
+    GameDetails: 13,
   },
 };
 
