@@ -41,9 +41,11 @@ const getTotalFramesForMove = (moveEntry) => {
   } else if (moveEntry["multiActive"]) {
     // If we have multiActive, last active frame + recovery to calculate total
     return moveEntry["multiActive"][(moveEntry["multiActive"].length - 1)] + parseBasicFrames(moveEntry["recovery"]);
+  } else if (moveEntry["total"] && moveEntry["total"].includes("(") && moveEntry["extraInfo"].find(infoEntry => infoEntry.includes("extra recovery frame"))) {
+    return parseBasicFrames(moveEntry["total"].match(/\((\d+)\)/)?.[1]);
   } else {
     // otherwise add s, a & r (-1 because last s and first a are the same)
-    return (parseBasicFrames(moveEntry["startup"]) - 1) + parseBasicFrames(moveEntry["active"]) + parseBasicFrames(moveEntry["recovery"]); //
+    return (parseBasicFrames(moveEntry["startup"]) - 1) + parseBasicFrames(moveEntry["active"]) + parseBasicFrames(moveEntry["recovery"]); 
   }
 };
 
