@@ -70,6 +70,7 @@ const MenuEntry = ({menuEntryKey, wideMenuIsOpen}: Props) => {
       iosIcon: movesListIcon,
       mdIcon: movesListIcon,
       modeName: "moveslist",
+      noDisplay: ["3S", "USF4"],
     },
     combos: {
       title: "Combos & Tech",

@@ -23,7 +23,8 @@
     "El Fuerte",
     "Evil Ryu",
     "Fei Long",
-    "Gen",
+    "Gen (Mantis)",
+    "Gen (Crane)",
     "Gouken",
     "Guile",
     "Guy",
@@ -92,6 +93,11 @@
           "dataTableHeader": "xx",
           "detailedHeader": "Cancels To",
           "dataFileKey": "xx"
+        },
+        "atkLvl": {
+          "dataTableHeader": "atkLvl",
+          "detailedHeader": "Attack Level",
+          "dataFileKey": "atkLvl"
         }
       },
       {
@@ -104,6 +110,20 @@
           "dataTableHeader": "stun",
           "detailedHeader": "Stun",
           "dataFileKey": "stun"
+        },
+        "meterGain": {
+          "dataTableHeader": "Meter",
+          "detailedHeader": "Meter Gain",
+          "dataFileKey": "meterGain"
+        }
+      }
+    ],
+    "Extra Information": [
+      {
+        "extraInfo": {
+          "dataTableHeader": "Notes",
+          "detailedHeader": "Extra Info",
+          "dataFileKey": "extraInfo"
         }
       }
     ]
@@ -116,13 +136,46 @@
         "stun": "Stun"
       },
       {
+        "throwRange": "Throw Range",
         "wUltra": "Double Ultra Scaling"
       }
     ],
-    "Ground Movement": [
+    "Forward Dash": [
       {
-        "bDash": "Back Dash Frames",
-        "fDash": "Forward Dash Frames"
+        "fDash": "f.Dash Frames",
+        "fDashDist": "f.Dash Dist"
+      }
+    ],
+    "Back Dash": [
+      {
+        "bDash": "b.Dash Frames",
+        "bDashDist": "b.Dash Dist"
+
+      },
+      {
+        "bDashInvuln": "b.Dash Invul",
+        "bDashAir": "b.Dash Air",
+        "bDashGround": "b.Dash Ground"
+      }
+    ],
+    "Jumping": [
+      {
+        "diagJump": "Diag Jump Frames",
+        "ntrlJump": "N Jump Frames"
+      },
+      {
+        "fJumpDist": "F Jump Dist",
+        "bJumpDist": "B Jump Dist",
+        "jumpApex": "Jump Apex"
+      }
+    ],
+    "Wake up Timing": [
+      {
+        "wakeFaceUp": "Wake Up Face Up"
+      },
+      {
+        "wakeFaceDown": "Wake Up Face Down"
+
       }
     ],
     "Focus Attack": [
@@ -141,5 +194,5 @@
     "stun": "Stun",
     "wUltra": "W.Ultra"
   },
-  "defaultLandscapeCols": {"startup": "S", "active": "A", "recovery": "R", "onBlock": "oB", "onHit": "oH", "dmg":"dmg", "stun":"stun", "xx": "xx"}
+  "defaultLandscapeCols": {"startup": "S", "active": "A", "recovery": "R", "onBlock": "oB", "onHit": "oH", "xx": "xx", "atkLvl": "atkLvl", "dmg":"dmg", "stun":"stun", "meterGain": "meterGain"}
 }

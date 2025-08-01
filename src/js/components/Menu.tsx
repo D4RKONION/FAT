@@ -99,6 +99,7 @@ const Menu = () => {
       iosIcon: movesListIcon,
       mdIcon: movesListIcon,
       modeName: "moveslist",
+      noDisplay: ["3S", "USF4"],
     },
     {
       title: "Combos & Tech",
