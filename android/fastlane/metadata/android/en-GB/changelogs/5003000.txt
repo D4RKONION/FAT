@@ -1,0 +1,12 @@
+Ver 5.3.0
+
+SF6
+- Added Sagat
+- Added searching by attack level. Try lvl=H on the frame data page
+  
+USF4
+- Massive update to the USF4 data courtesy of Supercombo wiki legend Spabobin
+- This includes tons of new characters stats, table columns and extra info for moves including invul frames!
+
+Various bug fixes
+- More details in app

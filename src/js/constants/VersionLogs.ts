@@ -1,6 +1,6 @@
-export const APP_CURRENT_VERSION_NAME = "5.2.1";
-export const APP_CURRENT_VERSION_CODE = 50201;
-export const APP_DATE_UPDATED = "Jul 03 2025"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "5.3.0";
+export const APP_CURRENT_VERSION_CODE = 50300;
+export const APP_DATE_UPDATED = "Aug 01 2025"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"];
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"];
@@ -20,11 +20,27 @@ export const UPDATABLE_GAMES_APP_CODES = {
 };
 
 export const VERSION_LOGS = {
+  "5.3.0": {
+    SF6: [
+      "Added Sagat",
+      "Added searching by attack level. Try lvl=H on the frame data page",
+    ],
+    USF4: [
+      "Massive update to the USF4 data courtesy of Supercombo wiki legend [@Spabobin](https://twitter.com/TsuguSpabobin)",
+      "This includes tons of new characters stats, table columns and extra info for moves including invul frames!",
+    ],
+    "Bug Fixes": [
+      "Fixed a bug where the VT switcher wasn't appearing sometimes",
+      "Fixed some Frame Trap Calculator bugs",
+      "Frame Kill Generator now takes into account moves which gain extra recovery on whiff",
+    ],
+    "Meal Mage!": ["I recently released another app! It's a cozy meal planning app, I'd love if you could [check it out](https://fullmeter.com/mealmage/)"],
+
+  },
   "5.2.1": {
     "Bug Fixes": [
       "Fixed a bug where Jamie's Frame Kill Generator outputs were extremely limited. Thanks to Nonomis for the report!",
     ],
-    Discord: ["Did you know we have a discord? It's a popular hangout for many of the community labbers and tech wizards. [Join us](https://discord.gg/3wzdxPs)!"],
 
   },
   "5.2.0": {
