@@ -80,7 +80,7 @@ const FrameDataSubHeader = ({ charName, characterHasStates, opponentName, charSt
                 <span className="player-tag inactive-player-tag">{activePlayer === "playerTwo" ? "P1": "P2"}</span>
               </div>
             </div>
-            {characterHasStates &&
+            {(characterHasStates || activeGame === "SFV") &&
               <div className="state-changer">
                 {activeGame === "SFV" ?
                   <SegmentSwitcher
