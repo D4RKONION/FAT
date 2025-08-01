@@ -105,14 +105,16 @@ const FrameTrapChecker = () => {
                   playerOneMoves[move].moveType !== "throw" &&
                   playerOneMoves[move].moveType !== "command-grab" &&
                   !playerOneMoves[move].airmove &&
-                  !isNaN(playerOneMoves[move].onBlock) &&
+                  canParseBasicFrames(playerOneMoves[move].onBlock) &&
                   !playerOneMoves[move].nonHittingMove &&
                   !playerOneMoves[move].antiAirMove &&
                   !(playerOneMoves[move].xx.includes("su") && (playerOneMoves[move].moveButton === "2P" || playerOneMoves[move].moveButton === "2K")) &&
+                  !(playerOneMoves[move].xx.length === 1 && playerOneMoves[move].xx.includes("tc")) &&
+
                   !playerOneMoves[move].xx.every(entry => entry === "vt1") &&
                   !playerOneMoves[move].xx.every(entry => entry === "vt2") &&
                   !playerOneMoves[move].xx.every(entry => entry === "FADC") &&
-                  !(isNaN(playerOneMoves[move].recovery))
+                  canParseBasicFrames(playerOneMoves[move].recovery)
                 ).map(move =>
                   <IonSelectOption key={`firstMove-${move}`} value={move}>{move}</IonSelectOption>
                 )
@@ -221,15 +223,15 @@ const FrameTrapChecker = () => {
                 </div>
               ) : linkOrCancel === "cancel" ? (
                 <div className="answer-card">
-                  {(-1 * (firstMoveBlockStun + (1 - 3) - secondMoveStartup) > 0) && secondMoveStartup ? (
+                  {(-1 * (firstMoveBlockStun - secondMoveStartup) > 0) && secondMoveStartup ? (
                     <div>
-                      <p>There is a <b>gap of {-1 * (firstMoveBlockStun + (1 - 3) - secondMoveStartup)} frames</b> in the string</p>
+                      <p>There is a <b>gap of {-1 * (firstMoveBlockStun - secondMoveStartup)} frames</b> in the string</p>
                       <ul><li>{firstMove} xx {secondMove}</li></ul>
                       <p>when {firstMove} connects on active frame 1 and is cancelled immediately.</p>
                     </div>
-                  ) : (-1 * (firstMoveBlockStun + (1 - 3) - secondMoveRecovery) > 0) && !secondMoveStartup && secondMoveRecovery ? (
+                  ) : (-1 * (firstMoveBlockStun - secondMoveRecovery) > 0) && !secondMoveStartup && secondMoveRecovery ? (
                     <div>
-                      <p>There is a <b>gap of {-1 * (firstMoveBlockStun + (1 - 3) - secondMoveRecovery)} frames</b> in the string</p>
+                      <p>There is a <b>gap of {-1 * (firstMoveBlockStun - secondMoveRecovery)} frames</b> in the string</p>
                       <ul><li>{firstMove} xx {secondMove}</li></ul>
                       <p>when {firstMove} connects on active frame 1 and is cancelled immediately.</p>
                     </div>
