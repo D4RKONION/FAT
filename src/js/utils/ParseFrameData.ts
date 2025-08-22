@@ -102,3 +102,43 @@ export const parseFrameMeterActiveFrames = (valueToParse: string): FrameMeterBlo
 
   return segments;
 };
+
+const ALPHA_KEYS = new Set(["moveName", "guardLevel", "atkLvl", "moveType"]);
+
+type SortOptions = {
+  ascending?: boolean;
+};
+
+function normalize(val: any): any {
+  if (Array.isArray(val)) {
+    return val.join(" "); // collapse arrays into a string
+  }
+  return val;
+}
+
+export function byKey(key: string, { ascending = true }: SortOptions = {}) {
+  return ([, a]: [string, any], [, b]: [string, any]) => {
+    let valA = normalize(a[key]);
+    let valB = normalize(b[key]);
+
+    if (!ALPHA_KEYS.has(key) && canParseBasicFrames(valA) && canParseBasicFrames(valB)) {
+      valA = parseBasicFrames(valA);
+      valB = parseBasicFrames(valB);
+      return ascending ? valA - valB : valB - valA;
+    }
+
+    return ascending
+      ? String(valA).localeCompare(String(valB))
+      : String(valB).localeCompare(String(valA));
+  };
+}
+
+export function sortFrameData(
+  data: [string, any][],
+  sortKey?: string,
+  options: { ascending?: boolean } = {}
+) {
+  if (!sortKey) return data; // no sorting, just return as-is
+
+  return [...data].sort(byKey(sortKey, options)); // copy + sort
+}

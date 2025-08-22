@@ -18,6 +18,9 @@
 
     max-height: 44px;
     overflow: hidden;
+    ion-icon {
+      font-size: 11px;
+    }
 
     &.move-name {
       border-right-color: var(--fat-primary);

@@ -8,7 +8,7 @@ import { PlayerData } from "../types";
 import DataTableRow from "./DataTableRow";
 import { activeGameSelector, activePlayerSelector, dataTableSettingsSelector, orientationSelector, selectedCharactersSelector } from "../selectors";
 import DataTableHeader from "./DataTableHeader";
-import { parseBasicFrames, parseMultiActiveFrames } from "../utils/ParseFrameData";
+import { parseBasicFrames, parseMultiActiveFrames, sortFrameData } from "../utils/ParseFrameData";
 
 type Props = {
   frameData: PlayerData["frameData"];
@@ -32,6 +32,9 @@ const DataTable = ({frameData, searchText, scrollToBottom, clearSearchText}: Pro
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const activePlayer = useSelector(activePlayerSelector);
 
+  const [dataSortKey, setDataSortKey] = useState(undefined);
+  const [dataSortAscending, setDataSortAscending] = useState(true);
+
   // Decide whether to use the default 5 columns or the user chosen ones
   useEffect(() => {
     if (currentOrientation === "landscape" || xScrollEnabled) {
@@ -48,13 +51,19 @@ const DataTable = ({frameData, searchText, scrollToBottom, clearSearchText}: Pro
   const [displayOnlyStateMoves, setDisplayOnlyStateMoves] = useState(false);
 
   useEffect(() => {
-    const firstMove = selectedCharacters[activePlayer].frameData[Object.keys(selectedCharacters[activePlayer].frameData)[0]];
-    if (firstMove.i === 0) {
-      setDisplayOnlyStateMoves(true);
-    } else {
-      setDisplayOnlyStateMoves(false);
+    const charData = selectedCharacters[activePlayer].frameData;
+    const moves = Object.values(charData) as any[];
+
+    setDisplayOnlyStateMoves(moves[0]?.i === 0);
+
+    if (dataSortKey) {
+      const keyExists = moves.some(move => dataSortKey in move);
+      if (!keyExists) {
+        setDataSortKey(undefined);
+        setDataSortAscending(true);
+      }
     }
-  }, [selectedCharacters, activePlayer]);
+  }, [selectedCharacters, activePlayer, dataSortKey]);
 
   // Handle filtering the frame data by searchText
   const searchableHeaders = {};
@@ -144,6 +153,20 @@ const DataTable = ({frameData, searchText, scrollToBottom, clearSearchText}: Pro
     );
   }
 
+  const handleHeaderClick = (headerName: string) => {
+    setDataSortKey((prevKey) => {
+      // same column? flip direction
+      if (prevKey === headerName) {
+        setDataSortAscending((prevAsc) => !prevAsc);
+        return prevKey; // key stays the same
+      }
+
+      // new column? reset direction to ascending
+      setDataSortAscending(true);
+      return headerName;
+    });
+  };
+
   // Used to handle when to place a new page divider (th)
   let previousMoveType;
   let moveTypeHeaderRequired;
@@ -152,18 +175,21 @@ const DataTable = ({frameData, searchText, scrollToBottom, clearSearchText}: Pro
     <div className={`DataTable ${xScrollEnabled ? "xScroll" : "fixed"} ${isPlatform("ios") ? "ios" : ""}`} onScroll={(e) => xScrollEnabled && autoScrollEnabled ? scrollToBottom(e) : false}>
       <table>
         <tbody>
-          {!moveTypeHeadersOn &&
+          {(!moveTypeHeadersOn || dataSortKey) &&
           <DataTableHeader
             colsToDisplay={colsToDisplay}
             moveType={"Move Name"}
             xScrollEnabled={xScrollEnabled}
+            onClick={handleHeaderClick}
+            sortKey={dataSortKey}
+            sortAscending={dataSortAscending}
           />
           }
 
-          {filteredFrameData.map(([moveName, moveData]) => {
+          {sortFrameData(filteredFrameData, dataSortKey, { ascending: dataSortAscending}).map(([moveName, moveData]) => {
             // Group moves into segments, ignoring move types that are
             // unhelpful for users or would otherwise break the table flow
-            if (moveTypeHeadersOn && (previousMoveType !== moveData.moveType) && moveData.moveType && moveData.moveType !== "movement-special" && moveData.moveType !== "taunt" && moveData.moveType !== "command-grab" ) {
+            if (moveTypeHeadersOn && !dataSortKey && (previousMoveType !== moveData.moveType) && moveData.moveType && moveData.moveType !== "movement-special" && moveData.moveType !== "taunt" && moveData.moveType !== "command-grab" ) {
               moveTypeHeaderRequired = true;
               previousMoveType = moveData.moveType;
             } else {
@@ -185,6 +211,7 @@ const DataTable = ({frameData, searchText, scrollToBottom, clearSearchText}: Pro
                     colsToDisplay={colsToDisplay}
                     moveType={moveData.moveType}
                     xScrollEnabled={xScrollEnabled}
+                    onClick={handleHeaderClick}
                   />
                 }
 
