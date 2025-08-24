@@ -1,6 +1,6 @@
-export const APP_CURRENT_VERSION_NAME = "5.3.0";
-export const APP_CURRENT_VERSION_CODE = 50300;
-export const APP_DATE_UPDATED = "Aug 01 2025"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "5.4.0";
+export const APP_CURRENT_VERSION_CODE = 50400;
+export const APP_DATE_UPDATED = "Aug 24 2025"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"];
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"];
@@ -20,6 +20,22 @@ export const UPDATABLE_GAMES_APP_CODES = {
 };
 
 export const VERSION_LOGS = {
+  "5.4.0": {
+    "Table sorting": [
+      "You can now sort the table by any of the available column headers. Simply tap one to sort it in either direction.",
+      "Selecting Move Name resets to the usual order rather than sorting that column",
+      "You can still select the bottom header as a shortcut to open the columns menu (the old functionality)",
+    ],
+    SF6: [
+      "Added SF6 combos menu courtesy of Sestze. Find it in the side menu!",
+    ],
+    GGST: [
+      "Added Lucy",
+      "Added new patch changes",
+    ],
+    "Meal Mage!": ["I recently released another app! It's a cozy meal planning app, I'd love if you could [check it out](https://fullmeter.com/mealmage/)"],
+
+  },
   "5.3.0": {
     SF6: [
       "Added Sagat",
@@ -34,7 +50,6 @@ export const VERSION_LOGS = {
       "Fixed some Frame Trap Calculator bugs",
       "Frame Kill Generator now takes into account moves which gain extra recovery on whiff",
     ],
-    "Meal Mage!": ["I recently released another app! It's a cozy meal planning app, I'd love if you could [check it out](https://fullmeter.com/mealmage/)"],
 
   },
   "5.2.1": {
