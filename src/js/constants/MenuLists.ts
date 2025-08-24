@@ -326,10 +326,6 @@ export const RES_APPS_LIST = {
         desc: "An excellent SFV & SF6 frame data Discord bot",
         url: "https://github.com/ellipses/Yaksha",
       },
-      "Lizard Bot": {
-        desc: "A super useful Discord bot for running tournaments",
-        url: "https://github.com/lizardman301/Lizard-bot-rsf",
-      },
     },
   },
   "SFV PC Stuff": {
