@@ -39,7 +39,7 @@
           --background: var(--fat-ionlist-highlighted-background);
         }
         ion-icon {
-          color: var(--fat-ionlist-icon);
+          color: var(--ion-color-primary);
           &.selected-combo {
             color: var(--fat-ionlist-highlighted-contrast);
           }
@@ -47,19 +47,28 @@
         ion-label {
           h2 {
             white-space: normal;
-            &.combo-comments {
-              margin-top: 10px;
-              color: var(--fat-ionlist-highlighted-contrast);
-            }
           }
           p {
             color: var(--fat-ionlist-label-p);
             &.combo-author {
                margin-top: 11px;
+               color: var(--ion-color-primary-shade-extreme)
               ion-icon {
                 vertical-align: text-top;
               }
             }
+          }
+          ul {
+            margin: 8px 0;
+            padding: 0 30px;
+            li {
+              font-size: 16px;
+              &:not(:last-child) {
+                margin-bottom: 10px;
+              }
+            }
+            
+            
           }
           .meter-container {
             line-height: 0.5;
@@ -69,14 +78,39 @@
               height: 6px;
               display: inline-block;
               margin-right: 2px;
+              &.full {
+                background: var(--fat-meter-full);
+              }
             }
-            .full {
-              background: var(--fat-meter-full);
 
+            .drive-bar {
+              width: 26px;
+              height: 10px;
+              display: inline-block;
+              margin-left: 3px;
+              transform: skewX(25deg);
+              &.full {
+                background: var(--fat-drive-bar);
+                border: 1px solid var(--fat-drive-bar-border);
+              }
             }
+
+            .super-bar {
+              width: 40px;
+              height: 10px;
+              display: inline-block;
+              margin-left: 30px;
+              margin-right: 3px;
+              transform: skewX(25deg);
+              background-color: var(--ion-color-primary);
+            }
+            
             .empty {
               background: var(--fat-meter-empty);
             }
+          }
+          a {
+            color: var(--fat-ionlist-highlighted-contrast)
           }
 
         }

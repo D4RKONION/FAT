@@ -9,8 +9,21 @@ import { setActiveFrameDataPlayer, setModalVisibility } from "../actions";
 import AdviceToast from "../components/AdviceToast";
 import PopoverButton from "../components/PopoverButton";
 import SegmentSwitcher from "../components/SegmentSwitcher";
-import { SFV_COMBOS } from "../constants/Combos";
+import SF6_COMBOS from "../constants/combos/SF6Combos.json";
+import SFV_COMBOS from "../constants/combos/SFVCombos.json";
 import { activeGameSelector, activePlayerSelector, modalVisibilitySelector, selectedCharactersSelector } from "../selectors";
+
+const COMBO_DATA_MAP = {
+  SFV: {
+    data: SFV_COMBOS,
+    credit: "https://docs.google.com/spreadsheets/d/1T9CdiurUdmwAscuGOu_B0dB3IInBr5ksFk1VSGnk5uY/edit?gid=0#gid=0",
+  
+  },
+  SF6: {
+    data: SF6_COMBOS,
+    credit: "https://docs.google.com/spreadsheets/d/1L5hQoTEwKF20IFExQnthy9nVeB23CRuXVplkryvrOKU/edit?gid=0#gid=0",
+  },
+};
 
 const Combos = () => {
   const modalVisibility = useSelector(modalVisibilitySelector);
@@ -29,7 +42,7 @@ const Combos = () => {
           <IonButtons slot="start">
             <IonMenuButton />
           </IonButtons>
-          <IonTitle>{`Combos | ${selectedCharacters[activePlayer].name}`}</IonTitle>
+          <IonTitle>{`Combos - ${selectedCharacters[activePlayer].name}`}</IonTitle>
           <IonButtons slot="end">
             <PopoverButton />
           </IonButtons>
@@ -38,12 +51,11 @@ const Combos = () => {
 
       <IonContent id="combos">
         <IonGrid fixed>
-          {activeGame !== "SFV" || !SFV_COMBOS[selectedCharacters[activePlayer].name]
+          {!COMBO_DATA_MAP?.[activeGame]?.data[selectedCharacters[activePlayer].name]
             ?
             <div>
               <h4>No Combos for {activeGame}.<br/>Sorry!</h4>
               {activeGame === "GGST" && <h5>However, you should check out<br/><a target="_system" href={`https://dustloop.com/wiki/index.php?title=GGST/${selectedCharacters[activePlayer].stats.longName ? selectedCharacters[activePlayer].stats.longName : selectedCharacters[activePlayer].name}/Combos`}>Dustloop's extensive combo guide's</a><br/>for {selectedCharacters.playerOne.name}</h5>}
-              {activeGame === "SF6" && <h5>However, you should check out <br/>SuperCombos's <a target="_system" href={`https://wiki.supercombo.gg/w/Street_Fighter_6/${selectedCharacters[activePlayer].name}/Combos`}>extensive combo guide's</a><br/>for {selectedCharacters.playerOne.name}</h5>}
             </div>
             : <>
               <div className={`segments ${!isPlatform("ios") && "md"}`}>
@@ -56,25 +68,26 @@ const Combos = () => {
                 />
               </div>
               <IonList>
-                {Object.keys(SFV_COMBOS[selectedCharacters[activePlayer].name]).map(comboHeader =>
+                {Object.keys(COMBO_DATA_MAP[activeGame].data[selectedCharacters[activePlayer].name]).map(comboHeader =>
                   <div className="list-section" key={comboHeader}>
                     <IonItemDivider>
                       {comboHeader}
                     </IonItemDivider>
-                    {SFV_COMBOS[selectedCharacters[activePlayer].name][comboHeader].map((comboEntry, index) =>
+                    {COMBO_DATA_MAP[activeGame].data[selectedCharacters[activePlayer].name][comboHeader].map((comboEntry, index) =>
                       <div key={comboEntry.input + index}>
                         {comboEntry.input !== ""
                           ? <IonItem button className={selectedCombo === comboEntry.input && "selected-combo"} onClick={() => {setSelectedCombo(comboEntry.input);}}>
-                            {comboEntry.comments !== "" && <IonIcon className={selectedCombo === comboEntry.input && "selected-combo"} icon={informationCircleOutline} slot="end" />}
+                            {comboEntry.notes !== "" && <IonIcon className={selectedCombo === comboEntry.input && "selected-combo"} icon={informationCircleOutline} slot="end" />}
                             <IonLabel>
                               <h2>
                                 {comboEntry.input}
                               </h2>
                               <p>
-                                {comboEntry.damage && `Damage: ${comboEntry.damage}`}
-                                {comboEntry.damage && comboEntry.stun && " | "}
+                                {comboEntry.dmg && `Damage: ${comboEntry.dmg}`}
+                                {comboEntry.dmg && comboEntry.stun && " | "}
                                 {comboEntry.stun && `Stun: ${comboEntry.stun}`}
                               </p>
+
                               {comboEntry.meter &&
                                 <div className="meter-container">
                                   <span className={`meter-bar ${comboEntry.meter > 0 ? "full" : "empty"}`}></span>
@@ -82,13 +95,29 @@ const Combos = () => {
                                   <span className={`meter-bar ${comboEntry.meter > 2 ? "full" : "empty"}`}></span>
                                 </div>
                               }
+                              
+                              {comboEntry.drive &&
+                                <div className="meter-container">
+                                  <span className={`drive-bar ${comboEntry.drive > 0 ? "full" : "empty"}`}></span>
+                                  <span className={`drive-bar ${comboEntry.drive > 1 ? "full" : "empty"}`}></span>
+                                  <span className={`drive-bar ${comboEntry.drive > 2 ? "full" : "empty"}`}></span>
+                                  <span className={`drive-bar ${comboEntry.drive > 3 ? "full" : "empty"}`}></span>
+                                  <span className={`drive-bar ${comboEntry.drive > 4 ? "full" : "empty"}`}></span>
+                                  <span className={`drive-bar ${comboEntry.drive > 5 ? "full" : "empty"}`}></span>
+                                  {["1", "2", "3"].includes(comboEntry.super) && <><span className={"super-bar"}></span> {comboEntry.super}</>}
+                                </div>
+                              }
 
                               {selectedCombo === comboEntry.input &&
                                 <>
-                                  <h2 className="combo-comments">
-                                    {comboEntry.comments}
-                                  </h2>
-                                  <p className="combo-author">Author: <a href={comboEntry.authLink} target="_system">{comboEntry.author}</a> <IonIcon icon={openOutline}></IonIcon> | Source: <a href={comboEntry.comSour} target="_system">Link</a> <IonIcon icon={openOutline}></IonIcon></p>
+                                  <ul className="combo-comments">
+                                    {comboEntry.notes &&
+                                      comboEntry.notes.split(/(?<!\b(?:cr|cl|st|j|f|c|b))\. (?![a-z])/).map(note => 
+                                        <li>{note}</li>
+                                      )
+                                    }
+                                  </ul>
+                                  <p className="combo-author"><a href={COMBO_DATA_MAP[activeGame].credit} target="_system">Check out Sestze's sheet! <IonIcon icon={openOutline} /></a></p>
                                 </>
                               }
                             </IonLabel>
@@ -96,7 +125,7 @@ const Combos = () => {
                           : <IonItem button className="selected-combo">
                             <IonLabel>
                               <h2 className="combo-comments">
-                                {comboEntry.comments}
+                                {comboEntry.notes}
                               </h2>
                             </IonLabel>
                           </IonItem>

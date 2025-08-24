@@ -79,7 +79,7 @@ const MenuEntry = ({menuEntryKey, wideMenuIsOpen}: Props) => {
       iosIcon: barbellOutline,
       mdIcon: barbellSharp,
       modeName: "combos",
-      noDisplay: ["3S", "USF4", "GGST", "SF6"],
+      noDisplay: ["3S", "USF4", "GGST"],
     },
     statcompare: {
       title: "Stat Compare",

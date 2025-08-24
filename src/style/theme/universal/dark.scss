@@ -194,6 +194,10 @@ ion-app.universal-dark-none, .themePreview.universal-dark-none {
   --fat-frame-meter-active: #ae165e;
   --fat-frame-meter-recovery: #0d6898;;
   --fat-frame-meter-invalid: #4d4d4d;
+
+    // Drive Bar
+  --fat-drive-bar: #33B20C;
+  --fat-drive-bar-border: #d1f4b6;
  }
 
 ion-app.universal-dark-colorBlind, .themePreview.universal-dark-colorBlind {
@@ -380,4 +384,8 @@ ion-app.universal-dark-colorBlind, .themePreview.universal-dark-colorBlind {
   --fat-frame-meter-active: #ae165e;
   --fat-frame-meter-recovery: #0d6898;;
   --fat-frame-meter-invalid: #4d4d4d;
+
+  // Drive Bar
+  --fat-drive-bar: #33B20C;
+  --fat-drive-bar-border: #d1f4b6;
  }
