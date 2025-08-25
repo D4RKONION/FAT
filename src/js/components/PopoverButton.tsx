@@ -62,7 +62,7 @@ const PopoverButton = () => {
               </>
               }
             </>
-          ) : modeName.includes("calc") || modeName === "moveslist" || modeName === "quicksearch" ? (
+          ) : modeName.includes("calc") || modeName === "moveslist" || modeName === "quicksearch" || modeName === "combos" ? (
             <IonItem lines="none" onClick={() => { dispatch(setModalVisibility({ currentModal: "tableSettings", visible: true })); setPopoverVisible({open: false, event: undefined});}} button>
               Frame Data Settings
             </IonItem>

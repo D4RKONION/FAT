@@ -11,7 +11,7 @@ import PopoverButton from "../components/PopoverButton";
 import SegmentSwitcher from "../components/SegmentSwitcher";
 import SF6_COMBOS from "../constants/combos/SF6Combos.json";
 import SFV_COMBOS from "../constants/combos/SFVCombos.json";
-import { activeGameSelector, activePlayerSelector, modalVisibilitySelector, selectedCharactersSelector } from "../selectors";
+import { activeGameSelector, activePlayerSelector, dataDisplaySettingsSelector, modalVisibilitySelector, selectedCharactersSelector } from "../selectors";
 
 const COMBO_DATA_MAP = {
   SFV: {
@@ -25,11 +25,58 @@ const COMBO_DATA_MAP = {
   },
 };
 
+const applyReplacements = (input: string): string => {
+  const rules: [RegExp, string | ((substring: string) => string)][] = [
+    //uppercase buttons
+    [/\b(?:lp|mp|hp|lk|mk|hk|p|k|pp|kk)\b/g, (m) => m.toUpperCase()],
+
+    //specials
+    [/\bqcf\+/g, "236"],
+    [/\bqcfx2\+/g, "236236"],
+    [/\bqcb\+/g, "214"],
+    [/\bqcbx2\+/g, "214214"],
+    [/\bsrk\+/g, "623"],
+    [/\bhcb\+/g, "624"],
+    [/\bhcf\+/g, "426"],
+    [/dd\s*\+\s*/g, "22"],
+    [/ss\. /g, "ss."],
+
+    //charge
+    [/b, f, b, f\s*\+\s*/g, "4646"],
+    [ /b, f\+/g, "46" ],
+    [ /d, u\+|d\+u\+/g, "28" ],
+    
+    //normals
+    [/\b(?:uf\. |uf\+ |u\/f\+)/g, "9"],
+    [/\b(?:ub\. |ub\+ |u\/b\+)/g, "7"],
+    [/\b(?:df\. |df\+ |d\/f\+)/g, "3"],
+    [/\b(?:db\. |db\+ |d\/b\+)/g, "1"],
+    [/\b(?:cr\. |d\+)/g, "2"],
+    [/\bst\. /g, "5"],
+    [/\b(?:f\. |f\+)/g, "6"],
+    [/\b(?:b\. |b\+)/g, "4"],
+    [/\b(?:j\. |u\+)/g, "j."],
+
+    //drive
+    [ /\bdr\b/g, "MPMK" ],
+    
+  ];
+
+  return rules.reduce((out, [regex, replacement]) => {
+    if (typeof replacement === "string") {
+      return out.replace(regex, replacement);
+    } else {
+      return out.replace(regex, replacement);
+    }
+  }, input);
+};
+
 const Combos = () => {
   const modalVisibility = useSelector(modalVisibilitySelector);
   const selectedCharacters = useSelector(selectedCharactersSelector);
   const activePlayer = useSelector(activePlayerSelector);
   const activeGame = useSelector(activeGameSelector);
+  const inputNotationType = useSelector(dataDisplaySettingsSelector).inputNotationType;
 
   const dispatch = useDispatch();
 
@@ -80,7 +127,10 @@ const Combos = () => {
                             {comboEntry.notes !== "" && <IonIcon className={selectedCombo === comboEntry.input && "selected-combo"} icon={informationCircleOutline} slot="end" />}
                             <IonLabel>
                               <h2>
-                                {comboEntry.input}
+                                {inputNotationType === "numCmd" ?
+                                  applyReplacements(comboEntry.input)
+                                  : comboEntry.input
+                                }
                               </h2>
                               <p>
                                 {comboEntry.dmg && `Damage: ${comboEntry.dmg}`}
