@@ -4,6 +4,12 @@
   overflow: hidden;
   background-color: var(--fat-portrait-bg);
   border-radius: 7px;
+  cursor: pointer;
+
+  &.selected {
+    border: 4px solid var(--fat-vtrigger);
+  }
+
   // border: 1px solid var(--fat-portrait-border);
   //widths defined in individual page css
 
@@ -11,6 +17,7 @@
     display: block;
     z-index: 1;
     opacity: var(--fat-portrait-opacity);
+
 
     &.silouette {
       right: 14px;
@@ -38,6 +45,7 @@
     border-radius: 20px 0 0 20px;
     font-weight: bold;
     min-width: 50px;
+    user-select: none;
     &.smallPortraits {
       padding: 5px 2px 5px 2px;
       font-size: 9px;

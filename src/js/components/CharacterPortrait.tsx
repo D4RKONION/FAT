@@ -17,7 +17,7 @@ type CharacterPortraitProps = {
 const CharacterPortrait = ( {className, charName, charThreeLetterCode, game, selected, remoteImage, showName, onClick }: CharacterPortraitProps ) => {
   return (
     <div
-      className={`character-portrait ${className}`}
+      className={`character-portrait ${className} ${selected ? "selected" : "not-selected"}`}
       // style={{ background: `${charColor}45`}}
       onClick={onClick}
     >
@@ -49,7 +49,7 @@ const CharacterPortrait = ( {className, charName, charThreeLetterCode, game, sel
         }
       />
       {showName &&
-        <h2 className={`${className} ${selected ? "selected" : "not-selected"}`} aria-hidden="true">{charThreeLetterCode ? charThreeLetterCode : charName}</h2>
+        <h2 className={`${className}`} aria-hidden="true">{charThreeLetterCode ? charThreeLetterCode : charName}</h2>
       }
     </div>
   );
