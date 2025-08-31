@@ -76,6 +76,7 @@ Deployment of release builds on iOS is done using [Fastlane](https://fastlane.to
 - Copy `ios/App/fastlane/.env.sample` to `ios/App/fastlane/.env` and replace it with the actual values from the Apple Developer site
 - Download the existing metadata with `fastlane deliver download_metadata`
 - Download the existing screenshots with `fastlane deliver download_screenshots --use_live_version true`
+- If that doesn't work, try `fastlane deliver download_metadata --use_live_version true --api_key_path ./fastlane/AuthKey_KEY_ID.json`
 
 Once you have all this set up, you can release a new version:
 

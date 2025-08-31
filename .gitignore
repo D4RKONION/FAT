@@ -35,6 +35,7 @@ yarn-error.log*
 **/fastlane/README.md
 **/fastlane/pc-api*.json
 **/fastlane/*.p8
+**/fastlane/AuthKey_*.json
 **/fastlane/.env
 **/FA-Tool.keystore
 ios/App/fastlane/metadata

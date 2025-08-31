@@ -1,0 +1,7 @@
+{
+  "key_id": "123ASD678H",
+  "issuer_id": "your-issuer-id-goes-here",
+  "key": "-----BEGIN PRIVATE KEY-----\np8key_goes_here\nwithnewlinesbetween\n-----END PRIVATE KEY-----",
+  "duration": 1200,
+  "in_house": false
+}

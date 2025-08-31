@@ -5,7 +5,7 @@ default_platform(:ios)
 ensure_env_vars(
   env_vars: [
     "APPLE_ID_EMAIL",
-    "APPLE_ITC_TEAM_ID",
+    # "APPLE_ITC_TEAM_ID",
     "APPLE_DEVELOPER_TEAM_ID",
     "APPLE_API_KEY_ID",
     "APPLE_API_ISSUER_ID",
