@@ -1,11 +1,3 @@
-Ver 5.4.1
+Ver 5.4.2
 
-Table sorting: 
-- You can now sort the table by any of the available column headers. Simply tap one to sort it in either direction.
-
-SF6: 
-- Added SF6 combos menu courtesy of Sestze. Find it in the side menu!
-
-GGST: 
-- Added Lucy
-- Added new patch changes
+- Bug fixes & frame data updates

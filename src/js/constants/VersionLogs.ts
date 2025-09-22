@@ -1,6 +1,6 @@
-export const APP_CURRENT_VERSION_NAME = "5.4.1";
-export const APP_CURRENT_VERSION_CODE = 50401;
-export const APP_DATE_UPDATED = "Aug 24 2025"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "5.4.2";
+export const APP_CURRENT_VERSION_CODE = 50402;
+export const APP_DATE_UPDATED = "Sep 22 2025"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"];
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"];
@@ -20,22 +20,18 @@ export const UPDATABLE_GAMES_APP_CODES = {
 };
 
 export const VERSION_LOGS = {
+  "5.4.2": {
+    iOS: [
+      "Fixed a bug on older versions of iOS and Safari where the app was crashing on startup",
+    ],
+    "Frame Data Files": [
+      "Updated!",
+    ],
+  },
   "5.4.1": {
     "Table sorting": [
-      "You can now sort the table by any of the available column headers. Simply tap one to sort it in either direction.",
-      "Selecting Move Name resets to the usual order rather than sorting that column",
-      "You can still select the bottom header as a shortcut to open the columns menu (the old functionality)",
-      "Updated: Combos will now parse as NumPad notation if that's your selected Input Notation in settings",
+      "Combos will now parse as NumPad notation if that's your selected Input Notation in settings",
     ],
-    SF6: [
-      "Added SF6 combos menu courtesy of Sestze. Find it in the side menu!",
-    ],
-    GGST: [
-      "Added Lucy",
-      "Added new patch changes",
-    ],
-    "Meal Mage!": ["I recently released another app! It's a cozy meal planning app, I'd love if you could [check it out](https://fullmeter.com/mealmage/)"],
-
   },
   "5.4.0": {
     "Table sorting": [
