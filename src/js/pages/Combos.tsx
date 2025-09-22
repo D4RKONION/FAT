@@ -209,8 +209,8 @@ const Combos = () => {
                                 <>
                                   <ul className="combo-comments">
                                     {comboEntry.notes &&
-                                      comboEntry.notes.split(/(?<!\b(?:cr|cl|st|j|f|c|b))\. (?![a-z])/).map(note => 
-                                        <li>{note}</li>
+                                      comboEntry.notes.split(/\. (?![a-z])(?=(?!\b(?:cr|cl|st|j|f|c|b)))/).map((note, index) => 
+                                        <li key={`${index}`}>{note}</li>
                                       )
                                     }
                                   </ul>
