@@ -1,6 +1,6 @@
-export const APP_CURRENT_VERSION_NAME = "5.4.2";
-export const APP_CURRENT_VERSION_CODE = 50402;
-export const APP_DATE_UPDATED = "Sep 22 2025"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "5.5.0";
+export const APP_CURRENT_VERSION_CODE = 50500;
+export const APP_DATE_UPDATED = "Oct 15 2025"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"];
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"];
@@ -20,6 +20,11 @@ export const UPDATABLE_GAMES_APP_CODES = {
 };
 
 export const VERSION_LOGS = {
+  "5.5.0": {
+    SF6: [
+      "Added C.Viper",
+    ],
+  },
   "5.4.2": {
     iOS: [
       "Fixed a bug on older versions of iOS and Safari where the app was crashing on startup",
