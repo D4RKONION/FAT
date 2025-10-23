@@ -1,0 +1,109 @@
+{
+  "fullName": "2XKO",
+  "abbrName": "2XKO",
+  "characterStates": ["normal"],
+  "specificCharacterStates": {
+  },
+  "characterList": [
+    "Ahri",
+    "Ahri"
+  ],
+
+  "universalDataPoints": {
+    "Basic Frame Data": [
+      {
+        "startup": {
+          "dataTableHeader": "S",
+          "detailedHeader": "Startup",
+          "dataFileKey": "startup"
+        },
+        "active": {
+          "dataTableHeader": "A",
+          "detailedHeader": "Active",
+          "dataFileKey": "active"
+        },
+        "recovery": {
+          "dataTableHeader": "R",
+          "detailedHeader": "Recovery",
+          "dataFileKey": "recovery"
+        }
+      },
+      {
+        "total": {
+          "dataTableHeader": "T",
+          "detailedHeader": "Total",
+          "dataFileKey": "total"
+        }
+      },
+      {
+        "onBlock": {
+          "dataTableHeader": "oB",
+          "detailedHeader": "On Block",
+          "dataFileKey": "onBlock"
+        },
+        "onHit": {
+          "dataTableHeader": "oH",
+          "detailedHeader": "On Hit",
+          "dataFileKey": "onHit"
+        }
+      }
+    ],
+    "Move Properties": [
+      {
+        "moveType": {
+          "dataTableHeader": "mT",
+          "detailedHeader": "Move Type",
+          "dataFileKey": "moveType"
+        },
+        "xx": {
+          "dataTableHeader": "xx",
+          "detailedHeader": "Cancels To",
+          "dataFileKey": "xx"
+        }
+      },
+      {
+        "dmg": {
+          "dataTableHeader": "dmg",
+          "detailedHeader": "Damage",
+          "dataFileKey": "dmg"
+        },
+        "dmgScaling": {
+          "dataTableHeader": "dmgScl",
+          "detailedHeader": "Damage Scaling",
+          "dataFileKey": "dmgScl"
+        },
+        "chp": {
+          "dataTableHeader": "chip",
+          "detailedHeader": "Chip",
+          "dataFileKey": "chp"
+        },
+        "atkLvl": {
+          "dataTableHeader": "atkLvl",
+          "detailedHeader": "Attack Level",
+          "dataFileKey": "atkLvl"
+        }
+      }
+    ],
+    "Extra Information": [
+      {
+        "extraInfo": {
+          "dataTableHeader": "Notes",
+          "detailedHeader": "Extra Info",
+          "dataFileKey": "extraInfo"
+        }
+      }
+    ]
+  },
+  "specificCancels": [],
+    "statsPoints": {
+      "The Basics": [
+        {
+          "health": "Health"
+        }
+      ]
+  },
+  "bookmarkStats": {
+    "health": "Health"
+  },
+  "defaultLandscapeCols": {"startup": "S", "active": "A", "recovery": "R", "onBlock": "oB", "onHit": "oH", "xx": "xx", "dmg": "dmg", "meter": "meter", "atkLvl": "atkLvl" }
+}

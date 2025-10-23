@@ -2,7 +2,7 @@ export const APP_CURRENT_VERSION_NAME = "5.5.0";
 export const APP_CURRENT_VERSION_CODE = 50500;
 export const APP_DATE_UPDATED = "Oct 15 2025"; // new Date().toDateString().substring(4)
 
-export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6"];
+export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6", "2XKO"];
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"];
 export const UPDATABLE_GAMES_APP_CODES = {
   SFV: {
@@ -16,6 +16,10 @@ export const UPDATABLE_GAMES_APP_CODES = {
   SF6: {
     FrameData: 64,
     GameDetails: 14,
+  },
+  "2XKO": {
+    FrameData: 1,
+    GameDetails: 1,
   },
 };
 

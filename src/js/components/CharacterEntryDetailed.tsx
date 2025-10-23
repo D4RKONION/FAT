@@ -4,15 +4,16 @@ import { trashSharp } from "ionicons/icons";
 import { useDispatch, useSelector } from "react-redux";
 
 import { removeBookmark } from "../actions";
+import App2XKOFrameData from "../constants/framedata/2XKOFrameData.json";
 import AppSF3FrameData from "../constants/framedata/3SFrameData.json";
 import AppGGSTFrameData from "../constants/framedata/GGSTFrameData.json";
 import AppSF6FrameData from "../constants/framedata/SF6FrameData.json";
 import AppSFVFrameData from "../constants/framedata/SFVFrameData.json";
 import AppUSF4FrameData from "../constants/framedata/USF4FrameData.json";
 import { allBookmarkStats } from "../constants/gamedetails/characterLists";
+import { dataDisplaySettingsSelector } from "../selectors";
 import { Bookmark } from "../types";
 import CharacterPortrait from "./CharacterPortrait";
-import { dataDisplaySettingsSelector } from "../selectors";
 import { renameData } from "../utils";
 
 const FRAMEDATA_MAP = {
@@ -21,6 +22,7 @@ const FRAMEDATA_MAP = {
   SFV: AppSFVFrameData,
   SF6: AppSF6FrameData,
   GGST: AppGGSTFrameData,
+  "2XKO": App2XKOFrameData,
 };
 
 const MOVE_STATS= {

@@ -1,3 +1,4 @@
+import TwoKODetails from "./2XKOGameDetails.json";
 import ThirdStrikeDetails from "./3SGameDetails.json";
 import GGSTDetails from "./GGSTGameDetails.json";
 import SF6Details from "./SF6GameDetails.json";
@@ -10,6 +11,7 @@ export const allCharacterLists = {
   SFV: SFVDetails.characterList,
   SF6: SF6Details.characterList,
   GGST: GGSTDetails.characterList,
+  "2XKO": TwoKODetails.characterList,
 };
 
 export const allBookmarkStats = {
@@ -18,4 +20,5 @@ export const allBookmarkStats = {
   SFV: SFVDetails.bookmarkStats,
   SF6: SF6Details.bookmarkStats,
   GGST: GGSTDetails.bookmarkStats,
+  "2XKO": TwoKODetails.bookmarkStats,
 };

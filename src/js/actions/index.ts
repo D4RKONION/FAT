@@ -2,11 +2,13 @@ import { Preferences } from "@capacitor/preferences";
 import { AnyAction } from "redux";
 import { ThunkAction } from "redux-thunk";
 
+import App2XKOFrameData from "../constants/framedata/2XKOFrameData.json";
 import AppSF3FrameData from "../constants/framedata/3SFrameData.json";
 import AppGGSTFrameData from "../constants/framedata/GGSTFrameData.json";
 import AppSF6FrameData from "../constants/framedata/SF6FrameData.json";
 import AppSFVFrameData from "../constants/framedata/SFVFrameData.json";
 import AppUSF4FrameData from "../constants/framedata/USF4FrameData.json";
+import App2XKOGameDetails from "../constants/gamedetails/2XKOGameDetails.json";
 import SF3GameDetails from "../constants/gamedetails/3SGameDetails.json";
 import AppGGSTGameDetails from "../constants/gamedetails/GGSTGameDetails.json";
 import AppSF6GameDetails from "../constants/gamedetails/SF6GameDetails.json";
@@ -48,10 +50,11 @@ const getFrameData = (gameName: GameName) => {
     const appFrameData = 
       gameName === "SFV" ? AppSFVFrameData
         : gameName === "GGST" ? AppGGSTFrameData
-          : gameName === "SF6" ? AppSF6FrameData
-            : gameName === "3S" ? AppSF3FrameData
-              : gameName === "USF4" ? AppUSF4FrameData
-                : {};
+          : gameName === "2XKO" ? App2XKOFrameData
+            : gameName === "SF6" ? AppSF6FrameData
+              : gameName === "3S" ? AppSF3FrameData
+                : gameName === "USF4" ? AppUSF4FrameData
+                  : {};
     
     if (UPDATABLE_GAMES.includes(gameName)) {
       const LS_FRAME_DATA_CODE = parseInt((await Preferences.get({ key: `ls${gameName}FrameDataCode`})).value);
@@ -93,10 +96,11 @@ const getGameDetails = (gameName: GameName) => {
     const appGameDetails = 
       gameName === "SFV" ? AppSFVGameDetails
         : gameName === "GGST" ? AppGGSTGameDetails
-          : gameName === "SF6" ? AppSF6GameDetails
-            : gameName === "3S" ? SF3GameDetails
-              : gameName === "USF4" ? USF4GameDetails
-                : {};
+          : gameName === "2XKO" ? App2XKOGameDetails
+            : gameName === "SF6" ? AppSF6GameDetails
+              : gameName === "3S" ? SF3GameDetails
+                : gameName === "USF4" ? USF4GameDetails
+                  : {};
       
     if (UPDATABLE_GAMES.includes(gameName)) {
       const LS_GAME_DETAILS_CODE = parseInt((await Preferences.get({ key: `ls${gameName}GameDetailsCode`})).value);
@@ -208,9 +212,10 @@ export const setPlayer = (playerId: PlayerId, charName: PlayerData["name"]) => {
   return async function(dispatch, getState) {
     const { frameDataState, dataDisplaySettingsState, selectedCharactersState, activeGameState }: RootState = getState();
     const stateToSet: VtState =
-      activeGameState === "SFV" || ((activeGameState === "GGST" || activeGameState === "SF6") && selectedCharactersState[playerId].name === charName)
+      activeGameState === "SFV" || ((activeGameState === "2XKO" || activeGameState === "GGST" || activeGameState === "SF6") && selectedCharactersState[playerId].name === charName)
         ? selectedCharactersState[playerId].vtState
         : "normal";
+    console.log(charName);
     const playerData: PlayerData = {
       name: charName,
       frameData: helpCreateFrameDataJSON(frameDataState[charName].moves, dataDisplaySettingsState.moveNameType, dataDisplaySettingsState.inputNotationType, dataDisplaySettingsState.normalNotationType, stateToSet, activeGameState),

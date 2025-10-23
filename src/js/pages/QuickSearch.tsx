@@ -221,6 +221,37 @@ const QUICKSEARCH_HEADERS = {
       },
     },
   ],
+  "2XKO": [
+    {
+      startup: {
+        dataTableHeader: "S",
+        detailedHeader: "Startup",
+        dataFileKey: "startup",
+      },
+      active: {
+        dataTableHeader: "A",
+        detailedHeader: "Active",
+        dataFileKey: "active",
+      },
+      recovery: {
+        dataTableHeader: "R",
+        detailedHeader: "Recovery",
+        dataFileKey: "recovery",
+      },
+    },
+    {
+      onBlock: {
+        dataTableHeader: "oB",
+        detailedHeader: "On Block",
+        dataFileKey: "onBlock",
+      },
+      onHit: {
+        dataTableHeader: "oH",
+        detailedHeader: "On Hit",
+        dataFileKey: "onHit",
+      },
+    },
+  ],
 };
 
 const CHARACTER_NAME_DICTIONARY = {

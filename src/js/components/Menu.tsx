@@ -107,7 +107,7 @@ const Menu = () => {
       iosIcon: barbellOutline,
       mdIcon: barbellSharp,
       modeName: "combos",
-      noDisplay: ["3S", "USF4", "GGST"],
+      noDisplay: ["3S", "USF4", "GGST", "2XKO"],
     },
     {
       title: "Stat Compare",
