@@ -36,8 +36,6 @@ const DataTableHeader = ({colsToDisplay, moveType, xScrollEnabled, onClick, sort
     }
   };
 
-  console.log(sortKey);
-
   return (
     <tr
       style={noStick ? {position: "relative"} : {}}

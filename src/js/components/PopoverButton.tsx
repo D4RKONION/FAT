@@ -44,7 +44,7 @@ const PopoverButton = () => {
               </IonItem>
 
               {
-                activeGame !== "3S" &&
+                activeGame !== "3S" && activeGame !== "2XKO" &&
               <IonItem lines="none">
                 <IonToggle checked={!!counterHit} onIonChange={e => dispatch(setCounterHit(e.detail.checked)) } >Counter Hit</IonToggle>
               </IonItem>

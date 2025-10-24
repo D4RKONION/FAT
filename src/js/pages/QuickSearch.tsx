@@ -277,7 +277,15 @@ const CHARACTER_NAME_DICTIONARY = {
     ino: "I-No",
     zato: "Zato-1",
   },
+};
 
+const INITIAL_SEARCHTERM_DICTIONARY = {
+  SF6: "chunli stand lp",
+  SFV: "chunli stand lp",
+  USF4: "chunli stand lp",
+  "3S": "chunli stand lp",
+  GGST: "ino 5p",
+  "2XKO": "ahri stand l",
 };
 
 const QuickSearch = () => {
@@ -291,7 +299,7 @@ const QuickSearch = () => {
 
   const history = useHistory();
 
-  const [searchbarText, setSearchbarText] = useState("chunli stand lp");
+  const [searchbarText, setSearchbarText] = useState(INITIAL_SEARCHTERM_DICTIONARY[activeGame]);
   const [searchResults, setSearchResults] = useState([]);
 
   useEffect( () => {

@@ -6,7 +6,16 @@
   },
   "characterList": [
     "Ahri",
-    "Ahri"
+    "Blitzcrank",
+    "Braum",
+    "Darius",
+    "Ekko",
+    "Illaoi",
+    "Jinx",
+    "Teemo",
+    "Vi",
+    "Warwick",
+    "Yasuo"
   ],
 
   "universalDataPoints": {
@@ -59,6 +68,11 @@
           "dataTableHeader": "xx",
           "detailedHeader": "Cancels To",
           "dataFileKey": "xx"
+        },
+        "atkLvl": {
+          "dataTableHeader": "atkLvl",
+          "detailedHeader": "Attack Level",
+          "dataFileKey": "atkLvl"
         }
       },
       {
@@ -67,20 +81,15 @@
           "detailedHeader": "Damage",
           "dataFileKey": "dmg"
         },
-        "dmgScaling": {
-          "dataTableHeader": "dmgScl",
-          "detailedHeader": "Damage Scaling",
-          "dataFileKey": "dmgScl"
-        },
         "chp": {
           "dataTableHeader": "chip",
           "detailedHeader": "Chip",
           "dataFileKey": "chp"
         },
-        "atkLvl": {
-          "dataTableHeader": "atkLvl",
-          "detailedHeader": "Attack Level",
-          "dataFileKey": "atkLvl"
+        "meter": {
+          "dataTableHeader": "meter",
+          "detailedHeader": "Meter",
+          "dataFileKey": "meter"
         }
       }
     ],
@@ -98,12 +107,18 @@
     "statsPoints": {
       "The Basics": [
         {
-          "health": "Health"
+          "health": "Health",
+          "nJump": "Jump"
+        },
+        {
+          "fastestNormal": "Fastest Normal"
         }
       ]
   },
   "bookmarkStats": {
-    "health": "Health"
+    "health": "Health",
+    "nJump": "Jump"
+
   },
-  "defaultLandscapeCols": {"startup": "S", "active": "A", "recovery": "R", "onBlock": "oB", "onHit": "oH", "xx": "xx", "dmg": "dmg", "meter": "meter", "atkLvl": "atkLvl" }
+  "defaultLandscapeCols": {"startup": "S", "active": "A", "recovery": "R", "onBlock": "oB", "onHit": "oH", "xx": "xx", "dmg": "dmg",  "meter": "meter", "chip": "chip", "atkLvl": "atkLvl" }
 }

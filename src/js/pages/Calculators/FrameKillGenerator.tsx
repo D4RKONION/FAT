@@ -24,6 +24,7 @@ const GAME_KNOCKDOWN_TYPES = {
   SFV: {kdr: "Quick", kdrb: "Back", all: "Q&B", kd: "None"},
   SF6: {onHit: "Normal Hit", onPC: "Punish Counter"},
   GGST: {disabled: "disabled"},
+  "2XKO": {disabled: "disabled"},
 };
 
 const KNOCKDOWN_WITH_LABELS = {
@@ -252,7 +253,7 @@ const FrameKillGenerator = () => {
                   {Object.keys(playerOneMoves).filter(move =>
                     activeGame === "SFV" ?
                       playerOneMoves[move].kd || playerOneMoves[move].kdr || playerOneMoves[move].kdrb
-                      : activeGame === "SF6" ?
+                      : activeGame === "SF6" || activeGame === "2XKO" ?
                         playerOneMoves[move][recoveryType] && isNaN(playerOneMoves[move][recoveryType]) && !isNaN(Number(playerOneMoves[move][recoveryType].match(/KD \+([^\(*,\[]+)/)?.[1]) + 1)
                         : null
                   ).map(move =>
