@@ -101,18 +101,27 @@ Once you have all this set up, you can release a new version:
 
 ## Adding a new game
 
+General Changes
+- Set up the Frame Data in `src/js/constants/framedata/NameFrameData.json`
+- Set up the Game Details in `src/js/constants/gamedetails/NameGameDetails.json`
+- Update `src/js/constants/gamedetails/characterLists.ts` with the required items
+- Exclude the game from any menu items you need to in `src/js/components/Menu.tsx` and `src/js/components/MenuEntry.tsx`
+- Add to type array in `src/js/constants/ImmutableGameDetails.ts`
+- Add to array in `src/js/components/CharacterEntryDetailed.tsx`
+- Add search result layout obj in `src/js/pages/QuickSearch.tsx`
+- Deal with any CH buttons you want handled on `src/js/pages/FrameData.tsx`
+
+Updatable Game (if the game is going to receive server updates)
+- Add to the UDPATABLE_GAMES and UPDATABLE_GAMES_APP_CODES obj in `src/js/constants/VersionLogs.ts`
+- Create the correct file structure on your server as follows:
+  - `release/GAME_NAME/FrameData/GAMENAMEFrameData.json`
+  - `release/GAME_NAME/FrameData/GAMENAMEFrameDataVersionDetails.json`
+  - `release/GAME_NAME/GameDetails/GAMENAMEGameDetails.json`
+  - `release/GAME_NAME/GameDetails/GAMENAMEGameDetailsVersionDetails.json`
+
 Changes to `./src/js/actions/index.ts`
 - Import the framedataJSON
 - Dispatch the frame data in getFrameData()
 - If the game requires state switchers (like VT) amend setPlayer()
 - Import the gamedetailsJSON
 - Dispatch the game details in getGameDetails()
-
-General Changes
-- Add the menu Radio in `src/js/components/Menu.tsx`
-- Set up the Game Details in `src/js/constants/GameDetails.ts`
-- Add to type GameName in `src/js/types/index.ts`
-- Add to type VtState in `src/js/types/index.ts`
-
-Updatable Game (if the game is going to receive server updates)
-- Add to the UDPATABLE_GAMES and UPDATABLE_GAMES_APP_CODES obj in `src/js/constants/VersionLogs.ts`
