@@ -31,6 +31,9 @@ export const VERSION_LOGS = {
       "All the usual features and functionality should work but if you find any bugs, let me know",
       "Are you interested in contributing to the data labbing?  [Join us](https://discord.gg/3wzdxPs)!",
     ],
+    SF6: [
+      "Added C.Viper's feint data",
+    ],
   },
   "5.5.0": {
     SF6: [
