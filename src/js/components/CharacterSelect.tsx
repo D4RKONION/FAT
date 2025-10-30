@@ -14,6 +14,7 @@ import { activeGameSelector, activePlayerSelector, appDisplaySettingsSelector, d
 import CharacterEntryDetailed from "./CharacterEntryDetailed";
 import { CharacterSelectLayout } from "../types";
 import CharacterEntrySimple from "./CharacterEntrySimple";
+import { allSpecificCharacterStates } from "../constants/gamedetails/characterLists";
 import { handleNewCharacterLandscapeCols } from "../utils/landscapecols";
 import { createSegmentSwitcherObject } from "../utils/segmentSwitcherObject";
 
@@ -204,7 +205,7 @@ const CharacterSelectModal = () => {
               labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
               clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
             />
-            : (activeGame === "GGST" || activeGame === "SF6") &&
+            : (Object.keys(allSpecificCharacterStates[activeGame]).length > 0) &&
               <SegmentSwitcher
                 passedClassNames={!characterHasStates ? "collapsed" : "expanded"}
                 segmentType={"vtrigger"}

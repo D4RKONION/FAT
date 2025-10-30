@@ -8,6 +8,7 @@ import { setPlayerAttr, setModalVisibility, setActiveFrameDataPlayer } from "../
 import AdviceToast from "../components/AdviceToast";
 import PopoverButton from "../components/PopoverButton";
 import SegmentSwitcher from "../components/SegmentSwitcher";
+import { allSpecificCharacterStates } from "../constants/gamedetails/characterLists";
 import { activeGameSelector, activePlayerSelector, dataDisplaySettingsSelector, gameDetailsSelector, selectedCharactersSelector } from "../selectors";
 import { createSegmentSwitcherObject } from "../utils/segmentSwitcherObject";
 
@@ -75,7 +76,7 @@ const MovesList = () => {
                 labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
                 clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
               />
-              : (activeGame === "GGST") &&
+              : (Object.keys(allSpecificCharacterStates[activeGame]).length > 0) &&
               <SegmentSwitcher
                 segmentType={"vtrigger"}
                 valueToTrack={selectedCharacters[activePlayer].vtState}

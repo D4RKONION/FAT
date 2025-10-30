@@ -9,6 +9,7 @@ import { useHistory } from "react-router";
 import CharacterPortrait from "./CharacterPortrait";
 import SegmentSwitcher from "./SegmentSwitcher";
 import { setActiveFrameDataPlayer, setDataTableColumns, setModalVisibility, setPlayerAttr } from "../actions";
+import { allSpecificCharacterStates } from "../constants/gamedetails/characterLists";
 import { activePlayerSelector, dataDisplaySettingsSelector, dataTableSettingsSelector, frameDataSelector, gameDetailsSelector, selectedCharactersSelector } from "../selectors";
 import { GameName, PlayerData } from "../types";
 import { handleNewCharacterLandscapeCols } from "../utils/landscapecols";
@@ -89,7 +90,7 @@ const FrameDataSubHeader = ({ charName, characterHasStates, opponentName, charSt
                     labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
                     clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
                   />
-                  : (activeGame === "GGST" || activeGame === "SF6") &&
+                  : (Object.keys(allSpecificCharacterStates[activeGame]).length > 0) &&
                     <SegmentSwitcher
                       passedClassNames={!characterHasStates ? "collapsed" : "expanded"}
                       segmentType={"vtrigger"}

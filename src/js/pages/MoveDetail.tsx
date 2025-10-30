@@ -15,6 +15,7 @@ import BookmarkToast from "../components/BookmarkToast";
 import FrameMeter from "../components/FrameMeter";
 import SegmentSwitcher from "../components/SegmentSwitcher";
 import SubHeader from "../components/SubHeader";
+import { allSpecificCharacterStates } from "../constants/gamedetails/characterLists";
 import { activeGameSelector, activePlayerSelector, appDisplaySettingsSelector, bookmarksSelector, dataDisplaySettingsSelector, gameDetailsSelector, premiumSelector, selectedCharactersSelector } from "../selectors";
 import { createSegmentSwitcherObject } from "../utils/segmentSwitcherObject";
 
@@ -133,7 +134,7 @@ const MoveDetail = () => {
               labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
               clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
             />
-            : ((activeGame === "GGST" || activeGame === "SF6") &&
+            : ((Object.keys(allSpecificCharacterStates[activeGame]).length > 0) &&
                 (characterHasStates && selectedCharacters[activePlayer].frameData[Object.keys(selectedCharacters[activePlayer].frameData)[0]].i !== 0)
             ) &&
               <SegmentSwitcher

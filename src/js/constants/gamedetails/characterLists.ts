@@ -22,3 +22,12 @@ export const allBookmarkStats = {
   GGST: GGSTDetails.bookmarkStats,
   "2XKO": TwoKODetails.bookmarkStats,
 };
+
+export const allSpecificCharacterStates = {
+  "3S": ThirdStrikeDetails.specificCharacterStates,
+  USF4: USF4Details.specificCharacterStates,
+  SFV: SFVDetails.specificCharacterStates,
+  SF6: SF6Details.specificCharacterStates,
+  GGST: GGSTDetails.specificCharacterStates,
+  "2XKO": TwoKODetails.specificCharacterStates,
+};

@@ -23,6 +23,7 @@ import FrameDataSubHeader from "../components/FrameDataSubHeader";
 import LandscapeOptions from "../components/LandscapeOptions";
 import PopoverButton from "../components/PopoverButton";
 import SegmentSwitcher from "../components/SegmentSwitcher";
+import { allSpecificCharacterStates } from "../constants/gamedetails/characterLists";
 import { APP_CURRENT_VERSION_CODE } from "../constants/VersionLogs";
 import { activeGameSelector, activePlayerSelector, appDisplaySettingsSelector, bookmarksSelector, dataDisplaySettingsSelector, dataTableSettingsSelector, frameDataSelector, gameDetailsSelector, modalVisibilitySelector, premiumSelector, selectedCharactersSelector } from "../selectors";
 import { FrameDataSlug } from "../types";
@@ -270,7 +271,7 @@ const FrameData = () => {
               labels={ {normal: "Normal", vtOne: "V-Trigger I" , vtTwo: "V-Trigger II"} }
               clickFunc={ (eventValue) => dispatch(setPlayerAttr(activePlayer, selectedCharacters[activePlayer].name, {vtState: eventValue})) }
             />
-            : (activeGame === "GGST" || activeGame === "SF6") &&
+            : (Object.keys(allSpecificCharacterStates[activeGame]).length > 0) &&
             <SegmentSwitcher
               passedClassNames={!characterHasStates ? "collapsed" : "expanded"}
               segmentType={"vtrigger"}
