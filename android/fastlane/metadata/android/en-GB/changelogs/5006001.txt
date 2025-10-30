@@ -1,0 +1,12 @@
+Ver 5.6.1
+
+Quick Patch:
+- Added Braum
+
+2XKO:
+- Added 2XKO!
+- Currently only Ahri & Blitz, more to follow
+- If you find any bugs or are interested in contributing, reach out!
+
+SF6:
+- Added C.Viper's feint cancel data

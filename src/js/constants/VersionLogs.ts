@@ -1,6 +1,6 @@
-export const APP_CURRENT_VERSION_NAME = "5.6.0";
-export const APP_CURRENT_VERSION_CODE = 50600;
-export const APP_DATE_UPDATED = "Oct 24 2025"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "5.6.1";
+export const APP_CURRENT_VERSION_CODE = 50601;
+export const APP_DATE_UPDATED = "Oct 30 2025"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6", "2XKO"];
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"];
@@ -24,6 +24,18 @@ export const UPDATABLE_GAMES_APP_CODES = {
 };
 
 export const VERSION_LOGS = {
+  "5.6.1": {
+    "2XKO Added": [
+      "**NEW GAME!** 2XKO data is now available in FAT.",
+      "You can consider this data to be a WIP for now, starting with Ahri & Blitz. We'll add more characters over the next few weeks",
+      "All the usual features and functionality should work but if you find any bugs, let me know",
+      "Are you interested in contributing to the data labbing?  [Join us](https://discord.gg/3wzdxPs)!",
+      "Quick Patch: Fixed state switching, added Braum state",
+    ],
+    SF6: [
+      "Added C.Viper's feint data",
+    ],
+  },
   "5.6.0": {
     "2XKO Added": [
       "**NEW GAME!** 2XKO data is now available in FAT.",
