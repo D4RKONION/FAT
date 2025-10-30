@@ -18,8 +18,8 @@ export const UPDATABLE_GAMES_APP_CODES = {
     GameDetails: 15,
   },
   "2XKO": {
-    FrameData: 1,
-    GameDetails: 1,
+    FrameData: 2,
+    GameDetails: 2,
   },
 };
 

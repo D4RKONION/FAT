@@ -3,6 +3,7 @@
   "abbrName": "2XKO",
   "characterStates": ["normal"],
   "specificCharacterStates": {
+    "Braum": ["Unbreakable"]
   },
   "characterList": [
     "Ahri",
