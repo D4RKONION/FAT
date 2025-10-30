@@ -14,8 +14,8 @@ export const parseBasicFrames = (valueToParse: string | number): number => {
   if (typeof valueToParse === "number") return valueToParse;
 
   // Handle cases where a KD appears before a number which we want to return
-  if (valueToParse.match(/(KD|Crumple) \+([^\(*,\[]+)/)?.[1]) {
-    return parseInt(valueToParse.match(/(KD|Crumple) \+([^\(*,\[]+)/)?.[2], 10);
+  if (valueToParse.match(/(KD|Crumple|L|C|WB) \+([^\(*,\[]+)/)?.[1]) {
+    return parseInt(valueToParse.match(/(KD|Crumple|L|C|WB) \+([^\(*,\[]+)/)?.[2], 10);
   }
 
   // Handle cases with trailing operators, square brackets or other delimiters
