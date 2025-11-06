@@ -3,7 +3,8 @@
   "abbrName": "2XKO",
   "characterStates": ["normal"],
   "specificCharacterStates": {
-    "Braum": ["Unbreakable"]
+    "Braum": ["Unbreakable"],
+    "Teemo": ["Badges"]
   },
   "characterList": [
     "Ahri",
