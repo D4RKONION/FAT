@@ -4,7 +4,8 @@
   "characterStates": ["normal"],
   "specificCharacterStates": {
     "Braum": ["Unbreakable"],
-    "Teemo": ["Badges"]
+    "Teemo": ["Badges"],
+    "Warwick": ["Bloodlust"]
   },
   "characterList": [
     "Ahri",
@@ -105,7 +106,7 @@
       }
     ]
   },
-  "specificCancels": [],
+  "specificCancels": [{"blood":{"dataTableHeader":"Blood","detailedHeader":"Bloodlust Gain","dataFileKey":"blood","usedBy":["Warwick"]}}],
     "statsPoints": {
       "The Basics": [
         {
