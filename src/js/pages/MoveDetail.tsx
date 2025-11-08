@@ -224,11 +224,11 @@ const MoveDetail = () => {
 
           ))}
 
-          {/* Character Specific Cancels Entries */}
+          {/* Character Specific Data Entries */}
           {!!specificCancelRows.length &&
             <IonCard>
               <IonCardHeader>
-                <IonCardTitle>Specific Cancels</IonCardTitle>
+                <IonCardTitle>Character Specific Data</IonCardTitle>
               </IonCardHeader>
               <IonCardContent>
                 {specificCancelRows.map((dataRow, index) =>
