@@ -106,7 +106,7 @@
       }
     ]
   },
-  "specificCancels": [{"blood":{"dataTableHeader":"Blood","detailedHeader":"Bloodlust Gain","dataFileKey":"blood","usedBy":["Warwick"]}}],
+  "specificCancels": [{"blood":{"dataTableHeader":"blood","detailedHeader":"Bloodlust Gain","dataFileKey":"blood","usedBy":["Warwick"]}},{"stanceCancelOH":{"dataTableHeader":"SC oH","detailedHeader":"Stance Cancel oH","dataFileKey":"stanceCancelOH","usedBy":["Yasuo"]},"stanceCancelOB":{"dataTableHeader":"SC oB","detailedHeader":"Stance Cancel oB","dataFileKey":"stanceCancelOB","usedBy":["Yasuo"]}},{"stanceFDashOH":{"dataTableHeader":"SDash oH","detailedHeader":"Stance F.Dash oH","dataFileKey":"stanceFDashOH","usedBy":["Yasuo"]},"stanceFDashOB":{"dataTableHeader":"SDash oB","detailedHeader":"Stance F.Dash oB","dataFileKey":"stanceFDashOB","usedBy":["Yasuo"]}},{"stanceBDashOH":{"dataTableHeader":"SBack oH","detailedHeader":"Stance B.Dash oH","dataFileKey":"stanceBDashOH","usedBy":["Yasuo"]},"stanceBDashOB":{"dataTableHeader":"SBack oB","detailedHeader":"Stance B.Dash oB","dataFileKey":"stanceBDashOB","usedBy":["Yasuo"]}}],
     "statsPoints": {
       "The Basics": [
         {
