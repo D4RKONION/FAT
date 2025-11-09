@@ -1,6 +1,6 @@
-export const APP_CURRENT_VERSION_NAME = "5.6.3";
-export const APP_CURRENT_VERSION_CODE = 50603;
-export const APP_DATE_UPDATED = "Nov 08 2025"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "5.6.4";
+export const APP_CURRENT_VERSION_CODE = 50604;
+export const APP_DATE_UPDATED = "Nov 09 2025"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6", "2XKO"];
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"];
@@ -14,16 +14,21 @@ export const UPDATABLE_GAMES_APP_CODES = {
     GameDetails: 10,
   },
   SF6: {
-    FrameData: 66,
+    FrameData: 67,
     GameDetails: 15,
   },
   "2XKO": {
-    FrameData: 7,
-    GameDetails: 4,
+    FrameData: 8,
+    GameDetails: 5,
   },
 };
 
 export const VERSION_LOGS = {
+  "5.6.4": {
+    "2XKO": [
+      "Added Yasuo, all 2XKO characters now added!",
+    ],
+  },
   "5.6.3": {
     "2XKO": [
       "Added Darius, Vi & Warwick",
