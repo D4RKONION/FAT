@@ -1,6 +1,6 @@
-export const APP_CURRENT_VERSION_NAME = "5.6.4";
-export const APP_CURRENT_VERSION_CODE = 50604;
-export const APP_DATE_UPDATED = "Nov 09 2025"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "5.6.5";
+export const APP_CURRENT_VERSION_CODE = 50605;
+export const APP_DATE_UPDATED = "Jan 26 2026"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6", "2XKO"];
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"];
@@ -24,6 +24,11 @@ export const UPDATABLE_GAMES_APP_CODES = {
 };
 
 export const VERSION_LOGS = {
+  "5.6.5": {
+    "2XKO": [
+      "Added Caitlyn, 1.1.1 patch changes. If you find any mistakes please let me know!",
+    ],
+  },
   "5.6.4": {
     "2XKO": [
       "Added Yasuo, all 2XKO characters now added!",
