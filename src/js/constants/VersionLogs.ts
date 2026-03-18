@@ -1,5 +1,5 @@
-export const APP_CURRENT_VERSION_NAME = "5.6.5";
-export const APP_CURRENT_VERSION_CODE = 50605;
+export const APP_CURRENT_VERSION_NAME = "5.7.0";
+export const APP_CURRENT_VERSION_CODE = 50700;
 export const APP_DATE_UPDATED = "Jan 26 2026"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6", "2XKO"];
@@ -24,6 +24,15 @@ export const UPDATABLE_GAMES_APP_CODES = {
 };
 
 export const VERSION_LOGS = {
+  "5.7.0": {
+    SF6: [
+      "Added Alex frame data, will update as we complete it",
+      "Added C.Viper and Alex combos courtesy of Sestze. Find it in the side menu!",
+    ],
+    "2XKO": [
+      "All 1.1.3 changed added!",
+    ],
+  },
   "5.6.5": {
     "2XKO": [
       "Added Caitlyn, 1.1.1 patch changes. If you find any mistakes please let me know!",

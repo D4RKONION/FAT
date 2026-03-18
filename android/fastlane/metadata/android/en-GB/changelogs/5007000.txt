@@ -1,0 +1,8 @@
+Ver 5.7.0
+
+SF6:
+- Added Alex frame data, will update as we complete it
+- Added C.Viper and Alex combos courtesy of Sestze. Find it in the side menu!
+
+2XKO:
+- All 1.1.3 changed added!
