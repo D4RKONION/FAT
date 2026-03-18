@@ -1,5 +1,5 @@
 # FAT
-Welcome to FAT! The most popular SF6 and GGST frame data app in the world! You can check out live versions of the app here:
+Welcome to FAT! The most popular SF6, GGST, and 2XKO frame data app in the world! You can check out live versions of the app here:
 
 [Webapp](https://fullmeter.com/fatonline)
 
