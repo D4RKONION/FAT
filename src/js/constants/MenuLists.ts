@@ -534,6 +534,10 @@ export const RES_FAT_LIST = {
         desc: "You might know JoJo for his extensive beginner spreadsheets for SFV and GGST. He's put in a huge amount of work testing, homogenising and fleshing out the GGST data",
         url: "https://bsky.app/profile/nchjojo.bsky.social",
       },
+      Spabobin: {
+        desc: "Spab is the lead maintainer behind supercombo.gg, but he still finds time to help out with the FAT project. Legend!",
+        url: "https://bsky.app/profile/spabobin.bsky.social",
+      },
     },    
   },
 };
