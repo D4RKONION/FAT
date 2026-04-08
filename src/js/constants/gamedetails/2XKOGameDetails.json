@@ -3,12 +3,14 @@
   "abbrName": "2XKO",
   "characterStates": ["normal"],
   "specificCharacterStates": {
+    "Akali": ["Shroud"],
     "Braum": ["Unbreakable"],
     "Teemo": ["Badges"],
     "Warwick": ["Bloodlust"]
   },
   "characterList": [
     "Ahri",
+    "Akali",
     "Blitzcrank",
     "Braum",
     "Caitlyn",
