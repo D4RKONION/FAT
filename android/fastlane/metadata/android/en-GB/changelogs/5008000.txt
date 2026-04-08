@@ -1,0 +1,5 @@
+Ver 5.8.0
+
+2XKO:
+- Added Akali
+- All 1.1.5 changed added!

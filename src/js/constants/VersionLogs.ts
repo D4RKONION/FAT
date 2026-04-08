@@ -1,6 +1,6 @@
-export const APP_CURRENT_VERSION_NAME = "5.7.0";
-export const APP_CURRENT_VERSION_CODE = 50700;
-export const APP_DATE_UPDATED = "Jan 26 2026"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "5.8.0";
+export const APP_CURRENT_VERSION_CODE = 50800;
+export const APP_DATE_UPDATED = "Apr 08 2026"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6", "2XKO"];
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"];
@@ -24,6 +24,12 @@ export const UPDATABLE_GAMES_APP_CODES = {
 };
 
 export const VERSION_LOGS = {
+  "5.8.0": {
+    "2XKO": [
+      "Added Akali",
+      "All 1.1.5 changed added!",
+    ],
+  },
   "5.7.0": {
     SF6: [
       "Added Alex frame data, will update as we complete it",
