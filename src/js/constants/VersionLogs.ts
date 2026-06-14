@@ -10,8 +10,8 @@ export const UPDATABLE_GAMES_APP_CODES = {
     GameDetails: 2,
   },
   GGST: {
-    FrameData: 126,
-    GameDetails: 10,
+    FrameData: 127,
+    GameDetails: 11,
   },
   SF6: {
     FrameData: 74,
