@@ -1,6 +1,6 @@
-export const APP_CURRENT_VERSION_NAME = "5.8.0";
-export const APP_CURRENT_VERSION_CODE = 50800;
-export const APP_DATE_UPDATED = "Apr 08 2026"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "5.9.0";
+export const APP_CURRENT_VERSION_CODE = 50900;
+export const APP_DATE_UPDATED = "Jun 14 2026"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6", "2XKO"];
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"];
@@ -24,6 +24,20 @@ export const UPDATABLE_GAMES_APP_CODES = {
 };
 
 export const VERSION_LOGS = {
+  "5.9.0": {
+    "Quick Note": [
+      "Sorry this took so long! Newborn + going back to full time work means I don't have a lot of time to myself right now, and the time that I do have I'm too tired to do anything. Will try to stay more on top of things in the future",
+    ],
+    SF6: [
+      "Added Ingrid",
+    ],
+    GGST: [
+      "Added Jam",
+    ],
+    "2XKO": [
+      "Prepped for Thresh & Senna, I'll get around to them asap!",
+    ],
+  },
   "5.8.0": {
     "2XKO": [
       "Added Akali",
