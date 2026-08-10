@@ -120,6 +120,11 @@
           "dataTableHeader": "xx",
           "detailedHeader": "Cancels To",
           "dataFileKey": "xx"
+        },
+        "range": {
+          "dataTableHeader": "range",
+          "detailedHeader": "Range",
+          "dataFileKey": "range"
         }
       },
       {
@@ -360,5 +365,5 @@
     "fDash": "F.Dash",
     "bDash": "B.Dash"
   },
-  "defaultLandscapeCols": {"startup": "S", "active": "A", "recovery": "R", "onBlock": "oB", "onHit": "oH", "onPC":"onPC", "xx": "xx", "dmg": "dmg", "atkLvl": "lvl", "DRoH": "DRC-oH", "DRoB": "DRC-oB" }
+  "defaultLandscapeCols": {"startup": "S", "active": "A", "recovery": "R", "onBlock": "oB", "onHit": "oH", "onPC":"onPC", "xx": "xx", "dmg": "dmg", "atkLvl": "lvl", "range": "range", "DRoH": "DRC-oH", "DRoB": "DRC-oB" }
 }
