@@ -4,9 +4,9 @@ import { useSelector, useDispatch } from "react-redux";
 
 import "../../style/components/WhatsNew.scss";
 import { setModalVisibility } from "../actions";
+import ChunkyButton from "./ChunkyButton";
 import {APP_CURRENT_VERSION_NAME, APP_DATE_UPDATED, VERSION_LOGS} from "../constants/VersionLogs";
 import { modalVisibilitySelector } from "../selectors";
-import ChunkyButton from "./ChunkyButton";
 
 const WhatsNewModal = () => {
   const modalVisibility = useSelector(modalVisibilitySelector);

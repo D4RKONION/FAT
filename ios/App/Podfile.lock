@@ -1,22 +1,22 @@
 PODS:
-  - Capacitor (7.0.1):
+  - Capacitor (8.5.3):
     - CapacitorCordova
-  - CapacitorApp (7.0.0):
+  - CapacitorApp (8.1.2):
     - Capacitor
-  - CapacitorClipboard (7.0.0):
+  - CapacitorClipboard (8.0.1):
     - Capacitor
-  - CapacitorCommunitySafeArea (7.0.0-alpha.1):
+  - CapacitorCommunitySafeArea (8.0.1):
     - Capacitor
-  - CapacitorCordova (7.0.1)
-  - CapacitorHaptics (7.0.0):
+  - CapacitorCordova (8.5.3)
+  - CapacitorHaptics (8.0.2):
     - Capacitor
-  - CapacitorKeyboard (7.0.0):
+  - CapacitorKeyboard (8.0.6):
     - Capacitor
-  - CapacitorPreferences (7.0.0):
+  - CapacitorPreferences (8.0.1):
     - Capacitor
-  - CapacitorSplashScreen (7.0.0):
+  - CapacitorSplashScreen (8.0.2):
     - Capacitor
-  - CordovaPlugins (7.0.1):
+  - CordovaPlugins (8.5.3):
     - CapacitorCordova
 
 DEPENDENCIES:
@@ -54,17 +54,17 @@ EXTERNAL SOURCES:
     :path: "../capacitor-cordova-ios-plugins"
 
 SPEC CHECKSUMS:
-  Capacitor: de199cba6c8b20995428ad0b7cb0bc6ca625ffd4
-  CapacitorApp: 9cb31064a6c6bb2b1438583733a7bf45557fc1da
-  CapacitorClipboard: 007d79cd6c104002b274546d13873526ca20beb7
-  CapacitorCommunitySafeArea: 3f049619072ab5d0da2529bcb05b358ff6c13dc1
-  CapacitorCordova: 63d476958d5022d76f197031e8b7ea3519988c64
-  CapacitorHaptics: 7be406a91e4eb87287f321c6c68e1709d6837b3a
-  CapacitorKeyboard: 4db71e694e7afb5d7c0be09b05495c19f7d6c914
-  CapacitorPreferences: 8e4bef1f937fc991a19d7ea99330c36a62edd24b
-  CapacitorSplashScreen: 7e7a0a1113833032f196b3af6fa437baccacf5bc
-  CordovaPlugins: fa7014202e3bec4576cfab24575959b3004a792a
+  Capacitor: 2f67eaeb8ed79909cd35b5e7439a5c2a9ca58e0f
+  CapacitorApp: 7b7e43debe505bc61beedb83796aa1368c86078b
+  CapacitorClipboard: c75fdaa6e622111119f35e7914ecfc67b05efecb
+  CapacitorCommunitySafeArea: 91738f4ae7f47d2d94e06e429e16fb73cd8fdc48
+  CapacitorCordova: 0b7326439c7a09fc5d20eced5e0dab986327a493
+  CapacitorHaptics: 296f771ecd89c7a1bd92a7b6826a7d268e2e70f5
+  CapacitorKeyboard: f9e85e685082e9f63404de15db4a4291448b0912
+  CapacitorPreferences: cca2021f386efb75947c850334447d9ff22b14f1
+  CapacitorSplashScreen: 7bf61c2001557ff9e195e601c6b87344480d3c65
+  CordovaPlugins: 0bd8cd71cb1c7c41ceff134182878fbaa90975ae
 
-PODFILE CHECKSUM: cc83765d66462d70ea80d026782ebb2aaafd98a7
+PODFILE CHECKSUM: a5fb576a15366574574a4d3b76124c3057385be6
 
 COCOAPODS: 1.16.2

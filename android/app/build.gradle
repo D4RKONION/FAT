@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace 'com.fullmeter.fat'
-    compileSdk rootProject.ext.compileSdkVersion
+    namespace = 'com.fullmeter.fat'
+    compileSdk = rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "com.fullmeter.fat"
         minSdkVersion rootProject.ext.minSdkVersion

@@ -5,9 +5,9 @@ import { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { PlayerData } from "../types";
+import DataTableHeader from "./DataTableHeader";
 import DataTableRow from "./DataTableRow";
 import { activeGameSelector, activePlayerSelector, dataTableSettingsSelector, orientationSelector, selectedCharactersSelector } from "../selectors";
-import DataTableHeader from "./DataTableHeader";
 import { parseBasicFrames, parseMultiActiveFrames, sortFrameData } from "../utils/ParseFrameData";
 
 type Props = {

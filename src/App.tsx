@@ -85,15 +85,15 @@ const App = () => {
   useEffect(() => {
     if (Capacitor.isNativePlatform()) {
       SplashScreen.hide().then(() => {
-        SafeArea.enable({
-          config: {
-            customColorsForSystemBars: true,
-            statusBarColor: "#00000000", // transparent
-            statusBarContent: "light",
-            navigationBarColor: "#00000000", // transparent
-            navigationBarContent: "light",
-          },
-        });
+        // SafeArea.enable({
+        //   config: {
+        //     customColorsForSystemBars: true,
+        //     statusBarColor: "#00000000", // transparent
+        //     statusBarContent: "light",
+        //     navigationBarColor: "#00000000", // transparent
+        //     navigationBarContent: "light",
+        //   },
+        // });
       });
     }
   }, []);
