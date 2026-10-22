@@ -1,6 +1,6 @@
-export const APP_CURRENT_VERSION_NAME = "5.9.0";
-export const APP_CURRENT_VERSION_CODE = 50900;
-export const APP_DATE_UPDATED = "Jun 14 2026"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "5.10.0";
+export const APP_CURRENT_VERSION_CODE = 51000;
+export const APP_DATE_UPDATED = "Aug 10 2026"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6", "2XKO"];
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"];
@@ -24,6 +24,14 @@ export const UPDATABLE_GAMES_APP_CODES = {
 };
 
 export const VERSION_LOGS = {
+  "5.10.0": {
+
+    SF6: [
+      "Added Yasmine",
+      "Added the range column for all characters",
+    ],
+
+  },
   "5.9.0": {
     "Quick Note": [
       "Sorry this took so long! Newborn + going back to full time work means I don't have a lot of time to myself right now, and the time that I do have I'm too tired to do anything. Will try to stay more on top of things in the future",

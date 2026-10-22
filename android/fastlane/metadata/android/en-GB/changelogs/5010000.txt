@@ -1,0 +1,5 @@
+Ver 5.10.0
+
+SF6:
+- Added Yasmine
+- Added the range column for all characters
