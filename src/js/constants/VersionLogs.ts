@@ -1,6 +1,6 @@
-export const APP_CURRENT_VERSION_NAME = "5.10.0";
-export const APP_CURRENT_VERSION_CODE = 51000;
-export const APP_DATE_UPDATED = "Aug 10 2026"; // new Date().toDateString().substring(4)
+export const APP_CURRENT_VERSION_NAME = "5.11.0";
+export const APP_CURRENT_VERSION_CODE = 51100;
+export const APP_DATE_UPDATED = "Oct 22 2026"; // new Date().toDateString().substring(4)
 
 export const UPDATABLE_GAMES = ["SFV", "GGST", "SF6", "2XKO"];
 export const TYPES_OF_UPDATES = ["FrameData", "GameDetails"];
@@ -24,6 +24,13 @@ export const UPDATABLE_GAMES_APP_CODES = {
 };
 
 export const VERSION_LOGS = {
+  "5.11.0": {
+
+    SF6: [
+      "Added Arjun",
+    ],
+
+  },
   "5.10.0": {
 
     SF6: [

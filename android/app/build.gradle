@@ -7,8 +7,8 @@ android {
         applicationId "com.fullmeter.fat"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 5010000
-        versionName "5.10.0"
+        versionCode 5011000
+        versionName "5.11.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
